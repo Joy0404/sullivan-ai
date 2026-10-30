@@ -461,3 +461,27 @@ def test_web_code_has_no_localhost_or_port_8000_calls() -> None:
         assert "localhost" not in text, path.name
         assert ":8000" not in text, path.name
         assert "127.0.0.1" not in text, path.name
+
+
+def _request(headers: dict[str, str]):
+    from starlette.requests import Request
+
+    scope = {
+        "type": "http",
+        "headers": [(k.lower().encode(), v.encode()) for k, v in headers.items()],
+        "client": ("10.0.0.1", 1234),
+    }
+    return Request(scope)
+
+
+def test_client_ip_prefers_edge_headers_then_rightmost_forwarded(monkeypatch) -> None:
+    from app.core.demo_gate import client_ip
+
+    monkeypatch.delenv("CLIENT_IP_HEADER", raising=False)
+    assert client_ip(_request({"CF-Connecting-IP": "203.0.113.1", "X-Real-IP": "198.51.100.2"})) == "203.0.113.1"
+    assert client_ip(_request({"X-Real-IP": "198.51.100.2"})) == "198.51.100.2"
+    assert client_ip(_request({"X-Forwarded-For": "1.1.1.1, 203.0.113.9"})) == "203.0.113.9"
+    assert client_ip(_request({})) == "10.0.0.1"
+
+    monkeypatch.setenv("CLIENT_IP_HEADER", "X-Real-IP")
+    assert client_ip(_request({"CF-Connecting-IP": "203.0.113.1", "X-Real-IP": "198.51.100.2"})) == "198.51.100.2"

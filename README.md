@@ -110,7 +110,7 @@ docker compose up
 
 - 웹: <http://localhost:8000> (API가 웹 화면도 함께 제공합니다)
 - API 문서: <http://localhost:8000/docs>
-- Railway 공개 배포: [DEPLOY_RAILWAY.md](DEPLOY_RAILWAY.md)
+- 공개 배포: [DEPLOY_RENDER.md](DEPLOY_RENDER.md) (Render), [DEPLOY_RAILWAY.md](DEPLOY_RAILWAY.md) (Railway)
 
 첫 화면의 `샘플 영상 보기`에서 다음 두 영상을 선택할 수 있습니다.
 

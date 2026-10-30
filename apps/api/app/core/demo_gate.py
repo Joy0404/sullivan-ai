@@ -66,17 +66,22 @@ def check_access_code(submitted: str | None) -> None:
         raise DemoGateError(403, CODE_WRONG_MESSAGE)
 
 
-def client_ip(request: Request) -> str:
-    """Best-effort visitor IP behind Railway's proxy.
+DEFAULT_CLIENT_IP_HEADERS = ("CF-Connecting-IP", "True-Client-IP", "X-Real-IP")
 
-    Railway's edge sets ``X-Real-IP``. Without it, the right-most
-    ``X-Forwarded-For`` entry is the one added by the closest proxy, so a
-    visitor cannot spoof it by sending their own header.
+
+def client_ip(request: Request) -> str:
+    """Best-effort visitor IP behind a hosting proxy (Render, Railway).
+
+    ``CLIENT_IP_HEADER`` pins the one header the host sets. Otherwise the
+    usual edge headers are tried in order. Without any of them, the
+    right-most ``X-Forwarded-For`` entry is the one added by the closest
+    proxy, so a visitor cannot spoof it by sending their own header.
     """
-    header_name = os.getenv("CLIENT_IP_HEADER", "X-Real-IP")
-    direct = request.headers.get(header_name, "").strip()
-    if direct:
-        return direct
+    pinned = os.getenv("CLIENT_IP_HEADER", "").strip()
+    for header_name in (pinned,) if pinned else DEFAULT_CLIENT_IP_HEADERS:
+        direct = request.headers.get(header_name, "").strip()
+        if direct:
+            return direct
     forwarded = [part.strip() for part in request.headers.get("X-Forwarded-For", "").split(",") if part.strip()]
     if forwarded:
         return forwarded[-1]
