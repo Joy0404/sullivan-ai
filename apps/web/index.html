@@ -1,0 +1,457 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="인터넷 강의의 보이지 않는 정보를 설명하고 핵심 개념을 음성으로 탐색하게 하는 시각장애 학생용 AI 에이전트"
+    />
+    <title>Sullivan AI · Internet Lecture Accessibility Agent</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">본문으로 바로가기</a>
+    <header class="topbar">
+      <a class="brand" href="#" aria-label="Sullivan AI 처음 화면">
+        <span class="brand-symbol" aria-hidden="true">S</span>
+        <span><strong>Sullivan AI</strong><small>Accessible Lecture Agent</small></span>
+      </a>
+      <div id="space-command-focus" class="space-voice-hint" tabindex="-1" aria-label="전역 음성 명령 사용법"><kbd>Space</kbd><span id="space-command-hint">길게: 음성 · 세 번: 텍스트 · 두 번: 중지</span></div>
+      <div id="free-mode-indicator" class="free-mode-indicator hidden" role="status">자유 모드 · 마우스와 모든 버튼 직접 사용 · Space 재생/정지 · ←/→ 10초 이동 · Space 두 번 종료</div>
+      <div class="api-status" role="status">
+        <span id="api-dot" class="status-dot"></span>
+        <span id="api-state">분석 엔진 확인 중</span>
+      </div>
+    </header>
+
+    <main id="main">
+      <section id="setup-view" class="landing" aria-labelledby="hero-title">
+        <div class="hero">
+          <p class="eyebrow">SDG 4 · ACCESS WITHOUT EXTRA ANSWERS</p>
+          <h1 id="hero-title">강의가 말하지 않은<br /><em>화면의 정보</em>까지.</h1>
+          <p class="hero-lead">
+            강사 음성과 화면을 비교해 눈으로만 전달된 판서·강조·도표를 필요한 순간에 설명하고,
+            강사가 강조한 핵심 개념과 흐름은 원하는 순간에 음성으로 다시 탐색합니다.
+          </p>
+          <div class="feature-strip" aria-label="핵심 기능">
+            <div><span>01</span><strong>Visual Gap</strong><small>말하지 않은 화면정보 탐지</small></div>
+            <div><span>02</span><strong>Pause & Describe</strong><small>필요할 때만 멈추고 해설</small></div>
+            <div><span>03</span><strong>Concept Access</strong><small>핵심 키워드·흐름 즉시 탐색</small></div>
+          </div>
+          <div class="principle">
+            <strong>Learning Parity</strong>
+            <p>보이지 않는 정보 장벽은 제거하지만, 문제의 정답을 대신 제공하지 않습니다.</p>
+          </div>
+        </div>
+
+        <form id="lecture-form" class="upload-card">
+          <div class="card-heading">
+            <p class="step">새 분석 세션</p>
+            <h2>강의와 학습자료 불러오기</h2>
+          </div>
+          <div class="form-grid">
+            <label>강의 제목<input name="title" value="Sullivan AI 접근성 데모 강의" required maxlength="160" /></label>
+            <label>과목<input name="subject" value="통합 학습" required maxlength="80" /></label>
+          </div>
+          <label>콘텐츠 출처<input name="source_label" value="직접 제작한 대회용 영상" maxlength="120" /></label>
+          <label>우선 분석 모드
+            <select name="preferred_mode">
+              <option value="auto" selected>자동 선택</option>
+              <option value="board">판서·수식</option>
+              <option value="passage">핵심 개념·긴 지문</option>
+              <option value="slides">슬라이드·도표</option>
+            </select>
+          </label>
+
+          <div class="drop-field">
+            <label for="video-file"><strong>강의 영상</strong><span>기본은 브라우저 재생 · 동의 시 실제 AI 분석(100MB 이하)</span></label>
+            <input id="video-file" name="video" type="file" accept="video/mp4,video/webm,video/quicktime,video/x-m4v,.mp4,.webm,.mov,.m4v" />
+            <p id="video-file-name">선택된 영상 없음 — 샘플 모드로도 실행할 수 있습니다.</p>
+          </div>
+
+          <div class="link-field">
+            <label for="video-url"><strong>또는 강의 영상 링크</strong><span>YouTube 또는 공개 MP4·WebM 주소</span></label>
+            <div class="link-input-row">
+              <input id="video-url" name="video_url" type="url" inputmode="url" placeholder="https://youtu.be/... (공개 체험은 지정된 샘플 영상만 분석)" maxlength="2048" />
+              <span id="video-link-state" class="link-state">링크 미입력</span>
+            </div>
+            <details class="gemini-explain">
+              <summary>Gemini는 어디에 사용되나요?</summary>
+              <p>지정된 샘플 YouTube 영상 또는 별도 동의한 로컬 영상의 음성·화면을 분석하고, 학습 대화에서 요청을 판단해 다음 행동을 고를 때 사용합니다. 로컬 영상은 임시 전송 후 삭제를 요청하며, 분석 결과는 설리번의 개인정보·시각 근거·문제 보호 규칙이 다시 검증합니다.</p>
+            </details>
+            <p>공개·소유 영상만 지원합니다. 유료 강의, 로그인·DRM 우회 링크는 분석하지 않습니다.</p>
+          </div>
+
+          <label id="local-video-ai-consent" class="check-row local-analysis-consent">
+            <input name="local_gemini_consent" type="checkbox" disabled />
+            <span>
+              선택한 영상 또는 샘플 링크의 실제 발화·판서·슬라이드를 Gemini로 임시 분석하는 데 동의
+              <small>체크한 경우에만 실제 분석을 실행합니다. 업로드 영상은 분석 직후(성공·실패·시간 초과 모두) 서버 임시 파일과 Gemini 파일의 삭제를 시도하며, 삭제를 확인하지 못하면 화면에 알려 드립니다. 이 경우 Gemini 쪽 사본은 공급자 정책에 따라 최대 48시간 남을 수 있습니다.</small>
+            </span>
+          </label>
+          <label id="demo-access-code-field" class="api-key-field" for="demo-access-code">
+            체험 코드 <span class="optional-label">실제 AI 분석과 Gemini 대화에만 필요 · 하루 3회</span>
+            <input id="demo-access-code" name="demo_access_code" type="password" autocomplete="off" maxlength="200" placeholder="안내받은 체험 코드" />
+            <small id="demo-access-help">코드가 없어도 샘플·보관함·로컬 보조 대화는 작동합니다. 분석은 3분을 넘으면 중단됩니다.</small>
+          </label>
+
+          <div class="drop-field">
+            <label for="material-files"><strong>보조 학습자료</strong><span>TXT, MD, SRT, VTT, 분석 JSON · 여러 개 가능</span></label>
+            <input id="material-files" name="materials" type="file" multiple accept=".txt,.md,.srt,.vtt,.json,text/plain,text/markdown,application/json" />
+            <ul id="material-preview" class="file-list"><li>선택된 자료 없음</li></ul>
+          </div>
+
+          <label class="check-row">
+            <input name="problem_mode" type="checkbox" />
+            <span>문제 보호 모드 — 최종 정답 대신 힌트와 개념 중심으로 안내</span>
+          </label>
+          <p class="mode-help">기본값은 일반 학습 모드입니다. 전체 화면 설명이 필요하면 문제 보호 모드를 켜지 않아도 됩니다.</p>
+          <label class="check-row rights-check">
+            <input name="rights_confirmed" type="checkbox" required />
+            <span>이 강의와 자료를 이용·분석할 권한이 있으며 DRM을 우회하지 않았습니다.</span>
+          </label>
+
+          <button class="primary wide" type="submit">업로드 자료로 시작</button>
+          <fieldset class="sample-picker">
+            <legend>샘플 영상 보기</legend>
+            <p>사전 준비된 접근성 결과를 분석 대기 없이 바로 체험합니다.</p>
+            <div class="sample-options">
+              <button class="sample-button" data-sample-id="science" type="button">
+                <span>샘플 1 · 과학</span><strong>별의 진화</strong><small>성운에서 주계열성, 질량에 따른 최후</small>
+              </button>
+              <button class="sample-button" data-sample-id="history" type="button">
+                <span>샘플 2 · 역사</span><strong>왜란과 호란의 발발과 영향</strong><small>임진왜란부터 북벌·북학까지</small>
+              </button>
+            </div>
+          </fieldset>
+          <p class="privacy-copy">기본값에서는 원본을 전송하지 않습니다. 위의 별도 동의를 체크한 로컬 영상만 실제 분석 동안 Gemini에 임시 전송하며, 장기 서버 저장은 하지 않습니다. ‘강의 저장’을 선택한 원본만 이 브라우저 보관함에 남습니다.</p>
+        </form>
+
+        <section class="saved-library" aria-labelledby="saved-library-title">
+          <div class="card-title">
+            <div><p class="eyebrow">LOCAL LECTURE LIBRARY</p><h2 id="saved-library-title" tabindex="-1">내 강의 보관함</h2></div>
+            <span id="saved-storage-status" class="soft-badge">저장소 확인 중</span>
+          </div>
+          <p class="saved-library-help">로컬 영상은 이 브라우저 안에 원본과 요약을 함께 저장합니다. YouTube 강의는 저작권 보호를 위해 영상 파일 대신 원본 링크와 요약만 저장합니다. 브라우저 사이트 데이터를 지우면 보관함도 함께 삭제됩니다.</p>
+          <form id="saved-lecture-command-form" class="saved-command-form">
+            <label for="saved-lecture-command" class="sr-only">저장된 강의 음성 또는 텍스트 요청</label>
+            <div class="command-input">
+              <input id="saved-lecture-command" name="command" placeholder="예: 최근 강의 다시 열어줘, 별의 진화 요약 들려줘" autocomplete="off" />
+              <button id="saved-lecture-voice" class="icon-button" type="button" aria-label="저장된 강의 음성 명령 시작">●</button>
+              <button class="primary" type="submit">요청</button>
+            </div>
+          </form>
+          <div id="saved-lecture-answer" class="navigation-answer" aria-live="polite">저장된 강의를 열거나 요약을 바로 들을 수 있습니다.</div>
+          <div id="saved-lecture-list" class="saved-lecture-list"><p class="empty-state">저장된 강의가 없습니다.</p></div>
+        </section>
+      </section>
+
+      <section id="analysis-overlay" class="analysis-overlay hidden" role="dialog" aria-modal="true" aria-labelledby="analysis-title">
+        <div class="analysis-modal">
+          <div class="analysis-orbit" aria-hidden="true"><span>S</span></div>
+          <p class="eyebrow">SULLIVAN AI · MULTIMODAL ANALYSIS</p>
+          <h2 id="analysis-title">강의 영상을 분석하고 있습니다</h2>
+          <p id="analysis-stage" class="analysis-stage" aria-live="polite">영상 링크와 이용 권한을 확인하는 중입니다.</p>
+          <div class="analysis-meter">
+            <span>예상 진행률</span><strong id="analysis-percentage">0%</strong>
+          </div>
+          <div id="analysis-progress" class="analysis-progress" role="progressbar" aria-label="강의 분석 예상 진행률" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><i id="analysis-progress-bar"></i></div>
+          <ol id="analysis-steps" class="analysis-steps">
+            <li class="active">링크·권한 확인</li>
+            <li>강사 음성 분석</li>
+            <li>판서·슬라이드·도표 분석</li>
+            <li>Gemini 시각 근거 재검증</li>
+            <li>해설·요약 가이드 생성</li>
+          </ol>
+          <p class="analysis-notice">영상 길이에 따라 몇 분이 걸릴 수 있습니다. 분석 완료 전에는 재생하지 않습니다.</p>
+        </div>
+      </section>
+
+      <section id="agent-view" class="agent-shell hidden" aria-labelledby="lecture-title">
+        <div id="live-region" class="sr-only" aria-live="assertive" aria-atomic="true"></div>
+
+        <aside class="session-rail">
+          <div>
+            <p class="eyebrow">ACTIVE LECTURE</p>
+            <h2 id="lecture-title">강의 분석</h2>
+            <p id="lecture-meta" class="muted"></p>
+          </div>
+          <nav aria-label="Sullivan AI 기능">
+            <button class="nav-button active" data-panel="watch-panel"><span>01</span>강의 화면</button>
+            <button class="nav-button" data-panel="passage-panel"><span>02</span>핵심 탐색</button>
+            <button class="nav-button" data-panel="review-panel"><span>03</span>접근성 복습</button>
+            <button class="nav-button" data-panel="study-panel"><span>04</span>AI 학습 노트</button>
+            <button class="nav-button" data-panel="chat-panel"><span>05</span>AI 학습 대화</button>
+            <button class="nav-button" data-panel="evidence-panel"><span>06</span>안전·판단 근거</button>
+          </nav>
+          <div class="rail-stats">
+            <div><span>분석 모드</span><strong id="mode-stat">대기</strong></div>
+            <div><span>화면 해설</span><strong id="description-stat">0</strong></div>
+            <div><span>안전 보류</span><strong id="hold-stat">0</strong></div>
+          </div>
+          <div class="rail-home-actions">
+            <button id="save-and-home" class="primary wide" type="button">강의 저장하고 홈으로</button>
+            <button id="new-session" class="ghost wide" type="button">저장하지 않고 홈으로</button>
+          </div>
+        </aside>
+
+        <div class="workspace">
+          <section id="watch-panel" class="view-panel" aria-labelledby="watch-title">
+            <div class="section-heading">
+              <div><p class="eyebrow">OBSERVE → COMPARE → ACT</p><h2 id="watch-title" tabindex="-1">강의 화면</h2></div>
+              <span id="agent-status" class="agent-badge"><i></i> 분석 대기</span>
+            </div>
+
+            <div class="watch-grid">
+              <article class="video-card">
+                <div class="video-stage">
+                  <video id="lecture-video" controls playsinline preload="metadata"></video>
+                  <div id="lecture-youtube" class="youtube-player hidden" aria-label="YouTube 강의 영상"></div>
+                  <div id="video-placeholder" class="video-placeholder">
+                    <span aria-hidden="true">▶</span>
+                    <strong>샘플 분석 모드</strong>
+                    <p>영상을 선택하면 이 영역에서 로컬 재생됩니다.</p>
+                  </div>
+                  <div id="pause-overlay" class="pause-overlay hidden" role="status">
+                    <span>AI 화면 해설</span><strong id="pause-overlay-label">영상 일시정지</strong>
+                  </div>
+                </div>
+                <p id="linked-playback-note" class="linked-playback-note hidden"></p>
+                <div class="player-tools">
+                  <label class="toggle"><input id="auto-narration" type="checkbox" checked /><span>자동 정지·해설</span></label>
+                  <label>음성 속도
+                    <select id="speech-rate"><option value="0.85">0.85×</option><option value="0.95" selected>0.95×</option><option value="1.05">1.05×</option><option value="1.15">1.15×</option></select>
+                  </label>
+                  <label>한국어 음성
+                    <select id="speech-voice" aria-label="한국어 해설 음성"><option value="auto">사람에 가까운 음성 자동 선택</option></select>
+                  </label>
+                  <label>말투
+                    <select id="speech-style"><option value="warm" selected>따뜻한 학습 안내</option><option value="calm">차분한 강의</option><option value="clear">또렷한 복습</option></select>
+                  </label>
+                  <label>음높이
+                    <select id="speech-pitch"><option value="0.92">낮게</option><option value="1" selected>보통</option><option value="1.07">높게</option></select>
+                  </label>
+                  <label>음량
+                    <select id="speech-volume"><option value="0.75">작게</option><option value="0.9" selected>편안하게</option><option value="1">크게</option></select>
+                  </label>
+                  <button id="describe-now" class="secondary" type="button" aria-keyshortcuts="Alt+D">현재 화면 해설</button>
+                  <button id="preview-voice" class="secondary" type="button">음성 미리 듣기</button>
+                  <button id="read-summary-guide" class="secondary" type="button" aria-keyshortcuts="Alt+S">요약 음성 가이드</button>
+                  <button id="stop-speech" class="ghost" type="button">영상·음성 멈춤</button>
+                </div>
+                <p class="shortcut-hint">Space 길게: 음성 명령 · Space 세 번: 텍스트 명령 · Space 두 번: 음성 중지 · ←/→ 또는 Alt+←/→: 10초 이동 · 자유 모드에서는 마우스와 모든 버튼 직접 사용, Space 한 번: 재생·정지, 두 번: 모드 종료 · Alt+D 화면 해설 · Alt+S 요약 · Alt+B 북마크 · Esc 영상·음성 멈춤</p>
+                <div id="visual-timeline" class="timeline" aria-label="영상 분석 타임라인"></div>
+              </article>
+
+              <div class="agent-column">
+                <article class="description-card" aria-labelledby="description-title">
+                  <p class="step">NOW DESCRIBING</p>
+                  <h3 id="description-title">현재 화면 해설</h3>
+                  <div id="current-description" class="description-output">
+                    분석을 시작하면 강사가 말하지 않은 중요 화면정보만 여기에 표시됩니다.
+                  </div>
+                  <p id="description-reason" class="reason">많이 말하지 않고 필요한 순간에만 개입합니다.</p>
+                </article>
+
+                <article class="source-card">
+                  <div class="card-title"><h3>분석 소스</h3><button id="run-demo-analysis" class="text-button" type="button">샘플 분석 다시 실행</button></div>
+                  <ul id="asset-list" class="source-list"><li>등록된 자료 없음</li></ul>
+                </article>
+
+                <article class="transcript-card">
+                  <div class="card-title"><h3>강사 음성 타임라인</h3><span id="transcript-count" class="muted">0개 구간</span></div>
+                  <div id="transcript-list" class="transcript-list">자막 또는 분석 결과가 없습니다.</div>
+                </article>
+              </div>
+            </div>
+            <aside id="lecture-complete-card" class="completion-card hidden" role="status" aria-labelledby="lecture-complete-title">
+              <div><p class="eyebrow">LECTURE COMPLETE</p><h3 id="lecture-complete-title">강의를 끝까지 들었습니다</h3><p>원본 또는 원본 링크와 요약·문단·해설 정보를 이 노트북에 저장한 뒤 홈의 ‘내 강의 보관함’에서 다시 들을 수 있습니다.</p></div>
+              <button id="save-complete-and-home" class="primary" type="button">저장하고 홈으로</button>
+            </aside>
+          </section>
+
+          <section id="passage-panel" class="view-panel hidden" aria-labelledby="passage-title">
+            <div class="section-heading">
+              <div><p class="eyebrow">LECTURER-FIRST CONCEPT NAVIGATION</p><h2 id="passage-title" tabindex="-1">핵심 개념 음성 탐색</h2></div>
+              <span id="passage-count" class="soft-badge">개념 대기</span>
+            </div>
+            <div class="passage-grid">
+              <article class="command-card">
+                <h3>핵심 키워드나 흐름을 말해 보세요</h3>
+                <form id="navigation-form">
+                  <label for="navigation-command" class="sr-only">핵심 개념 탐색 명령</label>
+                  <div class="command-input">
+                    <input id="navigation-command" name="command" placeholder="예: 정명가도, 임진왜란 흐름, 주계열성" autocomplete="off" />
+                    <button id="voice-command" class="icon-button" type="button" aria-label="음성 명령 시작">●</button>
+                    <button class="primary" type="submit">찾기</button>
+                  </div>
+                </form>
+                <div class="quick-commands" aria-label="빠른 핵심 탐색 명령">
+                  <button type="button" data-command="전체 흐름">전체 흐름</button>
+                  <button type="button" data-command="원인">원인</button>
+                  <button type="button" data-command="전개">전개</button>
+                  <button type="button" data-command="결과">결과</button>
+                  <button type="button" data-command="인물">인물</button>
+                  <button type="button" data-command="비교">비교</button>
+                </div>
+                <div id="navigation-answer" class="navigation-answer" aria-live="polite">검색하면 강사의 해당 구간과 AI 재설명을 함께 찾습니다.</div>
+                <button id="stop-concept-sequence" class="ghost wide" type="button">강사·AI 재생 멈춤</button>
+              </article>
+              <article class="passage-card">
+                <div class="card-title"><h3 id="passage-document-title">강사가 강조한 핵심 개념</h3><button id="read-current" class="text-button" type="button">선택 개념 말하기</button></div>
+                <p class="concept-sequence-help">‘말하기’를 누르면 강사가 실제로 설명한 구간을 먼저 재생한 뒤, AI가 핵심을 한 번 더 정리합니다.</p>
+                <div id="passage-document" class="passage-document empty-state">강의 분석이 완료되면 핵심 키워드와 흐름이 표시됩니다.</div>
+              </article>
+              <article class="passage-card long-passage-card" aria-labelledby="long-passage-title">
+                <div class="card-title">
+                  <div><p class="eyebrow">PARAGRAPH FLOW & REPLAY</p><h3 id="long-passage-title">긴 지문 흐름·문단 다시 듣기</h3></div>
+                  <span id="long-passage-count" class="soft-badge">문단 대기</span>
+                </div>
+                <p class="concept-sequence-help">문단을 밑줄로 표시해 두면 “밑줄 친 문단 다시 들려줘”라는 음성 명령으로 선택한 문단만 순서대로 들을 수 있습니다. 재생 중에는 영상이 멈추고, 낭독이 끝나면 이어집니다.</p>
+                <form id="paragraph-navigation-form" class="paragraph-command-form">
+                  <label for="paragraph-navigation-command" class="sr-only">긴 지문 문단 탐색 명령</label>
+                  <div class="command-input">
+                    <input id="paragraph-navigation-command" name="command" placeholder="예: 2문단, 다음 문단, 밑줄 친 문단 다시 들려줘" autocomplete="off" />
+                    <button id="paragraph-voice-command" class="icon-button" type="button" aria-label="문단 음성 명령 시작">●</button>
+                    <button class="primary" type="submit">다시 듣기</button>
+                  </div>
+                </form>
+                <div class="quick-commands paragraph-quick-commands" aria-label="빠른 문단 탐색 명령">
+                  <button type="button" data-paragraph-command="전체 흐름">전체 흐름</button>
+                  <button type="button" data-paragraph-command="앞 문단">앞 문단</button>
+                  <button type="button" data-paragraph-command="다음 문단">다음 문단</button>
+                  <button type="button" data-paragraph-command="밑줄 친 문단 다시 들려줘">밑줄 문단 듣기</button>
+                </div>
+                <div id="paragraph-navigation-answer" class="navigation-answer" aria-live="polite">문단별 흐름을 확인하거나 다시 들을 문단을 밑줄로 표시하세요.</div>
+                <div id="paragraph-flow" class="paragraph-flow" aria-label="긴 지문 흐름"></div>
+                <div id="long-passage-document" class="passage-document empty-state">강의 분석이 완료되면 문단별 내용과 흐름이 표시됩니다.</div>
+              </article>
+            </div>
+          </section>
+
+          <section id="review-panel" class="view-panel hidden" aria-labelledby="review-title">
+            <div class="section-heading">
+              <div><p class="eyebrow">ACCESSIBLE LESSON REVIEW</p><h2 id="review-title" tabindex="-1">강의 후 접근성 복습</h2></div>
+              <button id="read-review" class="secondary" type="button">전체 핵심 듣기</button>
+            </div>
+            <div class="review-grid">
+              <article class="review-card"><span class="review-number">01</span><h3>오늘의 핵심 내용</h3><div id="review-summary" class="review-list empty-state">분석 결과 없음</div></article>
+              <article class="review-card accent"><span class="review-number">02</span><h3>화면으로만 제시된 정보</h3><div id="review-visual" class="review-list empty-state">분석 결과 없음</div></article>
+              <article class="review-card"><span class="review-number">03</span><h3>강사가 강조한 문장</h3><div id="review-highlight" class="review-list empty-state">분석 결과 없음</div></article>
+              <article class="review-card"><span class="review-number">04</span><h3>다시 볼 핵심 구간</h3><div id="review-segments" class="review-list empty-state">분석 결과 없음</div></article>
+            </div>
+          </section>
+
+          <section id="study-panel" class="view-panel hidden" aria-labelledby="study-title">
+            <div class="section-heading">
+              <div><p class="eyebrow">NOTEBOOK-STYLE STUDY SUPPORT</p><h2 id="study-title" tabindex="-1">AI 학습 노트</h2></div>
+              <button id="read-study-guide" class="secondary" type="button">학습 노트 전체 듣기</button>
+            </div>
+            <article class="study-overview" aria-labelledby="study-overview-title">
+              <span class="review-number">01</span>
+              <div><h3 id="study-overview-title">한눈에 요약</h3><p id="study-overview">분석 결과가 준비되면 핵심 요약이 표시됩니다.</p></div>
+            </article>
+            <div class="study-grid">
+              <article class="study-card"><span class="review-number">02</span><h3>개념 연결 지도</h3><ol id="concept-map" class="concept-map"><li>분석 결과 없음</li></ol></article>
+              <article class="study-card"><span class="review-number">03</span><h3>핵심 용어</h3><dl id="study-glossary" class="study-glossary"><div><dt>대기</dt><dd>분석 결과가 준비되면 용어가 표시됩니다.</dd></div></dl></article>
+              <article class="study-card"><span class="review-number">04</span><h3>스스로 확인하기</h3><ol id="recall-questions" class="recall-questions"><li>분석 결과 없음</li></ol></article>
+              <article class="study-card bookmarks-card"><span class="review-number">05</span><h3>내 타임스탬프 노트</h3>
+                <label for="bookmark-note">현재 장면 메모</label>
+                <div class="bookmark-input"><input id="bookmark-note" maxlength="240" placeholder="예: 원시별에서 주계열성 판서 다시 듣기" /><button id="add-bookmark" class="primary" type="button" aria-keyshortcuts="Alt+B">현재 위치 저장</button></div>
+                <div id="bookmark-list" class="bookmark-list empty-state">저장한 노트가 없습니다.</div>
+                <button id="export-study-notes" class="ghost wide" type="button">학습 노트 Markdown으로 저장</button>
+              </article>
+            </div>
+          </section>
+
+          <section id="chat-panel" class="view-panel hidden" aria-labelledby="chat-title">
+            <div class="section-heading">
+              <div><p class="eyebrow">VOICE-FIRST LEARNING CONVERSATION</p><h2 id="chat-title" tabindex="-1">AI 학습 대화</h2><p id="agent-model-status" class="chat-status">Gemini 행동 에이전트 · 키가 없으면 로컬 보조 모드</p></div>
+              <label class="toggle"><input id="auto-speak-chat" type="checkbox" checked /><span>AI 응답 자동으로 듣기</span></label>
+            </div>
+            <div class="chat-grid">
+              <article class="chat-card">
+                <div id="chat-log" class="chat-log" role="log" aria-live="polite" aria-label="AI 학습 대화 기록">
+                  <div class="chat-message assistant"><strong>Sullivan AI Agent</strong><p>강의 상태와 요청을 살펴본 뒤 답변·요약 낭독·구간 이동·화면 해설·문단 재청취 중 필요한 행동을 선택합니다. 원하는 키워드와 형식을 말하거나 입력해 주세요.</p></div>
+                </div>
+                <form id="chat-form" class="chat-form">
+                  <label for="chat-input" class="sr-only">Sullivan AI에게 요청하기</label>
+                  <input id="chat-input" name="message" autocomplete="off" maxlength="500" placeholder="예: 이 강의를 3줄로 요약해서 읽어줘" />
+                  <button id="chat-voice" class="icon-button" type="button" aria-label="음성으로 요청하기">●</button>
+                  <button class="primary" type="submit">보내기</button>
+                </form>
+                <p id="chat-status" class="chat-status" aria-live="polite">음성 입력 또는 키보드 입력을 사용할 수 있습니다.</p>
+              </article>
+              <aside class="chat-tools" aria-labelledby="chat-tools-title">
+                <h3 id="chat-tools-title">빠른 결과물 만들기</h3>
+                <div class="chat-prompts">
+                  <button type="button" data-chat-prompt="이 강의를 3줄로 요약해줘">3줄 요약</button>
+                  <button type="button" data-chat-prompt="강사가 강조한 핵심 키워드를 많이 정리해줘">핵심 키워드</button>
+                  <button type="button" data-chat-prompt="원인, 전개, 결과 순서로 정리해줘">원인·전개·결과</button>
+                  <button type="button" data-chat-prompt="서로 연결되는 두 핵심 개념을 비교해줘">개념 비교</button>
+                  <button type="button" data-chat-prompt="스스로 확인할 퀴즈를 만들어줘">자기점검 퀴즈</button>
+                  <button type="button" data-chat-prompt="발표문을 만들어줘">1분 발표문</button>
+                  <button type="button" data-chat-prompt="시험 직전 암기표를 만들어줘">시험 암기표</button>
+                  <button type="button" data-chat-prompt="복습 계획을 만들어줘">복습 계획</button>
+                </div>
+                <div class="chat-safety-note">
+                  <strong>강의 근거 우선</strong>
+                  <p>검증된 강의 분석정보만 사용하고, 모르는 내용은 추측하지 않습니다. 문제 보호 모드에서는 최종 정답 대신 풀이 방향을 제공합니다.</p>
+                </div>
+                <button id="save-chat-output" class="secondary wide" type="button" disabled>마지막 결과 저장</button>
+              </aside>
+            </div>
+          </section>
+
+          <section id="evidence-panel" class="view-panel hidden" aria-labelledby="evidence-title">
+            <div class="section-heading">
+              <div><p class="eyebrow">TRACEABLE AGENT DECISIONS</p><h2 id="evidence-title" tabindex="-1">판단 근거</h2></div>
+            </div>
+            <div class="policy-banner">
+              <strong>안전 정책</strong>
+              <p>개인정보는 공개 전에 비공개 처리하고 원본 영상은 장기 서버 저장하지 않습니다. 별도 동의한 영상만 분석 중 임시 전송하고 삭제를 요청합니다. 사용자가 ‘강의 저장’을 선택한 원본만 이 노트북 브라우저에 보관하며, 문제 보호 모드에서만 최종 정답을 보류합니다.</p>
+            </div>
+            <div class="safety-grid" aria-label="Sullivan AI 안전 설계">
+              <article><strong>개인정보 보호</strong><p>전화번호·이메일·주민등록번호 형태를 공개 출력 전에 비공개 처리합니다.</p></article>
+              <article><strong>원본·저작권 보호</strong><p>별도 분석 동의가 없으면 원본을 전송하지 않습니다. 동의한 원본은 분석 직후 삭제를 요청하고, YouTube는 원본 링크만 저장합니다. 무단 다운로드·DRM 우회를 허용하지 않습니다.</p></article>
+              <article><strong>근거 기반 응답</strong><p>강의 분석자료에 없는 내용은 추측하지 않고, 낮은 확신도 정보는 보류합니다.</p></article>
+              <article><strong>사용자 제어</strong><p>자동 해설과 음성 응답을 끌 수 있으며 언제든 음성을 즉시 중지할 수 있습니다.</p></article>
+            </div>
+            <div id="evidence-list" class="evidence-list empty-state">아직 판단 기록이 없습니다.</div>
+          </section>
+        </div>
+      </section>
+    </main>
+
+    <div id="space-voice-overlay" class="space-voice-overlay hidden" role="status" aria-live="assertive" aria-atomic="true">
+      <span class="space-voice-pulse" aria-hidden="true"></span>
+      <div>
+        <strong id="space-voice-title">음성 명령 듣는 중</strong>
+        <p id="space-voice-text">스페이스 키를 떼면 명령을 실행합니다.</p>
+      </div>
+    </div>
+
+    <section id="text-command-dialog" class="text-command-dialog hidden" role="dialog" aria-modal="true" aria-labelledby="text-command-title">
+      <form id="text-command-form" class="text-command-card">
+        <p class="eyebrow">QUIET TEXT COMMAND</p>
+        <h2 id="text-command-title">텍스트 명령 입력</h2>
+        <p>바로 입력하고 Enter를 누르세요. 음성 명령과 같은 방식으로 실행됩니다.</p>
+        <label for="text-command-input" class="sr-only">실행할 텍스트 명령</label>
+        <input id="text-command-input" type="text" autocomplete="off" placeholder="예: 요약 보여줘, 영상 시작, 자유 모드" />
+        <p id="text-command-status" class="text-command-status" role="status" aria-live="polite">Esc를 누르면 닫습니다.</p>
+        <button id="close-text-command" class="ghost" type="button">닫기</button>
+      </form>
+    </section>
+
+    <script src="playback-scheduler.js" defer></script>
+    <script src="concept-tools.js" defer></script>
+    <script src="passage-tools.js" defer></script>
+    <script src="lecture-library.js" defer></script>
+    <script src="narration-context.js" defer></script>
+    <script src="sample-data.js" defer></script>
+    <script src="sample-data-history.js" defer></script>
+    <script src="voice-command-router.js" defer></script>
+    <script src="app.js" defer></script>
+  </body>
+</html>

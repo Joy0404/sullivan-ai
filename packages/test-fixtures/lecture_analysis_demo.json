@@ -1,0 +1,67 @@
+{
+  "lecture": {
+    "title": "Sullivan AI 접근성 데모 강의",
+    "subject": "통합 학습",
+    "source_label": "직접 제작한 대회용 영상",
+    "preferred_mode": "auto",
+    "problem_mode": false
+  },
+  "analysis": {
+    "transcript_segments": [
+      {
+        "segment_id": "speech-1",
+        "start_ms": 0,
+        "end_ms": 4500,
+        "text": "등가속도 운동에서 속도 변화를 살펴보겠습니다.",
+        "confidence": 0.97
+      },
+      {
+        "segment_id": "speech-2",
+        "start_ms": 7000,
+        "end_ms": 11000,
+        "text": "그러면 여기서 이렇게 됩니다.",
+        "confidence": 0.95
+      },
+      {
+        "segment_id": "speech-3",
+        "start_ms": 18000,
+        "end_ms": 22000,
+        "text": "여기가 중요합니다. 꼭 기억하세요.",
+        "confidence": 0.96
+      }
+    ],
+    "visual_observations": [
+      {
+        "observation_id": "visual-formula",
+        "timestamp_ms": 9000,
+        "screen_type": "board",
+        "kind": "formula",
+        "text": "v = v₀ + at",
+        "confidence": 0.96,
+        "importance": 0.96
+      },
+      {
+        "observation_id": "visual-highlight",
+        "timestamp_ms": 20000,
+        "screen_type": "passage",
+        "kind": "highlight",
+        "text": "조사 대상이 한쪽 집단에 치우치면 인공지능도 그 편향을 학습할 수 있다.",
+        "confidence": 0.94,
+        "importance": 0.9
+      },
+      {
+        "observation_id": "visual-uncertain",
+        "timestamp_ms": 38000,
+        "screen_type": "board",
+        "kind": "number",
+        "text": "18.7",
+        "confidence": 0.41,
+        "importance": 0.9
+      }
+    ],
+    "passage_text": "인공지능은 많은 데이터를 바탕으로 일정한 규칙을 찾는다. 데이터의 품질이 낮으면 결과도 부정확해질 수 있다.\n\n그러나 데이터가 많다고 해서 언제나 공정한 결과가 만들어지는 것은 아니다. 조사 대상이 한쪽 집단에 치우치면 인공지능도 그 편향을 학습할 수 있다. 따라서 데이터가 어떤 사람들을 대표하는지 함께 살펴야 한다.\n\n결론적으로 인공지능을 책임 있게 사용하려면 정확도뿐 아니라 데이터의 대표성과 결과의 영향을 함께 확인해야 한다.",
+    "highlighted_texts": [
+      "조사 대상이 한쪽 집단에 치우치면 인공지능도 그 편향을 학습할 수 있다."
+    ]
+  }
+}

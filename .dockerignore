@@ -1,0 +1,14 @@
+# Never ship secrets or caches into the image.
+.env
+.env.*
+!.env.example
+**/__pycache__/
+**/*.pyc
+**/.pytest_cache/
+.venv/
+**/.venv/
+node_modules/
+.git/
+.github/
+*.zip
+data/

@@ -1,0 +1,12 @@
+.env
+.venv/
+__pycache__/
+.pytest_cache/
+node_modules/
+dist/
+*.db
+*.sqlite
+data/raw_audio/
+data/raw_video/
+data/private/
+

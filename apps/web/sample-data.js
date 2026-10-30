@@ -1,0 +1,130 @@
+window.SULLIVAN_SAMPLE_LIBRARY = window.SULLIVAN_SAMPLE_LIBRARY || {};
+window.SULLIVAN_SAMPLE_LIBRARY.science = {
+  assets: [
+    {
+      asset_id: "sample-star-video",
+      name: "별의 진화 샘플 강의",
+      kind: "video_link",
+      media_type: "text/uri-list",
+      size_bytes: 0,
+      processing_status: "indexed",
+      note: "사전에 준비한 접근성 샘플입니다. 현재 실행에서 영상을 새로 분석하지 않습니다.",
+    },
+  ],
+  transcript_segments: [
+    { segment_id: "star-speech-1", start_ms: 0, end_ms: 48000, text: "이번 강의에서는 별의 탄생부터 마지막 단계까지 별의 진화를 살펴봅니다.", confidence: 0.96 },
+    { segment_id: "star-speech-2", start_ms: 150000, end_ms: 205000, text: "성운이 중력 수축하여 원시별이 되고 중심 온도가 높아집니다.", confidence: 0.95 },
+    { segment_id: "star-speech-3", start_ms: 318000, end_ms: 380000, text: "중심에서 수소 핵융합이 시작되면 별은 주계열 단계에 들어갑니다.", confidence: 0.96 },
+    { segment_id: "star-speech-4", start_ms: 610000, end_ms: 675000, text: "별의 진화 경로는 처음 만들어질 때의 질량에 따라 달라집니다.", confidence: 0.95 },
+    { segment_id: "star-speech-5", start_ms: 884000, end_ms: 950000, text: "태양 정도 질량의 별은 적색 거성을 거쳐 마지막에 백색 왜성이 됩니다.", confidence: 0.96 },
+    { segment_id: "star-speech-6", start_ms: 1142000, end_ms: 1214000, text: "질량이 큰 별은 초신성 폭발 뒤 중성자별이나 블랙홀로 남을 수 있습니다.", confidence: 0.95 },
+    { segment_id: "star-speech-7", start_ms: 1360000, end_ms: 1430000, text: "별의 내부와 초신성 폭발 과정에서 만들어진 원소는 다시 우주로 퍼집니다.", confidence: 0.95 },
+  ],
+  visual_gaps: [
+    { gap_id: "gap-star-title", observation_id: "star-title", timestamp_ms: 12000, screen_type: "slide", kind: "concept", action: "INDEX_ONLY", safe_to_speak: true, public_description: "화면 제목 아래에 오늘 다룰 탄생, 주계열 단계, 질량에 따른 최후가 순서대로 제시되어 있습니다.", reason: "복습 인덱스에는 남기되 재생을 방해하지 않습니다.", confidence: 0.98, importance: 0.64, spoken_overlap: 0.5 },
+    { gap_id: "gap-star-nebula-flow", observation_id: "star-nebula-flow", timestamp_ms: 43000, screen_type: "board", kind: "concept", action: "DESCRIBE_AT_BREAK", safe_to_speak: true, public_description: "칠판에는 성운의 가스와 먼지가 한곳으로 모여 원시별이 되는 과정이, 왼쪽에서 오른쪽 화살표로 그려져 있습니다.", reason: "성운에서 원시별로 이어지는 공간적 흐름이 판서 화살표로 제시되어 다음 자연스러운 순간에 설명합니다.", confidence: 0.94, importance: 0.84, spoken_overlap: 0.31 },
+    { gap_id: "gap-star-birth-board", observation_id: "star-birth-board", timestamp_ms: 235000, screen_type: "board", kind: "concept", action: "DESCRIBE_AT_BREAK", safe_to_speak: true, public_description: "칠판에는 성운의 가스와 먼지가 중력 수축해 원시별을 이루고, 다시 중심 수축을 거쳐 주계열성이 되는 과정이 왼쪽에서 오른쪽 화살표로 연결되어 있습니다. 주계열성 아래에는 중심 온도 약 천만 켈빈이 적혀 있습니다.", reason: "별의 탄생 단계와 주계열성이 시작되는 온도 조건이 판서로 연결되어 있어 설명합니다.", confidence: 0.96, importance: 0.94, spoken_overlap: 0.18 },
+    { gap_id: "gap-star-main-sequence-balance", observation_id: "star-main-sequence-balance", timestamp_ms: 410000, screen_type: "slide", kind: "condition", action: "INTERRUPT", safe_to_speak: true, public_description: "그림의 안쪽 화살표는 중력, 바깥쪽 화살표는 내부 기체 압력을 나타내며 두 힘이 평형을 이룹니다.", reason: "중요 조건이 음성으로 충분히 전달되지 않아 즉시 설명합니다.", confidence: 0.95, importance: 0.9, spoken_overlap: 0.18 },
+    { gap_id: "gap-star-mass-fork", observation_id: "star-mass-fork", timestamp_ms: 705000, screen_type: "graph", kind: "graph", action: "DESCRIBE_AT_BREAK", safe_to_speak: true, public_description: "진화 흐름도가 주계열성 이후 두 갈래로 나뉩니다. 위쪽은 질량이 큰 별, 아래쪽은 태양 정도 질량의 별입니다.", reason: "진화 경로의 공간적 구조를 설명합니다.", confidence: 0.96, importance: 0.96, spoken_overlap: 0.32 },
+    { gap_id: "gap-star-lifetime-scale", observation_id: "star-lifetime-scale", timestamp_ms: 560000, screen_type: "graph", kind: "comparison", action: "DESCRIBE_AT_BREAK", safe_to_speak: true, public_description: "화면의 수명 비교 막대에서 질량이 큰 별은 짧고, 질량이 작은 별은 훨씬 길게 표시됩니다. 질량이 클수록 연료를 더 빠르게 쓰는 관계입니다.", reason: "별의 질량과 수명 사이의 반대 관계가 막대 길이로만 제시되어 설명합니다.", confidence: 0.92, importance: 0.83, spoken_overlap: 0.29 },
+    { gap_id: "gap-star-sun-path", observation_id: "star-sun-path", timestamp_ms: 835000, screen_type: "slide", kind: "highlight", action: "INTERRUPT", safe_to_speak: true, public_description: "강사가 다음 경로를 강조했습니다. 태양 정도 질량의 별은 주계열성, 적색 거성, 행성상 성운, 백색 왜성 순서로 진화합니다.", reason: "시각적으로 강조한 진화 순서가 음성으로 특정되지 않았습니다.", confidence: 0.97, importance: 0.96, spoken_overlap: 0.34 },
+    { gap_id: "gap-star-massive-path", observation_id: "star-massive-path", timestamp_ms: 1055000, screen_type: "slide", kind: "highlight", action: "INTERRUPT", safe_to_speak: true, public_description: "강사가 다음 경로를 강조했습니다. 질량이 큰 별은 주계열성, 초거성, 초신성, 중성자별 또는 블랙홀 순서로 진화합니다.", reason: "시각적으로 강조한 진화 순서가 음성으로 특정되지 않았습니다.", confidence: 0.97, importance: 0.97, spoken_overlap: 0.26 },
+    { gap_id: "gap-star-path-compare", observation_id: "star-path-compare", timestamp_ms: 970000, screen_type: "table", kind: "comparison", action: "DESCRIBE_AT_BREAK", safe_to_speak: true, public_description: "비교표의 왼쪽 열은 태양 정도 질량의 별, 오른쪽 열은 질량이 큰 별입니다. 두 열은 행성상 성운과 초신성에서 갈라지고, 마지막 천체도 백색 왜성과 중성자별·블랙홀로 다릅니다.", reason: "두 진화 경로의 열 구조와 분기점을 음성으로 비교해 줍니다.", confidence: 0.93, importance: 0.9, spoken_overlap: 0.24 },
+    { gap_id: "gap-star-remnant-scale", observation_id: "star-remnant-scale", timestamp_ms: 1200000, screen_type: "diagram", kind: "comparison", action: "DESCRIBE_AT_BREAK", safe_to_speak: true, public_description: "마지막 천체 그림은 백색 왜성, 중성자별, 블랙홀 순으로 더 작고 조밀한 대상으로 배치되어 있습니다. 블랙홀 쪽 화살표에는 매우 큰 초기 질량이라는 조건이 붙습니다.", reason: "마지막 천체의 배치와 조건이 그림으로 연결되어 있어 설명합니다.", confidence: 0.91, importance: 0.85, spoken_overlap: 0.22 },
+    { gap_id: "gap-star-elements", observation_id: "star-elements", timestamp_ms: 1285000, screen_type: "slide", kind: "concept", action: "DESCRIBE_AT_BREAK", safe_to_speak: true, public_description: "초신성에서 무거운 원소가 생성되고 성간 물질로 퍼져 새 별과 행성의 재료가 되는 순환 화살표가 있습니다.", reason: "중요한 시각적 순환 관계를 다음 자연스러운 구간에서 설명합니다.", confidence: 0.94, importance: 0.88, spoken_overlap: 0.28 },
+    { gap_id: "gap-star-uncertain-number", observation_id: "star-uncertain-number", timestamp_ms: 1478000, screen_type: "board", kind: "number", action: "HOLD", safe_to_speak: false, public_description: "", reason: "화면 인식 확신도가 낮아 내용을 전달하지 않습니다.", confidence: 0.48, importance: 0.9, spoken_overlap: 0 },
+  ],
+  passage: {
+    title: "별의 진화 핵심 지문",
+    sentence_count: 7,
+    highlighted_count: 1,
+    paragraphs: [
+      { paragraph_id: "p1", paragraph_index: 1, flow_role: "별의 탄생", sentences: [
+        { sentence_id: "p1-s1", paragraph_index: 1, sentence_index: 1, text: "별은 성운의 일부가 중력으로 수축하면서 원시별로 태어난다.", timestamp_ms: 150000, highlighted: false },
+        { sentence_id: "p1-s2", paragraph_index: 1, sentence_index: 2, text: "중심 온도가 충분히 높아져 수소 핵융합이 시작되면 주계열성이 된다.", timestamp_ms: 318000, highlighted: false },
+      ] },
+      { paragraph_id: "p2", paragraph_index: 2, flow_role: "주계열 단계", sentences: [
+        { sentence_id: "p2-s1", paragraph_index: 2, sentence_index: 1, text: "별은 일생의 대부분을 주계열성으로 보내며, 이때 중심에서 수소가 헬륨으로 바뀐다.", timestamp_ms: 410000, highlighted: false },
+        { sentence_id: "p2-s2", paragraph_index: 2, sentence_index: 2, text: "중심의 수소가 줄어들면 중심부는 수축하고 바깥층은 팽창한다.", timestamp_ms: null, highlighted: false },
+      ] },
+      { paragraph_id: "p3", paragraph_index: 3, flow_role: "질량에 따른 진화", sentences: [
+        { sentence_id: "p3-s1", paragraph_index: 3, sentence_index: 1, text: "태양과 질량이 비슷한 별은 적색 거성, 행성상 성운을 거쳐 백색 왜성이 된다.", timestamp_ms: 835000, highlighted: true },
+        { sentence_id: "p3-s2", paragraph_index: 3, sentence_index: 2, text: "질량이 매우 큰 별은 초거성과 초신성을 거쳐 중성자별 또는 블랙홀이 된다.", timestamp_ms: 1055000, highlighted: false },
+      ] },
+      { paragraph_id: "p4", paragraph_index: 4, flow_role: "핵심 정리", sentences: [
+        { sentence_id: "p4-s1", paragraph_index: 4, sentence_index: 1, text: "따라서 별의 초기 질량은 진화 속도와 마지막 단계, 우주에 퍼뜨리는 원소를 결정하는 핵심 조건이다.", timestamp_ms: 1285000, highlighted: false },
+      ] },
+    ],
+  },
+  review: {
+    core_summary: [
+      "별은 성운의 중력 수축으로 태어나 중심 수소 핵융합이 시작되면 주계열성이 됩니다.",
+      "별의 초기 질량에 따라 주계열 단계 이후의 진화 경로가 달라집니다.",
+      "초신성에서 퍼진 원소는 새로운 별과 행성을 만드는 재료가 됩니다.",
+    ],
+    visual_only_information: [
+      { item_id: "review-nebula-flow", timestamp_ms: 43000, kind: "concept", title: "성운에서 원시별로", description: "성운의 가스와 먼지가 한곳으로 모여 원시별이 되는 흐름이 화살표로 표시됩니다." },
+      { item_id: "review-birth-board", timestamp_ms: 235000, kind: "concept", title: "별의 탄생 판서", description: "성운의 가스와 먼지 → 중력 수축 → 원시별 → 중심 수축 → 주계열성의 흐름과 중심 온도 약 천만 켈빈이 판서되어 있습니다." },
+      { item_id: "review-balance", timestamp_ms: 410000, kind: "condition", title: "주계열성의 평형", description: "중력과 내부 기체 압력이 서로 반대 방향으로 평형을 이룹니다." },
+      { item_id: "review-fork", timestamp_ms: 705000, kind: "graph", title: "질량에 따른 분기", description: "주계열성 이후 진화 경로가 초기 질량에 따라 두 갈래로 나뉩니다." },
+    ],
+    highlighted_sentences: [
+      { item_id: "review-sun-path", timestamp_ms: 835000, kind: "highlight", title: "태양 정도 질량의 별", description: "주계열성 → 적색 거성 → 행성상 성운 → 백색 왜성" },
+      { item_id: "review-massive-path", timestamp_ms: 1055000, kind: "highlight", title: "질량이 큰 별", description: "주계열성 → 초거성 → 초신성 → 중성자별 또는 블랙홀" },
+    ],
+    key_segments: [
+      { item_id: "key-birth-board", timestamp_ms: 235000, kind: "concept", title: "원시별에서 주계열성으로", description: "중력 수축과 중심 온도 상승을 거쳐 주계열성이 되는 판서 흐름을 확인합니다." },
+      { item_id: "key-fork", timestamp_ms: 705000, kind: "graph", title: "진화 경로 분기", description: "초기 질량에 따라 달라지는 두 경로를 비교합니다." },
+      { item_id: "key-elements", timestamp_ms: 1285000, kind: "concept", title: "원소의 순환", description: "초신성에서 퍼진 원소가 새 별의 재료가 됩니다." },
+    ],
+  },
+  study_guide: {
+    overview: "별은 성운에서 태어나 주계열성으로 가장 긴 시간을 보냅니다. 중심의 수소가 고갈된 뒤에는 초기 질량에 따라 진화 경로가 갈라집니다. 태양 정도 질량의 별은 백색 왜성으로, 질량이 큰 별은 초신성 뒤 중성자별이나 블랙홀로 이어질 수 있습니다.",
+    concept_map: [
+      "성운 → 중력 수축 → 원시별",
+      "원시별 → 중심 수소 핵융합 시작 → 주계열성",
+      "태양 정도 질량 → 적색 거성 → 행성상 성운 → 백색 왜성",
+      "큰 질량 → 초거성 → 초신성 → 중성자별 또는 블랙홀",
+      "초신성에서 퍼진 원소 → 새로운 별과 행성의 재료",
+    ],
+    glossary: [
+      { term: "주계열성", definition: "중심에서 수소 핵융합을 하며 중력과 내부 압력이 평형을 이룬 안정된 별입니다." },
+      { term: "적색 거성", definition: "중심 수소가 줄어든 뒤 바깥층이 크게 팽창하고 표면 온도가 낮아진 별입니다." },
+      { term: "초신성", definition: "질량이 큰 별의 마지막 단계에서 일어나는 매우 큰 폭발입니다." },
+      { term: "백색 왜성", definition: "태양 정도 질량의 별이 바깥층을 방출한 뒤 남기는 작고 밀도 높은 핵입니다." },
+      { term: "원시별", definition: "성운의 가스와 먼지가 중력으로 모여 만들어지는 별의 초기 단계입니다." },
+    ],
+    recall_questions: [
+      "원시별이 주계열성이 되는 기준은 무엇일까요?",
+      "별의 초기 질량이 진화 경로를 어떻게 바꾸나요?",
+      "태양 정도 질량의 별과 질량이 큰 별의 마지막 단계를 비교해 보세요.",
+      "초신성 폭발이 새로운 별과 행성의 재료와 연결되는 까닭은 무엇일까요?",
+    ],
+  },
+  concept_index: [
+    { concept_id: "star-nebula", keyword: "성운", aliases: ["별의 재료"], category: "탄생", timestamp_ms: 150000, end_ms: 159000, lecturer_point: "성운의 가스와 먼지가 중력으로 모이는 과정", ai_explanation: "성운은 별이 태어나는 가스와 먼지 구름입니다. 중력 수축이 시작되면 중심 밀도와 온도가 올라갑니다.", flow: "성운 → 중력 수축 → 원시별", related_keywords: ["중력 수축", "원시별"], importance: 0.88 },
+    { concept_id: "star-collapse", keyword: "중력 수축", aliases: ["수축"], category: "탄생", timestamp_ms: 158000, end_ms: 168000, lecturer_point: "중력이 물질을 중심으로 끌어당긴다", ai_explanation: "중력 수축은 흩어진 물질이 중심으로 모이면서 온도와 압력을 높이는 과정입니다.", flow: "성운 → 중력 수축 → 중심 온도 상승", related_keywords: ["성운", "원시별"], importance: 0.84 },
+    { concept_id: "star-protostar", keyword: "원시별", aliases: ["아기별"], category: "탄생", timestamp_ms: 170000, end_ms: 181000, lecturer_point: "핵융합을 시작하기 전의 별", ai_explanation: "원시별은 중력 수축으로 빛을 내지만 중심 수소 핵융합은 아직 안정적으로 시작되지 않은 단계입니다.", flow: "중력 수축 → 원시별 → 수소 핵융합", related_keywords: ["중심 온도", "수소 핵융합"], importance: 0.9 },
+    { concept_id: "star-fusion", keyword: "수소 핵융합", aliases: ["핵융합"], category: "주계열 단계", timestamp_ms: 318000, end_ms: 330000, lecturer_point: "중심 온도가 충분히 높아지면 수소 핵융합이 시작된다", ai_explanation: "수소 핵융합은 수소 원자핵이 헬륨으로 바뀌며 에너지를 내는 반응이고, 주계열성의 에너지원입니다.", flow: "중심 온도 상승 → 수소 핵융합 → 주계열성", related_keywords: ["원시별", "주계열성"], importance: 0.98 },
+    { concept_id: "star-main", keyword: "주계열성", aliases: ["주계열 단계"], category: "주계열 단계", timestamp_ms: 330000, end_ms: 342000, lecturer_point: "별이 일생의 대부분을 보내는 안정된 단계", ai_explanation: "주계열성은 중심의 수소 핵융합 에너지와 중력이 균형을 이룬 별입니다.", flow: "수소 핵융합 시작 → 주계열성", related_keywords: ["정역학적 평형", "수소 핵융합"], importance: 1 },
+    { concept_id: "star-equilibrium", keyword: "정역학적 평형", aliases: ["힘의 평형", "중력과 압력"], category: "주계열 단계", timestamp_ms: 410000, end_ms: 422000, lecturer_point: "안쪽 중력과 바깥쪽 내부 압력이 균형을 이룬다", ai_explanation: "중력은 별을 안쪽으로 누르고 핵융합으로 생긴 압력은 바깥으로 밀어 두 힘이 평형을 이룹니다.", flow: "중력 ↔ 내부 압력", related_keywords: ["주계열성"], importance: 0.95 },
+    { concept_id: "star-birth-board", keyword: "별의 탄생 판서", aliases: ["성운에서 주계열성", "탄생 흐름"], category: "판서 흐름", timestamp_ms: 235000, end_ms: 250000, lecturer_point: "성운의 물질이 중력 수축해 원시별을 거쳐 주계열성이 되는 과정", ai_explanation: "칠판에서 성운의 가스와 먼지, 중력 수축, 원시별, 중심 수축, 주계열성이 화살표로 이어집니다.", flow: "성운 → 중력 수축 → 원시별 → 중심 수축 → 주계열성", related_keywords: ["성운", "원시별", "주계열성"], importance: 0.96 },
+    { concept_id: "star-core-collapse", keyword: "중심 수축", aliases: ["원시별 수축", "중력 수축"], category: "별의 탄생", timestamp_ms: 242000, end_ms: 250000, lecturer_point: "원시별의 중심이 수축하며 온도가 높아진다", ai_explanation: "원시별은 중심 수축으로 중심 온도가 올라가고, 수소 핵융합을 시작할 조건에 가까워집니다.", flow: "원시별 → 중심 수축 → 중심 온도 상승", related_keywords: ["원시별", "중심 온도"], importance: 0.82 },
+    { concept_id: "star-core-temperature", keyword: "중심 온도 천만 켈빈", aliases: ["천만 켈빈", "10의 7승 켈빈"], category: "별의 탄생", timestamp_ms: 250000, end_ms: 260000, lecturer_point: "판서에 주계열성의 중심 온도가 약 천만 켈빈으로 표시된다", ai_explanation: "중심 온도가 약 천만 켈빈에 이르면 수소 핵융합이 시작되어 별이 주계열성 단계에 들어갑니다.", flow: "중심 온도 약 10⁷ K → 수소 핵융합 → 주계열성", related_keywords: ["수소 핵융합", "주계열성"], importance: 0.88 },
+    { concept_id: "star-mass", keyword: "초기 질량", aliases: ["별의 질량"], category: "진화 분기", timestamp_ms: 610000, end_ms: 625000, lecturer_point: "별의 진화 경로를 결정하는 조건", ai_explanation: "별이 태어날 때의 질량은 수명, 이후 진화 단계, 마지막 천체를 결정합니다.", flow: "초기 질량 → 수명과 최후 결정", related_keywords: ["적색 거성", "초거성"], importance: 1 },
+    { concept_id: "star-lifetime", keyword: "질량과 수명", aliases: ["별의 수명"], category: "진화 분기", timestamp_ms: 560000, end_ms: 574000, lecturer_point: "질량이 큰 별일수록 연료를 빠르게 쓴다", ai_explanation: "질량이 큰 별은 연료가 많아도 에너지 방출이 훨씬 커서 오히려 수명이 짧습니다.", flow: "큰 질량 → 빠른 연료 소비 → 짧은 수명", related_keywords: ["초기 질량"], importance: 0.86 },
+    { concept_id: "star-red-giant", keyword: "적색 거성", aliases: ["붉은 거성"], category: "태양형 별", timestamp_ms: 884000, end_ms: 895000, lecturer_point: "중심 수소가 줄고 바깥층이 팽창한다", ai_explanation: "적색 거성은 중심 수소가 고갈된 뒤 바깥층이 크게 팽창하고 표면이 식은 단계입니다.", flow: "주계열성 → 적색 거성", related_keywords: ["행성상 성운", "백색 왜성"], importance: 0.9 },
+    { concept_id: "star-planetary", keyword: "행성상 성운", aliases: ["바깥층 방출"], category: "태양형 별", timestamp_ms: 920000, end_ms: 932000, lecturer_point: "적색 거성의 바깥층이 우주로 퍼진다", ai_explanation: "행성상 성운은 태양 정도 질량의 별이 바깥층을 방출해 만든 빛나는 가스 구름입니다.", flow: "적색 거성 → 행성상 성운 → 백색 왜성", related_keywords: ["적색 거성", "백색 왜성"], importance: 0.83 },
+    { concept_id: "star-white-dwarf", keyword: "백색 왜성", aliases: ["태양형 별의 최후"], category: "태양형 별", timestamp_ms: 942000, end_ms: 953000, lecturer_point: "태양 정도 질량의 별이 남기는 작고 조밀한 핵", ai_explanation: "백색 왜성은 핵융합을 멈춘 뒤 남은 뜨겁고 밀도 높은 별의 핵입니다.", flow: "행성상 성운 → 백색 왜성", related_keywords: ["행성상 성운"], importance: 0.92 },
+    { concept_id: "star-supergiant", keyword: "초거성", aliases: ["질량 큰 별의 거성"], category: "대질량 별", timestamp_ms: 1055000, end_ms: 1066000, lecturer_point: "질량이 큰 별이 크게 팽창한 단계", ai_explanation: "초거성은 질량이 큰 별이 주계열 단계 뒤 크게 팽창한 상태입니다.", flow: "주계열성 → 초거성 → 초신성", related_keywords: ["초신성"], importance: 0.88 },
+    { concept_id: "star-supernova", keyword: "초신성", aliases: ["초신성 폭발"], category: "대질량 별", timestamp_ms: 1142000, end_ms: 1156000, lecturer_point: "질량이 큰 별의 마지막에 일어나는 큰 폭발", ai_explanation: "초신성은 대질량 별의 중심이 붕괴하며 일어나는 폭발로 무거운 원소를 우주로 퍼뜨립니다.", flow: "초거성 → 초신성 → 잔해", related_keywords: ["중성자별", "블랙홀", "원소 순환"], importance: 1 },
+    { concept_id: "star-neutron", keyword: "중성자별", aliases: ["초신성 잔해"], category: "대질량 별", timestamp_ms: 1172000, end_ms: 1182000, lecturer_point: "초신성 뒤 남을 수 있는 매우 조밀한 천체", ai_explanation: "중성자별은 초신성 뒤 핵이 극도로 압축되어 대부분 중성자로 이루어진 천체입니다.", flow: "초신성 → 중성자별", related_keywords: ["초신성", "블랙홀"], importance: 0.84 },
+    { concept_id: "star-black-hole", keyword: "블랙홀", aliases: ["검은 구멍"], category: "대질량 별", timestamp_ms: 1190000, end_ms: 1201000, lecturer_point: "초기 질량이 매우 클 때 생길 수 있는 마지막 천체", ai_explanation: "블랙홀은 중력이 매우 강해 빛도 빠져나오기 어려운 천체로, 매우 큰 질량의 별이 붕괴할 때 생길 수 있습니다.", flow: "매우 큰 초기 질량 → 초신성 → 블랙홀", related_keywords: ["초신성", "중성자별"], importance: 0.9 },
+    { concept_id: "star-elements", keyword: "원소 순환", aliases: ["우주 원소", "별과 원소"], category: "우주 순환", timestamp_ms: 1360000, end_ms: 1375000, lecturer_point: "별에서 만들어진 원소가 우주로 퍼진다", ai_explanation: "별과 초신성이 만든 원소는 성간 물질이 되어 새로운 별, 행성, 생명체의 재료로 이어집니다.", flow: "별의 핵융합 → 초신성 → 성간 물질 → 새 별과 행성", related_keywords: ["초신성", "성운"], importance: 0.94 },
+  ],
+  active_mode: "mixed",
+  safe_description_count: 10,
+  held_count: 1,
+};
+
+window.SULLIVAN_SAMPLE_DATA = window.SULLIVAN_SAMPLE_LIBRARY.science;
