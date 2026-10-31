@@ -235,6 +235,7 @@ class AgentTurnInput(BaseModel):
     message: str = Field(min_length=1, max_length=2000)
     current_time_ms: int = Field(default=0, ge=0)
     snapshot: LectureSnapshot | None = None
+    analysis_consent: bool = False
     access_code: SecretStr | None = Field(default=None, exclude=True)
     # Ignored by the public server: Gemini keys come only from server variables.
     gemini_api_key: SecretStr | None = Field(default=None, exclude=True)

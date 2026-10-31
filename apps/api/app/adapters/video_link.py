@@ -435,6 +435,7 @@ async def _upload_gemini_video_file(
                     break
                 yield chunk
 
+    upload_state["upload_attempted"] = "1"
     upload_response = await client.post(
         upload_url,
         headers={
@@ -530,3 +531,6 @@ async def analyze_uploaded_video_with_gemini(
                 # Files API also expires uploaded files automatically, but the
                 # caller must tell the user that deletion was not confirmed.
                 report["provider"] = "delete-failed"
+
+        elif upload_state.get("upload_attempted"):
+            report["provider"] = "delete-failed"

@@ -1,20 +1,31 @@
-# Render Blueprint: one Docker web service that serves the API and the web app.
-# Secrets (sync: false) are entered in the Render dashboard, never committed.
+# One public Docker service; only the quota database persists.
 services:
   - type: web
     name: sullivan-ai
     runtime: docker
-    plan: free
+    plan: 0.5c-512mb
     region: singapore
+    branch: main
     dockerfilePath: ./Dockerfile
     dockerContext: .
     healthCheckPath: /health
-    autoDeployTrigger: commit
+    autoDeployTrigger: checksPass
+    numInstances: 1
+    disk:
+      name: demo-usage
+      mountPath: /var/data
+      sizeGB: 1
     envVars:
       - key: GEMINI_API_KEY
         sync: false
       - key: DEMO_ACCESS_CODE
         sync: false
+      - key: DEMO_USAGE_DB
+        value: /var/data/demo_usage.sqlite
+      - key: DEMO_DATA_DIR
+        value: /var/data
+      - key: TRUST_RENDER_PROXY
+        value: "1"
       - key: DEMO_DAILY_LIMIT
         value: "3"
       - key: ALLOWED_SAMPLE_VIDEO_IDS
@@ -22,7 +33,7 @@ services:
       - key: ANALYSIS_TIMEOUT_SECONDS
         value: "180"
       - key: MAX_UPLOAD_VIDEO_BYTES
-        value: "104857600"
+        value: "100000000"
       - key: GEMINI_MODEL
         value: gemini-2.5-flash
       - key: GEMINI_FALLBACK_MODEL

@@ -280,6 +280,8 @@ async function openSampleSession(sampleId = "science") {
   $("#setup-view").classList.add("hidden");
   $("#agent-view").classList.remove("hidden");
   $("#lecture-title").textContent = state.session.title;
+  $("#lecture-title").setAttribute("tabindex", "-1");
+  $("#lecture-title").focus();
   $("#lecture-meta").textContent = `${state.session.subject} · ${state.session.source_label}`;
   renderAll();
   announce(`${config.announcement} 샘플을 바로 열었습니다. 분석 서버 연결 없이 이용할 수 있습니다.`);
@@ -402,6 +404,8 @@ async function startSession(useDemo) {
     $("#setup-view").classList.add("hidden");
     $("#agent-view").classList.remove("hidden");
     $("#lecture-title").textContent = state.session.title;
+  $("#lecture-title").setAttribute("tabindex", "-1");
+  $("#lecture-title").focus();
     $("#lecture-meta").textContent = `${state.session.subject} · ${state.session.source_label}${state.session.problem_mode ? " · 문제 모드" : ""}`;
     if (state.pendingLinkResult) await setupLinkPlayback(state.pendingLinkResult);
     renderAll();
@@ -1399,6 +1403,7 @@ async function requestAgentTurn(message) {
       current_time_ms: getCurrentPlaybackMs(),
       snapshot: (state.isSample || state.currentSavedLectureId) ? safeSnapshotForAgent() : null,
       access_code: state.demoAccessCode || null,
+      analysis_consent: $("#local-video-ai-consent input").checked,
     }),
   });
 }

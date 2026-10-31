@@ -5,7 +5,9 @@ from pathlib import Path
 from uuid import uuid4
 
 from fastapi import FastAPI, File, Form, HTTPException, Request, UploadFile
-from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import JSONResponse
+from fastapi.exceptions import RequestValidationError
+from app.core.request_limits import UploadBodyLimit
 from fastapi.staticfiles import StaticFiles
 
 from app.core.demo import build_demo_package
@@ -51,12 +53,13 @@ from app.models import (
     VideoLinkResult,
 )
 
-
-DEFAULT_MAX_UPLOAD_VIDEO_BYTES = 100 * 1024 * 1024
-TIMEOUT_MESSAGE = "분석 시간이 3분을 넘어 중단했어요. 분석 결과는 만들어지지 않았습니다."
+DEFAULT_MAX_UPLOAD_VIDEO_BYTES = 100_000_000
+TIMEOUT_MESSAGE = (
+    "분석 시간이 3분을 넘어 중단했어요. 분석 결과는 만들어지지 않았습니다."
+)
 CLEANUP_FAILED_NOTE = (
-    "업로드한 임시 영상의 삭제를 확인하지 못했습니다. "
-    "Gemini에 올라간 사본은 공급자 정책에 따라 최대 48시간 뒤 자동 삭제됩니다."
+    "임시 영상의 삭제를 확인하지 못했습니다. "
+    "분석은 완료 처리되지 않았습니다. 운영자가 파일 상태를 확인해야 합니다."
 )
 
 
@@ -87,18 +90,25 @@ app = FastAPI(
 )
 agent = LectureAgent()
 
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=[
-        "http://localhost:5173",
-        "http://localhost:8080",
-        "http://127.0.0.1:8080",
-    ],
-    allow_origin_regex=r"^http://(?:localhost|127\.0\.0\.1):\d+$",
-    allow_credentials=False,
-    allow_methods=["GET", "POST", "OPTIONS"],
-    allow_headers=["Content-Type"],
-)
+app.add_middleware(UploadBodyLimit)
+
+
+@app.middleware("http")
+async def safe_errors(request: Request, call_next):
+    try:
+        return await call_next(request)
+    except Exception:
+        return JSONResponse(
+            status_code=500,
+            content={"detail": "요청 처리에 실패했습니다. 분석은 완료되지 않았습니다."},
+        )
+
+
+@app.exception_handler(RequestValidationError)
+async def validation_error(request, error):
+    return JSONResponse(
+        status_code=422, content={"detail": "요청 형식을 확인해 주세요."}
+    )
 
 
 @app.get("/health")
@@ -111,10 +121,18 @@ def health() -> dict[str, str]:
         "raw_video_storage": "disabled",
         "uploaded_video_analysis": "explicit-consent-gemini",
         "temporary_media_retention": "deleted-after-analysis",
-        "youtube_link_analysis": "configured" if os.getenv("GEMINI_API_KEY") else "needs-api-key",
-        "agent_reasoning": "configured" if os.getenv("GEMINI_API_KEY") else "needs-api-key",
-        "visual_verification": "gemini-two-pass" if os.getenv("GEMINI_API_KEY") else "needs-api-key",
-        "external_link_analysis": "configured" if os.getenv("LINK_ANALYZER_URL") else "optional",
+        "youtube_link_analysis": (
+            "configured" if os.getenv("GEMINI_API_KEY") else "needs-api-key"
+        ),
+        "agent_reasoning": (
+            "configured" if os.getenv("GEMINI_API_KEY") else "needs-api-key"
+        ),
+        "visual_verification": (
+            "gemini-two-pass" if os.getenv("GEMINI_API_KEY") else "needs-api-key"
+        ),
+        "external_link_analysis": (
+            "configured" if os.getenv("LINK_ANALYZER_URL") else "optional"
+        ),
         "real_analysis_access": (
             "trial-code-required"
             if os.getenv("DEMO_ACCESS_CODE") and os.getenv("GEMINI_API_KEY")
@@ -138,7 +156,9 @@ def register_asset(session_id: str, payload: AssetInput) -> AssetRecord:
     try:
         return agent.register_asset(session_id, payload)
     except LectureNotFoundError as error:
-        raise HTTPException(status_code=404, detail="강의 세션을 찾을 수 없습니다.") from error
+        raise HTTPException(
+            status_code=404, detail="강의 세션을 찾을 수 없습니다."
+        ) from error
 
 
 @app.post("/v1/lectures/{session_id}/video-link", response_model=VideoLinkResult)
@@ -146,7 +166,9 @@ async def register_video_link(
     session_id: str, payload: VideoLinkInput, request: Request
 ) -> VideoLinkResult:
     if not payload.rights_confirmed:
-        raise HTTPException(status_code=400, detail="영상 이용·분석 권한 확인이 필요합니다.")
+        raise HTTPException(
+            status_code=400, detail="영상 이용·분석 권한 확인이 필요합니다."
+        )
     try:
         session = agent.snapshot(session_id).session
         link = normalize_video_link(payload.url)
@@ -158,7 +180,10 @@ async def register_video_link(
                 name="링크 강의 영상",
                 kind="video_link",
                 media_type="text/uri-list",
-                metadata={"url": link.normalized_url, "playback_kind": link.playback_kind},
+                metadata={
+                    "url": link.normalized_url,
+                    "playback_kind": link.playback_kind,
+                },
             ),
         )
         if not payload.request_analysis:
@@ -170,6 +195,8 @@ async def register_video_link(
                 analysis_status="registered-only",
                 message="링크를 재생 소스로 등록했습니다. AI 분석은 요청하지 않았습니다.",
             )
+        if not payload.analysis_consent:
+            raise HTTPException(status_code=400, detail=CONSENT_MESSAGE)
         api_key = server_gemini_key()
         needs_adapter = VideoLinkResult(
             asset=asset,
@@ -217,7 +244,9 @@ async def register_video_link(
             snapshot=snapshot,
         )
     except LectureNotFoundError as error:
-        raise HTTPException(status_code=404, detail="강의 세션을 찾을 수 없습니다.") from error
+        raise HTTPException(
+            status_code=404, detail="강의 세션을 찾을 수 없습니다."
+        ) from error
     except UnsafeVideoLinkError as error:
         raise HTTPException(status_code=400, detail=str(error)) from error
     except DemoGateError as error:
@@ -250,7 +279,9 @@ async def analyze_uploaded_video_file(
     """
 
     if not rights_confirmed:
-        raise HTTPException(status_code=400, detail="영상 이용·분석 권한 확인이 필요합니다.")
+        raise HTTPException(
+            status_code=400, detail="영상 이용·분석 권한 확인이 필요합니다."
+        )
     if not cloud_analysis_consent:
         raise HTTPException(
             status_code=400,
@@ -260,7 +291,9 @@ async def analyze_uploaded_video_file(
     try:
         snapshot = agent.snapshot(session_id)
     except LectureNotFoundError as error:
-        raise HTTPException(status_code=404, detail="강의 세션을 찾을 수 없습니다.") from error
+        raise HTTPException(
+            status_code=404, detail="강의 세션을 찾을 수 없습니다."
+        ) from error
 
     matching_asset = next(
         (
@@ -271,13 +304,15 @@ async def analyze_uploaded_video_file(
         None,
     )
     if matching_asset is None:
-        raise HTTPException(status_code=400, detail="먼저 같은 영상의 로컬 자산을 등록해 주세요.")
+        raise HTTPException(
+            status_code=400, detail="먼저 같은 영상의 로컬 자산을 등록해 주세요."
+        )
 
     api_key = server_gemini_key()
     if not api_key:
         raise HTTPException(status_code=503, detail=KEY_MISSING_MESSAGE)
-    ip = client_ip(request)
     try:
+        ip = client_ip(request)
         check_access_code(access_code)
         limiter.ensure_available(ip)
     except DemoGateError as error:
@@ -307,8 +342,16 @@ async def analyze_uploaded_video_file(
         )
 
     try:
-        maximum_bytes = int(
-            os.getenv("MAX_UPLOAD_VIDEO_BYTES", str(DEFAULT_MAX_UPLOAD_VIDEO_BYTES))
+        maximum_bytes = max(
+            1,
+            min(
+                DEFAULT_MAX_UPLOAD_VIDEO_BYTES,
+                int(
+                    os.getenv(
+                        "MAX_UPLOAD_VIDEO_BYTES", str(DEFAULT_MAX_UPLOAD_VIDEO_BYTES)
+                    )
+                ),
+            ),
         )
     except ValueError:
         maximum_bytes = DEFAULT_MAX_UPLOAD_VIDEO_BYTES
@@ -339,7 +382,9 @@ async def analyze_uploaded_video_file(
                 temporary_file.write(chunk)
 
         if received_bytes == 0:
-            raise HTTPException(status_code=400, detail="빈 영상 파일은 분석할 수 없습니다.")
+            raise HTTPException(
+                status_code=400, detail="빈 영상 파일은 분석할 수 없습니다."
+            )
 
         remaining_trials = limiter.consume(ip)
         analysis = await asyncio.wait_for(
@@ -379,6 +424,8 @@ async def analyze_uploaded_video_file(
             failure.detail = f"{failure.detail} {CLEANUP_FAILED_NOTE}"
         raise failure
 
+    if cleanup_failed:
+        raise HTTPException(status_code=502, detail=CLEANUP_FAILED_NOTE)
     agent.analyze(session_id, analysis)
     agent.mark_asset_indexed(
         session_id,
@@ -402,13 +449,13 @@ async def analyze_uploaded_video_file(
     "/v1/lectures/{session_id}/analysis",
     response_model=LectureSnapshot,
 )
-def analyze_lecture(
-    session_id: str, payload: AnalysisPackageInput
-) -> LectureSnapshot:
+def analyze_lecture(session_id: str, payload: AnalysisPackageInput) -> LectureSnapshot:
     try:
         return agent.analyze(session_id, payload)
     except LectureNotFoundError as error:
-        raise HTTPException(status_code=404, detail="강의 세션을 찾을 수 없습니다.") from error
+        raise HTTPException(
+            status_code=404, detail="강의 세션을 찾을 수 없습니다."
+        ) from error
 
 
 @app.post(
@@ -431,7 +478,9 @@ def run_demo_analysis(session_id: str) -> LectureSnapshot:
                 )
         return agent.snapshot(session_id)
     except LectureNotFoundError as error:
-        raise HTTPException(status_code=404, detail="강의 세션을 찾을 수 없습니다.") from error
+        raise HTTPException(
+            status_code=404, detail="강의 세션을 찾을 수 없습니다."
+        ) from error
 
 
 @app.get("/v1/lectures/{session_id}", response_model=LectureSnapshot)
@@ -439,12 +488,14 @@ def get_lecture(session_id: str) -> LectureSnapshot:
     try:
         return agent.snapshot(session_id)
     except LectureNotFoundError as error:
-        raise HTTPException(status_code=404, detail="강의 세션을 찾을 수 없습니다.") from error
+        raise HTTPException(
+            status_code=404, detail="강의 세션을 찾을 수 없습니다."
+        ) from error
 
 
 @app.post("/v1/lectures/{session_id}/agent-turn", response_model=AgentTurnResponse)
 async def run_lecture_agent_turn(
-    session_id: str, payload: AgentTurnInput
+    session_id: str, payload: AgentTurnInput, request: Request
 ) -> AgentTurnResponse:
     """Observe lecture context, choose one tool action, then return a safe plan.
 
@@ -462,20 +513,28 @@ async def run_lecture_agent_turn(
         snapshot = payload.snapshot
     if server_gemini_key():
         try:
+            if not payload.analysis_consent:
+                raise DemoGateError(400, CONSENT_MESSAGE)
             check_access_code(
                 payload.access_code.get_secret_value() if payload.access_code else None
             )
+            limiter.consume(client_ip(request))
         except DemoGateError as error:
             raise HTTPException(
                 status_code=error.status_code,
                 detail=f"{error.message} 로컬 보조 모드로 답합니다.",
             ) from error
     try:
-        return await run_agent_turn(
-            snapshot,
-            message=payload.message,
-            current_time_ms=payload.current_time_ms,
+        return await asyncio.wait_for(
+            run_agent_turn(
+                snapshot,
+                message=payload.message,
+                current_time_ms=payload.current_time_ms,
+            ),
+            timeout=analysis_timeout_seconds(),
         )
+    except asyncio.TimeoutError:
+        raise HTTPException(504, TIMEOUT_MESSAGE) from None
     except AgentUnavailableError as error:
         raise HTTPException(status_code=503, detail=str(error)) from error
     except AgentTurnError as error:
@@ -486,15 +545,13 @@ async def run_lecture_agent_turn(
     "/v1/lectures/{session_id}/navigate",
     response_model=NavigationResponse,
 )
-def navigate_lecture(
-    session_id: str, payload: NavigationRequest
-) -> NavigationResponse:
+def navigate_lecture(session_id: str, payload: NavigationRequest) -> NavigationResponse:
     try:
-        return agent.navigate(
-            session_id, payload.command, payload.current_sentence_id
-        )
+        return agent.navigate(session_id, payload.command, payload.current_sentence_id)
     except LectureNotFoundError as error:
-        raise HTTPException(status_code=404, detail="강의 세션을 찾을 수 없습니다.") from error
+        raise HTTPException(
+            status_code=404, detail="강의 세션을 찾을 수 없습니다."
+        ) from error
 
 
 @app.post("/v1/lectures/{session_id}/end", response_model=LectureSession)
@@ -502,7 +559,9 @@ def end_lecture(session_id: str) -> LectureSession:
     try:
         return agent.end(session_id)
     except LectureNotFoundError as error:
-        raise HTTPException(status_code=404, detail="강의 세션을 찾을 수 없습니다.") from error
+        raise HTTPException(
+            status_code=404, detail="강의 세션을 찾을 수 없습니다."
+        ) from error
 
 
 # Serve the web app from the same origin so the browser calls the API with

@@ -104,7 +104,7 @@ def upload(session_id: str, asset_id: str, *, code: str | None = "trial-code", i
     if code is not None:
         data["access_code"] = code
     data.update(extra or {})
-    return client.post(
+    return TestClient(app, client=(ip, 1234)).post(
         f"/v1/lectures/{session_id}/video-file-analysis",
         data=data,
         files={"video": ("lesson.mp4", b"fake-video-bytes", "video/mp4")},
@@ -216,7 +216,7 @@ def test_oversized_upload_is_rejected_without_using_a_trial(monkeypatch) -> None
 
 
 def test_default_upload_limit_is_100mb() -> None:
-    assert main_module.DEFAULT_MAX_UPLOAD_VIDEO_BYTES == 100 * 1024 * 1024
+    assert main_module.DEFAULT_MAX_UPLOAD_VIDEO_BYTES == 100_000_000
 
 
 def test_analysis_timeout_stops_and_still_deletes_temporary_file(monkeypatch) -> None:
@@ -254,9 +254,10 @@ def test_provider_delete_failure_is_reported_not_hidden(monkeypatch) -> None:
 
     response = upload(session_id, asset_id)
 
-    assert response.status_code == 200
-    assert response.json()["cleanup_status"] == "delete-failed"
-    assert "삭제를 확인하지 못했습니다" in response.json()["cleanup_message"]
+    assert response.status_code == 502
+    assert "삭제를 확인하지 못했습니다" in response.json()["detail"]
+    snapshot = client.get(f"/v1/lectures/{session_id}").json()
+    assert snapshot["assets"][0]["processing_status"] != "indexed"
 
 
 def test_failed_analysis_with_failed_delete_mentions_both(monkeypatch) -> None:
@@ -410,7 +411,7 @@ def test_allowed_samples_can_be_configured(monkeypatch) -> None:
 def agent_turn(session_id: str, code: str | None):
     return client.post(
         f"/v1/lectures/{session_id}/agent-turn",
-        json={"message": "요약을 읽어줘", "current_time_ms": 0, "access_code": code, "gemini_api_key": "visitor-key"},
+        json={"message": "요약을 읽어줘", "current_time_ms": 0, "access_code": code, "gemini_api_key": "visitor-key", "analysis_consent": True},
     )
 
 
@@ -474,14 +475,6 @@ def _request(headers: dict[str, str]):
     return Request(scope)
 
 
-def test_client_ip_prefers_edge_headers_then_rightmost_forwarded(monkeypatch) -> None:
+def test_local_client_ip_ignores_untrusted_forwarding_headers(monkeypatch) -> None:
     from app.core.demo_gate import client_ip
-
-    monkeypatch.delenv("CLIENT_IP_HEADER", raising=False)
-    assert client_ip(_request({"CF-Connecting-IP": "203.0.113.1", "X-Real-IP": "198.51.100.2"})) == "203.0.113.1"
-    assert client_ip(_request({"X-Real-IP": "198.51.100.2"})) == "198.51.100.2"
-    assert client_ip(_request({"X-Forwarded-For": "1.1.1.1, 203.0.113.9"})) == "203.0.113.9"
-    assert client_ip(_request({})) == "10.0.0.1"
-
-    monkeypatch.setenv("CLIENT_IP_HEADER", "X-Real-IP")
-    assert client_ip(_request({"CF-Connecting-IP": "203.0.113.1", "X-Real-IP": "198.51.100.2"})) == "198.51.100.2"
+    assert client_ip(_request({"CF-Connecting-IP": "203.0.113.1", "X-Real-IP": "198.51.100.2"})) == "10.0.0.1"

@@ -72,14 +72,14 @@ def test_public_video_link_registers_without_fake_analysis(monkeypatch) -> None:
         json={
             "url": "https://media.example.com/lesson.mp4",
             "rights_confirmed": True,
-            "request_analysis": True,
+            "request_analysis": False,
         },
     )
 
     assert response.status_code == 200
     result = response.json()
     assert result["playback_kind"] == "direct"
-    assert result["analysis_status"] == "needs-adapter"
+    assert result["analysis_status"] == "registered-only"
     assert result["snapshot"] is None
 
 

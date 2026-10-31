@@ -4,6 +4,10 @@ on:
   pull_request:
   push:
     branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
 
 jobs:
   test:
@@ -15,14 +19,37 @@ jobs:
           python-version: "3.11"
           cache: pip
           cache-dependency-path: apps/api/requirements.txt
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
       - name: Install API dependencies
         run: pip install -r apps/api/requirements.txt
-      - name: Run API tests
-        working-directory: apps/api
-        run: PYTHONPATH=. pytest -q
-      - name: Validate analysis schema JSON
-        run: python -m json.tool packages/contracts/events.schema.json > /dev/null
-      - name: Run project safety verification
-        run: python scripts/verify_project.py
-      - name: Check web JavaScript syntax
-        run: node --check apps/web/app.js
+      - name: Run all existing and public-service checks
+        run: sh scripts/verify_all.sh
+
+  container:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Build deployment image
+        run: docker build --tag sullivan-ci .
+      - name: Run API tests in the deployment Python image
+        run: >-
+          docker run --rm
+          --mount type=bind,src="${{ github.workspace }}",dst=/checks,readonly
+          --workdir /checks/apps/api --env PYTHONPATH=.
+          sullivan-ci python -m pytest -q -p no:cacheprovider
+      - name: Inspect deployment image for excluded files
+        run: >-
+          docker run --rm sullivan-ci python -c
+          "from pathlib import Path; p=list(Path('/app').rglob('*')); assert not any(x.name in {'.env','__pycache__','.pytest_cache','.git'} for x in p); print('PASS: clean deployment image')"
+      - name: Start credential-free service on a custom PORT
+        run: docker run --detach --name sullivan-ci --publish 127.0.0.1:18080:8765 --env PORT=8765 sullivan-ci
+      - name: Verify web, API, health and sample behavior
+        run: python scripts/smoke_service.py http://127.0.0.1:18080 --allow-local
+      - name: Stop test container
+        if: always()
+        run: docker rm --force sullivan-ci || true

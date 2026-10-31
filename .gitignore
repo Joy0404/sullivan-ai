@@ -10,3 +10,8 @@ data/raw_audio/
 data/raw_video/
 data/private/
 
+
+.env.*
+!.env.example
+*.sqlite*
+*.zip

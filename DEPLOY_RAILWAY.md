@@ -1,3 +1,5 @@
+> 현재 배포 대상은 Render입니다. 이 문서는 이전 설정 참고용이며 현재 배포에는 DEPLOY_RENDER.md를 사용하세요.
+
 # Railway 배포 안내 (GitHub 비공개 저장소 기준)
 
 Sullivan AI는 컨테이너 하나로 배포합니다. FastAPI 서버가 API와 웹 화면(`apps/web`)을 **같은 공개 주소**에서 함께 제공하고, 웹은 포트 없이 상대 경로(`/health`, `/v1/...`)로 API를 부릅니다.
