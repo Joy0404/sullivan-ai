@@ -1,0 +1,12 @@
+{
+  "dependencies": {
+    "@neon/config": "^1.10.0",
+    "@neon/env": "^1.6.8"
+  },
+  "name": "sullivan-ai",
+  "private": true,
+  "scripts": {
+    "build": "python -m compileall -q apps/api/app && node --check apps/web/app.js && python scripts/verify_project.py",
+    "start": "python -m uvicorn app.main:app --app-dir apps/api --host 127.0.0.1 --port 8000 --env-file .env.local"
+  }
+}

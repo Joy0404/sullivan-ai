@@ -12,3 +12,7 @@ node_modules/
 .github/
 *.zip
 data/
+
+.neon
+.agents/
+.codex/

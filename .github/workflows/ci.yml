@@ -39,6 +39,8 @@ jobs:
           node-version: "22"
       - name: Install API dependencies
         run: pip install -r apps/api/requirements.txt
+      - name: Build app checks
+        run: npm run build
       - name: Run all existing and public-service checks
         run: sh scripts/verify_all.sh
 

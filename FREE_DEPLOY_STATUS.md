@@ -1,30 +1,23 @@
-# 무료 구성 작업 상태
+# 무료 배포 상태 — 2026-11-01
 
-기존 유료 디스크 구성에서 Render Free + 외부 Neon PostgreSQL 구성으로 변경했습니다.
-`render.yaml`의 plan은 free이고 disk 항목은 없습니다. 실행 시 디스크 권한 변경도 제거했습니다.
+- 공개 서버: https://sullivan-ai-qlc5.onrender.com
+- Render: Free, Singapore, 유료 영구 디스크 없음.
+- Neon: sullivan-ai / morning-violet-94530569, production 브랜치.
+- 조직: org-empty-cake-14402972. Free 플랜과 AWS Singapore를 실제 API로 확인함.
+- Neon CLI 인증, init, deploy 완료. Postgres만 사용하며 추가 서비스 변경은 없음.
+- 운영 DB에 버전 관리된 스키마를 Direct 연결로 적용하고 Pooled 읽기를 확인함.
+- DATABASE_URL / DATABASE_URL_UNPOOLED를 기존 Render 서비스에 비공개로 전달함.
+- 별도 시험 브랜치에서 동시 요청 8개 중 3개 허용/5개 차단, 런타임 재초기화 후 기록 유지를 확인하고 시험 브랜치를 삭제함.
 
-변경 사항:
-- psycopg 3.3.6으로 TLS PostgreSQL 연결 지원
-- 스키마를 SQL 마이그레이션 파일로 관리
-- Pooled 앱 연결과 Direct 초기화 연결 분리
-- 단일 원자적 SQL 문으로 동시 일일 한도 차감
-- DB 작업을 작업 스레드로 보내 분석 요청 중 상태 확인·웹 처리를 막지 않음
-- Render 운영에서는 외부 DB 미설정 시 실제 분석 차단; 로컬 테스트만 SQLite 사용
-- 로컬 파일에 실제 비밀값을 저장하지 않음
-- CI의 격리된 PostgreSQL에서 실제 SQL 통합 검사 추가
+## 로컬 실행
 
-Neon 앱 설치는 확인되었으나 현재 채팅에는 프로젝트·SQL 도구가 노출되지 않았습니다.
-Neon 실제 프로젝트 생성, 스키마 적용, Render로의 비밀값 전달은 아직 완료로 간주하지 않습니다.
-기존 유료 Blueprint는 적용하지 않습니다.
+Python 의존성 설치 후 `npm ci`, `npm run build`를 실행합니다.
+`neon init` / `neon deploy`가 만든 `.env.local`은 Git과 배포 ZIP에서 제외됩니다.
+`npm start`는 이 파일을 읽어 로컬 서버를 시작합니다.
+배포 서버는 Render 환경변수를 사용하며 로컬 비밀값 파일을 올리지 않습니다.
 
-검증 결과와 실제 공개 주소는 작업 완료 후 채팅의 최신 안내를 확인하세요.
+## 남은 확인
 
-## 공개 서버 확인
-
-Render 서비스 `srv-dbiv0bss728c738d16i0`를 Free 플랜으로 생성했습니다. 디스크는 없습니다.
-공개 주소: https://sullivan-ai-qlc5.onrender.com
-초기 배포가 Live 상태가 되었으며 실제 HTTP·브라우저 검증은 채팅의 최신 결과를 따릅니다.
-Gemini 키·체험 코드·Neon DB 주소는 아직 설정하지 않아 실제 분석은 사용할 수 없습니다.
-
-Neon 조직은 사용자가 지정한 org-empty-cake-14402972이며 실제 프로젝트 생성 완료를 확인하지 못했습니다.
-앱 설치와 실제 관리 도구 노출은 구분합니다. 현재는 프로젝트·SQL 도구가 없어 계정 리소스를 생성하거나 연결 주소를 가져오지 않았습니다.
+Gemini API 키와 체험 코드의 실제 설정 및 정상 분석은 별도 확인이 필요합니다.
+이번 검증은 Gemini 공급자 호출을 실행하지 않았습니다.
+실제 공급자 파일 삭제와 휴대폰 실기기 검증도 아직 완료로 주장하지 않습니다.
