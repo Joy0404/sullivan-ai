@@ -1,3 +1,5 @@
+> 현재 배포는 **Render Free + Neon PostgreSQL**입니다. 유료 디스크는 생성하지 않습니다. 최신 설정은 [DEPLOY_RENDER.md](DEPLOY_RENDER.md)를 따르세요.
+
 # Sullivan AI · Render 공개 체험판
 
 FastAPI 하나가 웹 화면과 API를 같은 주소에서 제공합니다. Render 배포 방법은

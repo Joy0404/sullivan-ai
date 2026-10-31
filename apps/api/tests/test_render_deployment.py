@@ -59,16 +59,12 @@ def test_render_uses_only_documented_edge_header(monkeypatch):
         demo_gate.client_ip(request({"CF-Connecting-IP": "203.0.113.1"}))
 
 
-def test_storage_must_be_mounted_and_db_under_disk(monkeypatch, tmp_path):
+def test_render_requires_external_database(monkeypatch):
     monkeypatch.setenv("RENDER", "true")
-    monkeypatch.setenv("DEMO_DATA_DIR", str(tmp_path))
-    with pytest.raises(demo_gate.DemoGateError):
+    with pytest.raises(demo_gate.DemoGateError) as result:
         demo_gate.limiter.consume("1.1.1.1")
-    monkeypatch.setattr(demo_gate.os.path, "ismount", lambda p: Path(p) == tmp_path)
-    assert demo_gate.limiter.consume("1.1.1.1") == 2
-    monkeypatch.setenv("DEMO_USAGE_DB", str(tmp_path.parent / "outside.sqlite"))
-    with pytest.raises(demo_gate.DemoGateError):
-        demo_gate.limiter.consume("1.1.1.1")
+    assert result.value.status_code == 503
+    assert "DATABASE_URL" in result.value.message
 
 
 def test_atomic_limit_persists_across_limiter_instances_and_days(monkeypatch):
@@ -102,19 +98,25 @@ def test_runtime_limits_cannot_exceed_public_policy(monkeypatch, timeout):
     assert demo_gate.limiter.limit() == 3
 
 
-def test_launch_initializes_disk_then_drops_privileges(monkeypatch):
+def test_launch_drops_privileges_without_a_disk(monkeypatch):
     events = []
     monkeypatch.setenv("RENDER", "true")
     monkeypatch.setenv("PORT", "8765")
     monkeypatch.setattr(launch.os, "geteuid", lambda: 0)
-    monkeypatch.setattr(launch.os.path, "ismount", lambda p: True)
-    monkeypatch.setattr(launch.os, "chown", lambda *a: events.append(("chown", a)))
+    monkeypatch.setattr(
+        launch.os.path, "ismount", lambda p: pytest.fail("No disk is required")
+    )
+    monkeypatch.setattr(
+        launch.os,
+        "chown",
+        lambda *a: pytest.fail("No disk ownership change is required"),
+    )
     monkeypatch.setattr(launch.os, "setgroups", lambda *a: events.append(("groups", a)))
     monkeypatch.setattr(launch.os, "setgid", lambda *a: events.append(("gid", a)))
     monkeypatch.setattr(launch.os, "setuid", lambda *a: events.append(("uid", a)))
     monkeypatch.setattr(launch.os, "execv", lambda *a: events.append(("exec", a)))
     launch.main()
-    assert [e[0] for e in events] == ["chown", "groups", "gid", "uid", "exec"]
+    assert [e[0] for e in events] == ["groups", "gid", "uid", "exec"]
     assert "8765" in events[-1][1][1]
     assert "--no-proxy-headers" in events[-1][1][1]
 

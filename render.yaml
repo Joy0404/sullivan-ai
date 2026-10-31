@@ -1,9 +1,9 @@
-# One public Docker service; only the quota database persists.
+# Free web service; shared quota is stored in external Neon PostgreSQL.
 services:
   - type: web
     name: sullivan-ai
     runtime: docker
-    plan: 0.5c-512mb
+    plan: free
     region: singapore
     branch: main
     dockerfilePath: ./Dockerfile
@@ -11,19 +11,15 @@ services:
     healthCheckPath: /health
     autoDeployTrigger: checksPass
     numInstances: 1
-    disk:
-      name: demo-usage
-      mountPath: /var/data
-      sizeGB: 1
     envVars:
       - key: GEMINI_API_KEY
         sync: false
       - key: DEMO_ACCESS_CODE
         sync: false
-      - key: DEMO_USAGE_DB
-        value: /var/data/demo_usage.sqlite
-      - key: DEMO_DATA_DIR
-        value: /var/data
+      - key: DATABASE_URL
+        sync: false
+      - key: DATABASE_URL_UNPOOLED
+        sync: false
       - key: TRUST_RENDER_PROXY
         value: "1"
       - key: DEMO_DAILY_LIMIT

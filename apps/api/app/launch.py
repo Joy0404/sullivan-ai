@@ -1,7 +1,6 @@
-"""Prepare the attached data directory, drop privileges, and exec the web server."""
+"""Drop privileges and exec the web server; no persistent disk is required."""
 
 import os
-from pathlib import Path
 import sys
 
 UID = 10001
@@ -9,11 +8,6 @@ UID = 10001
 
 def main():
     if os.geteuid() == 0:
-        # A runtime disk can hide ownership assigned in the Docker image.
-        # Change only its root directory; never recursively follow stored paths.
-        data_dir = Path(os.getenv("DEMO_DATA_DIR", "/var/data"))
-        if os.getenv("RENDER") == "true" and os.path.ismount(data_dir):
-            os.chown(data_dir, UID, UID)
         os.setgroups([])
         os.setgid(UID)
         os.setuid(UID)

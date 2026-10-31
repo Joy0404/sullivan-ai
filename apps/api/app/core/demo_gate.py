@@ -11,6 +11,7 @@ from pathlib import Path
 import sqlite3
 
 from fastapi import Request
+from app.core import postgres_usage
 
 KST = timezone(timedelta(hours=9))
 DEFAULT_DAILY_LIMIT = 3
@@ -95,13 +96,7 @@ def usage_day() -> str:
 def usage_path() -> Path:
     path = Path(os.getenv("DEMO_USAGE_DB", "data/demo_usage.sqlite"))
     if os.getenv("RENDER") == "true":
-        mount = Path(os.getenv("DEMO_DATA_DIR", "/var/data"))
-        if not os.path.ismount(mount) or not path.resolve().is_relative_to(
-            mount.resolve()
-        ):
-            raise DemoGateError(
-                503, "체험 횟수 DB를 Render 영구 디스크 안에 설정해야 합니다."
-            )
+        raise DemoGateError(503, "실제 분석을 위한 DATABASE_URL 설정이 필요합니다.")
     return path
 
 
@@ -116,6 +111,18 @@ class DailyUsageLimiter:
     def _access(self, ip: str, consume: bool) -> int:
         day = usage_day()  # one date per transaction, including midnight boundaries
         identity = hashlib.sha256(f"{day}:{ip}".encode()).hexdigest()
+        limit = self.limit()
+        if limit <= 0:
+            raise DemoGateError(429, DAILY_LIMIT_MESSAGE)
+        dsn = os.getenv("DATABASE_URL", "").strip()
+        if dsn:
+            try:
+                used = postgres_usage.access(dsn, identity, day, limit, consume)
+            except postgres_usage.UsageStorageError as error:
+                raise DemoGateError(503, str(error)) from None
+            if used is None:
+                raise DemoGateError(429, DAILY_LIMIT_MESSAGE)
+            return limit - used
         path = usage_path()
         try:
             path.parent.mkdir(parents=True, exist_ok=True)
@@ -150,7 +157,7 @@ class DailyUsageLimiter:
 
     def reset(self) -> None:
         """Test/development helper; never reset quota on service startup."""
-        if os.getenv("RENDER") == "true":
+        if os.getenv("RENDER") == "true" or os.getenv("DATABASE_URL"):
             raise DemoGateError(
                 503, "공개 서비스에서는 체험 횟수를 초기화할 수 없습니다."
             )

@@ -12,6 +12,21 @@ permissions:
 jobs:
   test:
     runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: ci-only
+          POSTGRES_DB: sullivan_test
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U postgres -d sullivan_test"
+          --health-interval 5s --health-timeout 5s --health-retries 10
+    env:
+      # Disposable CI-only database. Never use production credentials here.
+      TEST_DATABASE_URL: postgresql://postgres:ci-only@127.0.0.1:5432/sullivan_test?sslmode=disable
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5

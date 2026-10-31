@@ -215,7 +215,7 @@ async def register_video_link(
         check_access_code(
             payload.access_code.get_secret_value() if payload.access_code else None
         )
-        limiter.consume(client_ip(request))
+        await asyncio.to_thread(limiter.consume, client_ip(request))
         try:
             analysis = await asyncio.wait_for(
                 analyze_video_link(
@@ -314,7 +314,7 @@ async def analyze_uploaded_video_file(
     try:
         ip = client_ip(request)
         check_access_code(access_code)
-        limiter.ensure_available(ip)
+        await asyncio.to_thread(limiter.ensure_available, ip)
     except DemoGateError as error:
         raise _gate_http_error(error) from error
 
@@ -386,7 +386,7 @@ async def analyze_uploaded_video_file(
                 status_code=400, detail="빈 영상 파일은 분석할 수 없습니다."
             )
 
-        remaining_trials = limiter.consume(ip)
+        remaining_trials = await asyncio.to_thread(limiter.consume, ip)
         analysis = await asyncio.wait_for(
             analyze_uploaded_video_with_gemini(
                 temporary_path,
@@ -518,7 +518,7 @@ async def run_lecture_agent_turn(
             check_access_code(
                 payload.access_code.get_secret_value() if payload.access_code else None
             )
-            limiter.consume(client_ip(request))
+            await asyncio.to_thread(limiter.consume, client_ip(request))
         except DemoGateError as error:
             raise HTTPException(
                 status_code=error.status_code,

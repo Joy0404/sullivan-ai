@@ -1,3 +1,5 @@
+> 이 문서는 이전 유료 디스크 구성의 검증 이력입니다. 현재 무료 구성은 FREE_DEPLOY_STATUS.md와 DEPLOY_RENDER.md를 참고하세요.
+
 # Render 전환 검증 결과
 
 대상: 비공개 저장소 `Joy0404/sullivan-ai`, 기존 main `7efef7f0c55a52d7895628daf19eef2bf0403f30` 기준.
