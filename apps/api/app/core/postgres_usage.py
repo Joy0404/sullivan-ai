@@ -23,7 +23,8 @@ def _connect(dsn):
     config = conninfo_to_dict(dsn)
     if os.getenv("RENDER") == "true":
         config["sslmode"] = "require"
-    return psycopg.connect(**config, connect_timeout=5, prepare_threshold=None)
+    config["connect_timeout"] = 5
+    return psycopg.connect(**config, prepare_threshold=None)
 
 
 def _setup(dsn):

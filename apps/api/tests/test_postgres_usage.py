@@ -66,7 +66,9 @@ def test_render_enforces_tls_for_database_connections(monkeypatch):
     monkeypatch.setattr(
         postgres_usage.psycopg, "connect", lambda **kwargs: observed.append(kwargs)
     )
-    postgres_usage._connect("postgresql://test@db.invalid/demo?sslmode=disable")
+    postgres_usage._connect(
+        "postgresql://test@db.invalid/demo?sslmode=disable&connect_timeout=100"
+    )
     assert observed[0]["sslmode"] == "require"
     assert observed[0]["connect_timeout"] == 5
     assert observed[0]["prepare_threshold"] is None
