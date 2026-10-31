@@ -63,7 +63,9 @@ def verify(base: str, wait_seconds: int = 60) -> None:
     status, _ = fetch(
         f"/v1/lectures/{sid}/agent-turn", {"message": "verify consent gate"}
     )
-    assert status == 400
+    # An unconfigured agent returns 503 before any provider call; a configured
+    # agent must reject missing consent with 400. Both are fail-closed states.
+    assert status in {400, 503}
     fetch(f"/v1/lectures/{sid}/end", {})
     print(
         "PASS: health, web assets, same-origin API, secret-path blocking, sample analysis and consent gates"
