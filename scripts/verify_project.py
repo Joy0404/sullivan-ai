@@ -12,7 +12,7 @@ ROOT = Path(__file__).resolve().parents[1]
 
 
 def verify_python_syntax() -> int:
-    paths = [path for path in ROOT.rglob("*.py") if "__pycache__" not in path.parts]
+    paths = [path for path in ROOT.rglob("*.py") if not {"__pycache__", ".venv", "venv", "node_modules"}.intersection(path.parts)]
     for path in paths:
         ast.parse(path.read_text(encoding="utf-8"), filename=str(path))
     return len(paths)
@@ -69,8 +69,9 @@ def verify_playback_and_voice() -> int:
     web = (ROOT / "apps" / "web" / "app.js").read_text(encoding="utf-8")
     html = (ROOT / "apps" / "web" / "index.html").read_text(encoding="utf-8")
     scheduler = (ROOT / "apps" / "web" / "playback-scheduler.js").read_text(encoding="utf-8")
-    sample = (ROOT / "apps" / "web" / "sample-data.js").read_text(encoding="utf-8")
-    history_sample = (ROOT / "apps" / "web" / "sample-data-history.js").read_text(encoding="utf-8")
+    catalog = json.loads((ROOT / "apps" / "web" / "sample-catalog.json").read_text(encoding="utf-8"))
+    sample = json.dumps(catalog["science"]["snapshot"], ensure_ascii=False)
+    portal = (ROOT / "apps" / "web" / "role-portal.js").read_text(encoding="utf-8")
     concepts = (ROOT / "apps" / "web" / "concept-tools.js").read_text(encoding="utf-8")
     narration = (ROOT / "apps" / "web" / "narration-context.js").read_text(encoding="utf-8")
     passages = (ROOT / "apps" / "web" / "passage-tools.js").read_text(encoding="utf-8")
@@ -83,11 +84,11 @@ def verify_playback_and_voice() -> int:
         "natural voice selection": "voiceScore" in web and "voiceschanged" in web,
         "voice chooser": 'id="speech-voice"' in html,
         "voice prosody controls": all(marker in html for marker in ['id="speech-style"', 'id="speech-pitch"', 'id="speech-volume"']),
-        "early sample checkpoint": 'timestamp_ms: 43000' in sample and 'action: "DESCRIBE_AT_BREAK"' in sample,
-        "dual sample catalog": "thJxqtTgSNY" in web and "sample-data-history.js" in html,
+        "early sample checkpoint": any(g["timestamp_ms"] == 43000 and g["action"] == "DESCRIBE_AT_BREAK" for g in catalog["science"]["snapshot"]["visual_gaps"]),
+        "dual sample catalog": set(catalog) == {"science", "history"} and "sample-catalog.js" in html,
         "lecturer first concept playback": "playConceptSequence" in web and "conceptSequenceTimer" in web,
         "grounded concept search": "conceptsForSnapshot" in concepts and "mentioned" in concepts,
-        "history safety hold": 'action: "HOLD"' in history_sample and 'safe_to_speak: false' in history_sample,
+        "history safety hold": any(g["action"] == "HOLD" and not g["safe_to_speak"] for g in catalog["history"]["snapshot"]["visual_gaps"]),
         "contextual concise narration": "contextFor" in narration and "compose" in narration and "SullivanNarration" in web,
         "voice preview": 'id="preview-voice"' in html and "음성 미리 듣기 후 자동 재생" in web,
         "underlined paragraph replay": "resolveCommand" in passages and "underlinedParagraphIds" in web and 'id="paragraph-voice-command"' in html,
@@ -98,15 +99,13 @@ def verify_playback_and_voice() -> int:
         "saved lecture voice request": "findRequested" in library and 'id="saved-lecture-voice"' in html,
         "grounded Gemini action agent": "requestAgentTurn" in web and "/agent-turn" in web and 'id="agent-model-status"' in html,
         "client agent privacy boundary": "safeSnapshotForAgent" in web and "source_text: null" in web,
-        "global hold space voice": "startSpaceVoiceRecognition" in web and "2_000" in web and "playSpaceVoiceReadyChime" in web,
-        "release executes voice command": "finishSpaceVoiceGesture" in web and "executeGlobalVoiceCommand" in web,
-        "double space returns to lecture": "handleQuickSpaceTap" in web and "cancelVoiceGuidanceAndResume" in web and "1_000" in web,
-        "space command guide": "SPACE_COMMAND_GUIDE" in web and "beginSpaceVoiceRecognition" in web,
-        "second hold skips command guide": "skipGuideAndBeginListening" in web and "guideSkipTimer" in web and "650" in web,
-        "speech recognition auto restart": "startSpaceRecognitionEngine" in web and "recognitionRestartTimer" in web,
-        "microphone permission blur guard": "visibilitychange" in web and "permission popover" in web,
-        "triple space text command": "openTextCommandDialog" in web and 'id="text-command-input"' in html and "open_text_command" in voice_commands,
-        "free keyboard and pointer control mode": "enterFreeControlMode" in web and "exitFreeControlMode" in web and "마우스 클릭과 화면의 모든 버튼" in web and "free_mode" in voice_commands,
+        "single gesture engine": "SullivanSpaceGesture.create" in portal and "startSpaceVoiceRecognition" not in web,
+        "hold release command": "hold:startVoice" in portal and "finishVoice" in portal and "playSpaceVoiceReadyChime" in web,
+        "double stop triple type": "count>=3" in portal and "count===2" in portal and "typeDialog" in portal,
+        "account onboarding": "showHelp" in portal and "'/onboarding'" in portal,
+        "microphone fallback": "recognition.onerror" in portal and "typeDialog" in portal,
+        "native dialog focus": "showModal()" in portal and "closeDialog" in portal,
+        "visible command focus": "command-surface" in web,
         "direct arrow seeking": "plainArrow" in web and "seekRelative(-10_000)" in web and "seekRelative(10_000)" in web,
         "youtube keyboard conflict guard": "disablekb: 1" in web and "restoreGlobalSpaceFocus" in web,
         "voice command router": "SullivanVoiceCommands" in voice_commands and "summary_audio" in voice_commands,

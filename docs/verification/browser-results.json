@@ -1,0 +1,27 @@
+{
+  "checks": [
+    "guardian account → linked student → sample preparation → assignment and ready: keyboard PASS",
+    "analysis wait: Tab/Shift+Tab contained, Escape cancels waiting, return focus, no stale publish; server boundary simulated: PASS",
+    "guardian TXT import → actual API passage processing; explicit encrypted browser media save → ready: PASS",
+    "guardian design: empty-student settings disabled, disclosure keyboard toggle, settings save, ready/assigned labels, deletion cancel and four-size dashboard/preparation/publish reflow: PASS",
+    "named focus speech fallback only when opted in; rapid Tab cancels stale labels; external-reader mode stays silent: PASS (speech API mocked)",
+    "student four purposes, ordered accessible lecture names, selection focus and role API denial: PASS",
+    "loaded lecture → home → each learning purpose: visible destination and correct focus: PASS",
+    "native Space activates buttons; 10-second seek, server autosave, reload resume + notes; onboarding not repeated: PASS",
+    "single/double/triple/hold sequencing, text Space, Escape focus restore, microphone unavailable → text: PASS",
+    "mocked voice and typed identical command → identical seek: PASS",
+    "automatic safe visual gap: actual scheduler pauses → narration → resumes (TTS/player mocked): PASS",
+    "grounded question/summary local fallback, no student consent/code prompt, single response announcement channel: PASS",
+    "external-reader concept explanation remains available; no false speech-completion or automatic resume: PASS",
+    "multiple search results; original lecturer segment before AI explanation; return to original timestamp: PASS (player/TTS boundary mocked)",
+    "encrypted local WebM decrypts and plays in actual browser; no raw video server persistence: PASS",
+    "sentence selection rerender retains the same sentence focus: PASS",
+    "actual passage, underline name/state, focus retention and persisted underline: PASS",
+    "320/390/1280/1920px no overflow, Tab/Shift+Tab round trip, role names, quote injection blocked: PASS",
+    "student design: four unchanged accessible purpose names and app speech; 52px targets, home reflow, 200% equivalent viewport and forced-color focus: PASS",
+    "separate student empty assignment and simulated list-network failure with retry: PASS"
+  ],
+  "page_errors": [],
+  "screen_reader": "not tested",
+  "providers": "YouTube and recognition mocked; Gemini not called"
+}

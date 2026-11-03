@@ -90,6 +90,10 @@ app = FastAPI(
 )
 agent = LectureAgent()
 
+from app import local_access
+app.include_router(local_access.router)
+app.middleware("http")(local_access.guard)
+
 app.add_middleware(UploadBodyLimit)
 
 
@@ -138,13 +142,15 @@ def health() -> dict[str, str]:
             if os.getenv("DEMO_ACCESS_CODE") and os.getenv("GEMINI_API_KEY")
             else "disabled"
         ),
-        "daily_trial_limit": str(limiter.limit()),
+        "daily_trial_limit": "unlimited" if os.getenv("LOCAL_TEST_UNLIMITED") == "1" and os.getenv("RENDER") != "true" and not os.getenv("DATABASE_URL") else str(limiter.limit()),
     }
 
 
 @app.post("/v1/lectures", response_model=LectureSession, status_code=201)
-def create_lecture(payload: LectureCreate) -> LectureSession:
-    return agent.create_session(payload)
+def create_lecture(payload: LectureCreate, request: Request) -> LectureSession:
+    session = agent.create_session(payload)
+    local_access.attach_owner(request, session.session_id)
+    return session
 
 
 @app.post(

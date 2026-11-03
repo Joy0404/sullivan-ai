@@ -1,0 +1,38 @@
+/* Hallmark · scope: app · theme: existing Sullivan learning blue · v2.0.0 */
+/* Critique: share one readable palette across login, learning and preparation. */
+/* Hallmark · finish-review: in-thread · 4 findings resolved · gap: none · Floor 0 FAIL · Reflex 0 open */
+:root {
+  color-scheme: light;
+  --font-body: "Apple SD Gothic Neo", "Malgun Gothic", "Noto Sans KR", sans-serif;
+  --ink: #172c48;
+  --muted: #465c73;
+  --line: #b7c6d7;
+  --paper: #ffffff;
+  --canvas: #eef3f8;
+  --navy: var(--ink);
+  --brand: #164b8b;
+  --brand-dark: var(--brand);
+  --brand-soft: #e8f0fa;
+  --cyan: var(--brand);
+  --green: #16583e;
+  --green-soft: #e6f4ed;
+  --amber: #754600;
+  --amber-soft: #fff2d5;
+  --red: #903c2e;
+  --red-soft: #fceeea;
+  --control-border: #6f87a3;
+  --disabled-ink: #526478;
+  --disabled-paper: #e3e9f0;
+  --disabled-line: #a6b6c8;
+  --focus-ring: #8c4700;
+  --media-bg: #111c2c;
+  --overlay: rgba(17, 28, 44, .78);
+  --portal-bg: var(--canvas);
+  --portal-ink: var(--ink);
+  --portal-paper: var(--paper);
+  --radius: 8px;
+  --shadow: none;
+  --system-focus: Highlight;
+  --system-ink: CanvasText;
+  --system-control: ButtonText;
+}

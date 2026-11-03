@@ -1,15 +1,8 @@
 const assert = require("node:assert/strict");
-const fs = require("node:fs");
-const path = require("node:path");
-const vm = require("node:vm");
 const narration = require("../apps/web/narration-context.js");
 
-const context = vm.createContext({ window: {} });
-for (const name of ["sample-data.js", "sample-data-history.js"]) {
-  vm.runInContext(fs.readFileSync(path.join(__dirname, "..", "apps", "web", name), "utf8"), context, { filename: name });
-}
-
-const samples = context.window.SULLIVAN_SAMPLE_LIBRARY;
+const entries = require("../apps/web/sample-catalog.json");
+const samples = Object.fromEntries(Object.entries(entries).map(([id,spec])=>[id,spec.snapshot]));
 for (const sample of Object.values(samples)) {
   const automatic = sample.visual_gaps.filter((gap) => ["INTERRUPT", "DESCRIBE_AT_BREAK"].includes(gap.action));
   for (const gap of automatic) {

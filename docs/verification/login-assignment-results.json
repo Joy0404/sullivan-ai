@@ -1,0 +1,21 @@
+{
+  "initial_student_login_focus_and_single_voice_request": true,
+  "login_tab_voice_default": true,
+  "guardian_selection_stops_voice": true,
+  "student_selection_continues_and_persists_voice": true,
+  "wrong_role_rejected_without_session": true,
+  "sample_assignment_ready_atomic": true,
+  "already_logged_in_student_refreshes_list": true,
+  "existing_pending_sample_recovered": true,
+  "credential_values_not_spoken": true,
+  "four_size_login_reflow": true,
+  "login_axe_violations": 0,
+  "page_errors": [],
+  "real_audio": "not heard; speech and YouTube mocked",
+  "both_samples_direct_ui_without_preview_data": true,
+  "submit_without_submitter_saves": true,
+  "failed_save_not_reported_as_success": true,
+  "outdated_server_detected": true,
+  "delayed_initial_list_keeps_keyboard_focus": true,
+  "delayed_onboarding_keeps_keyboard_focus": true
+}

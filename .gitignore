@@ -16,3 +16,6 @@ data/private/
 *.sqlite*
 *.zip
 .neon
+.hallmark/
+apps/web/.hallmark/
+docs/verification/*.png

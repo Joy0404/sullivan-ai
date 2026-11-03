@@ -180,7 +180,22 @@ class LessonReview(BaseModel):
     key_segments: list[ReviewItem] = Field(default_factory=list)
 
 
+class ConceptEntry(BaseModel):
+    concept_id: str = Field(max_length=120)
+    keyword: str = Field(max_length=240)
+    aliases: list[str] = Field(default_factory=list, max_length=40)
+    category: str = Field(default="핵심 개념", max_length=240)
+    timestamp_ms: int = Field(ge=0)
+    end_ms: int = Field(ge=0)
+    lecturer_point: str = Field(default="", max_length=6000)
+    ai_explanation: str = Field(default="", max_length=6000)
+    flow: str = Field(default="", max_length=4000)
+    related_keywords: list[str] = Field(default_factory=list, max_length=40)
+    importance: float = Field(default=.8, ge=0, le=1)
+
+
 class LectureSnapshot(BaseModel):
+    concept_index: list[ConceptEntry] = Field(default_factory=list, max_length=200)
     session: LectureSession
     assets: list[AssetRecord] = Field(default_factory=list)
     transcript_segments: list[TranscriptSegment] = Field(default_factory=list)
