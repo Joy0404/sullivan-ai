@@ -14,6 +14,7 @@ from fastapi import APIRouter, HTTPException, Request
 from fastapi.responses import JSONResponse
 from pydantic import BaseModel, Field, SecretStr
 from app.runtime import BUILD, INSTANCE
+from app import login_voice
 
 router = APIRouter(prefix='/local')
 COOKIE = 'sullivan_local_session'
@@ -125,8 +126,22 @@ def login_response(c,ident):
     return response
 
 @router.get('/status')
-def status():
-    with db() as c:return {'needs_setup':not bool(c.execute("SELECT 1 FROM users WHERE role='guardian'").fetchone()),'build':BUILD,'instance':INSTANCE,'sample_assignment':'server-catalog-v1'}
+def status(request:Request):
+    with db() as c:return {'needs_setup':not bool(c.execute("SELECT 1 FROM users WHERE role='guardian'").fetchone()),'build':BUILD,'instance':INSTANCE,'sample_assignment':'server-catalog-v1','system_login_voice':login_voice.available(request)}
+
+class LoginVoiceRequest(BaseModel):
+    model_config={'extra':'forbid'}
+    action:Literal['start','stop']
+    ident:str=Field(min_length=8,max_length=64,pattern=r'^[a-zA-Z0-9-]+$')
+
+@router.post('/login-voice')
+def initial_login_voice(p:LoginVoiceRequest,request:Request):
+    if not login_voice.available(request):raise HTTPException(503,'이 실행에서는 로컬 시작 음성을 사용할 수 없습니다.')
+    if p.action=='stop':
+        login_voice.stop(p.ident)
+        return {'completed':False,'cancelled':True}
+    if current(request) is not None:raise HTTPException(409,'로그인된 화면에서는 시작 안내를 실행하지 않습니다.')
+    return login_voice.speak(p.ident)
 
 @router.post('/setup')
 def setup(p:Credentials):

@@ -135,6 +135,7 @@ def main():
         return
     print(f'실행 작업본: {ROOT.name}\n빌드: {BUILD}')
     os.environ['SULLIVAN_ROLE_AUTH']='1'
+    os.environ.setdefault('SULLIVAN_SYSTEM_LOGIN_VOICE','1' if sys.platform=='darwin' else '0')
     os.environ['SULLIVAN_ACCOUNTS_DB']=str(ROOT/'data/private/accounts.sqlite')
     # This isolated copy never uses the deployed Render / Neon database.
     for name in ['RENDER','DATABASE_URL','DATABASE_URL_UNPOOLED','TRUST_RENDER_PROXY','LINK_ANALYZER_URL','LINK_ANALYZER_TOKEN']:
