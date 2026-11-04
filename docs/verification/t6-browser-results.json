@@ -1,0 +1,246 @@
+{
+  "task": "T6",
+  "measurements": [
+    {
+      "kind": "youtube",
+      "activation": "Enter",
+      "requested_position_ms": 0,
+      "elapsed_ms": 3104,
+      "before": {
+        "position_ms": 0,
+        "playing": false,
+        "label": "강의 일시정지. 재생 버튼으로 이어 들으세요.",
+        "log": [
+          "cue"
+        ]
+      },
+      "after": {
+        "position_ms": 0,
+        "playing": false,
+        "label": "강의 일시정지. 재생 버튼으로 이어 들으세요.",
+        "log": [
+          "cue"
+        ]
+      }
+    },
+    {
+      "kind": "youtube",
+      "activation": "Space",
+      "requested_position_ms": 92000,
+      "elapsed_ms": 3103,
+      "before": {
+        "position_ms": 92000,
+        "playing": false,
+        "label": "강의 일시정지. 재생 버튼으로 이어 들으세요.",
+        "log": [
+          "cue"
+        ]
+      },
+      "after": {
+        "position_ms": 92000,
+        "playing": false,
+        "label": "강의 일시정지. 재생 버튼으로 이어 들으세요.",
+        "log": [
+          "cue"
+        ]
+      }
+    },
+    {
+      "kind": "local",
+      "activation": "Enter",
+      "requested_position_ms": 0,
+      "elapsed_ms": 3103,
+      "before": {
+        "position_ms": 0,
+        "playing": false,
+        "label": "강의 일시정지. 재생 버튼으로 이어 들으세요.",
+        "log": []
+      },
+      "after": {
+        "position_ms": 0,
+        "playing": false,
+        "label": "강의 일시정지. 재생 버튼으로 이어 들으세요.",
+        "log": []
+      }
+    },
+    {
+      "kind": "local",
+      "activation": "Space",
+      "requested_position_ms": 200,
+      "elapsed_ms": 3104,
+      "before": {
+        "position_ms": 200,
+        "playing": false,
+        "label": "강의 일시정지. 재생 버튼으로 이어 들으세요.",
+        "log": []
+      },
+      "after": {
+        "position_ms": 200,
+        "playing": false,
+        "label": "강의 일시정지. 재생 버튼으로 이어 들으세요.",
+        "log": []
+      }
+    },
+    {
+      "kind": "direct",
+      "activation": "Enter",
+      "requested_position_ms": 0,
+      "elapsed_ms": 3104,
+      "before": {
+        "position_ms": 0,
+        "playing": false,
+        "label": "강의 일시정지. 재생 버튼으로 이어 들으세요.",
+        "log": []
+      },
+      "after": {
+        "position_ms": 0,
+        "playing": false,
+        "label": "강의 일시정지. 재생 버튼으로 이어 들으세요.",
+        "log": []
+      }
+    },
+    {
+      "kind": "direct",
+      "activation": "Space",
+      "requested_position_ms": 200,
+      "elapsed_ms": 3104,
+      "before": {
+        "position_ms": 200,
+        "playing": false,
+        "label": "강의 일시정지. 재생 버튼으로 이어 들으세요.",
+        "log": []
+      },
+      "after": {
+        "position_ms": 200,
+        "playing": false,
+        "label": "강의 일시정지. 재생 버튼으로 이어 들으세요.",
+        "log": []
+      }
+    }
+  ],
+  "patterns": [
+    {
+      "id": "login-username",
+      "pattern": "[a-zA-Z0-9_.\\-]{3,60}",
+      "tests": [
+        {
+          "value": "abc",
+          "valid": true
+        },
+        {
+          "value": "a-b",
+          "valid": true
+        },
+        {
+          "value": "a_b",
+          "valid": true
+        },
+        {
+          "value": "a.b",
+          "valid": true
+        },
+        {
+          "value": "A9Z",
+          "valid": true
+        },
+        {
+          "value": "length 60",
+          "valid": true
+        },
+        {
+          "value": "ab",
+          "valid": false
+        },
+        {
+          "value": "length 61",
+          "valid": false
+        },
+        {
+          "value": "a@b",
+          "valid": false
+        },
+        {
+          "value": "가나다",
+          "valid": false
+        },
+        {
+          "value": "a b",
+          "valid": false
+        }
+      ]
+    },
+    {
+      "id": "username",
+      "pattern": "[a-zA-Z0-9_.\\-]{3,60}",
+      "tests": [
+        {
+          "value": "abc",
+          "valid": true
+        },
+        {
+          "value": "a-b",
+          "valid": true
+        },
+        {
+          "value": "a_b",
+          "valid": true
+        },
+        {
+          "value": "a.b",
+          "valid": true
+        },
+        {
+          "value": "A9Z",
+          "valid": true
+        },
+        {
+          "value": "length 60",
+          "valid": true
+        },
+        {
+          "value": "ab",
+          "valid": false
+        },
+        {
+          "value": "length 61",
+          "valid": false
+        },
+        {
+          "value": "a@b",
+          "valid": false
+        },
+        {
+          "value": "가나다",
+          "valid": false
+        },
+        {
+          "value": "a b",
+          "valid": false
+        }
+      ]
+    }
+  ],
+  "axe": [
+    {
+      "width": 1280,
+      "violations": [],
+      "incomplete": [
+        "aria-allowed-role"
+      ]
+    },
+    {
+      "width": 390,
+      "violations": [],
+      "incomplete": [
+        "aria-allowed-role"
+      ]
+    }
+  ],
+  "page_errors": [],
+  "console_pattern_errors": [],
+  "notes": [
+    "Real local HTTP/auth/encrypted browser media. YouTube is a CUED/seek-autoplay mock with advancing clock; direct media response is the generated local WebM, intercepted in browser. No provider calls."
+  ],
+  "explicit_play_pause": true,
+  "passed": true
+}

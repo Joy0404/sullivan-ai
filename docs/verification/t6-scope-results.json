@@ -1,0 +1,11 @@
+{
+  "task": "T6",
+  "only_source_file_changed": [
+    "apps/web/index.html"
+  ],
+  "html_diff_exactly_two_escaped_hyphens": true,
+  "all_css_and_js_unchanged": true,
+  "autoplay_fix_already_present": "46e9c09",
+  "new_gets_or_provider_changes": false,
+  "refs_tracked_in_diff": false
+}

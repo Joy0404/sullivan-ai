@@ -1,0 +1,6538 @@
+{
+  "scope": "Browser AX tree + keyboard + optional axe; no actual screen-reader audio",
+  "screens": [
+    {
+      "screen": "account-setup",
+      "browser": "156.0.8078.4",
+      "axe_version": null,
+      "keyboard_ax_controls": [
+        {
+          "id": "",
+          "role": "link",
+          "name": "본문으로 바로가기",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "link",
+          "name": "Sullivan AI 강의 학습 도우미 처음 화면",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "login-role-guardian",
+          "role": "button",
+          "name": "보호자 로그인",
+          "states": {
+            "focused": true,
+            "pressed": "false"
+          }
+        },
+        {
+          "id": "login-focus-voice",
+          "role": "checkbox",
+          "name": "로그인 앱 음성 안내",
+          "states": {
+            "focused": true,
+            "checked": "true"
+          }
+        },
+        {
+          "id": "login-username",
+          "role": "textbox",
+          "name": "로그인 이름",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "login-password",
+          "role": "textbox",
+          "name": "비밀번호",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "setup-name",
+          "role": "textbox",
+          "name": "보호자 이름",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "login-submit",
+          "role": "button",
+          "name": "보호자 계정 만들기",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "login-voice-test",
+          "role": "button",
+          "name": "로그인 음성 시작·시험",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "link",
+          "name": "처음이신가요? 보호자 소개 보기",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "DisclosureTriangle",
+          "name": "실행 정보",
+          "states": {
+            "focused": true,
+            "expanded": false
+          }
+        }
+      ],
+      "reverse_tab_coverage": true,
+      "axe_violations": []
+    },
+    {
+      "screen": "guardian-dashboard",
+      "browser": "156.0.8078.4",
+      "axe_version": null,
+      "keyboard_ax_controls": [
+        {
+          "id": "",
+          "role": "link",
+          "name": "본문으로 바로가기",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "link",
+          "name": "Sullivan AI 강의 학습 도우미 처음 화면",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "link",
+          "name": "가이드",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "portal-logout",
+          "role": "button",
+          "name": "로그아웃",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "link",
+          "name": "도움",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "DisclosureTriangle",
+          "name": "새 학생 계정 만들기",
+          "states": {
+            "focused": true,
+            "expanded": true
+          }
+        },
+        {
+          "id": "",
+          "role": "textbox",
+          "name": "학생 이름",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "textbox",
+          "name": "학생 로그인 이름",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "textbox",
+          "name": "학생 비밀번호",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "학생 계정 만들기",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "link",
+          "name": "학생 계정 만들기 할 차례",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "link",
+          "name": "강의 준비하기 아직",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "link",
+          "name": "학생에게 배정하기 아직",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "link",
+          "name": "학생별 기본 설정 (선택) 기본값",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "guardian-next",
+          "role": "link",
+          "name": "학생 계정 만들기",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "DisclosureTriangle",
+          "name": "학생별 기본 설정",
+          "states": {
+            "focused": true,
+            "expanded": false
+          }
+        },
+        {
+          "id": "guardian-prepare",
+          "role": "button",
+          "name": "내 강의 자료 준비",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "DisclosureTriangle",
+          "name": "샘플로 연습하기",
+          "states": {
+            "focused": true,
+            "expanded": false
+          }
+        },
+        {
+          "id": "",
+          "role": "DisclosureTriangle",
+          "name": "도움",
+          "states": {
+            "focused": true,
+            "expanded": true
+          }
+        },
+        {
+          "id": "guardian-help-guide",
+          "role": "link",
+          "name": "학생 계정 만들기 안내",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "DisclosureTriangle",
+          "name": "준비 현황은 어떻게 바뀌나요?",
+          "states": {
+            "focused": true,
+            "expanded": false
+          }
+        },
+        {
+          "id": "",
+          "role": "DisclosureTriangle",
+          "name": "계정 전환·저장·API 연결 안내",
+          "states": {
+            "focused": true,
+            "expanded": false
+          }
+        },
+        {
+          "id": "",
+          "role": "DisclosureTriangle",
+          "name": "실행 정보",
+          "states": {
+            "focused": true,
+            "expanded": false
+          }
+        }
+      ],
+      "reverse_tab_coverage": true,
+      "axe_violations": []
+    },
+    {
+      "screen": "guardian-settings-unavailable",
+      "browser": "156.0.8078.4",
+      "axe_version": null,
+      "keyboard_ax_controls": [
+        {
+          "id": "",
+          "role": "link",
+          "name": "본문으로 바로가기",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "link",
+          "name": "Sullivan AI 강의 학습 도우미 처음 화면",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "link",
+          "name": "가이드",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "portal-logout",
+          "role": "button",
+          "name": "로그아웃",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "link",
+          "name": "도움",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "DisclosureTriangle",
+          "name": "새 학생 계정 만들기",
+          "states": {
+            "focused": true,
+            "expanded": true
+          }
+        },
+        {
+          "id": "",
+          "role": "textbox",
+          "name": "학생 이름",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "textbox",
+          "name": "학생 로그인 이름",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "textbox",
+          "name": "학생 비밀번호",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "학생 계정 만들기",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "link",
+          "name": "학생 계정 만들기 할 차례",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "link",
+          "name": "강의 준비하기 아직",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "link",
+          "name": "학생에게 배정하기 아직",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "link",
+          "name": "학생별 기본 설정 (선택) 기본값",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "guardian-next",
+          "role": "link",
+          "name": "학생 계정 만들기",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "DisclosureTriangle",
+          "name": "학생별 기본 설정",
+          "states": {
+            "focused": true,
+            "expanded": true
+          }
+        },
+        {
+          "id": "guardian-prepare",
+          "role": "button",
+          "name": "내 강의 자료 준비",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "DisclosureTriangle",
+          "name": "샘플로 연습하기",
+          "states": {
+            "focused": true,
+            "expanded": false
+          }
+        },
+        {
+          "id": "",
+          "role": "DisclosureTriangle",
+          "name": "도움",
+          "states": {
+            "focused": true,
+            "expanded": true
+          }
+        },
+        {
+          "id": "guardian-help-guide",
+          "role": "link",
+          "name": "학생 계정 만들기 안내",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "DisclosureTriangle",
+          "name": "준비 현황은 어떻게 바뀌나요?",
+          "states": {
+            "focused": true,
+            "expanded": false
+          }
+        },
+        {
+          "id": "",
+          "role": "DisclosureTriangle",
+          "name": "계정 전환·저장·API 연결 안내",
+          "states": {
+            "focused": true,
+            "expanded": false
+          }
+        },
+        {
+          "id": "",
+          "role": "DisclosureTriangle",
+          "name": "실행 정보",
+          "states": {
+            "focused": true,
+            "expanded": false
+          }
+        }
+      ],
+      "reverse_tab_coverage": true,
+      "axe_violations": []
+    },
+    {
+      "screen": "guardian-settings",
+      "browser": "156.0.8078.4",
+      "axe_version": null,
+      "keyboard_ax_controls": [
+        {
+          "id": "",
+          "role": "link",
+          "name": "본문으로 바로가기",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "link",
+          "name": "Sullivan AI 강의 학습 도우미 처음 화면",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "link",
+          "name": "가이드",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "portal-logout",
+          "role": "button",
+          "name": "로그아웃",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "link",
+          "name": "도움",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "link",
+          "name": "학생 계정 만들기 완료",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "link",
+          "name": "강의 준비하기 할 차례",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "link",
+          "name": "학생에게 배정하기 아직",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "link",
+          "name": "학생별 기본 설정 (선택) 기본값",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "guardian-next",
+          "role": "link",
+          "name": "강의 준비하기",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "DisclosureTriangle",
+          "name": "학습 현황",
+          "states": {
+            "focused": true,
+            "expanded": false
+          }
+        },
+        {
+          "id": "",
+          "role": "link",
+          "name": "설정",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "DisclosureTriangle",
+          "name": "새 학생 계정 만들기",
+          "states": {
+            "focused": true,
+            "expanded": false
+          }
+        },
+        {
+          "id": "",
+          "role": "DisclosureTriangle",
+          "name": "학생별 기본 설정",
+          "states": {
+            "focused": true,
+            "expanded": true
+          }
+        },
+        {
+          "id": "settings-student",
+          "role": "combobox",
+          "name": "학생",
+          "states": {
+            "focused": true,
+            "expanded": false
+          }
+        },
+        {
+          "id": "settings-auto",
+          "role": "checkbox",
+          "name": "자동 화면 해설",
+          "states": {
+            "focused": true,
+            "checked": "true"
+          }
+        },
+        {
+          "id": "settings-problem",
+          "role": "checkbox",
+          "name": "문제 보호 모드",
+          "states": {
+            "focused": true,
+            "checked": "true"
+          }
+        },
+        {
+          "id": "settings-focus-voice",
+          "role": "checkbox",
+          "name": "외부 스크린리더 없이 앱 음성으로 버튼 이름 안내",
+          "states": {
+            "focused": true,
+            "checked": "false"
+          }
+        },
+        {
+          "id": "settings-reader",
+          "role": "checkbox",
+          "name": "앱 음성 대신 스크린리더 안내",
+          "states": {
+            "focused": true,
+            "checked": "false"
+          }
+        },
+        {
+          "id": "settings-rate",
+          "role": "combobox",
+          "name": "기본 읽기 속도",
+          "states": {
+            "focused": true,
+            "expanded": false
+          }
+        },
+        {
+          "id": "settings-volume",
+          "role": "combobox",
+          "name": "기본 음량",
+          "states": {
+            "focused": true,
+            "expanded": false
+          }
+        },
+        {
+          "id": "settings-reset",
+          "role": "checkbox",
+          "name": "다음 로그인 때 최초 안내 다시 표시",
+          "states": {
+            "focused": true,
+            "checked": "false"
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "학생 설정 저장",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "guardian-prepare",
+          "role": "button",
+          "name": "내 강의 자료 준비",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "DisclosureTriangle",
+          "name": "샘플로 연습하기",
+          "states": {
+            "focused": true,
+            "expanded": true
+          }
+        },
+        {
+          "id": "guardian-science",
+          "role": "button",
+          "name": "과학 샘플 미리보기",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "guardian-history",
+          "role": "button",
+          "name": "역사 샘플 미리보기",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "sample-assign-student",
+          "role": "combobox",
+          "name": "배정할 학생",
+          "states": {
+            "focused": true,
+            "expanded": false
+          }
+        },
+        {
+          "id": "sample-assign-kind",
+          "role": "combobox",
+          "name": "샘플 강의",
+          "states": {
+            "focused": true,
+            "expanded": false
+          }
+        },
+        {
+          "id": "sample-assign-submit",
+          "role": "button",
+          "name": "선택한 학생에게 샘플 배정",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "DisclosureTriangle",
+          "name": "도움",
+          "states": {
+            "focused": true,
+            "expanded": true
+          }
+        },
+        {
+          "id": "guardian-help-guide",
+          "role": "link",
+          "name": "강의 준비하기 안내",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "DisclosureTriangle",
+          "name": "준비 현황은 어떻게 바뀌나요?",
+          "states": {
+            "focused": true,
+            "expanded": false
+          }
+        },
+        {
+          "id": "",
+          "role": "DisclosureTriangle",
+          "name": "계정 전환·저장·API 연결 안내",
+          "states": {
+            "focused": true,
+            "expanded": false
+          }
+        },
+        {
+          "id": "",
+          "role": "DisclosureTriangle",
+          "name": "실행 정보",
+          "states": {
+            "focused": true,
+            "expanded": false
+          }
+        }
+      ],
+      "reverse_tab_coverage": true,
+      "axe_violations": []
+    },
+    {
+      "screen": "guardian-publish",
+      "browser": "156.0.8078.4",
+      "axe_version": null,
+      "keyboard_ax_controls": [
+        {
+          "id": "",
+          "role": "link",
+          "name": "본문으로 바로가기",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "link",
+          "name": "Sullivan AI 강의 학습 도우미 처음 화면",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "link",
+          "name": "가이드",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "portal-logout",
+          "role": "button",
+          "name": "로그아웃",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "강의 화면",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "핵심 개념 찾기",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "화면 정보 복습",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "AI 학습 노트",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "AI 학습 대화",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "해설한 이유",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "lecture-youtube",
+          "role": "Iframe",
+          "name": "천문학 특강 7강 · 별의 진화 영상 플레이어",
+          "states": {}
+        },
+        {
+          "id": "speech-voice",
+          "role": "combobox",
+          "name": "한국어 해설 음성",
+          "states": {
+            "focused": true,
+            "expanded": false
+          }
+        },
+        {
+          "id": "speech-style",
+          "role": "combobox",
+          "name": "말투",
+          "states": {
+            "focused": true,
+            "expanded": false
+          }
+        },
+        {
+          "id": "speech-pitch",
+          "role": "combobox",
+          "name": "음높이",
+          "states": {
+            "focused": true,
+            "expanded": false
+          }
+        },
+        {
+          "id": "describe-now",
+          "role": "button",
+          "name": "현재 화면 해설",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "preview-voice",
+          "role": "button",
+          "name": "음성 미리 듣기",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "read-summary-guide",
+          "role": "button",
+          "name": "요약 음성 가이드",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "stop-speech",
+          "role": "button",
+          "name": "영상·음성 멈춤",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "0:12 화면 제목 아래에 오늘 다룰 탄생, 주계열 단계, 질량에 따른 최후가 순서대로 제시되어 있습니다.",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "0:43 칠판에는 성운의 가스와 먼지가 한곳으로 모여 원시별이 되는 과정이, 왼쪽에서 오른쪽 화살표로 그려져 있습니다.",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "3:55 칠판에는 성운의 가스와 먼지가 중력 수축해 원시별을 이루고, 다시 중심 수축을 거쳐 주계열성이 되는 과정이 왼쪽에서 오른쪽 화살표로 연결되어 있습니다. 주계열성 아래에는 중심 온도 약 천만 켈빈이 적혀 있습니다.",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "6:50 그림의 안쪽 화살표는 중력, 바깥쪽 화살표는 내부 기체 압력을 나타내며 두 힘이 평형을 이룹니다.",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "11:45 진화 흐름도가 주계열성 이후 두 갈래로 나뉩니다. 위쪽은 질량이 큰 별, 아래쪽은 태양 정도 질량의 별입니다.",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "9:20 화면의 수명 비교 막대에서 질량이 큰 별은 짧고, 질량이 작은 별은 훨씬 길게 표시됩니다. 질량이 클수록 연료를 더 빠르게 쓰는 관계입니다.",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "13:55 강사가 다음 경로를 강조했습니다. 태양 정도 질량의 별은 주계열성, 적색 거성, 행성상 성운, 백색 왜성 순서로 진화합니다.",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "17:35 강사가 다음 경로를 강조했습니다. 질량이 큰 별은 주계열성, 초거성, 초신성, 중성자별 또는 블랙홀 순서로 진화합니다.",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "16:10 비교표의 왼쪽 열은 태양 정도 질량의 별, 오른쪽 열은 질량이 큰 별입니다. 두 열은 행성상 성운과 초신성에서 갈라지고, 마지막 천체도 백색 왜성과 중성자별·블랙홀로 다릅니다.",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "20:00 마지막 천체 그림은 백색 왜성, 중성자별, 블랙홀 순으로 더 작고 조밀한 대상으로 배치되어 있습니다. 블랙홀 쪽 화살표에는 매우 큰 초기 질량이라는 조건이 붙습니다.",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "21:25 초신성에서 무거운 원소가 생성되고 성간 물질로 퍼져 새 별과 행성의 재료가 되는 순환 화살표가 있습니다.",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "run-demo-analysis",
+          "role": "button",
+          "name": "샘플 결과 다시 불러오기",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "DisclosureTriangle",
+          "name": "강사 발화 구간 더 보기",
+          "states": {
+            "focused": true,
+            "expanded": false
+          }
+        },
+        {
+          "id": "publish-title-input",
+          "role": "textbox",
+          "name": "학생에게 표시할 제목",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "publish-subject",
+          "role": "textbox",
+          "name": "과목",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "checkbox",
+          "name": "학생 하나 (student1)",
+          "states": {
+            "focused": true,
+            "checked": "false"
+          }
+        },
+        {
+          "id": "publish-chat",
+          "role": "checkbox",
+          "name": "분석 준비 때 확인한 체험 비밀번호 (실제 분석에만 필요)로 이 강의의 Gemini 학습 대화를 학생에게 허용합니다.",
+          "states": {
+            "focused": true,
+            "checked": "false"
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "배정하고 준비 완료",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "보호자 준비실로",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "link",
+          "name": "이 강의를 학생에게 제공",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "DisclosureTriangle",
+          "name": "실행 정보",
+          "states": {
+            "focused": true,
+            "expanded": false
+          }
+        }
+      ],
+      "reverse_tab_coverage": true,
+      "axe_violations": []
+    },
+    {
+      "screen": "guardian-watch",
+      "browser": "156.0.8078.4",
+      "axe_version": null,
+      "keyboard_ax_controls": [
+        {
+          "id": "",
+          "role": "link",
+          "name": "본문으로 바로가기",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "link",
+          "name": "Sullivan AI 강의 학습 도우미 처음 화면",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "link",
+          "name": "가이드",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "portal-logout",
+          "role": "button",
+          "name": "로그아웃",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "강의 화면",
+          "states": {
+            "focused": true,
+            "pressed": "true"
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "핵심 개념 찾기",
+          "states": {
+            "focused": true,
+            "pressed": "false"
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "화면 정보 복습",
+          "states": {
+            "focused": true,
+            "pressed": "false"
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "AI 학습 노트",
+          "states": {
+            "focused": true,
+            "pressed": "false"
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "AI 학습 대화",
+          "states": {
+            "focused": true,
+            "pressed": "false"
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "해설한 이유",
+          "states": {
+            "focused": true,
+            "pressed": "false"
+          }
+        },
+        {
+          "id": "lecture-youtube",
+          "role": "Iframe",
+          "name": "천문학 특강 7강 · 별의 진화 영상 플레이어",
+          "states": {}
+        },
+        {
+          "id": "speech-voice",
+          "role": "combobox",
+          "name": "한국어 해설 음성",
+          "states": {
+            "focused": true,
+            "expanded": false
+          }
+        },
+        {
+          "id": "speech-style",
+          "role": "combobox",
+          "name": "말투",
+          "states": {
+            "focused": true,
+            "expanded": false
+          }
+        },
+        {
+          "id": "speech-pitch",
+          "role": "combobox",
+          "name": "음높이",
+          "states": {
+            "focused": true,
+            "expanded": false
+          }
+        },
+        {
+          "id": "describe-now",
+          "role": "button",
+          "name": "현재 화면 해설",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "preview-voice",
+          "role": "button",
+          "name": "음성 미리 듣기",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "read-summary-guide",
+          "role": "button",
+          "name": "요약 음성 가이드",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "stop-speech",
+          "role": "button",
+          "name": "영상·음성 멈춤",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "0:12 화면 제목 아래에 오늘 다룰 탄생, 주계열 단계, 질량에 따른 최후가 순서대로 제시되어 있습니다.",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "0:43 칠판에는 성운의 가스와 먼지가 한곳으로 모여 원시별이 되는 과정이, 왼쪽에서 오른쪽 화살표로 그려져 있습니다.",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "3:55 칠판에는 성운의 가스와 먼지가 중력 수축해 원시별을 이루고, 다시 중심 수축을 거쳐 주계열성이 되는 과정이 왼쪽에서 오른쪽 화살표로 연결되어 있습니다. 주계열성 아래에는 중심 온도 약 천만 켈빈이 적혀 있습니다.",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "6:50 그림의 안쪽 화살표는 중력, 바깥쪽 화살표는 내부 기체 압력을 나타내며 두 힘이 평형을 이룹니다.",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "11:45 진화 흐름도가 주계열성 이후 두 갈래로 나뉩니다. 위쪽은 질량이 큰 별, 아래쪽은 태양 정도 질량의 별입니다.",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "9:20 화면의 수명 비교 막대에서 질량이 큰 별은 짧고, 질량이 작은 별은 훨씬 길게 표시됩니다. 질량이 클수록 연료를 더 빠르게 쓰는 관계입니다.",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "13:55 강사가 다음 경로를 강조했습니다. 태양 정도 질량의 별은 주계열성, 적색 거성, 행성상 성운, 백색 왜성 순서로 진화합니다.",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "17:35 강사가 다음 경로를 강조했습니다. 질량이 큰 별은 주계열성, 초거성, 초신성, 중성자별 또는 블랙홀 순서로 진화합니다.",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "16:10 비교표의 왼쪽 열은 태양 정도 질량의 별, 오른쪽 열은 질량이 큰 별입니다. 두 열은 행성상 성운과 초신성에서 갈라지고, 마지막 천체도 백색 왜성과 중성자별·블랙홀로 다릅니다.",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "20:00 마지막 천체 그림은 백색 왜성, 중성자별, 블랙홀 순으로 더 작고 조밀한 대상으로 배치되어 있습니다. 블랙홀 쪽 화살표에는 매우 큰 초기 질량이라는 조건이 붙습니다.",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "21:25 초신성에서 무거운 원소가 생성되고 성간 물질로 퍼져 새 별과 행성의 재료가 되는 순환 화살표가 있습니다.",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "run-demo-analysis",
+          "role": "button",
+          "name": "샘플 결과 다시 불러오기",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "DisclosureTriangle",
+          "name": "강사 발화 구간 더 보기",
+          "states": {
+            "focused": true,
+            "expanded": false
+          }
+        },
+        {
+          "id": "publish-title-input",
+          "role": "textbox",
+          "name": "학생에게 표시할 제목",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "publish-subject",
+          "role": "textbox",
+          "name": "과목",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "checkbox",
+          "name": "학생 하나 (student1)",
+          "states": {
+            "focused": true,
+            "checked": "false"
+          }
+        },
+        {
+          "id": "publish-chat",
+          "role": "checkbox",
+          "name": "분석 준비 때 확인한 체험 비밀번호 (실제 분석에만 필요)로 이 강의의 Gemini 학습 대화를 학생에게 허용합니다.",
+          "states": {
+            "focused": true,
+            "checked": "false"
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "배정하고 준비 완료",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "보호자 준비실로",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "link",
+          "name": "이 강의를 학생에게 제공",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "DisclosureTriangle",
+          "name": "실행 정보",
+          "states": {
+            "focused": true,
+            "expanded": false
+          }
+        }
+      ],
+      "reverse_tab_coverage": true,
+      "axe_violations": []
+    },
+    {
+      "screen": "guardian-passage",
+      "browser": "156.0.8078.4",
+      "axe_version": null,
+      "keyboard_ax_controls": [
+        {
+          "id": "",
+          "role": "link",
+          "name": "본문으로 바로가기",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "link",
+          "name": "Sullivan AI 강의 학습 도우미 처음 화면",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "link",
+          "name": "가이드",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "portal-logout",
+          "role": "button",
+          "name": "로그아웃",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "강의 화면",
+          "states": {
+            "focused": true,
+            "pressed": "false"
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "핵심 개념 찾기",
+          "states": {
+            "focused": true,
+            "pressed": "true"
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "화면 정보 복습",
+          "states": {
+            "focused": true,
+            "pressed": "false"
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "AI 학습 노트",
+          "states": {
+            "focused": true,
+            "pressed": "false"
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "AI 학습 대화",
+          "states": {
+            "focused": true,
+            "pressed": "false"
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "해설한 이유",
+          "states": {
+            "focused": true,
+            "pressed": "false"
+          }
+        },
+        {
+          "id": "navigation-command",
+          "role": "textbox",
+          "name": "핵심 개념 탐색 명령",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "voice-command",
+          "role": "button",
+          "name": "타자 명령 입력",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "찾기",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "전체 흐름",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "원인",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "전개",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "결과",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "인물",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "비교",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "stop-concept-sequence",
+          "role": "button",
+          "name": "강사·AI 재생 멈춤",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "read-current",
+          "role": "button",
+          "name": "선택 개념 말하기",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "탄생 2:30 성운 성운의 가스와 먼지가 중력으로 모이는 과정 성운 → 중력 수축 → 원시별",
+          "states": {
+            "focused": true,
+            "pressed": "true"
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "말하기: 성운 강사 구간을 듣고 AI 설명 듣기",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "탄생 2:38 중력 수축 중력이 물질을 중심으로 끌어당긴다 성운 → 중력 수축 → 중심 온도 상승",
+          "states": {
+            "focused": true,
+            "pressed": "false"
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "말하기: 중력 수축 강사 구간을 듣고 AI 설명 듣기",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "탄생 2:50 원시별 핵융합을 시작하기 전의 별 중력 수축 → 원시별 → 수소 핵융합",
+          "states": {
+            "focused": true,
+            "pressed": "false"
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "말하기: 원시별 강사 구간을 듣고 AI 설명 듣기",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "판서 흐름 3:55 별의 탄생 판서 성운의 물질이 중력 수축해 원시별을 거쳐 주계열성이 되는 과정 성운 → 중력 수축 → 원시별 → 중심 수축 → 주계열성",
+          "states": {
+            "focused": true,
+            "pressed": "false"
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "말하기: 별의 탄생 판서 강사 구간을 듣고 AI 설명 듣기",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "별의 탄생 4:02 중심 수축 원시별의 중심이 수축하며 온도가 높아진다 원시별 → 중심 수축 → 중심 온도 상승",
+          "states": {
+            "focused": true,
+            "pressed": "false"
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "말하기: 중심 수축 강사 구간을 듣고 AI 설명 듣기",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "별의 탄생 4:10 중심 온도 천만 켈빈 판서에 주계열성의 중심 온도가 약 천만 켈빈으로 표시된다 중심 온도 약 10⁷ K → 수소 핵융합 → 주계열성",
+          "states": {
+            "focused": true,
+            "pressed": "false"
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "말하기: 중심 온도 천만 켈빈 강사 구간을 듣고 AI 설명 듣기",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "주계열 단계 5:18 수소 핵융합 중심 온도가 충분히 높아지면 수소 핵융합이 시작된다 중심 온도 상승 → 수소 핵융합 → 주계열성",
+          "states": {
+            "focused": true,
+            "pressed": "false"
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "말하기: 수소 핵융합 강사 구간을 듣고 AI 설명 듣기",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "주계열 단계 5:30 주계열성 별이 일생의 대부분을 보내는 안정된 단계 수소 핵융합 시작 → 주계열성",
+          "states": {
+            "focused": true,
+            "pressed": "false"
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "말하기: 주계열성 강사 구간을 듣고 AI 설명 듣기",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "주계열 단계 6:50 정역학적 평형 안쪽 중력과 바깥쪽 내부 압력이 균형을 이룬다 중력 ↔ 내부 압력",
+          "states": {
+            "focused": true,
+            "pressed": "false"
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "말하기: 정역학적 평형 강사 구간을 듣고 AI 설명 듣기",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "진화 분기 9:20 질량과 수명 질량이 큰 별일수록 연료를 빠르게 쓴다 큰 질량 → 빠른 연료 소비 → 짧은 수명",
+          "states": {
+            "focused": true,
+            "pressed": "false"
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "말하기: 질량과 수명 강사 구간을 듣고 AI 설명 듣기",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "진화 분기 10:10 초기 질량 별의 진화 경로를 결정하는 조건 초기 질량 → 수명과 최후 결정",
+          "states": {
+            "focused": true,
+            "pressed": "false"
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "말하기: 초기 질량 강사 구간을 듣고 AI 설명 듣기",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "태양형 별 14:44 적색 거성 중심 수소가 줄고 바깥층이 팽창한다 주계열성 → 적색 거성",
+          "states": {
+            "focused": true,
+            "pressed": "false"
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "말하기: 적색 거성 강사 구간을 듣고 AI 설명 듣기",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "태양형 별 15:20 행성상 성운 적색 거성의 바깥층이 우주로 퍼진다 적색 거성 → 행성상 성운 → 백색 왜성",
+          "states": {
+            "focused": true,
+            "pressed": "false"
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "말하기: 행성상 성운 강사 구간을 듣고 AI 설명 듣기",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "태양형 별 15:42 백색 왜성 태양 정도 질량의 별이 남기는 작고 조밀한 핵 행성상 성운 → 백색 왜성",
+          "states": {
+            "focused": true,
+            "pressed": "false"
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "말하기: 백색 왜성 강사 구간을 듣고 AI 설명 듣기",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "대질량 별 17:35 초거성 질량이 큰 별이 크게 팽창한 단계 주계열성 → 초거성 → 초신성",
+          "states": {
+            "focused": true,
+            "pressed": "false"
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "말하기: 초거성 강사 구간을 듣고 AI 설명 듣기",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "대질량 별 19:02 초신성 질량이 큰 별의 마지막에 일어나는 큰 폭발 초거성 → 초신성 → 잔해",
+          "states": {
+            "focused": true,
+            "pressed": "false"
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "말하기: 초신성 강사 구간을 듣고 AI 설명 듣기",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "대질량 별 19:32 중성자별 초신성 뒤 남을 수 있는 매우 조밀한 천체 초신성 → 중성자별",
+          "states": {
+            "focused": true,
+            "pressed": "false"
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "말하기: 중성자별 강사 구간을 듣고 AI 설명 듣기",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "대질량 별 19:50 블랙홀 초기 질량이 매우 클 때 생길 수 있는 마지막 천체 매우 큰 초기 질량 → 초신성 → 블랙홀",
+          "states": {
+            "focused": true,
+            "pressed": "false"
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "말하기: 블랙홀 강사 구간을 듣고 AI 설명 듣기",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "우주 순환 22:40 원소 순환 별에서 만들어진 원소가 우주로 퍼진다 별의 핵융합 → 초신성 → 성간 물질 → 새 별과 행성",
+          "states": {
+            "focused": true,
+            "pressed": "false"
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "말하기: 원소 순환 강사 구간을 듣고 AI 설명 듣기",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "paragraph-navigation-command",
+          "role": "textbox",
+          "name": "긴 지문 문단 탐색 명령",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "paragraph-voice-command",
+          "role": "button",
+          "name": "타자 명령 입력",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "다시 듣기",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "전체 지문 낭독",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "전체 흐름",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "앞 문단",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "다음 문단",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "밑줄 문단 듣기",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "1문단 별의 탄생 선택",
+          "states": {
+            "focused": true,
+            "pressed": "true"
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "2문단 주계열 단계 선택",
+          "states": {
+            "focused": true,
+            "pressed": "false"
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "3문단 질량에 따른 진화 선택",
+          "states": {
+            "focused": true,
+            "pressed": "false"
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "4문단 핵심 정리 선택",
+          "states": {
+            "focused": true,
+            "pressed": "false"
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "밑줄 표시",
+          "states": {
+            "focused": true,
+            "pressed": "false"
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "문단 듣기",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "1문단 1 별은 성운의 일부가 중력으로 수축하면서 원시별로 태어난다.",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "1문단 2 중심 온도가 충분히 높아져 수소 핵융합이 시작되면 주계열성이 된다.",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "밑줄 표시",
+          "states": {
+            "focused": true,
+            "pressed": "false"
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "문단 듣기",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "2문단 1 별은 일생의 대부분을 주계열성으로 보내며, 이때 중심에서 수소가 헬륨으로 바뀐다.",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "2문단 2 중심의 수소가 줄어들면 중심부는 수축하고 바깥층은 팽창한다.",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "밑줄 표시",
+          "states": {
+            "focused": true,
+            "pressed": "false"
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "문단 듣기",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "3문단 1 태양과 질량이 비슷한 별은 적색 거성, 행성상 성운을 거쳐 백색 왜성이 된다. 강조",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "3문단 2 질량이 매우 큰 별은 초거성과 초신성을 거쳐 중성자별 또는 블랙홀이 된다.",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "밑줄 표시",
+          "states": {
+            "focused": true,
+            "pressed": "false"
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "문단 듣기",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "4문단 1 따라서 별의 초기 질량은 진화 속도와 마지막 단계, 우주에 퍼뜨리는 원소를 결정하는 핵심 조건이다.",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "publish-title-input",
+          "role": "textbox",
+          "name": "학생에게 표시할 제목",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "publish-subject",
+          "role": "textbox",
+          "name": "과목",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "checkbox",
+          "name": "학생 하나 (student1)",
+          "states": {
+            "focused": true,
+            "checked": "false"
+          }
+        },
+        {
+          "id": "publish-chat",
+          "role": "checkbox",
+          "name": "분석 준비 때 확인한 체험 비밀번호 (실제 분석에만 필요)로 이 강의의 Gemini 학습 대화를 학생에게 허용합니다.",
+          "states": {
+            "focused": true,
+            "checked": "false"
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "배정하고 준비 완료",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "보호자 준비실로",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "link",
+          "name": "이 강의를 학생에게 제공",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "DisclosureTriangle",
+          "name": "실행 정보",
+          "states": {
+            "focused": true,
+            "expanded": false
+          }
+        }
+      ],
+      "reverse_tab_coverage": true,
+      "axe_violations": []
+    },
+    {
+      "screen": "guardian-review",
+      "browser": "156.0.8078.4",
+      "axe_version": null,
+      "keyboard_ax_controls": [
+        {
+          "id": "",
+          "role": "link",
+          "name": "본문으로 바로가기",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "link",
+          "name": "Sullivan AI 강의 학습 도우미 처음 화면",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "link",
+          "name": "가이드",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "portal-logout",
+          "role": "button",
+          "name": "로그아웃",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "강의 화면",
+          "states": {
+            "focused": true,
+            "pressed": "false"
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "핵심 개념 찾기",
+          "states": {
+            "focused": true,
+            "pressed": "false"
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "화면 정보 복습",
+          "states": {
+            "focused": true,
+            "pressed": "true"
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "AI 학습 노트",
+          "states": {
+            "focused": true,
+            "pressed": "false"
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "AI 학습 대화",
+          "states": {
+            "focused": true,
+            "pressed": "false"
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "해설한 이유",
+          "states": {
+            "focused": true,
+            "pressed": "false"
+          }
+        },
+        {
+          "id": "read-review",
+          "role": "button",
+          "name": "전체 핵심 듣기",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "핵심 핵심 1 별은 성운의 중력 수축으로 태어나 중심 수소 핵융합이 시작되면 주계열성이 됩니다.",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "핵심 핵심 2 별의 초기 질량에 따라 주계열 단계 이후의 진화 경로가 달라집니다.",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "핵심 핵심 3 초신성에서 퍼진 원소는 새로운 별과 행성을 만드는 재료가 됩니다.",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "0:43 성운에서 원시별로 성운의 가스와 먼지가 한곳으로 모여 원시별이 되는 흐름이 화살표로 표시됩니다.",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "3:55 별의 탄생 판서 성운의 가스와 먼지 → 중력 수축 → 원시별 → 중심 수축 → 주계열성의 흐름과 중심 온도 약 천만 켈빈이 판서되어 있습니다.",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "6:50 주계열성의 평형 중력과 내부 기체 압력이 서로 반대 방향으로 평형을 이룹니다.",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "11:45 질량에 따른 분기 주계열성 이후 진화 경로가 초기 질량에 따라 두 갈래로 나뉩니다.",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "13:55 태양 정도 질량의 별 주계열성 → 적색 거성 → 행성상 성운 → 백색 왜성",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "17:35 질량이 큰 별 주계열성 → 초거성 → 초신성 → 중성자별 또는 블랙홀",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "3:55 원시별에서 주계열성으로 중력 수축과 중심 온도 상승을 거쳐 주계열성이 되는 판서 흐름을 확인합니다.",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "11:45 진화 경로 분기 초기 질량에 따라 달라지는 두 경로를 비교합니다.",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "21:25 원소의 순환 초신성에서 퍼진 원소가 새 별의 재료가 됩니다.",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "publish-title-input",
+          "role": "textbox",
+          "name": "학생에게 표시할 제목",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "publish-subject",
+          "role": "textbox",
+          "name": "과목",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "checkbox",
+          "name": "학생 하나 (student1)",
+          "states": {
+            "focused": true,
+            "checked": "false"
+          }
+        },
+        {
+          "id": "publish-chat",
+          "role": "checkbox",
+          "name": "분석 준비 때 확인한 체험 비밀번호 (실제 분석에만 필요)로 이 강의의 Gemini 학습 대화를 학생에게 허용합니다.",
+          "states": {
+            "focused": true,
+            "checked": "false"
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "배정하고 준비 완료",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "보호자 준비실로",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "link",
+          "name": "이 강의를 학생에게 제공",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "DisclosureTriangle",
+          "name": "실행 정보",
+          "states": {
+            "focused": true,
+            "expanded": false
+          }
+        }
+      ],
+      "reverse_tab_coverage": true,
+      "axe_violations": []
+    },
+    {
+      "screen": "guardian-study",
+      "browser": "156.0.8078.4",
+      "axe_version": null,
+      "keyboard_ax_controls": [
+        {
+          "id": "",
+          "role": "link",
+          "name": "본문으로 바로가기",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "link",
+          "name": "Sullivan AI 강의 학습 도우미 처음 화면",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "link",
+          "name": "가이드",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "portal-logout",
+          "role": "button",
+          "name": "로그아웃",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "강의 화면",
+          "states": {
+            "focused": true,
+            "pressed": "false"
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "핵심 개념 찾기",
+          "states": {
+            "focused": true,
+            "pressed": "false"
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "화면 정보 복습",
+          "states": {
+            "focused": true,
+            "pressed": "false"
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "AI 학습 노트",
+          "states": {
+            "focused": true,
+            "pressed": "true"
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "AI 학습 대화",
+          "states": {
+            "focused": true,
+            "pressed": "false"
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "해설한 이유",
+          "states": {
+            "focused": true,
+            "pressed": "false"
+          }
+        },
+        {
+          "id": "read-study-guide",
+          "role": "button",
+          "name": "학습 노트 전체 듣기",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "bookmark-note",
+          "role": "textbox",
+          "name": "현재 장면 메모",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "add-bookmark",
+          "role": "button",
+          "name": "현재 위치 저장",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "export-study-notes",
+          "role": "button",
+          "name": "학습 노트 Markdown으로 저장",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "publish-title-input",
+          "role": "textbox",
+          "name": "학생에게 표시할 제목",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "publish-subject",
+          "role": "textbox",
+          "name": "과목",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "checkbox",
+          "name": "학생 하나 (student1)",
+          "states": {
+            "focused": true,
+            "checked": "false"
+          }
+        },
+        {
+          "id": "publish-chat",
+          "role": "checkbox",
+          "name": "분석 준비 때 확인한 체험 비밀번호 (실제 분석에만 필요)로 이 강의의 Gemini 학습 대화를 학생에게 허용합니다.",
+          "states": {
+            "focused": true,
+            "checked": "false"
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "배정하고 준비 완료",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "보호자 준비실로",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "link",
+          "name": "이 강의를 학생에게 제공",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "DisclosureTriangle",
+          "name": "실행 정보",
+          "states": {
+            "focused": true,
+            "expanded": false
+          }
+        }
+      ],
+      "reverse_tab_coverage": true,
+      "axe_violations": []
+    },
+    {
+      "screen": "guardian-chat",
+      "browser": "156.0.8078.4",
+      "axe_version": null,
+      "keyboard_ax_controls": [
+        {
+          "id": "",
+          "role": "link",
+          "name": "본문으로 바로가기",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "link",
+          "name": "Sullivan AI 강의 학습 도우미 처음 화면",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "link",
+          "name": "가이드",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "portal-logout",
+          "role": "button",
+          "name": "로그아웃",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "강의 화면",
+          "states": {
+            "focused": true,
+            "pressed": "false"
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "핵심 개념 찾기",
+          "states": {
+            "focused": true,
+            "pressed": "false"
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "화면 정보 복습",
+          "states": {
+            "focused": true,
+            "pressed": "false"
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "AI 학습 노트",
+          "states": {
+            "focused": true,
+            "pressed": "false"
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "AI 학습 대화",
+          "states": {
+            "focused": true,
+            "pressed": "true"
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "해설한 이유",
+          "states": {
+            "focused": true,
+            "pressed": "false"
+          }
+        },
+        {
+          "id": "auto-speak-chat",
+          "role": "checkbox",
+          "name": "AI 응답 자동으로 듣기",
+          "states": {
+            "focused": true,
+            "checked": "false"
+          }
+        },
+        {
+          "id": "chat-input",
+          "role": "textbox",
+          "name": "Sullivan AI에게 요청하기",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "chat-voice",
+          "role": "button",
+          "name": "타자 명령 입력",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "보내기",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "3줄 요약",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "핵심 키워드",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "원인·전개·결과",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "개념 비교",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "자기점검 퀴즈",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "1분 발표문",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "시험 암기표",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "복습 계획",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "publish-title-input",
+          "role": "textbox",
+          "name": "학생에게 표시할 제목",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "publish-subject",
+          "role": "textbox",
+          "name": "과목",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "checkbox",
+          "name": "학생 하나 (student1)",
+          "states": {
+            "focused": true,
+            "checked": "false"
+          }
+        },
+        {
+          "id": "publish-chat",
+          "role": "checkbox",
+          "name": "분석 준비 때 확인한 체험 비밀번호 (실제 분석에만 필요)로 이 강의의 Gemini 학습 대화를 학생에게 허용합니다.",
+          "states": {
+            "focused": true,
+            "checked": "false"
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "배정하고 준비 완료",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "보호자 준비실로",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "link",
+          "name": "이 강의를 학생에게 제공",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "DisclosureTriangle",
+          "name": "실행 정보",
+          "states": {
+            "focused": true,
+            "expanded": false
+          }
+        }
+      ],
+      "reverse_tab_coverage": true,
+      "axe_violations": []
+    },
+    {
+      "screen": "guardian-evidence",
+      "browser": "156.0.8078.4",
+      "axe_version": null,
+      "keyboard_ax_controls": [
+        {
+          "id": "",
+          "role": "link",
+          "name": "본문으로 바로가기",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "link",
+          "name": "Sullivan AI 강의 학습 도우미 처음 화면",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "link",
+          "name": "가이드",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "portal-logout",
+          "role": "button",
+          "name": "로그아웃",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "강의 화면",
+          "states": {
+            "focused": true,
+            "pressed": "false"
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "핵심 개념 찾기",
+          "states": {
+            "focused": true,
+            "pressed": "false"
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "화면 정보 복습",
+          "states": {
+            "focused": true,
+            "pressed": "false"
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "AI 학습 노트",
+          "states": {
+            "focused": true,
+            "pressed": "false"
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "AI 학습 대화",
+          "states": {
+            "focused": true,
+            "pressed": "false"
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "해설한 이유",
+          "states": {
+            "focused": true,
+            "pressed": "true"
+          }
+        },
+        {
+          "id": "publish-title-input",
+          "role": "textbox",
+          "name": "학생에게 표시할 제목",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "publish-subject",
+          "role": "textbox",
+          "name": "과목",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "checkbox",
+          "name": "학생 하나 (student1)",
+          "states": {
+            "focused": true,
+            "checked": "false"
+          }
+        },
+        {
+          "id": "publish-chat",
+          "role": "checkbox",
+          "name": "분석 준비 때 확인한 체험 비밀번호 (실제 분석에만 필요)로 이 강의의 Gemini 학습 대화를 학생에게 허용합니다.",
+          "states": {
+            "focused": true,
+            "checked": "false"
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "배정하고 준비 완료",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "보호자 준비실로",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "link",
+          "name": "이 강의를 학생에게 제공",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "DisclosureTriangle",
+          "name": "실행 정보",
+          "states": {
+            "focused": true,
+            "expanded": false
+          }
+        }
+      ],
+      "reverse_tab_coverage": true,
+      "axe_violations": []
+    },
+    {
+      "screen": "guardian-preparation",
+      "browser": "156.0.8078.4",
+      "axe_version": null,
+      "keyboard_ax_controls": [
+        {
+          "id": "",
+          "role": "link",
+          "name": "본문으로 바로가기",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "link",
+          "name": "Sullivan AI 강의 학습 도우미 처음 화면",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "link",
+          "name": "가이드",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "portal-logout",
+          "role": "button",
+          "name": "로그아웃",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "보호자 준비실",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "DisclosureTriangle",
+          "name": "문제 보호 모드란?",
+          "states": {
+            "focused": true,
+            "expanded": false
+          }
+        },
+        {
+          "id": "",
+          "role": "checkbox",
+          "name": "문제 보호 모드: 최종 정답 대신 힌트와 개념 중심으로 안내",
+          "states": {
+            "focused": true,
+            "checked": "false"
+          }
+        },
+        {
+          "id": "",
+          "role": "checkbox",
+          "name": "이 강의와 자료를 이용·분석할 권한이 있으며 DRM을 우회하지 않았습니다.",
+          "states": {
+            "focused": true,
+            "checked": "false"
+          }
+        },
+        {
+          "id": "wizard-submit",
+          "role": "button",
+          "name": "분석 시작",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "wizard-previous",
+          "role": "button",
+          "name": "이전 단계",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "DisclosureTriangle",
+          "name": "실행 정보",
+          "states": {
+            "focused": true,
+            "expanded": false
+          }
+        }
+      ],
+      "reverse_tab_coverage": true,
+      "axe_violations": []
+    },
+    {
+      "screen": "guardian-analysis-wait",
+      "browser": "156.0.8078.4",
+      "axe_version": null,
+      "keyboard_ax_controls": [
+        {
+          "id": "cancel-analysis-wait",
+          "role": "button",
+          "name": "대기 취소",
+          "states": {
+            "focused": true
+          }
+        }
+      ],
+      "reverse_tab_coverage": true,
+      "axe_violations": []
+    },
+    {
+      "screen": "guardian-preparation-error",
+      "browser": "156.0.8078.4",
+      "axe_version": null,
+      "keyboard_ax_controls": [
+        {
+          "id": "",
+          "role": "link",
+          "name": "본문으로 바로가기",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "link",
+          "name": "Sullivan AI 강의 학습 도우미 처음 화면",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "link",
+          "name": "가이드",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "portal-logout",
+          "role": "button",
+          "name": "로그아웃",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "보호자 준비실",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "DisclosureTriangle",
+          "name": "문제 보호 모드란?",
+          "states": {
+            "focused": true,
+            "expanded": false
+          }
+        },
+        {
+          "id": "",
+          "role": "checkbox",
+          "name": "문제 보호 모드: 최종 정답 대신 힌트와 개념 중심으로 안내",
+          "states": {
+            "focused": true,
+            "checked": "false"
+          }
+        },
+        {
+          "id": "",
+          "role": "checkbox",
+          "name": "이 강의와 자료를 이용·분석할 권한이 있으며 DRM을 우회하지 않았습니다.",
+          "states": {
+            "focused": true,
+            "checked": "true"
+          }
+        },
+        {
+          "id": "wizard-submit",
+          "role": "button",
+          "name": "분석 시작",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "wizard-previous",
+          "role": "button",
+          "name": "이전 단계",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "DisclosureTriangle",
+          "name": "실행 정보",
+          "states": {
+            "focused": true,
+            "expanded": false
+          }
+        }
+      ],
+      "reverse_tab_coverage": true,
+      "axe_violations": []
+    },
+    {
+      "screen": "guardian-management",
+      "browser": "156.0.8078.4",
+      "axe_version": null,
+      "keyboard_ax_controls": [
+        {
+          "id": "",
+          "role": "link",
+          "name": "본문으로 바로가기",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "link",
+          "name": "Sullivan AI 강의 학습 도우미 처음 화면",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "link",
+          "name": "가이드",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "portal-logout",
+          "role": "button",
+          "name": "로그아웃",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "link",
+          "name": "도움",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "link",
+          "name": "학생 계정 만들기 완료",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "link",
+          "name": "강의 준비하기 완료",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "link",
+          "name": "학생에게 배정하기 완료",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "link",
+          "name": "학생별 기본 설정 (선택) 기본값",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "guardian-next",
+          "role": "link",
+          "name": "학생별 설정 확인하기",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "DisclosureTriangle",
+          "name": "학습 현황",
+          "states": {
+            "focused": true,
+            "expanded": false
+          }
+        },
+        {
+          "id": "",
+          "role": "link",
+          "name": "설정",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "DisclosureTriangle",
+          "name": "새 학생 계정 만들기",
+          "states": {
+            "focused": true,
+            "expanded": false
+          }
+        },
+        {
+          "id": "",
+          "role": "DisclosureTriangle",
+          "name": "학생별 기본 설정",
+          "states": {
+            "focused": true,
+            "expanded": false
+          }
+        },
+        {
+          "id": "",
+          "role": "DisclosureTriangle",
+          "name": "관리",
+          "states": {
+            "focused": true,
+            "expanded": false
+          }
+        },
+        {
+          "id": "",
+          "role": "DisclosureTriangle",
+          "name": "관리",
+          "states": {
+            "focused": true,
+            "expanded": false
+          }
+        },
+        {
+          "id": "guardian-prepare",
+          "role": "button",
+          "name": "내 강의 자료 준비",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "DisclosureTriangle",
+          "name": "샘플로 연습하기",
+          "states": {
+            "focused": true,
+            "expanded": true
+          }
+        },
+        {
+          "id": "guardian-science",
+          "role": "button",
+          "name": "과학 샘플 미리보기",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "guardian-history",
+          "role": "button",
+          "name": "역사 샘플 미리보기",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "sample-assign-student",
+          "role": "combobox",
+          "name": "배정할 학생",
+          "states": {
+            "focused": true,
+            "expanded": false
+          }
+        },
+        {
+          "id": "sample-assign-kind",
+          "role": "combobox",
+          "name": "샘플 강의",
+          "states": {
+            "focused": true,
+            "expanded": false
+          }
+        },
+        {
+          "id": "sample-assign-submit",
+          "role": "button",
+          "name": "선택한 학생에게 샘플 배정",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "DisclosureTriangle",
+          "name": "도움",
+          "states": {
+            "focused": true,
+            "expanded": true
+          }
+        },
+        {
+          "id": "guardian-help-guide",
+          "role": "link",
+          "name": "학생별 설정 확인하기 안내",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "DisclosureTriangle",
+          "name": "준비 현황은 어떻게 바뀌나요?",
+          "states": {
+            "focused": true,
+            "expanded": false
+          }
+        },
+        {
+          "id": "",
+          "role": "DisclosureTriangle",
+          "name": "계정 전환·저장·API 연결 안내",
+          "states": {
+            "focused": true,
+            "expanded": false
+          }
+        },
+        {
+          "id": "",
+          "role": "DisclosureTriangle",
+          "name": "실행 정보",
+          "states": {
+            "focused": true,
+            "expanded": false
+          }
+        }
+      ],
+      "reverse_tab_coverage": true,
+      "axe_violations": []
+    },
+    {
+      "screen": "guardian-lecture-edit",
+      "browser": "156.0.8078.4",
+      "axe_version": null,
+      "keyboard_ax_controls": [
+        {
+          "id": "",
+          "role": "link",
+          "name": "본문으로 바로가기",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "link",
+          "name": "Sullivan AI 강의 학습 도우미 처음 화면",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "link",
+          "name": "가이드",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "portal-logout",
+          "role": "button",
+          "name": "로그아웃",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "link",
+          "name": "도움",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "link",
+          "name": "학생 계정 만들기 완료",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "link",
+          "name": "강의 준비하기 완료",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "link",
+          "name": "학생에게 배정하기 완료",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "link",
+          "name": "학생별 기본 설정 (선택) 기본값",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "guardian-next",
+          "role": "link",
+          "name": "학생별 설정 확인하기",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "DisclosureTriangle",
+          "name": "학습 현황",
+          "states": {
+            "focused": true,
+            "expanded": false
+          }
+        },
+        {
+          "id": "",
+          "role": "link",
+          "name": "설정",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "DisclosureTriangle",
+          "name": "새 학생 계정 만들기",
+          "states": {
+            "focused": true,
+            "expanded": false
+          }
+        },
+        {
+          "id": "",
+          "role": "DisclosureTriangle",
+          "name": "학생별 기본 설정",
+          "states": {
+            "focused": true,
+            "expanded": false
+          }
+        },
+        {
+          "id": "",
+          "role": "DisclosureTriangle",
+          "name": "관리",
+          "states": {
+            "focused": true,
+            "expanded": true
+          }
+        },
+        {
+          "id": "",
+          "role": "textbox",
+          "name": "강의 제목",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "textbox",
+          "name": "과목",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "checkbox",
+          "name": "학생 하나 (student1)",
+          "states": {
+            "focused": true,
+            "checked": "true"
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "수정 저장",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "순서 앞당기기",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "순서 뒤로 보내기",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "강의 삭제",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "DisclosureTriangle",
+          "name": "관리",
+          "states": {
+            "focused": true,
+            "expanded": false
+          }
+        },
+        {
+          "id": "guardian-prepare",
+          "role": "button",
+          "name": "내 강의 자료 준비",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "DisclosureTriangle",
+          "name": "샘플로 연습하기",
+          "states": {
+            "focused": true,
+            "expanded": true
+          }
+        },
+        {
+          "id": "guardian-science",
+          "role": "button",
+          "name": "과학 샘플 미리보기",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "guardian-history",
+          "role": "button",
+          "name": "역사 샘플 미리보기",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "sample-assign-student",
+          "role": "combobox",
+          "name": "배정할 학생",
+          "states": {
+            "focused": true,
+            "expanded": false
+          }
+        },
+        {
+          "id": "sample-assign-kind",
+          "role": "combobox",
+          "name": "샘플 강의",
+          "states": {
+            "focused": true,
+            "expanded": false
+          }
+        },
+        {
+          "id": "sample-assign-submit",
+          "role": "button",
+          "name": "선택한 학생에게 샘플 배정",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "DisclosureTriangle",
+          "name": "도움",
+          "states": {
+            "focused": true,
+            "expanded": true
+          }
+        },
+        {
+          "id": "guardian-help-guide",
+          "role": "link",
+          "name": "학생별 설정 확인하기 안내",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "DisclosureTriangle",
+          "name": "준비 현황은 어떻게 바뀌나요?",
+          "states": {
+            "focused": true,
+            "expanded": false
+          }
+        },
+        {
+          "id": "",
+          "role": "DisclosureTriangle",
+          "name": "계정 전환·저장·API 연결 안내",
+          "states": {
+            "focused": true,
+            "expanded": false
+          }
+        },
+        {
+          "id": "",
+          "role": "DisclosureTriangle",
+          "name": "실행 정보",
+          "states": {
+            "focused": true,
+            "expanded": false
+          }
+        }
+      ],
+      "reverse_tab_coverage": true,
+      "axe_violations": []
+    },
+    {
+      "screen": "login",
+      "browser": "156.0.8078.4",
+      "axe_version": null,
+      "keyboard_ax_controls": [
+        {
+          "id": "",
+          "role": "link",
+          "name": "본문으로 바로가기",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "link",
+          "name": "Sullivan AI 강의 학습 도우미 처음 화면",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "login-role-student",
+          "role": "button",
+          "name": "학생 로그인",
+          "states": {
+            "focused": true,
+            "pressed": "false"
+          }
+        },
+        {
+          "id": "login-role-guardian",
+          "role": "button",
+          "name": "보호자 로그인",
+          "states": {
+            "focused": true,
+            "pressed": "false"
+          }
+        },
+        {
+          "id": "login-focus-voice",
+          "role": "checkbox",
+          "name": "로그인 앱 음성 안내",
+          "states": {
+            "focused": true,
+            "checked": "true"
+          }
+        },
+        {
+          "id": "login-username",
+          "role": "textbox",
+          "name": "로그인 이름",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "login-password",
+          "role": "textbox",
+          "name": "비밀번호",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "login-submit",
+          "role": "button",
+          "name": "로그인",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "login-voice-test",
+          "role": "button",
+          "name": "로그인 음성 시작·시험",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "link",
+          "name": "처음이신가요? 보호자 소개 보기",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "DisclosureTriangle",
+          "name": "실행 정보",
+          "states": {
+            "focused": true,
+            "expanded": false
+          }
+        }
+      ],
+      "reverse_tab_coverage": true,
+      "axe_violations": []
+    },
+    {
+      "screen": "login-error",
+      "browser": "156.0.8078.4",
+      "axe_version": null,
+      "keyboard_ax_controls": [
+        {
+          "id": "",
+          "role": "link",
+          "name": "본문으로 바로가기",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "link",
+          "name": "Sullivan AI 강의 학습 도우미 처음 화면",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "login-role-student",
+          "role": "button",
+          "name": "학생 로그인",
+          "states": {
+            "focused": true,
+            "pressed": "false"
+          }
+        },
+        {
+          "id": "login-role-guardian",
+          "role": "button",
+          "name": "보호자 로그인",
+          "states": {
+            "focused": true,
+            "pressed": "false"
+          }
+        },
+        {
+          "id": "login-focus-voice",
+          "role": "checkbox",
+          "name": "로그인 앱 음성 안내",
+          "states": {
+            "focused": true,
+            "checked": "true"
+          }
+        },
+        {
+          "id": "login-username",
+          "role": "textbox",
+          "name": "로그인 이름",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "login-password",
+          "role": "textbox",
+          "name": "비밀번호",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "login-submit",
+          "role": "button",
+          "name": "로그인",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "login-voice-test",
+          "role": "button",
+          "name": "로그인 음성 시작·시험",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "link",
+          "name": "처음이신가요? 보호자 소개 보기",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "DisclosureTriangle",
+          "name": "실행 정보",
+          "states": {
+            "focused": true,
+            "expanded": false
+          }
+        }
+      ],
+      "reverse_tab_coverage": true,
+      "axe_violations": []
+    },
+    {
+      "screen": "student-onboarding",
+      "browser": "156.0.8078.4",
+      "axe_version": null,
+      "keyboard_ax_controls": [
+        {
+          "id": "",
+          "role": "link",
+          "name": "본문으로 바로가기",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "link",
+          "name": "Sullivan AI 강의 학습 도우미 처음 화면",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "portal-logout",
+          "role": "button",
+          "name": "로그아웃",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "onboarding-done",
+          "role": "button",
+          "name": "사용법 확인 완료",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "student-list-open",
+          "role": "button",
+          "name": "강의 듣기",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "지문·문단 듣기",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "원하는 내용 찾기",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "질문하기",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "강의 1. 과학 — 별의 진화",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "강의 2. 영어 — 관계대명사 지문",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "student-help",
+          "role": "button",
+          "name": "사용법 알려줘",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "student-records",
+          "role": "button",
+          "name": "학습 기록",
+          "states": {
+            "focused": true
+          }
+        }
+      ],
+      "reverse_tab_coverage": true,
+      "axe_violations": []
+    },
+    {
+      "screen": "student-home",
+      "browser": "156.0.8078.4",
+      "axe_version": null,
+      "keyboard_ax_controls": [
+        {
+          "id": "",
+          "role": "link",
+          "name": "본문으로 바로가기",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "link",
+          "name": "Sullivan AI 강의 학습 도우미 처음 화면",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "portal-logout",
+          "role": "button",
+          "name": "로그아웃",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "student-list-open",
+          "role": "button",
+          "name": "강의 듣기",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "지문·문단 듣기",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "원하는 내용 찾기",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "질문하기",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "강의 1. 과학 — 별의 진화",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "강의 2. 영어 — 관계대명사 지문",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "student-help",
+          "role": "button",
+          "name": "사용법 알려줘",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "student-records",
+          "role": "button",
+          "name": "학습 기록",
+          "states": {
+            "focused": true
+          }
+        }
+      ],
+      "reverse_tab_coverage": true,
+      "axe_violations": []
+    },
+    {
+      "screen": "student-watch",
+      "browser": "156.0.8078.4",
+      "axe_version": null,
+      "keyboard_ax_controls": [
+        {
+          "id": "",
+          "role": "link",
+          "name": "본문으로 바로가기",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "link",
+          "name": "Sullivan AI 강의 학습 도우미 처음 화면",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "portal-logout",
+          "role": "button",
+          "name": "로그아웃",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "learner-play",
+          "role": "button",
+          "name": "강의 재생",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "learner-stop",
+          "role": "button",
+          "name": "영상·해설 모두 중지",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "learner-describe",
+          "role": "button",
+          "name": "현재 화면 다시 설명",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "command-surface",
+          "role": "group",
+          "name": "별의 진화. 수강 중 빠른 명령",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "강의 듣기",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "지문·문단 듣기",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "원하는 내용 찾기",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "질문하기",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "DisclosureTriangle",
+          "name": "강사 발화 구간 더 보기",
+          "states": {
+            "focused": true,
+            "expanded": false
+          }
+        },
+        {
+          "id": "learner-home",
+          "role": "button",
+          "name": "강의 목록으로",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "learner-records",
+          "role": "button",
+          "name": "학습 기록",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "learner-help",
+          "role": "button",
+          "name": "사용법 알려줘",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "DisclosureTriangle",
+          "name": "음량·읽기 속도·해설 설정",
+          "states": {
+            "focused": true,
+            "expanded": false
+          }
+        }
+      ],
+      "reverse_tab_coverage": true,
+      "axe_violations": []
+    },
+    {
+      "screen": "student-preferences",
+      "browser": "156.0.8078.4",
+      "axe_version": null,
+      "keyboard_ax_controls": [
+        {
+          "id": "",
+          "role": "link",
+          "name": "본문으로 바로가기",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "link",
+          "name": "Sullivan AI 강의 학습 도우미 처음 화면",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "portal-logout",
+          "role": "button",
+          "name": "로그아웃",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "learner-play",
+          "role": "button",
+          "name": "강의 재생",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "learner-stop",
+          "role": "button",
+          "name": "영상·해설 모두 중지",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "learner-describe",
+          "role": "button",
+          "name": "현재 화면 다시 설명",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "command-surface",
+          "role": "group",
+          "name": "별의 진화. 수강 중 빠른 명령",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "강의 듣기",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "지문·문단 듣기",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "원하는 내용 찾기",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "질문하기",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "DisclosureTriangle",
+          "name": "강사 발화 구간 더 보기",
+          "states": {
+            "focused": true,
+            "expanded": false
+          }
+        },
+        {
+          "id": "learner-home",
+          "role": "button",
+          "name": "강의 목록으로",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "learner-records",
+          "role": "button",
+          "name": "학습 기록",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "learner-help",
+          "role": "button",
+          "name": "사용법 알려줘",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "DisclosureTriangle",
+          "name": "음량·읽기 속도·해설 설정",
+          "states": {
+            "focused": true,
+            "expanded": true
+          }
+        },
+        {
+          "id": "speech-rate",
+          "role": "combobox",
+          "name": "음성 속도",
+          "states": {
+            "focused": true,
+            "expanded": false
+          }
+        },
+        {
+          "id": "speech-volume",
+          "role": "combobox",
+          "name": "음량",
+          "states": {
+            "focused": true,
+            "expanded": false
+          }
+        },
+        {
+          "id": "auto-narration",
+          "role": "checkbox",
+          "name": "자동 정지·해설",
+          "states": {
+            "focused": true,
+            "checked": "true"
+          }
+        },
+        {
+          "id": "focus-voice",
+          "role": "checkbox",
+          "name": "외부 스크린리더 없이 앱 음성으로 버튼 이름 안내",
+          "states": {
+            "focused": true,
+            "checked": "false"
+          }
+        },
+        {
+          "id": "focus-voice-test",
+          "role": "button",
+          "name": "음성 시작·시험",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "reader-mode",
+          "role": "checkbox",
+          "name": "외부 스크린리더로 설명 받기 (VoiceOver·NVDA 별도 실행)",
+          "states": {
+            "focused": true,
+            "checked": "false"
+          }
+        }
+      ],
+      "reverse_tab_coverage": true,
+      "axe_violations": []
+    },
+    {
+      "screen": "student-records",
+      "browser": "156.0.8078.4",
+      "axe_version": null,
+      "keyboard_ax_controls": [
+        {
+          "id": "",
+          "role": "link",
+          "name": "본문으로 바로가기",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "link",
+          "name": "Sullivan AI 강의 학습 도우미 처음 화면",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "portal-logout",
+          "role": "button",
+          "name": "로그아웃",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "learner-play",
+          "role": "button",
+          "name": "강의 일시정지",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "learner-stop",
+          "role": "button",
+          "name": "영상·해설 모두 중지",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "learner-describe",
+          "role": "button",
+          "name": "현재 화면 다시 설명",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "command-surface",
+          "role": "group",
+          "name": "별의 진화. 수강 중 빠른 명령",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "강의 듣기",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "지문·문단 듣기",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "원하는 내용 찾기",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "질문하기",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "DisclosureTriangle",
+          "name": "강사 발화 구간 더 보기",
+          "states": {
+            "focused": true,
+            "expanded": false
+          }
+        },
+        {
+          "id": "learner-home",
+          "role": "button",
+          "name": "강의 목록으로",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "learner-records",
+          "role": "button",
+          "name": "학습 기록",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "learner-help",
+          "role": "button",
+          "name": "사용법 알려줘",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "DisclosureTriangle",
+          "name": "음량·읽기 속도·해설 설정",
+          "states": {
+            "focused": true,
+            "expanded": false
+          }
+        },
+        {
+          "id": "learner-note",
+          "role": "textbox",
+          "name": "강의 메모",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "복습 내용",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "학습 노트·북마크",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "records-close",
+          "role": "button",
+          "name": "기록 닫기",
+          "states": {
+            "focused": true
+          }
+        }
+      ],
+      "reverse_tab_coverage": true,
+      "axe_violations": []
+    },
+    {
+      "screen": "student-review",
+      "browser": "156.0.8078.4",
+      "axe_version": null,
+      "keyboard_ax_controls": [
+        {
+          "id": "",
+          "role": "link",
+          "name": "본문으로 바로가기",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "link",
+          "name": "Sullivan AI 강의 학습 도우미 처음 화면",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "portal-logout",
+          "role": "button",
+          "name": "로그아웃",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "learner-play",
+          "role": "button",
+          "name": "강의 일시정지",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "learner-stop",
+          "role": "button",
+          "name": "영상·해설 모두 중지",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "learner-describe",
+          "role": "button",
+          "name": "현재 화면 다시 설명",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "command-surface",
+          "role": "group",
+          "name": "별의 진화. 수강 중 빠른 명령",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "강의 듣기",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "지문·문단 듣기",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "원하는 내용 찾기",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "질문하기",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "read-review",
+          "role": "button",
+          "name": "전체 핵심 듣기",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "핵심 핵심 1 별은 성운의 중력 수축으로 태어나 중심 수소 핵융합이 시작되면 주계열성이 됩니다.",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "핵심 핵심 2 별의 초기 질량에 따라 주계열 단계 이후의 진화 경로가 달라집니다.",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "핵심 핵심 3 초신성에서 퍼진 원소는 새로운 별과 행성을 만드는 재료가 됩니다.",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "0:43 성운에서 원시별로 성운의 가스와 먼지가 한곳으로 모여 원시별이 되는 흐름이 화살표로 표시됩니다.",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "3:55 별의 탄생 판서 성운의 가스와 먼지 → 중력 수축 → 원시별 → 중심 수축 → 주계열성의 흐름과 중심 온도 약 천만 켈빈이 판서되어 있습니다.",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "6:50 주계열성의 평형 중력과 내부 기체 압력이 서로 반대 방향으로 평형을 이룹니다.",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "11:45 질량에 따른 분기 주계열성 이후 진화 경로가 초기 질량에 따라 두 갈래로 나뉩니다.",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "13:55 태양 정도 질량의 별 주계열성 → 적색 거성 → 행성상 성운 → 백색 왜성",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "17:35 질량이 큰 별 주계열성 → 초거성 → 초신성 → 중성자별 또는 블랙홀",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "3:55 원시별에서 주계열성으로 중력 수축과 중심 온도 상승을 거쳐 주계열성이 되는 판서 흐름을 확인합니다.",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "11:45 진화 경로 분기 초기 질량에 따라 달라지는 두 경로를 비교합니다.",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "21:25 원소의 순환 초신성에서 퍼진 원소가 새 별의 재료가 됩니다.",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "learner-home",
+          "role": "button",
+          "name": "강의 목록으로",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "learner-records",
+          "role": "button",
+          "name": "학습 기록",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "learner-help",
+          "role": "button",
+          "name": "사용법 알려줘",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "DisclosureTriangle",
+          "name": "음량·읽기 속도·해설 설정",
+          "states": {
+            "focused": true,
+            "expanded": false
+          }
+        },
+        {
+          "id": "learner-note",
+          "role": "textbox",
+          "name": "강의 메모",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "복습 내용",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "학습 노트·북마크",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "records-close",
+          "role": "button",
+          "name": "기록 닫기",
+          "states": {
+            "focused": true
+          }
+        }
+      ],
+      "reverse_tab_coverage": true,
+      "axe_violations": []
+    },
+    {
+      "screen": "student-study",
+      "browser": "156.0.8078.4",
+      "axe_version": null,
+      "keyboard_ax_controls": [
+        {
+          "id": "",
+          "role": "link",
+          "name": "본문으로 바로가기",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "link",
+          "name": "Sullivan AI 강의 학습 도우미 처음 화면",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "portal-logout",
+          "role": "button",
+          "name": "로그아웃",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "learner-play",
+          "role": "button",
+          "name": "강의 일시정지",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "learner-stop",
+          "role": "button",
+          "name": "영상·해설 모두 중지",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "learner-describe",
+          "role": "button",
+          "name": "현재 화면 다시 설명",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "command-surface",
+          "role": "group",
+          "name": "별의 진화. 수강 중 빠른 명령",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "강의 듣기",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "지문·문단 듣기",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "원하는 내용 찾기",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "질문하기",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "read-study-guide",
+          "role": "button",
+          "name": "학습 노트 전체 듣기",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "bookmark-note",
+          "role": "textbox",
+          "name": "현재 장면 메모",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "add-bookmark",
+          "role": "button",
+          "name": "현재 위치 저장",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "export-study-notes",
+          "role": "button",
+          "name": "학습 노트 Markdown으로 저장",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "learner-home",
+          "role": "button",
+          "name": "강의 목록으로",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "learner-records",
+          "role": "button",
+          "name": "학습 기록",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "learner-help",
+          "role": "button",
+          "name": "사용법 알려줘",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "DisclosureTriangle",
+          "name": "음량·읽기 속도·해설 설정",
+          "states": {
+            "focused": true,
+            "expanded": false
+          }
+        },
+        {
+          "id": "learner-note",
+          "role": "textbox",
+          "name": "강의 메모",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "복습 내용",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "학습 노트·북마크",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "records-close",
+          "role": "button",
+          "name": "기록 닫기",
+          "states": {
+            "focused": true
+          }
+        }
+      ],
+      "reverse_tab_coverage": true,
+      "axe_violations": []
+    },
+    {
+      "screen": "text-command-dialog",
+      "browser": "156.0.8078.4",
+      "axe_version": null,
+      "keyboard_ax_controls": [
+        {
+          "id": "text-command-input",
+          "role": "textbox",
+          "name": "실행할 텍스트 명령",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "close-text-command",
+          "role": "button",
+          "name": "닫기",
+          "states": {
+            "focused": true
+          }
+        }
+      ],
+      "reverse_tab_coverage": true,
+      "axe_violations": []
+    },
+    {
+      "screen": "student-chat",
+      "browser": "156.0.8078.4",
+      "axe_version": null,
+      "keyboard_ax_controls": [
+        {
+          "id": "",
+          "role": "link",
+          "name": "본문으로 바로가기",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "link",
+          "name": "Sullivan AI 강의 학습 도우미 처음 화면",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "portal-logout",
+          "role": "button",
+          "name": "로그아웃",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "learner-play",
+          "role": "button",
+          "name": "강의 재생",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "learner-stop",
+          "role": "button",
+          "name": "영상·해설 모두 중지",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "learner-describe",
+          "role": "button",
+          "name": "현재 화면 다시 설명",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "command-surface",
+          "role": "group",
+          "name": "별의 진화. 수강 중 빠른 명령",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "강의 듣기",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "지문·문단 듣기",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "원하는 내용 찾기",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "질문하기",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "auto-speak-chat",
+          "role": "checkbox",
+          "name": "AI 응답 자동으로 듣기",
+          "states": {
+            "focused": true,
+            "checked": "false"
+          }
+        },
+        {
+          "id": "chat-input",
+          "role": "textbox",
+          "name": "Sullivan AI에게 요청하기",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "chat-voice",
+          "role": "button",
+          "name": "타자 명령 입력",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "보내기",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "learner-home",
+          "role": "button",
+          "name": "강의 목록으로",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "learner-records",
+          "role": "button",
+          "name": "학습 기록",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "learner-help",
+          "role": "button",
+          "name": "사용법 알려줘",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "DisclosureTriangle",
+          "name": "음량·읽기 속도·해설 설정",
+          "states": {
+            "focused": true,
+            "expanded": false
+          }
+        }
+      ],
+      "reverse_tab_coverage": true,
+      "axe_violations": []
+    },
+    {
+      "screen": "student-search",
+      "browser": "156.0.8078.4",
+      "axe_version": null,
+      "keyboard_ax_controls": [
+        {
+          "id": "",
+          "role": "link",
+          "name": "본문으로 바로가기",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "link",
+          "name": "Sullivan AI 강의 학습 도우미 처음 화면",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "portal-logout",
+          "role": "button",
+          "name": "로그아웃",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "learner-play",
+          "role": "button",
+          "name": "강의 재생",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "learner-stop",
+          "role": "button",
+          "name": "영상·해설 모두 중지",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "learner-describe",
+          "role": "button",
+          "name": "현재 화면 다시 설명",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "command-surface",
+          "role": "group",
+          "name": "별의 진화. 수강 중 빠른 명령",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "강의 듣기",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "지문·문단 듣기",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "원하는 내용 찾기",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "질문하기",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "navigation-command",
+          "role": "textbox",
+          "name": "핵심 개념 탐색 명령",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "voice-command",
+          "role": "button",
+          "name": "타자 명령 입력",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "찾기",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "전체 흐름",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "원인",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "전개",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "결과",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "인물",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "비교",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "stop-concept-sequence",
+          "role": "button",
+          "name": "강사·AI 재생 멈춤",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "read-current",
+          "role": "button",
+          "name": "선택 개념 말하기",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "주계열 단계 5:30 주계열성 별이 일생의 대부분을 보내는 안정된 단계 수소 핵융합 시작 → 주계열성",
+          "states": {
+            "focused": true,
+            "pressed": "true"
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "말하기: 주계열성 강사 구간을 듣고 AI 설명 듣기",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "진화 분기 10:10 초기 질량 별의 진화 경로를 결정하는 조건 초기 질량 → 수명과 최후 결정",
+          "states": {
+            "focused": true,
+            "pressed": "false"
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "말하기: 초기 질량 강사 구간을 듣고 AI 설명 듣기",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "대질량 별 19:02 초신성 질량이 큰 별의 마지막에 일어나는 큰 폭발 초거성 → 초신성 → 잔해",
+          "states": {
+            "focused": true,
+            "pressed": "false"
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "말하기: 초신성 강사 구간을 듣고 AI 설명 듣기",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "주계열 단계 5:18 수소 핵융합 중심 온도가 충분히 높아지면 수소 핵융합이 시작된다 중심 온도 상승 → 수소 핵융합 → 주계열성",
+          "states": {
+            "focused": true,
+            "pressed": "false"
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "말하기: 수소 핵융합 강사 구간을 듣고 AI 설명 듣기",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "판서 흐름 3:55 별의 탄생 판서 성운의 물질이 중력 수축해 원시별을 거쳐 주계열성이 되는 과정 성운 → 중력 수축 → 원시별 → 중심 수축 → 주계열성",
+          "states": {
+            "focused": true,
+            "pressed": "false"
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "말하기: 별의 탄생 판서 강사 구간을 듣고 AI 설명 듣기",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "주계열 단계 6:50 정역학적 평형 안쪽 중력과 바깥쪽 내부 압력이 균형을 이룬다 중력 ↔ 내부 압력",
+          "states": {
+            "focused": true,
+            "pressed": "false"
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "말하기: 정역학적 평형 강사 구간을 듣고 AI 설명 듣기",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "우주 순환 22:40 원소 순환 별에서 만들어진 원소가 우주로 퍼진다 별의 핵융합 → 초신성 → 성간 물질 → 새 별과 행성",
+          "states": {
+            "focused": true,
+            "pressed": "false"
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "말하기: 원소 순환 강사 구간을 듣고 AI 설명 듣기",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "태양형 별 15:42 백색 왜성 태양 정도 질량의 별이 남기는 작고 조밀한 핵 행성상 성운 → 백색 왜성",
+          "states": {
+            "focused": true,
+            "pressed": "false"
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "말하기: 백색 왜성 강사 구간을 듣고 AI 설명 듣기",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "탄생 2:50 원시별 핵융합을 시작하기 전의 별 중력 수축 → 원시별 → 수소 핵융합",
+          "states": {
+            "focused": true,
+            "pressed": "false"
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "말하기: 원시별 강사 구간을 듣고 AI 설명 듣기",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "태양형 별 14:44 적색 거성 중심 수소가 줄고 바깥층이 팽창한다 주계열성 → 적색 거성",
+          "states": {
+            "focused": true,
+            "pressed": "false"
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "말하기: 적색 거성 강사 구간을 듣고 AI 설명 듣기",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "대질량 별 19:50 블랙홀 초기 질량이 매우 클 때 생길 수 있는 마지막 천체 매우 큰 초기 질량 → 초신성 → 블랙홀",
+          "states": {
+            "focused": true,
+            "pressed": "false"
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "말하기: 블랙홀 강사 구간을 듣고 AI 설명 듣기",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "탄생 2:30 성운 성운의 가스와 먼지가 중력으로 모이는 과정 성운 → 중력 수축 → 원시별",
+          "states": {
+            "focused": true,
+            "pressed": "false"
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "말하기: 성운 강사 구간을 듣고 AI 설명 듣기",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "별의 탄생 4:10 중심 온도 천만 켈빈 판서에 주계열성의 중심 온도가 약 천만 켈빈으로 표시된다 중심 온도 약 10⁷ K → 수소 핵융합 → 주계열성",
+          "states": {
+            "focused": true,
+            "pressed": "false"
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "말하기: 중심 온도 천만 켈빈 강사 구간을 듣고 AI 설명 듣기",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "대질량 별 17:35 초거성 질량이 큰 별이 크게 팽창한 단계 주계열성 → 초거성 → 초신성",
+          "states": {
+            "focused": true,
+            "pressed": "false"
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "말하기: 초거성 강사 구간을 듣고 AI 설명 듣기",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "진화 분기 9:20 질량과 수명 질량이 큰 별일수록 연료를 빠르게 쓴다 큰 질량 → 빠른 연료 소비 → 짧은 수명",
+          "states": {
+            "focused": true,
+            "pressed": "false"
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "말하기: 질량과 수명 강사 구간을 듣고 AI 설명 듣기",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "탄생 2:38 중력 수축 중력이 물질을 중심으로 끌어당긴다 성운 → 중력 수축 → 중심 온도 상승",
+          "states": {
+            "focused": true,
+            "pressed": "false"
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "말하기: 중력 수축 강사 구간을 듣고 AI 설명 듣기",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "대질량 별 19:32 중성자별 초신성 뒤 남을 수 있는 매우 조밀한 천체 초신성 → 중성자별",
+          "states": {
+            "focused": true,
+            "pressed": "false"
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "말하기: 중성자별 강사 구간을 듣고 AI 설명 듣기",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "태양형 별 15:20 행성상 성운 적색 거성의 바깥층이 우주로 퍼진다 적색 거성 → 행성상 성운 → 백색 왜성",
+          "states": {
+            "focused": true,
+            "pressed": "false"
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "말하기: 행성상 성운 강사 구간을 듣고 AI 설명 듣기",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "별의 탄생 4:02 중심 수축 원시별의 중심이 수축하며 온도가 높아진다 원시별 → 중심 수축 → 중심 온도 상승",
+          "states": {
+            "focused": true,
+            "pressed": "false"
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "말하기: 중심 수축 강사 구간을 듣고 AI 설명 듣기",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "learner-home",
+          "role": "button",
+          "name": "강의 목록으로",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "learner-return",
+          "role": "button",
+          "name": "원래 듣던 곳으로",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "learner-records",
+          "role": "button",
+          "name": "학습 기록",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "learner-help",
+          "role": "button",
+          "name": "사용법 알려줘",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "DisclosureTriangle",
+          "name": "음량·읽기 속도·해설 설정",
+          "states": {
+            "focused": true,
+            "expanded": false
+          }
+        }
+      ],
+      "reverse_tab_coverage": true,
+      "axe_violations": []
+    },
+    {
+      "screen": "student-paragraphs",
+      "browser": "156.0.8078.4",
+      "axe_version": null,
+      "keyboard_ax_controls": [
+        {
+          "id": "",
+          "role": "link",
+          "name": "본문으로 바로가기",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "link",
+          "name": "Sullivan AI 강의 학습 도우미 처음 화면",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "portal-logout",
+          "role": "button",
+          "name": "로그아웃",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "learner-play",
+          "role": "button",
+          "name": "강의 재생",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "learner-stop",
+          "role": "button",
+          "name": "영상·해설 모두 중지",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "learner-describe",
+          "role": "button",
+          "name": "현재 화면 다시 설명",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "command-surface",
+          "role": "group",
+          "name": "관계대명사 지문. 수강 중 빠른 명령",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "강의 듣기",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "지문·문단 듣기",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "원하는 내용 찾기",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "질문하기",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "paragraph-navigation-command",
+          "role": "textbox",
+          "name": "긴 지문 문단 탐색 명령",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "paragraph-voice-command",
+          "role": "button",
+          "name": "타자 명령 입력",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "다시 듣기",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "전체 지문 낭독",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "전체 흐름",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "앞 문단",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "다음 문단",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "밑줄 문단 듣기",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "1문단 문제 제기 선택",
+          "states": {
+            "focused": true,
+            "pressed": "true"
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "2문단 정리 선택",
+          "states": {
+            "focused": true,
+            "pressed": "false"
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "밑줄 해제",
+          "states": {
+            "focused": true,
+            "pressed": "true"
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "문단 듣기",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "1문단 1 첫 문단은 관계대명사를 설명합니다.",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "밑줄 표시",
+          "states": {
+            "focused": true,
+            "pressed": "false"
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "문단 듣기",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "2문단 1 다음 문단은 예문을 비교합니다.",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "learner-home",
+          "role": "button",
+          "name": "강의 목록으로",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "learner-return",
+          "role": "button",
+          "name": "원래 듣던 곳으로",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "learner-records",
+          "role": "button",
+          "name": "학습 기록",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "learner-help",
+          "role": "button",
+          "name": "사용법 알려줘",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "DisclosureTriangle",
+          "name": "음량·읽기 속도·해설 설정",
+          "states": {
+            "focused": true,
+            "expanded": false
+          }
+        }
+      ],
+      "reverse_tab_coverage": true,
+      "axe_violations": []
+    },
+    {
+      "screen": "student-no-assignments",
+      "browser": "156.0.8078.4",
+      "axe_version": null,
+      "keyboard_ax_controls": [
+        {
+          "id": "",
+          "role": "link",
+          "name": "본문으로 바로가기",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "link",
+          "name": "Sullivan AI 강의 학습 도우미 처음 화면",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "portal-logout",
+          "role": "button",
+          "name": "로그아웃",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "student-list-open",
+          "role": "button",
+          "name": "강의 듣기",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "지문·문단 듣기",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "원하는 내용 찾기",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "질문하기",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "student-help",
+          "role": "button",
+          "name": "사용법 알려줘",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "student-records",
+          "role": "button",
+          "name": "학습 기록",
+          "states": {
+            "focused": true
+          }
+        }
+      ],
+      "reverse_tab_coverage": true,
+      "axe_violations": []
+    },
+    {
+      "screen": "student-no-lecture-feedback",
+      "browser": "156.0.8078.4",
+      "axe_version": null,
+      "keyboard_ax_controls": [
+        {
+          "id": "",
+          "role": "link",
+          "name": "본문으로 바로가기",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "link",
+          "name": "Sullivan AI 강의 학습 도우미 처음 화면",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "portal-logout",
+          "role": "button",
+          "name": "로그아웃",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "student-list-open",
+          "role": "button",
+          "name": "강의 듣기",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "지문·문단 듣기",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "원하는 내용 찾기",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "질문하기",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "student-help",
+          "role": "button",
+          "name": "사용법 알려줘",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "student-records",
+          "role": "button",
+          "name": "학습 기록",
+          "states": {
+            "focused": true
+          }
+        }
+      ],
+      "reverse_tab_coverage": true,
+      "axe_violations": []
+    },
+    {
+      "screen": "student-list-connection-error",
+      "browser": "156.0.8078.4",
+      "axe_version": null,
+      "keyboard_ax_controls": [
+        {
+          "id": "",
+          "role": "link",
+          "name": "본문으로 바로가기",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "link",
+          "name": "Sullivan AI 강의 학습 도우미 처음 화면",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "portal-logout",
+          "role": "button",
+          "name": "로그아웃",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "student-list-open",
+          "role": "button",
+          "name": "강의 듣기",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "지문·문단 듣기",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "원하는 내용 찾기",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "질문하기",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "",
+          "role": "button",
+          "name": "강의 목록 다시 확인",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "student-help",
+          "role": "button",
+          "name": "사용법 알려줘",
+          "states": {
+            "focused": true
+          }
+        },
+        {
+          "id": "student-records",
+          "role": "button",
+          "name": "학습 기록",
+          "states": {
+            "focused": true
+          }
+        }
+      ],
+      "reverse_tab_coverage": true,
+      "axe_violations": []
+    }
+  ]
+}

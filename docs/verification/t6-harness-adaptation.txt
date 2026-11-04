@@ -1,0 +1,1 @@
+Original scripts/verify_roles_browser.py; only guardian material setup advanced wizard step1→file source→materials→step3. All original student assertions unchanged. Output redirected to temp to preserve prior reports.
