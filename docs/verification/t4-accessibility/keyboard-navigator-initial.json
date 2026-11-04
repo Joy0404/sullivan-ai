@@ -1,0 +1,22 @@
+{
+  "skill": "keyboard-navigator",
+  "scope": [
+    "apps/web/index.html #guardian-result-summary and #guardian-publish",
+    "apps/web/workspace-design.css T4 guardian rules",
+    "apps/web/role-portal.js:loadGuardian presentation observer"
+  ],
+  "findings": [
+    {
+      "rule": "KEYBOARD-FIXED-FOOTER-001",
+      "wcag": "2.4.11 AA",
+      "severity": "serious",
+      "location": "apps/web/workspace-design.css:.guardian-assignment-bar",
+      "summary": "The fixed assignment bar entirely covers the final runtime-details summary when it receives keyboard focus.",
+      "fix": "Reserve at least the fixed bar height plus focus allowance after the document footer, using guardian-only body bottom padding while the result view is visible.",
+      "evidence": "At320/390/1280px widths and900px height, focused summary top832px; fixed bar begins819px. Padding only agent-view leaves app-runtime beneath the bar."
+    }
+  ],
+  "notes": [
+    "Initial blocker corrected by guardian-only body padding112px when agent-view is visible."
+  ]
+}

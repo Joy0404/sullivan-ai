@@ -1,6 +1,12 @@
 /* Hallmark · shape: app screen · theme: Sullivan learning desk · redesign: full · genre: modern-minimal · v2.0.0 */
 /* Critique: the lesson and its controls define the screen; repeated dashboard tiles do not. */
 /* Large learning targets follow the shared stylesheet's recorded accessibility exception. */
+/* Hallmark · waive 7b · existing white paper is a frozen shared token · Keep the approved student/login palette while changing guardian results only. */
+/* Hallmark · surface: absolute · Frozen shared white paper is retained under the user's palette constraint. */
+/* Hallmark · waive 39b · low-vision guardian controls retain generous targets · The product requires at least 48px and readable 18px text; larger inherited controls remain usable. */
+/* Hallmark · waive 72 · Native fieldset legends cross their border · Preserve semantic group labels; controls and expanded content retain visible padding. */
+/* Hallmark · answered F6 · Guardian result figures now use tabular numerals; existing student selectors stay frozen. */
+/* Hallmark · answered F7 · Existing login and student container recipes are outside T4; guardian review and assignment use one level. */
 :root {
   --desk-paper: #ffffff;
   --desk-soft: #f3f5f7;
@@ -143,4 +149,56 @@ body[data-role="student"] #chat-panel .toggle { min-width: 0; max-width: 100%; m
 @media (forced-colors: active) {
   body[data-ui="learning-desk-4"] :where(button,input,select,textarea,summary,a,[tabindex]):focus-visible { outline: 4px solid var(--system-focus); }
   body[data-ui="learning-desk-4"] [aria-current="page"] { border-bottom: 3px solid var(--system-control); }
+}
+
+/* T4 · Guardian result review precedes assignment; shared student views stay unchanged. */
+html:has(body[data-role="guardian"]) { scroll-padding-bottom: 112px; }
+body[data-role="guardian"]:has(#agent-view:not(.hidden)) { padding-bottom: 112px; }
+body[data-role="guardian"] #agent-view { padding-bottom: 128px; }
+body[data-role="guardian"] #guardian-result-summary { grid-column: 1 / -1; padding: var(--guardian-lg) var(--guardian-md); margin-bottom: var(--guardian-lg); border-bottom: 1px solid var(--line); }
+body[data-role="guardian"] #guardian-result-summary h1 { margin: 0; font-size: clamp(2rem,4vw,2.5rem); line-height: 1.4; overflow-wrap: break-word; min-width: 0; text-wrap: balance; }
+body[data-role="guardian"] #guardian-result-summary p { max-width: 65ch; font-size: 1.125rem; line-height: 1.75; }
+body[data-role="guardian"] .guardian-result-counts { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: var(--guardian-lg); margin-block: var(--guardian-lg); }
+body[data-role="guardian"] .guardian-result-counts dt { font-size: 1.125rem; color: var(--muted); }
+body[data-role="guardian"] .guardian-result-counts dd { font-size: 2rem; font-weight: 700; margin: var(--guardian-xs) 0 0; font-variant-numeric: tabular-nums; }
+body[data-role="guardian"] .session-rail > div:first-child, body[data-role="guardian"] .session-rail .rail-stats { display: none; }
+body[data-role="guardian"] .session-rail { position: static; height: auto; }
+body[data-role="guardian"] .session-rail nav { display: grid; gap: var(--guardian-xs); }
+body[data-role="guardian"] .session-rail .nav-button { min-height: 48px; font-size: 1.125rem; line-height: 1.5; padding: var(--guardian-sm); }
+body[data-role="guardian"] #guardian-publish { grid-column: 1 / -1; width: 100%; max-width: 1100px; padding: var(--guardian-lg) var(--guardian-md); margin: var(--guardian-xl) auto 0; border: 0; border-top: 1px solid var(--line); background: transparent; border-radius: 0; }
+body[data-role="guardian"] #publish-title { scroll-margin-bottom: 112px; }
+body[data-role="guardian"] #publish-form :is(label,p,legend,input,button) { font-size: 1.125rem; line-height: 1.7; }
+body[data-role="guardian"] #publish-form :is(input,button) { min-height: 48px; border-color: var(--control-border); }
+body[data-role="guardian"] #publish-form input[type="checkbox"] { min-height: 24px; width: 24px; height: 24px; margin: var(--guardian-xs) 0 0; position: static; }
+body[data-role="guardian"] #publish-form > label:has(input[type="checkbox"]), body[data-role="guardian"] #publish-students label { display: grid; grid-template-columns: 24px minmax(0,1fr); gap: var(--guardian-sm); align-items: start; }
+body[data-role="guardian"] .guardian-assignment-bar { position: fixed; inset-inline: 0; bottom: 0; z-index: 10; display: flex; justify-content: center; padding: var(--guardian-md) var(--guardian-lg); background: var(--paper); border-top: 1px solid var(--control-border); }
+body[data-role="guardian"] .guardian-assignment-bar a { display: inline-flex; align-items: center; justify-content: center; min-height: 48px; padding: var(--guardian-xs) var(--guardian-lg); color: var(--paper); background: var(--brand); border: 1px solid var(--brand); font-size: 1.125rem; font-weight: 700; text-decoration: none; white-space: nowrap; border-radius: var(--radius); }
+body[data-role="guardian"] .guardian-assignment-bar a:hover { background: var(--ink); }
+body[data-role="guardian"] .guardian-assignment-bar a:active { background: var(--brand); }
+body[data-role="guardian"] .guardian-assignment-bar a:focus-visible { outline: 4px solid var(--focus-ring); outline-offset: 4px; }
+body[data-role="guardian"] .evidence-row .decision { display: flex; flex-wrap: wrap; gap: var(--guardian-xs) var(--guardian-sm); align-items: start; }
+body[data-role="guardian"] .evidence-row .decision strong { overflow-wrap: anywhere; }
+body[data-role="guardian"] #chat-panel .section-heading label:has(input[type="checkbox"]) { display: grid; grid-template-columns: 24px minmax(0,1fr); align-items: center; gap: var(--guardian-sm); font-size: 1.125rem; }
+body[data-role="guardian"] #chat-panel .section-heading input[type="checkbox"] { min-height: 24px; width: 24px; height: 24px; margin: 0; position: static; }
+body[data-role="guardian"] #agent-view .workspace :is(p,span,strong,code,small,label,summary,li,dt,dd,input,select,textarea,button) { font-size: 1.125rem; line-height: 1.6; }
+body[data-role="guardian"] #agent-view .workspace :is(.description-output,.reason,.safety-banner,.empty-state) { font-size: 1.125rem; line-height: 1.75; }
+body[data-role="guardian"] #agent-view .workspace h3 { font-size: 1.25rem; }
+body[data-role="guardian"] #agent-view .workspace :is(select,summary,input:not([type="checkbox"])) { min-height: 48px; border-color: var(--control-border); }
+body[data-role="guardian"] #agent-view .video-stage:focus-within, body[data-role="guardian"] #agent-view .video-stage.guardian-media-focused { outline: 4px solid var(--focus-ring); outline-offset: 4px; box-shadow: 0 0 0 4px var(--paper); }
+body[data-role="guardian"] #visual-timeline { display: flex; flex-wrap: wrap; align-items: center; gap: var(--guardian-sm); height: auto; min-height: 48px; padding-block: var(--guardian-md); background: transparent; }
+body[data-role="guardian"] #visual-timeline .timeline-marker { position: static; left: auto !important; top: auto; transform: none; display: inline-flex; align-items: center; width: auto; height: auto; min-height: 48px; padding: var(--guardian-xs) var(--guardian-sm); border: 1px solid var(--control-border); background: var(--paper); color: var(--brand); box-shadow: none; }
+body[data-role="guardian"] #visual-timeline .timeline-marker span { position: static; transform: none; color: inherit; font-size: 1.125rem; white-space: nowrap; }
+body[data-role="guardian"] #agent-view .player-tools { display: flex; flex-wrap: wrap; gap: var(--guardian-sm); }
+body[data-role="guardian"] #agent-view .player-tools > label, body[data-role="guardian"] #agent-view .player-tools > button { flex: 1 1 180px; min-width: 0; }
+body[data-role="guardian"] #agent-view .player-tools > button { white-space: nowrap; }
+body[data-role="guardian"] #agent-view .workspace .icon-button { width: auto; min-width: 64px; padding-inline: var(--guardian-sm); white-space: nowrap; }
+body[data-role="guardian"] #agent-view .chat-message { padding: var(--guardian-md); }
+body[data-role="guardian"] .app-runtime { font-size: 1.125rem; }
+body[data-role="guardian"] .app-runtime summary { min-height: 48px; }
+@media (max-width: 640px) {
+  body[data-role="guardian"] .guardian-result-counts { grid-template-columns: minmax(0,1fr); gap: var(--guardian-md); }
+  body[data-role="guardian"] .guardian-result-counts > div { display: flex; align-items: center; justify-content: space-between; gap: var(--guardian-md); }
+  body[data-role="guardian"] .guardian-result-counts dd { font-size: 1.5rem; flex-shrink: 0; }
+  body[data-role="guardian"] #chat-form { grid-template-columns: auto minmax(0,1fr); }
+  body[data-role="guardian"] #chat-form #chat-input { grid-column: 1 / -1; }
 }

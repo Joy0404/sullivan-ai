@@ -1,0 +1,22 @@
+{
+  "skill": "live-region-controller",
+  "scope": [
+    "apps/web/index.html guardian-result-summary/guardian-publish",
+    "apps/web/role-portal.js loadGuardian presentation observer",
+    "apps/web/workspace-design.css T4"
+  ],
+  "findings": [],
+  "passed": [
+    "First result is conveyed through focused summary heading; no competing summary live region is introduced.",
+    "Same-result presentation updates preserve deliberate publish-heading focus.",
+    "Same-result observer pass produced zero mutations in the shared live region.",
+    "Role changes restore UI copy without translation stacking or a second announcement channel.",
+    "Sample summary explicitly states that no new video analysis occurred.",
+    "Reversible accessible-label mapping introduces no added live channel.",
+    "Safe count metadata updates (including zero) preserve same-result deliberate focus and do not rewrite candidate text."
+  ],
+  "notes": [
+    "Source inspection and isolated Chrome DOM/AX tests; real authenticated integration is parent-owned.",
+    "No actual screen-reader utterances or live TTS output were heard."
+  ]
+}

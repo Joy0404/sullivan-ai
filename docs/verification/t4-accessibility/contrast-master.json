@@ -1,0 +1,24 @@
+{
+  "skill": "contrast-master",
+  "scope": [
+    "apps/web/index.html guardian-result-summary/guardian-publish",
+    "apps/web/workspace-design.css T4 guardian rules",
+    "apps/web/role-portal.js loadGuardian display mapping"
+  ],
+  "findings": [],
+  "passed": [
+    "All9 watch/evidence/chat previews at320/390/1280 have no result text below18px and no non-checkbox controls below48px after typography/target fixes.",
+    "Guardian summary and publish now have16px inline gutters; no horizontal overflow at the three tested widths.",
+    "All13 measured text/background pairs passAA; minimum contrast6.19:1. Primary white/brand8.70:1.",
+    "Instant guardian focus outline and functional control borders use previously measured token pairs above3:1; fixed bar has explicit focus-visible styling.",
+    "Independent actual Tab traversal of watch result at320/390/1280 reached30–31 controls with no control fully obscured by fixed assignment bar.",
+    "Checkboxes and long labels occupy separate24px/minmax grid columns without overlap.",
+    "Evidence timestamp and action are separate flex items with an explicit12px gap; status text and semantic labels accompany color."
+  ],
+  "notes": [
+    "Resolved initial findings VISUAL-T4-TEXT-SIZE, VISUAL-T4-TARGET-SIZE and VISUAL-T4-GUTTER; initial/contrast-master.json retains evidence.",
+    "Checks used script-free current-source fixture without authentication or API writes; parent separately tests actual sample content, mapping and flows.",
+    "Actual VoiceOver/NVDA speech, physical touch and user-selected OS contrast palette not tested.",
+    "Evidence: visual-results.json, footer-focus-results.json, contrast-results.json in this directory."
+  ]
+}

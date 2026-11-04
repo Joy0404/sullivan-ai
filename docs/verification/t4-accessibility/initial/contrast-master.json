@@ -1,0 +1,48 @@
+{
+  "skill": "contrast-master",
+  "scope": [
+    "apps/web/index.html guardian-result-summary/guardian-publish",
+    "apps/web/workspace-design.css T4 guardian rules",
+    "apps/web/role-portal.js loadGuardian display mapping"
+  ],
+  "findings": [
+    {
+      "rule": "VISUAL-T4-TEXT-SIZE",
+      "wcag": "n/a",
+      "severity": "moderate",
+      "location": "apps/web/workspace-design.css: T4 result-panel typography",
+      "summary": "Inherited result text renders14–16.32px instead of the playbook18px minimum.",
+      "fix": "Apply guardian-only workspace typography to helper text, labels, reasons, description output, decision timestamp/action strong/code and safety text; retain heading sizes.",
+      "evidence": "Watch labels14.08px, decision/reason14px and description16.32px at320/390/1280."
+    },
+    {
+      "rule": "VISUAL-T4-TARGET-SIZE",
+      "wcag": "n/a",
+      "severity": "minor",
+      "location": "apps/web/workspace-design.css: T4 result select/summary controls",
+      "summary": "Speech selects measure38px and transcript disclosure29.69px instead of the requested48px.",
+      "fix": "Set guardian-only result select and summary min-height48px.",
+      "evidence": "Independent current-CSS preview at320/390/1280."
+    },
+    {
+      "rule": "VISUAL-T4-GUTTER",
+      "wcag": "n/a",
+      "severity": "minor",
+      "location": "apps/web/workspace-design.css: #guardian-result-summary and #guardian-publish",
+      "summary": "New summary headings and assignment labels meet the viewport edge without an inline gutter.",
+      "fix": "Add guardian-only16–24px inline padding to the new summary and publish blocks while preserving border-box width.",
+      "evidence": "Independent320/390px preview: heading/publish text x=0; summary count at rightviewportedge."
+    }
+  ],
+  "passed": [
+    "All13 measured text/background pairs passAA; minimum6.19:1.",
+    "Result-first DOM order and H1→H2→H3 heading hierarchy are clear.",
+    "Native checkbox grid separates controls and labels with no overlap.",
+    "No horizontal overflow at320/390/1280.",
+    "Actual Tab traversal in independent preview:30–31 controls per width, none fully obscured by fixed footer."
+  ],
+  "notes": [
+    "Size/gutter findings enforce explicit project/UI requirements; they are not claimed as AA text-size failures.",
+    "No parent API authentication or writes; script-free current-source preview."
+  ]
+}

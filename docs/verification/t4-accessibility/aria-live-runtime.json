@@ -1,0 +1,75 @@
+{
+  "method": "Isolated Chrome DOM executing current loadGuardian/presentation observer with in-memory metadata; no auth or backend requests.",
+  "checks": [
+    "Result counts derive only from safe metadata; getters for every candidate text field were never touched, enum values unchanged.",
+    "Summary and moved publish ARIA references resolve; native description list exposes count labels and values.",
+    "Native fixed action link focuses the tabindex=-1 publish heading in view.",
+    "Same-result presentation refresh preserves intentional publish-heading focus and does not mutate the shared live region.",
+    "Authoritative safe_description_count includes INTERRUPT and preserves an explicit zero instead of falling back.",
+    "Generated student identity checkbox labels remain verbatim even when they contain a mapped UI phrase.",
+    "Role switch to student restores original shared labels/code text and quick-command aria-label; replaced new student nodes remain intact.",
+    "Repeated guardian -> signed-out transition restores original labels without translation stacking.",
+    "Restoration preserves fresh same-text-node content written during a role transition.",
+    "Attribute restoration preserves a fresh aria-label written during the same role transition."
+  ],
+  "limitations": [
+    "No actual VoiceOver/NVDA speech tested.",
+    "Parent separately tests real sample rendering and actual API workflow."
+  ],
+  "guardianNav": [
+    "강의 화면",
+    "핵심 개념 찾기",
+    "화면 정보 복습",
+    "AI 학습 노트",
+    "AI 학습 대화",
+    "해설한 이유"
+  ],
+  "guardianQuickLabel": "빠른 핵심 개념 찾기 명령",
+  "firstResultFocus": {
+    "id": "guardian-result-title",
+    "tag": "H1"
+  },
+  "summary": {
+    "descriptions": "2곳",
+    "held": "1곳",
+    "concepts": "2개",
+    "source": "사전 준비된 샘플 결과입니다. 새 영상을 분석한 결과가 아닙니다.",
+    "reads": 0,
+    "actions": [
+      "DESCRIBE_AT_BREAK",
+      "INTERRUPT",
+      "HOLD",
+      "INDEX_ONLY"
+    ]
+  },
+  "assignmentLink": {
+    "id": "publish-title",
+    "top": 23.515625,
+    "bottom": 63.109375,
+    "height": 900,
+    "hash": "#publish-title"
+  },
+  "identityLabel": "체험 코드 (example)",
+  "studentNav": [
+    "강의 화면",
+    "핵심 탐색",
+    "접근성 복습",
+    "AI 학습 노트",
+    "AI 학습 대화",
+    "안전·판단 근거"
+  ],
+  "studentQuickLabel": "빠른 핵심 탐색 명령",
+  "concurrentTextChange": "학생용 새 이름",
+  "concurrentLabelChange": "학생용 새 명령",
+  "liveRegions": [
+    {
+      "role": "generic",
+      "name": ""
+    },
+    {
+      "role": "status",
+      "name": ""
+    }
+  ],
+  "passed": true
+}

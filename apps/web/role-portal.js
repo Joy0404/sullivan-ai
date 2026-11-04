@@ -203,6 +203,40 @@ window.Portal = (() => {
       card.append(copy,settingsLink);roster.append(card);
     }
     const dashboard=el('guardian-dashboard');
+    if(!dashboard.dataset.presentationBound){
+      dashboard.dataset.presentationBound='true';
+      const originalText=new Map();
+      const originalLabels=new Map();
+      let shownResult=null;
+      const words=[['핵심 탐색','핵심 개념 찾기'],['접근성 복습','화면 정보 복습'],['안전·판단 근거','해설한 이유'],['판단 근거','해설한 이유'],['안전 보류','말하지 않고 보류한 정보'],['체험 코드','체험 비밀번호 (실제 분석에만 필요)'],['샘플 분석 다시 실행','샘플 결과 다시 불러오기'],['분석 소스','준비한 자료']];
+      const codes={INDEX_ONLY:'기록만 함',DESCRIBE_AT_BREAK:'멈춘 뒤 설명',INTERRUPT:'잠깐 멈춰 설명',HOLD:'보류',SKIP:'설명 생략',indexed:'준비됨'};
+      function mediaFocus(){const stage=document.querySelector('.video-stage');stage.classList.toggle('guardian-media-focused',document.body.dataset.role==='guardian'&&document.activeElement?.tagName==='IFRAME'&&stage.contains(document.activeElement));}
+      document.addEventListener('focusin',mediaFocus,true);window.addEventListener('focus',mediaFocus);window.addEventListener('blur',()=>requestAnimationFrame(mediaFocus));
+      document.addEventListener('blur',event=>{if(event.target?.tagName==='IFRAME')document.querySelector('.video-stage').classList.remove('guardian-media-focused');},true);
+      function display(node,value){
+        if(node.nodeValue===value)return;
+        const previous=originalText.get(node);
+        originalText.set(node,{original:previous&&node.nodeValue===previous.display?previous.original:node.nodeValue,display:value});node.nodeValue=value;
+      }
+      function guardianPresentation(){
+        const guardian=document.body.dataset.role==='guardian';
+        for(const [node,record]of originalText){if(!node.isConnected)originalText.delete(node);else if(!guardian){if(node.nodeValue===record.display)node.nodeValue=record.original;originalText.delete(node);}}
+        for(const [control,record]of originalLabels){if(!control.isConnected)originalLabels.delete(control);else if(!guardian){if(control.getAttribute('aria-label')===record.display)control.setAttribute('aria-label',record.original);originalLabels.delete(control);}}
+        const summary=el('guardian-result-summary'),snapshot=state.snapshot;
+        const visible=guardian&&!!snapshot;if(summary.hidden===visible)summary.hidden=!visible;
+        if(!guardian){shownResult=null;mediaFocus();return;}
+        for(const control of document.querySelectorAll('#passage-panel .quick-commands[aria-label]')){const before=control.getAttribute('aria-label');let after=before;for(const [old,word]of words)after=after.split(old).join(word);if(before!==after){const previous=originalLabels.get(control);originalLabels.set(control,{original:previous&&before===previous.display?previous.original:before,display:after});control.setAttribute('aria-label',after);}}
+        for(const root of document.querySelectorAll('.session-rail .nav-button,.session-rail .rail-stats,#run-demo-analysis,.source-card h3,#review-title,#evidence-title,#demo-access-code-field,#lecture-form .wizard-help summary,#guardian-publish,.wizard-error')){
+          const walker=document.createTreeWalker(root,NodeFilter.SHOW_TEXT);for(let n=walker.nextNode();n;n=walker.nextNode()){if(n.parentElement.closest('#publish-students'))continue;let value=n.nodeValue;for(const [before,after]of words)value=value.split(before).join(after);display(n,value);}
+        }
+        const message=el('portal-feedback-copy');if(/^(준비를 마치지 못했습니다\. )?(실제 AI 분석에는 체험 코드가 필요합니다|실제 분석 설정이 필요합니다)/.test(message.textContent)){for(const n of message.childNodes)if(n.nodeType===Node.TEXT_NODE){let text=n.nodeValue;for(const [before,after]of words)text=text.split(before).join(after);display(n,text);}}
+        for(const root of document.querySelectorAll('#evidence-list .decision strong,#asset-list .source-state')){const translated=codes[root.textContent];if(translated)for(const n of root.childNodes)if(n.nodeType===Node.TEXT_NODE)display(n,translated);}
+        for(const root of document.querySelectorAll('#evidence-list h3'))if(root.textContent==='내용 비공개 · 안전 보류')for(const n of root.childNodes)if(n.nodeType===Node.TEXT_NODE)display(n,'내용 비공개 · 말하지 않고 보류한 정보');
+        if(visible){const values={'guardian-result-title':state.session?.title||'강의 결과 검토','guardian-result-source':state.isSample?'사전 준비된 샘플 결과입니다. 새 영상을 분석한 결과가 아닙니다.':'등록한 자료의 준비 결과입니다. 먼저 내용을 확인한 뒤 학생에게 배정해 주세요.','guardian-result-descriptions':(snapshot.safe_description_count??(snapshot.visual_gaps||[]).filter(g=>g.safe_to_speak).length)+'곳','guardian-result-held':(snapshot.visual_gaps||[]).filter(g=>g.action==='HOLD').length+'곳','guardian-result-concepts':(snapshot.concept_index||[]).length+'개'};for(const [id,text]of Object.entries(values))if(el(id).textContent!==text)el(id).textContent=text;}
+        if(visible&&!el('agent-view').classList.contains('hidden')&&shownResult!==state.session?.session_id){shownResult=state.session?.session_id;el('guardian-result-title').focus();}
+      }
+      new MutationObserver(guardianPresentation).observe(document.body,{subtree:true,childList:true,characterData:true,attributes:true,attributeFilter:['data-role']});guardianPresentation();
+    }
     if(!dashboard.dataset.navigationBound){
       dashboard.dataset.navigationBound='true';
       dashboard.addEventListener('click',event=>{

@@ -1,0 +1,21 @@
+{
+  "skill": "keyboard-navigator",
+  "scope": [
+    "apps/web/index.html #guardian-result-summary and #guardian-publish",
+    "apps/web/workspace-design.css T4 guardian rules",
+    "apps/web/role-portal.js:loadGuardian presentation observer"
+  ],
+  "findings": [],
+  "passed": [
+    "Current-source isolated Chrome at320,390,1280px: all traversed controls, including final runtime summary, remain outside the fixed bar after targeted padding fix.",
+    "Native fixed CTA Enter focuses publish-title at visible y23..64px while bar starts819px.",
+    "Result summary and workspace precede assignment form in DOM source order.",
+    "No horizontal overflow at320,390,1280px.",
+    "Source confirms one-time new-result title focus and tabIndex=-1, while shared lectureReady and student functions are unchanged."
+  ],
+  "notes": [
+    "Runtime evidence: keyboard-layout-runtime.json. Fixture uses current DOM/CSS without API authentication or mutation; parent validates actual result observer integration.",
+    "Initial fixed-footer blocker retained in keyboard-navigator-initial.json.",
+    "Actual VoiceOver/NVDA speech was not tested."
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "display_only": true,
+  "core_student_api_auth_provider_unchanged": true,
+  "javascript_outside_loadGuardian_exact_match": true,
+  "student_css_diff": false,
+  "original_snapshot_json_unchanged_by_mapping": true,
+  "student_labels_restored_in_actual_login_test": true,
+  "identity_labels_excluded": true,
+  "candidate_getter_reads_in_fixture": 0,
+  "review_and_assignment_before_write": "CTA links to form; original submit remains required"
+}

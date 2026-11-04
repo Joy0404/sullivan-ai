@@ -1,0 +1,78 @@
+{
+  "task": "T4",
+  "checks": [],
+  "axe": [
+    {
+      "label": "watch 390",
+      "violations": [],
+      "incomplete": [
+        "aria-allowed-role",
+        "aria-prohibited-attr",
+        "color-contrast",
+        "frame-tested"
+      ]
+    },
+    {
+      "label": "watch 1280",
+      "violations": [],
+      "incomplete": [
+        "aria-allowed-role",
+        "aria-prohibited-attr",
+        "color-contrast",
+        "frame-tested"
+      ]
+    },
+    {
+      "label": "evidence 390",
+      "violations": [],
+      "incomplete": [
+        "aria-allowed-role",
+        "aria-prohibited-attr"
+      ]
+    },
+    {
+      "label": "evidence 1280",
+      "violations": [],
+      "incomplete": [
+        "aria-allowed-role",
+        "aria-prohibited-attr"
+      ]
+    },
+    {
+      "label": "chat 390",
+      "violations": [],
+      "incomplete": [
+        "aria-allowed-role"
+      ]
+    },
+    {
+      "label": "chat 1280",
+      "violations": [],
+      "incomplete": [
+        "aria-allowed-role"
+      ]
+    },
+    {
+      "label": "publish 390",
+      "violations": [],
+      "incomplete": [
+        "aria-allowed-role"
+      ]
+    },
+    {
+      "label": "publish 1280",
+      "violations": [],
+      "incomplete": [
+        "aria-allowed-role"
+      ]
+    }
+  ],
+  "provider": "No real provider calls; actual local HTTP/text processing, mocked YT/TTS",
+  "requests": [
+    {
+      "path": "/local/login",
+      "method": "POST"
+    }
+  ],
+  "passed": true
+}

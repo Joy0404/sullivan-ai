@@ -223,7 +223,7 @@
           <details class="wizard-help"><summary>체험 코드가 필요한 경우</summary><p>실제 영상 분석에만 필요합니다. 자막·지문만 준비하거나 샘플을 열 때는 필요하지 않습니다.</p></details>
           <label id="demo-access-code-field" class="api-key-field" for="demo-access-code">
             체험 코드 <span class="optional-label">실제 AI 분석과 Gemini 대화에만 필요 · 테스트용 횟수 제한 없음</span>
-            <input id="demo-access-code" name="demo_access_code" type="password" autocomplete="off" maxlength="200" placeholder="안내받은 체험 코드" />
+            <input id="demo-access-code" name="demo_access_code" type="password" autocomplete="off" maxlength="200" placeholder="안내받은 체험 비밀번호" />
             <small id="demo-access-help">코드가 없어도 샘플·보관함·로컬 보조 대화는 작동합니다. 분석은 3분을 넘으면 중단됩니다.</small>
           </label>
 
@@ -325,17 +325,11 @@
             <button data-learn-panel="chat-panel" type="button">질문하기</button>
           </nav>
         </div>
-        <section id="guardian-publish" class="portal-surface hidden" aria-labelledby="publish-title"><h2 id="publish-title">학생에게 제공하기</h2>
-          <form id="publish-form"><div class="guardian-publish-info"><label>학생에게 표시할 제목<input id="publish-title-input" required maxlength="160" /></label><label>과목<input id="publish-subject" required maxlength="80" /></label></div><fieldset><legend>배정할 학생</legend><div id="publish-students"></div></fieldset>
-            <label><input id="publish-store" type="checkbox" aria-describedby="publish-store-help" /> 로컬 영상 원본을 이 브라우저에 암호화해 저장하는 데 동의합니다. 서버에는 원본을 저장하지 않습니다.</label>
-            <p id="publish-store-help">저장할 원본 영상 파일을 등록한 경우에만 선택할 수 있습니다. 링크 강의는 원본 링크를 이용합니다.</p>
-            <label><input id="publish-chat" type="checkbox" /> 분석 준비 때 확인한 체험 코드로 이 강의의 Gemini 학습 대화를 학생에게 허용합니다.</label>
-            <p>체험 코드는 저장하지 않습니다. 브라우저의 영상 저장이 필요한 경우 같은 브라우저에서 학생이 로그인해야 합니다.</p>
-            <button type="submit">배정하고 준비 완료</button><button data-guardian-home type="button">보호자 준비실로</button>
-          </form>
-        </section>
-
-
+        <div id="guardian-result-summary" class="guardian-result-summary" hidden>
+          <h1 id="guardian-result-title" tabindex="-1">강의 결과 검토</h1><p id="guardian-result-source"></p>
+          <dl class="guardian-result-counts"><div><dt>설명할 화면</dt><dd id="guardian-result-descriptions">0곳</dd></div><div><dt>말하지 않고 보류한 정보</dt><dd id="guardian-result-held">0곳</dd></div><div><dt>핵심 개념</dt><dd id="guardian-result-concepts">0개</dd></div></dl>
+          <p>세부 내용을 확인한 뒤 하단에서 학생에게 제공해 주세요.</p>
+        </div>
         <aside class="session-rail">
           <div>
 
@@ -609,6 +603,16 @@
           </details>
           <section id="learning-records" class="hidden" aria-labelledby="records-title"><h2 id="records-title" tabindex="-1">내 학습 기록</h2><p>현재 위치와 밑줄, 북마크, 메모를 자동 저장합니다. 원본 영상은 새로 전송하지 않습니다.</p><label>강의 메모<textarea id="learner-note" maxlength="6000"></textarea></label><p id="progress-state" role="status"></p><button data-record-view="review-panel" type="button">복습 내용</button><button data-record-view="study-panel" type="button">학습 노트·북마크</button><button id="records-close" type="button">기록 닫기</button></section>
         </div>
+        <section id="guardian-publish" class="portal-surface hidden" aria-labelledby="publish-title"><h2 id="publish-title" tabindex="-1">학생에게 제공하기</h2>
+          <form id="publish-form"><div class="guardian-publish-info"><label>학생에게 표시할 제목<input id="publish-title-input" required maxlength="160" /></label><label>과목<input id="publish-subject" required maxlength="80" /></label></div><fieldset><legend>배정할 학생</legend><div id="publish-students"></div></fieldset>
+            <label><input id="publish-store" type="checkbox" aria-describedby="publish-store-help" /> 로컬 영상 원본을 이 브라우저에 암호화해 저장하는 데 동의합니다. 서버에는 원본을 저장하지 않습니다.</label>
+            <p id="publish-store-help">저장할 원본 영상 파일을 등록한 경우에만 선택할 수 있습니다. 링크 강의는 원본 링크를 이용합니다.</p>
+            <label><input id="publish-chat" type="checkbox" /> 분석 준비 때 확인한 체험 코드로 이 강의의 Gemini 학습 대화를 학생에게 허용합니다.</label>
+            <p>체험 코드는 저장하지 않습니다. 브라우저의 영상 저장이 필요한 경우 같은 브라우저에서 학생이 로그인해야 합니다.</p>
+            <button type="submit">배정하고 준비 완료</button><button data-guardian-home type="button">보호자 준비실로</button>
+          </form>
+          <div class="guardian-assignment-bar"><a href="#publish-title">이 강의를 학생에게 제공</a></div>
+        </section>
       </section>
     </main>
     <footer class="app-runtime"><details><summary>실행 정보</summary><p id="runtime-info">학생·보호자 로컬 작업본 확인 중</p><div class="api-status" role="status">

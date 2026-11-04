@@ -1,0 +1,239 @@
+[
+  {
+    "stage": "watch",
+    "width": 320,
+    "overflow": false,
+    "small": [],
+    "shortControls": [],
+    "headings": [
+      {
+        "tag": "H1",
+        "text": "샘플 강의 결과 검토"
+      },
+      {
+        "tag": "H2",
+        "text": "강의 화면"
+      },
+      {
+        "tag": "H3",
+        "text": "현재 화면 해설"
+      },
+      {
+        "tag": "H3",
+        "text": "분석 소스"
+      },
+      {
+        "tag": "H2",
+        "text": "학생에게 제공하기"
+      }
+    ]
+  },
+  {
+    "stage": "watch",
+    "width": 390,
+    "overflow": false,
+    "small": [],
+    "shortControls": [],
+    "headings": [
+      {
+        "tag": "H1",
+        "text": "샘플 강의 결과 검토"
+      },
+      {
+        "tag": "H2",
+        "text": "강의 화면"
+      },
+      {
+        "tag": "H3",
+        "text": "현재 화면 해설"
+      },
+      {
+        "tag": "H3",
+        "text": "분석 소스"
+      },
+      {
+        "tag": "H2",
+        "text": "학생에게 제공하기"
+      }
+    ]
+  },
+  {
+    "stage": "watch",
+    "width": 1280,
+    "overflow": false,
+    "small": [],
+    "shortControls": [],
+    "headings": [
+      {
+        "tag": "H1",
+        "text": "샘플 강의 결과 검토"
+      },
+      {
+        "tag": "H2",
+        "text": "강의 화면"
+      },
+      {
+        "tag": "H3",
+        "text": "현재 화면 해설"
+      },
+      {
+        "tag": "H3",
+        "text": "분석 소스"
+      },
+      {
+        "tag": "H2",
+        "text": "학생에게 제공하기"
+      }
+    ]
+  },
+  {
+    "stage": "evidence",
+    "width": 320,
+    "overflow": false,
+    "small": [],
+    "shortControls": [],
+    "headings": [
+      {
+        "tag": "H1",
+        "text": "샘플 강의 결과 검토"
+      },
+      {
+        "tag": "H2",
+        "text": "판단 근거"
+      },
+      {
+        "tag": "H3",
+        "text": "안전한 샘플 항목"
+      },
+      {
+        "tag": "H2",
+        "text": "학생에게 제공하기"
+      }
+    ]
+  },
+  {
+    "stage": "evidence",
+    "width": 390,
+    "overflow": false,
+    "small": [],
+    "shortControls": [],
+    "headings": [
+      {
+        "tag": "H1",
+        "text": "샘플 강의 결과 검토"
+      },
+      {
+        "tag": "H2",
+        "text": "판단 근거"
+      },
+      {
+        "tag": "H3",
+        "text": "안전한 샘플 항목"
+      },
+      {
+        "tag": "H2",
+        "text": "학생에게 제공하기"
+      }
+    ]
+  },
+  {
+    "stage": "evidence",
+    "width": 1280,
+    "overflow": false,
+    "small": [],
+    "shortControls": [],
+    "headings": [
+      {
+        "tag": "H1",
+        "text": "샘플 강의 결과 검토"
+      },
+      {
+        "tag": "H2",
+        "text": "판단 근거"
+      },
+      {
+        "tag": "H3",
+        "text": "안전한 샘플 항목"
+      },
+      {
+        "tag": "H2",
+        "text": "학생에게 제공하기"
+      }
+    ]
+  },
+  {
+    "stage": "chat",
+    "width": 320,
+    "overflow": false,
+    "small": [],
+    "shortControls": [],
+    "headings": [
+      {
+        "tag": "H1",
+        "text": "샘플 강의 결과 검토"
+      },
+      {
+        "tag": "H2",
+        "text": "AI 학습 대화"
+      },
+      {
+        "tag": "H3",
+        "text": "빠른 결과물 만들기"
+      },
+      {
+        "tag": "H2",
+        "text": "학생에게 제공하기"
+      }
+    ]
+  },
+  {
+    "stage": "chat",
+    "width": 390,
+    "overflow": false,
+    "small": [],
+    "shortControls": [],
+    "headings": [
+      {
+        "tag": "H1",
+        "text": "샘플 강의 결과 검토"
+      },
+      {
+        "tag": "H2",
+        "text": "AI 학습 대화"
+      },
+      {
+        "tag": "H3",
+        "text": "빠른 결과물 만들기"
+      },
+      {
+        "tag": "H2",
+        "text": "학생에게 제공하기"
+      }
+    ]
+  },
+  {
+    "stage": "chat",
+    "width": 1280,
+    "overflow": false,
+    "small": [],
+    "shortControls": [],
+    "headings": [
+      {
+        "tag": "H1",
+        "text": "샘플 강의 결과 검토"
+      },
+      {
+        "tag": "H2",
+        "text": "AI 학습 대화"
+      },
+      {
+        "tag": "H3",
+        "text": "빠른 결과물 만들기"
+      },
+      {
+        "tag": "H2",
+        "text": "학생에게 제공하기"
+      }
+    ]
+  }
+]
