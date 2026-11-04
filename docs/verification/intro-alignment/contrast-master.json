@@ -1,0 +1,18 @@
+{
+  "scope": [
+    "apps/web/intro.css",
+    "apps/web/intro/index.html"
+  ],
+  "findings": [],
+  "notes": [
+    "Targeted review of current working diff only; no product edits. Evidence: /tmp/intro-alignment/evidence.json, hero-focus-390.png and secondary-focus-390.png. Chrome 156.0.8078.80; public page on port 8770; external requests blocked."
+  ],
+  "skill": "contrast-master",
+  "passed": [
+    "At 320/390/1280 all eight links retain 20px titles, 18px descriptions and heights above 104px.",
+    "Measured white text on brand #164b8b is 8.70:1; ink text on white is 14.09:1.",
+    "Keyboard focus stays inside each link with a visible 4px outline and -6px offset; white-on-brand focus contrast is 8.70:1, brown #8c4700 on white is 6.96:1.",
+    "Visually inspected focused primary/secondary hero rows at 390px: outlines are not clipped by the rounded list, and text remains clear of the inset ring.",
+    "No page or preview horizontal overflow at 320/390/1280."
+  ]
+}

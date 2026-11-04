@@ -1,0 +1,126 @@
+[
+  {
+    "width": 390,
+    "rows": [
+      {
+        "title": "강의 듣기",
+        "inset": 24,
+        "descriptionInset": 24,
+        "titleFits": true,
+        "height": 115.6875
+      },
+      {
+        "title": "지문·문단 듣기",
+        "inset": 24,
+        "descriptionInset": 24,
+        "titleFits": true,
+        "height": 145.375
+      },
+      {
+        "title": "원하는 내용 찾기",
+        "inset": 24,
+        "descriptionInset": 24,
+        "titleFits": true,
+        "height": 115.6875
+      },
+      {
+        "title": "질문하기",
+        "inset": 24,
+        "descriptionInset": 24,
+        "titleFits": true,
+        "height": 115.6875
+      },
+      {
+        "title": "강의 듣기",
+        "inset": 24,
+        "descriptionInset": 24,
+        "titleFits": true,
+        "height": 115.6875
+      },
+      {
+        "title": "지문·문단 듣기",
+        "inset": 24,
+        "descriptionInset": 24,
+        "titleFits": true,
+        "height": 115.6875
+      },
+      {
+        "title": "원하는 내용 찾기",
+        "inset": 24,
+        "descriptionInset": 24,
+        "titleFits": true,
+        "height": 115.6875
+      },
+      {
+        "title": "질문하기",
+        "inset": 24,
+        "descriptionInset": 24,
+        "titleFits": true,
+        "height": 115.6875
+      }
+    ],
+    "axe": []
+  },
+  {
+    "width": 1280,
+    "rows": [
+      {
+        "title": "강의 듣기",
+        "inset": 24,
+        "descriptionInset": 24,
+        "titleFits": true,
+        "height": 115.6875
+      },
+      {
+        "title": "지문·문단 듣기",
+        "inset": 24,
+        "descriptionInset": 24,
+        "titleFits": true,
+        "height": 115.6875
+      },
+      {
+        "title": "원하는 내용 찾기",
+        "inset": 24,
+        "descriptionInset": 24,
+        "titleFits": true,
+        "height": 115.6875
+      },
+      {
+        "title": "질문하기",
+        "inset": 24,
+        "descriptionInset": 24,
+        "titleFits": true,
+        "height": 115.6875
+      },
+      {
+        "title": "강의 듣기",
+        "inset": 24,
+        "descriptionInset": 24,
+        "titleFits": true,
+        "height": 115.6875
+      },
+      {
+        "title": "지문·문단 듣기",
+        "inset": 24,
+        "descriptionInset": 24,
+        "titleFits": true,
+        "height": 115.6875
+      },
+      {
+        "title": "원하는 내용 찾기",
+        "inset": 24,
+        "descriptionInset": 24,
+        "titleFits": true,
+        "height": 115.6875
+      },
+      {
+        "title": "질문하기",
+        "inset": 24,
+        "descriptionInset": 24,
+        "titleFits": true,
+        "height": 115.6875
+      }
+    ],
+    "axe": []
+  }
+]

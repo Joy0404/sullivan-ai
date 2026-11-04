@@ -1,0 +1,17 @@
+{
+  "scope": [
+    "apps/web/intro.css",
+    "apps/web/intro/index.html"
+  ],
+  "findings": [],
+  "notes": [
+    "Targeted review of current working diff only; no product edits. Evidence: /tmp/intro-alignment/evidence.json, hero-focus-390.png and secondary-focus-390.png. Chrome 156.0.8078.80; public page on port 8770; external requests blocked."
+  ],
+  "skill": "alt-text-headings",
+  "passed": [
+    "Both replacement previews use native figure/list/link/strong/span HTML rather than screenshots; four links have functional labels and valid /guide/#step-7 destinations.",
+    "At intro/index.html:33 and :94 both captions explicitly call these activity-composition guides and explain that selection opens the guide; no claim that the replacements are actual screenshots.",
+    "Replacement preserves the page’s existing h1→h2→h3 hierarchy; remaining three real screenshots retain meaningful alt text and sample qualification.",
+    "At 320/390/1280 all 24 measured title/body pairs share exactly the same 24px left inset; no clipped or overflowing preview content."
+  ]
+}

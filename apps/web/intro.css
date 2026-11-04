@@ -71,6 +71,18 @@ button:disabled { color: var(--disabled-ink); background: var(--disabled-paper);
 .intro-copy > p { font-size: var(--text-lead); line-height: 1.8; max-width: 33em; }
 .intro-visual { width: 100%; max-width: 400px; justify-self: end; }
 .intro-visual img { width: 100%; border-radius: var(--radius); }
+/* Activity guide uses real text and links so every label shares one inset. */
+.activity-preview ul { list-style: none; margin: 0; padding: 0; border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; }
+.activity-preview li + li { border-top: 1px solid var(--line); }
+.activity-preview a { display: grid; align-content: center; gap: var(--space-xs); min-height: 104px; padding: var(--space-lg); color: var(--ink); background: var(--paper); text-decoration: none; }
+.activity-preview strong { font-size: var(--text-lead); line-height: 1.5; }
+.activity-preview span { font-size: var(--text-body); line-height: 1.65; }
+.activity-preview li:first-child a { color: var(--paper); background: var(--brand); }
+.activity-preview a:hover strong { text-decoration: underline; text-underline-offset: .22em; }
+.activity-preview a:focus-visible { outline-offset: -6px; outline-width: 4px; }
+.activity-preview li:first-child a:focus-visible { outline-color: var(--paper); }
+.activity-preview-wide { max-width: 900px; }
+.activity-preview-wide a { min-height: 112px; }
 figcaption { margin-top: var(--space-md); color: var(--muted); font-size: var(--text-body); line-height: 1.65; }
 .section { padding-block: var(--space-3xl); }
 .section-head { margin-bottom: var(--space-xl); }
