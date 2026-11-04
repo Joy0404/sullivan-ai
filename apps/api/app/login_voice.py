@@ -9,6 +9,8 @@ import threading
 import time
 
 PHRASE = '학생 로그인'
+BUTTON_RATE = .95
+BUTTON_VOLUME = .9
 PLATFORM = sys.platform
 SAY = Path('/usr/bin/say')
 _lock = threading.Lock()
@@ -23,6 +25,9 @@ def korean_voice():
         return 'Yuna' if 'Yuna' in voices else next(iter(voices), None)
     except (OSError, subprocess.SubprocessError):
         return None
+
+def profile():
+    return {'name':korean_voice(),'lang':'ko-KR','rate':BUTTON_RATE,'volume':BUTTON_VOLUME,'pitch':1}
 
 def available(request):
     if (os.getenv('SULLIVAN_SYSTEM_LOGIN_VOICE') != '1' or PLATFORM != 'darwin'
@@ -73,7 +78,9 @@ def speak(ident):
                 _active[1].wait(timeout=1)
         _remember(ident, 'pending')
         try:
-            process = subprocess.Popen(['/usr/bin/say', '-v', korean_voice(), PHRASE], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+            # Use the same local voice and default controls as browser button
+            # announcements. The embedded volume command is fixed, not user text.
+            process = subprocess.Popen(['/usr/bin/say', '-v', korean_voice(), '-r', str(round(175 * BUTTON_RATE)), f'[[volm {BUTTON_VOLUME}]]{PHRASE}'], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
         except OSError:
             _remember(ident, 'failed')
             return {'completed': False, 'cancelled': False}

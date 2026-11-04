@@ -103,8 +103,10 @@ window.SullivanFocusVoice = (() => {
     const spoken=prepareSpeechText(text.replace(/[—–]/g, ", ").replace(/([0-9.]+)×/g, "$1배"));
     const speech=new SpeechSynthesisUtterance(spoken);utterance=speech;speech.lang='ko-KR';
     const voice=selectedKoreanVoice();if(voice)speech.voice=voice;
-    speech.rate=Number(document.getElementById('speech-rate').value)||.95;
-    speech.volume=Number(document.getElementById('speech-volume').value)||.9;
+    const profile=window.Portal?.localVoiceProfile;
+    speech.rate=Number(document.getElementById('speech-rate').value)||profile?.rate||.95;
+    speech.volume=Number(document.getElementById('speech-volume').value)||profile?.volume||.9;
+    speech.pitch=profile?.pitch||1;
     let started=false;
     speech.onstart=()=>{if(current!==token)return;started=true;clearTimeout(watchdog);
       if(notice===initialNotice&&notice)notice.phase='started';

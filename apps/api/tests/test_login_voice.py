@@ -49,7 +49,8 @@ def test_only_fixed_phrase_and_owned_process(native,monkeypatch):
     assert native.post('/local/login-voice',json=payload).json()['completed']
     assert native.post('/local/login-voice',json=payload).json()['completed']
     assert len(calls)==1
-    assert calls[0][0]==['/usr/bin/say','-v','Yuna','학생 로그인']
+    assert calls[0][0]==['/usr/bin/say','-v','Yuna','-r','166','[[volm 0.9]]학생 로그인']
+    assert native.get('/local/status').json()['system_login_voice_profile']=={'name':'Yuna','lang':'ko-KR','rate':.95,'volume':.9,'pitch':1}
     assert not calls[0][1].get('shell')
     assert native.post('/local/login-voice',json={**payload,'text':'arbitrary text'}).status_code==422
 

@@ -1648,6 +1648,15 @@ function selectedKoreanVoice() {
   if (selected && selected !== "auto") {
     return voices.find((voice) => voice.voiceURI === selected) || voices[0] || null;
   }
+  // The local startup greeting uses the Mac voice published by the server.
+  // Reuse that voice for automatic app speech instead of switching to a
+  // higher-scored cloud voice after the first button.
+  const localName = window.Portal?.localVoiceProfile?.name?.toLowerCase();
+  if (localName) {
+    const matching = voices.find(voice => voice.name.toLowerCase() === localName ||
+      voice.voiceURI.toLowerCase().endsWith(`.${localName}`));
+    if (matching) return matching;
+  }
   return voices[0] || null;
 }
 

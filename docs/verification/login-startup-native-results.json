@@ -26,5 +26,13 @@
   "page_errors": [],
   "native_korean_audio_file_seconds": 0.96,
   "native_audio_file_non_silent": true,
-  "actual_screen_reader_or_human_hearing": "not verified"
+  "actual_screen_reader_or_human_hearing": "not verified",
+  "shared_voice_profile": {
+    "name": "Yuna",
+    "lang": "ko-KR",
+    "rate": 0.95,
+    "volume": 0.9,
+    "pitch": 1
+  },
+  "native_start_with_shared_voice_profile_completed": true
 }

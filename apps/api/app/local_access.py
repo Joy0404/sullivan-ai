@@ -127,7 +127,8 @@ def login_response(c,ident):
 
 @router.get('/status')
 def status(request:Request):
-    with db() as c:return {'needs_setup':not bool(c.execute("SELECT 1 FROM users WHERE role='guardian'").fetchone()),'build':BUILD,'instance':INSTANCE,'sample_assignment':'server-catalog-v1','system_login_voice':login_voice.available(request)}
+    native=login_voice.available(request)
+    with db() as c:return {'needs_setup':not bool(c.execute("SELECT 1 FROM users WHERE role='guardian'").fetchone()),'build':BUILD,'instance':INSTANCE,'sample_assignment':'server-catalog-v1','system_login_voice':native,'system_login_voice_profile':login_voice.profile() if native else None}
 
 class LoginVoiceRequest(BaseModel):
     model_config={'extra':'forbid'}

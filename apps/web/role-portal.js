@@ -1,7 +1,7 @@
 /* Local role portal. Reuses the original player, safety-filtered narration,
    concept search, passage tools, review, notebook, and grounded chat. */
 window.Portal = (() => {
-  const ui = {user:null, lectureId:null, readerMode:false, focusVoice:false, loginRole:null, loginVoice:true,loginReady:false,loginNative:false,compatible:false};
+  const ui = {user:null, lectureId:null, readerMode:false, focusVoice:false, loginRole:null, loginVoice:true,loginReady:false,loginNative:false,localVoiceProfile:null,compatible:false};
   const requiredBuild='sullivan-roles-20261102-r2';
   let students=[], lectures=[], current=null, originMs=null, focusedPurpose='watch-panel';
   let savePromise=Promise.resolve(), progressTimer=null, opening=false, sampleSession=null;
@@ -534,7 +534,7 @@ window.Portal = (() => {
   (async()=>{const initialFocus=focusTicket();try{
     const status=await request('/status');ui.compatible=status.build===requiredBuild;
     el('runtime-info').textContent=ui.compatible?`학습 책상 화면 4 / 학생·보호자 로컬 r2 / ${location.host} / 실행 ${status.instance}`:'실행 중인 서버가 이전 버전입니다.';
-    setup=status.needs_setup;ui.loginNative=Boolean(status.system_login_voice);loginUI();
+    setup=status.needs_setup;ui.loginNative=Boolean(status.system_login_voice);ui.localVoiceProfile=ui.loginNative?status.system_login_voice_profile||null:null;loginUI();
     if(!ui.compatible){error('화면과 서버 버전이 다릅니다. Sullivan-AI-student-guardian-local의 실행기를 다시 시작한 뒤 새로고침하세요. 계정을 다시 만들 필요는 없습니다.');return;}
     let user=null;try{user=await request('/me');}catch{}
     if(user)await authenticated(user);else {ui.loginReady=true;focusFirst(setup?'setup':'login',initialFocus);}

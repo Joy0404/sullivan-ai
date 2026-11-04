@@ -17,7 +17,7 @@ def main():
   processes=[];hold=[False]
   class Process:
    def __init__(self,args,**kwargs):
-    assert args==['/usr/bin/say','-v','Yuna','학생 로그인'];self.stopped=False;self.release=threading.Event();self.done=False
+    assert args==['/usr/bin/say','-v','Yuna','-r','166','[[volm 0.9]]학생 로그인'];self.stopped=False;self.release=threading.Event();self.done=False
     if not hold[0]:self.release.set()
     processes.append(self)
    def poll(self):return -15 if self.stopped else 0 if self.done else None
@@ -33,15 +33,24 @@ def main():
    with sync_playwright() as p:
     browser=p.chromium.launch();context=browser.new_context()
     login_voice.subprocess.Popen=Process
-    context.add_init_script('''window.__spoken=[];speechSynthesis.resume=()=>{};speechSynthesis.cancel=()=>{};
+    context.add_init_script('''window.__spoken=[];window.__speechProfiles=[];speechSynthesis.resume=()=>{};speechSynthesis.cancel=()=>{};
+      window.SpeechSynthesisUtterance=class {constructor(text){this.text=text;}};
+      speechSynthesis.getVoices=()=>[
+       {name:'Microsoft SunHi Online (Natural)',voiceURI:'online-sunhi',lang:'ko-KR',localService:false},
+       {name:'Google 한국의',voiceURI:'google-korean',lang:'ko-KR',localService:false},
+       {name:'Yuna',voiceURI:'com.apple.voice.compact.ko-KR.Yuna',lang:'ko-KR',localService:true}];
       window.__nativeActivation=[];const originalFetch=fetch.bind(window);window.fetch=(url,options)=>{if(url==='/local/login-voice'&&JSON.parse(options.body).action==='start')__nativeActivation.push(navigator.userActivation.hasBeenActive);return originalFetch(url,options);};
-      speechSynthesis.speak=u=>{__spoken.push(u.text);if(!navigator.userActivation.hasBeenActive){u.onerror?.({error:'not-allowed'});return;}u.onstart?.();u.onend?.();};''')
+      speechSynthesis.speak=u=>{__spoken.push(u.text);__speechProfiles.push({name:u.voice?.name,rate:u.rate,volume:u.volume,pitch:u.pitch});if(!navigator.userActivation.hasBeenActive){u.onerror?.({error:'not-allowed'});return;}u.onstart?.();u.onend?.();};''')
     # Popen is replaced only after Chromium's driver/browser have launched.
     api=context.request;h={'X-Local-Request':'1'}
     assert api.post(base+'/local/setup',headers=h,data={'username':'guardian','password':'fixture-pass-123'}).status==200
     api.post(base+'/local/logout',headers=h)
     page=context.new_page();errors=[];page.on('pageerror',lambda e:errors.append(str(e)))
-    page.goto(base);expect(page.locator('#login-role-student')).to_be_focused()
+    # Do not run page evaluation before the native request: DevTools evaluation
+    # itself may grant user activation and invalidate this startup assertion.
+    with page.expect_response(lambda r:r.url.endswith('/local/login-voice') and r.request.post_data_json.get('action')=='start'):
+     page.goto(base)
+    expect(page.locator('#login-role-student')).to_be_focused()
     page.wait_for_function('Portal.loginNative&&Portal.loginReady')
     page.wait_for_timeout(200)
     assert len(processes)==1 and processes[-1].done
@@ -51,6 +60,14 @@ def main():
     page.reload();page.wait_for_function('Portal.loginNative&&Portal.loginReady');page.wait_for_timeout(200)
     expect(page.locator('#login-role-student')).to_be_focused()
     assert len(processes)==2 and processes[-1].done and page.evaluate('__spoken')==[]
+    # Automatic follow-up labels must use the native startup's voice even when
+    # the browser ranks a different online voice higher.
+    page.keyboard.press('Tab');page.wait_for_timeout(120)
+    assert page.evaluate('__speechProfiles.at(-1)')=={'name':'Yuna','rate':.95,'volume':.9,'pitch':1}
+    page.evaluate('document.querySelector("#speech-voice").value="online-sunhi";SullivanFocusVoice.message("음성 설정 검사")')
+    assert page.evaluate('__speechProfiles.at(-1).name')=='Microsoft SunHi Online (Natural)'
+    page.evaluate('document.querySelector("#speech-voice").value="auto";SullivanFocusVoice.message("음성 설정 검사")')
+    assert page.evaluate('__speechProfiles.at(-1).name')=='Yuna'
     # The native startup process remains cancellable while its HTTP result is pending.
     hold[0]=True;page.reload();page.wait_for_function('Portal.loginNative&&Portal.loginReady')
     page.wait_for_timeout(120);current=processes[-1];assert not current.done
@@ -95,6 +112,7 @@ def main():
     page.unroute('**/local/login-voice',lose_response)
     assert not errors,errors
     result={'native_start_without_browser_activation':True,'one_native_start_per_reload':True,
+      'startup_and_automatic_labels_share_voice_and_defaults':True,'explicit_voice_selection_preserved':True,
       'no_duplicate_browser_startup_speech':True,'native_cancel_on_tab_and_guardian_choice':True,
       'native_cancel_on_pagehide':True,'authenticated_page_has_no_login_greeting':True,
       'lost_native_response_waits_for_stop':True,'late_stop_failure_keeps_guardian_status':True,
