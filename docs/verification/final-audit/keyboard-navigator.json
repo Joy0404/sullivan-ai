@@ -1,0 +1,35 @@
+{
+  "skill": "keyboard-navigator",
+  "scope": [
+    "apps/web/role-portal.js",
+    "apps/web/index.html",
+    "apps/web/guide/guide.js",
+    "apps/web/guide/index.html",
+    "apps/web/guardian-design.css"
+  ],
+  "findings": [
+    {
+      "rule": "KEYBOARD-HARNESS-PREDECESSOR-STALE",
+      "wcag": "n/a",
+      "severity": "moderate",
+      "location": "scripts/verify_keyboard_navigation.py:29",
+      "component": "T2 guardian navigation verification",
+      "summary": "The keyboard browser check hard-codes a pre-redesign predecessor for the preparation button and fails before later regression coverage runs.",
+      "fix": "Calculate or assert the predecessor from the current guardian DOM/tab order for both Shift-alone and Shift+Tab, then retain the editing, capitalization and assignment assertions after that check.",
+      "evidence": "Lines 28–31 demand the student-create submit button after both backward gestures from #guardian-prepare. T2 moved guardian sections/controls. The parent audit reproduced this assertion failure; the audited current UI completed student creation and assignment with keyboard alone."
+    }
+  ],
+  "passed": [
+    "Keyboard alone completed first guardian setup, student creation, sample preview and final assignment using Tab/Enter/Space; all required controls were reachable.",
+    "Wizard forward/back navigation focuses the current heading; invalid URL and missing-consent errors focus their associated inputs.",
+    "Guide native button disclosures support Enter/Space, preserve focus, expose aria-expanded, reopen for same-hash links and operate through expand-all/collapse-all.",
+    "Guardian result-page Tab sweeps at 1280×900 and 390×900 found no focused control entirely covered by the fixed assignment bar and no missing focus outline in the inspected tab sequence.",
+    "Early analysis cancellation via Escape returned focus to #wizard-submit."
+  ],
+  "notes": [
+    "Audit at HEAD 48b3ac1 with Chrome/156.0.8078.80 and Puppeteer against disposable-account server 8892. No production/account database access and no provider calls.",
+    "Reproducible baseline defect, not introduced by T0–T6: apps/web/role-portal.js:690 clears state.analysisFocus while #wizard-submit is disabled if cancellation happens during finishAnalysisProgress’s 100%/750ms delay. Materials-only upload → rights check → submit → wait for 100% → Escape resulted in activeElement BODY; next Tab reached footer 실행 정보. Earlier cancellation restored #wizard-submit. Identical focus-restoration logic exists at baseline 36ef70b:527.",
+    "Late-cancel proof: /tmp/final-forms-edge-results.json and /tmp/final-forms-edge.cjs. Focus/occlusion sweep: /tmp/final-keyboard-sweep-results.json.",
+    "Native screen-reader spoken output was not observed; programmatic focus, relationships, state and DOM announcements were inspected. Product files were not edited."
+  ]
+}

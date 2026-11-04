@@ -1,0 +1,27 @@
+{
+  "errors": [],
+  "logoutPending": {
+    "role": "signed-out",
+    "focus": "login-role-student",
+    "marker": false,
+    "hiddenMarker": false
+  },
+  "reloadPending": {
+    "oldConnected": false,
+    "oldMarker": false,
+    "newMarker": false,
+    "focus": "portal-feedback"
+  },
+  "expired": {
+    "role": "signed-out",
+    "focus": "login-role-student",
+    "feedback": "portal-feedback hidden",
+    "progress": "학습 현황을 불러오고 있습니다."
+  },
+  "homeLogout": {
+    "role": "signed-out",
+    "focus": "login-role-student",
+    "error": "먼저 로그인해 주세요.",
+    "account": ""
+  }
+}

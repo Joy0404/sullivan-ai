@@ -1,0 +1,46 @@
+{
+  "skill": "forms-specialist",
+  "scope": [
+    "apps/web/role-portal.js:326",
+    "apps/web/index.html:162",
+    "apps/web/index.html:40",
+    "apps/web/index.html:94",
+    "apps/web/guide/index.html"
+  ],
+  "findings": [
+    {
+      "rule": "FORMS-WIZARD-RESET-SOURCE",
+      "wcag": "n/a",
+      "severity": "serious",
+      "location": "apps/web/role-portal.js:379",
+      "component": "T3 guardian lecture preparation wizard",
+      "summary": "Returning to preparation changes a link-plus-materials draft to file mode while retaining and submitting the now-hidden video link.",
+      "fix": "Restore the explicitly selected source on wizard-reset; when inferring, check video files, then video_url, then materials. Exclude inactive source values from submission and add a regression test that review, consent visibility, and submitted source agree after home/reopen.",
+      "evidence": "Repro: choose link, enter URL, attach TXT, check consent, enter code; breadcrumb home, reopen preparation, Next twice. Source becomes file; URL/consent/code hide; review says 학습자료만 준비. With browser-only mocked configured health, intercepted /video-link body still had the original URL, request_analysis:true and analysis_consent:true. No provider call occurred."
+    },
+    {
+      "rule": "FORMS-WIZARD-HARNESS-STALE",
+      "wcag": "n/a",
+      "severity": "moderate",
+      "location": "scripts/verify_roles_browser.py:100",
+      "component": "T3 browser verification",
+      "summary": "The roles browser check still submits the former one-page form without traversing the new three-step wizard.",
+      "fix": "Advance from step 1, explicitly select the file/material source in step 2, attach materials, advance to step 3, confirm rights, then submit. Assert the current step heading and retain overlay cancellation/focus coverage.",
+      "evidence": "Lines 100–110 fill title/materials and press rights/submit directly, then wait for the analysis overlay. They never operate #wizard-next or [data-wizard-source=file]. The parent audit reproduced the original script timing out at the overlay wait; source inspection confirms the stale sequence."
+    }
+  ],
+  "passed": [
+    "Isolated keyboard-only flow completed guardian setup → student creation → sample preview → student selection → publish; feedback and focus were checked after each transition.",
+    "Wizard invalid URL and missing consent return to step 2, focus the offending input, set aria-invalid and associate the visible step error with aria-describedby.",
+    "Wizard previous/next preserves entered values; each normal transition focuses its step heading and updates aria-current=step.",
+    "Explicit switch to sample clears selected video, link, supplemental materials and consent before opening the visibly labeled deterministic sample.",
+    "Guide deep links open the corresponding disclosure; same-hash navigation reopens a collapsed disclosure; individual and expand-all/collapse-all buttons expose correct expanded states."
+  ],
+  "notes": [
+    "Audit at HEAD 48b3ac1 on 2026-11-05, Chrome/156.0.8078.80 with Puppeteer. Server port 8892 used only disposable TemporaryDirectory accounts and usage databases; API keys/analyzer settings removed. External requests blocked. The unexpected link submission was captured and stopped by browser interception; real analysis was never invoked.",
+    "Reproduction artifacts: /tmp/final-wizard-reset-results.json and /tmp/final-wizard-reset.cjs. General keyboard/form exploration: /tmp/final-forms-audit-results.json.",
+    "Baseline edge, not a T3 regression: replacing a selected file or editing a populated link keeps checked analysis consent. The app.js syncAnalysisConsent behavior already existed before T0–T6.",
+    "Baseline edge: logout resets the URL value but leaves #video-link-state text 링크 입력됨 and .ready=true; observed again after login and reopening link source. The reset line and app indicator handling predate T0–T6.",
+    "Baseline markup omitted username format instructions. On current Chrome, entering ab in either login or student creation focuses the field with only 요청한 형식과 일치시키세요.; no aria-describedby explains the allowed characters or 3–60 length. Before T6, the malformed pattern was not enforced; this is not reported as a new implementation defect."
+  ]
+}

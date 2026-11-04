@@ -1,0 +1,409 @@
+{
+  "log": [
+    {
+      "test": "keyboard guardian setup",
+      "focus": "<input name=\"name\" required=\"\" maxlength=\"80\">",
+      "feedback": "",
+      "stage": "1/3 단계",
+      "link": "",
+      "materials": [],
+      "consent": false,
+      "disabled": true,
+      "invalid": []
+    },
+    {
+      "test": "keyboard student create",
+      "focus": "portal-feedback",
+      "feedback": "학생 계정을 만들었습니다. 학생에게 로그인 이름과 비밀번호를 직접 알려 주세요.",
+      "stage": "1/3 단계",
+      "link": "",
+      "materials": [],
+      "consent": false,
+      "disabled": true,
+      "invalid": []
+    },
+    {
+      "test": "keyboard sample prepare",
+      "focus": "guardian-result-title",
+      "feedback": "학생 계정을 만들었습니다. 학생에게 로그인 이름과 비밀번호를 직접 알려 주세요.",
+      "stage": "1/3 단계",
+      "link": "",
+      "materials": [],
+      "consent": false,
+      "disabled": true,
+      "invalid": []
+    },
+    {
+      "test": "keyboard publish",
+      "focus": "portal-feedback",
+      "feedback": "강의 준비와 배정을 완료했습니다. 로그아웃한 뒤 학생 계정으로 로그인해 주세요.",
+      "stage": "1/3 단계",
+      "link": "",
+      "materials": [],
+      "consent": false,
+      "disabled": true,
+      "invalid": []
+    },
+    {
+      "test": "wizard initial",
+      "focus": "wizard-title-1",
+      "feedback": "강의 준비와 배정을 완료했습니다. 로그아웃한 뒤 학생 계정으로 로그인해 주세요.",
+      "stage": "1/3 단계",
+      "source": "sample",
+      "link": "",
+      "materials": [],
+      "consent": false,
+      "disabled": true,
+      "invalid": []
+    },
+    {
+      "test": "step2",
+      "focus": "wizard-title-2",
+      "feedback": "강의 준비와 배정을 완료했습니다. 로그아웃한 뒤 학생 계정으로 로그인해 주세요.",
+      "stage": "2/3 단계",
+      "source": "sample",
+      "link": "",
+      "materials": [],
+      "consent": false,
+      "disabled": true,
+      "invalid": []
+    },
+    {
+      "test": "invalid url",
+      "focus": "video-url",
+      "feedback": "강의 준비와 배정을 완료했습니다. 로그아웃한 뒤 학생 계정으로 로그인해 주세요.",
+      "stage": "2/3 단계",
+      "source": "link",
+      "link": "not-a-url",
+      "materials": [],
+      "consent": false,
+      "disabled": false,
+      "invalid": [
+        {
+          "id": "video-url",
+          "description": "wizard-error-2"
+        }
+      ]
+    },
+    {
+      "test": "missing consent",
+      "focus": "<input name=\"local_gemini_consent\" type=\"checkbox\" aria-invalid=\"true\" data-wizard-description=\"\" aria-describedby=\"wiza",
+      "feedback": "강의 준비와 배정을 완료했습니다. 로그아웃한 뒤 학생 계정으로 로그인해 주세요.",
+      "stage": "2/3 단계",
+      "source": "link",
+      "link": "not-a-urlhttps://example.com/first.mp4",
+      "materials": [],
+      "consent": false,
+      "disabled": false,
+      "invalid": [
+        {
+          "id": "local_gemini_consent",
+          "description": "wizard-error-2"
+        }
+      ]
+    },
+    {
+      "test": "step3",
+      "focus": "wizard-title-3",
+      "feedback": "강의 준비와 배정을 완료했습니다. 로그아웃한 뒤 학생 계정으로 로그인해 주세요.",
+      "stage": "3/3 단계",
+      "source": "link",
+      "link": "not-a-urlhttps://example.com/first.mp4",
+      "materials": [],
+      "consent": true,
+      "disabled": false,
+      "invalid": []
+    },
+    {
+      "test": "back to step2",
+      "focus": "wizard-title-2",
+      "feedback": "강의 준비와 배정을 완료했습니다. 로그아웃한 뒤 학생 계정으로 로그인해 주세요.",
+      "stage": "2/3 단계",
+      "source": "link",
+      "link": "not-a-urlhttps://example.com/first.mp4",
+      "materials": [],
+      "consent": true,
+      "disabled": false,
+      "invalid": []
+    },
+    {
+      "test": "changed link consent",
+      "focus": "video-url",
+      "feedback": "강의 준비와 배정을 완료했습니다. 로그아웃한 뒤 학생 계정으로 로그인해 주세요.",
+      "stage": "2/3 단계",
+      "source": "link",
+      "link": "https://example.com/second.mp4",
+      "materials": [],
+      "consent": true,
+      "disabled": false,
+      "invalid": []
+    },
+    {
+      "test": "changed link next",
+      "focus": "wizard-title-3",
+      "feedback": "강의 준비와 배정을 완료했습니다. 로그아웃한 뒤 학생 계정으로 로그인해 주세요.",
+      "stage": "3/3 단계",
+      "source": "link",
+      "link": "https://example.com/second.mp4",
+      "materials": [],
+      "consent": true,
+      "disabled": false,
+      "invalid": []
+    },
+    {
+      "test": "file one consent",
+      "focus": "<input name=\"local_gemini_consent\" type=\"checkbox\">",
+      "feedback": "강의 준비와 배정을 완료했습니다. 로그아웃한 뒤 학생 계정으로 로그인해 주세요.",
+      "stage": "2/3 단계",
+      "source": "file",
+      "video": "audit-video-one.mp4",
+      "link": "",
+      "materials": [],
+      "consent": true,
+      "disabled": false,
+      "invalid": []
+    },
+    {
+      "test": "file changed consent",
+      "focus": "<input name=\"local_gemini_consent\" type=\"checkbox\">",
+      "feedback": "강의 준비와 배정을 완료했습니다. 로그아웃한 뒤 학생 계정으로 로그인해 주세요.",
+      "stage": "2/3 단계",
+      "source": "file",
+      "video": "audit-video-two.mp4",
+      "link": "",
+      "materials": [],
+      "consent": true,
+      "disabled": false,
+      "invalid": []
+    },
+    {
+      "test": "sample source clears media",
+      "focus": "<button type=\"button\" data-wizard-source=\"sample\" aria-pressed=\"true\">샘플로 시작</button>",
+      "feedback": "강의 준비와 배정을 완료했습니다. 로그아웃한 뒤 학생 계정으로 로그인해 주세요.",
+      "stage": "2/3 단계",
+      "source": "sample",
+      "link": "",
+      "materials": [],
+      "consent": false,
+      "disabled": true,
+      "invalid": []
+    },
+    {
+      "test": "sample after real data",
+      "focus": "guardian-result-title",
+      "feedback": "강의 준비와 배정을 완료했습니다. 로그아웃한 뒤 학생 계정으로 로그인해 주세요.",
+      "stage": "3/3 단계",
+      "source": "sample",
+      "link": "",
+      "materials": [],
+      "consent": false,
+      "disabled": true,
+      "invalid": []
+    }
+  ],
+  "errors": [],
+  "requests": [
+    {
+      "url": "http://127.0.0.1:8892/",
+      "method": "GET"
+    },
+    {
+      "url": "http://127.0.0.1:8892/styles.css?v=paused-entry-7",
+      "method": "GET"
+    },
+    {
+      "url": "http://127.0.0.1:8892/student-design.css?v=hallmark-3",
+      "method": "GET"
+    },
+    {
+      "url": "http://127.0.0.1:8892/guardian-design.css?v=hallmark-3",
+      "method": "GET"
+    },
+    {
+      "url": "http://127.0.0.1:8892/workspace-design.css?v=paused-entry-7",
+      "method": "GET"
+    },
+    {
+      "url": "http://127.0.0.1:8892/playback-scheduler.js",
+      "method": "GET"
+    },
+    {
+      "url": "http://127.0.0.1:8892/concept-tools.js",
+      "method": "GET"
+    },
+    {
+      "url": "http://127.0.0.1:8892/passage-tools.js",
+      "method": "GET"
+    },
+    {
+      "url": "http://127.0.0.1:8892/lecture-library.js",
+      "method": "GET"
+    },
+    {
+      "url": "http://127.0.0.1:8892/narration-context.js",
+      "method": "GET"
+    },
+    {
+      "url": "http://127.0.0.1:8892/sample-catalog.js?v=samples-r2",
+      "method": "GET"
+    },
+    {
+      "url": "http://127.0.0.1:8892/voice-command-router.js",
+      "method": "GET"
+    },
+    {
+      "url": "http://127.0.0.1:8892/app.js?v=shared-voice-9",
+      "method": "GET"
+    },
+    {
+      "url": "http://127.0.0.1:8892/space-gesture.js",
+      "method": "GET"
+    },
+    {
+      "url": "http://127.0.0.1:8892/focus-voice.js?v=shared-voice-9",
+      "method": "GET"
+    },
+    {
+      "url": "http://127.0.0.1:8892/keyboard-navigation.js?v=learning-desk-4",
+      "method": "GET"
+    },
+    {
+      "url": "http://127.0.0.1:8892/role-portal.js?v=shared-voice-9",
+      "method": "GET"
+    },
+    {
+      "url": "http://127.0.0.1:8892/tokens.css",
+      "method": "GET"
+    },
+    {
+      "url": "http://127.0.0.1:8892/health",
+      "method": "GET"
+    },
+    {
+      "url": "http://127.0.0.1:8892/local/status",
+      "method": "GET"
+    },
+    {
+      "url": "http://127.0.0.1:8892/favicon.ico",
+      "method": "GET"
+    },
+    {
+      "url": "http://127.0.0.1:8892/local/me",
+      "method": "GET"
+    },
+    {
+      "url": "http://127.0.0.1:8892/local/setup",
+      "method": "POST"
+    },
+    {
+      "url": "http://127.0.0.1:8892/local/students",
+      "method": "GET"
+    },
+    {
+      "url": "http://127.0.0.1:8892/local/lectures",
+      "method": "GET"
+    },
+    {
+      "url": "http://127.0.0.1:8892/local/students",
+      "method": "POST"
+    },
+    {
+      "url": "http://127.0.0.1:8892/local/students",
+      "method": "GET"
+    },
+    {
+      "url": "http://127.0.0.1:8892/local/lectures",
+      "method": "GET"
+    },
+    {
+      "url": "http://127.0.0.1:8892/sample-catalog.json",
+      "method": "GET"
+    },
+    {
+      "url": "data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPHN2ZyB2ZXJzaW9uPSIxLjEiIGlkPSJMYXllcl8xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB4PSIwcHgiIHk9IjBweCIKCSB2aWV3Qm94PSIwIDAgMjQgMjQiIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDI1NSAyNTU7IiB4bWw6c3BhY2U9InByZXNlcnZlIiBmaWxsPSJXaW5kb3ciPgo8Zz4KCTxjaXJjbGUgY3g9IjEyIiBjeT0iNiIgcj0iMiIvPgoJPGNpcmNsZSBjeD0iMTIiIGN5PSIxMiIgcj0iMiIvPgoJPGNpcmNsZSBjeD0iMTIiIGN5PSIxOCIgcj0iMiIvPgo8L2c+Cjwvc3ZnPgo=",
+      "method": "GET"
+    },
+    {
+      "url": "https://www.youtube.com/iframe_api",
+      "method": "GET"
+    },
+    {
+      "url": "http://127.0.0.1:8892/local/lectures",
+      "method": "POST"
+    },
+    {
+      "url": "http://127.0.0.1:8892/local/students",
+      "method": "GET"
+    },
+    {
+      "url": "http://127.0.0.1:8892/local/lectures",
+      "method": "GET"
+    },
+    {
+      "url": "http://127.0.0.1:8892/guide/#step-4",
+      "method": "GET"
+    },
+    {
+      "url": "http://127.0.0.1:8892/intro.css",
+      "method": "GET"
+    },
+    {
+      "url": "http://127.0.0.1:8892/guide/guide.js",
+      "method": "GET"
+    },
+    {
+      "url": "http://127.0.0.1:8892/intro/img/guardian-login.png",
+      "method": "GET"
+    },
+    {
+      "url": "http://127.0.0.1:8892/tokens.css",
+      "method": "GET"
+    },
+    {
+      "url": "http://127.0.0.1:8892/intro/img/guardian-prepare.png",
+      "method": "GET"
+    }
+  ],
+  "guide": {
+    "initial": [
+      {
+        "text": "1단계. 보호자 계정 만들기·로그인펼치기",
+        "expanded": "false"
+      },
+      {
+        "text": "2단계. 학생 계정 만들기펼치기",
+        "expanded": "false"
+      },
+      {
+        "text": "3단계. 학생별 기본 설정펼치기",
+        "expanded": "false"
+      },
+      {
+        "text": "4단계. 강의 준비하기접기",
+        "expanded": "true"
+      },
+      {
+        "text": "5단계. 분석 결과 확인펼치기",
+        "expanded": "false"
+      },
+      {
+        "text": "6단계. 학생에게 배정하기펼치기",
+        "expanded": "false"
+      },
+      {
+        "text": "7단계. 학생은 이렇게 써요펼치기",
+        "expanded": "false"
+      },
+      {
+        "text": "8단계. 자주 묻는 질문·문제 해결펼치기",
+        "expanded": "false"
+      }
+    ],
+    "focus": "BODY",
+    "linkFocus": "<button type=\"button\" class=\"step-toggle\" aria-controls=\"step-content-4\" aria-expanded=\"true\"><span><span class=\"sr-only\">4단계. </span>강의 준비하기</span><span class=\"toggle-word\" aria-hidden=\"true\">접기</span></button>",
+    "collapsed": true,
+    "sameLinkReopened": true,
+    "allOpen": true,
+    "allClosed": true
+  }
+}

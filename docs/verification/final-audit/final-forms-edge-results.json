@@ -1,0 +1,27 @@
+{
+  "beforeCancel": {
+    "focus": "cancel-analysis-wait",
+    "percentage": "100%",
+    "submitDisabled": true
+  },
+  "afterCancel": {
+    "focus": "BODY",
+    "feedback": "대기를 취소했습니다. 강의는 준비 완료로 제공하지 않았습니다. 이미 전송한 분석은 서버에서 계속될 수 있으며 원본 삭제 정책은 그대로 적용됩니다.",
+    "overlayHidden": true,
+    "setupHidden": false,
+    "submitDisabled": false
+  },
+  "afterTab": {
+    "focus": "SUMMARY",
+    "text": "실행 정보"
+  },
+  "earlyCancel": {
+    "focus": "wizard-submit",
+    "feedback": "대기를 취소했습니다. 강의는 준비 완료로 제공하지 않았습니다. 이미 전송한 분석은 서버에서 계속될 수 있으며 원본 삭제 정책은 그대로 적용됩니다."
+  },
+  "reset": {
+    "value": "",
+    "state": "링크 입력됨",
+    "ready": true
+  }
+}
