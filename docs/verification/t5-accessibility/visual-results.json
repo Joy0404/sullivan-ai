@@ -1,0 +1,554 @@
+[
+  {
+    "width": 320,
+    "overflow": false,
+    "small": [],
+    "texts": [
+      {
+        "text": "학습 현황",
+        "size": 18,
+        "color": "rgb(22, 75, 139)",
+        "background": "rgb(238, 243, 248)"
+      },
+      {
+        "text": "저장된 현황을 불러왔습니다. 메모는 강의당 0개 또는 1개이며, 내용은 표시하지 않습니다.",
+        "size": 18,
+        "color": "rgb(70, 92, 115)",
+        "background": "rgb(238, 243, 248)"
+      },
+      {
+        "text": "별의 진화",
+        "size": 18,
+        "color": "rgb(23, 44, 72)",
+        "background": "rgb(238, 243, 248)"
+      },
+      {
+        "text": "과학",
+        "size": 18,
+        "color": "rgb(70, 92, 115)",
+        "background": "rgb(238, 243, 248)"
+      },
+      {
+        "text": "저장된 위치",
+        "size": 18,
+        "color": "rgb(23, 44, 72)",
+        "background": "rgb(238, 243, 248)"
+      },
+      {
+        "text": "2:03",
+        "size": 18,
+        "color": "rgb(23, 44, 72)",
+        "background": "rgb(238, 243, 248)"
+      },
+      {
+        "text": "밑줄",
+        "size": 18,
+        "color": "rgb(23, 44, 72)",
+        "background": "rgb(238, 243, 248)"
+      },
+      {
+        "text": "1개",
+        "size": 18,
+        "color": "rgb(23, 44, 72)",
+        "background": "rgb(238, 243, 248)"
+      },
+      {
+        "text": "북마크",
+        "size": 18,
+        "color": "rgb(23, 44, 72)",
+        "background": "rgb(238, 243, 248)"
+      },
+      {
+        "text": "2개",
+        "size": 18,
+        "color": "rgb(23, 44, 72)",
+        "background": "rgb(238, 243, 248)"
+      },
+      {
+        "text": "메모",
+        "size": 18,
+        "color": "rgb(23, 44, 72)",
+        "background": "rgb(238, 243, 248)"
+      },
+      {
+        "text": "1개",
+        "size": 18,
+        "color": "rgb(23, 44, 72)",
+        "background": "rgb(238, 243, 248)"
+      },
+      {
+        "text": "마지막 저장: 2026. 11. 5. 오전 1:00",
+        "size": 18,
+        "color": "rgb(70, 92, 115)",
+        "background": "rgb(238, 243, 248)"
+      },
+      {
+        "text": "아주 긴 강의 제목입니다 공개강의공개강의공개강의공개강의공개강의공개강의공개강의공개강의공개강의공개강의공개강의공개강의공개강의공개강의공개강의공개강의공개강의공개강의",
+        "size": 18,
+        "color": "rgb(23, 44, 72)",
+        "background": "rgb(238, 243, 248)"
+      },
+      {
+        "text": "과학과 긴 과목 이름",
+        "size": 18,
+        "color": "rgb(70, 92, 115)",
+        "background": "rgb(238, 243, 248)"
+      },
+      {
+        "text": "저장된 위치",
+        "size": 18,
+        "color": "rgb(23, 44, 72)",
+        "background": "rgb(238, 243, 248)"
+      },
+      {
+        "text": "0:00",
+        "size": 18,
+        "color": "rgb(23, 44, 72)",
+        "background": "rgb(238, 243, 248)"
+      },
+      {
+        "text": "밑줄",
+        "size": 18,
+        "color": "rgb(23, 44, 72)",
+        "background": "rgb(238, 243, 248)"
+      },
+      {
+        "text": "0개",
+        "size": 18,
+        "color": "rgb(23, 44, 72)",
+        "background": "rgb(238, 243, 248)"
+      },
+      {
+        "text": "북마크",
+        "size": 18,
+        "color": "rgb(23, 44, 72)",
+        "background": "rgb(238, 243, 248)"
+      },
+      {
+        "text": "0개",
+        "size": 18,
+        "color": "rgb(23, 44, 72)",
+        "background": "rgb(238, 243, 248)"
+      },
+      {
+        "text": "메모",
+        "size": 18,
+        "color": "rgb(23, 44, 72)",
+        "background": "rgb(238, 243, 248)"
+      },
+      {
+        "text": "0개",
+        "size": 18,
+        "color": "rgb(23, 44, 72)",
+        "background": "rgb(238, 243, 248)"
+      },
+      {
+        "text": "저장 시각 기록 없음",
+        "size": 18,
+        "color": "rgb(70, 92, 115)",
+        "background": "rgb(238, 243, 248)"
+      }
+    ],
+    "headings": [
+      {
+        "tag": "H1",
+        "text": "보호자 준비실"
+      },
+      {
+        "tag": "H2",
+        "text": "학생 관리"
+      },
+      {
+        "tag": "H3",
+        "text": "체험 학생"
+      },
+      {
+        "tag": "H4",
+        "text": "별의 진화"
+      },
+      {
+        "tag": "H4",
+        "text": "아주 긴 강의 제목입니다 공개강의공개강의공개강의공개강의공개강의공개강의공개강의공개강의공개강의공개강의공개강의공개강의공개강의공개강의공개강의공개강의공개강의공개강의"
+      }
+    ],
+    "summaryHeight": 53.6875,
+    "counts": [
+      {
+        "dt": 4,
+        "dd": 4
+      },
+      {
+        "dt": 4,
+        "dd": 4
+      }
+    ]
+  },
+  {
+    "width": 390,
+    "overflow": false,
+    "small": [],
+    "texts": [
+      {
+        "text": "학습 현황",
+        "size": 18,
+        "color": "rgb(22, 75, 139)",
+        "background": "rgb(238, 243, 248)"
+      },
+      {
+        "text": "저장된 현황을 불러왔습니다. 메모는 강의당 0개 또는 1개이며, 내용은 표시하지 않습니다.",
+        "size": 18,
+        "color": "rgb(70, 92, 115)",
+        "background": "rgb(238, 243, 248)"
+      },
+      {
+        "text": "별의 진화",
+        "size": 18,
+        "color": "rgb(23, 44, 72)",
+        "background": "rgb(238, 243, 248)"
+      },
+      {
+        "text": "과학",
+        "size": 18,
+        "color": "rgb(70, 92, 115)",
+        "background": "rgb(238, 243, 248)"
+      },
+      {
+        "text": "저장된 위치",
+        "size": 18,
+        "color": "rgb(23, 44, 72)",
+        "background": "rgb(238, 243, 248)"
+      },
+      {
+        "text": "2:03",
+        "size": 18,
+        "color": "rgb(23, 44, 72)",
+        "background": "rgb(238, 243, 248)"
+      },
+      {
+        "text": "밑줄",
+        "size": 18,
+        "color": "rgb(23, 44, 72)",
+        "background": "rgb(238, 243, 248)"
+      },
+      {
+        "text": "1개",
+        "size": 18,
+        "color": "rgb(23, 44, 72)",
+        "background": "rgb(238, 243, 248)"
+      },
+      {
+        "text": "북마크",
+        "size": 18,
+        "color": "rgb(23, 44, 72)",
+        "background": "rgb(238, 243, 248)"
+      },
+      {
+        "text": "2개",
+        "size": 18,
+        "color": "rgb(23, 44, 72)",
+        "background": "rgb(238, 243, 248)"
+      },
+      {
+        "text": "메모",
+        "size": 18,
+        "color": "rgb(23, 44, 72)",
+        "background": "rgb(238, 243, 248)"
+      },
+      {
+        "text": "1개",
+        "size": 18,
+        "color": "rgb(23, 44, 72)",
+        "background": "rgb(238, 243, 248)"
+      },
+      {
+        "text": "마지막 저장: 2026. 11. 5. 오전 1:00",
+        "size": 18,
+        "color": "rgb(70, 92, 115)",
+        "background": "rgb(238, 243, 248)"
+      },
+      {
+        "text": "아주 긴 강의 제목입니다 공개강의공개강의공개강의공개강의공개강의공개강의공개강의공개강의공개강의공개강의공개강의공개강의공개강의공개강의공개강의공개강의공개강의공개강의",
+        "size": 18,
+        "color": "rgb(23, 44, 72)",
+        "background": "rgb(238, 243, 248)"
+      },
+      {
+        "text": "과학과 긴 과목 이름",
+        "size": 18,
+        "color": "rgb(70, 92, 115)",
+        "background": "rgb(238, 243, 248)"
+      },
+      {
+        "text": "저장된 위치",
+        "size": 18,
+        "color": "rgb(23, 44, 72)",
+        "background": "rgb(238, 243, 248)"
+      },
+      {
+        "text": "0:00",
+        "size": 18,
+        "color": "rgb(23, 44, 72)",
+        "background": "rgb(238, 243, 248)"
+      },
+      {
+        "text": "밑줄",
+        "size": 18,
+        "color": "rgb(23, 44, 72)",
+        "background": "rgb(238, 243, 248)"
+      },
+      {
+        "text": "0개",
+        "size": 18,
+        "color": "rgb(23, 44, 72)",
+        "background": "rgb(238, 243, 248)"
+      },
+      {
+        "text": "북마크",
+        "size": 18,
+        "color": "rgb(23, 44, 72)",
+        "background": "rgb(238, 243, 248)"
+      },
+      {
+        "text": "0개",
+        "size": 18,
+        "color": "rgb(23, 44, 72)",
+        "background": "rgb(238, 243, 248)"
+      },
+      {
+        "text": "메모",
+        "size": 18,
+        "color": "rgb(23, 44, 72)",
+        "background": "rgb(238, 243, 248)"
+      },
+      {
+        "text": "0개",
+        "size": 18,
+        "color": "rgb(23, 44, 72)",
+        "background": "rgb(238, 243, 248)"
+      },
+      {
+        "text": "저장 시각 기록 없음",
+        "size": 18,
+        "color": "rgb(70, 92, 115)",
+        "background": "rgb(238, 243, 248)"
+      }
+    ],
+    "headings": [
+      {
+        "tag": "H1",
+        "text": "보호자 준비실"
+      },
+      {
+        "tag": "H2",
+        "text": "학생 관리"
+      },
+      {
+        "tag": "H3",
+        "text": "체험 학생"
+      },
+      {
+        "tag": "H4",
+        "text": "별의 진화"
+      },
+      {
+        "tag": "H4",
+        "text": "아주 긴 강의 제목입니다 공개강의공개강의공개강의공개강의공개강의공개강의공개강의공개강의공개강의공개강의공개강의공개강의공개강의공개강의공개강의공개강의공개강의공개강의"
+      }
+    ],
+    "summaryHeight": 53.6875,
+    "counts": [
+      {
+        "dt": 4,
+        "dd": 4
+      },
+      {
+        "dt": 4,
+        "dd": 4
+      }
+    ]
+  },
+  {
+    "width": 1280,
+    "overflow": false,
+    "small": [],
+    "texts": [
+      {
+        "text": "학습 현황",
+        "size": 18,
+        "color": "rgb(22, 75, 139)",
+        "background": "rgb(238, 243, 248)"
+      },
+      {
+        "text": "저장된 현황을 불러왔습니다. 메모는 강의당 0개 또는 1개이며, 내용은 표시하지 않습니다.",
+        "size": 18,
+        "color": "rgb(70, 92, 115)",
+        "background": "rgb(238, 243, 248)"
+      },
+      {
+        "text": "별의 진화",
+        "size": 18,
+        "color": "rgb(23, 44, 72)",
+        "background": "rgb(238, 243, 248)"
+      },
+      {
+        "text": "과학",
+        "size": 18,
+        "color": "rgb(70, 92, 115)",
+        "background": "rgb(238, 243, 248)"
+      },
+      {
+        "text": "저장된 위치",
+        "size": 18,
+        "color": "rgb(23, 44, 72)",
+        "background": "rgb(238, 243, 248)"
+      },
+      {
+        "text": "2:03",
+        "size": 18,
+        "color": "rgb(23, 44, 72)",
+        "background": "rgb(238, 243, 248)"
+      },
+      {
+        "text": "밑줄",
+        "size": 18,
+        "color": "rgb(23, 44, 72)",
+        "background": "rgb(238, 243, 248)"
+      },
+      {
+        "text": "1개",
+        "size": 18,
+        "color": "rgb(23, 44, 72)",
+        "background": "rgb(238, 243, 248)"
+      },
+      {
+        "text": "북마크",
+        "size": 18,
+        "color": "rgb(23, 44, 72)",
+        "background": "rgb(238, 243, 248)"
+      },
+      {
+        "text": "2개",
+        "size": 18,
+        "color": "rgb(23, 44, 72)",
+        "background": "rgb(238, 243, 248)"
+      },
+      {
+        "text": "메모",
+        "size": 18,
+        "color": "rgb(23, 44, 72)",
+        "background": "rgb(238, 243, 248)"
+      },
+      {
+        "text": "1개",
+        "size": 18,
+        "color": "rgb(23, 44, 72)",
+        "background": "rgb(238, 243, 248)"
+      },
+      {
+        "text": "마지막 저장: 2026. 11. 5. 오전 1:00",
+        "size": 18,
+        "color": "rgb(70, 92, 115)",
+        "background": "rgb(238, 243, 248)"
+      },
+      {
+        "text": "아주 긴 강의 제목입니다 공개강의공개강의공개강의공개강의공개강의공개강의공개강의공개강의공개강의공개강의공개강의공개강의공개강의공개강의공개강의공개강의공개강의공개강의",
+        "size": 18,
+        "color": "rgb(23, 44, 72)",
+        "background": "rgb(238, 243, 248)"
+      },
+      {
+        "text": "과학과 긴 과목 이름",
+        "size": 18,
+        "color": "rgb(70, 92, 115)",
+        "background": "rgb(238, 243, 248)"
+      },
+      {
+        "text": "저장된 위치",
+        "size": 18,
+        "color": "rgb(23, 44, 72)",
+        "background": "rgb(238, 243, 248)"
+      },
+      {
+        "text": "0:00",
+        "size": 18,
+        "color": "rgb(23, 44, 72)",
+        "background": "rgb(238, 243, 248)"
+      },
+      {
+        "text": "밑줄",
+        "size": 18,
+        "color": "rgb(23, 44, 72)",
+        "background": "rgb(238, 243, 248)"
+      },
+      {
+        "text": "0개",
+        "size": 18,
+        "color": "rgb(23, 44, 72)",
+        "background": "rgb(238, 243, 248)"
+      },
+      {
+        "text": "북마크",
+        "size": 18,
+        "color": "rgb(23, 44, 72)",
+        "background": "rgb(238, 243, 248)"
+      },
+      {
+        "text": "0개",
+        "size": 18,
+        "color": "rgb(23, 44, 72)",
+        "background": "rgb(238, 243, 248)"
+      },
+      {
+        "text": "메모",
+        "size": 18,
+        "color": "rgb(23, 44, 72)",
+        "background": "rgb(238, 243, 248)"
+      },
+      {
+        "text": "0개",
+        "size": 18,
+        "color": "rgb(23, 44, 72)",
+        "background": "rgb(238, 243, 248)"
+      },
+      {
+        "text": "저장 시각 기록 없음",
+        "size": 18,
+        "color": "rgb(70, 92, 115)",
+        "background": "rgb(238, 243, 248)"
+      }
+    ],
+    "headings": [
+      {
+        "tag": "H1",
+        "text": "보호자 준비실"
+      },
+      {
+        "tag": "H2",
+        "text": "학생 관리"
+      },
+      {
+        "tag": "H3",
+        "text": "체험 학생"
+      },
+      {
+        "tag": "H4",
+        "text": "별의 진화"
+      },
+      {
+        "tag": "H4",
+        "text": "아주 긴 강의 제목입니다 공개강의공개강의공개강의공개강의공개강의공개강의공개강의공개강의공개강의공개강의공개강의공개강의공개강의공개강의공개강의공개강의공개강의공개강의"
+      }
+    ],
+    "summaryHeight": 53.6875,
+    "counts": [
+      {
+        "dt": 4,
+        "dd": 4
+      },
+      {
+        "dt": 4,
+        "dd": 4
+      }
+    ]
+  }
+]

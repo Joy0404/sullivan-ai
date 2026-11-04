@@ -199,6 +199,31 @@ window.Portal = (() => {
       const card=node('article',undefined,{className:'guardian-student'}),titleId='guardian-student-'+s.id;
       card.setAttribute('aria-labelledby',titleId);
       const copy=node('div');copy.append(node('h3',s.name,{id:titleId}),node('p',`배정 강의 ${lectures.filter(l=>l.students.includes(s.id)).length}개`));
+      const progress=node('details',undefined,{className:'guardian-learning-progress'}),progressTitle=node('summary','학습 현황');
+      progressTitle.setAttribute('aria-describedby',titleId);
+      const status=node('p','펼치면 저장된 학습 위치와 기록 개수를 불러옵니다.');status.setAttribute('role','status');
+      const records=node('ul');progress.append(progressTitle,status,records);copy.append(progress);
+      const guardian=ui.user.id;let loaded=false,loading=false;
+      progress.addEventListener('toggle',async()=>{
+        if(!progress.open||loaded||loading)return;
+        loading=true;status.textContent='학습 현황을 불러오고 있습니다.';
+        try{
+          const data=await request('/students/'+encodeURIComponent(s.id)+'/progress');
+          if(ui.user?.id!==guardian||ui.user?.role!=='guardian'||!progress.isConnected)return;
+          records.replaceChildren();
+          for(const lecture of data.lectures){
+            const item=node('li');item.append(node('h4',lecture.title),node('p',lecture.subject));
+            const values=node('dl');
+            for(const [label,value]of [['저장된 위치',formatTime(lecture.position_ms)],['밑줄',lecture.underlined_count+'개'],['북마크',lecture.bookmark_count+'개'],['메모',lecture.note_count+'개']])values.append(node('dt',label),node('dd',value));
+            const saved=lecture.updated_at?new Date(lecture.updated_at):null;
+            const date=saved&&!Number.isNaN(saved.getTime())?new Intl.DateTimeFormat('ko-KR',{dateStyle:'medium',timeStyle:'short'}).format(saved):null;
+            item.append(values,node('p',date?'마지막 저장: '+date:'저장 시각 기록 없음',{className:'guardian-progress-saved'}));records.append(item);
+          }
+          loaded=true;status.textContent=data.lectures.length?'저장된 현황을 불러왔습니다. 메모는 강의당 0개 또는 1개이며, 내용은 표시하지 않습니다.':'아직 배정된 강의가 없습니다.';
+        }catch{
+          if(ui.user?.id===guardian&&progress.isConnected)status.textContent='학습 현황을 불러오지 못했습니다. 접었다가 다시 펼치면 재시도합니다.';
+        }finally{loading=false;}
+      });
       const settingsLink=node('a','설정',{href:'#guardian-settings-panel'});settingsLink.dataset.guardianTarget='settings';settingsLink.dataset.student=s.id;settingsLink.setAttribute('aria-describedby',titleId);
       card.append(copy,settingsLink);roster.append(card);
     }

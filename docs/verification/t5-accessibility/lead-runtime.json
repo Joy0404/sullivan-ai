@@ -1,0 +1,20 @@
+{
+  "skill": "accessibility-lead",
+  "scope": [
+    "loadGuardian guardian-learning-progress"
+  ],
+  "findings": [],
+  "passed": [
+    "Native disclosure has the student name as description and exposes expanded state; loading status is polite in Chrome AX.",
+    "Completion updates the existing status once, leaves the record list outside the live region and preserves summary focus.",
+    "Native heading/list/description-list structures label location and all counts; missing timestamp is explicit; private note getters stay unread.",
+    "Space toggles the native details; re-opening loaded data does not duplicate the request or announcement.",
+    "Failure gives a persistent polite retry instruction without focus theft; close/re-open retries successfully.",
+    "A pending successful response after role/user switch does not render records or a completion announcement.",
+    "A response for a detached roster disclosure does not update the removed records or status."
+  ],
+  "notes": [
+    "ARIA/live-region specialist final response was interrupted by its usage limit. Lead re-ran its completed runtime fixture and reviewed source. No final specialist verdict claimed.",
+    "Real screen-reader speech not tested."
+  ]
+}

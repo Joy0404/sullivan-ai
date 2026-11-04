@@ -246,6 +246,16 @@ body[data-role="guardian"] #lecture-form :is(#wizard-next, #wizard-previous, #wi
 }
 
 /* Put preparation and assignment ahead of previews; keep native forms. */
+body[data-role="guardian"] .guardian-learning-progress { margin-top: .75rem; }
+body[data-role="guardian"] #guardian-dashboard .guardian-student { align-items: flex-start; }
+body[data-role="guardian"] #guardian-dashboard .guardian-student > div { flex: 1; }
+body[data-role="guardian"] .guardian-learning-progress summary { min-height: 48px; padding-block: .5rem; cursor: pointer; }
+body[data-role="guardian"] .guardian-learning-progress ul { list-style: none; padding: 0; margin: 0; }
+body[data-role="guardian"] .guardian-learning-progress li { border-top: 1px solid var(--line); padding-block: 1rem; }
+body[data-role="guardian"] .guardian-learning-progress h4 { margin: 0; font-size: 1.125rem; overflow-wrap: anywhere; }
+body[data-role="guardian"] .guardian-learning-progress dl { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: .5rem 1rem; margin-block: 1rem; }
+body[data-role="guardian"] .guardian-learning-progress dd { margin: 0; font-variant-numeric: tabular-nums; overflow-wrap: anywhere; }
+body[data-role="guardian"] .guardian-learning-progress .guardian-progress-saved { color: var(--muted); }
 body[data-role="guardian"] .guardian-workflow { padding-block: .75rem; column-gap: 1.5rem; }
 body[data-role="guardian"] .guardian-sample-note { margin-block: .75rem; }
 body[data-role="guardian"] .guardian-sample-assignment { padding: 1.25rem 0; border: 0; border-block: 1px solid var(--line); border-radius: 0; background: transparent; }

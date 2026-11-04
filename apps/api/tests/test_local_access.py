@@ -188,3 +188,65 @@ def test_student_can_persist_only_own_speech_preferences(family):
     assert c.put('/local/preferences',json={'focus_voice':True,'reader_mode':False,'problem_mode':False}).status_code==422
     c.post('/local/logout');c.post('/local/login',json={'username':'student1','password':'audit-pass-123'})
     assert c.get('/local/me').json()['settings']['focus_voice'] is True
+
+
+def test_guardian_progress_rejects_other_guardian(family):
+    from app.local_access import Credentials, create_user, db
+    g,students=family;student_id,_=students[0]
+    with db() as c:create_user(c,Credentials(username='other-guardian',password='audit-pass-123'),'guardian')
+    other=TestClient(app,headers=HEAD)
+    assert other.post('/local/login',json={'username':'other-guardian','password':'audit-pass-123'}).status_code==200
+    assert other.get('/local/students/'+student_id+'/progress').status_code==403
+    assert g.get('/local/students/not-owned/progress').status_code==403
+    assert TestClient(app).get('/local/students/'+student_id+'/progress').status_code==401
+
+
+def test_guardian_progress_rejects_student_even_for_self(family):
+    _,students=family;student_id,student=students[0]
+    assert student.get('/local/students/'+student_id+'/progress').status_code==403
+
+
+def test_guardian_progress_returns_counts_without_record_content(family):
+    from datetime import datetime
+    from app.local_access import db
+    g,students=family;student_id,student=students[0];other_id,_=students[1]
+    ident,_=prepare(g,[student_id]);g.put('/local/lectures/'+ident+'/ready')
+    assert student.put('/local/lectures/'+ident+'/progress',json={'position_ms':123000,'underlined':['PRIVATE_UNDERLINE_1','PRIVATE_UNDERLINE_2'],'bookmarks':[{'text':'PRIVATE_BOOKMARK'}],'note':'PRIVATE_NOTE'}).status_code==200
+    with db() as c:before=c.execute('SELECT payload FROM progress WHERE lecture=? AND student=?',(ident,student_id)).fetchone()[0]
+    result=g.get('/local/students/'+student_id+'/progress')
+    assert result.status_code==200 and result.headers['cache-control']=='no-store'
+    row=result.json()['lectures'][0]
+    assert row['lecture_id']==ident and row['position_ms']==123000
+    assert (row['underlined_count'],row['bookmark_count'],row['note_count'])==(2,1,1)
+    assert datetime.fromisoformat(row['updated_at']).tzinfo is not None
+    assert 'PRIVATE_' not in result.text
+    assert set(row)=={'lecture_id','title','subject','position_ms','underlined_count','bookmark_count','note_count','updated_at'}
+    with db() as c:assert c.execute('SELECT payload FROM progress WHERE lecture=? AND student=?',(ident,student_id)).fetchone()[0]==before
+    assert g.get('/local/students/'+other_id+'/progress').json()['lectures']==[]
+    assert g.put('/local/lectures/'+ident,json={'title':'철회','subject':'영어','students':[other_id]}).status_code==200
+    assert g.get('/local/students/'+student_id+'/progress').json()['lectures']==[]
+
+
+def test_guardian_progress_supports_old_missing_and_malformed_records(family):
+    import json
+    from app.local_access import db
+    g,students=family;student_id,_=students[0]
+    ident,_=prepare(g,[student_id])
+    empty=g.get('/local/students/'+student_id+'/progress').json()['lectures'][0]
+    assert empty['position_ms']==0 and empty['note_count']==0 and empty['updated_at'] is None
+    for payload,expected in [(json.dumps({'position_ms':5000,'note':'old note','bookmarks':[],'underlined':['old']}),(5000,1,1)),('[]',(0,0,0)),('invalid-json',(0,0,0)),(json.dumps({'position_ms':True,'underlined':'text','bookmarks':{},'note':{},'updated_at':'secret'}),(0,0,0))]:
+        with db() as c:c.execute('INSERT OR REPLACE INTO progress VALUES(?,?,?)',(ident,student_id,payload))
+        row=g.get('/local/students/'+student_id+'/progress').json()['lectures'][0]
+        assert (row['position_ms'],row['note_count'],row['underlined_count'])==expected
+        assert row['updated_at'] is None
+        with db() as c:assert c.execute('SELECT payload FROM progress WHERE lecture=? AND student=?',(ident,student_id)).fetchone()[0]==payload
+
+
+def test_guardian_progress_filters_foreign_lectures_even_with_bad_assignment(family):
+    from app.local_access import Credentials, create_user, db
+    g,students=family;student_id,_=students[0]
+    ident,_=prepare(g,[student_id])
+    with db() as c:
+        other=create_user(c,Credentials(username='foreign-owner',password='audit-pass-123'),'guardian')
+        c.execute('UPDATE lectures SET guardian=? WHERE id=?',(other,ident))
+    assert g.get('/local/students/'+student_id+'/progress').json()['lectures']==[]

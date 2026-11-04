@@ -1,5 +1,6 @@
 """Local accounts and assignment authorization. No provider configuration is read here."""
 from contextlib import contextmanager
+from datetime import datetime, timezone
 from pathlib import Path
 import hashlib
 import hmac
@@ -188,6 +189,50 @@ def student_create(p:Credentials,request:Request):
 def students(request:Request):
     u=require(request,'guardian')
     with db() as c:return [public(r) for r in c.execute('SELECT * FROM users WHERE guardian=? ORDER BY name',(u['id'],))]
+
+class LectureProgressSummary(BaseModel):
+    lecture_id:str
+    title:str
+    subject:str
+    position_ms:int
+    underlined_count:int
+    bookmark_count:int
+    note_count:int
+    updated_at:str | None
+
+class StudentProgressSummary(BaseModel):
+    student_id:str
+    lectures:list[LectureProgressSummary]
+
+@router.get('/students/{ident}/progress',response_model=StudentProgressSummary)
+def student_progress(ident:str,request:Request):
+    u=require(request,'guardian')
+    with db() as c:
+        # Authorize the student before reading any learning records; also constrain the lecture owner.
+        if not c.execute("SELECT 1 FROM users WHERE id=? AND guardian=? AND role='student'",(ident,u['id'])).fetchone():
+            raise HTTPException(403,'연결된 학생이 아닙니다.')
+        rows=c.execute('''SELECT l.id,l.title,l.subject,p.payload FROM assignments a
+            JOIN lectures l ON l.id=a.lecture
+            LEFT JOIN progress p ON p.lecture=a.lecture AND p.student=a.student
+            WHERE a.student=? AND l.guardian=? ORDER BY a.position,a.rowid''',(ident,u['id'])).fetchall()
+    summaries=[]
+    for row in rows:
+        try:payload=json.loads(row['payload'] or '{}')
+        except (ValueError,TypeError):payload={}
+        if not isinstance(payload,dict):payload={}
+        position=payload.get('position_ms',0)
+        if type(position) is not int or not 0<=position<=86400000:position=0
+        updated=payload.get('updated_at')
+        try:
+            parsed=datetime.fromisoformat(updated) if isinstance(updated,str) else None
+            updated=parsed.astimezone(timezone.utc).isoformat() if parsed and parsed.tzinfo else None
+        except (ValueError,OverflowError):updated=None
+        # Only scalar summaries cross this boundary, never note text, bookmark labels or underline text.
+        summaries.append(LectureProgressSummary(lecture_id=row['id'],title=row['title'],subject=row['subject'],
+            position_ms=position,underlined_count=len(payload['underlined']) if isinstance(payload.get('underlined'),list) else 0,
+            bookmark_count=len(payload['bookmarks']) if isinstance(payload.get('bookmarks'),list) else 0,
+            note_count=int(isinstance(payload.get('note'),str) and bool(payload['note'].strip())),updated_at=updated))
+    return StudentProgressSummary(student_id=ident,lectures=summaries)
 
 class Settings(BaseModel):
     auto_description:bool=True
@@ -392,7 +437,7 @@ class Progress(BaseModel):
 @router.put('/lectures/{ident}/progress')
 def progress(ident:str,p:Progress,request:Request):
     u=require(request,'student')
-    payload=p.model_dump_json()
+    payload=json.dumps(p.model_dump() | {'updated_at':datetime.now(timezone.utc).isoformat(timespec='seconds')},ensure_ascii=False)
     if len(payload)>64000:raise HTTPException(413,'학습 기록이 너무 큽니다.')
     with db() as c:
         own(c,u,ident)
