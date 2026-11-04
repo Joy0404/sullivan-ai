@@ -180,7 +180,7 @@ body[data-role="guardian"] .evidence-row .decision { display: flex; flex-wrap: w
 body[data-role="guardian"] .evidence-row .decision strong { overflow-wrap: anywhere; }
 body[data-role="guardian"] #chat-panel .section-heading label:has(input[type="checkbox"]) { display: grid; grid-template-columns: 24px minmax(0,1fr); align-items: center; gap: var(--guardian-sm); font-size: 1.125rem; }
 body[data-role="guardian"] #chat-panel .section-heading input[type="checkbox"] { min-height: 24px; width: 24px; height: 24px; margin: 0; position: static; }
-body[data-role="guardian"] #agent-view .workspace :is(p,span,strong,code,small,label,summary,li,dt,dd,input,select,textarea,button) { font-size: 1.125rem; line-height: 1.6; }
+body[data-role="guardian"] #agent-view .workspace :is(p,span,strong,b,time,em,code,small,label,summary,li,dt,dd,input,select,textarea,button) { font-size: 1.125rem; line-height: 1.6; }
 body[data-role="guardian"] #agent-view .workspace :is(.description-output,.reason,.safety-banner,.empty-state) { font-size: 1.125rem; line-height: 1.75; }
 body[data-role="guardian"] #agent-view .workspace h3 { font-size: 1.25rem; }
 body[data-role="guardian"] #agent-view .workspace :is(select,summary,input:not([type="checkbox"])) { min-height: 48px; border-color: var(--control-border); }

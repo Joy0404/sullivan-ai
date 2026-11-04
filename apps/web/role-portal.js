@@ -206,7 +206,7 @@ window.Portal = (() => {
       const guardian=ui.user.id;let loaded=false,loading=false;
       progress.addEventListener('toggle',async()=>{
         if(!progress.open||loaded||loading)return;
-        loading=true;status.textContent='학습 현황을 불러오고 있습니다.';
+        loading=true;status.textContent=s.name+' 학생의 학습 현황을 불러오고 있습니다.';
         try{
           const data=await request('/students/'+encodeURIComponent(s.id)+'/progress');
           if(ui.user?.id!==guardian||ui.user?.role!=='guardian'||!progress.isConnected)return;
@@ -219,9 +219,9 @@ window.Portal = (() => {
             const date=saved&&!Number.isNaN(saved.getTime())?new Intl.DateTimeFormat('ko-KR',{dateStyle:'medium',timeStyle:'short'}).format(saved):null;
             item.append(values,node('p',date?'마지막 저장: '+date:'저장 시각 기록 없음',{className:'guardian-progress-saved'}));records.append(item);
           }
-          loaded=true;status.textContent=data.lectures.length?'저장된 현황을 불러왔습니다. 메모는 강의당 0개 또는 1개이며, 내용은 표시하지 않습니다.':'아직 배정된 강의가 없습니다.';
+          loaded=true;status.textContent=s.name+' 학생: '+(data.lectures.length?'저장된 현황을 불러왔습니다. 메모는 강의당 0개 또는 1개이며, 내용은 표시하지 않습니다.':'아직 배정된 강의가 없습니다.');
         }catch{
-          if(ui.user?.id===guardian&&progress.isConnected)status.textContent='학습 현황을 불러오지 못했습니다. 접었다가 다시 펼치면 재시도합니다.';
+          if(ui.user?.id===guardian&&progress.isConnected)status.textContent=s.name+' 학생의 학습 현황을 불러오지 못했습니다. 접었다가 다시 펼치면 재시도합니다.';
         }finally{loading=false;}
       });
       const settingsLink=node('a','설정',{href:'#guardian-settings-panel'});settingsLink.dataset.guardianTarget='settings';settingsLink.dataset.student=s.id;settingsLink.setAttribute('aria-describedby',titleId);
@@ -344,7 +344,11 @@ window.Portal = (() => {
         form.querySelectorAll('[data-wizard-source]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.wizardSource===kind)));
         if(clear){if(kind!=='file'){video.value='';video.dispatchEvent(new Event('change',{bubbles:true}));}if(kind!=='link'){link.value='';link.dispatchEvent(new Event('input',{bubbles:true}));}if(kind==='sample'){materials.value='';materials.dispatchEvent(new Event('change',{bubbles:true}));}consent.checked=false;}
         el('wizard-sample-choice').hidden=kind!=='sample';el('wizard-source-fields').hidden=kind==='sample';el('wizard-file-source').hidden=kind!=='file';el('wizard-link-source').hidden=kind!=='link';
+        // Inactive inputs must never disagree with the visible source and review.
+        if(kind!=='link'&&link.value){link.value='';link.dispatchEvent(new Event('input',{bubbles:true}));}
+        if(kind!=='file'&&video.files.length){video.value='';video.dispatchEvent(new Event('change',{bubbles:true}));}
         const realSource=kind==='link'||kind==='file'&&video.files.length>0;
+        consent.disabled=!realSource;if(!realSource)consent.checked=false;
         el('local-video-ai-consent').hidden=!realSource;el('wizard-consent-details').hidden=!realSource;el('demo-access-code-field').hidden=!realSource;
         for(const input of [form.elements.problem_mode,form.elements.rights_confirmed]){input.disabled=kind==='sample';input.closest('label').hidden=kind==='sample';}
         form.querySelector('.mode-help').hidden=kind==='sample';el('wizard-sample-protection').hidden=kind!=='sample';
@@ -376,7 +380,7 @@ window.Portal = (() => {
         if(source==='sample'){event.preventDefault();event.stopImmediatePropagation();openSampleSession(el('wizard-sample-kind').value);}
       },true);
       form.addEventListener('input',()=>{if(step===3)review();});
-      form.addEventListener('wizard-reset',()=>{clearErrors();choose(video.files.length||materials.files.length?'file':link.value?'link':'sample',false);go(1);});
+      form.addEventListener('wizard-reset',()=>{clearErrors();choose(video.files.length?'file':link.value.trim()?'link':materials.files.length?'file':'sample',false);go(1);});
     }
     form.dispatchEvent(new Event('wizard-reset'));
   }

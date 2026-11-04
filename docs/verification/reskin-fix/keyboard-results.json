@@ -1,0 +1,20 @@
+{
+  "three_playback_buttons_in_requested_order": true,
+  "shift_alone_previous": true,
+  "native_shift_tab_single_move": true,
+  "shift_typing_selection_and_modifier_chords_preserved": true,
+  "modal_scope_and_escape": true,
+  "window_blur_cancels_shift": true,
+  "role_and_learning_first_focus": true,
+  "four_core_actions_within_four_tabs": true,
+  "lecture_before_help_in_tab_order": true,
+  "viewport_widths": [
+    320,
+    390,
+    1280,
+    1920
+  ],
+  "page_errors": [],
+  "real_screen_reader": "not tested",
+  "providers": "mocked; no real accounts or provider calls"
+}

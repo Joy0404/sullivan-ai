@@ -1,0 +1,76 @@
+{
+  "beforeHome": {
+    "source": "link",
+    "selected": [
+      "link"
+    ],
+    "link": "https://example.com/expected-link.mp4",
+    "linkHidden": false,
+    "videoConsentHidden": false,
+    "consent": true,
+    "review": ""
+  },
+  "afterReopen": {
+    "source": "link",
+    "selected": [
+      "link"
+    ],
+    "link": "https://example.com/expected-link.mp4",
+    "linkHidden": false,
+    "videoConsentHidden": false,
+    "consent": true,
+    "review": ""
+  },
+  "beforeSubmit": {
+    "source": "link",
+    "selected": [
+      "link"
+    ],
+    "link": "https://example.com/expected-link.mp4",
+    "linkHidden": false,
+    "videoConsentHidden": false,
+    "consent": true,
+    "review": "강의 제목Sullivan AI 접근성 데모 강의과목통합 학습자료https://example.com/expected-link.mp4보조 자료audit-material.txt분석 동의직접 동의함"
+  },
+  "capturedVisibleLinkRequest": {
+    "url": "https://example.com/expected-link.mp4",
+    "rights_confirmed": true,
+    "request_analysis": true,
+    "analysis_consent": true,
+    "access_code": "mock-code"
+  },
+  "feedback": "준비를 마치지 못했습니다. audit mock stopped provider request",
+  "textOnly": {
+    "source": "file",
+    "selected": [
+      "file"
+    ],
+    "link": "",
+    "linkHidden": true,
+    "videoConsentHidden": true,
+    "consent": false,
+    "review": "강의 제목Sullivan AI 접근성 데모 강의과목통합 학습자료https://example.com/expected-link.mp4보조 자료audit-material.txt분석 동의직접 동의함"
+  },
+  "textOnlyForm": {
+    "title": "Sullivan AI 접근성 데모 강의",
+    "subject": "통합 학습",
+    "source_label": "직접 제작한 대회용 영상",
+    "preferred_mode": "auto",
+    "video_url": "",
+    "demo_access_code": "mock-code",
+    "rights_confirmed": "on"
+  },
+  "textOnlyReview": {
+    "source": "file",
+    "selected": [
+      "file"
+    ],
+    "link": "",
+    "linkHidden": true,
+    "videoConsentHidden": true,
+    "consent": false,
+    "review": "강의 제목Sullivan AI 접근성 데모 강의과목통합 학습자료학습자료만 준비보조 자료audit-material.txt분석 동의동의하지 않음"
+  },
+  "inactiveVideoCleared": true,
+  "passed": true
+}

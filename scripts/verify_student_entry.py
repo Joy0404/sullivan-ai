@@ -45,7 +45,11 @@ def main():
     page.route('**/*',lambda r:r.continue_() if r.request.url.startswith(base) else r.abort())
     page.goto(base);page.locator('#assigned-list button').first.press('Enter');expect(page.locator('#learner-play')).to_be_focused()
     first={'playing':page.evaluate('isPlaybackRunning()'),'calls':page.evaluate('__player.log')}
-    if not baseline:assert not first['playing'] and 'play' not in first['calls'],first
+    if not baseline:
+     assert not first['playing'] and 'play' not in first['calls'],first
+     position=page.evaluate('getCurrentPlaybackMs()');page.wait_for_timeout(3100)
+     assert not page.evaluate('isPlaybackRunning()') and page.evaluate('getCurrentPlaybackMs()')==position
+     first['paused_after_3_seconds']=True
     # Open via both native activation keys, including a restored non-zero position.
     page.locator('#learner-home').press('Enter');expect(page.locator('#portal-home')).to_be_visible()
     lecture=api.get(base+'/local/lectures').json()[0]['id']
@@ -57,6 +61,9 @@ def main():
     restored={'playing':page.evaluate('isPlaybackRunning()'),'position_ms':page.evaluate('getCurrentPlaybackMs()'),'calls':page.evaluate('__player.log')}
     if not baseline:
      assert not restored['playing'] and restored['position_ms']==92000 and 'seek' not in restored['calls'],restored
+     page.wait_for_timeout(3100)
+     assert not page.evaluate('isPlaybackRunning()') and page.evaluate('getCurrentPlaybackMs()')==92000
+     restored['paused_after_3_seconds']=True
      page.evaluate('Portal.saveProgress()')
      assert api.get(base+'/local/lectures/'+lecture).json()['progress']['position_ms']==92000
      page.keyboard.press('ArrowRight');assert not page.evaluate('isPlaybackRunning()')

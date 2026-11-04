@@ -26,9 +26,9 @@ def main():
     expect(page.locator('#student-create input[name=name]')).to_be_focused()
     # Shift alone follows the same predecessor as native Shift+Tab, including fields.
     page.locator('#guardian-prepare').focus();page.keyboard.press('Shift')
-    expect(page.get_by_role('button',name='학생 계정 만들기',exact=True)).to_be_focused()
+    expect(page.locator('#guardian-settings-panel > summary')).to_be_focused()
     page.locator('#guardian-prepare').focus();page.keyboard.press('Shift+Tab')
-    expect(page.get_by_role('button',name='학생 계정 만들기',exact=True)).to_be_focused()
+    expect(page.locator('#guardian-settings-panel > summary')).to_be_focused()
     # Capital letters and selection cannot cause a second backward move on release.
     field=page.locator('#student-create input[name=name]');field.fill('');field.focus();page.keyboard.press('Shift+A')
     assert field.input_value()=='A';expect(field).to_be_focused()
@@ -38,7 +38,7 @@ def main():
     page.locator('#student-create button').press('Enter');page.wait_for_function("document.querySelector('#sample-assign-student').options.length===2")
     # Reload has a useful first action rather than a non-interactive page heading.
     page.reload();expect(page.locator('#guardian-prepare')).to_be_focused()
-    page.locator('#guardian-prepare').press('Enter');expect(page.locator('#lecture-form input[name=title]')).to_be_focused()
+    page.locator('#guardian-prepare').press('Enter');expect(page.locator('#wizard-title-1')).to_be_focused()
     page.locator('#lecture-form [data-guardian-home]').press('Enter');expect(page.locator('#guardian-prepare')).to_be_focused()
     page.locator('#sample-assign-submit').press('Enter');page.wait_for_function("document.querySelectorAll('.guardian-lecture').length===1")
     page.locator('#portal-logout').press('Enter');expect(page.locator('#login-role-student')).to_be_focused()

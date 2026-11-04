@@ -78,6 +78,28 @@ def main():
     page.wait_for_function("document.querySelector('#portal-feedback').textContent==='학생 기본 설정을 저장했습니다.'")
     page.locator('.guardian-settings-panel summary').focus();page.keyboard.press('Enter')
     assert page.locator('#settings-student').is_hidden()
+    # A draft with both a video link and supplemental text must reopen as a link.
+    page.locator('#guardian-prepare').press('Enter');page.locator('#wizard-next').press('Enter')
+    page.locator('button[data-wizard-source=link]').press('Enter')
+    page.locator('#video-url').fill('https://example.com/lecture.mp4')
+    page.locator('#material-files').set_input_files({'name':'draft.txt','mimeType':'text/plain','buffer':b'supplemental material'})
+    page.locator('[name=local_gemini_consent]').check();page.locator('#demo-access-code').fill('mock-only')
+    page.locator('#lecture-form [data-guardian-home]').press('Enter')
+    page.wait_for_function("!document.querySelector('#guardian-dashboard').inert && document.querySelector('#guardian-dashboard').getAttribute('aria-busy')==='false'")
+    page.locator('#guardian-prepare').press('Enter')
+    page.locator('#wizard-next').press('Enter')
+    assert page.locator('#lecture-form').get_attribute('data-wizard-source')=='link'
+    expect(page.locator('#video-url')).to_be_visible();expect(page.locator('[name=local_gemini_consent]')).to_be_visible()
+    page.locator('#wizard-next').press('Enter')
+    assert 'https://example.com/lecture.mp4' in page.locator('#wizard-review').inner_text()
+    assert page.evaluate('new FormData(document.querySelector("#lecture-form")).get("video_url")')=='https://example.com/lecture.mp4'
+    page.locator('#wizard-previous').press('Enter');page.locator('button[data-wizard-source=file]').press('Enter')
+    assert page.locator('#video-url').input_value()==''
+    expect(page.locator('[name=local_gemini_consent]')).not_to_be_checked()
+    expect(page.locator('[name=local_gemini_consent]')).to_be_disabled()
+    page.locator('#lecture-form [data-guardian-home]').press('Enter')
+    page.wait_for_function("!document.querySelector('#guardian-dashboard').inert && document.querySelector('#guardian-dashboard').getAttribute('aria-busy')==='false'")
+    results.append('wizard link plus text survives home/reopen; review and FormData agree; inactive link and consent cleared: PASS')
     page.locator('#guardian-science').focus();page.keyboard.press('Space')
     page.locator('#guardian-publish').wait_for(state='visible')
     # Audit the final order after the optional fixture iframe finishes mounting.
@@ -99,7 +121,9 @@ def main():
     # Real text-material preparation path, without a cloud provider or a raw video upload.
     page.locator('#guardian-prepare').focus();page.keyboard.press('Enter')
     page.locator('input[name=title]').fill('관계대명사 지문');page.locator('input[name=subject]').fill('영어')
+    page.locator('#wizard-next').press('Enter');page.locator('button[data-wizard-source=file]').press('Enter')
     page.locator('#material-files').set_input_files({'name':'lesson.txt','mimeType':'text/plain','buffer':'첫 문단은 관계대명사를 설명합니다.\n\n다음 문단은 예문을 비교합니다.'.encode()})
+    page.locator('#wizard-next').press('Enter')
     probe(page,'guardian-preparation')
     guardian_layout(page,'guardian-preparation')
     # Hold only the browser/server boundary: cancel waiting without publishing.
