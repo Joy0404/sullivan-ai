@@ -1,0 +1,23 @@
+{
+  "skill": "live-region-controller",
+  "scope": [
+    "apps/web/intro/index.html",
+    "apps/web/guide/index.html",
+    "apps/web/guide/guide.js",
+    "apps/web/intro.css"
+  ],
+  "findings": [],
+  "passed": [
+    "Code and Chrome runtime: one initially empty guide-status role=status live region is present before any user action, with aria-atomic=true.",
+    "Chrome runtime: the status node is not display:none or visibility:hidden; clipped sr-only styling retains accessibility exposure.",
+    "Chrome accessibility tree: a status node exposes polite live behavior.",
+    "Chrome runtime with MutationObserver: expand-all and collapse-all produce one concise Korean text update each (8개 단계를 모두 펼쳤습니다./8개 단계를 모두 접었습니다.).",
+    "Code inspection: textContent updates the persistent status node, with no assertive region, timer, streaming transcript, or parallel live announcement.",
+    "Chrome runtime and code inspection: individual accordion disclosure uses focused button aria-expanded; deep links open the selected panel and move focus to its toggle, avoiding duplicate speech from extra live messages.",
+    "Code inspection: initial page load does not populate an announcement; per-step initial visibility is conveyed through native content/expanded states."
+  ],
+  "notes": [
+    "Revalidation used a temporary static HTTP server on localhost:8897 and headless Chrome. Evidence: /tmp/sullivan-t1-work/revalidated/aria-live-runtime.json.",
+    "Observed DOM mutations and Chrome accessibility properties do not prove actual VoiceOver/NVDA utterances; no assistive-technology audio testing was performed."
+  ]
+}

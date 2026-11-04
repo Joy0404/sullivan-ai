@@ -1,0 +1,28 @@
+{
+  "skill": "contrast-master",
+  "scope": [
+    "apps/web/intro/index.html",
+    "apps/web/guide/index.html",
+    "apps/web/intro.css",
+    "apps/web/tokens.css",
+    "http://127.0.0.1:8871/intro/",
+    "http://127.0.0.1:8871/guide/"
+  ],
+  "findings": [],
+  "passed": [
+    "Calculated WCAG sRGB contrasts for all text/focus/control tokens against used paper, canvas, brand-soft and amber-soft backgrounds; body/muted/brand text pairs exceed 4.5:1, focus pairs exceed 3:1, functional control-border pairs exceed 3:1.",
+    "Chrome runtime inspection at 1280px and 390px found actual text/background pairs matching the reviewed token combinations; body text is 18px.",
+    "Primary text white/brand is 8.70:1; primary hover white/ink is 14.09:1; actual active-without-hover state retained white/brand at 8.70:1 on both routes at both widths.",
+    "Outline focus color #8c4700 has at least 6.06:1 contrast against the reviewed light backgrounds; focus-visible uses instant 4px outlines with 4px offset.",
+    "Control circle border #6f87a3 has 3.70:1 against white, with dark numbered text carrying the step information independently.",
+    "Chrome forced-colors emulation supplied system foreground/background/border and Highlight outline; source uses declared system tokens.",
+    "Runtime at widths 320,390,640,1280 found no horizontal overflow or clipped text/control boxes; layout adapts to a single column for narrow viewports.",
+    "No animation, flashing, autoplay or color-only state mechanism exists on the two public pages; reduced-motion and forced-colors fallbacks are provided."
+  ],
+  "notes": [
+    "The low-contrast --line token (1.74:1 on white) is used for decorative separators and screenshot outlines, not as the sole identifier of an action, selection, or required UI control.",
+    "No dark theme is offered; color-scheme is intentionally light. Forced-colors was emulated, not tested with a physical user-selected OS palette.",
+    "Disabled buttons do not currently occur on these public pages and are outside the mandatory contrast exemption; source gives disabled text/background/border tokens and cursor.",
+    "Raw runtime evidence: /tmp/sullivan-t1-work/revalidated/contrast-measurements.json, contrast-active-measurements.json, visual-measurements.json."
+  ]
+}

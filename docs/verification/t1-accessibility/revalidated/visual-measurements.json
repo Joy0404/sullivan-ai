@@ -1,0 +1,918 @@
+[
+  {
+    "width": 320,
+    "route": "intro",
+    "scrollWidth": 320,
+    "viewport": 320,
+    "bodyFont": "18px",
+    "headings": [
+      {
+        "level": "H1",
+        "label": "선생님이 말하지 않은 칠판, 이제 들려드릴게요"
+      },
+      {
+        "level": "H2",
+        "label": "듣기만 해서는 놓치는 순간이 있습니다"
+      },
+      {
+        "level": "H3",
+        "label": "“여기 이 그림 보면…”"
+      },
+      {
+        "level": "H3",
+        "label": "다시 찾기 어려운 긴 지문"
+      },
+      {
+        "level": "H3",
+        "label": "묻고 싶은 바로 그 부분"
+      },
+      {
+        "level": "H2",
+        "label": "강의를 듣고, 멈추고, 스스로 이어가요"
+      },
+      {
+        "level": "H3",
+        "label": "필요한 순간에 잠깐 멈춰요"
+      },
+      {
+        "level": "H3",
+        "label": "말하지 않은 화면을 짧게 들어요"
+      },
+      {
+        "level": "H3",
+        "label": "핵심 개념을 찾고 복습해요"
+      },
+      {
+        "level": "H2",
+        "label": "보호자는 세 가지를 준비해 주세요"
+      },
+      {
+        "level": "H2",
+        "label": "학생이 생각할 자리를 지킵니다"
+      },
+      {
+        "level": "H3",
+        "label": "정답 대신 힌트"
+      },
+      {
+        "level": "H3",
+        "label": "원본은 기본적으로 브라우저 안에"
+      },
+      {
+        "level": "H3",
+        "label": "확실하지 않으면 말하지 않아요"
+      },
+      {
+        "level": "H3",
+        "label": "연결한 계정 안에서 관리"
+      },
+      {
+        "level": "H2",
+        "label": "학생 화면은 큰 버튼 네 개부터"
+      },
+      {
+        "level": "H2",
+        "label": "지금은 함께 다듬어 가는 시제품입니다"
+      },
+      {
+        "level": "H2",
+        "label": "시작하기 전에 궁금한 점"
+      },
+      {
+        "level": "H2",
+        "label": "첫 강의는 샘플로 준비해 보세요"
+      }
+    ],
+    "images": [
+      {
+        "src": "./img/student-actions-mobile.png",
+        "alt": "학생이 직접 고르는 네 가지 활동: 강의 듣기, 지문·문단 듣기, 원하는 내용 찾기, 질문하기",
+        "loaded": true
+      },
+      {
+        "src": "./img/student-lecture.png",
+        "alt": "학생 강의 화면의 강의 재생, 영상·해설 모두 중지, 현재 화면 다시 설명 버튼",
+        "loaded": false
+      },
+      {
+        "src": "./img/student-description.png",
+        "alt": "사전 준비된 샘플의 현재 화면 해설과 0:12 시각",
+        "loaded": false
+      },
+      {
+        "src": "./img/student-passage.png",
+        "alt": "별의 탄생, 주계열 단계 등 네 문단과 문단 듣기·밑줄 표시 기능이 있는 실제 지문 탐색 화면",
+        "loaded": false
+      },
+      {
+        "src": "./img/student-home.png",
+        "alt": "학습 시작 화면. 네 가지 활동 버튼 아래에 보호자가 배정한 별의 진화 샘플 강의가 보입니다.",
+        "loaded": false
+      }
+    ],
+    "clipped": []
+  },
+  {
+    "width": 320,
+    "route": "guide",
+    "scrollWidth": 320,
+    "viewport": 320,
+    "bodyFont": "18px",
+    "headings": [
+      {
+        "level": "H1",
+        "label": "학생의 첫 강의를 준비하는 순서"
+      },
+      {
+        "level": "H2",
+        "label": "필요한 단계로 이동"
+      },
+      {
+        "level": "H2",
+        "label": "1단계. 보호자 계정 만들기·로그인접기"
+      },
+      {
+        "level": "H2",
+        "label": "2단계. 학생 계정 만들기접기"
+      },
+      {
+        "level": "H2",
+        "label": "3단계. 학생별 기본 설정접기"
+      },
+      {
+        "level": "H2",
+        "label": "4단계. 강의 준비하기접기"
+      },
+      {
+        "level": "H3",
+        "label": "처음에는 샘플로 연습하기"
+      },
+      {
+        "level": "H3",
+        "label": "내 강의와 자료 준비하기"
+      },
+      {
+        "level": "H2",
+        "label": "5단계. 분석 결과 확인접기"
+      },
+      {
+        "level": "H2",
+        "label": "6단계. 학생에게 배정하기접기"
+      },
+      {
+        "level": "H2",
+        "label": "7단계. 학생은 이렇게 써요접기"
+      },
+      {
+        "level": "H2",
+        "label": "8단계. 자주 묻는 질문·문제 해결접기"
+      },
+      {
+        "level": "H3",
+        "label": "학생에게 강의가 보이지 않아요"
+      },
+      {
+        "level": "H3",
+        "label": "음성이 겹치거나 들리지 않아요"
+      },
+      {
+        "level": "H3",
+        "label": "실제 분석이 실행되지 않아요"
+      },
+      {
+        "level": "H3",
+        "label": "이용 환경·비용·문의"
+      }
+    ],
+    "images": [
+      {
+        "src": "/intro/img/guardian-login.png",
+        "alt": "처음 보호자 계정 만들기 화면의 로그인 이름, 비밀번호, 보호자 이름 입력칸",
+        "loaded": true
+      },
+      {
+        "src": "/intro/img/guardian-student.png",
+        "alt": "학생 이름, 로그인 이름, 비밀번호를 입력하고 학생 계정을 만드는 보호자 화면",
+        "loaded": false
+      },
+      {
+        "src": "/intro/img/guardian-settings.png",
+        "alt": "학습 보호, 앱 음성·스크린리더 모드, 읽기 속도와 음량을 선택하는 학생별 설정",
+        "loaded": false
+      },
+      {
+        "src": "/intro/img/guardian-prepare.png",
+        "alt": "강의 정보, 영상·링크와 자료 선택, 별도 분석 동의, 학습 보호 및 이용 권한을 확인하는 실제 준비 양식",
+        "loaded": false
+      },
+      {
+        "src": "/intro/img/guardian-review.png",
+        "alt": "사전 준비된 샘플 결과의 핵심 내용, 화면으로만 제시된 정보, 강조 문장과 다시 볼 구간을 확인하는 접근성 복습 화면",
+        "loaded": false
+      },
+      {
+        "src": "/intro/img/guardian-assign.png",
+        "alt": "강의 제목·과목과 배정 학생을 확인하고 배정하고 준비 완료를 누르는 보호자 화면",
+        "loaded": false
+      },
+      {
+        "src": "/intro/img/student-home.png",
+        "alt": "큰 활동 버튼 네 개와 배정된 샘플 강의가 있는 실제 학생 학습 시작 화면",
+        "loaded": false
+      },
+      {
+        "src": "/intro/img/student-help.png",
+        "alt": "버튼 이동, 강의 고르기, 빠른 명령과 타자 입력을 다시 안내하는 실제 학생 사용법 화면",
+        "loaded": false
+      }
+    ],
+    "clipped": []
+  },
+  {
+    "width": 390,
+    "route": "intro",
+    "scrollWidth": 390,
+    "viewport": 390,
+    "bodyFont": "18px",
+    "headings": [
+      {
+        "level": "H1",
+        "label": "선생님이 말하지 않은 칠판, 이제 들려드릴게요"
+      },
+      {
+        "level": "H2",
+        "label": "듣기만 해서는 놓치는 순간이 있습니다"
+      },
+      {
+        "level": "H3",
+        "label": "“여기 이 그림 보면…”"
+      },
+      {
+        "level": "H3",
+        "label": "다시 찾기 어려운 긴 지문"
+      },
+      {
+        "level": "H3",
+        "label": "묻고 싶은 바로 그 부분"
+      },
+      {
+        "level": "H2",
+        "label": "강의를 듣고, 멈추고, 스스로 이어가요"
+      },
+      {
+        "level": "H3",
+        "label": "필요한 순간에 잠깐 멈춰요"
+      },
+      {
+        "level": "H3",
+        "label": "말하지 않은 화면을 짧게 들어요"
+      },
+      {
+        "level": "H3",
+        "label": "핵심 개념을 찾고 복습해요"
+      },
+      {
+        "level": "H2",
+        "label": "보호자는 세 가지를 준비해 주세요"
+      },
+      {
+        "level": "H2",
+        "label": "학생이 생각할 자리를 지킵니다"
+      },
+      {
+        "level": "H3",
+        "label": "정답 대신 힌트"
+      },
+      {
+        "level": "H3",
+        "label": "원본은 기본적으로 브라우저 안에"
+      },
+      {
+        "level": "H3",
+        "label": "확실하지 않으면 말하지 않아요"
+      },
+      {
+        "level": "H3",
+        "label": "연결한 계정 안에서 관리"
+      },
+      {
+        "level": "H2",
+        "label": "학생 화면은 큰 버튼 네 개부터"
+      },
+      {
+        "level": "H2",
+        "label": "지금은 함께 다듬어 가는 시제품입니다"
+      },
+      {
+        "level": "H2",
+        "label": "시작하기 전에 궁금한 점"
+      },
+      {
+        "level": "H2",
+        "label": "첫 강의는 샘플로 준비해 보세요"
+      }
+    ],
+    "images": [
+      {
+        "src": "./img/student-actions-mobile.png",
+        "alt": "학생이 직접 고르는 네 가지 활동: 강의 듣기, 지문·문단 듣기, 원하는 내용 찾기, 질문하기",
+        "loaded": true
+      },
+      {
+        "src": "./img/student-lecture.png",
+        "alt": "학생 강의 화면의 강의 재생, 영상·해설 모두 중지, 현재 화면 다시 설명 버튼",
+        "loaded": false
+      },
+      {
+        "src": "./img/student-description.png",
+        "alt": "사전 준비된 샘플의 현재 화면 해설과 0:12 시각",
+        "loaded": false
+      },
+      {
+        "src": "./img/student-passage.png",
+        "alt": "별의 탄생, 주계열 단계 등 네 문단과 문단 듣기·밑줄 표시 기능이 있는 실제 지문 탐색 화면",
+        "loaded": false
+      },
+      {
+        "src": "./img/student-home.png",
+        "alt": "학습 시작 화면. 네 가지 활동 버튼 아래에 보호자가 배정한 별의 진화 샘플 강의가 보입니다.",
+        "loaded": false
+      }
+    ],
+    "clipped": []
+  },
+  {
+    "width": 390,
+    "route": "guide",
+    "scrollWidth": 390,
+    "viewport": 390,
+    "bodyFont": "18px",
+    "headings": [
+      {
+        "level": "H1",
+        "label": "학생의 첫 강의를 준비하는 순서"
+      },
+      {
+        "level": "H2",
+        "label": "필요한 단계로 이동"
+      },
+      {
+        "level": "H2",
+        "label": "1단계. 보호자 계정 만들기·로그인접기"
+      },
+      {
+        "level": "H2",
+        "label": "2단계. 학생 계정 만들기접기"
+      },
+      {
+        "level": "H2",
+        "label": "3단계. 학생별 기본 설정접기"
+      },
+      {
+        "level": "H2",
+        "label": "4단계. 강의 준비하기접기"
+      },
+      {
+        "level": "H3",
+        "label": "처음에는 샘플로 연습하기"
+      },
+      {
+        "level": "H3",
+        "label": "내 강의와 자료 준비하기"
+      },
+      {
+        "level": "H2",
+        "label": "5단계. 분석 결과 확인접기"
+      },
+      {
+        "level": "H2",
+        "label": "6단계. 학생에게 배정하기접기"
+      },
+      {
+        "level": "H2",
+        "label": "7단계. 학생은 이렇게 써요접기"
+      },
+      {
+        "level": "H2",
+        "label": "8단계. 자주 묻는 질문·문제 해결접기"
+      },
+      {
+        "level": "H3",
+        "label": "학생에게 강의가 보이지 않아요"
+      },
+      {
+        "level": "H3",
+        "label": "음성이 겹치거나 들리지 않아요"
+      },
+      {
+        "level": "H3",
+        "label": "실제 분석이 실행되지 않아요"
+      },
+      {
+        "level": "H3",
+        "label": "이용 환경·비용·문의"
+      }
+    ],
+    "images": [
+      {
+        "src": "/intro/img/guardian-login.png",
+        "alt": "처음 보호자 계정 만들기 화면의 로그인 이름, 비밀번호, 보호자 이름 입력칸",
+        "loaded": true
+      },
+      {
+        "src": "/intro/img/guardian-student.png",
+        "alt": "학생 이름, 로그인 이름, 비밀번호를 입력하고 학생 계정을 만드는 보호자 화면",
+        "loaded": false
+      },
+      {
+        "src": "/intro/img/guardian-settings.png",
+        "alt": "학습 보호, 앱 음성·스크린리더 모드, 읽기 속도와 음량을 선택하는 학생별 설정",
+        "loaded": false
+      },
+      {
+        "src": "/intro/img/guardian-prepare.png",
+        "alt": "강의 정보, 영상·링크와 자료 선택, 별도 분석 동의, 학습 보호 및 이용 권한을 확인하는 실제 준비 양식",
+        "loaded": false
+      },
+      {
+        "src": "/intro/img/guardian-review.png",
+        "alt": "사전 준비된 샘플 결과의 핵심 내용, 화면으로만 제시된 정보, 강조 문장과 다시 볼 구간을 확인하는 접근성 복습 화면",
+        "loaded": false
+      },
+      {
+        "src": "/intro/img/guardian-assign.png",
+        "alt": "강의 제목·과목과 배정 학생을 확인하고 배정하고 준비 완료를 누르는 보호자 화면",
+        "loaded": false
+      },
+      {
+        "src": "/intro/img/student-home.png",
+        "alt": "큰 활동 버튼 네 개와 배정된 샘플 강의가 있는 실제 학생 학습 시작 화면",
+        "loaded": false
+      },
+      {
+        "src": "/intro/img/student-help.png",
+        "alt": "버튼 이동, 강의 고르기, 빠른 명령과 타자 입력을 다시 안내하는 실제 학생 사용법 화면",
+        "loaded": false
+      }
+    ],
+    "clipped": []
+  },
+  {
+    "width": 640,
+    "route": "intro",
+    "scrollWidth": 640,
+    "viewport": 640,
+    "bodyFont": "18px",
+    "headings": [
+      {
+        "level": "H1",
+        "label": "선생님이 말하지 않은 칠판, 이제 들려드릴게요"
+      },
+      {
+        "level": "H2",
+        "label": "듣기만 해서는 놓치는 순간이 있습니다"
+      },
+      {
+        "level": "H3",
+        "label": "“여기 이 그림 보면…”"
+      },
+      {
+        "level": "H3",
+        "label": "다시 찾기 어려운 긴 지문"
+      },
+      {
+        "level": "H3",
+        "label": "묻고 싶은 바로 그 부분"
+      },
+      {
+        "level": "H2",
+        "label": "강의를 듣고, 멈추고, 스스로 이어가요"
+      },
+      {
+        "level": "H3",
+        "label": "필요한 순간에 잠깐 멈춰요"
+      },
+      {
+        "level": "H3",
+        "label": "말하지 않은 화면을 짧게 들어요"
+      },
+      {
+        "level": "H3",
+        "label": "핵심 개념을 찾고 복습해요"
+      },
+      {
+        "level": "H2",
+        "label": "보호자는 세 가지를 준비해 주세요"
+      },
+      {
+        "level": "H2",
+        "label": "학생이 생각할 자리를 지킵니다"
+      },
+      {
+        "level": "H3",
+        "label": "정답 대신 힌트"
+      },
+      {
+        "level": "H3",
+        "label": "원본은 기본적으로 브라우저 안에"
+      },
+      {
+        "level": "H3",
+        "label": "확실하지 않으면 말하지 않아요"
+      },
+      {
+        "level": "H3",
+        "label": "연결한 계정 안에서 관리"
+      },
+      {
+        "level": "H2",
+        "label": "학생 화면은 큰 버튼 네 개부터"
+      },
+      {
+        "level": "H2",
+        "label": "지금은 함께 다듬어 가는 시제품입니다"
+      },
+      {
+        "level": "H2",
+        "label": "시작하기 전에 궁금한 점"
+      },
+      {
+        "level": "H2",
+        "label": "첫 강의는 샘플로 준비해 보세요"
+      }
+    ],
+    "images": [
+      {
+        "src": "./img/student-actions-mobile.png",
+        "alt": "학생이 직접 고르는 네 가지 활동: 강의 듣기, 지문·문단 듣기, 원하는 내용 찾기, 질문하기",
+        "loaded": true
+      },
+      {
+        "src": "./img/student-lecture.png",
+        "alt": "학생 강의 화면의 강의 재생, 영상·해설 모두 중지, 현재 화면 다시 설명 버튼",
+        "loaded": true
+      },
+      {
+        "src": "./img/student-description.png",
+        "alt": "사전 준비된 샘플의 현재 화면 해설과 0:12 시각",
+        "loaded": false
+      },
+      {
+        "src": "./img/student-passage.png",
+        "alt": "별의 탄생, 주계열 단계 등 네 문단과 문단 듣기·밑줄 표시 기능이 있는 실제 지문 탐색 화면",
+        "loaded": false
+      },
+      {
+        "src": "./img/student-home.png",
+        "alt": "학습 시작 화면. 네 가지 활동 버튼 아래에 보호자가 배정한 별의 진화 샘플 강의가 보입니다.",
+        "loaded": false
+      }
+    ],
+    "clipped": []
+  },
+  {
+    "width": 640,
+    "route": "guide",
+    "scrollWidth": 640,
+    "viewport": 640,
+    "bodyFont": "18px",
+    "headings": [
+      {
+        "level": "H1",
+        "label": "학생의 첫 강의를 준비하는 순서"
+      },
+      {
+        "level": "H2",
+        "label": "필요한 단계로 이동"
+      },
+      {
+        "level": "H2",
+        "label": "1단계. 보호자 계정 만들기·로그인접기"
+      },
+      {
+        "level": "H2",
+        "label": "2단계. 학생 계정 만들기접기"
+      },
+      {
+        "level": "H2",
+        "label": "3단계. 학생별 기본 설정접기"
+      },
+      {
+        "level": "H2",
+        "label": "4단계. 강의 준비하기접기"
+      },
+      {
+        "level": "H3",
+        "label": "처음에는 샘플로 연습하기"
+      },
+      {
+        "level": "H3",
+        "label": "내 강의와 자료 준비하기"
+      },
+      {
+        "level": "H2",
+        "label": "5단계. 분석 결과 확인접기"
+      },
+      {
+        "level": "H2",
+        "label": "6단계. 학생에게 배정하기접기"
+      },
+      {
+        "level": "H2",
+        "label": "7단계. 학생은 이렇게 써요접기"
+      },
+      {
+        "level": "H2",
+        "label": "8단계. 자주 묻는 질문·문제 해결접기"
+      },
+      {
+        "level": "H3",
+        "label": "학생에게 강의가 보이지 않아요"
+      },
+      {
+        "level": "H3",
+        "label": "음성이 겹치거나 들리지 않아요"
+      },
+      {
+        "level": "H3",
+        "label": "실제 분석이 실행되지 않아요"
+      },
+      {
+        "level": "H3",
+        "label": "이용 환경·비용·문의"
+      }
+    ],
+    "images": [
+      {
+        "src": "/intro/img/guardian-login.png",
+        "alt": "처음 보호자 계정 만들기 화면의 로그인 이름, 비밀번호, 보호자 이름 입력칸",
+        "loaded": true
+      },
+      {
+        "src": "/intro/img/guardian-student.png",
+        "alt": "학생 이름, 로그인 이름, 비밀번호를 입력하고 학생 계정을 만드는 보호자 화면",
+        "loaded": true
+      },
+      {
+        "src": "/intro/img/guardian-settings.png",
+        "alt": "학습 보호, 앱 음성·스크린리더 모드, 읽기 속도와 음량을 선택하는 학생별 설정",
+        "loaded": false
+      },
+      {
+        "src": "/intro/img/guardian-prepare.png",
+        "alt": "강의 정보, 영상·링크와 자료 선택, 별도 분석 동의, 학습 보호 및 이용 권한을 확인하는 실제 준비 양식",
+        "loaded": false
+      },
+      {
+        "src": "/intro/img/guardian-review.png",
+        "alt": "사전 준비된 샘플 결과의 핵심 내용, 화면으로만 제시된 정보, 강조 문장과 다시 볼 구간을 확인하는 접근성 복습 화면",
+        "loaded": false
+      },
+      {
+        "src": "/intro/img/guardian-assign.png",
+        "alt": "강의 제목·과목과 배정 학생을 확인하고 배정하고 준비 완료를 누르는 보호자 화면",
+        "loaded": false
+      },
+      {
+        "src": "/intro/img/student-home.png",
+        "alt": "큰 활동 버튼 네 개와 배정된 샘플 강의가 있는 실제 학생 학습 시작 화면",
+        "loaded": false
+      },
+      {
+        "src": "/intro/img/student-help.png",
+        "alt": "버튼 이동, 강의 고르기, 빠른 명령과 타자 입력을 다시 안내하는 실제 학생 사용법 화면",
+        "loaded": false
+      }
+    ],
+    "clipped": []
+  },
+  {
+    "width": 1280,
+    "route": "intro",
+    "scrollWidth": 1280,
+    "viewport": 1280,
+    "bodyFont": "18px",
+    "headings": [
+      {
+        "level": "H1",
+        "label": "선생님이 말하지 않은 칠판, 이제 들려드릴게요"
+      },
+      {
+        "level": "H2",
+        "label": "듣기만 해서는 놓치는 순간이 있습니다"
+      },
+      {
+        "level": "H3",
+        "label": "“여기 이 그림 보면…”"
+      },
+      {
+        "level": "H3",
+        "label": "다시 찾기 어려운 긴 지문"
+      },
+      {
+        "level": "H3",
+        "label": "묻고 싶은 바로 그 부분"
+      },
+      {
+        "level": "H2",
+        "label": "강의를 듣고, 멈추고, 스스로 이어가요"
+      },
+      {
+        "level": "H3",
+        "label": "필요한 순간에 잠깐 멈춰요"
+      },
+      {
+        "level": "H3",
+        "label": "말하지 않은 화면을 짧게 들어요"
+      },
+      {
+        "level": "H3",
+        "label": "핵심 개념을 찾고 복습해요"
+      },
+      {
+        "level": "H2",
+        "label": "보호자는 세 가지를 준비해 주세요"
+      },
+      {
+        "level": "H2",
+        "label": "학생이 생각할 자리를 지킵니다"
+      },
+      {
+        "level": "H3",
+        "label": "정답 대신 힌트"
+      },
+      {
+        "level": "H3",
+        "label": "원본은 기본적으로 브라우저 안에"
+      },
+      {
+        "level": "H3",
+        "label": "확실하지 않으면 말하지 않아요"
+      },
+      {
+        "level": "H3",
+        "label": "연결한 계정 안에서 관리"
+      },
+      {
+        "level": "H2",
+        "label": "학생 화면은 큰 버튼 네 개부터"
+      },
+      {
+        "level": "H2",
+        "label": "지금은 함께 다듬어 가는 시제품입니다"
+      },
+      {
+        "level": "H2",
+        "label": "시작하기 전에 궁금한 점"
+      },
+      {
+        "level": "H2",
+        "label": "첫 강의는 샘플로 준비해 보세요"
+      }
+    ],
+    "images": [
+      {
+        "src": "./img/student-actions-mobile.png",
+        "alt": "학생이 직접 고르는 네 가지 활동: 강의 듣기, 지문·문단 듣기, 원하는 내용 찾기, 질문하기",
+        "loaded": true
+      },
+      {
+        "src": "./img/student-lecture.png",
+        "alt": "학생 강의 화면의 강의 재생, 영상·해설 모두 중지, 현재 화면 다시 설명 버튼",
+        "loaded": true
+      },
+      {
+        "src": "./img/student-description.png",
+        "alt": "사전 준비된 샘플의 현재 화면 해설과 0:12 시각",
+        "loaded": true
+      },
+      {
+        "src": "./img/student-passage.png",
+        "alt": "별의 탄생, 주계열 단계 등 네 문단과 문단 듣기·밑줄 표시 기능이 있는 실제 지문 탐색 화면",
+        "loaded": false
+      },
+      {
+        "src": "./img/student-home.png",
+        "alt": "학습 시작 화면. 네 가지 활동 버튼 아래에 보호자가 배정한 별의 진화 샘플 강의가 보입니다.",
+        "loaded": false
+      }
+    ],
+    "clipped": []
+  },
+  {
+    "width": 1280,
+    "route": "guide",
+    "scrollWidth": 1280,
+    "viewport": 1280,
+    "bodyFont": "18px",
+    "headings": [
+      {
+        "level": "H1",
+        "label": "학생의 첫 강의를 준비하는 순서"
+      },
+      {
+        "level": "H2",
+        "label": "필요한 단계로 이동"
+      },
+      {
+        "level": "H2",
+        "label": "1단계. 보호자 계정 만들기·로그인접기"
+      },
+      {
+        "level": "H2",
+        "label": "2단계. 학생 계정 만들기접기"
+      },
+      {
+        "level": "H2",
+        "label": "3단계. 학생별 기본 설정접기"
+      },
+      {
+        "level": "H2",
+        "label": "4단계. 강의 준비하기접기"
+      },
+      {
+        "level": "H3",
+        "label": "처음에는 샘플로 연습하기"
+      },
+      {
+        "level": "H3",
+        "label": "내 강의와 자료 준비하기"
+      },
+      {
+        "level": "H2",
+        "label": "5단계. 분석 결과 확인접기"
+      },
+      {
+        "level": "H2",
+        "label": "6단계. 학생에게 배정하기접기"
+      },
+      {
+        "level": "H2",
+        "label": "7단계. 학생은 이렇게 써요접기"
+      },
+      {
+        "level": "H2",
+        "label": "8단계. 자주 묻는 질문·문제 해결접기"
+      },
+      {
+        "level": "H3",
+        "label": "학생에게 강의가 보이지 않아요"
+      },
+      {
+        "level": "H3",
+        "label": "음성이 겹치거나 들리지 않아요"
+      },
+      {
+        "level": "H3",
+        "label": "실제 분석이 실행되지 않아요"
+      },
+      {
+        "level": "H3",
+        "label": "이용 환경·비용·문의"
+      }
+    ],
+    "images": [
+      {
+        "src": "/intro/img/guardian-login.png",
+        "alt": "처음 보호자 계정 만들기 화면의 로그인 이름, 비밀번호, 보호자 이름 입력칸",
+        "loaded": true
+      },
+      {
+        "src": "/intro/img/guardian-student.png",
+        "alt": "학생 이름, 로그인 이름, 비밀번호를 입력하고 학생 계정을 만드는 보호자 화면",
+        "loaded": true
+      },
+      {
+        "src": "/intro/img/guardian-settings.png",
+        "alt": "학습 보호, 앱 음성·스크린리더 모드, 읽기 속도와 음량을 선택하는 학생별 설정",
+        "loaded": false
+      },
+      {
+        "src": "/intro/img/guardian-prepare.png",
+        "alt": "강의 정보, 영상·링크와 자료 선택, 별도 분석 동의, 학습 보호 및 이용 권한을 확인하는 실제 준비 양식",
+        "loaded": false
+      },
+      {
+        "src": "/intro/img/guardian-review.png",
+        "alt": "사전 준비된 샘플 결과의 핵심 내용, 화면으로만 제시된 정보, 강조 문장과 다시 볼 구간을 확인하는 접근성 복습 화면",
+        "loaded": false
+      },
+      {
+        "src": "/intro/img/guardian-assign.png",
+        "alt": "강의 제목·과목과 배정 학생을 확인하고 배정하고 준비 완료를 누르는 보호자 화면",
+        "loaded": false
+      },
+      {
+        "src": "/intro/img/student-home.png",
+        "alt": "큰 활동 버튼 네 개와 배정된 샘플 강의가 있는 실제 학생 학습 시작 화면",
+        "loaded": false
+      },
+      {
+        "src": "/intro/img/student-help.png",
+        "alt": "버튼 이동, 강의 고르기, 빠른 명령과 타자 입력을 다시 안내하는 실제 학생 사용법 화면",
+        "loaded": false
+      }
+    ],
+    "clipped": []
+  }
+]

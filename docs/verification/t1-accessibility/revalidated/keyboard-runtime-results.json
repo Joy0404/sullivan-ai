@@ -1,0 +1,103 @@
+{
+  "date": "2026-11-04T13:00:00.254Z",
+  "browser": "Chrome/156.0.8078.80",
+  "checks": [
+    {
+      "width": 320,
+      "route": "intro",
+      "tabTargets": 22,
+      "allReached": true,
+      "focusVisible": true,
+      "skipMain": true
+    },
+    {
+      "width": 320,
+      "route": "intro",
+      "faqEnterAndSpace": true
+    },
+    {
+      "width": 320,
+      "route": "guide",
+      "tabTargets": 30,
+      "allReached": true,
+      "focusVisible": true,
+      "skipMain": true
+    },
+    {
+      "width": 320,
+      "route": "guide",
+      "disclosureEnterAndSpace": true,
+      "allEnterAndSpace": true,
+      "hashFocus": true,
+      "sameHashReopens": true,
+      "initialHashOpens": true
+    },
+    {
+      "width": 390,
+      "route": "intro",
+      "tabTargets": 22,
+      "allReached": true,
+      "focusVisible": true,
+      "skipMain": true
+    },
+    {
+      "width": 390,
+      "route": "intro",
+      "faqEnterAndSpace": true
+    },
+    {
+      "width": 390,
+      "route": "guide",
+      "tabTargets": 30,
+      "allReached": true,
+      "focusVisible": true,
+      "skipMain": true
+    },
+    {
+      "width": 390,
+      "route": "guide",
+      "disclosureEnterAndSpace": true,
+      "allEnterAndSpace": true,
+      "hashFocus": true,
+      "sameHashReopens": true,
+      "initialHashOpens": true
+    },
+    {
+      "width": 1280,
+      "route": "intro",
+      "tabTargets": 22,
+      "allReached": true,
+      "focusVisible": true,
+      "skipMain": true
+    },
+    {
+      "width": 1280,
+      "route": "intro",
+      "faqEnterAndSpace": true
+    },
+    {
+      "width": 1280,
+      "route": "guide",
+      "tabTargets": 30,
+      "allReached": true,
+      "focusVisible": true,
+      "skipMain": true
+    },
+    {
+      "width": 1280,
+      "route": "guide",
+      "disclosureEnterAndSpace": true,
+      "allEnterAndSpace": true,
+      "hashFocus": true,
+      "sameHashReopens": true,
+      "initialHashOpens": true
+    },
+    {
+      "js": false,
+      "guideContentAllReadable": true,
+      "inactiveEnhancementHidden": true,
+      "skipMain": true
+    }
+  ],
+  "pageErrors": []
+}

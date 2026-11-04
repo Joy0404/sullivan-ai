@@ -1,0 +1,26 @@
+{
+  "skill": "keyboard-navigator",
+  "scope": [
+    "apps/web/intro/index.html",
+    "apps/web/guide/index.html",
+    "apps/web/guide/guide.js",
+    "apps/web/intro.css",
+    "http://127.0.0.1:8871/intro/",
+    "http://127.0.0.1:8871/guide/"
+  ],
+  "findings": [],
+  "passed": [
+    "At 1280px and 390px, the first Tab reaches a visible skip link; Enter transfers focus to main#main.",
+    "Full Tab traversal follows document order across header, content, FAQ or guide controls, and footer; no hidden panel receives focus and no positive tabindex exists.",
+    "All traversed interactive elements receive the visible 4px focus outline and remain at least partly within the viewport; no sticky overlay obscures focus.",
+    "Guide disclosure buttons support Enter and Space, update aria-expanded, and retain focus when expanded or collapsed.",
+    "The all-toggle supports Enter and Space, expands or collapses every panel, retains focus, and updates its label and status message.",
+    "Guide index links support Enter, reveal their target panel, and transfer focus to its disclosure button at both viewport widths.",
+    "Activating a same-step hash link after collapsing its panel reopens it and restores focus to its disclosure button.",
+    "Native introduction FAQ disclosures respond to both Enter and Space."
+  ],
+  "notes": [
+    "Source review and keyboard automation used headless Chrome through Puppeteer; no real accounts were created or modified.",
+    "Screen-reader speech and operating-system keyboard settings were outside this keyboard specialist review."
+  ]
+}

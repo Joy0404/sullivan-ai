@@ -1,0 +1,37 @@
+{
+  "skill": "contrast-master",
+  "scope": [
+    "apps/web/intro.css",
+    "apps/web/tokens.css",
+    "http://127.0.0.1:8871/intro/",
+    "http://127.0.0.1:8871/guide/"
+  ],
+  "findings": [
+    {
+      "rule": "CONTRAST-001",
+      "wcag": "1.4.3 AA",
+      "severity": "moderate",
+      "location": "apps/web/intro.css:63",
+      "summary": "A pressed primary link loses text contrast when the pointer moves outside it while still held down.",
+      "fix": "Add color: var(--paper) to .button-primary:active so it overrides a:active and preserves the 8.70:1 white-on-brand contrast.",
+      "evidence": "Chrome reproduction: press a primary link, keep the mouse button down, move the pointer outside. :active=true, :hover=false; a:active supplies #172c48 over #164b8b, giving 1.62:1 for 18px bold text (4.5:1 required).",
+      "component": "Primary navigation links"
+    }
+  ],
+  "passed": [
+    "Computed text styles at 1280px and 390px use at least 18px; 18px body text was evaluated against the normal-text 4.5:1 threshold.",
+    "Ink body text contrasts 14.09:1 on white, 12.62:1 on canvas, and 12.69:1 on amber notes.",
+    "Muted captions contrast 6.91:1 on white and 6.19:1 on canvas.",
+    "Brand links contrast 8.70:1 on white, 7.79:1 on canvas, and 7.84:1 on amber; secondary button hover text contrasts 7.57:1 on brand-soft.",
+    "Primary links in default and hover states contrast 8.70:1 and 14.09:1 respectively.",
+    "The 4px focus outline contrasts 6.96:1 on white, 6.24:1 on canvas, and 6.27:1 on amber; its 4px offset places it against these light surfaces.",
+    "Brand control borders exceed 3:1, and numbered-step control-border outlines contrast 3.70:1 on white.",
+    "The line token contrasts only 1.74:1 on white but is used for decorative separators and screenshot outlines; disclosure text and underlined expand/collapse labels identify the controls independently of their bottom border.",
+    "Forced-colors emulation retains system text, background, button boundaries and focus colors; no forced-color-adjust:none disables user colors.",
+    "Expanded state uses text and aria-expanded rather than color alone; reduced-motion styles disable animations and transitions."
+  ],
+  "notes": [
+    "Rendered styles and active-pointer behavior were verified in headless Chrome through Puppeteer. Forced colors were checked through browser emulation rather than a manually configured operating-system theme.",
+    "Embedded screenshot pixels were outside this CSS-and-token contrast review."
+  ]
+}

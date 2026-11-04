@@ -1,0 +1,21 @@
+{
+  "skill": "live-region-controller",
+  "scope": [
+    "/Users/joy/Documents/Codex/Sullivan-AI-Develop-local/apps/web/guide/index.html",
+    "/Users/joy/Documents/Codex/Sullivan-AI-Develop-local/apps/web/guide/guide.js"
+  ],
+  "findings": [],
+  "passed": [
+    "The empty guide-status element exists in the initial HTML before any user-triggered update.",
+    "role=status supplies polite live-region behavior; aria-atomic=true keeps each concise Korean completion message intact.",
+    "The screen-reader-only CSS clips the status visually without display:none, visibility:hidden or hidden.",
+    "The global toggle updates the existing status with textContent after completing the batch and retains keyboard focus on its control.",
+    "Individual disclosure actions communicate state through their focused button's aria-expanded without duplicating that state in the live region.",
+    "Step contents are outside the live region, avoiding announcement of entire passages when expanded.",
+    "Same-page hash navigation opens the destination and focuses its named disclosure button, providing context without an additional live-region announcement.",
+    "Initial enhancement and initial hash scrolling leave the status empty, avoiding competing startup announcements."
+  ],
+  "notes": [
+    "Static HTML, JavaScript and relevant visually-hidden CSS review only; actual announcement timing and repeated-message behavior require VoiceOver/NVDA verification."
+  ]
+}

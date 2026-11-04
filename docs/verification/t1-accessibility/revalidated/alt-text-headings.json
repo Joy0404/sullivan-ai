@@ -1,0 +1,23 @@
+{
+  "skill": "alt-text-headings",
+  "scope": [
+    "apps/web/intro/index.html",
+    "apps/web/guide/index.html",
+    "apps/web/intro.css",
+    "apps/web/intro/img/*.png"
+  ],
+  "findings": [],
+  "passed": [
+    "Visually inspected all 12 unique local screenshot PNGs and compared all 13 image occurrences against their alt, caption, surrounding instructions, and link action labels; alternatives accurately convey each screenshot purpose.",
+    "Each page has one h1, a logical h1→h2→h3 outline, one main landmark, descriptive unique Korean page title, lang=ko, a working target for the skip link, and page-level header/footer.",
+    "Guide navigation landmarks have distinct names: 주 메뉴 and 가이드 단계.",
+    "All four decorative inline SVG icons are hidden with aria-hidden=true; their meaning is supplied by adjacent headings and prose.",
+    "Guide screenshots supplement full textual action instructions; image links explicitly identify the numbered step and original-size action.",
+    "Runtime Chrome inspection at 320, 390, 640 and 1280 CSS-pixel widths, with guide fully expanded, found no text/control elements extending beyond the viewport and document scrollWidth equalled viewport width."
+  ],
+  "notes": [
+    "No real VoiceOver/NVDA speech session performed; conclusions concern markup, visual comparison, and browser layout.",
+    "Screenshots depict example app UI; repeating every incidental sample value in their alt would duplicate nonessential instructional detail.",
+    "Offscreen lazy-loaded images were not forced to load in the layout run; all local screenshot files were opened and visually inspected directly."
+  ]
+}

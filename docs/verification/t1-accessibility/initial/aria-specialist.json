@@ -1,0 +1,34 @@
+{
+  "skill": "aria-specialist",
+  "scope": [
+    "/Users/joy/Documents/Codex/Sullivan-AI-Develop-local/apps/web/intro/index.html",
+    "/Users/joy/Documents/Codex/Sullivan-AI-Develop-local/apps/web/guide/index.html",
+    "/Users/joy/Documents/Codex/Sullivan-AI-Develop-local/apps/web/guide/guide.js",
+    "/Users/joy/Documents/Codex/Sullivan-AI-Develop-local/apps/web/index.html (added intro link only)"
+  ],
+  "findings": [
+    {
+      "rule": "ARIA-LANDMARK-OVERUSE",
+      "wcag": "n/a",
+      "severity": "minor",
+      "location": "apps/web/intro/index.html:117",
+      "summary": "Naming all nine intro sections creates 13 landmarks, including the closing promotional call to action, making screen-reader landmark navigation unnecessarily verbose.",
+      "fix": "Remove aria-labelledby from the closing call-to-action section, hero, prototype notice, and ordinary narrative sections where heading navigation is sufficient; retain each heading and its ID. Reserve named regions for essential navigable destinations.",
+      "evidence": "<section class=\"section closing tint\" aria-labelledby=\"start-title\">",
+      "component": "Intro section landmarks"
+    }
+  ],
+  "passed": [
+    "Native anchors, buttons, details/summary, headings, lists and landmarks express the controls without redundant roles.",
+    "Without JavaScript all eight guide contents remain visible and the unavailable global toggle stays hidden.",
+    "Each enhanced step button has an accessible heading-derived name, valid aria-controls and aria-expanded synchronized with panel.hidden.",
+    "The global toggle references all eight existing panel IDs and updates its label, expanded state and polite status message.",
+    "Hash navigation reveals the destination and same-page hash changes focus its step button; repeated links to the current hash reopen a collapsed destination.",
+    "Guide navigation landmarks have distinct names; current-page navigation uses aria-current=page.",
+    "Decorative SVGs and redundant toggle words are hidden from assistive technology.",
+    "The single added login link is a native anchor with a clear Korean accessible name."
+  ],
+  "notes": [
+    "Static source review only; browser focus behavior and actual VoiceOver/NVDA announcements were not exercised."
+  ]
+}

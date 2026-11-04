@@ -1,0 +1,162 @@
+{
+  "passed": true,
+  "browser": "Chrome headless",
+  "initial": {
+    "panels": [
+      {
+        "id": "step-1",
+        "expanded": "true",
+        "hidden": false,
+        "controls": "step-content-1",
+        "label": "1단계. 보호자 계정 만들기·로그인접기",
+        "buttonRole": null
+      },
+      {
+        "id": "step-2",
+        "expanded": "false",
+        "hidden": true,
+        "controls": "step-content-2",
+        "label": "2단계. 학생 계정 만들기펼치기",
+        "buttonRole": null
+      },
+      {
+        "id": "step-3",
+        "expanded": "false",
+        "hidden": true,
+        "controls": "step-content-3",
+        "label": "3단계. 학생별 기본 설정펼치기",
+        "buttonRole": null
+      },
+      {
+        "id": "step-4",
+        "expanded": "false",
+        "hidden": true,
+        "controls": "step-content-4",
+        "label": "4단계. 강의 준비하기펼치기",
+        "buttonRole": null
+      },
+      {
+        "id": "step-5",
+        "expanded": "false",
+        "hidden": true,
+        "controls": "step-content-5",
+        "label": "5단계. 분석 결과 확인펼치기",
+        "buttonRole": null
+      },
+      {
+        "id": "step-6",
+        "expanded": "false",
+        "hidden": true,
+        "controls": "step-content-6",
+        "label": "6단계. 학생에게 배정하기펼치기",
+        "buttonRole": null
+      },
+      {
+        "id": "step-7",
+        "expanded": "false",
+        "hidden": true,
+        "controls": "step-content-7",
+        "label": "7단계. 학생은 이렇게 써요펼치기",
+        "buttonRole": null
+      },
+      {
+        "id": "step-8",
+        "expanded": "false",
+        "hidden": true,
+        "controls": "step-content-8",
+        "label": "8단계. 자주 묻는 질문·문제 해결펼치기",
+        "buttonRole": null
+      }
+    ],
+    "refs": [],
+    "status": {
+      "role": "status",
+      "atomic": "true",
+      "display": "block",
+      "visibility": "visible",
+      "text": ""
+    }
+  },
+  "buttons": [
+    {
+      "name": "모두 펼치기",
+      "expanded": false
+    },
+    {
+      "name": "1단계. 보호자 계정 만들기·로그인",
+      "expanded": false
+    },
+    {
+      "name": "2단계. 학생 계정 만들기",
+      "expanded": false
+    },
+    {
+      "name": "3단계. 학생별 기본 설정",
+      "expanded": false
+    },
+    {
+      "name": "4단계. 강의 준비하기",
+      "expanded": false
+    },
+    {
+      "name": "5단계. 분석 결과 확인",
+      "expanded": false
+    },
+    {
+      "name": "6단계. 학생에게 배정하기",
+      "expanded": true
+    },
+    {
+      "name": "7단계. 학생은 이렇게 써요",
+      "expanded": false
+    },
+    {
+      "name": "8단계. 자주 묻는 질문·문제 해결",
+      "expanded": false
+    }
+  ],
+  "statusNodes": [
+    {
+      "role": "status",
+      "properties": [
+        {
+          "name": "live",
+          "value": {
+            "type": "token",
+            "value": "polite"
+          }
+        },
+        {
+          "name": "atomic",
+          "value": {
+            "type": "boolean",
+            "value": true
+          }
+        },
+        {
+          "name": "relevant",
+          "value": {
+            "type": "tokenList",
+            "value": "additions text"
+          }
+        }
+      ]
+    }
+  ],
+  "liveMutations": [
+    "8개 단계를 모두 펼쳤습니다.",
+    "8개 단계를 모두 접었습니다."
+  ],
+  "checks": [
+    "Enter/Space accordion and expand-all",
+    "All generated controls/labels resolve",
+    "Hashchange opens target and focuses toggle",
+    "Same-hash link reopens closed target",
+    "Initial hash opens target",
+    "Native FAQ details keyboard toggles",
+    "No-JavaScript content readable"
+  ],
+  "limitations": [
+    "No actual VoiceOver/NVDA audio test"
+  ]
+}

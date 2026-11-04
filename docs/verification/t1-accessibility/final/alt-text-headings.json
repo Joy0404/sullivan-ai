@@ -1,0 +1,16 @@
+{
+  "skill": "alt-text-headings",
+  "scope": [
+    "apps/web/intro/index.html:61",
+    "apps/web/guide/index.html:71"
+  ],
+  "findings": [],
+  "passed": [
+    "ALT-ACCURACY-001 fixed: the description screenshot alt accurately describes the prepared sample description and 0:12 timestamp without claiming controls are present.",
+    "ALT-INSTRUCTIONS-002 fixed: Step 4 now names “선택한 자료 실제 분석” in text after the analysis prerequisites and provides a sample-only fallback."
+  ],
+  "notes": [
+    "Targeted source recheck of the two previously reported findings only.",
+    "Saved to /tmp/sullivan-t1-work/alt-text-headings-final.json."
+  ]
+}

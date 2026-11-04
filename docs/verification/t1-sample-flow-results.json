@@ -1,0 +1,85 @@
+{
+  "mode": "deterministic sample, isolated temporary accounts, no real provider calls",
+  "captures": [
+    {
+      "file": "guardian-login.png",
+      "selector": "#portal-login",
+      "source": "sample app, capture.mjs via local CDP"
+    },
+    {
+      "file": "guardian-student.png",
+      "selector": "#guardian-create-panel",
+      "source": "sample app, capture.mjs via local CDP"
+    },
+    {
+      "file": "guardian-settings.png",
+      "selector": ".guardian-settings-panel",
+      "source": "sample app, capture.mjs via local CDP"
+    },
+    {
+      "file": "guardian-prepare.png",
+      "selector": "#lecture-form",
+      "source": "sample app, capture.mjs via local CDP"
+    },
+    {
+      "file": "guardian-review.png",
+      "selector": "#review-panel",
+      "source": "sample app, capture.mjs via local CDP"
+    },
+    {
+      "file": "guardian-assign.png",
+      "selector": "#guardian-publish",
+      "source": "sample app, capture.mjs via local CDP"
+    },
+    {
+      "file": "student-help.png",
+      "selector": "#onboarding-card",
+      "source": "sample app, capture.mjs via local CDP"
+    },
+    {
+      "file": "student-home.png",
+      "selector": "#portal-home",
+      "source": "sample app, capture.mjs via local CDP"
+    },
+    {
+      "file": "student-lecture.png",
+      "selector": "#learner-tools",
+      "source": "sample app, capture.mjs via local CDP"
+    },
+    {
+      "file": "student-passage.png",
+      "selector": "#passage-panel",
+      "source": "sample app, capture.mjs via local CDP"
+    },
+    {
+      "file": "student-actions-mobile.png",
+      "selector": ".student-action-column",
+      "source": "capture.mjs via local CDP, 390px"
+    },
+    {
+      "file": "student-description.png",
+      "selector": ".description-card",
+      "source": "capture.mjs via local CDP, student requested sample explanation"
+    }
+  ],
+  "keyboard": [
+    "Initial guardian account setup via Tab, text entry and Enter",
+    "Student created via keyboard",
+    "Science sample prepared, reviewed and assigned using keyboard"
+  ],
+  "no_consent_video_selection": {
+    "requests": 0,
+    "raw_video_requests": 0
+  },
+  "sample_safety": {
+    "sample": true,
+    "held": [
+      {
+        "action": "HOLD",
+        "description": "",
+        "safe": false
+      }
+    ]
+  },
+  "keyboard_completion_capture": "t1-keyboard-complete-1280.png"
+}
