@@ -1,0 +1,121 @@
+{
+  "checks": [
+    {
+      "name": "early cancel",
+      "before": {
+        "focus": "cancel-analysis-wait",
+        "disabled": true,
+        "controller": true,
+        "snapshot": false,
+        "overlay": true,
+        "percent": 4,
+        "feedback": "",
+        "agentVisible": false
+      },
+      "after": {
+        "focus": "wizard-submit",
+        "disabled": false,
+        "controller": false,
+        "snapshot": false,
+        "overlay": false,
+        "percent": 4,
+        "feedback": "대기를 취소했습니다. 강의는 준비 완료로 제공하지 않았습니다. 이미 전송한 분석은 서버에서 계속될 수 있으며 원본 삭제 정책은 그대로 적용됩니다.",
+        "agentVisible": false
+      },
+      "passed": true
+    },
+    {
+      "name": "late cancel at 100 percent",
+      "before": {
+        "focus": "cancel-analysis-wait",
+        "disabled": true,
+        "controller": true,
+        "snapshot": true,
+        "overlay": true,
+        "percent": 100,
+        "feedback": "",
+        "agentVisible": false
+      },
+      "after": {
+        "focus": "wizard-submit",
+        "disabled": false,
+        "controller": false,
+        "snapshot": false,
+        "overlay": false,
+        "percent": 100,
+        "feedback": "대기를 취소했습니다. 강의는 준비 완료로 제공하지 않았습니다. 이미 전송한 분석은 서버에서 계속될 수 있으며 원본 삭제 정책은 그대로 적용됩니다.",
+        "agentVisible": false
+      },
+      "passed": true
+    },
+    {
+      "name": "normal finish preserves result focus",
+      "after": {
+        "focus": "guardian-result-title",
+        "disabled": false,
+        "controller": false,
+        "snapshot": true,
+        "overlay": false,
+        "percent": 100,
+        "feedback": "",
+        "agentVisible": true
+      },
+      "userTab": {
+        "focus": "BUTTON",
+        "disabled": false,
+        "controller": false,
+        "snapshot": true,
+        "overlay": false,
+        "percent": 100,
+        "feedback": "",
+        "agentVisible": true
+      },
+      "userFocusPreserved": true,
+      "passed": true
+    },
+    {
+      "name": "server error feedback focus",
+      "after": {
+        "focus": "portal-feedback",
+        "disabled": false,
+        "controller": false,
+        "snapshot": false,
+        "overlay": false,
+        "percent": 4,
+        "feedback": "준비를 마치지 못했습니다. focus test server error",
+        "agentVisible": false
+      },
+      "passed": true
+    },
+    {
+      "name": "explicit focus handoff after modal closes",
+      "after": {
+        "focus": "rights_confirmed",
+        "disabled": false,
+        "controller": false,
+        "snapshot": false,
+        "overlay": false,
+        "percent": 100,
+        "feedback": "대기를 취소했습니다. 강의는 준비 완료로 제공하지 않았습니다. 이미 전송한 분석은 서버에서 계속될 수 있으며 원본 삭제 정책은 그대로 적용됩니다.",
+        "agentVisible": false
+      },
+      "passed": true
+    },
+    {
+      "name": "current generation actual 401 still signs out",
+      "after": {
+        "role": "signed-out",
+        "user": null,
+        "focus": "login-role-student",
+        "loginVisible": true
+      },
+      "passed": true
+    }
+  ],
+  "errors": [],
+  "providerCallsBlocked": [],
+  "notes": [],
+  "browser": "Chrome/156.0.8078.80",
+  "passed": true,
+  "checkCount": 6
+}

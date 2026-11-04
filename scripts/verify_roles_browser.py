@@ -156,7 +156,15 @@ def main():
     page.locator('input[name=rights_confirmed]').press('Space')
     results.append('analysis wait: Tab/Shift+Tab contained, Escape cancels waiting, return focus, no stale publish; server boundary simulated: PASS')
     page.locator('input[name=rights_confirmed]').focus();page.keyboard.press('Space')
-    page.locator('#lecture-form button[type=submit]').focus();page.keyboard.press('Enter')
+    # Cancel during the final 100% delay, when the submit is still disabled.
+    page.locator('#wizard-submit').press('Enter')
+    page.wait_for_function('state.analysisPercent===100')
+    page.locator('#cancel-analysis-wait').press('Escape')
+    page.wait_for_function('state.analysisController===null')
+    expect(page.locator('#wizard-submit')).to_be_focused()
+    assert page.evaluate('state.snapshot===null')
+    results.append('late analysis cancellation restores the re-enabled submit focus: PASS')
+    page.locator('#wizard-submit').press('Enter')
     page.locator('#guardian-publish').wait_for(state='visible')
     # A generated local WebM exercises actual encryption and browser decoding;
     # its analysis is the imported TXT, never a claimed cloud-video analysis.

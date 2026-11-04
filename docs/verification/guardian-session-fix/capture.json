@@ -1,0 +1,24 @@
+{
+  "method": "Unmodified actual sample UI at 1280x3000; fixed bar outside element capture; providers blocked",
+  "boxes": {
+    "review": {
+      "x": 294,
+      "y": 373.609375,
+      "width": 962,
+      "height": 1240.4375,
+      "right": 1256,
+      "bottom": 1614.046875
+    },
+    "bar": {
+      "x": 0,
+      "y": 2919,
+      "width": 1280,
+      "height": 81,
+      "right": 1280,
+      "bottom": 3000
+    }
+  },
+  "width": 962,
+  "height": 1240,
+  "overlay_intersection": 0
+}

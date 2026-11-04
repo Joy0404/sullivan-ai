@@ -1,0 +1,27 @@
+{
+  "skill": "live-region-controller",
+  "scope": [
+    "apps/web/role-portal.js:14-18",
+    "apps/web/role-portal.js:81-109",
+    "apps/web/role-portal.js:201-232",
+    "apps/web/role-portal.js:392-406",
+    "apps/web/index.html:137",
+    "scripts/verify_guardian_sessions.py"
+  ],
+  "findings": [],
+  "passed": [
+    "Closed LIVE-STALE-401-SESSION: after fully settled student login, an old guardian progress401 preserved the student ID, role, and #student-list-open focus; /local/me remained200 for that student.",
+    "An old progress401 after the same guardian logged in again preserved the guardian identity and #guardian-prepare focus.",
+    "A current-session progress401 still signed out and focused #login-role-student.",
+    "Concurrent progress loading, empty, and error updates identified same-name students using their distinct usernames.",
+    "Holding sample assignment for2100ms produced exactly one loading live mutation naming the student. Completion focused #portal-feedback once, cleared #sample-assign-status, and did not duplicate the completion text in a live node.",
+    "Logout reset both #video-url value and #video-link-state label to the empty state.",
+    "All targeted browser cases completed with zero page errors."
+  ],
+  "notes": [
+    "No reproducible issues remain in this targeted scope. Findings arrays intentionally empty after fixes.",
+    "Actual VoiceOver/NVDA unavailable; announcement evidence is DOM mutations, focus events, and Chrome AX rather than observed speech.",
+    "Evidence: /tmp/sullivan-session-fix/results.json and /tmp/sullivan-session-fix/audit.cjs. Isolated SQLite and disposable accounts; no providers or private databases were accessed.",
+    "The durable scripts/verify_guardian_sessions.py was inspected; the independent harness additionally checked a60-character username, exact loading/completion event counts, and AX identity text."
+  ]
+}

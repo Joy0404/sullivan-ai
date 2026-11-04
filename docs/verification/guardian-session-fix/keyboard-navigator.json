@@ -1,0 +1,24 @@
+{
+  "skill": "keyboard-navigator",
+  "scope": [
+    "apps/web/role-portal.js:14",
+    "apps/web/role-portal.js:696",
+    "scripts/verify_roles_browser.py:159"
+  ],
+  "findings": [],
+  "passed": [
+    "Early analysis cancellation by Escape restores focus to the re-enabled #wizard-submit and leaves no snapshot/result view.",
+    "Cancellation during the 100% finishing delay restores #wizard-submit after it is re-enabled, clears the received snapshot and keeps the result view hidden; the previously documented late-cancel defect is closed.",
+    "Normal completion focuses #guardian-result-title; queued restoration does not pull focus back to the hidden wizard. A following user Tab remains in the result flow.",
+    "A server error retains focus on #portal-feedback rather than restoring the submit control.",
+    "An explicit focus handoff from a second modal-close observer to rights_confirmed remains in place after queued restoration, exercising the guard against overriding another focus decision.",
+    "An actual current-generation 401 remains effective: after expiring the disposable server session without changing client generation, opening progress signs out the UI and focuses #login-role-student.",
+    "Reviewed the durable late-cancel regression: it waits for 100%, presses Escape, waits for the controller to settle, asserts submit focus and snapshot=null, then retries normal preparation."
+  ],
+  "notes": [
+    "Verdict: no reproducible defect found in the targeted focus restoration and ordinary-401 recheck. Six runtime checks passed against the working diff based on HEAD 312a607.",
+    "Evidence: /tmp/session-fix-keyboard/results.json; executable check: /tmp/session-fix-keyboard/check.cjs. Chrome/156.0.8078.80 with Puppeteer, 1280×900.",
+    "Only a disposable server on port 8892 with temporary account/usage databases was used. Provider configuration removed and external/analysis routes blocked; no provider endpoint was requested. No product or test edits by this reviewer.",
+    "The handoff check uses a second MutationObserver to place focus during the same close checkpoint; the normal-completion check also verifies the subsequent user Tab. Stale-401 role-switch handling and same-name identity presentation are reviewed separately by the parent team."
+  ]
+}

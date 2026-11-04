@@ -1,0 +1,20 @@
+{
+  "student_functions_unchanged": {
+    "loadStudent": true,
+    "openLectureList": true,
+    "openLecture": true,
+    "purpose": true,
+    "play": true,
+    "command": true,
+    "records": true
+  },
+  "unchanged_files": {
+    "apps/web/student-design.css": true,
+    "apps/web/app.js": true,
+    "apps/web/tokens.css": true,
+    "apps/api/app/local_access.py": true,
+    "apps/api/app/core/visual_gap.py": true
+  },
+  "refs_tracked": [],
+  "api_auth_contract_changed": false
+}

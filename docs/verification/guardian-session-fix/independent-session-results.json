@@ -1,0 +1,158 @@
+{
+  "errors": [],
+  "blocked": [],
+  "sessionCases": [
+    {
+      "case": "old401-new-student",
+      "before": {
+        "id": "da8d6ebe3bdf45c19af62f7466d545eb",
+        "role": "student",
+        "focus": "student-list-open"
+      },
+      "after": {
+        "id": "da8d6ebe3bdf45c19af62f7466d545eb",
+        "role": "student",
+        "focus": "student-list-open"
+      },
+      "me": {
+        "status": 200,
+        "data": {
+          "id": "da8d6ebe3bdf45c19af62f7466d545eb",
+          "username": "student.aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "name": "같은 이름",
+          "role": "student",
+          "guardian": "d825c9d9d3114fd1b2673815f4ddd971",
+          "onboarded": 1,
+          "settings": {
+            "focus_voice": false,
+            "reader_mode": false
+          }
+        }
+      }
+    },
+    {
+      "case": "old401-new-guardian",
+      "before": {
+        "id": "d825c9d9d3114fd1b2673815f4ddd971",
+        "role": "guardian",
+        "focus": "guardian-prepare"
+      },
+      "after": {
+        "id": "d825c9d9d3114fd1b2673815f4ddd971",
+        "role": "guardian",
+        "focus": "guardian-prepare"
+      },
+      "me": {
+        "status": 200,
+        "data": {
+          "id": "d825c9d9d3114fd1b2673815f4ddd971",
+          "username": "audit.guardian",
+          "name": "검증보호자",
+          "role": "guardian",
+          "guardian": null,
+          "onboarded": 0,
+          "settings": {}
+        }
+      }
+    }
+  ],
+  "identity": {
+    "headings": [
+      "같은 이름 (student.aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa)",
+      "같은 이름 (student.two)"
+    ],
+    "descriptions": [
+      "같은 이름 (student.aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa)",
+      "같은 이름 (student.two)"
+    ],
+    "overflow390": false,
+    "overflow1280": false,
+    "ax": [
+      {
+        "role": "article",
+        "name": "같은 이름 (student.aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa)"
+      },
+      {
+        "role": "article",
+        "name": "같은 이름 (student.two)"
+      },
+      {
+        "role": "DisclosureTriangle",
+        "name": "학습 현황",
+        "description": "같은 이름 (student.aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa)"
+      },
+      {
+        "role": "DisclosureTriangle",
+        "name": "학습 현황",
+        "description": "같은 이름 (student.two)"
+      }
+    ]
+  },
+  "progress": [
+    "같은 이름 (student.aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa) 학생의 학습 현황을 불러오고 있습니다.",
+    "같은 이름 (student.two) 학생의 학습 현황을 불러오고 있습니다.",
+    "같은 이름 (student.aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa) 학생: 아직 배정된 강의가 없습니다.",
+    "같은 이름 (student.two) 학생의 학습 현황을 불러오지 못했습니다. 접었다가 다시 펼치면 재시도합니다."
+  ],
+  "current401": {
+    "role": "signed-out",
+    "focus": "login-role-student"
+  },
+  "linkReset": {
+    "value": "",
+    "label": "링크 미입력"
+  },
+  "sampleLoading": {
+    "status": "<p id=\"sample-assign-status\" class=\"sr-only\" role=\"status\">같은 이름 (student.aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa) 학생에게 샘플을 배정하고 있습니다.</p>",
+    "events": [
+      {
+        "type": "focus",
+        "id": "sample-assign-submit",
+        "text": "선택한 학생에게 샘플 배정"
+      },
+      {
+        "type": "live",
+        "id": "sample-assign-status",
+        "text": "같은 이름 (student.aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa) 학생에게 샘플을 배정하고 있습니다.",
+        "visible": true
+      }
+    ]
+  },
+  "sampleDone": {
+    "status": "",
+    "focus": "portal-feedback",
+    "feedback": "천문학 특강 7강 · 별의 진화 강의를 같은 이름 (student.aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa) 학생에게 배정하고 준비 완료로 저장했습니다. 학생으로 로그인해 강의 듣기를 누르세요.",
+    "events": [
+      {
+        "type": "focus",
+        "id": "sample-assign-submit",
+        "text": "선택한 학생에게 샘플 배정"
+      },
+      {
+        "type": "live",
+        "id": "sample-assign-status",
+        "text": "같은 이름 (student.aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa) 학생에게 샘플을 배정하고 있습니다.",
+        "visible": true
+      },
+      {
+        "type": "live",
+        "id": "guardian-progress-status",
+        "text": "학생 2명, 준비한 강의 1개, 준비 완료한 배정 강의 1개입니다.",
+        "visible": true
+      },
+      {
+        "type": "focus",
+        "id": "portal-feedback",
+        "text": "천문학 특강 7강 · 별의 진화 강의를 같은 이름 (student.aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa) 학생에게 배정하고 준비 완료로 저장했습니다. 학생으로 로그인해 강의 듣기를 누르세요."
+      },
+      {
+        "type": "live",
+        "id": "sample-assign-status",
+        "text": "",
+        "visible": true
+      }
+    ],
+    "completionFocusCount": 1,
+    "duplicateCompletionLive": false
+  }
+}

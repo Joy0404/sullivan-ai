@@ -6,15 +6,16 @@ window.Portal = (() => {
   let students=[], lectures=[], current=null, originMs=null, focusedPurpose='watch-panel';
   let savePromise=Promise.resolve(), progressTimer=null, opening=false, sampleSession=null;
   let lastFocus=null, wasPlaying=false, recognition=null, transcript='', released=false, finalized=false;
-  let setup=false;
+  let setup=false,authGeneration=0;
   const views=['portal-login','portal-home','guardian-dashboard','setup-view','agent-view'];
   const el=id=>document.getElementById(id);
   function node(tag,text,props={}) {const n=document.createElement(tag);if(text!==undefined)n.textContent=text;Object.assign(n,props);return n;}
   function button(text,action,props={}) {const b=node('button',text,{type:'button',...props});b.addEventListener('click',()=>Promise.resolve(action()).catch(e=>error(e.message)));return b;}
   async function request(path,options={}) {
+    const generation=authGeneration;
     const res=await fetch('/local'+path,{...options,headers:{'Content-Type':'application/json','X-Local-Request':'1',...options.headers}});
     const data=await res.json().catch(()=>({}));
-    if(!res.ok) {if(res.status===401 && !['/login','/me'].includes(path)) await signedOut();throw new Error(data.detail||'요청을 완료하지 못했습니다. 다시 시도해 주세요.');}
+    if(!res.ok) {if(res.status===401 && generation===authGeneration && !['/login','/me'].includes(path)) await signedOut();throw new Error(data.detail||'요청을 완료하지 못했습니다. 다시 시도해 주세요.');}
     return data;
   }
   const send=(path,data,method='POST')=>request(path,{method,body:JSON.stringify(data)});
@@ -80,12 +81,13 @@ window.Portal = (() => {
     el('login-username').focus();
   }
   async function signedOut() {
+    authGeneration++;
     stopAllPlaybackAndSpeech({announceStop:false});stopVoice();
     SullivanFocusVoice.cancel();
     stopCurrentLectureForNavigation();
     ui.user=null;ui.focusVoice=false;ui.readerMode=false;ui.loginRole=null;ui.loginVoice=true;ui.loginReady=true;ui.lectureId=null;current=null;state.snapshot=null;state.session=null;
     state.localVideoFile=null;state.pendingLinkResult=null;state.savedLectures=[];state.bookmarks=[];state.underlinedParagraphIds.clear();state.conceptSearchResults=null;
-    el('lecture-video').removeAttribute('src');el('lecture-video').load();el('lecture-form').reset();
+    el('lecture-video').removeAttribute('src');el('lecture-video').load();el('lecture-form').reset();el('video-url').dispatchEvent(new Event('input',{bubbles:true}));
     for(const id of ['asset-list','transcript-list','passage-document','long-passage-document','review-summary','review-visual','review-highlight','review-segments','study-overview','concept-map','study-glossary','recall-questions','evidence-list','chat-log','current-description','video-file-name','material-preview'])el(id).replaceChildren();
     for(const id of ['chat-input','learner-note','bookmark-note','navigation-command','paragraph-navigation-command'])el(id).value='';
     state.demoAccessCode='';el('demo-access-code').value='';el('login-password').value='';
@@ -103,6 +105,7 @@ window.Portal = (() => {
     syncChatChannel();
   }
   async function authenticated(user) {
+    authGeneration++;
     const continueVoice=user.role==='student'&&ui.loginRole==='student';
     if(continueVoice)user.settings={...user.settings,focus_voice:ui.loginVoice,reader_mode:ui.loginVoice?false:user.settings?.reader_mode};
     SullivanFocusVoice.cancel();ui.loginVoice=false;ui.loginReady=false;
@@ -198,7 +201,8 @@ window.Portal = (() => {
     for(const s of students){
       const card=node('article',undefined,{className:'guardian-student'}),titleId='guardian-student-'+s.id;
       card.setAttribute('aria-labelledby',titleId);
-      const copy=node('div');copy.append(node('h3',s.name,{id:titleId}),node('p',`배정 강의 ${lectures.filter(l=>l.students.includes(s.id)).length}개`));
+      const identity=`${s.name} (${s.username})`;
+      const copy=node('div');copy.append(node('h3',identity,{id:titleId}),node('p',`배정 강의 ${lectures.filter(l=>l.students.includes(s.id)).length}개`));
       const progress=node('details',undefined,{className:'guardian-learning-progress'}),progressTitle=node('summary','학습 현황');
       progressTitle.setAttribute('aria-describedby',titleId);
       const status=node('p','펼치면 저장된 학습 위치와 기록 개수를 불러옵니다.');status.setAttribute('role','status');
@@ -206,7 +210,7 @@ window.Portal = (() => {
       const guardian=ui.user.id;let loaded=false,loading=false;
       progress.addEventListener('toggle',async()=>{
         if(!progress.open||loaded||loading)return;
-        loading=true;status.textContent=s.name+' 학생의 학습 현황을 불러오고 있습니다.';
+        loading=true;status.textContent=identity+' 학생의 학습 현황을 불러오고 있습니다.';
         try{
           const data=await request('/students/'+encodeURIComponent(s.id)+'/progress');
           if(ui.user?.id!==guardian||ui.user?.role!=='guardian'||!progress.isConnected)return;
@@ -219,9 +223,9 @@ window.Portal = (() => {
             const date=saved&&!Number.isNaN(saved.getTime())?new Intl.DateTimeFormat('ko-KR',{dateStyle:'medium',timeStyle:'short'}).format(saved):null;
             item.append(values,node('p',date?'마지막 저장: '+date:'저장 시각 기록 없음',{className:'guardian-progress-saved'}));records.append(item);
           }
-          loaded=true;status.textContent=s.name+' 학생: '+(data.lectures.length?'저장된 현황을 불러왔습니다. 메모는 강의당 0개 또는 1개이며, 내용은 표시하지 않습니다.':'아직 배정된 강의가 없습니다.');
+          loaded=true;status.textContent=identity+' 학생: '+(data.lectures.length?'저장된 현황을 불러왔습니다. 메모는 강의당 0개 또는 1개이며, 내용은 표시하지 않습니다.':'아직 배정된 강의가 없습니다.');
         }catch{
-          if(ui.user?.id===guardian&&progress.isConnected)status.textContent=s.name+' 학생의 학습 현황을 불러오지 못했습니다. 접었다가 다시 펼치면 재시도합니다.';
+          if(ui.user?.id===guardian&&progress.isConnected)status.textContent=identity+' 학생의 학습 현황을 불러오지 못했습니다. 접었다가 다시 펼치면 재시도합니다.';
         }finally{loading=false;}
       });
       const settingsLink=node('a','설정',{href:'#guardian-settings-panel'});settingsLink.dataset.guardianTarget='settings';settingsLink.dataset.student=s.id;settingsLink.setAttribute('aria-describedby',titleId);
@@ -389,6 +393,7 @@ window.Portal = (() => {
     const guardian=ui.user?.id,student=students.find(s=>s.id===el('sample-assign-student').value);
     if(!student)return feedback('먼저 배정할 학생을 선택해 주세요.',true);
     submit.disabled=true;
+    el('sample-assign-status').textContent=`${student.name} (${student.username}) 학생에게 샘플을 배정하고 있습니다.`;
     el('sample-assign-receipt').textContent='선택한 샘플의 배정을 저장하고 있습니다.';
     try {
       const receipt=await send('/samples/'+el('sample-assign-kind').value+'/assign',{students:[student.id]});
@@ -398,7 +403,7 @@ window.Portal = (() => {
       try {await loadGuardian();}catch {el('sample-assign-receipt').textContent=text+' 준비실 목록 갱신은 다시 시도해 주세요.';}
       feedback(text,true);
     }catch(error){const text='샘플 배정을 저장하지 못했습니다. '+error.message;el('sample-assign-receipt').textContent=text;feedback(text,true);}
-    finally{submit.disabled=false;}
+    finally{submit.disabled=false;el('sample-assign-status').textContent='';}
   }
   function lectureReady() {
     if(!ui.user)return;
@@ -691,7 +696,11 @@ window.Portal = (() => {
     for(const id of ['setup-view','guardian-dashboard','portal-home','portal-login','agent-view'])el(id).inert=busy;
     document.querySelector('.topbar').inert=busy;document.querySelector('.skip-link').inert=busy;document.querySelector('.app-runtime').inert=busy;
     if(busy&&!analysisWasOpen){focusFirst('analysis');}
-    if(!busy&&analysisWasOpen){const previous=state.analysisFocus;state.analysisFocus=null;if(modal.contains(document.activeElement)&&previous?.isConnected&&!previous.disabled&&previous.getClientRects().length)previous.focus();}
+    if(!busy&&analysisWasOpen){
+      const previous=state.analysisFocus,restore=modal.contains(document.activeElement);state.analysisFocus=null;
+      // Finish/cancel re-enables the submit control in the following microtask.
+      queueMicrotask(()=>{if(restore&&(document.activeElement===document.body||modal.contains(document.activeElement))&&previous?.isConnected&&!previous.disabled&&previous.getClientRects().length)previous.focus();});
+    }
     analysisWasOpen=busy;
   }).observe(el('analysis-overlay'),{attributes:true,attributeFilter:['class']});
   el('analysis-overlay').addEventListener('keydown',e=>{
