@@ -1,0 +1,42 @@
+{
+  "skill": "alt-text-headings",
+  "scope": [
+    "apps/web/intro.css",
+    "apps/web/intro/index.html",
+    "apps/web/guide/index.html",
+    "apps/web/guardian-design.css",
+    "apps/web/workspace-design.css",
+    "apps/web/index.html",
+    "apps/web/intro/img/guardian-student.png",
+    "apps/web/intro/img/guardian-settings.png",
+    "apps/web/intro/img/guardian-prepare.png",
+    "apps/web/intro/img/guardian-prepare-step2.png",
+    "apps/web/intro/img/guardian-prepare-step3.png",
+    "apps/web/intro/img/guardian-review.png",
+    "apps/web/intro/img/guardian-assign.png"
+  ],
+  "findings": [
+    {
+      "rule": "GUIDE-CAPTURE-OVERLAY",
+      "wcag": "n/a",
+      "severity": "moderate",
+      "location": "apps/web/guide/index.html:80",
+      "summary": "The refreshed review screenshot permanently embeds the assignment bar over the first entries of both lower review cards.",
+      "fix": "Recapture guardian-review.png with the fixed assignment bar outside the review-card capture or temporarily hidden for capture; verify all four cards and their first entries remain visible. Update dimensions if changed.",
+      "evidence": "In the 962×1240 guardian-review.png, the white assignment bar spans approximately y820–900 and masks the first entries beneath “강사가 강조한 문장” and “다시 볼 핵심 구간”. Also visible in /tmp/reaudit-312a607/guide-review-image-390.png.",
+      "component": "Guide step 5 illustrative screenshot"
+    }
+  ],
+  "passed": [
+    "Previous GUIDE-STALE-SCREENSHOTS resolved: visually inspected all seven refreshed guardian PNGs; final wizard steps 1/3,2/3,3/3 match the three screenshots, captions and alternative text at guide/index.html:73.",
+    "The refreshed review heading now matches the current “강의 후 화면 정보 복습” runtime heading, and assignment/settings/student-creation captures match their current controls.",
+    "All ten guide image width/height attributes exactly match decoded natural dimensions; all guide images loaded, retain meaningful alternative text and functional full-size image links.",
+    "Fully expanded guide and current guardian views retain a single visible h1 and orderly heading structure across 320/390/1280 and the 200% desktop layout check.",
+    "Sample screenshots and explanatory text continue to identify prepared results and do not claim new video analysis."
+  ],
+  "notes": [
+    "P2 screenshot-capture defect only. This is not an observed runtime focus-blocking regression or a proven WCAG alternative-text failure; guide instructions remain available as real text.",
+    "Fresh evidence: /tmp/reaudit-312a607/evidence.json and guide-review-image-390.png. No historical audit conclusion was used as current proof.",
+    "No product files edited."
+  ]
+}

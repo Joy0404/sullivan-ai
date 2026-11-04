@@ -1,0 +1,23 @@
+{
+  "skill": "keyboard-navigator",
+  "scope": [
+    "apps/web/role-portal.js:326",
+    "apps/web/index.html:162",
+    "scripts/verify_roles_browser.py:81",
+    "scripts/verify_keyboard_navigation.py:27"
+  ],
+  "findings": [],
+  "passed": [
+    "Wizard Enter/Space actions remained operable across source selection, previous/next, home/reopen and review submission in the focused matrix.",
+    "Forward/back and reopened wizard transitions focused their current step headings; selected source buttons remained consistent with visible source controls.",
+    "Missing consent focused the consent checkbox with aria-invalid and wizard-error-2 association; missing code focused its input; missing rights focused the step-3 checkbox; empty link focused video-url.",
+    "Source switching cleared inactive values and removed disabled text-only consent from submission without moving focus onto a hidden source control.",
+    "Reviewed durable predecessor expectations and current wizard navigation in original keyboard/browser scripts; the formerly stale source selectors now explicitly target buttons."
+  ],
+  "notes": [
+    "Verdict: no new reproducible keyboard defect found in the latest source-state fix. Shared focused evidence: /tmp/reaudit-312a607/matrix-results.json (27/27 passing).",
+    "The matrix intentionally focuses a control before Enter/Space to isolate transition behavior; it does not claim a fresh full-site Tab-order or screen-reader speech audit. The parent separately reported the original three browser suites passing.",
+    "Known late-cancel focus loss in the baseline analysis-finishing delay remains previously documented, outside this latest-fix review and not a new finding.",
+    "Read-only review at published HEAD 312a607; disposable databases only; external/provider traffic blocked. No product edits."
+  ]
+}

@@ -1,0 +1,29 @@
+{
+  "skill": "forms-specialist",
+  "scope": [
+    "apps/web/role-portal.js:326",
+    "apps/web/index.html:162",
+    "apps/web/app.js:180",
+    "apps/web/app.js:276",
+    "scripts/verify_roles_browser.py:81"
+  ],
+  "findings": [],
+  "passed": [
+    "Published 312a607 P1 fix remains closed: link+materials, file+materials, materials-only and sample drafts preserved source, values, consent and review through wizard back/next and breadcrumb home/reopen (4 cases).",
+    "All 12 directed switches from the four starting states to link/file/sample agreed with visible selection and FormData: sample clears media/materials; file clears URL; link clears video; switches reset consent.",
+    "Editing URL, replacing video and replacing materials after returning from step 3 rebuilt review with the replacement values (3 cases).",
+    "Clearing a selected video while retaining text produced materials-only mode with disabled/unchecked consent, omitted consent in FormData and correct rebuilt review.",
+    "Missing consent, code and rights were rejected in the relevant step; empty link focused video-url before any analysis request.",
+    "Actual link and synthetic-file submissions reached browser-intercepted analysis boundaries with the intended visible source; no request reached the analysis API/provider.",
+    "Materials-only TXT completed actual deterministic local processing and the uploaded text appeared in snapshot.passage; no video-analysis request occurred.",
+    "File+materials → sample cleared input selections and opened the explicitly labeled deterministic sample without an analysis request.",
+    "Reviewed original durable browser regression: it traverses current wizard steps, waits for the settled home dashboard, asserts link+text restoration, visible consent, review/FormData agreement and inactive link/consent clearing."
+  ],
+  "notes": [
+    "Verdict: no new reproducible form, source-state, contract or safety defect found in this focused 27-case review at HEAD 312a607. Evidence: /tmp/reaudit-312a607/matrix-results.json; executable reproduction: /tmp/reaudit-312a607/matrix.cjs.",
+    "Chrome/156.0.8078.80 with Puppeteer at 1280×900. A private server on port 8892 used disposable TemporaryDirectory account/usage databases only. Provider configuration removed; external traffic blocked. Health was browser-mocked only for two submission checks, and both video analysis endpoints were intercepted before network execution. Video inputs were synthetic text fixtures, not user media.",
+    "An initial harness assertion read nonexistent snapshot.passage_document, so its TXT verification failed after 25 passing cases. Corrected the harness to snapshot.passage and reran the entire matrix: all 27 passed; no browser errors.",
+    "Changes after step 3 were exercised by returning to step 2 and editing the actual source controls, matching the available user flow. Arbitrary scripted mutations of hidden inputs are outside the UI contract.",
+    "No product/test edits. The full original browser scripts were source-reviewed here, not rerun by this specialist; the parent separately reported all three originals passing. Previously documented baseline late-cancel focus behavior was not presented as new."
+  ]
+}

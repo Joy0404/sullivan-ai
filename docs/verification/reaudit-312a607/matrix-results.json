@@ -1,0 +1,1924 @@
+{
+  "commit": "312a607",
+  "date": "2026-11-05",
+  "cases": [
+    {
+      "name": "preserve link-materials",
+      "initial": {
+        "source": "link",
+        "step": 2,
+        "focus": "demo-access-code",
+        "selected": [
+          "link"
+        ],
+        "link": "https://example.com/link-materials.mp4",
+        "video": [],
+        "materials": [
+          "one.txt"
+        ],
+        "consent": true,
+        "consentDisabled": false,
+        "consentHidden": false,
+        "linkHidden": false,
+        "fileHidden": true,
+        "review": "",
+        "formData": {
+          "title": "Sullivan AI 접근성 데모 강의",
+          "subject": "통합 학습",
+          "source_label": "직접 제작한 대회용 영상",
+          "preferred_mode": "auto",
+          "video": {
+            "name": "",
+            "size": 0
+          },
+          "video_url": "https://example.com/link-materials.mp4",
+          "local_gemini_consent": "on",
+          "demo_access_code": "synthetic-code",
+          "materials": {
+            "name": "one.txt",
+            "size": 38
+          }
+        },
+        "errors": []
+      },
+      "reopened": {
+        "source": "link",
+        "step": 2,
+        "focus": "wizard-title-2",
+        "selected": [
+          "link"
+        ],
+        "link": "https://example.com/link-materials.mp4",
+        "video": [],
+        "materials": [
+          "one.txt"
+        ],
+        "consent": true,
+        "consentDisabled": false,
+        "consentHidden": false,
+        "linkHidden": false,
+        "fileHidden": true,
+        "review": "강의 제목Sullivan AI 접근성 데모 강의과목통합 학습자료https://example.com/link-materials.mp4보조 자료one.txt분석 동의직접 동의함",
+        "formData": {
+          "title": "Sullivan AI 접근성 데모 강의",
+          "subject": "통합 학습",
+          "source_label": "직접 제작한 대회용 영상",
+          "preferred_mode": "auto",
+          "video": {
+            "name": "",
+            "size": 0
+          },
+          "video_url": "https://example.com/link-materials.mp4",
+          "local_gemini_consent": "on",
+          "demo_access_code": "synthetic-code",
+          "materials": {
+            "name": "one.txt",
+            "size": 38
+          }
+        },
+        "errors": []
+      },
+      "reviewed": {
+        "source": "link",
+        "step": 3,
+        "focus": "wizard-title-3",
+        "selected": [
+          "link"
+        ],
+        "link": "https://example.com/link-materials.mp4",
+        "video": [],
+        "materials": [
+          "one.txt"
+        ],
+        "consent": true,
+        "consentDisabled": false,
+        "consentHidden": false,
+        "linkHidden": false,
+        "fileHidden": true,
+        "review": "강의 제목Sullivan AI 접근성 데모 강의과목통합 학습자료https://example.com/link-materials.mp4보조 자료one.txt분석 동의직접 동의함",
+        "formData": {
+          "title": "Sullivan AI 접근성 데모 강의",
+          "subject": "통합 학습",
+          "source_label": "직접 제작한 대회용 영상",
+          "preferred_mode": "auto",
+          "video": {
+            "name": "",
+            "size": 0
+          },
+          "video_url": "https://example.com/link-materials.mp4",
+          "local_gemini_consent": "on",
+          "demo_access_code": "synthetic-code",
+          "materials": {
+            "name": "one.txt",
+            "size": 38
+          }
+        },
+        "errors": []
+      },
+      "passed": true
+    },
+    {
+      "name": "preserve file-materials",
+      "initial": {
+        "source": "file",
+        "step": 2,
+        "focus": "demo-access-code",
+        "selected": [
+          "file"
+        ],
+        "link": "",
+        "video": [
+          "one.mp4"
+        ],
+        "materials": [
+          "one.txt"
+        ],
+        "consent": true,
+        "consentDisabled": false,
+        "consentHidden": false,
+        "linkHidden": true,
+        "fileHidden": false,
+        "review": "",
+        "formData": {
+          "title": "Sullivan AI 접근성 데모 강의",
+          "subject": "통합 학습",
+          "source_label": "직접 제작한 대회용 영상",
+          "preferred_mode": "auto",
+          "video": {
+            "name": "one.mp4",
+            "size": 18
+          },
+          "video_url": "",
+          "local_gemini_consent": "on",
+          "demo_access_code": "synthetic-code",
+          "materials": {
+            "name": "one.txt",
+            "size": 38
+          }
+        },
+        "errors": []
+      },
+      "reopened": {
+        "source": "file",
+        "step": 2,
+        "focus": "wizard-title-2",
+        "selected": [
+          "file"
+        ],
+        "link": "",
+        "video": [
+          "one.mp4"
+        ],
+        "materials": [
+          "one.txt"
+        ],
+        "consent": true,
+        "consentDisabled": false,
+        "consentHidden": false,
+        "linkHidden": true,
+        "fileHidden": false,
+        "review": "강의 제목Sullivan AI 접근성 데모 강의과목통합 학습자료one.mp4보조 자료one.txt분석 동의직접 동의함",
+        "formData": {
+          "title": "Sullivan AI 접근성 데모 강의",
+          "subject": "통합 학습",
+          "source_label": "직접 제작한 대회용 영상",
+          "preferred_mode": "auto",
+          "video": {
+            "name": "one.mp4",
+            "size": 18
+          },
+          "video_url": "",
+          "local_gemini_consent": "on",
+          "demo_access_code": "synthetic-code",
+          "materials": {
+            "name": "one.txt",
+            "size": 38
+          }
+        },
+        "errors": []
+      },
+      "reviewed": {
+        "source": "file",
+        "step": 3,
+        "focus": "wizard-title-3",
+        "selected": [
+          "file"
+        ],
+        "link": "",
+        "video": [
+          "one.mp4"
+        ],
+        "materials": [
+          "one.txt"
+        ],
+        "consent": true,
+        "consentDisabled": false,
+        "consentHidden": false,
+        "linkHidden": true,
+        "fileHidden": false,
+        "review": "강의 제목Sullivan AI 접근성 데모 강의과목통합 학습자료one.mp4보조 자료one.txt분석 동의직접 동의함",
+        "formData": {
+          "title": "Sullivan AI 접근성 데모 강의",
+          "subject": "통합 학습",
+          "source_label": "직접 제작한 대회용 영상",
+          "preferred_mode": "auto",
+          "video": {
+            "name": "one.mp4",
+            "size": 18
+          },
+          "video_url": "",
+          "local_gemini_consent": "on",
+          "demo_access_code": "synthetic-code",
+          "materials": {
+            "name": "one.txt",
+            "size": 38
+          }
+        },
+        "errors": []
+      },
+      "passed": true
+    },
+    {
+      "name": "preserve materials-only",
+      "initial": {
+        "source": "file",
+        "step": 2,
+        "focus": "BUTTON",
+        "selected": [
+          "file"
+        ],
+        "link": "",
+        "video": [],
+        "materials": [
+          "one.txt"
+        ],
+        "consent": false,
+        "consentDisabled": true,
+        "consentHidden": true,
+        "linkHidden": true,
+        "fileHidden": false,
+        "review": "",
+        "formData": {
+          "title": "Sullivan AI 접근성 데모 강의",
+          "subject": "통합 학습",
+          "source_label": "직접 제작한 대회용 영상",
+          "preferred_mode": "auto",
+          "video": {
+            "name": "",
+            "size": 0
+          },
+          "video_url": "",
+          "demo_access_code": "",
+          "materials": {
+            "name": "one.txt",
+            "size": 38
+          }
+        },
+        "errors": []
+      },
+      "reopened": {
+        "source": "file",
+        "step": 2,
+        "focus": "wizard-title-2",
+        "selected": [
+          "file"
+        ],
+        "link": "",
+        "video": [],
+        "materials": [
+          "one.txt"
+        ],
+        "consent": false,
+        "consentDisabled": true,
+        "consentHidden": true,
+        "linkHidden": true,
+        "fileHidden": false,
+        "review": "강의 제목Sullivan AI 접근성 데모 강의과목통합 학습자료학습자료만 준비보조 자료one.txt분석 동의동의하지 않음",
+        "formData": {
+          "title": "Sullivan AI 접근성 데모 강의",
+          "subject": "통합 학습",
+          "source_label": "직접 제작한 대회용 영상",
+          "preferred_mode": "auto",
+          "video": {
+            "name": "",
+            "size": 0
+          },
+          "video_url": "",
+          "demo_access_code": "",
+          "materials": {
+            "name": "one.txt",
+            "size": 38
+          }
+        },
+        "errors": []
+      },
+      "reviewed": {
+        "source": "file",
+        "step": 3,
+        "focus": "wizard-title-3",
+        "selected": [
+          "file"
+        ],
+        "link": "",
+        "video": [],
+        "materials": [
+          "one.txt"
+        ],
+        "consent": false,
+        "consentDisabled": true,
+        "consentHidden": true,
+        "linkHidden": true,
+        "fileHidden": false,
+        "review": "강의 제목Sullivan AI 접근성 데모 강의과목통합 학습자료학습자료만 준비보조 자료one.txt분석 동의동의하지 않음",
+        "formData": {
+          "title": "Sullivan AI 접근성 데모 강의",
+          "subject": "통합 학습",
+          "source_label": "직접 제작한 대회용 영상",
+          "preferred_mode": "auto",
+          "video": {
+            "name": "",
+            "size": 0
+          },
+          "video_url": "",
+          "demo_access_code": "",
+          "materials": {
+            "name": "one.txt",
+            "size": 38
+          }
+        },
+        "errors": []
+      },
+      "passed": true
+    },
+    {
+      "name": "preserve sample",
+      "initial": {
+        "source": "sample",
+        "step": 2,
+        "focus": "wizard-title-2",
+        "selected": [
+          "sample"
+        ],
+        "link": "",
+        "video": [],
+        "materials": [],
+        "consent": false,
+        "consentDisabled": true,
+        "consentHidden": true,
+        "linkHidden": true,
+        "fileHidden": true,
+        "review": "",
+        "formData": {
+          "title": "Sullivan AI 접근성 데모 강의",
+          "subject": "통합 학습",
+          "source_label": "직접 제작한 대회용 영상",
+          "preferred_mode": "auto",
+          "video": {
+            "name": "",
+            "size": 0
+          },
+          "video_url": "",
+          "demo_access_code": "",
+          "materials": {
+            "name": "",
+            "size": 0
+          }
+        },
+        "errors": []
+      },
+      "reopened": {
+        "source": "sample",
+        "step": 2,
+        "focus": "wizard-title-2",
+        "selected": [
+          "sample"
+        ],
+        "link": "",
+        "video": [],
+        "materials": [],
+        "consent": false,
+        "consentDisabled": true,
+        "consentHidden": true,
+        "linkHidden": true,
+        "fileHidden": true,
+        "review": "강의 제목과학 · 별의 진화과목샘플에 포함된 과목자료사전 준비된 샘플보조 자료사용하지 않음분석 동의새 분석 없음",
+        "formData": {
+          "title": "Sullivan AI 접근성 데모 강의",
+          "subject": "통합 학습",
+          "source_label": "직접 제작한 대회용 영상",
+          "preferred_mode": "auto",
+          "video": {
+            "name": "",
+            "size": 0
+          },
+          "video_url": "",
+          "demo_access_code": "",
+          "materials": {
+            "name": "",
+            "size": 0
+          }
+        },
+        "errors": []
+      },
+      "reviewed": {
+        "source": "sample",
+        "step": 3,
+        "focus": "wizard-title-3",
+        "selected": [
+          "sample"
+        ],
+        "link": "",
+        "video": [],
+        "materials": [],
+        "consent": false,
+        "consentDisabled": true,
+        "consentHidden": true,
+        "linkHidden": true,
+        "fileHidden": true,
+        "review": "강의 제목과학 · 별의 진화과목샘플에 포함된 과목자료사전 준비된 샘플보조 자료사용하지 않음분석 동의새 분석 없음",
+        "formData": {
+          "title": "Sullivan AI 접근성 데모 강의",
+          "subject": "통합 학습",
+          "source_label": "직접 제작한 대회용 영상",
+          "preferred_mode": "auto",
+          "video": {
+            "name": "",
+            "size": 0
+          },
+          "video_url": "",
+          "demo_access_code": "",
+          "materials": {
+            "name": "",
+            "size": 0
+          }
+        },
+        "errors": []
+      },
+      "passed": true
+    },
+    {
+      "name": "link-materials -> link",
+      "before": {
+        "source": "link",
+        "step": 2,
+        "focus": "demo-access-code",
+        "selected": [
+          "link"
+        ],
+        "link": "https://example.com/link-materials.mp4",
+        "video": [],
+        "materials": [
+          "one.txt"
+        ],
+        "consent": true,
+        "consentDisabled": false,
+        "consentHidden": false,
+        "linkHidden": false,
+        "fileHidden": true,
+        "review": "",
+        "formData": {
+          "title": "Sullivan AI 접근성 데모 강의",
+          "subject": "통합 학습",
+          "source_label": "직접 제작한 대회용 영상",
+          "preferred_mode": "auto",
+          "video": {
+            "name": "",
+            "size": 0
+          },
+          "video_url": "https://example.com/link-materials.mp4",
+          "local_gemini_consent": "on",
+          "demo_access_code": "synthetic-code",
+          "materials": {
+            "name": "one.txt",
+            "size": 38
+          }
+        },
+        "errors": []
+      },
+      "after": {
+        "source": "link",
+        "step": 2,
+        "focus": "BUTTON",
+        "selected": [
+          "link"
+        ],
+        "link": "https://example.com/link-materials.mp4",
+        "video": [],
+        "materials": [
+          "one.txt"
+        ],
+        "consent": false,
+        "consentDisabled": false,
+        "consentHidden": false,
+        "linkHidden": false,
+        "fileHidden": true,
+        "review": "",
+        "formData": {
+          "title": "Sullivan AI 접근성 데모 강의",
+          "subject": "통합 학습",
+          "source_label": "직접 제작한 대회용 영상",
+          "preferred_mode": "auto",
+          "video": {
+            "name": "",
+            "size": 0
+          },
+          "video_url": "https://example.com/link-materials.mp4",
+          "demo_access_code": "synthetic-code",
+          "materials": {
+            "name": "one.txt",
+            "size": 38
+          }
+        },
+        "errors": []
+      },
+      "passed": true
+    },
+    {
+      "name": "link-materials -> file",
+      "before": {
+        "source": "link",
+        "step": 2,
+        "focus": "demo-access-code",
+        "selected": [
+          "link"
+        ],
+        "link": "https://example.com/link-materials.mp4",
+        "video": [],
+        "materials": [
+          "one.txt"
+        ],
+        "consent": true,
+        "consentDisabled": false,
+        "consentHidden": false,
+        "linkHidden": false,
+        "fileHidden": true,
+        "review": "",
+        "formData": {
+          "title": "Sullivan AI 접근성 데모 강의",
+          "subject": "통합 학습",
+          "source_label": "직접 제작한 대회용 영상",
+          "preferred_mode": "auto",
+          "video": {
+            "name": "",
+            "size": 0
+          },
+          "video_url": "https://example.com/link-materials.mp4",
+          "local_gemini_consent": "on",
+          "demo_access_code": "synthetic-code",
+          "materials": {
+            "name": "one.txt",
+            "size": 38
+          }
+        },
+        "errors": []
+      },
+      "after": {
+        "source": "file",
+        "step": 2,
+        "focus": "BUTTON",
+        "selected": [
+          "file"
+        ],
+        "link": "",
+        "video": [],
+        "materials": [
+          "one.txt"
+        ],
+        "consent": false,
+        "consentDisabled": true,
+        "consentHidden": true,
+        "linkHidden": true,
+        "fileHidden": false,
+        "review": "",
+        "formData": {
+          "title": "Sullivan AI 접근성 데모 강의",
+          "subject": "통합 학습",
+          "source_label": "직접 제작한 대회용 영상",
+          "preferred_mode": "auto",
+          "video": {
+            "name": "",
+            "size": 0
+          },
+          "video_url": "",
+          "demo_access_code": "synthetic-code",
+          "materials": {
+            "name": "one.txt",
+            "size": 38
+          }
+        },
+        "errors": []
+      },
+      "passed": true
+    },
+    {
+      "name": "link-materials -> sample",
+      "before": {
+        "source": "link",
+        "step": 2,
+        "focus": "demo-access-code",
+        "selected": [
+          "link"
+        ],
+        "link": "https://example.com/link-materials.mp4",
+        "video": [],
+        "materials": [
+          "one.txt"
+        ],
+        "consent": true,
+        "consentDisabled": false,
+        "consentHidden": false,
+        "linkHidden": false,
+        "fileHidden": true,
+        "review": "",
+        "formData": {
+          "title": "Sullivan AI 접근성 데모 강의",
+          "subject": "통합 학습",
+          "source_label": "직접 제작한 대회용 영상",
+          "preferred_mode": "auto",
+          "video": {
+            "name": "",
+            "size": 0
+          },
+          "video_url": "https://example.com/link-materials.mp4",
+          "local_gemini_consent": "on",
+          "demo_access_code": "synthetic-code",
+          "materials": {
+            "name": "one.txt",
+            "size": 38
+          }
+        },
+        "errors": []
+      },
+      "after": {
+        "source": "sample",
+        "step": 2,
+        "focus": "BUTTON",
+        "selected": [
+          "sample"
+        ],
+        "link": "",
+        "video": [],
+        "materials": [],
+        "consent": false,
+        "consentDisabled": true,
+        "consentHidden": true,
+        "linkHidden": true,
+        "fileHidden": true,
+        "review": "",
+        "formData": {
+          "title": "Sullivan AI 접근성 데모 강의",
+          "subject": "통합 학습",
+          "source_label": "직접 제작한 대회용 영상",
+          "preferred_mode": "auto",
+          "video": {
+            "name": "",
+            "size": 0
+          },
+          "video_url": "",
+          "demo_access_code": "synthetic-code",
+          "materials": {
+            "name": "",
+            "size": 0
+          }
+        },
+        "errors": []
+      },
+      "passed": true
+    },
+    {
+      "name": "file-materials -> link",
+      "before": {
+        "source": "file",
+        "step": 2,
+        "focus": "demo-access-code",
+        "selected": [
+          "file"
+        ],
+        "link": "",
+        "video": [
+          "one.mp4"
+        ],
+        "materials": [
+          "one.txt"
+        ],
+        "consent": true,
+        "consentDisabled": false,
+        "consentHidden": false,
+        "linkHidden": true,
+        "fileHidden": false,
+        "review": "",
+        "formData": {
+          "title": "Sullivan AI 접근성 데모 강의",
+          "subject": "통합 학습",
+          "source_label": "직접 제작한 대회용 영상",
+          "preferred_mode": "auto",
+          "video": {
+            "name": "one.mp4",
+            "size": 18
+          },
+          "video_url": "",
+          "local_gemini_consent": "on",
+          "demo_access_code": "synthetic-code",
+          "materials": {
+            "name": "one.txt",
+            "size": 38
+          }
+        },
+        "errors": []
+      },
+      "after": {
+        "source": "link",
+        "step": 2,
+        "focus": "BUTTON",
+        "selected": [
+          "link"
+        ],
+        "link": "",
+        "video": [],
+        "materials": [
+          "one.txt"
+        ],
+        "consent": false,
+        "consentDisabled": false,
+        "consentHidden": false,
+        "linkHidden": false,
+        "fileHidden": true,
+        "review": "",
+        "formData": {
+          "title": "Sullivan AI 접근성 데모 강의",
+          "subject": "통합 학습",
+          "source_label": "직접 제작한 대회용 영상",
+          "preferred_mode": "auto",
+          "video": {
+            "name": "",
+            "size": 0
+          },
+          "video_url": "",
+          "demo_access_code": "synthetic-code",
+          "materials": {
+            "name": "one.txt",
+            "size": 38
+          }
+        },
+        "errors": []
+      },
+      "passed": true
+    },
+    {
+      "name": "file-materials -> file",
+      "before": {
+        "source": "file",
+        "step": 2,
+        "focus": "demo-access-code",
+        "selected": [
+          "file"
+        ],
+        "link": "",
+        "video": [
+          "one.mp4"
+        ],
+        "materials": [
+          "one.txt"
+        ],
+        "consent": true,
+        "consentDisabled": false,
+        "consentHidden": false,
+        "linkHidden": true,
+        "fileHidden": false,
+        "review": "",
+        "formData": {
+          "title": "Sullivan AI 접근성 데모 강의",
+          "subject": "통합 학습",
+          "source_label": "직접 제작한 대회용 영상",
+          "preferred_mode": "auto",
+          "video": {
+            "name": "one.mp4",
+            "size": 18
+          },
+          "video_url": "",
+          "local_gemini_consent": "on",
+          "demo_access_code": "synthetic-code",
+          "materials": {
+            "name": "one.txt",
+            "size": 38
+          }
+        },
+        "errors": []
+      },
+      "after": {
+        "source": "file",
+        "step": 2,
+        "focus": "BUTTON",
+        "selected": [
+          "file"
+        ],
+        "link": "",
+        "video": [
+          "one.mp4"
+        ],
+        "materials": [
+          "one.txt"
+        ],
+        "consent": false,
+        "consentDisabled": false,
+        "consentHidden": false,
+        "linkHidden": true,
+        "fileHidden": false,
+        "review": "",
+        "formData": {
+          "title": "Sullivan AI 접근성 데모 강의",
+          "subject": "통합 학습",
+          "source_label": "직접 제작한 대회용 영상",
+          "preferred_mode": "auto",
+          "video": {
+            "name": "one.mp4",
+            "size": 18
+          },
+          "video_url": "",
+          "demo_access_code": "synthetic-code",
+          "materials": {
+            "name": "one.txt",
+            "size": 38
+          }
+        },
+        "errors": []
+      },
+      "passed": true
+    },
+    {
+      "name": "file-materials -> sample",
+      "before": {
+        "source": "file",
+        "step": 2,
+        "focus": "demo-access-code",
+        "selected": [
+          "file"
+        ],
+        "link": "",
+        "video": [
+          "one.mp4"
+        ],
+        "materials": [
+          "one.txt"
+        ],
+        "consent": true,
+        "consentDisabled": false,
+        "consentHidden": false,
+        "linkHidden": true,
+        "fileHidden": false,
+        "review": "",
+        "formData": {
+          "title": "Sullivan AI 접근성 데모 강의",
+          "subject": "통합 학습",
+          "source_label": "직접 제작한 대회용 영상",
+          "preferred_mode": "auto",
+          "video": {
+            "name": "one.mp4",
+            "size": 18
+          },
+          "video_url": "",
+          "local_gemini_consent": "on",
+          "demo_access_code": "synthetic-code",
+          "materials": {
+            "name": "one.txt",
+            "size": 38
+          }
+        },
+        "errors": []
+      },
+      "after": {
+        "source": "sample",
+        "step": 2,
+        "focus": "BUTTON",
+        "selected": [
+          "sample"
+        ],
+        "link": "",
+        "video": [],
+        "materials": [],
+        "consent": false,
+        "consentDisabled": true,
+        "consentHidden": true,
+        "linkHidden": true,
+        "fileHidden": true,
+        "review": "",
+        "formData": {
+          "title": "Sullivan AI 접근성 데모 강의",
+          "subject": "통합 학습",
+          "source_label": "직접 제작한 대회용 영상",
+          "preferred_mode": "auto",
+          "video": {
+            "name": "",
+            "size": 0
+          },
+          "video_url": "",
+          "demo_access_code": "synthetic-code",
+          "materials": {
+            "name": "",
+            "size": 0
+          }
+        },
+        "errors": []
+      },
+      "passed": true
+    },
+    {
+      "name": "materials-only -> link",
+      "before": {
+        "source": "file",
+        "step": 2,
+        "focus": "BUTTON",
+        "selected": [
+          "file"
+        ],
+        "link": "",
+        "video": [],
+        "materials": [
+          "one.txt"
+        ],
+        "consent": false,
+        "consentDisabled": true,
+        "consentHidden": true,
+        "linkHidden": true,
+        "fileHidden": false,
+        "review": "",
+        "formData": {
+          "title": "Sullivan AI 접근성 데모 강의",
+          "subject": "통합 학습",
+          "source_label": "직접 제작한 대회용 영상",
+          "preferred_mode": "auto",
+          "video": {
+            "name": "",
+            "size": 0
+          },
+          "video_url": "",
+          "demo_access_code": "",
+          "materials": {
+            "name": "one.txt",
+            "size": 38
+          }
+        },
+        "errors": []
+      },
+      "after": {
+        "source": "link",
+        "step": 2,
+        "focus": "BUTTON",
+        "selected": [
+          "link"
+        ],
+        "link": "",
+        "video": [],
+        "materials": [
+          "one.txt"
+        ],
+        "consent": false,
+        "consentDisabled": false,
+        "consentHidden": false,
+        "linkHidden": false,
+        "fileHidden": true,
+        "review": "",
+        "formData": {
+          "title": "Sullivan AI 접근성 데모 강의",
+          "subject": "통합 학습",
+          "source_label": "직접 제작한 대회용 영상",
+          "preferred_mode": "auto",
+          "video": {
+            "name": "",
+            "size": 0
+          },
+          "video_url": "",
+          "demo_access_code": "",
+          "materials": {
+            "name": "one.txt",
+            "size": 38
+          }
+        },
+        "errors": []
+      },
+      "passed": true
+    },
+    {
+      "name": "materials-only -> file",
+      "before": {
+        "source": "file",
+        "step": 2,
+        "focus": "BUTTON",
+        "selected": [
+          "file"
+        ],
+        "link": "",
+        "video": [],
+        "materials": [
+          "one.txt"
+        ],
+        "consent": false,
+        "consentDisabled": true,
+        "consentHidden": true,
+        "linkHidden": true,
+        "fileHidden": false,
+        "review": "",
+        "formData": {
+          "title": "Sullivan AI 접근성 데모 강의",
+          "subject": "통합 학습",
+          "source_label": "직접 제작한 대회용 영상",
+          "preferred_mode": "auto",
+          "video": {
+            "name": "",
+            "size": 0
+          },
+          "video_url": "",
+          "demo_access_code": "",
+          "materials": {
+            "name": "one.txt",
+            "size": 38
+          }
+        },
+        "errors": []
+      },
+      "after": {
+        "source": "file",
+        "step": 2,
+        "focus": "BUTTON",
+        "selected": [
+          "file"
+        ],
+        "link": "",
+        "video": [],
+        "materials": [
+          "one.txt"
+        ],
+        "consent": false,
+        "consentDisabled": true,
+        "consentHidden": true,
+        "linkHidden": true,
+        "fileHidden": false,
+        "review": "",
+        "formData": {
+          "title": "Sullivan AI 접근성 데모 강의",
+          "subject": "통합 학습",
+          "source_label": "직접 제작한 대회용 영상",
+          "preferred_mode": "auto",
+          "video": {
+            "name": "",
+            "size": 0
+          },
+          "video_url": "",
+          "demo_access_code": "",
+          "materials": {
+            "name": "one.txt",
+            "size": 38
+          }
+        },
+        "errors": []
+      },
+      "passed": true
+    },
+    {
+      "name": "materials-only -> sample",
+      "before": {
+        "source": "file",
+        "step": 2,
+        "focus": "BUTTON",
+        "selected": [
+          "file"
+        ],
+        "link": "",
+        "video": [],
+        "materials": [
+          "one.txt"
+        ],
+        "consent": false,
+        "consentDisabled": true,
+        "consentHidden": true,
+        "linkHidden": true,
+        "fileHidden": false,
+        "review": "",
+        "formData": {
+          "title": "Sullivan AI 접근성 데모 강의",
+          "subject": "통합 학습",
+          "source_label": "직접 제작한 대회용 영상",
+          "preferred_mode": "auto",
+          "video": {
+            "name": "",
+            "size": 0
+          },
+          "video_url": "",
+          "demo_access_code": "",
+          "materials": {
+            "name": "one.txt",
+            "size": 38
+          }
+        },
+        "errors": []
+      },
+      "after": {
+        "source": "sample",
+        "step": 2,
+        "focus": "BUTTON",
+        "selected": [
+          "sample"
+        ],
+        "link": "",
+        "video": [],
+        "materials": [],
+        "consent": false,
+        "consentDisabled": true,
+        "consentHidden": true,
+        "linkHidden": true,
+        "fileHidden": true,
+        "review": "",
+        "formData": {
+          "title": "Sullivan AI 접근성 데모 강의",
+          "subject": "통합 학습",
+          "source_label": "직접 제작한 대회용 영상",
+          "preferred_mode": "auto",
+          "video": {
+            "name": "",
+            "size": 0
+          },
+          "video_url": "",
+          "demo_access_code": "",
+          "materials": {
+            "name": "",
+            "size": 0
+          }
+        },
+        "errors": []
+      },
+      "passed": true
+    },
+    {
+      "name": "sample -> link",
+      "before": {
+        "source": "sample",
+        "step": 2,
+        "focus": "wizard-title-2",
+        "selected": [
+          "sample"
+        ],
+        "link": "",
+        "video": [],
+        "materials": [],
+        "consent": false,
+        "consentDisabled": true,
+        "consentHidden": true,
+        "linkHidden": true,
+        "fileHidden": true,
+        "review": "",
+        "formData": {
+          "title": "Sullivan AI 접근성 데모 강의",
+          "subject": "통합 학습",
+          "source_label": "직접 제작한 대회용 영상",
+          "preferred_mode": "auto",
+          "video": {
+            "name": "",
+            "size": 0
+          },
+          "video_url": "",
+          "demo_access_code": "",
+          "materials": {
+            "name": "",
+            "size": 0
+          }
+        },
+        "errors": []
+      },
+      "after": {
+        "source": "link",
+        "step": 2,
+        "focus": "BUTTON",
+        "selected": [
+          "link"
+        ],
+        "link": "",
+        "video": [],
+        "materials": [],
+        "consent": false,
+        "consentDisabled": false,
+        "consentHidden": false,
+        "linkHidden": false,
+        "fileHidden": true,
+        "review": "",
+        "formData": {
+          "title": "Sullivan AI 접근성 데모 강의",
+          "subject": "통합 학습",
+          "source_label": "직접 제작한 대회용 영상",
+          "preferred_mode": "auto",
+          "video": {
+            "name": "",
+            "size": 0
+          },
+          "video_url": "",
+          "demo_access_code": "",
+          "materials": {
+            "name": "",
+            "size": 0
+          }
+        },
+        "errors": []
+      },
+      "passed": true
+    },
+    {
+      "name": "sample -> file",
+      "before": {
+        "source": "sample",
+        "step": 2,
+        "focus": "wizard-title-2",
+        "selected": [
+          "sample"
+        ],
+        "link": "",
+        "video": [],
+        "materials": [],
+        "consent": false,
+        "consentDisabled": true,
+        "consentHidden": true,
+        "linkHidden": true,
+        "fileHidden": true,
+        "review": "",
+        "formData": {
+          "title": "Sullivan AI 접근성 데모 강의",
+          "subject": "통합 학습",
+          "source_label": "직접 제작한 대회용 영상",
+          "preferred_mode": "auto",
+          "video": {
+            "name": "",
+            "size": 0
+          },
+          "video_url": "",
+          "demo_access_code": "",
+          "materials": {
+            "name": "",
+            "size": 0
+          }
+        },
+        "errors": []
+      },
+      "after": {
+        "source": "file",
+        "step": 2,
+        "focus": "BUTTON",
+        "selected": [
+          "file"
+        ],
+        "link": "",
+        "video": [],
+        "materials": [],
+        "consent": false,
+        "consentDisabled": true,
+        "consentHidden": true,
+        "linkHidden": true,
+        "fileHidden": false,
+        "review": "",
+        "formData": {
+          "title": "Sullivan AI 접근성 데모 강의",
+          "subject": "통합 학습",
+          "source_label": "직접 제작한 대회용 영상",
+          "preferred_mode": "auto",
+          "video": {
+            "name": "",
+            "size": 0
+          },
+          "video_url": "",
+          "demo_access_code": "",
+          "materials": {
+            "name": "",
+            "size": 0
+          }
+        },
+        "errors": []
+      },
+      "passed": true
+    },
+    {
+      "name": "sample -> sample",
+      "before": {
+        "source": "sample",
+        "step": 2,
+        "focus": "wizard-title-2",
+        "selected": [
+          "sample"
+        ],
+        "link": "",
+        "video": [],
+        "materials": [],
+        "consent": false,
+        "consentDisabled": true,
+        "consentHidden": true,
+        "linkHidden": true,
+        "fileHidden": true,
+        "review": "",
+        "formData": {
+          "title": "Sullivan AI 접근성 데모 강의",
+          "subject": "통합 학습",
+          "source_label": "직접 제작한 대회용 영상",
+          "preferred_mode": "auto",
+          "video": {
+            "name": "",
+            "size": 0
+          },
+          "video_url": "",
+          "demo_access_code": "",
+          "materials": {
+            "name": "",
+            "size": 0
+          }
+        },
+        "errors": []
+      },
+      "after": {
+        "source": "sample",
+        "step": 2,
+        "focus": "BUTTON",
+        "selected": [
+          "sample"
+        ],
+        "link": "",
+        "video": [],
+        "materials": [],
+        "consent": false,
+        "consentDisabled": true,
+        "consentHidden": true,
+        "linkHidden": true,
+        "fileHidden": true,
+        "review": "",
+        "formData": {
+          "title": "Sullivan AI 접근성 데모 강의",
+          "subject": "통합 학습",
+          "source_label": "직접 제작한 대회용 영상",
+          "preferred_mode": "auto",
+          "video": {
+            "name": "",
+            "size": 0
+          },
+          "video_url": "",
+          "demo_access_code": "",
+          "materials": {
+            "name": "",
+            "size": 0
+          }
+        },
+        "errors": []
+      },
+      "passed": true
+    },
+    {
+      "name": "change after review link-materials",
+      "changed": {
+        "source": "link",
+        "step": 3,
+        "focus": "wizard-title-3",
+        "selected": [
+          "link"
+        ],
+        "link": "https://example.com/replaced.mp4",
+        "video": [],
+        "materials": [
+          "one.txt"
+        ],
+        "consent": true,
+        "consentDisabled": false,
+        "consentHidden": false,
+        "linkHidden": false,
+        "fileHidden": true,
+        "review": "강의 제목Sullivan AI 접근성 데모 강의과목통합 학습자료https://example.com/replaced.mp4보조 자료one.txt분석 동의직접 동의함",
+        "formData": {
+          "title": "Sullivan AI 접근성 데모 강의",
+          "subject": "통합 학습",
+          "source_label": "직접 제작한 대회용 영상",
+          "preferred_mode": "auto",
+          "video": {
+            "name": "",
+            "size": 0
+          },
+          "video_url": "https://example.com/replaced.mp4",
+          "local_gemini_consent": "on",
+          "demo_access_code": "synthetic-code",
+          "materials": {
+            "name": "one.txt",
+            "size": 38
+          }
+        },
+        "errors": []
+      },
+      "passed": true
+    },
+    {
+      "name": "change after review file-materials",
+      "changed": {
+        "source": "file",
+        "step": 3,
+        "focus": "wizard-title-3",
+        "selected": [
+          "file"
+        ],
+        "link": "",
+        "video": [
+          "two.webm"
+        ],
+        "materials": [
+          "one.txt"
+        ],
+        "consent": true,
+        "consentDisabled": false,
+        "consentHidden": false,
+        "linkHidden": true,
+        "fileHidden": false,
+        "review": "강의 제목Sullivan AI 접근성 데모 강의과목통합 학습자료two.webm보조 자료one.txt분석 동의직접 동의함",
+        "formData": {
+          "title": "Sullivan AI 접근성 데모 강의",
+          "subject": "통합 학습",
+          "source_label": "직접 제작한 대회용 영상",
+          "preferred_mode": "auto",
+          "video": {
+            "name": "two.webm",
+            "size": 18
+          },
+          "video_url": "",
+          "local_gemini_consent": "on",
+          "demo_access_code": "synthetic-code",
+          "materials": {
+            "name": "one.txt",
+            "size": 38
+          }
+        },
+        "errors": []
+      },
+      "passed": true
+    },
+    {
+      "name": "change after review materials-only",
+      "changed": {
+        "source": "file",
+        "step": 3,
+        "focus": "wizard-title-3",
+        "selected": [
+          "file"
+        ],
+        "link": "",
+        "video": [],
+        "materials": [
+          "two.txt",
+          "one.srt"
+        ],
+        "consent": false,
+        "consentDisabled": true,
+        "consentHidden": true,
+        "linkHidden": true,
+        "fileHidden": false,
+        "review": "강의 제목Sullivan AI 접근성 데모 강의과목통합 학습자료학습자료만 준비보조 자료two.txt, one.srt분석 동의동의하지 않음",
+        "formData": {
+          "title": "Sullivan AI 접근성 데모 강의",
+          "subject": "통합 학습",
+          "source_label": "직접 제작한 대회용 영상",
+          "preferred_mode": "auto",
+          "video": {
+            "name": "",
+            "size": 0
+          },
+          "video_url": "",
+          "demo_access_code": "",
+          "materials": {
+            "name": "one.srt",
+            "size": 54
+          }
+        },
+        "errors": []
+      },
+      "passed": true
+    },
+    {
+      "name": "clear file to materials only",
+      "cleared": {
+        "source": "file",
+        "step": 3,
+        "focus": "wizard-title-3",
+        "selected": [
+          "file"
+        ],
+        "link": "",
+        "video": [],
+        "materials": [
+          "one.txt"
+        ],
+        "consent": false,
+        "consentDisabled": true,
+        "consentHidden": true,
+        "linkHidden": true,
+        "fileHidden": false,
+        "review": "강의 제목Sullivan AI 접근성 데모 강의과목통합 학습자료학습자료만 준비보조 자료one.txt분석 동의동의하지 않음",
+        "formData": {
+          "title": "Sullivan AI 접근성 데모 강의",
+          "subject": "통합 학습",
+          "source_label": "직접 제작한 대회용 영상",
+          "preferred_mode": "auto",
+          "video": {
+            "name": "",
+            "size": 0
+          },
+          "video_url": "",
+          "demo_access_code": "synthetic-code",
+          "materials": {
+            "name": "one.txt",
+            "size": 38
+          }
+        },
+        "errors": []
+      },
+      "passed": true
+    },
+    {
+      "name": "validation link-materials",
+      "missingRights": {
+        "source": "link",
+        "step": 3,
+        "focus": "rights_confirmed",
+        "selected": [
+          "link"
+        ],
+        "link": "https://example.com/link-materials.mp4",
+        "video": [],
+        "materials": [
+          "one.txt"
+        ],
+        "consent": true,
+        "consentDisabled": false,
+        "consentHidden": false,
+        "linkHidden": false,
+        "fileHidden": true,
+        "review": "강의 제목Sullivan AI 접근성 데모 강의과목통합 학습자료https://example.com/link-materials.mp4보조 자료one.txt분석 동의직접 동의함",
+        "formData": {
+          "title": "Sullivan AI 접근성 데모 강의",
+          "subject": "통합 학습",
+          "source_label": "직접 제작한 대회용 영상",
+          "preferred_mode": "auto",
+          "video": {
+            "name": "",
+            "size": 0
+          },
+          "video_url": "https://example.com/link-materials.mp4",
+          "local_gemini_consent": "on",
+          "demo_access_code": "synthetic-code",
+          "materials": {
+            "name": "one.txt",
+            "size": 38
+          }
+        },
+        "errors": [
+          {
+            "field": "rights_confirmed",
+            "describedby": "wizard-error-3"
+          }
+        ]
+      },
+      "passed": true
+    },
+    {
+      "name": "validation file-materials",
+      "missingRights": {
+        "source": "file",
+        "step": 3,
+        "focus": "rights_confirmed",
+        "selected": [
+          "file"
+        ],
+        "link": "",
+        "video": [
+          "one.mp4"
+        ],
+        "materials": [
+          "one.txt"
+        ],
+        "consent": true,
+        "consentDisabled": false,
+        "consentHidden": false,
+        "linkHidden": true,
+        "fileHidden": false,
+        "review": "강의 제목Sullivan AI 접근성 데모 강의과목통합 학습자료one.mp4보조 자료one.txt분석 동의직접 동의함",
+        "formData": {
+          "title": "Sullivan AI 접근성 데모 강의",
+          "subject": "통합 학습",
+          "source_label": "직접 제작한 대회용 영상",
+          "preferred_mode": "auto",
+          "video": {
+            "name": "one.mp4",
+            "size": 18
+          },
+          "video_url": "",
+          "local_gemini_consent": "on",
+          "demo_access_code": "synthetic-code",
+          "materials": {
+            "name": "one.txt",
+            "size": 38
+          }
+        },
+        "errors": [
+          {
+            "field": "rights_confirmed",
+            "describedby": "wizard-error-3"
+          }
+        ]
+      },
+      "passed": true
+    },
+    {
+      "name": "empty link validates source before consent",
+      "state": {
+        "source": "link",
+        "step": 2,
+        "focus": "video-url",
+        "selected": [
+          "link"
+        ],
+        "link": "",
+        "video": [],
+        "materials": [],
+        "consent": false,
+        "consentDisabled": false,
+        "consentHidden": false,
+        "linkHidden": false,
+        "fileHidden": true,
+        "review": "",
+        "formData": {
+          "title": "Sullivan AI 접근성 데모 강의",
+          "subject": "통합 학습",
+          "source_label": "직접 제작한 대회용 영상",
+          "preferred_mode": "auto",
+          "video": {
+            "name": "",
+            "size": 0
+          },
+          "video_url": "",
+          "demo_access_code": "",
+          "materials": {
+            "name": "",
+            "size": 0
+          }
+        },
+        "errors": [
+          {
+            "field": "video-url",
+            "describedby": "wizard-error-2"
+          }
+        ]
+      },
+      "passed": true
+    },
+    {
+      "name": "submission link-materials",
+      "before": {
+        "source": "link",
+        "step": 3,
+        "focus": "rights_confirmed",
+        "selected": [
+          "link"
+        ],
+        "link": "https://example.com/link-materials.mp4",
+        "video": [],
+        "materials": [
+          "one.txt"
+        ],
+        "consent": true,
+        "consentDisabled": false,
+        "consentHidden": false,
+        "linkHidden": false,
+        "fileHidden": true,
+        "review": "강의 제목Sullivan AI 접근성 데모 강의과목통합 학습자료https://example.com/link-materials.mp4보조 자료one.txt분석 동의직접 동의함",
+        "formData": {
+          "title": "Sullivan AI 접근성 데모 강의",
+          "subject": "통합 학습",
+          "source_label": "직접 제작한 대회용 영상",
+          "preferred_mode": "auto",
+          "video": {
+            "name": "",
+            "size": 0
+          },
+          "video_url": "https://example.com/link-materials.mp4",
+          "local_gemini_consent": "on",
+          "demo_access_code": "synthetic-code",
+          "materials": {
+            "name": "one.txt",
+            "size": 38
+          },
+          "rights_confirmed": "on"
+        },
+        "errors": []
+      },
+      "sent": {
+        "case": "submission link-materials",
+        "path": "/v1/lectures/lecture-cd53183a8f/video-link",
+        "method": "POST",
+        "contentType": "application/json",
+        "body": {
+          "url": "https://example.com/link-materials.mp4",
+          "rights_confirmed": true,
+          "request_analysis": true,
+          "analysis_consent": true,
+          "access_code": "synthetic-code"
+        }
+      },
+      "passed": true
+    },
+    {
+      "name": "submission file-materials",
+      "before": {
+        "source": "file",
+        "step": 3,
+        "focus": "rights_confirmed",
+        "selected": [
+          "file"
+        ],
+        "link": "",
+        "video": [
+          "one.mp4"
+        ],
+        "materials": [
+          "one.txt"
+        ],
+        "consent": true,
+        "consentDisabled": false,
+        "consentHidden": false,
+        "linkHidden": true,
+        "fileHidden": false,
+        "review": "강의 제목Sullivan AI 접근성 데모 강의과목통합 학습자료one.mp4보조 자료one.txt분석 동의직접 동의함",
+        "formData": {
+          "title": "Sullivan AI 접근성 데모 강의",
+          "subject": "통합 학습",
+          "source_label": "직접 제작한 대회용 영상",
+          "preferred_mode": "auto",
+          "video": {
+            "name": "one.mp4",
+            "size": 18
+          },
+          "video_url": "",
+          "local_gemini_consent": "on",
+          "demo_access_code": "synthetic-code",
+          "materials": {
+            "name": "one.txt",
+            "size": 38
+          },
+          "rights_confirmed": "on"
+        },
+        "errors": []
+      },
+      "sent": {
+        "case": "submission file-materials",
+        "path": "/v1/lectures/lecture-52f6f43e63/video-file-analysis",
+        "method": "POST",
+        "contentType": "multipart/form-data; boundary=----WebKitFormBoundaryhPE35yBRiBdLFkvE",
+        "body": "multipart intercepted before network"
+      },
+      "passed": true
+    },
+    {
+      "name": "materials-only actual deterministic processing",
+      "result": {
+        "sample": false,
+        "mode": "passage",
+        "passages": {
+          "title": "one.txt",
+          "paragraphs": [
+            {
+              "paragraph_id": "p1",
+              "paragraph_index": 1,
+              "flow_role": "문제 제기",
+              "sentences": [
+                {
+                  "sentence_id": "p1-s1",
+                  "paragraph_index": 1,
+                  "sentence_index": 1,
+                  "text": "First passage for source-state matrix.",
+                  "timestamp_ms": null,
+                  "highlighted": false
+                }
+              ]
+            }
+          ],
+          "sentence_count": 1,
+          "highlighted_count": 0
+        },
+        "assets": [
+          {
+            "asset_id": "passage-1793831749203-b2f414",
+            "name": "one.txt",
+            "kind": "passage",
+            "media_type": "text/plain",
+            "size_bytes": 38,
+            "processing_status": "indexed",
+            "note": "텍스트 내용만 메모리에서 색인했으며 원본 파일은 저장하지 않습니다."
+          }
+        ],
+        "source": "직접 제작한 대회용 영상"
+      },
+      "passed": true
+    },
+    {
+      "name": "sample after source switching",
+      "before": {
+        "source": "sample",
+        "step": 3,
+        "focus": "wizard-title-3",
+        "selected": [
+          "sample"
+        ],
+        "link": "",
+        "video": [],
+        "materials": [],
+        "consent": false,
+        "consentDisabled": true,
+        "consentHidden": true,
+        "linkHidden": true,
+        "fileHidden": true,
+        "review": "강의 제목과학 · 별의 진화과목샘플에 포함된 과목자료사전 준비된 샘플보조 자료사용하지 않음분석 동의새 분석 없음",
+        "formData": {
+          "title": "Sullivan AI 접근성 데모 강의",
+          "subject": "통합 학습",
+          "source_label": "직접 제작한 대회용 영상",
+          "preferred_mode": "auto",
+          "video": {
+            "name": "",
+            "size": 0
+          },
+          "video_url": "",
+          "demo_access_code": "synthetic-code",
+          "materials": {
+            "name": "",
+            "size": 0
+          }
+        },
+        "errors": []
+      },
+      "result": {
+        "sample": true,
+        "source": "YouTube 공개 샘플 · 사전 준비된 접근성 분석",
+        "localFile": null
+      },
+      "passed": true
+    }
+  ],
+  "browserErrors": [],
+  "externalBlocked": [
+    "data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPHN2ZyB2ZXJzaW9uPSIxLjEiIGlkPSJMYXllcl8xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB4PSIwcHgiIHk9IjBweCIKCSB2aWV3Qm94PSIwIDAgMjQgMjQiIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDI1NSAyNTU7IiB4bWw6c3BhY2U9InByZXNlcnZlIiBmaWxsPSJXaW5kb3ciPgo8Zz4KCTxjaXJjbGUgY3g9IjEyIiBjeT0iNiIgcj0iMiIvPgoJPGNpcmNsZSBjeD0iMTIiIGN5PSIxMiIgcj0iMiIvPgoJPGNpcmNsZSBjeD0iMTIiIGN5PSIxOCIgcj0iMiIvPgo8L2c+Cjwvc3ZnPgo=",
+    "data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPHN2ZyB2ZXJzaW9uPSIxLjEiIGlkPSJMYXllcl8xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB4PSIwcHgiIHk9IjBweCIKCSB2aWV3Qm94PSIwIDAgMjQgMjQiIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDI1NSAyNTU7IiB4bWw6c3BhY2U9InByZXNlcnZlIiBmaWxsPSJXaW5kb3ciPgo8Zz4KCTxjaXJjbGUgY3g9IjEyIiBjeT0iNiIgcj0iMiIvPgoJPGNpcmNsZSBjeD0iMTIiIGN5PSIxMiIgcj0iMiIvPgoJPGNpcmNsZSBjeD0iMTIiIGN5PSIxOCIgcj0iMiIvPgo8L2c+Cjwvc3ZnPgo="
+  ],
+  "providerBoundaries": [
+    {
+      "case": "submission link-materials",
+      "path": "/v1/lectures/lecture-cd53183a8f/video-link",
+      "method": "POST",
+      "contentType": "application/json",
+      "body": {
+        "url": "https://example.com/link-materials.mp4",
+        "rights_confirmed": true,
+        "request_analysis": true,
+        "analysis_consent": true,
+        "access_code": "synthetic-code"
+      }
+    },
+    {
+      "case": "submission file-materials",
+      "path": "/v1/lectures/lecture-52f6f43e63/video-file-analysis",
+      "method": "POST",
+      "contentType": "multipart/form-data; boundary=----WebKitFormBoundaryhPE35yBRiBdLFkvE",
+      "body": "multipart intercepted before network"
+    }
+  ],
+  "contract": [
+    {
+      "case": "submission link-materials",
+      "body": {
+        "title": "Sullivan AI 접근성 데모 강의",
+        "subject": "통합 학습",
+        "source_label": "직접 제작한 대회용 영상",
+        "preferred_mode": "auto",
+        "problem_mode": false
+      }
+    },
+    {
+      "case": "submission file-materials",
+      "body": {
+        "title": "Sullivan AI 접근성 데모 강의",
+        "subject": "통합 학습",
+        "source_label": "직접 제작한 대회용 영상",
+        "preferred_mode": "auto",
+        "problem_mode": false
+      }
+    },
+    {
+      "case": "materials-only actual deterministic processing",
+      "body": {
+        "title": "Sullivan AI 접근성 데모 강의",
+        "subject": "통합 학습",
+        "source_label": "직접 제작한 대회용 영상",
+        "preferred_mode": "auto",
+        "problem_mode": false
+      }
+    }
+  ],
+  "notes": [],
+  "browser": "Chrome/156.0.8078.80",
+  "passed": true,
+  "caseCount": 27
+}
