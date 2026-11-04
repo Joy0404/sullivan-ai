@@ -1,0 +1,257 @@
+[
+  {
+    "stage": "1",
+    "width": 320,
+    "overflow": false,
+    "small": [],
+    "shortControls": [],
+    "headings": [
+      {
+        "tag": "H1",
+        "text": "강의 등록"
+      },
+      {
+        "tag": "H2",
+        "text": "강의 정보"
+      }
+    ]
+  },
+  {
+    "stage": "1",
+    "width": 390,
+    "overflow": false,
+    "small": [],
+    "shortControls": [],
+    "headings": [
+      {
+        "tag": "H1",
+        "text": "강의 등록"
+      },
+      {
+        "tag": "H2",
+        "text": "강의 정보"
+      }
+    ]
+  },
+  {
+    "stage": "1",
+    "width": 1280,
+    "overflow": false,
+    "small": [],
+    "shortControls": [],
+    "headings": [
+      {
+        "tag": "H1",
+        "text": "강의 등록"
+      },
+      {
+        "tag": "H2",
+        "text": "강의 정보"
+      }
+    ]
+  },
+  {
+    "stage": "2-sample",
+    "width": 320,
+    "overflow": false,
+    "small": [],
+    "shortControls": [],
+    "headings": [
+      {
+        "tag": "H1",
+        "text": "강의 등록"
+      },
+      {
+        "tag": "H2",
+        "text": "영상·자료와 동의"
+      }
+    ]
+  },
+  {
+    "stage": "2-sample",
+    "width": 390,
+    "overflow": false,
+    "small": [],
+    "shortControls": [],
+    "headings": [
+      {
+        "tag": "H1",
+        "text": "강의 등록"
+      },
+      {
+        "tag": "H2",
+        "text": "영상·자료와 동의"
+      }
+    ]
+  },
+  {
+    "stage": "2-sample",
+    "width": 1280,
+    "overflow": false,
+    "small": [],
+    "shortControls": [],
+    "headings": [
+      {
+        "tag": "H1",
+        "text": "강의 등록"
+      },
+      {
+        "tag": "H2",
+        "text": "영상·자료와 동의"
+      }
+    ]
+  },
+  {
+    "stage": "2-link",
+    "width": 320,
+    "overflow": false,
+    "small": [],
+    "shortControls": [],
+    "headings": [
+      {
+        "tag": "H1",
+        "text": "강의 등록"
+      },
+      {
+        "tag": "H2",
+        "text": "영상·자료와 동의"
+      }
+    ]
+  },
+  {
+    "stage": "2-link",
+    "width": 390,
+    "overflow": false,
+    "small": [],
+    "shortControls": [],
+    "headings": [
+      {
+        "tag": "H1",
+        "text": "강의 등록"
+      },
+      {
+        "tag": "H2",
+        "text": "영상·자료와 동의"
+      }
+    ]
+  },
+  {
+    "stage": "2-link",
+    "width": 1280,
+    "overflow": false,
+    "small": [],
+    "shortControls": [],
+    "headings": [
+      {
+        "tag": "H1",
+        "text": "강의 등록"
+      },
+      {
+        "tag": "H2",
+        "text": "영상·자료와 동의"
+      }
+    ]
+  },
+  {
+    "stage": "2-file",
+    "width": 320,
+    "overflow": false,
+    "small": [],
+    "shortControls": [],
+    "headings": [
+      {
+        "tag": "H1",
+        "text": "강의 등록"
+      },
+      {
+        "tag": "H2",
+        "text": "영상·자료와 동의"
+      }
+    ]
+  },
+  {
+    "stage": "2-file",
+    "width": 390,
+    "overflow": false,
+    "small": [],
+    "shortControls": [],
+    "headings": [
+      {
+        "tag": "H1",
+        "text": "강의 등록"
+      },
+      {
+        "tag": "H2",
+        "text": "영상·자료와 동의"
+      }
+    ]
+  },
+  {
+    "stage": "2-file",
+    "width": 1280,
+    "overflow": false,
+    "small": [],
+    "shortControls": [],
+    "headings": [
+      {
+        "tag": "H1",
+        "text": "강의 등록"
+      },
+      {
+        "tag": "H2",
+        "text": "영상·자료와 동의"
+      }
+    ]
+  },
+  {
+    "stage": "3",
+    "width": 320,
+    "overflow": false,
+    "small": [],
+    "shortControls": [],
+    "headings": [
+      {
+        "tag": "H1",
+        "text": "강의 등록"
+      },
+      {
+        "tag": "H2",
+        "text": "보호 설정 확인"
+      }
+    ]
+  },
+  {
+    "stage": "3",
+    "width": 390,
+    "overflow": false,
+    "small": [],
+    "shortControls": [],
+    "headings": [
+      {
+        "tag": "H1",
+        "text": "강의 등록"
+      },
+      {
+        "tag": "H2",
+        "text": "보호 설정 확인"
+      }
+    ]
+  },
+  {
+    "stage": "3",
+    "width": 1280,
+    "overflow": false,
+    "small": [],
+    "shortControls": [],
+    "headings": [
+      {
+        "tag": "H1",
+        "text": "강의 등록"
+      },
+      {
+        "tag": "H2",
+        "text": "보호 설정 확인"
+      }
+    ]
+  }
+]

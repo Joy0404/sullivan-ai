@@ -197,6 +197,49 @@ body[data-role="guardian"] #guardian-dashboard .guardian-help-panel #storage-est
 @media (prefers-reduced-motion: reduce) {
   body[data-role="guardian"] #guardian-dashboard *, body[data-role="guardian"] #guardian-dashboard *::before, body[data-role="guardian"] #guardian-dashboard *::after { animation: none !important; transition: none !important; }
 }
+
+/* T3: a single form retains its original fields and submits through the existing analyzer. */
+body[data-role="guardian"] #lecture-form { display: grid; gap: var(--guardian-lg); }
+body[data-role="guardian"] #lecture-form :is(label, small, p, summary, legend, button, input, select) { font-size: 1.125rem; line-height: 1.7; }
+body[data-role="guardian"] #lecture-form .guardian-wizard-step :is(p, small, span, li, summary, label, input, select) { font-size: 1.125rem; }
+body[data-role="guardian"] #lecture-form :is(select, summary, input[type="file"]) { min-height: 48px; }
+body[data-role="guardian"] #lecture-form input[type="file"]::file-selector-button { min-height: 48px; font: inherit; }
+body[data-role="guardian"] #lecture-form :is(h1, h2) { min-width: 0; overflow-wrap: break-word; text-wrap: balance; }
+body[data-role="guardian"] #lecture-form h1 { margin: 0; font-size: 2rem; }
+body[data-role="guardian"] #lecture-form h2 { margin: 0 0 var(--guardian-lg); font-size: 1.5rem; }
+body[data-role="guardian"] #lecture-form .guardian-breadcrumb { display: flex; flex-wrap: wrap; align-items: center; gap: var(--guardian-sm); }
+body[data-role="guardian"] #lecture-form .guardian-breadcrumb button { padding: var(--guardian-xs) 0; min-height: 48px; border: 0; background: var(--guardian-clear); color: var(--brand); text-decoration: underline; text-underline-offset: .22em; }
+body[data-role="guardian"] #lecture-form #wizard-stage-label { margin: 0; color: var(--muted); }
+body[data-role="guardian"] #lecture-form .guardian-step-indicator { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--guardian-md); margin: 0; padding: 0 0 var(--guardian-lg) var(--guardian-lg); border-bottom: 1px solid var(--line); }
+body[data-role="guardian"] #lecture-form .guardian-step-indicator li { padding: var(--guardian-xs) var(--guardian-sm); color: var(--muted); }
+body[data-role="guardian"] #lecture-form .guardian-step-indicator [aria-current="step"] { color: var(--brand); background: var(--brand-soft); font-weight: 700; }
+body[data-role="guardian"] #lecture-form .guardian-wizard-step { min-width: 0; }
+body[data-role="guardian"] #lecture-form .guardian-form-section { border: 0; padding: var(--guardian-md) 0; gap: var(--guardian-lg); }
+body[data-role="guardian"] #lecture-form .guardian-form-section legend { padding: 0; font-weight: 600; }
+body[data-role="guardian"] #lecture-form .wizard-help { margin-block: var(--guardian-md); }
+body[data-role="guardian"] #lecture-form .wizard-help summary { cursor: pointer; min-height: 48px; padding-block: var(--guardian-sm); color: var(--brand); }
+body[data-role="guardian"] #lecture-form .wizard-source-options { display: flex; flex-wrap: wrap; gap: var(--guardian-sm); margin-bottom: var(--guardian-lg); }
+body[data-role="guardian"] #lecture-form .wizard-source-options button { padding: var(--guardian-sm) var(--guardian-md); border: 1px solid var(--control-border); background: var(--paper); color: var(--brand); }
+body[data-role="guardian"] #lecture-form .wizard-source-options [aria-pressed="true"] { background: var(--brand-soft); border-color: var(--brand); }
+body[data-role="guardian"] #lecture-form [data-wizard-drop] { padding: var(--guardian-lg); border: 2px dashed var(--control-border); background: var(--canvas); }
+body[data-role="guardian"] #lecture-form .wizard-error { padding: var(--guardian-md); border: 2px solid var(--red); background: var(--red-soft); color: var(--red); }
+body[data-role="guardian"] #lecture-form [aria-invalid="true"] { border-color: var(--red); }
+body[data-role="guardian"] #lecture-form .wizard-review { display: grid; grid-template-columns: minmax(0, .4fr) minmax(0, 1fr); gap: var(--guardian-sm) var(--guardian-lg); margin-block: 0 var(--guardian-lg); }
+body[data-role="guardian"] #lecture-form .wizard-review dt { font-weight: 700; }
+body[data-role="guardian"] #lecture-form .wizard-review dd { min-width: 0; margin: 0; overflow-wrap: anywhere; }
+body[data-role="guardian"] #lecture-form .wizard-navigation { display: flex; justify-content: space-between; gap: var(--guardian-md); border-top: 1px solid var(--line); padding-top: var(--guardian-lg); }
+body[data-role="guardian"] #lecture-form .wizard-navigation button { min-height: 48px; padding: var(--guardian-sm) var(--guardian-lg); }
+body[data-role="guardian"] #lecture-form #wizard-next, body[data-role="guardian"] #lecture-form #wizard-submit { background: var(--brand); color: var(--paper); border-color: var(--brand); }
+body[data-role="guardian"] #lecture-form :is(#wizard-next, #wizard-submit):hover { background: var(--ink); }
+body[data-role="guardian"] #lecture-form :is(input, select, textarea) { border-color: var(--control-border); }
+body[data-role="guardian"] #lecture-form :is(input:not([type="checkbox"]):not([type="file"]), select, textarea) { min-height: 48px; padding: var(--guardian-xs) var(--guardian-sm); line-height: 1.5; }
+body[data-role="guardian"] #lecture-form :is(#wizard-next, #wizard-previous, #wizard-submit, [data-wizard-source]) { min-height: 48px; padding: var(--guardian-xs) var(--guardian-lg); line-height: 1.4; }
+@media (max-width: 600px) {
+  body[data-role="guardian"] #lecture-form .guardian-step-indicator { gap: var(--guardian-xs); font-size: 1.125rem; }
+  body[data-role="guardian"] #lecture-form .wizard-review { grid-template-columns: minmax(0, 1fr); }
+  body[data-role="guardian"] #lecture-form .wizard-review dd { margin-bottom: var(--guardian-sm); }
+  body[data-role="guardian"] #lecture-form [data-wizard-drop] { padding: var(--guardian-md); }
+}
 @media (forced-colors: active) {
   body[data-role="guardian"] .guardian-ready { border:1px solid CanvasText; }
   body[data-role="guardian"] :where(button, input, select, textarea, summary, a, [tabindex]):focus-visible { outline-color:var(--system-focus); }

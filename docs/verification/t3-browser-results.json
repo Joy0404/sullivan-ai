@@ -1,0 +1,91 @@
+{
+  "task": "T3",
+  "checks": [
+    "Required title and rights focus, no premature requests; back/forward preserves title/file; uploaded TXT actually processed through original API",
+    "Wizard sample path reuses prerecorded sample, clears incompatible source selection and sends no analysis request",
+    "No-consent local video cannot advance and sends0API writes or media uploads"
+  ],
+  "axe": [
+    {
+      "label": "step-1 390",
+      "violations": [],
+      "incomplete": [
+        "aria-allowed-role"
+      ]
+    },
+    {
+      "label": "step-1 1280",
+      "violations": [],
+      "incomplete": [
+        "aria-allowed-role"
+      ]
+    },
+    {
+      "label": "error 390",
+      "violations": [],
+      "incomplete": [
+        "aria-allowed-role"
+      ]
+    },
+    {
+      "label": "error 1280",
+      "violations": [],
+      "incomplete": [
+        "aria-allowed-role"
+      ]
+    },
+    {
+      "label": "step-2 390",
+      "violations": [],
+      "incomplete": [
+        "aria-allowed-role"
+      ]
+    },
+    {
+      "label": "step-2 1280",
+      "violations": [],
+      "incomplete": [
+        "aria-allowed-role"
+      ]
+    },
+    {
+      "label": "step-3 390",
+      "violations": [],
+      "incomplete": [
+        "aria-allowed-role"
+      ]
+    },
+    {
+      "label": "step-3 1280",
+      "violations": [],
+      "incomplete": [
+        "aria-allowed-role"
+      ]
+    }
+  ],
+  "provider": "No real provider calls; actual local HTTP/text processing, mocked YT/TTS",
+  "requests": [
+    {
+      "path": "/local/setup",
+      "method": "POST"
+    },
+    {
+      "path": "/local/students",
+      "method": "POST"
+    },
+    {
+      "path": "/v1/lectures",
+      "method": "POST"
+    },
+    {
+      "path": "/v1/lectures/lecture-59076bf0c9/assets",
+      "method": "POST"
+    },
+    {
+      "path": "/local/lectures",
+      "method": "POST"
+    }
+  ],
+  "page_errors": [],
+  "passed": true
+}

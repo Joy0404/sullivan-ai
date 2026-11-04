@@ -160,17 +160,22 @@
       <section id="setup-view" class="landing hidden" aria-labelledby="hero-title">
         <div id="student-start" class="hidden"><h1 id="hero-title">보호자 강의 준비</h1></div>
         <form id="lecture-form" class="upload-card hidden" aria-labelledby="setup-form-title">
-          <button class="secondary" type="button" data-guardian-home>보호자 준비실로 돌아가기</button>
+          <nav class="guardian-breadcrumb" aria-label="현재 위치"><button class="secondary" type="button" data-guardian-home>보호자 준비실</button><span aria-hidden="true"> / </span><span>강의 등록</span></nav>
           <div class="card-heading">
 
-            <h2 id="setup-form-title" tabindex="-1">강의와 학습자료 불러오기</h2>
+            <h1 id="setup-form-title" tabindex="-1">강의 등록</h1>
           </div>
-          <fieldset class="guardian-form-section"><legend>강의 정보</legend>
+          <p id="wizard-stage-label">1/3 단계</p>
+          <ol class="guardian-step-indicator" aria-label="강의 등록 단계"><li aria-current="step">강의 정보</li><li>영상·자료와 동의</li><li>보호 설정 확인</li></ol>
+          <section id="wizard-step-1" class="guardian-wizard-step" aria-labelledby="wizard-title-1">
+          <h2 id="wizard-title-1" tabindex="-1" aria-describedby="wizard-stage-label">강의 정보</h2><p id="wizard-error-1" class="wizard-error" hidden></p>
+          <fieldset class="guardian-form-section"><legend>강의 기본 정보</legend>
           <div class="form-grid">
             <label>강의 제목<input name="title" value="Sullivan AI 접근성 데모 강의" required maxlength="160" /></label>
             <label>과목<input name="subject" value="통합 학습" required maxlength="80" /></label>
           </div>
           <label>콘텐츠 출처<input name="source_label" value="직접 제작한 대회용 영상" maxlength="120" /></label>
+          <details class="wizard-help"><summary>우선 분석 모드란?</summary><p>어떤 화면 정보를 먼저 살펴볼지 고릅니다. 처음에는 자동 선택을 사용해 주세요.</p></details>
           <label>우선 분석 모드
             <select name="preferred_mode">
               <option value="auto" selected>자동 선택</option>
@@ -181,14 +186,20 @@
           </label>
 
           </fieldset>
-          <fieldset class="guardian-form-section"><legend>영상·자료 등록과 분석 동의</legend>
-          <div class="drop-field">
+          </section>
+          <section id="wizard-step-2" class="guardian-wizard-step" aria-labelledby="wizard-title-2" hidden>
+          <h2 id="wizard-title-2" tabindex="-1" aria-describedby="wizard-stage-label">영상·자료와 동의</h2><p id="wizard-error-2" class="wizard-error" hidden></p>
+          <div class="wizard-source-options" role="group" aria-label="준비할 자료 선택"><button type="button" data-wizard-source="sample" aria-pressed="true">샘플로 시작</button><button type="button" data-wizard-source="link" aria-pressed="false">영상 링크</button><button type="button" data-wizard-source="file" aria-pressed="false">영상 파일·학습자료</button></div>
+          <div id="wizard-sample-choice"><label>샘플 강의<select id="wizard-sample-kind"><option value="science">과학 · 별의 진화</option><option value="history">역사 · 왜란과 호란</option></select></label><p>사전 준비된 결과를 엽니다. 새 영상이나 업로드 자료를 분석하지 않습니다. 유료 인증이 필요하지 않습니다.</p></div>
+          <fieldset id="wizard-source-fields" class="guardian-form-section"><legend>영상·자료 등록과 분석 동의</legend>
+          <div id="wizard-file-source" class="drop-field" data-wizard-drop="video-file">
+            <p>영상 파일을 여기에 끌어놓거나 파일 선택을 사용하세요. 영상 없이 자막·지문만 준비할 수도 있습니다.</p>
             <label for="video-file"><strong>강의 영상</strong><span>실제 AI 분석 · 별도 동의 필요(100MB 이하)</span></label>
             <input id="video-file" name="video" type="file" accept="video/mp4,video/webm,video/quicktime,video/x-m4v,.mp4,.webm,.mov,.m4v" />
             <p id="video-file-name">선택된 영상 없음. 샘플 모드로도 실행할 수 있습니다.</p>
           </div>
 
-          <div class="link-field">
+          <div id="wizard-link-source" class="link-field">
             <label for="video-url"><strong>또는 강의 영상 링크</strong><span>YouTube 또는 공개 MP4·WebM 주소</span></label>
             <div class="link-input-row">
               <input id="video-url" name="video_url" type="url" inputmode="url" placeholder="https://youtu.be/... 또는 https://.../lecture.mp4" maxlength="2048" />
@@ -205,22 +216,31 @@
             <input name="local_gemini_consent" type="checkbox" disabled />
             <span>
               선택한 파일 또는 영상 링크의 실제 발화·판서·슬라이드를 Gemini로 임시 분석하는 데 동의
-              <small>체크한 경우에만 실제 분석을 실행합니다. 업로드 영상은 분석 직후(성공·실패·시간 초과 모두) 서버 임시 파일과 Gemini 파일의 삭제를 시도하며, 삭제를 확인하지 못하면 화면에 알려 드립니다. 이 경우 Gemini 쪽 사본은 공급자 정책에 따라 최대 48시간 남을 수 있습니다.</small>
+
             </span>
           </label>
+          <details id="wizard-consent-details" class="wizard-help"><summary>분석 동의 자세히</summary><p>체크한 경우에만 실제 분석을 실행합니다. 업로드 영상은 분석 직후(성공·실패·시간 초과 모두) 서버 임시 파일과 Gemini 파일의 삭제를 시도하며, 삭제를 확인하지 못하면 화면에 알려 드립니다. 이 경우 Gemini 쪽 사본은 공급자 정책에 따라 최대 48시간 남을 수 있습니다.</p></details>
+          <details class="wizard-help"><summary>체험 코드가 필요한 경우</summary><p>실제 영상 분석에만 필요합니다. 자막·지문만 준비하거나 샘플을 열 때는 필요하지 않습니다.</p></details>
           <label id="demo-access-code-field" class="api-key-field" for="demo-access-code">
             체험 코드 <span class="optional-label">실제 AI 분석과 Gemini 대화에만 필요 · 테스트용 횟수 제한 없음</span>
             <input id="demo-access-code" name="demo_access_code" type="password" autocomplete="off" maxlength="200" placeholder="안내받은 체험 코드" />
             <small id="demo-access-help">코드가 없어도 샘플·보관함·로컬 보조 대화는 작동합니다. 분석은 3분을 넘으면 중단됩니다.</small>
           </label>
 
-          <div class="drop-field">
+          <div class="drop-field" data-wizard-drop="material-files">
+            <p>보조 자료를 여기에 끌어놓거나 파일 선택을 사용하세요.</p>
             <label for="material-files"><strong>보조 학습자료</strong><span>텍스트(txt, md), 자막(srt, vtt), 분석 JSON. 여러 개 가능</span></label>
             <input id="material-files" name="materials" type="file" multiple accept=".txt,.md,.srt,.vtt,.json,text/plain,text/markdown,application/json" />
             <ul id="material-preview" class="file-list"><li>선택된 자료 없음</li></ul>
           </div>
           </fieldset>
+          </section>
+          <section id="wizard-step-3" class="guardian-wizard-step" aria-labelledby="wizard-title-3" hidden>
+          <h2 id="wizard-title-3" tabindex="-1" aria-describedby="wizard-stage-label">보호 설정 확인</h2><p id="wizard-error-3" class="wizard-error" hidden></p>
+          <dl id="wizard-review" class="wizard-review"></dl>
+          <details class="wizard-help"><summary>문제 보호 모드란?</summary><p>문제를 스스로 풀 수 있도록 최종 정답은 가리고 힌트와 개념 위주로 안내합니다. 샘플은 이미 준비된 안전 정책을 따릅니다.</p></details>
           <fieldset class="guardian-form-section"><legend>학습 보호와 이용 권한</legend>
+          <p id="wizard-sample-protection">샘플은 이미 준비된 보호 정책과 이용 권한을 따릅니다. 새 영상 분석 동의는 필요하지 않습니다.</p>
           <label class="check-row">
             <input name="problem_mode" type="checkbox" />
             <span>문제 보호 모드: 최종 정답 대신 힌트와 개념 중심으로 안내</span>
@@ -232,9 +252,11 @@
           </label>
           </fieldset>
 
-          <button class="primary wide" type="submit">선택한 자료 실제 분석</button>
+          <button id="wizard-submit" class="primary wide" type="submit">샘플 결과 열기</button>
 
           <p class="privacy-copy">기본값에서는 원본을 전송하지 않습니다. 위의 별도 동의를 체크한 로컬 영상만 실제 분석 동안 Gemini에 임시 전송하며, 장기 서버 저장은 하지 않습니다. ‘강의 저장’을 선택한 원본만 이 브라우저 보관함에 남습니다.</p>
+          </section>
+          <div class="wizard-navigation"><button id="wizard-previous" class="secondary" type="button" hidden>이전 단계</button><button id="wizard-next" class="primary" type="button">다음 단계</button></div>
         </form>
 
         <section id="student-library" class="saved-library hidden" aria-labelledby="saved-library-title">

@@ -1,0 +1,7 @@
+{
+  "consent_original_text_preserved_verbatim": true,
+  "original_field_names_preserved": true,
+  "javascript_outside_prepare_exact_match": true,
+  "core_analyzer_api_auth_provider_student_unchanged": true,
+  "test_count": "116 passed,4 skipped before and after"
+}

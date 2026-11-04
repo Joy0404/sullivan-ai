@@ -1,0 +1,24 @@
+{
+  "skill": "aria-specialist",
+  "scope": [
+    "apps/web/index.html #lecture-form",
+    "apps/web/role-portal.js prepare",
+    "apps/web/guardian-design.css T3 rules"
+  ],
+  "findings": [],
+  "passed": [
+    "All scoped aria-labelledby/aria-describedby/aria-controls ID references resolve.",
+    "Chrome AX tree: focused current-stage heading exposes its title and 1/3 stage description.",
+    "Exactly one native source-choice button exposes aria-pressed=true; other source controls stay hidden.",
+    "Validation moves focus to the visible invalid field; aria-invalid and inline error description are exposed through Chrome AX.",
+    "Corrected validation restores original descriptions and clears aria-invalid.",
+    "Sample path hides and disables source-inapplicable required rights consent; Chrome does not expose a misleading mandatory checkbox.",
+    "Sample submission invokes only the sample boundary stub and leaves the analyzer listener untouched."
+  ],
+  "notes": [
+    "Runtime used an isolated DOM fixture executing current prepare() plus original file/consent handlers; fake sample/analyzer boundaries and zero actual API requests.",
+    "Earlier static concerns about sample required rights state and drop feedback were corrected before final fixture verification.",
+    "Actual VoiceOver/NVDA audio was not tested; authenticated HTTP integration belongs to the parent run.",
+    "Runtime evidence: /tmp/sullivan-t3-work/review/aria-live-runtime.json."
+  ]
+}

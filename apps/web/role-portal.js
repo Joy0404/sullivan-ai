@@ -264,7 +264,63 @@ window.Portal = (() => {
     if(index<0||next<0||next>=order.length)return feedback('이미 목록의 끝입니다.');
     [order[index],order[next]]=[order[next],order[index]];await send('/order',{student,lectures:order},'PUT');feedback('강의 순서를 변경했습니다.');
   }
-  function prepare() {show('setup-view');el('lecture-form').classList.remove('hidden');el('student-library').classList.add('hidden');focusFirst('prepare');}
+  function prepare() {
+    show('setup-view');const form=el('lecture-form');form.classList.remove('hidden');el('student-library').classList.add('hidden');
+    if(!form.dataset.wizardBound){
+      form.dataset.wizardBound='true';form.noValidate=true;
+      let step=1,source='sample';
+      const panels=[1,2,3].map(n=>el('wizard-step-'+n));
+      const video=el('video-file'),link=el('video-url'),materials=el('material-files'),consent=form.elements.local_gemini_consent;
+      function errorAt(n,input,message){
+        go(n,false);const error=el('wizard-error-'+n);error.hidden=false;error.textContent=message;
+        if(input){input.setAttribute('aria-invalid','true');input.dataset.wizardDescription=input.getAttribute('aria-describedby')||'';input.setAttribute('aria-describedby',[input.dataset.wizardDescription,error.id].filter(Boolean).join(' '));input.focus();}
+        else error.scrollIntoView({block:'center'});
+        return false;
+      }
+      function clearErrors(){for(const panel of panels){const error=panel.querySelector('.wizard-error');error.hidden=true;error.textContent='';}for(const input of form.querySelectorAll('[data-wizard-description]')){input.removeAttribute('aria-invalid');const original=input.dataset.wizardDescription;if(original)input.setAttribute('aria-describedby',original);else input.removeAttribute('aria-describedby');delete input.dataset.wizardDescription;}}
+      function review(){const box=el('wizard-review');box.replaceChildren();const values=[['강의 제목',source==='sample'?el('wizard-sample-kind').selectedOptions[0].textContent:form.elements.title.value],['과목',source==='sample'?'샘플에 포함된 과목':form.elements.subject.value],['자료',source==='sample'?'사전 준비된 샘플':source==='link'?link.value:video.files[0]?.name||'학습자료만 준비'],['보조 자료',source==='sample'?'사용하지 않음':[...materials.files].map(f=>f.name).join(', ')||'없음'],['분석 동의',source==='sample'?'새 분석 없음':consent.checked?'직접 동의함':'동의하지 않음']];for(const [name,value] of values)box.append(node('dt',name),node('dd',value));}
+      function go(n,focus=true){step=n;panels.forEach((panel,i)=>panel.hidden=i!==n-1);el('wizard-stage-label').textContent=n+'/3 단계';form.querySelectorAll('.guardian-step-indicator li').forEach((item,i)=>{if(i===n-1)item.setAttribute('aria-current','step');else item.removeAttribute('aria-current');});el('wizard-previous').hidden=n===1;el('wizard-next').hidden=n===3;if(n===3)review();if(focus)el('wizard-title-'+n).focus();}
+      function choose(kind,clear=true){
+        source=kind;form.dataset.wizardSource=kind;
+        form.querySelectorAll('[data-wizard-source]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.wizardSource===kind)));
+        if(clear){if(kind!=='file'){video.value='';video.dispatchEvent(new Event('change',{bubbles:true}));}if(kind!=='link'){link.value='';link.dispatchEvent(new Event('input',{bubbles:true}));}if(kind==='sample'){materials.value='';materials.dispatchEvent(new Event('change',{bubbles:true}));}consent.checked=false;}
+        el('wizard-sample-choice').hidden=kind!=='sample';el('wizard-source-fields').hidden=kind==='sample';el('wizard-file-source').hidden=kind!=='file';el('wizard-link-source').hidden=kind!=='link';
+        const realSource=kind==='link'||kind==='file'&&video.files.length>0;
+        el('local-video-ai-consent').hidden=!realSource;el('wizard-consent-details').hidden=!realSource;el('demo-access-code-field').hidden=!realSource;
+        for(const input of [form.elements.problem_mode,form.elements.rights_confirmed]){input.disabled=kind==='sample';input.closest('label').hidden=kind==='sample';}
+        form.querySelector('.mode-help').hidden=kind==='sample';el('wizard-sample-protection').hidden=kind!=='sample';
+        el('wizard-submit').textContent=kind==='sample'?'샘플 결과 열기':'분석 시작';
+      }
+      function validate(n){
+        clearErrors();
+        for(const input of panels[n-1].querySelectorAll('input,select,textarea')){if(input.disabled||source==='sample'&&n===2||source==='sample'&&input.name==='rights_confirmed')continue;if(!input.checkValidity())return errorAt(n,input,'필수값과 입력 형식을 확인해 주세요. '+input.validationMessage);}
+        if(n===2&&source!=='sample'){
+          if(source==='link'&&!link.value.trim())return errorAt(2,link,'영상 링크를 입력해 주세요.');
+          if(source==='file'&&!video.files.length&&!materials.files.length)return errorAt(2,materials,'영상 파일 또는 자막·지문 자료를 선택해 주세요.');
+          if((source==='link'||video.files.length)&&!consent.checked)return errorAt(2,consent,'원본의 임시 전송·분석에 직접 동의해 주세요.');
+          if((source==='link'||video.files.length)&&!el('demo-access-code').value.trim())return errorAt(2,el('demo-access-code'),'실제 영상 분석에는 체험 코드가 필요합니다.');
+        }
+        return true;
+      }
+      el('wizard-next').addEventListener('click',()=>{if(validate(step))go(step+1);});
+      el('wizard-previous').addEventListener('click',()=>{clearErrors();go(step-1);});
+      form.querySelectorAll('[data-wizard-source]').forEach(b=>b.addEventListener('click',()=>{clearErrors();choose(b.dataset.wizardSource);}));
+      video.addEventListener('change',()=>choose(source,false));
+      for(const zone of form.querySelectorAll('[data-wizard-drop]')){
+        zone.addEventListener('dragover',e=>e.preventDefault());
+        zone.addEventListener('drop',e=>{e.preventDefault();const input=el(zone.dataset.wizardDrop),files=[...e.dataTransfer.files],allowed=input===video?/\.(mp4|webm|mov|m4v)$/i:/\.(txt|md|srt|vtt|json)$/i;if(files.some(f=>!allowed.test(f.name)))return errorAt(2,input,'지원하는 형식의 파일을 선택해 주세요.');const transfer=new DataTransfer();for(const f of input.multiple?files:files.slice(0,1))transfer.items.add(f);clearErrors();input.files=transfer.files;input.dispatchEvent(new Event('change',{bubbles:true}));input.focus();});
+      }
+      form.addEventListener('submit',event=>{
+        if(ui.user?.role!=='guardian')return;
+        if(step<3){event.preventDefault();event.stopImmediatePropagation();if(validate(step))go(step+1);return;}
+        for(const n of [1,2,3])if(!validate(n)){event.preventDefault();event.stopImmediatePropagation();return;}
+        if(source==='sample'){event.preventDefault();event.stopImmediatePropagation();openSampleSession(el('wizard-sample-kind').value);}
+      },true);
+      form.addEventListener('input',()=>{if(step===3)review();});
+      form.addEventListener('wizard-reset',()=>{clearErrors();choose(video.files.length||materials.files.length?'file':link.value?'link':'sample',false);go(1);});
+    }
+    form.dispatchEvent(new Event('wizard-reset'));
+  }
   async function assignSample(e) {
     e.preventDefault();const submit=el('sample-assign-submit');if(submit.disabled)return;
     const guardian=ui.user?.id,student=students.find(s=>s.id===el('sample-assign-student').value);

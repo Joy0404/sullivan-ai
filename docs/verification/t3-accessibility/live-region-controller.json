@@ -1,0 +1,22 @@
+{
+  "skill": "live-region-controller",
+  "scope": [
+    "apps/web/index.html #lecture-form",
+    "apps/web/role-portal.js prepare",
+    "apps/web/guardian-design.css T3 rules"
+  ],
+  "findings": [],
+  "passed": [
+    "Step navigation uses focused heading plus static stage-count description instead of a competing live announcement.",
+    "Inline validation is announced through the focused field's associated error description; no duplicate assertive region is introduced.",
+    "Source switches expose their pressed state and make the relevant native fields available in normal Tab order.",
+    "Successful drag/drop focuses the affected native file input; selected TXT count/name and native file value update without requiring a duplicate live channel.",
+    "Source reset to sample clears uploaded material values and states explicitly that no new video/upload analysis occurs."
+  ],
+  "notes": [
+    "Current-source Chrome fixture checks passed without authentication or backend mutation.",
+    "Native file-picker speech and VoiceOver/NVDA actual utterances were not heard.",
+    "Parent separately validates original progress/success/error announcement behavior through the real local analyzer flow.",
+    "Runtime evidence: /tmp/sullivan-t3-work/review/aria-live-runtime.json."
+  ]
+}

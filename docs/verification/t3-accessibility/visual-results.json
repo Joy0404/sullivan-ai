@@ -1,0 +1,2249 @@
+[
+  {
+    "stage": "1",
+    "width": 320,
+    "overflow": false,
+    "headings": [
+      {
+        "tag": "H1",
+        "text": "강의 등록"
+      },
+      {
+        "tag": "H2",
+        "text": "강의 정보"
+      }
+    ],
+    "small": [],
+    "texts": [
+      {
+        "text": "보호자 준비실",
+        "size": 18,
+        "color": "rgb(22, 75, 139)",
+        "background": "rgb(255, 255, 255)"
+      },
+      {
+        "text": "/",
+        "size": 18,
+        "color": "rgb(23, 44, 72)",
+        "background": "rgb(255, 255, 255)"
+      },
+      {
+        "text": "강의 등록",
+        "size": 18,
+        "color": "rgb(23, 44, 72)",
+        "background": "rgb(255, 255, 255)"
+      },
+      {
+        "text": "강의 등록",
+        "size": 32,
+        "color": "rgb(23, 44, 72)",
+        "background": "rgb(255, 255, 255)"
+      },
+      {
+        "text": "1/3 단계",
+        "size": 18,
+        "color": "rgb(70, 92, 115)",
+        "background": "rgb(255, 255, 255)"
+      },
+      {
+        "text": "강의 정보",
+        "size": 18,
+        "color": "rgb(22, 75, 139)",
+        "background": "rgb(232, 240, 250)"
+      },
+      {
+        "text": "영상·자료와 동의",
+        "size": 18,
+        "color": "rgb(70, 92, 115)",
+        "background": "rgb(255, 255, 255)"
+      },
+      {
+        "text": "보호 설정 확인",
+        "size": 18,
+        "color": "rgb(70, 92, 115)",
+        "background": "rgb(255, 255, 255)"
+      },
+      {
+        "text": "강의 정보",
+        "size": 24,
+        "color": "rgb(23, 44, 72)",
+        "background": "rgb(255, 255, 255)"
+      },
+      {
+        "text": "강의 기본 정보",
+        "size": 18,
+        "color": "rgb(23, 44, 72)",
+        "background": "rgb(255, 255, 255)"
+      },
+      {
+        "text": "강의 제목",
+        "size": 18,
+        "color": "rgb(23, 44, 72)",
+        "background": "rgb(255, 255, 255)"
+      },
+      {
+        "text": "과목",
+        "size": 18,
+        "color": "rgb(23, 44, 72)",
+        "background": "rgb(255, 255, 255)"
+      },
+      {
+        "text": "콘텐츠 출처",
+        "size": 18,
+        "color": "rgb(23, 44, 72)",
+        "background": "rgb(255, 255, 255)"
+      },
+      {
+        "text": "우선 분석 모드란?",
+        "size": 18,
+        "color": "rgb(22, 75, 139)",
+        "background": "rgb(255, 255, 255)"
+      },
+      {
+        "text": "우선 분석 모드",
+        "size": 18,
+        "color": "rgb(23, 44, 72)",
+        "background": "rgb(255, 255, 255)"
+      },
+      {
+        "text": "다음 단계",
+        "size": 18,
+        "color": "rgb(255, 255, 255)",
+        "background": "rgb(22, 75, 139)"
+      }
+    ],
+    "shortControls": []
+  },
+  {
+    "stage": "1",
+    "width": 390,
+    "overflow": false,
+    "headings": [
+      {
+        "tag": "H1",
+        "text": "강의 등록"
+      },
+      {
+        "tag": "H2",
+        "text": "강의 정보"
+      }
+    ],
+    "small": [],
+    "texts": [
+      {
+        "text": "보호자 준비실",
+        "size": 18,
+        "color": "rgb(22, 75, 139)",
+        "background": "rgb(255, 255, 255)"
+      },
+      {
+        "text": "/",
+        "size": 18,
+        "color": "rgb(23, 44, 72)",
+        "background": "rgb(255, 255, 255)"
+      },
+      {
+        "text": "강의 등록",
+        "size": 18,
+        "color": "rgb(23, 44, 72)",
+        "background": "rgb(255, 255, 255)"
+      },
+      {
+        "text": "강의 등록",
+        "size": 32,
+        "color": "rgb(23, 44, 72)",
+        "background": "rgb(255, 255, 255)"
+      },
+      {
+        "text": "1/3 단계",
+        "size": 18,
+        "color": "rgb(70, 92, 115)",
+        "background": "rgb(255, 255, 255)"
+      },
+      {
+        "text": "강의 정보",
+        "size": 18,
+        "color": "rgb(22, 75, 139)",
+        "background": "rgb(232, 240, 250)"
+      },
+      {
+        "text": "영상·자료와 동의",
+        "size": 18,
+        "color": "rgb(70, 92, 115)",
+        "background": "rgb(255, 255, 255)"
+      },
+      {
+        "text": "보호 설정 확인",
+        "size": 18,
+        "color": "rgb(70, 92, 115)",
+        "background": "rgb(255, 255, 255)"
+      },
+      {
+        "text": "강의 정보",
+        "size": 24,
+        "color": "rgb(23, 44, 72)",
+        "background": "rgb(255, 255, 255)"
+      },
+      {
+        "text": "강의 기본 정보",
+        "size": 18,
+        "color": "rgb(23, 44, 72)",
+        "background": "rgb(255, 255, 255)"
+      },
+      {
+        "text": "강의 제목",
+        "size": 18,
+        "color": "rgb(23, 44, 72)",
+        "background": "rgb(255, 255, 255)"
+      },
+      {
+        "text": "과목",
+        "size": 18,
+        "color": "rgb(23, 44, 72)",
+        "background": "rgb(255, 255, 255)"
+      },
+      {
+        "text": "콘텐츠 출처",
+        "size": 18,
+        "color": "rgb(23, 44, 72)",
+        "background": "rgb(255, 255, 255)"
+      },
+      {
+        "text": "우선 분석 모드란?",
+        "size": 18,
+        "color": "rgb(22, 75, 139)",
+        "background": "rgb(255, 255, 255)"
+      },
+      {
+        "text": "우선 분석 모드",
+        "size": 18,
+        "color": "rgb(23, 44, 72)",
+        "background": "rgb(255, 255, 255)"
+      },
+      {
+        "text": "다음 단계",
+        "size": 18,
+        "color": "rgb(255, 255, 255)",
+        "background": "rgb(22, 75, 139)"
+      }
+    ],
+    "shortControls": []
+  },
+  {
+    "stage": "1",
+    "width": 1280,
+    "overflow": false,
+    "headings": [
+      {
+        "tag": "H1",
+        "text": "강의 등록"
+      },
+      {
+        "tag": "H2",
+        "text": "강의 정보"
+      }
+    ],
+    "small": [],
+    "texts": [
+      {
+        "text": "보호자 준비실",
+        "size": 18,
+        "color": "rgb(22, 75, 139)",
+        "background": "rgb(255, 255, 255)"
+      },
+      {
+        "text": "/",
+        "size": 18,
+        "color": "rgb(23, 44, 72)",
+        "background": "rgb(255, 255, 255)"
+      },
+      {
+        "text": "강의 등록",
+        "size": 18,
+        "color": "rgb(23, 44, 72)",
+        "background": "rgb(255, 255, 255)"
+      },
+      {
+        "text": "강의 등록",
+        "size": 32,
+        "color": "rgb(23, 44, 72)",
+        "background": "rgb(255, 255, 255)"
+      },
+      {
+        "text": "1/3 단계",
+        "size": 18,
+        "color": "rgb(70, 92, 115)",
+        "background": "rgb(255, 255, 255)"
+      },
+      {
+        "text": "강의 정보",
+        "size": 18,
+        "color": "rgb(22, 75, 139)",
+        "background": "rgb(232, 240, 250)"
+      },
+      {
+        "text": "영상·자료와 동의",
+        "size": 18,
+        "color": "rgb(70, 92, 115)",
+        "background": "rgb(255, 255, 255)"
+      },
+      {
+        "text": "보호 설정 확인",
+        "size": 18,
+        "color": "rgb(70, 92, 115)",
+        "background": "rgb(255, 255, 255)"
+      },
+      {
+        "text": "강의 정보",
+        "size": 24,
+        "color": "rgb(23, 44, 72)",
+        "background": "rgb(255, 255, 255)"
+      },
+      {
+        "text": "강의 기본 정보",
+        "size": 18,
+        "color": "rgb(23, 44, 72)",
+        "background": "rgb(255, 255, 255)"
+      },
+      {
+        "text": "강의 제목",
+        "size": 18,
+        "color": "rgb(23, 44, 72)",
+        "background": "rgb(255, 255, 255)"
+      },
+      {
+        "text": "과목",
+        "size": 18,
+        "color": "rgb(23, 44, 72)",
+        "background": "rgb(255, 255, 255)"
+      },
+      {
+        "text": "콘텐츠 출처",
+        "size": 18,
+        "color": "rgb(23, 44, 72)",
+        "background": "rgb(255, 255, 255)"
+      },
+      {
+        "text": "우선 분석 모드란?",
+        "size": 18,
+        "color": "rgb(22, 75, 139)",
+        "background": "rgb(255, 255, 255)"
+      },
+      {
+        "text": "우선 분석 모드",
+        "size": 18,
+        "color": "rgb(23, 44, 72)",
+        "background": "rgb(255, 255, 255)"
+      },
+      {
+        "text": "다음 단계",
+        "size": 18,
+        "color": "rgb(255, 255, 255)",
+        "background": "rgb(22, 75, 139)"
+      }
+    ],
+    "shortControls": []
+  },
+  {
+    "stage": "2-sample",
+    "width": 320,
+    "overflow": false,
+    "headings": [
+      {
+        "tag": "H1",
+        "text": "강의 등록"
+      },
+      {
+        "tag": "H2",
+        "text": "영상·자료와 동의"
+      }
+    ],
+    "small": [],
+    "texts": [
+      {
+        "text": "보호자 준비실",
+        "size": 18,
+        "color": "rgb(22, 75, 139)",
+        "background": "rgb(255, 255, 255)"
+      },
+      {
+        "text": "/",
+        "size": 18,
+        "color": "rgb(23, 44, 72)",
+        "background": "rgb(255, 255, 255)"
+      },
+      {
+        "text": "강의 등록",
+        "size": 18,
+        "color": "rgb(23, 44, 72)",
+        "background": "rgb(255, 255, 255)"
+      },
+      {
+        "text": "강의 등록",
+        "size": 32,
+        "color": "rgb(23, 44, 72)",
+        "background": "rgb(255, 255, 255)"
+      },
+      {
+        "text": "2/3 단계",
+        "size": 18,
+        "color": "rgb(70, 92, 115)",
+        "background": "rgb(255, 255, 255)"
+      },
+      {
+        "text": "강의 정보",
+        "size": 18,
+        "color": "rgb(22, 75, 139)",
+        "background": "rgb(232, 240, 250)"
+      },
+      {
+        "text": "영상·자료와 동의",
+        "size": 18,
+        "color": "rgb(70, 92, 115)",
+        "background": "rgb(255, 255, 255)"
+      },
+      {
+        "text": "보호 설정 확인",
+        "size": 18,
+        "color": "rgb(70, 92, 115)",
+        "background": "rgb(255, 255, 255)"
+      },
+      {
+        "text": "영상·자료와 동의",
+        "size": 24,
+        "color": "rgb(23, 44, 72)",
+        "background": "rgb(255, 255, 255)"
+      },
+      {
+        "text": "샘플로 시작",
+        "size": 18,
+        "color": "rgb(22, 75, 139)",
+        "background": "rgb(232, 240, 250)"
+      },
+      {
+        "text": "영상 링크",
+        "size": 18,
+        "color": "rgb(22, 75, 139)",
+        "background": "rgb(255, 255, 255)"
+      },
+      {
+        "text": "영상 파일·학습자료",
+        "size": 18,
+        "color": "rgb(22, 75, 139)",
+        "background": "rgb(255, 255, 255)"
+      },
+      {
+        "text": "샘플 강의",
+        "size": 18,
+        "color": "rgb(23, 44, 72)",
+        "background": "rgb(255, 255, 255)"
+      },
+      {
+        "text": "사전 준비된 결과를 엽니다. 새 영상이나 업로드 자료를 분석하지 않습니다. 유료 인증이 필요하지 않습니다.",
+        "size": 18,
+        "color": "rgb(23, 44, 72)",
+        "background": "rgb(255, 255, 255)"
+      },
+      {
+        "text": "이전 단계",
+        "size": 18,
+        "color": "rgb(22, 75, 139)",
+        "background": "rgb(232, 240, 250)"
+      },
+      {
+        "text": "다음 단계",
+        "size": 18,
+        "color": "rgb(255, 255, 255)",
+        "background": "rgb(22, 75, 139)"
+      }
+    ],
+    "shortControls": []
+  },
+  {
+    "stage": "2-sample",
+    "width": 390,
+    "overflow": false,
+    "headings": [
+      {
+        "tag": "H1",
+        "text": "강의 등록"
+      },
+      {
+        "tag": "H2",
+        "text": "영상·자료와 동의"
+      }
+    ],
+    "small": [],
+    "texts": [
+      {
+        "text": "보호자 준비실",
+        "size": 18,
+        "color": "rgb(22, 75, 139)",
+        "background": "rgb(255, 255, 255)"
+      },
+      {
+        "text": "/",
+        "size": 18,
+        "color": "rgb(23, 44, 72)",
+        "background": "rgb(255, 255, 255)"
+      },
+      {
+        "text": "강의 등록",
+        "size": 18,
+        "color": "rgb(23, 44, 72)",
+        "background": "rgb(255, 255, 255)"
+      },
+      {
+        "text": "강의 등록",
+        "size": 32,
+        "color": "rgb(23, 44, 72)",
+        "background": "rgb(255, 255, 255)"
+      },
+      {
+        "text": "2/3 단계",
+        "size": 18,
+        "color": "rgb(70, 92, 115)",
+        "background": "rgb(255, 255, 255)"
+      },
+      {
+        "text": "강의 정보",
+        "size": 18,
+        "color": "rgb(22, 75, 139)",
+        "background": "rgb(232, 240, 250)"
+      },
+      {
+        "text": "영상·자료와 동의",
+        "size": 18,
+        "color": "rgb(70, 92, 115)",
+        "background": "rgb(255, 255, 255)"
+      },
+      {
+        "text": "보호 설정 확인",
+        "size": 18,
+        "color": "rgb(70, 92, 115)",
+        "background": "rgb(255, 255, 255)"
+      },
+      {
+        "text": "영상·자료와 동의",
+        "size": 24,
+        "color": "rgb(23, 44, 72)",
+        "background": "rgb(255, 255, 255)"
+      },
+      {
+        "text": "샘플로 시작",
+        "size": 18,
+        "color": "rgb(22, 75, 139)",
+        "background": "rgb(232, 240, 250)"
+      },
+      {
+        "text": "영상 링크",
+        "size": 18,
+        "color": "rgb(22, 75, 139)",
+        "background": "rgb(255, 255, 255)"
+      },
+      {
+        "text": "영상 파일·학습자료",
+        "size": 18,
+        "color": "rgb(22, 75, 139)",
+        "background": "rgb(255, 255, 255)"
+      },
+      {
+        "text": "샘플 강의",
+        "size": 18,
+        "color": "rgb(23, 44, 72)",
+        "background": "rgb(255, 255, 255)"
+      },
+      {
+        "text": "사전 준비된 결과를 엽니다. 새 영상이나 업로드 자료를 분석하지 않습니다. 유료 인증이 필요하지 않습니다.",
+        "size": 18,
+        "color": "rgb(23, 44, 72)",
+        "background": "rgb(255, 255, 255)"
+      },
+      {
+        "text": "이전 단계",
+        "size": 18,
+        "color": "rgb(22, 75, 139)",
+        "background": "rgb(232, 240, 250)"
+      },
+      {
+        "text": "다음 단계",
+        "size": 18,
+        "color": "rgb(255, 255, 255)",
+        "background": "rgb(22, 75, 139)"
+      }
+    ],
+    "shortControls": []
+  },
+  {
+    "stage": "2-sample",
+    "width": 1280,
+    "overflow": false,
+    "headings": [
+      {
+        "tag": "H1",
+        "text": "강의 등록"
+      },
+      {
+        "tag": "H2",
+        "text": "영상·자료와 동의"
+      }
+    ],
+    "small": [],
+    "texts": [
+      {
+        "text": "보호자 준비실",
+        "size": 18,
+        "color": "rgb(22, 75, 139)",
+        "background": "rgb(255, 255, 255)"
+      },
+      {
+        "text": "/",
+        "size": 18,
+        "color": "rgb(23, 44, 72)",
+        "background": "rgb(255, 255, 255)"
+      },
+      {
+        "text": "강의 등록",
+        "size": 18,
+        "color": "rgb(23, 44, 72)",
+        "background": "rgb(255, 255, 255)"
+      },
+      {
+        "text": "강의 등록",
+        "size": 32,
+        "color": "rgb(23, 44, 72)",
+        "background": "rgb(255, 255, 255)"
+      },
+      {
+        "text": "2/3 단계",
+        "size": 18,
+        "color": "rgb(70, 92, 115)",
+        "background": "rgb(255, 255, 255)"
+      },
+      {
+        "text": "강의 정보",
+        "size": 18,
+        "color": "rgb(22, 75, 139)",
+        "background": "rgb(232, 240, 250)"
+      },
+      {
+        "text": "영상·자료와 동의",
+        "size": 18,
+        "color": "rgb(70, 92, 115)",
+        "background": "rgb(255, 255, 255)"
+      },
+      {
+        "text": "보호 설정 확인",
+        "size": 18,
+        "color": "rgb(70, 92, 115)",
+        "background": "rgb(255, 255, 255)"
+      },
+      {
+        "text": "영상·자료와 동의",
+        "size": 24,
+        "color": "rgb(23, 44, 72)",
+        "background": "rgb(255, 255, 255)"
+      },
+      {
+        "text": "샘플로 시작",
+        "size": 18,
+        "color": "rgb(22, 75, 139)",
+        "background": "rgb(232, 240, 250)"
+      },
+      {
+        "text": "영상 링크",
+        "size": 18,
+        "color": "rgb(22, 75, 139)",
+        "background": "rgb(255, 255, 255)"
+      },
+      {
+        "text": "영상 파일·학습자료",
+        "size": 18,
+        "color": "rgb(22, 75, 139)",
+        "background": "rgb(255, 255, 255)"
+      },
+      {
+        "text": "샘플 강의",
+        "size": 18,
+        "color": "rgb(23, 44, 72)",
+        "background": "rgb(255, 255, 255)"
+      },
+      {
+        "text": "사전 준비된 결과를 엽니다. 새 영상이나 업로드 자료를 분석하지 않습니다. 유료 인증이 필요하지 않습니다.",
+        "size": 18,
+        "color": "rgb(23, 44, 72)",
+        "background": "rgb(255, 255, 255)"
+      },
+      {
+        "text": "이전 단계",
+        "size": 18,
+        "color": "rgb(22, 75, 139)",
+        "background": "rgb(232, 240, 250)"
+      },
+      {
+        "text": "다음 단계",
+        "size": 18,
+        "color": "rgb(255, 255, 255)",
+        "background": "rgb(22, 75, 139)"
+      }
+    ],
+    "shortControls": []
+  },
+  {
+    "stage": "2-link",
+    "width": 320,
+    "overflow": false,
+    "headings": [
+      {
+        "tag": "H1",
+        "text": "강의 등록"
+      },
+      {
+        "tag": "H2",
+        "text": "영상·자료와 동의"
+      }
+    ],
+    "small": [],
+    "texts": [
+      {
+        "text": "보호자 준비실",
+        "size": 18,
+        "color": "rgb(22, 75, 139)",
+        "background": "rgb(255, 255, 255)"
+      },
+      {
+        "text": "/",
+        "size": 18,
+        "color": "rgb(23, 44, 72)",
+        "background": "rgb(255, 255, 255)"
+      },
+      {
+        "text": "강의 등록",
+        "size": 18,
+        "color": "rgb(23, 44, 72)",
+        "background": "rgb(255, 255, 255)"
+      },
+      {
+        "text": "강의 등록",
+        "size": 32,
+        "color": "rgb(23, 44, 72)",
+        "background": "rgb(255, 255, 255)"
+      },
+      {
+        "text": "2/3 단계",
+        "size": 18,
+        "color": "rgb(70, 92, 115)",
+        "background": "rgb(255, 255, 255)"
+      },
+      {
+        "text": "강의 정보",
+        "size": 18,
+        "color": "rgb(22, 75, 139)",
+        "background": "rgb(232, 240, 250)"
+      },
+      {
+        "text": "영상·자료와 동의",
+        "size": 18,
+        "color": "rgb(70, 92, 115)",
+        "background": "rgb(255, 255, 255)"
+      },
+      {
+        "text": "보호 설정 확인",
+        "size": 18,
+        "color": "rgb(70, 92, 115)",
+        "background": "rgb(255, 255, 255)"
+      },
+      {
+        "text": "영상·자료와 동의",
+        "size": 24,
+        "color": "rgb(23, 44, 72)",
+        "background": "rgb(255, 255, 255)"
+      },
+      {
+        "text": "샘플로 시작",
+        "size": 18,
+        "color": "rgb(22, 75, 139)",
+        "background": "rgb(255, 255, 255)"
+      },
+      {
+        "text": "영상 링크",
+        "size": 18,
+        "color": "rgb(22, 75, 139)",
+        "background": "rgb(232, 240, 250)"
+      },
+      {
+        "text": "영상 파일·학습자료",
+        "size": 18,
+        "color": "rgb(22, 75, 139)",
+        "background": "rgb(255, 255, 255)"
+      },
+      {
+        "text": "영상·자료 등록과 분석 동의",
+        "size": 18,
+        "color": "rgb(23, 44, 72)",
+        "background": "rgb(255, 255, 255)"
+      },
+      {
+        "text": "또는 강의 영상 링크",
+        "size": 18,
+        "color": "rgb(23, 44, 72)",
+        "background": "rgb(238, 243, 248)"
+      },
+      {
+        "text": "YouTube 또는 공개 MP4·WebM 주소",
+        "size": 18,
+        "color": "rgb(70, 92, 115)",
+        "background": "rgb(238, 243, 248)"
+      },
+      {
+        "text": "링크 미입력",
+        "size": 18,
+        "color": "rgb(70, 92, 115)",
+        "background": "rgb(255, 255, 255)"
+      },
+      {
+        "text": "Gemini는 어디에 사용되나요?",
+        "size": 18,
+        "color": "rgb(22, 75, 139)",
+        "background": "rgb(238, 243, 248)"
+      },
+      {
+        "text": "공개·소유 영상만 지원합니다. 유료 강의, 로그인·DRM 우회 링크는 분석하지 않습니다.",
+        "size": 18,
+        "color": "rgb(70, 92, 115)",
+        "background": "rgb(238, 243, 248)"
+      },
+      {
+        "text": "선택한 파일 또는 영상 링크의 실제 발화·판서·슬라이드를 Gemini로 임시 분석하는 데 동의",
+        "size": 18,
+        "color": "rgb(23, 44, 72)",
+        "background": "rgb(238, 243, 248)"
+      },
+      {
+        "text": "분석 동의 자세히",
+        "size": 18,
+        "color": "rgb(22, 75, 139)",
+        "background": "rgb(255, 255, 255)"
+      },
+      {
+        "text": "체험 코드가 필요한 경우",
+        "size": 18,
+        "color": "rgb(22, 75, 139)",
+        "background": "rgb(255, 255, 255)"
+      },
+      {
+        "text": "체험 코드",
+        "size": 18,
+        "color": "rgb(23, 44, 72)",
+        "background": "rgb(255, 255, 255)"
+      },
+      {
+        "text": "실제 AI 분석과 Gemini 대화에만 필요 · 테스트용 횟수 제한 없음",
+        "size": 18,
+        "color": "rgb(22, 88, 62)",
+        "background": "rgb(255, 255, 255)"
+      },
+      {
+        "text": "코드가 없어도 샘플·보관함·로컬 보조 대화는 작동합니다. 분석은 3분을 넘으면 중단됩니다.",
+        "size": 18,
+        "color": "rgb(70, 92, 115)",
+        "background": "rgb(255, 255, 255)"
+      },
+      {
+        "text": "보조 자료를 여기에 끌어놓거나 파일 선택을 사용하세요.",
+        "size": 18,
+        "color": "rgb(70, 92, 115)",
+        "background": "rgb(238, 243, 248)"
+      },
+      {
+        "text": "보조 학습자료",
+        "size": 18,
+        "color": "rgb(23, 44, 72)",
+        "background": "rgb(238, 243, 248)"
+      },
+      {
+        "text": "텍스트(txt, md), 자막(srt, vtt), 분석 JSON. 여러 개 가능",
+        "size": 18,
+        "color": "rgb(70, 92, 115)",
+        "background": "rgb(238, 243, 248)"
+      },
+      {
+        "text": "선택된 자료 없음",
+        "size": 18,
+        "color": "rgb(70, 92, 115)",
+        "background": "rgb(238, 243, 248)"
+      },
+      {
+        "text": "이전 단계",
+        "size": 18,
+        "color": "rgb(22, 75, 139)",
+        "background": "rgb(232, 240, 250)"
+      },
+      {
+        "text": "다음 단계",
+        "size": 18,
+        "color": "rgb(255, 255, 255)",
+        "background": "rgb(22, 75, 139)"
+      }
+    ],
+    "shortControls": []
+  },
+  {
+    "stage": "2-link",
+    "width": 390,
+    "overflow": false,
+    "headings": [
+      {
+        "tag": "H1",
+        "text": "강의 등록"
+      },
+      {
+        "tag": "H2",
+        "text": "영상·자료와 동의"
+      }
+    ],
+    "small": [],
+    "texts": [
+      {
+        "text": "보호자 준비실",
+        "size": 18,
+        "color": "rgb(22, 75, 139)",
+        "background": "rgb(255, 255, 255)"
+      },
+      {
+        "text": "/",
+        "size": 18,
+        "color": "rgb(23, 44, 72)",
+        "background": "rgb(255, 255, 255)"
+      },
+      {
+        "text": "강의 등록",
+        "size": 18,
+        "color": "rgb(23, 44, 72)",
+        "background": "rgb(255, 255, 255)"
+      },
+      {
+        "text": "강의 등록",
+        "size": 32,
+        "color": "rgb(23, 44, 72)",
+        "background": "rgb(255, 255, 255)"
+      },
+      {
+        "text": "2/3 단계",
+        "size": 18,
+        "color": "rgb(70, 92, 115)",
+        "background": "rgb(255, 255, 255)"
+      },
+      {
+        "text": "강의 정보",
+        "size": 18,
+        "color": "rgb(22, 75, 139)",
+        "background": "rgb(232, 240, 250)"
+      },
+      {
+        "text": "영상·자료와 동의",
+        "size": 18,
+        "color": "rgb(70, 92, 115)",
+        "background": "rgb(255, 255, 255)"
+      },
+      {
+        "text": "보호 설정 확인",
+        "size": 18,
+        "color": "rgb(70, 92, 115)",
+        "background": "rgb(255, 255, 255)"
+      },
+      {
+        "text": "영상·자료와 동의",
+        "size": 24,
+        "color": "rgb(23, 44, 72)",
+        "background": "rgb(255, 255, 255)"
+      },
+      {
+        "text": "샘플로 시작",
+        "size": 18,
+        "color": "rgb(22, 75, 139)",
+        "background": "rgb(255, 255, 255)"
+      },
+      {
+        "text": "영상 링크",
+        "size": 18,
+        "color": "rgb(22, 75, 139)",
+        "background": "rgb(232, 240, 250)"
+      },
+      {
+        "text": "영상 파일·학습자료",
+        "size": 18,
+        "color": "rgb(22, 75, 139)",
+        "background": "rgb(255, 255, 255)"
+      },
+      {
+        "text": "영상·자료 등록과 분석 동의",
+        "size": 18,
+        "color": "rgb(23, 44, 72)",
+        "background": "rgb(255, 255, 255)"
+      },
+      {
+        "text": "또는 강의 영상 링크",
+        "size": 18,
+        "color": "rgb(23, 44, 72)",
+        "background": "rgb(238, 243, 248)"
+      },
+      {
+        "text": "YouTube 또는 공개 MP4·WebM 주소",
+        "size": 18,
+        "color": "rgb(70, 92, 115)",
+        "background": "rgb(238, 243, 248)"
+      },
+      {
+        "text": "링크 미입력",
+        "size": 18,
+        "color": "rgb(70, 92, 115)",
+        "background": "rgb(255, 255, 255)"
+      },
+      {
+        "text": "Gemini는 어디에 사용되나요?",
+        "size": 18,
+        "color": "rgb(22, 75, 139)",
+        "background": "rgb(238, 243, 248)"
+      },
+      {
+        "text": "공개·소유 영상만 지원합니다. 유료 강의, 로그인·DRM 우회 링크는 분석하지 않습니다.",
+        "size": 18,
+        "color": "rgb(70, 92, 115)",
+        "background": "rgb(238, 243, 248)"
+      },
+      {
+        "text": "선택한 파일 또는 영상 링크의 실제 발화·판서·슬라이드를 Gemini로 임시 분석하는 데 동의",
+        "size": 18,
+        "color": "rgb(23, 44, 72)",
+        "background": "rgb(238, 243, 248)"
+      },
+      {
+        "text": "분석 동의 자세히",
+        "size": 18,
+        "color": "rgb(22, 75, 139)",
+        "background": "rgb(255, 255, 255)"
+      },
+      {
+        "text": "체험 코드가 필요한 경우",
+        "size": 18,
+        "color": "rgb(22, 75, 139)",
+        "background": "rgb(255, 255, 255)"
+      },
+      {
+        "text": "체험 코드",
+        "size": 18,
+        "color": "rgb(23, 44, 72)",
+        "background": "rgb(255, 255, 255)"
+      },
+      {
+        "text": "실제 AI 분석과 Gemini 대화에만 필요 · 테스트용 횟수 제한 없음",
+        "size": 18,
+        "color": "rgb(22, 88, 62)",
+        "background": "rgb(255, 255, 255)"
+      },
+      {
+        "text": "코드가 없어도 샘플·보관함·로컬 보조 대화는 작동합니다. 분석은 3분을 넘으면 중단됩니다.",
+        "size": 18,
+        "color": "rgb(70, 92, 115)",
+        "background": "rgb(255, 255, 255)"
+      },
+      {
+        "text": "보조 자료를 여기에 끌어놓거나 파일 선택을 사용하세요.",
+        "size": 18,
+        "color": "rgb(70, 92, 115)",
+        "background": "rgb(238, 243, 248)"
+      },
+      {
+        "text": "보조 학습자료",
+        "size": 18,
+        "color": "rgb(23, 44, 72)",
+        "background": "rgb(238, 243, 248)"
+      },
+      {
+        "text": "텍스트(txt, md), 자막(srt, vtt), 분석 JSON. 여러 개 가능",
+        "size": 18,
+        "color": "rgb(70, 92, 115)",
+        "background": "rgb(238, 243, 248)"
+      },
+      {
+        "text": "선택된 자료 없음",
+        "size": 18,
+        "color": "rgb(70, 92, 115)",
+        "background": "rgb(238, 243, 248)"
+      },
+      {
+        "text": "이전 단계",
+        "size": 18,
+        "color": "rgb(22, 75, 139)",
+        "background": "rgb(232, 240, 250)"
+      },
+      {
+        "text": "다음 단계",
+        "size": 18,
+        "color": "rgb(255, 255, 255)",
+        "background": "rgb(22, 75, 139)"
+      }
+    ],
+    "shortControls": []
+  },
+  {
+    "stage": "2-link",
+    "width": 1280,
+    "overflow": false,
+    "headings": [
+      {
+        "tag": "H1",
+        "text": "강의 등록"
+      },
+      {
+        "tag": "H2",
+        "text": "영상·자료와 동의"
+      }
+    ],
+    "small": [],
+    "texts": [
+      {
+        "text": "보호자 준비실",
+        "size": 18,
+        "color": "rgb(22, 75, 139)",
+        "background": "rgb(255, 255, 255)"
+      },
+      {
+        "text": "/",
+        "size": 18,
+        "color": "rgb(23, 44, 72)",
+        "background": "rgb(255, 255, 255)"
+      },
+      {
+        "text": "강의 등록",
+        "size": 18,
+        "color": "rgb(23, 44, 72)",
+        "background": "rgb(255, 255, 255)"
+      },
+      {
+        "text": "강의 등록",
+        "size": 32,
+        "color": "rgb(23, 44, 72)",
+        "background": "rgb(255, 255, 255)"
+      },
+      {
+        "text": "2/3 단계",
+        "size": 18,
+        "color": "rgb(70, 92, 115)",
+        "background": "rgb(255, 255, 255)"
+      },
+      {
+        "text": "강의 정보",
+        "size": 18,
+        "color": "rgb(22, 75, 139)",
+        "background": "rgb(232, 240, 250)"
+      },
+      {
+        "text": "영상·자료와 동의",
+        "size": 18,
+        "color": "rgb(70, 92, 115)",
+        "background": "rgb(255, 255, 255)"
+      },
+      {
+        "text": "보호 설정 확인",
+        "size": 18,
+        "color": "rgb(70, 92, 115)",
+        "background": "rgb(255, 255, 255)"
+      },
+      {
+        "text": "영상·자료와 동의",
+        "size": 24,
+        "color": "rgb(23, 44, 72)",
+        "background": "rgb(255, 255, 255)"
+      },
+      {
+        "text": "샘플로 시작",
+        "size": 18,
+        "color": "rgb(22, 75, 139)",
+        "background": "rgb(255, 255, 255)"
+      },
+      {
+        "text": "영상 링크",
+        "size": 18,
+        "color": "rgb(22, 75, 139)",
+        "background": "rgb(232, 240, 250)"
+      },
+      {
+        "text": "영상 파일·학습자료",
+        "size": 18,
+        "color": "rgb(22, 75, 139)",
+        "background": "rgb(255, 255, 255)"
+      },
+      {
+        "text": "영상·자료 등록과 분석 동의",
+        "size": 18,
+        "color": "rgb(23, 44, 72)",
+        "background": "rgb(255, 255, 255)"
+      },
+      {
+        "text": "또는 강의 영상 링크",
+        "size": 18,
+        "color": "rgb(23, 44, 72)",
+        "background": "rgb(238, 243, 248)"
+      },
+      {
+        "text": "YouTube 또는 공개 MP4·WebM 주소",
+        "size": 18,
+        "color": "rgb(70, 92, 115)",
+        "background": "rgb(238, 243, 248)"
+      },
+      {
+        "text": "링크 미입력",
+        "size": 18,
+        "color": "rgb(70, 92, 115)",
+        "background": "rgb(255, 255, 255)"
+      },
+      {
+        "text": "Gemini는 어디에 사용되나요?",
+        "size": 18,
+        "color": "rgb(22, 75, 139)",
+        "background": "rgb(238, 243, 248)"
+      },
+      {
+        "text": "공개·소유 영상만 지원합니다. 유료 강의, 로그인·DRM 우회 링크는 분석하지 않습니다.",
+        "size": 18,
+        "color": "rgb(70, 92, 115)",
+        "background": "rgb(238, 243, 248)"
+      },
+      {
+        "text": "선택한 파일 또는 영상 링크의 실제 발화·판서·슬라이드를 Gemini로 임시 분석하는 데 동의",
+        "size": 18,
+        "color": "rgb(23, 44, 72)",
+        "background": "rgb(238, 243, 248)"
+      },
+      {
+        "text": "분석 동의 자세히",
+        "size": 18,
+        "color": "rgb(22, 75, 139)",
+        "background": "rgb(255, 255, 255)"
+      },
+      {
+        "text": "체험 코드가 필요한 경우",
+        "size": 18,
+        "color": "rgb(22, 75, 139)",
+        "background": "rgb(255, 255, 255)"
+      },
+      {
+        "text": "체험 코드",
+        "size": 18,
+        "color": "rgb(23, 44, 72)",
+        "background": "rgb(255, 255, 255)"
+      },
+      {
+        "text": "실제 AI 분석과 Gemini 대화에만 필요 · 테스트용 횟수 제한 없음",
+        "size": 18,
+        "color": "rgb(22, 88, 62)",
+        "background": "rgb(255, 255, 255)"
+      },
+      {
+        "text": "코드가 없어도 샘플·보관함·로컬 보조 대화는 작동합니다. 분석은 3분을 넘으면 중단됩니다.",
+        "size": 18,
+        "color": "rgb(70, 92, 115)",
+        "background": "rgb(255, 255, 255)"
+      },
+      {
+        "text": "보조 자료를 여기에 끌어놓거나 파일 선택을 사용하세요.",
+        "size": 18,
+        "color": "rgb(70, 92, 115)",
+        "background": "rgb(238, 243, 248)"
+      },
+      {
+        "text": "보조 학습자료",
+        "size": 18,
+        "color": "rgb(23, 44, 72)",
+        "background": "rgb(238, 243, 248)"
+      },
+      {
+        "text": "텍스트(txt, md), 자막(srt, vtt), 분석 JSON. 여러 개 가능",
+        "size": 18,
+        "color": "rgb(70, 92, 115)",
+        "background": "rgb(238, 243, 248)"
+      },
+      {
+        "text": "선택된 자료 없음",
+        "size": 18,
+        "color": "rgb(70, 92, 115)",
+        "background": "rgb(238, 243, 248)"
+      },
+      {
+        "text": "이전 단계",
+        "size": 18,
+        "color": "rgb(22, 75, 139)",
+        "background": "rgb(232, 240, 250)"
+      },
+      {
+        "text": "다음 단계",
+        "size": 18,
+        "color": "rgb(255, 255, 255)",
+        "background": "rgb(22, 75, 139)"
+      }
+    ],
+    "shortControls": []
+  },
+  {
+    "stage": "2-file",
+    "width": 320,
+    "overflow": false,
+    "headings": [
+      {
+        "tag": "H1",
+        "text": "강의 등록"
+      },
+      {
+        "tag": "H2",
+        "text": "영상·자료와 동의"
+      }
+    ],
+    "small": [],
+    "texts": [
+      {
+        "text": "보호자 준비실",
+        "size": 18,
+        "color": "rgb(22, 75, 139)",
+        "background": "rgb(255, 255, 255)"
+      },
+      {
+        "text": "/",
+        "size": 18,
+        "color": "rgb(23, 44, 72)",
+        "background": "rgb(255, 255, 255)"
+      },
+      {
+        "text": "강의 등록",
+        "size": 18,
+        "color": "rgb(23, 44, 72)",
+        "background": "rgb(255, 255, 255)"
+      },
+      {
+        "text": "강의 등록",
+        "size": 32,
+        "color": "rgb(23, 44, 72)",
+        "background": "rgb(255, 255, 255)"
+      },
+      {
+        "text": "2/3 단계",
+        "size": 18,
+        "color": "rgb(70, 92, 115)",
+        "background": "rgb(255, 255, 255)"
+      },
+      {
+        "text": "강의 정보",
+        "size": 18,
+        "color": "rgb(22, 75, 139)",
+        "background": "rgb(232, 240, 250)"
+      },
+      {
+        "text": "영상·자료와 동의",
+        "size": 18,
+        "color": "rgb(70, 92, 115)",
+        "background": "rgb(255, 255, 255)"
+      },
+      {
+        "text": "보호 설정 확인",
+        "size": 18,
+        "color": "rgb(70, 92, 115)",
+        "background": "rgb(255, 255, 255)"
+      },
+      {
+        "text": "영상·자료와 동의",
+        "size": 24,
+        "color": "rgb(23, 44, 72)",
+        "background": "rgb(255, 255, 255)"
+      },
+      {
+        "text": "샘플로 시작",
+        "size": 18,
+        "color": "rgb(22, 75, 139)",
+        "background": "rgb(255, 255, 255)"
+      },
+      {
+        "text": "영상 링크",
+        "size": 18,
+        "color": "rgb(22, 75, 139)",
+        "background": "rgb(255, 255, 255)"
+      },
+      {
+        "text": "영상 파일·학습자료",
+        "size": 18,
+        "color": "rgb(22, 75, 139)",
+        "background": "rgb(232, 240, 250)"
+      },
+      {
+        "text": "영상·자료 등록과 분석 동의",
+        "size": 18,
+        "color": "rgb(23, 44, 72)",
+        "background": "rgb(255, 255, 255)"
+      },
+      {
+        "text": "영상 파일을 여기에 끌어놓거나 파일 선택을 사용하세요. 영상 없이 자막·지문만 준비할 수도 있습니다.",
+        "size": 18,
+        "color": "rgb(70, 92, 115)",
+        "background": "rgb(238, 243, 248)"
+      },
+      {
+        "text": "강의 영상",
+        "size": 18,
+        "color": "rgb(23, 44, 72)",
+        "background": "rgb(238, 243, 248)"
+      },
+      {
+        "text": "실제 AI 분석 · 별도 동의 필요(100MB 이하)",
+        "size": 18,
+        "color": "rgb(70, 92, 115)",
+        "background": "rgb(238, 243, 248)"
+      },
+      {
+        "text": "선택된 영상 없음. 샘플 모드로도 실행할 수 있습니다.",
+        "size": 18,
+        "color": "rgb(70, 92, 115)",
+        "background": "rgb(238, 243, 248)"
+      },
+      {
+        "text": "선택한 파일 또는 영상 링크의 실제 발화·판서·슬라이드를 Gemini로 임시 분석하는 데 동의",
+        "size": 18,
+        "color": "rgb(23, 44, 72)",
+        "background": "rgb(238, 243, 248)"
+      },
+      {
+        "text": "분석 동의 자세히",
+        "size": 18,
+        "color": "rgb(22, 75, 139)",
+        "background": "rgb(255, 255, 255)"
+      },
+      {
+        "text": "체험 코드가 필요한 경우",
+        "size": 18,
+        "color": "rgb(22, 75, 139)",
+        "background": "rgb(255, 255, 255)"
+      },
+      {
+        "text": "체험 코드",
+        "size": 18,
+        "color": "rgb(23, 44, 72)",
+        "background": "rgb(255, 255, 255)"
+      },
+      {
+        "text": "실제 AI 분석과 Gemini 대화에만 필요 · 테스트용 횟수 제한 없음",
+        "size": 18,
+        "color": "rgb(22, 88, 62)",
+        "background": "rgb(255, 255, 255)"
+      },
+      {
+        "text": "코드가 없어도 샘플·보관함·로컬 보조 대화는 작동합니다. 분석은 3분을 넘으면 중단됩니다.",
+        "size": 18,
+        "color": "rgb(70, 92, 115)",
+        "background": "rgb(255, 255, 255)"
+      },
+      {
+        "text": "보조 자료를 여기에 끌어놓거나 파일 선택을 사용하세요.",
+        "size": 18,
+        "color": "rgb(70, 92, 115)",
+        "background": "rgb(238, 243, 248)"
+      },
+      {
+        "text": "보조 학습자료",
+        "size": 18,
+        "color": "rgb(23, 44, 72)",
+        "background": "rgb(238, 243, 248)"
+      },
+      {
+        "text": "텍스트(txt, md), 자막(srt, vtt), 분석 JSON. 여러 개 가능",
+        "size": 18,
+        "color": "rgb(70, 92, 115)",
+        "background": "rgb(238, 243, 248)"
+      },
+      {
+        "text": "선택된 자료 없음",
+        "size": 18,
+        "color": "rgb(70, 92, 115)",
+        "background": "rgb(238, 243, 248)"
+      },
+      {
+        "text": "이전 단계",
+        "size": 18,
+        "color": "rgb(22, 75, 139)",
+        "background": "rgb(232, 240, 250)"
+      },
+      {
+        "text": "다음 단계",
+        "size": 18,
+        "color": "rgb(255, 255, 255)",
+        "background": "rgb(22, 75, 139)"
+      }
+    ],
+    "shortControls": []
+  },
+  {
+    "stage": "2-file",
+    "width": 390,
+    "overflow": false,
+    "headings": [
+      {
+        "tag": "H1",
+        "text": "강의 등록"
+      },
+      {
+        "tag": "H2",
+        "text": "영상·자료와 동의"
+      }
+    ],
+    "small": [],
+    "texts": [
+      {
+        "text": "보호자 준비실",
+        "size": 18,
+        "color": "rgb(22, 75, 139)",
+        "background": "rgb(255, 255, 255)"
+      },
+      {
+        "text": "/",
+        "size": 18,
+        "color": "rgb(23, 44, 72)",
+        "background": "rgb(255, 255, 255)"
+      },
+      {
+        "text": "강의 등록",
+        "size": 18,
+        "color": "rgb(23, 44, 72)",
+        "background": "rgb(255, 255, 255)"
+      },
+      {
+        "text": "강의 등록",
+        "size": 32,
+        "color": "rgb(23, 44, 72)",
+        "background": "rgb(255, 255, 255)"
+      },
+      {
+        "text": "2/3 단계",
+        "size": 18,
+        "color": "rgb(70, 92, 115)",
+        "background": "rgb(255, 255, 255)"
+      },
+      {
+        "text": "강의 정보",
+        "size": 18,
+        "color": "rgb(22, 75, 139)",
+        "background": "rgb(232, 240, 250)"
+      },
+      {
+        "text": "영상·자료와 동의",
+        "size": 18,
+        "color": "rgb(70, 92, 115)",
+        "background": "rgb(255, 255, 255)"
+      },
+      {
+        "text": "보호 설정 확인",
+        "size": 18,
+        "color": "rgb(70, 92, 115)",
+        "background": "rgb(255, 255, 255)"
+      },
+      {
+        "text": "영상·자료와 동의",
+        "size": 24,
+        "color": "rgb(23, 44, 72)",
+        "background": "rgb(255, 255, 255)"
+      },
+      {
+        "text": "샘플로 시작",
+        "size": 18,
+        "color": "rgb(22, 75, 139)",
+        "background": "rgb(255, 255, 255)"
+      },
+      {
+        "text": "영상 링크",
+        "size": 18,
+        "color": "rgb(22, 75, 139)",
+        "background": "rgb(255, 255, 255)"
+      },
+      {
+        "text": "영상 파일·학습자료",
+        "size": 18,
+        "color": "rgb(22, 75, 139)",
+        "background": "rgb(232, 240, 250)"
+      },
+      {
+        "text": "영상·자료 등록과 분석 동의",
+        "size": 18,
+        "color": "rgb(23, 44, 72)",
+        "background": "rgb(255, 255, 255)"
+      },
+      {
+        "text": "영상 파일을 여기에 끌어놓거나 파일 선택을 사용하세요. 영상 없이 자막·지문만 준비할 수도 있습니다.",
+        "size": 18,
+        "color": "rgb(70, 92, 115)",
+        "background": "rgb(238, 243, 248)"
+      },
+      {
+        "text": "강의 영상",
+        "size": 18,
+        "color": "rgb(23, 44, 72)",
+        "background": "rgb(238, 243, 248)"
+      },
+      {
+        "text": "실제 AI 분석 · 별도 동의 필요(100MB 이하)",
+        "size": 18,
+        "color": "rgb(70, 92, 115)",
+        "background": "rgb(238, 243, 248)"
+      },
+      {
+        "text": "선택된 영상 없음. 샘플 모드로도 실행할 수 있습니다.",
+        "size": 18,
+        "color": "rgb(70, 92, 115)",
+        "background": "rgb(238, 243, 248)"
+      },
+      {
+        "text": "선택한 파일 또는 영상 링크의 실제 발화·판서·슬라이드를 Gemini로 임시 분석하는 데 동의",
+        "size": 18,
+        "color": "rgb(23, 44, 72)",
+        "background": "rgb(238, 243, 248)"
+      },
+      {
+        "text": "분석 동의 자세히",
+        "size": 18,
+        "color": "rgb(22, 75, 139)",
+        "background": "rgb(255, 255, 255)"
+      },
+      {
+        "text": "체험 코드가 필요한 경우",
+        "size": 18,
+        "color": "rgb(22, 75, 139)",
+        "background": "rgb(255, 255, 255)"
+      },
+      {
+        "text": "체험 코드",
+        "size": 18,
+        "color": "rgb(23, 44, 72)",
+        "background": "rgb(255, 255, 255)"
+      },
+      {
+        "text": "실제 AI 분석과 Gemini 대화에만 필요 · 테스트용 횟수 제한 없음",
+        "size": 18,
+        "color": "rgb(22, 88, 62)",
+        "background": "rgb(255, 255, 255)"
+      },
+      {
+        "text": "코드가 없어도 샘플·보관함·로컬 보조 대화는 작동합니다. 분석은 3분을 넘으면 중단됩니다.",
+        "size": 18,
+        "color": "rgb(70, 92, 115)",
+        "background": "rgb(255, 255, 255)"
+      },
+      {
+        "text": "보조 자료를 여기에 끌어놓거나 파일 선택을 사용하세요.",
+        "size": 18,
+        "color": "rgb(70, 92, 115)",
+        "background": "rgb(238, 243, 248)"
+      },
+      {
+        "text": "보조 학습자료",
+        "size": 18,
+        "color": "rgb(23, 44, 72)",
+        "background": "rgb(238, 243, 248)"
+      },
+      {
+        "text": "텍스트(txt, md), 자막(srt, vtt), 분석 JSON. 여러 개 가능",
+        "size": 18,
+        "color": "rgb(70, 92, 115)",
+        "background": "rgb(238, 243, 248)"
+      },
+      {
+        "text": "선택된 자료 없음",
+        "size": 18,
+        "color": "rgb(70, 92, 115)",
+        "background": "rgb(238, 243, 248)"
+      },
+      {
+        "text": "이전 단계",
+        "size": 18,
+        "color": "rgb(22, 75, 139)",
+        "background": "rgb(232, 240, 250)"
+      },
+      {
+        "text": "다음 단계",
+        "size": 18,
+        "color": "rgb(255, 255, 255)",
+        "background": "rgb(22, 75, 139)"
+      }
+    ],
+    "shortControls": []
+  },
+  {
+    "stage": "2-file",
+    "width": 1280,
+    "overflow": false,
+    "headings": [
+      {
+        "tag": "H1",
+        "text": "강의 등록"
+      },
+      {
+        "tag": "H2",
+        "text": "영상·자료와 동의"
+      }
+    ],
+    "small": [],
+    "texts": [
+      {
+        "text": "보호자 준비실",
+        "size": 18,
+        "color": "rgb(22, 75, 139)",
+        "background": "rgb(255, 255, 255)"
+      },
+      {
+        "text": "/",
+        "size": 18,
+        "color": "rgb(23, 44, 72)",
+        "background": "rgb(255, 255, 255)"
+      },
+      {
+        "text": "강의 등록",
+        "size": 18,
+        "color": "rgb(23, 44, 72)",
+        "background": "rgb(255, 255, 255)"
+      },
+      {
+        "text": "강의 등록",
+        "size": 32,
+        "color": "rgb(23, 44, 72)",
+        "background": "rgb(255, 255, 255)"
+      },
+      {
+        "text": "2/3 단계",
+        "size": 18,
+        "color": "rgb(70, 92, 115)",
+        "background": "rgb(255, 255, 255)"
+      },
+      {
+        "text": "강의 정보",
+        "size": 18,
+        "color": "rgb(22, 75, 139)",
+        "background": "rgb(232, 240, 250)"
+      },
+      {
+        "text": "영상·자료와 동의",
+        "size": 18,
+        "color": "rgb(70, 92, 115)",
+        "background": "rgb(255, 255, 255)"
+      },
+      {
+        "text": "보호 설정 확인",
+        "size": 18,
+        "color": "rgb(70, 92, 115)",
+        "background": "rgb(255, 255, 255)"
+      },
+      {
+        "text": "영상·자료와 동의",
+        "size": 24,
+        "color": "rgb(23, 44, 72)",
+        "background": "rgb(255, 255, 255)"
+      },
+      {
+        "text": "샘플로 시작",
+        "size": 18,
+        "color": "rgb(22, 75, 139)",
+        "background": "rgb(255, 255, 255)"
+      },
+      {
+        "text": "영상 링크",
+        "size": 18,
+        "color": "rgb(22, 75, 139)",
+        "background": "rgb(255, 255, 255)"
+      },
+      {
+        "text": "영상 파일·학습자료",
+        "size": 18,
+        "color": "rgb(22, 75, 139)",
+        "background": "rgb(232, 240, 250)"
+      },
+      {
+        "text": "영상·자료 등록과 분석 동의",
+        "size": 18,
+        "color": "rgb(23, 44, 72)",
+        "background": "rgb(255, 255, 255)"
+      },
+      {
+        "text": "영상 파일을 여기에 끌어놓거나 파일 선택을 사용하세요. 영상 없이 자막·지문만 준비할 수도 있습니다.",
+        "size": 18,
+        "color": "rgb(70, 92, 115)",
+        "background": "rgb(238, 243, 248)"
+      },
+      {
+        "text": "강의 영상",
+        "size": 18,
+        "color": "rgb(23, 44, 72)",
+        "background": "rgb(238, 243, 248)"
+      },
+      {
+        "text": "실제 AI 분석 · 별도 동의 필요(100MB 이하)",
+        "size": 18,
+        "color": "rgb(70, 92, 115)",
+        "background": "rgb(238, 243, 248)"
+      },
+      {
+        "text": "선택된 영상 없음. 샘플 모드로도 실행할 수 있습니다.",
+        "size": 18,
+        "color": "rgb(70, 92, 115)",
+        "background": "rgb(238, 243, 248)"
+      },
+      {
+        "text": "선택한 파일 또는 영상 링크의 실제 발화·판서·슬라이드를 Gemini로 임시 분석하는 데 동의",
+        "size": 18,
+        "color": "rgb(23, 44, 72)",
+        "background": "rgb(238, 243, 248)"
+      },
+      {
+        "text": "분석 동의 자세히",
+        "size": 18,
+        "color": "rgb(22, 75, 139)",
+        "background": "rgb(255, 255, 255)"
+      },
+      {
+        "text": "체험 코드가 필요한 경우",
+        "size": 18,
+        "color": "rgb(22, 75, 139)",
+        "background": "rgb(255, 255, 255)"
+      },
+      {
+        "text": "체험 코드",
+        "size": 18,
+        "color": "rgb(23, 44, 72)",
+        "background": "rgb(255, 255, 255)"
+      },
+      {
+        "text": "실제 AI 분석과 Gemini 대화에만 필요 · 테스트용 횟수 제한 없음",
+        "size": 18,
+        "color": "rgb(22, 88, 62)",
+        "background": "rgb(255, 255, 255)"
+      },
+      {
+        "text": "코드가 없어도 샘플·보관함·로컬 보조 대화는 작동합니다. 분석은 3분을 넘으면 중단됩니다.",
+        "size": 18,
+        "color": "rgb(70, 92, 115)",
+        "background": "rgb(255, 255, 255)"
+      },
+      {
+        "text": "보조 자료를 여기에 끌어놓거나 파일 선택을 사용하세요.",
+        "size": 18,
+        "color": "rgb(70, 92, 115)",
+        "background": "rgb(238, 243, 248)"
+      },
+      {
+        "text": "보조 학습자료",
+        "size": 18,
+        "color": "rgb(23, 44, 72)",
+        "background": "rgb(238, 243, 248)"
+      },
+      {
+        "text": "텍스트(txt, md), 자막(srt, vtt), 분석 JSON. 여러 개 가능",
+        "size": 18,
+        "color": "rgb(70, 92, 115)",
+        "background": "rgb(238, 243, 248)"
+      },
+      {
+        "text": "선택된 자료 없음",
+        "size": 18,
+        "color": "rgb(70, 92, 115)",
+        "background": "rgb(238, 243, 248)"
+      },
+      {
+        "text": "이전 단계",
+        "size": 18,
+        "color": "rgb(22, 75, 139)",
+        "background": "rgb(232, 240, 250)"
+      },
+      {
+        "text": "다음 단계",
+        "size": 18,
+        "color": "rgb(255, 255, 255)",
+        "background": "rgb(22, 75, 139)"
+      }
+    ],
+    "shortControls": []
+  },
+  {
+    "stage": "3",
+    "width": 320,
+    "overflow": false,
+    "headings": [
+      {
+        "tag": "H1",
+        "text": "강의 등록"
+      },
+      {
+        "tag": "H2",
+        "text": "보호 설정 확인"
+      }
+    ],
+    "small": [],
+    "texts": [
+      {
+        "text": "보호자 준비실",
+        "size": 18,
+        "color": "rgb(22, 75, 139)",
+        "background": "rgb(255, 255, 255)"
+      },
+      {
+        "text": "/",
+        "size": 18,
+        "color": "rgb(23, 44, 72)",
+        "background": "rgb(255, 255, 255)"
+      },
+      {
+        "text": "강의 등록",
+        "size": 18,
+        "color": "rgb(23, 44, 72)",
+        "background": "rgb(255, 255, 255)"
+      },
+      {
+        "text": "강의 등록",
+        "size": 32,
+        "color": "rgb(23, 44, 72)",
+        "background": "rgb(255, 255, 255)"
+      },
+      {
+        "text": "3/3 단계",
+        "size": 18,
+        "color": "rgb(70, 92, 115)",
+        "background": "rgb(255, 255, 255)"
+      },
+      {
+        "text": "강의 정보",
+        "size": 18,
+        "color": "rgb(22, 75, 139)",
+        "background": "rgb(232, 240, 250)"
+      },
+      {
+        "text": "영상·자료와 동의",
+        "size": 18,
+        "color": "rgb(70, 92, 115)",
+        "background": "rgb(255, 255, 255)"
+      },
+      {
+        "text": "보호 설정 확인",
+        "size": 18,
+        "color": "rgb(70, 92, 115)",
+        "background": "rgb(255, 255, 255)"
+      },
+      {
+        "text": "보호 설정 확인",
+        "size": 24,
+        "color": "rgb(23, 44, 72)",
+        "background": "rgb(255, 255, 255)"
+      },
+      {
+        "text": "문제 보호 모드란?",
+        "size": 18,
+        "color": "rgb(22, 75, 139)",
+        "background": "rgb(255, 255, 255)"
+      },
+      {
+        "text": "학습 보호와 이용 권한",
+        "size": 18,
+        "color": "rgb(23, 44, 72)",
+        "background": "rgb(255, 255, 255)"
+      },
+      {
+        "text": "샘플은 이미 준비된 보호 정책과 이용 권한을 따릅니다. 새 영상 분석 동의는 필요하지 않습니다.",
+        "size": 18,
+        "color": "rgb(23, 44, 72)",
+        "background": "rgb(255, 255, 255)"
+      },
+      {
+        "text": "문제 보호 모드: 최종 정답 대신 힌트와 개념 중심으로 안내",
+        "size": 18,
+        "color": "rgb(23, 44, 72)",
+        "background": "rgb(255, 255, 255)"
+      },
+      {
+        "text": "기본값은 일반 학습 모드입니다. 전체 화면 설명이 필요하면 문제 보호 모드를 켜지 않아도 됩니다.",
+        "size": 18,
+        "color": "rgb(70, 92, 115)",
+        "background": "rgb(255, 255, 255)"
+      },
+      {
+        "text": "이 강의와 자료를 이용·분석할 권한이 있으며 DRM을 우회하지 않았습니다.",
+        "size": 18,
+        "color": "rgb(23, 44, 72)",
+        "background": "rgb(255, 255, 255)"
+      },
+      {
+        "text": "샘플 결과 열기",
+        "size": 18,
+        "color": "rgb(255, 255, 255)",
+        "background": "rgb(22, 75, 139)"
+      },
+      {
+        "text": "기본값에서는 원본을 전송하지 않습니다. 위의 별도 동의를 체크한 로컬 영상만 실제 분석 동안 Gemini에 임시 전송하며, 장",
+        "size": 18,
+        "color": "rgb(70, 92, 115)",
+        "background": "rgb(255, 255, 255)"
+      },
+      {
+        "text": "이전 단계",
+        "size": 18,
+        "color": "rgb(22, 75, 139)",
+        "background": "rgb(232, 240, 250)"
+      }
+    ],
+    "shortControls": []
+  },
+  {
+    "stage": "3",
+    "width": 390,
+    "overflow": false,
+    "headings": [
+      {
+        "tag": "H1",
+        "text": "강의 등록"
+      },
+      {
+        "tag": "H2",
+        "text": "보호 설정 확인"
+      }
+    ],
+    "small": [],
+    "texts": [
+      {
+        "text": "보호자 준비실",
+        "size": 18,
+        "color": "rgb(22, 75, 139)",
+        "background": "rgb(255, 255, 255)"
+      },
+      {
+        "text": "/",
+        "size": 18,
+        "color": "rgb(23, 44, 72)",
+        "background": "rgb(255, 255, 255)"
+      },
+      {
+        "text": "강의 등록",
+        "size": 18,
+        "color": "rgb(23, 44, 72)",
+        "background": "rgb(255, 255, 255)"
+      },
+      {
+        "text": "강의 등록",
+        "size": 32,
+        "color": "rgb(23, 44, 72)",
+        "background": "rgb(255, 255, 255)"
+      },
+      {
+        "text": "3/3 단계",
+        "size": 18,
+        "color": "rgb(70, 92, 115)",
+        "background": "rgb(255, 255, 255)"
+      },
+      {
+        "text": "강의 정보",
+        "size": 18,
+        "color": "rgb(22, 75, 139)",
+        "background": "rgb(232, 240, 250)"
+      },
+      {
+        "text": "영상·자료와 동의",
+        "size": 18,
+        "color": "rgb(70, 92, 115)",
+        "background": "rgb(255, 255, 255)"
+      },
+      {
+        "text": "보호 설정 확인",
+        "size": 18,
+        "color": "rgb(70, 92, 115)",
+        "background": "rgb(255, 255, 255)"
+      },
+      {
+        "text": "보호 설정 확인",
+        "size": 24,
+        "color": "rgb(23, 44, 72)",
+        "background": "rgb(255, 255, 255)"
+      },
+      {
+        "text": "문제 보호 모드란?",
+        "size": 18,
+        "color": "rgb(22, 75, 139)",
+        "background": "rgb(255, 255, 255)"
+      },
+      {
+        "text": "학습 보호와 이용 권한",
+        "size": 18,
+        "color": "rgb(23, 44, 72)",
+        "background": "rgb(255, 255, 255)"
+      },
+      {
+        "text": "샘플은 이미 준비된 보호 정책과 이용 권한을 따릅니다. 새 영상 분석 동의는 필요하지 않습니다.",
+        "size": 18,
+        "color": "rgb(23, 44, 72)",
+        "background": "rgb(255, 255, 255)"
+      },
+      {
+        "text": "문제 보호 모드: 최종 정답 대신 힌트와 개념 중심으로 안내",
+        "size": 18,
+        "color": "rgb(23, 44, 72)",
+        "background": "rgb(255, 255, 255)"
+      },
+      {
+        "text": "기본값은 일반 학습 모드입니다. 전체 화면 설명이 필요하면 문제 보호 모드를 켜지 않아도 됩니다.",
+        "size": 18,
+        "color": "rgb(70, 92, 115)",
+        "background": "rgb(255, 255, 255)"
+      },
+      {
+        "text": "이 강의와 자료를 이용·분석할 권한이 있으며 DRM을 우회하지 않았습니다.",
+        "size": 18,
+        "color": "rgb(23, 44, 72)",
+        "background": "rgb(255, 255, 255)"
+      },
+      {
+        "text": "샘플 결과 열기",
+        "size": 18,
+        "color": "rgb(255, 255, 255)",
+        "background": "rgb(22, 75, 139)"
+      },
+      {
+        "text": "기본값에서는 원본을 전송하지 않습니다. 위의 별도 동의를 체크한 로컬 영상만 실제 분석 동안 Gemini에 임시 전송하며, 장",
+        "size": 18,
+        "color": "rgb(70, 92, 115)",
+        "background": "rgb(255, 255, 255)"
+      },
+      {
+        "text": "이전 단계",
+        "size": 18,
+        "color": "rgb(22, 75, 139)",
+        "background": "rgb(232, 240, 250)"
+      }
+    ],
+    "shortControls": []
+  },
+  {
+    "stage": "3",
+    "width": 1280,
+    "overflow": false,
+    "headings": [
+      {
+        "tag": "H1",
+        "text": "강의 등록"
+      },
+      {
+        "tag": "H2",
+        "text": "보호 설정 확인"
+      }
+    ],
+    "small": [],
+    "texts": [
+      {
+        "text": "보호자 준비실",
+        "size": 18,
+        "color": "rgb(22, 75, 139)",
+        "background": "rgb(255, 255, 255)"
+      },
+      {
+        "text": "/",
+        "size": 18,
+        "color": "rgb(23, 44, 72)",
+        "background": "rgb(255, 255, 255)"
+      },
+      {
+        "text": "강의 등록",
+        "size": 18,
+        "color": "rgb(23, 44, 72)",
+        "background": "rgb(255, 255, 255)"
+      },
+      {
+        "text": "강의 등록",
+        "size": 32,
+        "color": "rgb(23, 44, 72)",
+        "background": "rgb(255, 255, 255)"
+      },
+      {
+        "text": "3/3 단계",
+        "size": 18,
+        "color": "rgb(70, 92, 115)",
+        "background": "rgb(255, 255, 255)"
+      },
+      {
+        "text": "강의 정보",
+        "size": 18,
+        "color": "rgb(22, 75, 139)",
+        "background": "rgb(232, 240, 250)"
+      },
+      {
+        "text": "영상·자료와 동의",
+        "size": 18,
+        "color": "rgb(70, 92, 115)",
+        "background": "rgb(255, 255, 255)"
+      },
+      {
+        "text": "보호 설정 확인",
+        "size": 18,
+        "color": "rgb(70, 92, 115)",
+        "background": "rgb(255, 255, 255)"
+      },
+      {
+        "text": "보호 설정 확인",
+        "size": 24,
+        "color": "rgb(23, 44, 72)",
+        "background": "rgb(255, 255, 255)"
+      },
+      {
+        "text": "문제 보호 모드란?",
+        "size": 18,
+        "color": "rgb(22, 75, 139)",
+        "background": "rgb(255, 255, 255)"
+      },
+      {
+        "text": "학습 보호와 이용 권한",
+        "size": 18,
+        "color": "rgb(23, 44, 72)",
+        "background": "rgb(255, 255, 255)"
+      },
+      {
+        "text": "샘플은 이미 준비된 보호 정책과 이용 권한을 따릅니다. 새 영상 분석 동의는 필요하지 않습니다.",
+        "size": 18,
+        "color": "rgb(23, 44, 72)",
+        "background": "rgb(255, 255, 255)"
+      },
+      {
+        "text": "문제 보호 모드: 최종 정답 대신 힌트와 개념 중심으로 안내",
+        "size": 18,
+        "color": "rgb(23, 44, 72)",
+        "background": "rgb(255, 255, 255)"
+      },
+      {
+        "text": "기본값은 일반 학습 모드입니다. 전체 화면 설명이 필요하면 문제 보호 모드를 켜지 않아도 됩니다.",
+        "size": 18,
+        "color": "rgb(70, 92, 115)",
+        "background": "rgb(255, 255, 255)"
+      },
+      {
+        "text": "이 강의와 자료를 이용·분석할 권한이 있으며 DRM을 우회하지 않았습니다.",
+        "size": 18,
+        "color": "rgb(23, 44, 72)",
+        "background": "rgb(255, 255, 255)"
+      },
+      {
+        "text": "샘플 결과 열기",
+        "size": 18,
+        "color": "rgb(255, 255, 255)",
+        "background": "rgb(22, 75, 139)"
+      },
+      {
+        "text": "기본값에서는 원본을 전송하지 않습니다. 위의 별도 동의를 체크한 로컬 영상만 실제 분석 동안 Gemini에 임시 전송하며, 장",
+        "size": 18,
+        "color": "rgb(70, 92, 115)",
+        "background": "rgb(255, 255, 255)"
+      },
+      {
+        "text": "이전 단계",
+        "size": 18,
+        "color": "rgb(22, 75, 139)",
+        "background": "rgb(232, 240, 250)"
+      }
+    ],
+    "shortControls": []
+  }
+]
