@@ -273,11 +273,11 @@ window.Portal = (() => {
         const bytes=await crypto.subtle.decrypt({name:'AES-GCM',iv:encrypted.iv},key,await encrypted.blob.arrayBuffer());
         state.videoUrl=URL.createObjectURL(new Blob([bytes],{type:encrypted.type}));state.linkedPlaybackKind='local';
         el('linked-playback-note').textContent='보호자가 저장에 동의한 브라우저 원본입니다. 수강 중 서버로 다시 전송하지 않습니다.';el('linked-playback-note').classList.remove('hidden');
-        const video=el('lecture-video');video.src=state.videoUrl;video.classList.remove('hidden');el('lecture-youtube').classList.add('hidden');el('video-placeholder').classList.add('hidden');
+        const video=el('lecture-video');video.autoplay=false;video.pause();video.src=state.videoUrl;video.classList.remove('hidden');el('lecture-youtube').classList.add('hidden');el('video-placeholder').classList.add('hidden');
         video.addEventListener('loadedmetadata',()=>seekTo(data.progress.position_ms||0),{once:true});
       }else if(['youtube','direct'].includes(data.playback.kind)) {
         state.pendingLinkResult={...data.playback,playback_kind:data.playback.kind,analysis_status:'saved'};
-        try{if(data.playback.kind==='direct')el('lecture-video').addEventListener('loadedmetadata',()=>seekTo(data.progress.position_ms||0),{once:true});await setupLinkPlayback(state.pendingLinkResult);if(data.playback.kind!=='direct'||el('lecture-video').readyState>=1)seekTo(data.progress.position_ms||0);}catch(e){feedback('영상 연결이 지연됩니다. 재생을 다시 시도하거나 지문·질문 기능을 사용하세요.');}
+        try{await setupLinkPlayback(state.pendingLinkResult,{positionMs:data.progress.position_ms||0});}catch(e){feedback('영상 연결이 지연됩니다. 재생을 다시 시도하거나 지문·질문 기능을 사용하세요.');}
       }else {
         el('lecture-video').classList.add('hidden');el('lecture-youtube').classList.add('hidden');el('video-placeholder').classList.remove('hidden');document.querySelector('#video-placeholder strong').textContent='텍스트 학습자료';document.querySelector('#video-placeholder p').textContent='원본 영상 없이 지문·핵심·질문 기능을 사용할 수 있습니다.';el('linked-playback-note').textContent='텍스트 학습자료입니다. 영상 분석을 실행한 것으로 표시하지 않습니다.';
       }

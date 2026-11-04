@@ -8,10 +8,10 @@
       content="인터넷 강의의 보이지 않는 정보를 설명하고 핵심 개념을 음성으로 탐색하게 하는 시각장애 학생용 AI 에이전트"
     />
     <title>Sullivan AI · Internet Lecture Accessibility Agent</title>
-    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="styles.css?v=paused-entry-7" />
     <link rel="stylesheet" href="student-design.css?v=hallmark-3" />
     <link rel="stylesheet" href="guardian-design.css?v=hallmark-3" />
-    <link rel="stylesheet" href="workspace-design.css?v=learning-desk-4" />
+    <link rel="stylesheet" href="workspace-design.css?v=paused-entry-7" />
   </head>
   <body data-role="signed-out" data-ui="learning-desk-4">
     <a class="skip-link" href="#main">본문으로 바로가기</a>
@@ -539,7 +539,22 @@
         <div class="learner-support">
           <div class="portal-secondary"><button id="learner-home" type="button">강의 목록으로</button><button id="learner-return" type="button" aria-describedby="learner-return-help" disabled>원래 듣던 곳으로</button><button id="learner-records" type="button">학습 기록</button><button id="learner-help" type="button">사용법 알려줘</button></div>
           <p id="learner-return-help">지문·검색·질문으로 이동한 뒤에는 ‘원래 듣던 곳으로’를 사용할 수 있습니다.</p>
-          <details id="student-preferences"><summary>음량·읽기 속도·해설 설정</summary><div id="student-reading-preferences"></div><label><input id="focus-voice" type="checkbox" /> 외부 스크린리더 없이 앱 음성으로 버튼 이름 안내</label><button id="focus-voice-test" type="button">음성 시작·시험</button><p id="focus-voice-status" role="status">음성 안내 상태를 여기에 표시합니다.</p><p>VoiceOver·NVDA를 사용 중이면 버튼 음성 안내는 꺼 두세요. 포커스 이름을 중복해서 읽지 않습니다.</p><label><input id="reader-mode" type="checkbox" /> 외부 스크린리더로 설명 받기 (VoiceOver·NVDA 별도 실행)</label><p>스크린리더 안내 모드에서는 낭독을 마친 뒤 재생 버튼으로 직접 이어 들으세요.</p></details>
+          <details id="student-preferences">
+            <summary>음량·읽기 속도·해설 설정</summary>
+            <div class="student-preferences-content">
+              <div id="student-reading-preferences"></div>
+              <div class="student-preference-option">
+                <label for="focus-voice" class="student-check"><input id="focus-voice" type="checkbox" aria-describedby="focus-voice-help" /><span>외부 스크린리더 없이 앱 음성으로 버튼 이름 안내</span></label>
+                <button id="focus-voice-test" class="secondary" type="button">음성 시작·시험</button>
+                <p id="focus-voice-status" role="status">음성 안내 상태를 여기에 표시합니다.</p>
+                <p id="focus-voice-help">VoiceOver·NVDA를 사용 중이면 버튼 음성 안내는 꺼 두세요. 포커스 이름을 중복해서 읽지 않습니다.</p>
+              </div>
+              <div class="student-preference-option">
+                <label for="reader-mode" class="student-check"><input id="reader-mode" type="checkbox" aria-describedby="reader-mode-help" /><span>외부 스크린리더로 설명 받기 (VoiceOver·NVDA 별도 실행)</span></label>
+                <p id="reader-mode-help">스크린리더 안내 모드에서는 낭독을 마친 뒤 재생 버튼으로 직접 이어 들으세요.</p>
+              </div>
+            </div>
+          </details>
           <section id="learning-records" class="hidden" aria-labelledby="records-title"><h2 id="records-title" tabindex="-1">내 학습 기록</h2><p>현재 위치와 밑줄, 북마크, 메모를 자동 저장합니다. 원본 영상은 새로 전송하지 않습니다.</p><label>강의 메모<textarea id="learner-note" maxlength="6000"></textarea></label><p id="progress-state" role="status"></p><button data-record-view="review-panel" type="button">복습 내용</button><button data-record-view="study-panel" type="button">학습 노트·북마크</button><button id="records-close" type="button">기록 닫기</button></section>
         </div>
       </section>
@@ -577,10 +592,10 @@
     <script src="narration-context.js" defer></script>
     <script src="sample-catalog.js?v=samples-r2" defer></script>
     <script src="voice-command-router.js" defer></script>
-    <script src="app.js?v=student-start-6" defer></script>
+    <script src="app.js?v=paused-entry-7" defer></script>
     <script src="space-gesture.js" defer></script>
     <script src="focus-voice.js?v=student-start-6" defer></script>
     <script src="keyboard-navigation.js?v=learning-desk-4" defer></script>
-    <script src="role-portal.js?v=student-start-6" defer></script>
+    <script src="role-portal.js?v=paused-entry-7" defer></script>
   </body>
 </html>

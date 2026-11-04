@@ -7,8 +7,9 @@ import uvicorn
 from playwright.sync_api import sync_playwright,expect
 from accessibility_probe import probe,save as save_accessibility
 MOCK='''window.YT={PlayerState:{PLAYING:1,ENDED:0},Player:class {
-constructor(id,c){const mount=document.getElementById(id);if(!mount)throw Error('YouTube mount missing');this.frame=document.createElement('iframe');this.frame.id=id;this.frame.className=mount.className;this.frame.src='about:blank';mount.replaceWith(this.frame);this.t=0;this.s=2;this.c=c;window.__player=this;setTimeout(()=>c.events.onReady(),0);}
-getCurrentTime(){void this.frame.src;return this.t;}getPlayerState(){void this.frame.src;return this.s;}seekTo(t){void this.frame.src;this.t=t;}playVideo(){void this.frame.src;this.s=1;this.c.events.onStateChange({data:1});}pauseVideo(){void this.frame.src;this.s=2;}
+constructor(id,c){const mount=document.getElementById(id);if(!mount)throw Error('YouTube mount missing');this.frame=document.createElement('iframe');this.frame.id=id;this.frame.className=mount.className;this.frame.src='about:blank';mount.replaceWith(this.frame);this.t=0;this.s=5;this.c=c;window.__player=this;setTimeout(()=>c.events.onReady(),0);}
+cueVideoById({startSeconds=0}){void this.frame.src;this.t=startSeconds;this.s=5;this.c.events.onStateChange({data:5});}
+getCurrentTime(){void this.frame.src;return this.s===5?0:this.t;}getPlayerState(){void this.frame.src;return this.s;}seekTo(t){void this.frame.src;this.t=t;if(this.s!==2)this.playVideo();}playVideo(){void this.frame.src;this.s=1;this.c.events.onStateChange({data:1});}pauseVideo(){void this.frame.src;this.s=2;}
 destroy(){void this.frame.src;this.frame.remove();this.frame=null;this.s=2;}
 }};'''
 

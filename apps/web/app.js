@@ -11,6 +11,8 @@ const state = {
   linkedPlaybackKind: null,
   pendingLinkResult: null,
   youtubePlayer: null,
+  youtubeVideoId: null,
+  youtubeCueMs: null,
   youtubeTimer: null,
   analysisTimer: null,
   analysisPercent: 0,
@@ -464,7 +466,7 @@ async function registerVideoLink(url, rightsConfirmed, accessCode, requestAnalys
   return result;
 }
 
-async function setupLinkPlayback(result) {
+async function setupLinkPlayback(result, { positionMs = 0 } = {}) {
   state.linkedPlaybackKind = result.playback_kind;
   const video = $("#lecture-video");
   const youtube = $("#lecture-youtube");
@@ -473,11 +475,14 @@ async function setupLinkPlayback(result) {
   $("#video-placeholder").classList.add("hidden");
 
   if (result.playback_kind === "direct") {
+    video.autoplay = false;
+    video.pause();
+    video.addEventListener("loadedmetadata", () => seekTo(positionMs), { once: true });
     video.src = result.playback_url;
     video.classList.remove("hidden");
   } else if (result.playback_kind === "youtube") {
     youtube.classList.remove("hidden");
-    await setupYouTubePlayer(result.playback_url);
+    await setupYouTubePlayer(result.playback_url, { positionMs });
   } else {
     $("#video-placeholder").classList.remove("hidden");
     $("#video-placeholder strong").textContent = "외부 강의 링크 등록 완료";
@@ -629,6 +634,8 @@ function disposeYouTubePlayer() {
   // Detach first: logout/login and callbacks must never reuse a destroyed SDK object.
   const player = state.youtubePlayer;
   state.youtubePlayer = null;
+  state.youtubeVideoId = null;
+  state.youtubeCueMs = null;
   state.youtubeGeneration = (state.youtubeGeneration || 0) + 1;
   if (state.linkedPlaybackKind === "youtube") state.linkedPlaybackKind = null;
   try { player?.destroy?.(); } catch { /* A removed provider iframe is already disposed. */ }
@@ -644,7 +651,7 @@ function disposeYouTubePlayer() {
   }
 }
 
-async function setupYouTubePlayer(playbackUrl) {
+async function setupYouTubePlayer(playbackUrl, { positionMs = 0 } = {}) {
   disposeYouTubePlayer();
   const generation = state.youtubeGeneration;
   await loadYouTubeApi();
@@ -654,24 +661,24 @@ async function setupYouTubePlayer(playbackUrl) {
   const parsed = new URL(playbackUrl);
   const videoId = parsed.pathname.split("/").filter(Boolean).pop();
   if (!videoId) throw new Error("YouTube 영상 ID를 확인할 수 없습니다.");
+  state.youtubeVideoId = videoId;
   await new Promise((resolve, reject) => {
     const deadline = setTimeout(() => reject(new Error("영상 연결 시간이 초과됐습니다. 학습자료를 이용하거나 다시 열어 주세요.")), 8000);
     const finish = resolve; resolve = () => {clearTimeout(deadline);finish();};
     state.youtubePlayer = new window.YT.Player("lecture-youtube", {
       host: "https://www.youtube-nocookie.com",
       videoId,
-      playerVars: { rel: 0, enablejsapi: 1, disablekb: 1, origin: window.location.origin },
+      playerVars: { autoplay: 0, rel: 0, enablejsapi: 1, disablekb: 1, origin: window.location.origin },
       events: {
         onReady: () => {
           if (generation !== state.youtubeGeneration) return;
           const frame = $("#lecture-youtube");
           if (frame?.tagName === "IFRAME") frame.title = `${state.session?.title || "강의"} 영상 플레이어`;
           syncMediaNavigation();
-          state.lastPlaybackMs = null;
+          cueYouTubeAt(positionMs);
           window.clearInterval(state.youtubeTimer);
           state.youtubeTimer = window.setInterval(() => {
-            const seconds = state.youtubePlayer?.getCurrentTime?.();
-            if (Number.isFinite(seconds)) processPlaybackTime(seconds * 1000);
+            processPlaybackTime(getCurrentPlaybackMs());
           }, 200);
           updateAutoNarrationStatus(0);
           restoreGlobalSpaceFocus();
@@ -680,6 +687,7 @@ async function setupYouTubePlayer(playbackUrl) {
         onStateChange: (event) => {
           if (generation !== state.youtubeGeneration) return;
           if (event.data === window.YT?.PlayerState?.PLAYING) {
+            state.youtubeCueMs = null;
             const seconds = state.youtubePlayer?.getCurrentTime?.();
             if (Number.isFinite(seconds)) {
               state.lastPlaybackMs = Math.max(0, seconds * 1000 - 700);
@@ -750,6 +758,9 @@ function updateAutoNarrationStatus(currentMs = 0, message = null) {
 
 function getCurrentPlaybackMs() {
   if (state.linkedPlaybackKind === "youtube") {
+    // Before first play the SDK may report zero even for a non-zero cue.
+    // Keep the restored position available to progress saves and arrow keys.
+    if (Number.isFinite(state.youtubeCueMs)) return state.youtubeCueMs;
     const seconds = state.youtubePlayer?.getCurrentTime?.();
     return Number.isFinite(seconds) ? seconds * 1000 : 0;
   }
@@ -1548,10 +1559,24 @@ function renderEvidence() {
   box.innerHTML = gaps.map((gap) => `<article class="evidence-row ${gap.action.toLowerCase()}"><div class="decision"><span>${formatTime(gap.timestamp_ms)}</span><strong>${gap.action}</strong></div><div><h3>${gap.safe_to_speak ? escapeHtml(gap.public_description || "자동 해설 생략") : "내용 비공개 · 안전 보류"}</h3><p>${escapeHtml(gap.reason)}</p><small>화면 확신도 ${Math.round(gap.confidence * 100)}% · 중요도 ${Math.round(gap.importance * 100)}% · 발화 중복 ${Math.round(gap.spoken_overlap * 100)}%</small></div></article>`).join("");
 }
 
+function cueYouTubeAt(milliseconds) {
+  const position = Number.isFinite(milliseconds) ? Math.max(0, milliseconds) : 0;
+  state.youtubeCueMs = position;
+  state.lastPlaybackMs = Math.max(0, position - 700);
+  state.youtubePlayer.cueVideoById({ videoId: state.youtubeVideoId, startSeconds: position / 1000 });
+}
+
 function seekTo(milliseconds) {
   const video = $("#lecture-video");
   state.lastPlaybackMs = Math.max(0, milliseconds - 700);
   if (state.linkedPlaybackKind === "youtube") {
+    const status = state.youtubePlayer?.getPlayerState?.();
+    // seekTo from CUED/UNSTARTED/ENDED starts YouTube automatically. Queue
+    // instead until the student explicitly plays; paused/playing seeks stay native.
+    if ([-1, 0, 5].includes(status) || (Number.isFinite(state.youtubeCueMs) && status !== 1 && status !== 3)) {
+      cueYouTubeAt(milliseconds);
+      return;
+    }
     state.youtubePlayer?.seekTo?.(Math.max(0, milliseconds / 1000), true);
     return;
   }
@@ -2134,8 +2159,7 @@ async function openSavedLecture(id) {
         playback_url: record.playback.playback_url,
         analysis_status: "saved",
       };
-      await setupLinkPlayback(state.pendingLinkResult);
-      seekTo(record.last_position_ms || 0);
+      await setupLinkPlayback(state.pendingLinkResult, { positionMs: record.last_position_ms || 0 });
       $("#linked-playback-note").textContent = "보관함에 저장된 원본 링크와 분석 요약을 불러왔습니다. 영상 파일을 복제하거나 내려받지 않았습니다.";
     } else {
       $("#video-placeholder").classList.remove("hidden");

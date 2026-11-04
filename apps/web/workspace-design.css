@@ -94,6 +94,21 @@ body[data-role="guardian"][data-ui="learning-desk-4"] #sample-assign-submit { gr
 body[data-role="guardian"][data-ui="learning-desk-4"] .guardian-management { grid-template-columns: minmax(0, .75fr) minmax(0, 1.4fr); gap: 2rem; margin-top: 1.5rem; }
 body[data-role="guardian"][data-ui="learning-desk-4"] .guardian-lecture-heading { align-items: start; }
 body[data-role="guardian"][data-ui="learning-desk-4"] .guardian-first-task { padding-top: 0; border-top: 0; }
+/* Keep native checkbox targets separate from text and neighboring actions. */
+body[data-role="student"] #student-preferences .student-preferences-content { display: grid; gap: 1.25rem; padding-block: .75rem 1rem; }
+body[data-role="student"] #student-reading-preferences { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; margin: 0; }
+body[data-role="student"] #student-reading-preferences label { display: grid; align-content: start; gap: .5rem; margin: 0; }
+body[data-role="student"] #student-reading-preferences .toggle,
+body[data-role="student"] #student-preferences .student-check { display: grid; grid-template-columns: 24px minmax(0, 1fr); align-items: start; gap: .75rem; margin: 0; min-height: 44px; font-weight: 500; }
+body[data-role="student"] #student-reading-preferences .toggle { grid-column: 1 / -1; }
+body[data-role="student"] #student-preferences input[type="checkbox"] { width: 24px; height: 24px; min-height: 24px; padding: 0; margin: .2rem 0 0; }
+body[data-role="student"] #student-reading-preferences select { width: 100%; min-height: 48px; }
+body[data-role="student"] .student-preference-option { display: grid; gap: .75rem; padding-top: 1rem; border-top: 1px solid var(--desk-rule); }
+body[data-role="student"] .student-preference-option p { margin: 0; font-size: 1rem; }
+body[data-role="student"] .learner-support button { padding: .65rem 1rem; border: 1px solid var(--control-border); color: var(--ink); background: var(--paper); }
+body[data-role="student"] #focus-voice-test { justify-self: start; min-height: 52px; }
+body[data-role="student"] #chat-panel .section-heading { flex-wrap: wrap; align-items: start; }
+body[data-role="student"] #chat-panel .toggle { min-width: 0; max-width: 100%; margin: 0; }
 @media (max-width: 900px) {
   body[data-role="student"][data-ui="learning-desk-4"] .student-controls-desk { grid-template-columns: minmax(0, 1fr); gap: 1rem; }
 }
@@ -107,6 +122,8 @@ body[data-role="guardian"][data-ui="learning-desk-4"] .guardian-first-task { pad
   body[data-role="guardian"][data-ui="learning-desk-4"] .guardian-desk > .guardian-samples { grid-column: 1; grid-row: auto; }
 }
 @media (max-width: 600px) {
+  body[data-role="student"] #student-reading-preferences { grid-template-columns: minmax(0, 1fr); }
+  body[data-role="student"] #focus-voice-test { justify-self: stretch; }
   body[data-ui="learning-desk-4"] #account-tools { width: auto; }
   body[data-ui="learning-desk-4"] #portal-login { width: calc(100% - 2rem); margin-top: 1.5rem; }
   body[data-role="student"][data-ui="learning-desk-4"] .student-purpose-grid { grid-template-columns: minmax(0, 1fr); }
