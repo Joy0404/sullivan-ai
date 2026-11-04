@@ -1,0 +1,7 @@
+{
+  "source_script": "scripts/verify_keyboard_navigation.py",
+  "unmodified_script": "Stopped at the first of two old guardian DOM-predecessor assertions; expected create submit before guardian-prepare.",
+  "adaptation": "Temporary copy changed only the two predecessor expectations to the settings summary and pointed ROOT/output at the workspace. Repository test source unchanged.",
+  "adapted_result": "PASS; all remaining original Shift, text-selection, dialog, focus, student controls and reflow assertions unchanged.",
+  "scope": "UI-layout assertion update only; no tests removed and no safety behavior changed."
+}

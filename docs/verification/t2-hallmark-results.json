@@ -1,0 +1,13 @@
+{
+  "scope": "guardian-design.css static checks and script-free authenticated DOM snapshots, served through temporary HTTP",
+  "floor_fail": 0,
+  "open_reflex": 0,
+  "warnings": 0,
+  "waived": {
+    "72": "Native legends cross fieldset borders; closed details descendants report phantom boxes. Expanded help measured aside bottom1351.30 vs last child1309.30, so real content fits."
+  },
+  "answered": {
+    "F7": "Existing shared player container radii outside T2 were preserved."
+  },
+  "live_ui": "actual authenticated screenshots and interaction checks are in t2-browser-results.json; snapshot renderer did not run real auth or analyze media."
+}

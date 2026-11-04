@@ -1,0 +1,34 @@
+{
+  "skill": "aria-specialist",
+  "scope": [
+    "apps/web/index.html #guardian-dashboard",
+    "apps/web/role-portal.js loadGuardian and renderGuardianLectures",
+    "apps/web/guardian-design.css guardian rules"
+  ],
+  "findings": [
+    {
+      "rule": "ARIA-FOCUS-RESPONSIVE-001",
+      "wcag": "2.4.3 A",
+      "severity": "moderate",
+      "location": "apps/web/role-portal.js:217",
+      "summary": "Closing Help at the mobile breakpoint drops keyboard focus from its guide link to the document body, losing the user’s position.",
+      "fix": "Before closing #guardian-help, if it contains document.activeElement, focus its summary with preventScroll:true; then apply help.open=desktop.matches.",
+      "evidence": "Chrome fixture: focused #guardian-help-guide at1280px; resize to390px -> help.open=false and document.activeElement===document.body."
+    }
+  ],
+  "passed": [
+    "Chrome isolated fixture: all scoped ARIA ID references resolve.",
+    "Task links use native anchors; keyboard activation opens applicable details and focuses a visible input, summary or heading.",
+    "Native settings and Manage disclosures expose expanded state and accessible names.",
+    "Student Settings links select the matching student before opening settings.",
+    "Chrome accessible names preserve task label/state boundaries, e.g. 학생 계정 만들기 완료.",
+    "Account name and guide link are native DOM text/link, populated with textContent rather than HTML.",
+    "Guardian data rendered by new code is limited to owned student/lecture metadata; analysis candidate text is not read or emitted."
+  ],
+  "notes": [
+    "Runtime used current source functions in an isolated DOM fixture with mocked read-only student/lecture data; no API calls, authentication or app edits.",
+    "Actual VoiceOver/NVDA speech and Safari accessibility navigation were not tested.",
+    "Parent separately validates authenticated integration.",
+    "Runtime evidence: /tmp/sullivan-t2-work/review/aria-live-runtime.json."
+  ]
+}

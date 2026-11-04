@@ -1,0 +1,327 @@
+{
+  "fixture": "All local endpoints intercepted in memory; no real API authentication or mutations",
+  "checks": [
+    {
+      "label": "No-student next action opens create form and focuses name",
+      "pass": true
+    },
+    {
+      "label": "No-student settings link reaches native summary",
+      "pass": true
+    },
+    {
+      "label": "Settings controls disabled without students",
+      "pass": true
+    },
+    {
+      "label": "Native empty submit focuses first required field",
+      "pass": true
+    },
+    {
+      "label": "Native short-password validation focuses password",
+      "pass": true
+    },
+    {
+      "label": "Student settings link selects correct student",
+      "pass": true
+    },
+    {
+      "label": "Student settings link opens and focuses summary",
+      "pass": true
+    },
+    {
+      "label": "Assignment task focused heading is within viewport",
+      "pass": true,
+      "evidence": {
+        "tag": "H2",
+        "id": "guardian-lectures-title",
+        "top": 23.921875,
+        "bottom": 57.515625,
+        "height": 800,
+        "scrollY": 2022
+      }
+    },
+    {
+      "label": "Management disclosure opens with Space",
+      "pass": true
+    },
+    {
+      "label": "Management disclosure closes with Space",
+      "pass": true
+    },
+    {
+      "label": "Mobile help link opens help and focuses its summary",
+      "pass": true
+    },
+    {
+      "label": "Resizing help does not retain focus on hidden descendant",
+      "pass": true,
+      "evidence": {
+        "active": "",
+        "rects": 1,
+        "helpOpen": false,
+        "onSummary": true
+      }
+    },
+    {
+      "label": "Successful settings save focuses named feedback group",
+      "pass": true
+    },
+    {
+      "label": "Native lecture required-title validation focuses title",
+      "pass": true
+    },
+    {
+      "label": "Successful lecture save focuses feedback after rerender",
+      "pass": true
+    },
+    {
+      "label": "Server validation failure remains visible and focused",
+      "pass": true
+    },
+    {
+      "label": "Sample assignment with unselected student focuses required selector",
+      "pass": true
+    },
+    {
+      "label": "All-expanded Tab traversal has visible focus at 320",
+      "pass": true,
+      "evidence": {
+        "controls": 56,
+        "expected": 56,
+        "unvisited": [],
+        "invalid": []
+      }
+    },
+    {
+      "label": "Tab/Shift+Tab reverses to same control at 320",
+      "pass": true
+    },
+    {
+      "label": "All-expanded Tab traversal has visible focus at 390",
+      "pass": true,
+      "evidence": {
+        "controls": 56,
+        "expected": 56,
+        "unvisited": [],
+        "invalid": []
+      }
+    },
+    {
+      "label": "Tab/Shift+Tab reverses to same control at 390",
+      "pass": true
+    },
+    {
+      "label": "All-expanded Tab traversal has visible focus at 1280",
+      "pass": true,
+      "evidence": {
+        "controls": 56,
+        "expected": 56,
+        "unvisited": [],
+        "invalid": []
+      }
+    },
+    {
+      "label": "Tab/Shift+Tab reverses to same control at 1280",
+      "pass": true
+    }
+  ],
+  "failures": [],
+  "requests": [
+    {
+      "path": "/local/status",
+      "method": "GET",
+      "intercepted": true
+    },
+    {
+      "path": "/local/me",
+      "method": "GET",
+      "intercepted": true
+    },
+    {
+      "path": "/local/students",
+      "method": "GET",
+      "intercepted": true
+    },
+    {
+      "path": "/local/lectures",
+      "method": "GET",
+      "intercepted": true
+    },
+    {
+      "path": "/local/status",
+      "method": "GET",
+      "intercepted": true
+    },
+    {
+      "path": "/local/me",
+      "method": "GET",
+      "intercepted": true
+    },
+    {
+      "path": "/local/students",
+      "method": "GET",
+      "intercepted": true
+    },
+    {
+      "path": "/local/lectures",
+      "method": "GET",
+      "intercepted": true
+    },
+    {
+      "path": "/local/status",
+      "method": "GET",
+      "intercepted": true
+    },
+    {
+      "path": "/local/me",
+      "method": "GET",
+      "intercepted": true
+    },
+    {
+      "path": "/local/students",
+      "method": "GET",
+      "intercepted": true
+    },
+    {
+      "path": "/local/lectures",
+      "method": "GET",
+      "intercepted": true
+    },
+    {
+      "path": "/local/status",
+      "method": "GET",
+      "intercepted": true
+    },
+    {
+      "path": "/local/me",
+      "method": "GET",
+      "intercepted": true
+    },
+    {
+      "path": "/local/students",
+      "method": "GET",
+      "intercepted": true
+    },
+    {
+      "path": "/local/lectures",
+      "method": "GET",
+      "intercepted": true
+    },
+    {
+      "path": "/local/status",
+      "method": "GET",
+      "intercepted": true
+    },
+    {
+      "path": "/local/me",
+      "method": "GET",
+      "intercepted": true
+    },
+    {
+      "path": "/local/students",
+      "method": "GET",
+      "intercepted": true
+    },
+    {
+      "path": "/local/lectures",
+      "method": "GET",
+      "intercepted": true
+    },
+    {
+      "path": "/local/students/s2/settings",
+      "method": "PUT",
+      "intercepted": true
+    },
+    {
+      "path": "/local/students",
+      "method": "GET",
+      "intercepted": true
+    },
+    {
+      "path": "/local/lectures",
+      "method": "GET",
+      "intercepted": true
+    },
+    {
+      "path": "/local/lectures/l1",
+      "method": "PUT",
+      "intercepted": true
+    },
+    {
+      "path": "/local/students",
+      "method": "GET",
+      "intercepted": true
+    },
+    {
+      "path": "/local/lectures",
+      "method": "GET",
+      "intercepted": true
+    },
+    {
+      "path": "/local/lectures/l1",
+      "method": "PUT",
+      "intercepted": true
+    },
+    {
+      "path": "/local/status",
+      "method": "GET",
+      "intercepted": true
+    },
+    {
+      "path": "/local/me",
+      "method": "GET",
+      "intercepted": true
+    },
+    {
+      "path": "/local/students",
+      "method": "GET",
+      "intercepted": true
+    },
+    {
+      "path": "/local/lectures",
+      "method": "GET",
+      "intercepted": true
+    },
+    {
+      "path": "/local/status",
+      "method": "GET",
+      "intercepted": true
+    },
+    {
+      "path": "/local/me",
+      "method": "GET",
+      "intercepted": true
+    },
+    {
+      "path": "/local/students",
+      "method": "GET",
+      "intercepted": true
+    },
+    {
+      "path": "/local/lectures",
+      "method": "GET",
+      "intercepted": true
+    },
+    {
+      "path": "/local/status",
+      "method": "GET",
+      "intercepted": true
+    },
+    {
+      "path": "/local/me",
+      "method": "GET",
+      "intercepted": true
+    },
+    {
+      "path": "/local/students",
+      "method": "GET",
+      "intercepted": true
+    },
+    {
+      "path": "/local/lectures",
+      "method": "GET",
+      "intercepted": true
+    }
+  ]
+}

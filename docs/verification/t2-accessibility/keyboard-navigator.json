@@ -1,0 +1,25 @@
+{
+  "skill": "keyboard-navigator",
+  "scope": [
+    "apps/web/index.html#guardian-dashboard",
+    "apps/web/role-portal.js:loadGuardian",
+    "apps/web/role-portal.js:renderGuardianLectures",
+    "apps/web/guardian-design.css (guardian dashboard rules)"
+  ],
+  "findings": [],
+  "passed": [
+    "Chrome runtime fixture: all 56 visible controls in the fully expanded guardian dashboard were reached using real Tab at 320, 390 and 1280px; focus stayed visible and enabled, with no missing controls or keyboard traps.",
+    "Chrome runtime: Tab then Shift+Tab returned to the same next-action control at 320, 390 and 1280px.",
+    "Chrome runtime: the no-student next action opens the moved create disclosure and focuses its first input; the settings task opens its native summary even while controls are unavailable.",
+    "Chrome runtime: each student settings link selects the intended student and focuses the expanded settings summary.",
+    "Chrome runtime: the assignment task now keeps its focused H2 visible at y=23.9..57.5px after the scroll fix.",
+    "Chrome runtime: lecture management opens and closes with Space; the mobile help link opens help and focuses its summary.",
+    "Chrome runtime: crossing to the mobile breakpoint moves focus from help content to the summary before closing the disclosure.",
+    "Static: native links, buttons and disclosures retain natural DOM tab order; no positive tabindex or mouse-only actions were introduced in T2."
+  ],
+  "notes": [
+    "One moderate assignment-focus scrolling finding was fixed and rechecked; initial evidence is in initial/keyboard-navigator.json and keyboard-fixture-initial-runtime.json.",
+    "Independent fixture intercepted every /local/* request in memory and aborted provider requests. It neither authenticated against nor mutated the real or temporary API database.",
+    "Runtime results: /tmp/sullivan-t2-work/review/keyboard-fixture-runtime.json. Actual VoiceOver/NVDA utterances were not tested."
+  ]
+}

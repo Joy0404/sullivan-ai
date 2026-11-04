@@ -1,0 +1,26 @@
+{
+  "skill": "forms-specialist",
+  "scope": [
+    "apps/web/index.html#guardian-dashboard",
+    "apps/web/role-portal.js:loadGuardian",
+    "apps/web/role-portal.js:renderGuardianLectures",
+    "apps/web/guardian-design.css (guardian dashboard rules)"
+  ],
+  "findings": [],
+  "passed": [
+    "Static and Chrome runtime: moved account creation controls retain native labels, names, required attributes, new-password autocomplete and minimum password length; empty submission focuses the first required input.",
+    "Chrome runtime: typing a password shorter than eight characters and submitting leaves focus on the password field with tooShort validity.",
+    "Chrome runtime: student settings and sample-assignment controls are disabled when no linked student exists; the visible explanatory hint remains available.",
+    "Chrome runtime: a student-card settings link selects that student before the existing settings renderer populates controls.",
+    "Chrome runtime with in-memory response fixture: successful settings saves focus the named feedback group.",
+    "Chrome runtime: submitting a lecture form with an empty title invokes native required-field validation and focuses the title input.",
+    "Chrome runtime with in-memory response fixture: successful lecture edits and simulated server validation failures leave visible, focused feedback after any rerender.",
+    "Chrome runtime: submitting sample assignment without selecting among multiple students focuses the required student selector.",
+    "Static: settings groups and assignment checkbox groups use native fieldsets and legends, with wrapping labels and original submission contracts intact."
+  ],
+  "notes": [
+    "All save/error responses were fulfilled by browser request interception; no API mutation or authentication request reached a backend.",
+    "Runtime results: /tmp/sullivan-t2-work/review/forms-fixture-runtime.json.",
+    "The existing login-name pattern issue is reserved for T6; T2 does not alter that pattern or authentication. Actual screen-reader speech was not tested."
+  ]
+}

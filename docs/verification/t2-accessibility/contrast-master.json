@@ -1,0 +1,28 @@
+{
+  "skill": "contrast-master",
+  "scope": [
+    "apps/web/guardian-design.css",
+    "apps/web/index.html #guardian-dashboard",
+    "apps/web/role-portal.js loadGuardian/renderGuardianLectures",
+    "apps/web/tokens.css (read only)",
+    "apps/web/workspace-design.css (read only)"
+  ],
+  "findings": [],
+  "passed": [
+    "Independent Chrome read-only snapshots: all-expanded empty, no-lectures and assigned states at320,390,640,1280px have no horizontal overflow.",
+    "Independent rendered CSS inspection found no text below18px inside the new guardian dashboard and account tools in all12 scenario/width combinations; mobile logout fix confirmed.",
+    "All10 measured text/background pairs pass4.5:1 AA; token-based normal, hover and active pairs also pass4.5:1.",
+    "Calculated focus-ring contrast exceeds3:1 on paper, canvas, brand-soft and amber-soft; functional input/control borders exceed3:1 on the adjacent white surface.",
+    "Focus-visible has instant4px outlines and4px offset; Chrome forced-colors preview exposes a4px system Highlight outline.",
+    "Status meaning is explicit in Korean text (완료, 할 차례, 아직, 기본값, 준비 완료/준비 중); color is supplementary.",
+    "No motion or flashing is introduced; new dashboard reduced-motion rules disable animation/transition and existing forced-colors handling is retained."
+  ],
+  "notes": [
+    "Initial read-only static preview identified mobile logout text14.4px; parent added guardian-only font-size1.125rem and current snapshots confirm18px. No remaining finding.",
+    "Top-right 도움 link was allowed to wrap vertically; parent added no-wrap/flex-shrink0 and the actual390px screenshot confirms a single readable line.",
+    "Runtime inspection used exported rendered DOM snapshots with all scripts removed; no authentication or API mutation was performed by this specialist. The parent owns actual authenticated interaction tests.",
+    "Actual OS high-contrast settings and VoiceOver/NVDA speech were not tested. Color preference was emulated in Chrome.",
+    "Decorative low-contrast row separators do not carry sole meaning; actionable links, controls and states have text identification.",
+    "Evidence: /tmp/sullivan-t2-work/review/visual-snapshot-measurements.json, measured-text-contrast.json, contrast-calculations.json and visual-static-measurements.json."
+  ]
+}

@@ -156,6 +156,8 @@ window.Portal = (() => {
   }
   async function loadGuardian() {
     students=await request('/students');lectures=await request('/lectures');
+    const account=el('account-name');
+    account.replaceChildren(node('span',ui.user.name==='보호자'?'보호자님':`보호자 ${ui.user.name}님`),node('a','가이드',{href:'/guide/'}));
     const select=el('settings-student'),old=select.value;select.replaceChildren();
     students.forEach(s=>select.append(node('option',`${s.name} (${s.username})`,{value:s.id})));if(students.some(s=>s.id===old))select.value=old;
     const sampleSelect=el('sample-assign-student'),sampleOld=sampleSelect.value;sampleSelect.replaceChildren(node('option',students.length?'배정할 학생 선택':'학생 계정을 먼저 만들어 주세요',{value:''}));
@@ -166,8 +168,54 @@ window.Portal = (() => {
     el('guardian-create-panel').open=!students.length;
     const createPanel=el('guardian-create-panel');
     createPanel.classList.toggle('guardian-first-task',!students.length);
-    if(students.length)el('guardian-students-title').after(createPanel);
-    else el('guardian-dashboard').querySelector('.guardian-preparation-actions').before(createPanel);
+    if(students.length)el('guardian-students').after(createPanel);
+    else el('guardian-main').prepend(createPanel);
+    const hasStudents=students.length>0,hasLectures=lectures.length>0;
+    if(hasStudents&&!hasLectures)el('guardian-sample-panel').open=true;
+    const assigned=lectures.filter(l=>l.ready&&l.students.some(id=>students.some(s=>s.id===id)));
+    const hasAssignments=assigned.length>0;
+    const defaults={auto_description:true,problem_mode:true,speech_rate:.95,speech_volume:.9,reader_mode:false,focus_voice:false};
+    const customSettings=students.some(s=>Object.entries(defaults).some(([key,value])=>(s.settings?.[key]??value)!==value));
+    const states=[
+      ['student',hasStudents?'완료':'할 차례'],
+      ['lecture',hasLectures?'완료':hasStudents?'할 차례':'아직'],
+      ['assignment',hasAssignments?'완료':hasLectures&&hasStudents?'할 차례':'아직'],
+      ['settings',customSettings?'완료':'기본값']
+    ];
+    for(const [key,value] of states){const status=el('guardian-task-'+key);status.textContent=value;status.dataset.state=value;}
+    const next=!hasStudents?['create','학생 계정 만들기','학생 계정을 먼저 만들어 주세요.','step-2']:
+      !hasLectures?['prepare','강의 준비하기','샘플로 연습하거나 내 강의를 준비해 주세요.','step-4']:
+      !hasAssignments?['assign','배정할 강의 확인하기','강의의 관리에서 배정 학생과 준비 상태를 확인해 주세요.','step-6']:
+      ['settings','학생별 설정 확인하기','강의 배정을 마쳤습니다. 학생에게 맞는 기본 설정을 확인해 보세요.','step-3'];
+    const targets={create:'guardian-create-panel',prepare:'guardian-preparation',assign:'guardian-lectures',settings:'guardian-settings-panel',help:'guardian-help'};
+    el('guardian-next').textContent=next[1];el('guardian-next').dataset.guardianTarget=next[0];el('guardian-next').href='#'+targets[next[0]];
+    el('guardian-next-hint').textContent=next[2];el('guardian-help-context').textContent=next[2];
+    el('guardian-help-guide').href='/guide/#'+next[3];el('guardian-help-guide').textContent=next[1]+' 안내';
+    const summary=`학생 ${students.length}명, 준비한 강의 ${lectures.length}개, 준비 완료한 배정 강의 ${assigned.length}개입니다.`;
+    if(el('guardian-progress-status').textContent!==summary)el('guardian-progress-status').textContent=summary;
+    const roster=el('guardian-students');roster.replaceChildren();
+    if(!hasStudents)roster.append(node('p','학생 계정을 만들면 여기에 이름과 배정 강의가 표시됩니다.'));
+    for(const s of students){
+      const card=node('article',undefined,{className:'guardian-student'}),titleId='guardian-student-'+s.id;
+      card.setAttribute('aria-labelledby',titleId);
+      const copy=node('div');copy.append(node('h3',s.name,{id:titleId}),node('p',`배정 강의 ${lectures.filter(l=>l.students.includes(s.id)).length}개`));
+      const settingsLink=node('a','설정',{href:'#guardian-settings-panel'});settingsLink.dataset.guardianTarget='settings';settingsLink.dataset.student=s.id;settingsLink.setAttribute('aria-describedby',titleId);
+      card.append(copy,settingsLink);roster.append(card);
+    }
+    const dashboard=el('guardian-dashboard');
+    if(!dashboard.dataset.navigationBound){
+      dashboard.dataset.navigationBound='true';
+      dashboard.addEventListener('click',event=>{
+        const link=event.target.closest('a[data-guardian-target]');if(!link||event.button!==0||event.ctrlKey||event.metaKey||event.shiftKey||event.altKey)return;
+        event.preventDefault();const action=link.dataset.guardianTarget,target=el(targets[action]);if(!target)return;
+        if(link.dataset.student){el('settings-student').value=link.dataset.student;el('settings-student').dispatchEvent(new Event('change'));}
+        if(target.tagName==='DETAILS')target.open=true;
+        const focus=action==='create'?target.querySelector('input'):action==='settings'?target.querySelector('summary'):action==='prepare'?el('guardian-preparation-title'):action==='assign'?el('guardian-lectures-title'):target.querySelector('summary');
+        focus?.focus({preventScroll:true});(focus||target).scrollIntoView({block:'start'});
+      });
+      const desktop=matchMedia('(min-width: 960px)');
+      const helpLayout=()=>{const help=el('guardian-help');if(!desktop.matches&&help.contains(document.activeElement))help.querySelector('summary').focus({preventScroll:true});help.open=desktop.matches;};desktop.addEventListener('change',helpLayout);helpLayout();
+    }
     el('guardian-student-hint').textContent=students.length?'선택한 학생의 기본 안내 방식을 설정하세요. 학생은 수강 중 읽기 속도와 음량을 직접 조절할 수 있습니다.':'먼저 학생 계정을 만들어 주세요. 설정은 학생을 연결한 뒤 저장할 수 있습니다.';
     fillSettings();renderGuardianLectures();
     const estimate=await navigator.storage?.estimate?.().catch(()=>null);
@@ -193,22 +241,22 @@ window.Portal = (() => {
       const heading=node('div',undefined,{className:'guardian-lecture-heading'});
       heading.append(node('h3',`${l.subject} — ${l.title}`,{id:titleId}),node('p',l.ready?'준비 완료':'준비 중. 학생에게 아직 보이지 않습니다.',{className:'guardian-ready '+(l.ready?'is-ready':'is-waiting')}));
       card.append(heading,node('p',l.students.length?'배정 학생: '+l.students.map(id=>students.find(s=>s.id===id)?.name||'연결된 학생').join(', '):'배정된 학생이 없습니다.',{className:'guardian-assignees'}));
-      const edit=node('details');edit.append(node('summary','강의 정보·학생 배정 수정'));
+      const edit=node('details');edit.append(node('summary','관리'));
       edit.firstChild.setAttribute('aria-describedby',titleId);
       const form=node('form');const title=node('input',undefined,{value:l.title,required:true,maxLength:160}),subject=node('input',undefined,{value:l.subject,required:true,maxLength:80});
       for(const [name,input]of [['강의 제목',title],['과목',subject]]){const label=node('label',name);label.append(input);form.append(label);}
       const assignments=node('fieldset');assignments.append(node('legend','배정 학생'));const checks=node('div');studentChecks(checks,l.students);assignments.append(checks);form.append(assignments,node('button','수정 저장',{type:'submit'}));
-      form.addEventListener('submit',async e=>{e.preventDefault();try{await send('/lectures/'+l.id,{title:title.value,subject:subject.value,students:checked(checks)},'PUT');await loadGuardian();feedback('강의 정보와 배정을 저장했습니다.',true);}catch(e){error(e.message);}});edit.append(form);card.append(edit);
+      form.addEventListener('submit',async e=>{e.preventDefault();try{await send('/lectures/'+l.id,{title:title.value,subject:subject.value,students:checked(checks)},'PUT');await loadGuardian();feedback('강의 정보와 배정을 저장했습니다.',true);}catch(e){error(e.message);}});edit.append(form);
       const selected=el('settings-student').value;
       const actions=node('div',undefined,{className:'guardian-lecture-actions'});
       if(!l.ready&&l.playback_kind!=='local')actions.append(button('준비 완료로 제공',async()=>{await request('/lectures/'+l.id+'/ready',{method:'PUT'});await loadGuardian();feedback('강의를 준비 완료로 제공했습니다. 학생의 강의 듣기에서 목록을 다시 확인할 수 있습니다.',true);}));
       if(selected&&l.students.includes(selected)){
         // Fetch actual student order from the dedicated guardian endpoint rather than assuming creation order.
-        actions.append(button('이 학생의 강의 순서 앞당기기',()=>moveLecture(l.id,selected,-1)),button('이 학생의 강의 순서 뒤로 보내기',()=>moveLecture(l.id,selected,1)));
+        actions.append(button('순서 앞당기기',()=>moveLecture(l.id,selected,-1)),button('순서 뒤로 보내기',()=>moveLecture(l.id,selected,1)));
       }
       actions.append(button('강의 삭제',async()=>{if(!confirm('배정과 학습 기록, 이 브라우저의 저장 영상을 삭제할까요?'))return;await request('/lectures/'+l.id,{method:'DELETE'});await mediaRemove(l.id);await loadGuardian();feedback('강의와 배정 기록을 삭제했습니다.',true);},{className:'guardian-delete'}));
       for(const action of actions.children)action.setAttribute('aria-describedby',titleId);
-      card.append(actions);box.append(card);
+      edit.append(actions);card.append(edit);box.append(card);
     }
   }
   async function moveLecture(id,student,delta) {

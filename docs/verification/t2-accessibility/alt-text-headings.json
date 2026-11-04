@@ -1,0 +1,27 @@
+{
+  "skill": "alt-text-headings",
+  "scope": [
+    "apps/web/guardian-design.css",
+    "apps/web/index.html #guardian-dashboard",
+    "apps/web/role-portal.js loadGuardian/renderGuardianLectures",
+    "docs/verification/t2-assigned-390.png",
+    "/tmp/sullivan-t2-work/snapshots/empty.html",
+    "/tmp/sullivan-t2-work/snapshots/no-lectures.html",
+    "/tmp/sullivan-t2-work/snapshots/assigned.html"
+  ],
+  "findings": [],
+  "passed": [
+    "All three rendered scenario snapshots expose exactly one visible H1: 보호자 준비실.",
+    "The dashboard heading outline progresses H1 to H2 sections and H3 student/lecture/settings/sample subheadings, with no skipped levels.",
+    "The main landmark and skip-link target remain; a separately labeled native aside identifies guardian help.",
+    "No raster image, chart, SVG or decorative icon was introduced in the guardian dashboard, so no new visual-only meaning needs alternative text.",
+    "Names, lecture counts, assignment targets, preparation states and management actions are actual text nodes, not images, generated icons or CSS-only content.",
+    "DOM order is task status, students, lectures and preparation; the no-student create form moves before task status as explicitly required; the responsive layout does not reorder the content visually with CSS.",
+    "HTML lang remains ko; the existing product page title still describes the lecture accessibility application."
+  ],
+  "notes": [
+    "This is a targeted T2 audit; frozen student regions and existing media players were not re-audited as new findings.",
+    "Heading structure was inspected in actual parent-exported rendered snapshots at320,390,640,1280px, including expanded details. The screenshot was visually inspected for readability.",
+    "Parent owns actual authenticated and keyboard flow tests. This specialist performed no authentication or API writes; actual screen-reader utterances are unverified."
+  ]
+}
