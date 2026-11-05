@@ -30,6 +30,7 @@ const state = {
   speechInProgress: false,
   currentSentenceId: null,
   speechToken: 0,
+  outputGeneration: 0,
   resumeAfterSpeech: false,
   bookmarks: [],
   lastChatOutput: null,
@@ -1502,9 +1503,11 @@ async function submitChatMessage(message, { forceSpeak = false } = {}) {
   $("#chat-log").setAttribute("aria-live", (forceSpeak || $("#auto-speak-chat").checked || /읽어|말해|음성/.test(value)) && !window.Portal?.readerMode ? "off" : "polite");
   appendChatMessage("user", "나", value);
   state.agentTurnPending = true;
+  const outputGeneration = state.outputGeneration;
   $("#chat-status").textContent = "강의 상태를 관찰하고 다음 행동을 판단하는 중입니다.";
   try {
     const agentResult = await requestAgentTurn(value);
+    if (outputGeneration !== state.outputGeneration) return;
     const result = { title: agentResult.title, text: agentResult.response_text };
     appendChatMessage("assistant", `Gemini Agent · ${result.title}`, `${result.text}\n\n선택 행동: ${agentResult.action}\n판단 근거: ${agentResult.decision_reason}`);
     state.lastChatOutput = result;
@@ -1513,6 +1516,7 @@ async function submitChatMessage(message, { forceSpeak = false } = {}) {
     executeAgentAction(agentResult, value, { forceSpeak });
     announce(`${result.title} 결과와 행동을 실행했습니다.`);
   } catch (error) {
+    if (outputGeneration !== state.outputGeneration) return;
     const result = generateLearningResponse(value);
     appendChatMessage("assistant", `Sullivan 로컬 보조 · ${result.title}`, result.text);
     state.lastChatOutput = result;
@@ -1799,6 +1803,7 @@ $("#preview-voice").addEventListener("click", () => {
 });
 
 function stopAllPlaybackAndSpeech({ announceStop = true } = {}) {
+  state.outputGeneration += 1;
   const stoppedConceptSequence = state.conceptSequenceActive;
   state.conceptSequenceToken += 1;
   state.conceptSequenceActive = false;

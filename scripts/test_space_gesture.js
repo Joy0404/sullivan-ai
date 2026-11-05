@@ -11,4 +11,9 @@ tap();tap();assert.deepEqual(events,[]);advance(420);assert.deepEqual(events,[2]
 tap();tap();tap();assert.deepEqual(events,[]);advance(420);assert.deepEqual(events,[3]);events=[];
 g.down();g.down();advance(600);assert.deepEqual(events,['hold']);g.up();assert.deepEqual(events,['hold','release']);advance(800);assert.deepEqual(events,['hold','release']);events=[];
 g.down();advance(100);g.cancel();advance(900);assert.deepEqual(events,['cancel']);
+events=[];
+const immediate=create({setTimer,clearTimer,hold:()=>{},release:()=>{},taps:n=>events.push(n),doubleTap:()=>events.push('stop')});
+immediate.down();immediate.up();advance(100);immediate.down();immediate.up();
+assert.deepEqual(events,['stop']);advance(100);immediate.down();immediate.up();advance(420);
+assert.deepEqual(events,['stop',3]);
 console.log('Space gesture: single/double/triple defer, hold/release, repeat and cancel PASS');

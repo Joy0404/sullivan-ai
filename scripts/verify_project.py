@@ -101,7 +101,7 @@ def verify_playback_and_voice() -> int:
         "client agent privacy boundary": "safeSnapshotForAgent" in web and "source_text: null" in web,
         "single gesture engine": "SullivanSpaceGesture.create" in portal and "startSpaceVoiceRecognition" not in web,
         "hold release command": "hold:startVoice" in portal and "finishVoice" in portal and "playSpaceVoiceReadyChime" in web,
-        "double stop triple type": "count>=3" in portal and "count===2" in portal and "typeDialog" in portal,
+        "double stop triple type": "count>=3" in portal and "doubleTap:stopStudentOutput" in portal and "typeDialog" in portal,
         "account onboarding": "showHelp" in portal and "'/onboarding'" in portal,
         "microphone fallback": "recognition.onerror" in portal and "typeDialog" in portal,
         "native dialog focus": "showModal()" in portal and "closeDialog" in portal,
