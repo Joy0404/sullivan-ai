@@ -100,6 +100,21 @@ def main():
      for _ in range(3):page.keyboard.press('Space')
      expect(page.locator('#text-command-input')).to_be_focused()
      page.locator('#text-command-input').fill(text);page.keyboard.press('Enter')
+    # Transport commands bypass grounded-chat keyword matching in both Space
+    # entry paths. Checking only playback would miss this: voice entry pauses it.
+    transport_requests=[]
+    page.on('request',lambda request:transport_requests.append(request.url) if '/agent-turn' in request.url else None)
+    transport_chat_count=page.locator('#chat-log > *').count()
+    for stop_command in ['영상 중지','강의 중지','중지']:
+     page.locator('#learner-play').press('Enter');page.wait_for_function('isPlaybackRunning()')
+     typed(stop_command);page.wait_for_function('!isPlaybackRunning()')
+     assert not page.evaluate('state.agentTurnPending'),stop_command
+     assert page.locator('#chat-log > *').count()==transport_chat_count,stop_command
+     voice('영상 재생');page.wait_for_function('isPlaybackRunning()')
+     voice(stop_command);page.wait_for_function('!isPlaybackRunning()')
+     assert not page.evaluate('state.agentTurnPending'),stop_command
+     assert page.locator('#chat-log > *').count()==transport_chat_count,stop_command
+    assert not transport_requests,transport_requests
     # Global voice from a normal playback button starts the three-line summary.
     voice('세 줄 요약')
     page.wait_for_function('state.speechInProgress && __spoken.length>0')
@@ -167,6 +182,7 @@ def main():
      assert not axe['violations'],axe['violations']
     assert not errors,errors
     result={'three_playback_buttons_in_requested_order':True,'shift_alone_previous':True,'native_shift_tab_single_move':True,'shift_typing_selection_and_modifier_chords_preserved':True,'modal_scope_and_escape':True,'window_blur_cancels_shift':True,'role_and_learning_first_focus':True,'four_core_actions_within_four_tabs':True,'lecture_before_help_in_tab_order':True,'space_global_home_and_playback_button':True,'voice_three_line_summary':True,'double_space_stops_summary_and_late_completion':True,'editor_emergency_stop_preserves_spaces':True,'voice_return_from_summary_resumes_lecture':True,'recognition_focus_and_window_cancel':True,'home_command_opens_numbered_lecture':True,'stopped_agent_result_cannot_restart_provider_or_fallback_speech':True,'viewport_widths':[320,390,1280,1920],'page_errors':errors,'real_screen_reader':'not tested','providers':'mocked; no real accounts or provider calls'}
+    result['transport_stop_aliases_bypass_chat_in_voice_and_text']=['영상 중지','강의 중지','중지']
     (ROOT/'docs/verification/keyboard-navigation-results.json').write_text(json.dumps(result,ensure_ascii=False,indent=2));print(json.dumps(result,ensure_ascii=False))
     browser.close()
   finally:

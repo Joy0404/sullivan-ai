@@ -24,5 +24,10 @@
   ],
   "page_errors": [],
   "real_screen_reader": "not tested",
-  "providers": "mocked; no real accounts or provider calls"
+  "providers": "mocked; no real accounts or provider calls",
+  "transport_stop_aliases_bypass_chat_in_voice_and_text": [
+    "영상 중지",
+    "강의 중지",
+    "중지"
+  ]
 }
