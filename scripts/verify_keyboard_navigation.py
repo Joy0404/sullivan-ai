@@ -73,12 +73,116 @@ def main():
     page.keyboard.press('Shift');expect(page.locator('#text-command-input')).to_be_focused()
     page.keyboard.press('Shift+Tab');expect(page.locator('#close-text-command')).to_be_focused()
     page.keyboard.press('Escape');expect(page.locator('#command-surface')).to_be_focused()
+    # Quick commands must also work at the initial playback-button focus.
+    page.locator('#learner-play').focus()
+    for _ in range(3):page.keyboard.press('Space')
+    expect(page.locator('#text-command-input')).to_be_focused()
+    page.keyboard.press('Escape');expect(page.locator('#learner-play')).to_be_focused()
+    # Deterministic speech mocks keep an explanation speaking until explicitly
+    # ended, so cancellation and late completion are observable (no microphone).
+    page.evaluate('''() => {
+      document.querySelector('#focus-voice').checked=false;
+      document.querySelector('#focus-voice').dispatchEvent(new Event('change'));
+      window.__spoken=[];speechSynthesis.speak=u=>{window.__spoken.push(u);u.onstart?.();};
+      window.__voiceCommand='';window.__recognitions=[];
+      window.SpeechRecognition=class {
+        constructor(){window.__recognitions.push(this);}
+        start(){this.onstart?.();}
+        stop(){if(window.__voiceCommand){this.onresult?.({results:[[{transcript:window.__voiceCommand}]]});this.onend?.();}}
+        abort(){this.aborted=true;}
+      };
+    }''')
+    def voice(text,focus='#learner-play'):
+     page.locator(focus).focus();page.evaluate('(text)=>window.__voiceCommand=text',text)
+     page.keyboard.down('Space');page.wait_for_timeout(660);page.keyboard.up('Space')
+    def typed(text,focus='#learner-play'):
+     page.locator(focus).focus()
+     for _ in range(3):page.keyboard.press('Space')
+     expect(page.locator('#text-command-input')).to_be_focused()
+     page.locator('#text-command-input').fill(text);page.keyboard.press('Enter')
+    # Transport commands bypass grounded-chat keyword matching in both Space
+    # entry paths. Checking only playback would miss this: voice entry pauses it.
+    transport_requests=[]
+    page.on('request',lambda request:transport_requests.append(request.url) if '/agent-turn' in request.url else None)
+    transport_chat_count=page.locator('#chat-log > *').count()
+    for stop_command in ['영상 중지','강의 중지','중지']:
+     page.locator('#learner-play').press('Enter');page.wait_for_function('isPlaybackRunning()')
+     typed(stop_command);page.wait_for_function('!isPlaybackRunning()')
+     assert not page.evaluate('state.agentTurnPending'),stop_command
+     assert page.locator('#chat-log > *').count()==transport_chat_count,stop_command
+     voice('영상 재생');page.wait_for_function('isPlaybackRunning()')
+     voice(stop_command);page.wait_for_function('!isPlaybackRunning()')
+     assert not page.evaluate('state.agentTurnPending'),stop_command
+     assert page.locator('#chat-log > *').count()==transport_chat_count,stop_command
+    assert not transport_requests,transport_requests
+    # Global voice from a normal playback button starts the three-line summary.
+    voice('세 줄 요약')
+    page.wait_for_function('state.speechInProgress && __spoken.length>0')
+    assert len(page.locator('#current-description').inner_text().splitlines())==3
+    page.evaluate('window.__lateUtterance=__spoken.at(-1)')
+    page.locator('#learner-stop').focus();page.keyboard.press('Space');page.keyboard.press('Space')
+    assert page.evaluate('!state.speechInProgress && !state.resumeAfterSpeech && !isPlaybackRunning()')
+    page.evaluate('window.__lateUtterance.onend?.()');page.wait_for_timeout(600)
+    assert page.evaluate('!state.speechInProgress && !isPlaybackRunning()')
+    # Emergency stop is observed inside editors without eating ordinary spaces.
+    typed('세 줄 요약');page.wait_for_function('state.speechInProgress')
+    page.locator('#learner-note').fill('a');page.locator('#learner-note').focus();page.keyboard.type(' b c')
+    assert page.locator('#learner-note').input_value()=='a b c'
+    assert page.evaluate('state.speechInProgress')
+    page.locator('#learner-note').fill('메모');page.locator('#learner-note').focus()
+    page.keyboard.press('Space');page.keyboard.press('Space')
+    assert page.locator('#learner-note').input_value()=='메모  '
+    assert page.evaluate('!state.speechInProgress && !isPlaybackRunning()')
+    # Returning from a summary explicitly stops explanation and resumes lecture.
+    typed('세줄 요약 시작');page.wait_for_function('state.speechInProgress')
+    voice('요약 멈추고 강의로 돌아와')
+    page.wait_for_function('!state.speechInProgress && isPlaybackRunning()')
+    voice('영상 멈춤');page.wait_for_function('!isPlaybackRunning()')
+    # Cancelling while an agent result is pending suppresses both provider and
+    # local-fallback speech/actions when that result eventually arrives.
+    page.evaluate('''() => {window.__originalAgent=requestAgentTurn;
+      requestAgentTurn=()=>new Promise((resolve,reject)=>{window.__resolveAgent=resolve;window.__rejectAgent=reject;});
+    }''')
+    for fail in [False,True]:
+     page.evaluate('() => {window.__chatPromise=submitChatMessage("3줄 요약 읽어줘",{forceSpeak:true});}')
+     page.wait_for_function('state.agentTurnPending')
+     before=page.evaluate('__spoken.length');page.locator('#learner-play').focus()
+     page.keyboard.press('Space');page.keyboard.press('Space')
+     page.evaluate('''fail=>fail?window.__rejectAgent(new Error('mock failure')):window.__resolveAgent({title:'모의 요약',response_text:'안전한 요약',action:'read_summary'})''',fail)
+     page.wait_for_function('!state.agentTurnPending');page.wait_for_timeout(500)
+     assert page.evaluate('__spoken.length')==before
+     assert page.evaluate('!state.speechInProgress && !isPlaybackRunning()')
+    page.evaluate('() => {requestAgentTurn=window.__originalAgent;}')
+    # Hold cancellation must not reopen a delayed fallback dialog after blur/Tab.
+    page.evaluate("window.__voiceCommand=''");page.locator('#learner-play').focus()
+    page.keyboard.down('Space');page.wait_for_timeout(660);page.keyboard.press('Tab');page.keyboard.up('Space')
+    page.wait_for_timeout(1650);assert not page.locator('#text-command-dialog').evaluate('e=>e.open')
+    assert page.evaluate('__recognitions.at(-1).aborted')
+    page.locator('#learner-play').focus();page.keyboard.down('Space');page.wait_for_timeout(660);page.keyboard.up('Space')
+    page.evaluate('window.dispatchEvent(new Event("blur"))');page.wait_for_timeout(1650)
+    assert not page.locator('#text-command-dialog').evaluate('e=>e.open')
+    # Home, with no in-memory lesson, also accepts shortcuts and numbered choice.
+    page.locator('#learner-home').press('Enter');page.reload()
+    expect(page.locator('#student-list-open')).to_be_focused()
+    typed('강의 목록','#student-list-open');expect(page.locator('#assigned-list button').first).to_be_focused()
+    typed('1번 강의 열어줘','#student-list-open');expect(page.locator('#agent-view')).to_be_visible()
+    expect(page.locator('#learner-play')).to_be_focused()
     # A Shift released after losing window focus cannot move a newly focused control.
     page.locator('#learner-describe').focus();page.keyboard.down('Shift');page.evaluate('window.dispatchEvent(new Event("blur"))');page.keyboard.up('Shift');expect(page.locator('#learner-describe')).to_be_focused()
     for width in [320,390,1280,1920]:
      page.set_viewport_size({'width':width,'height':900});assert not page.evaluate('document.documentElement.scrollWidth>innerWidth')
+    for width,height,label in [(1280,900,'desktop'),(390,844,'mobile')]:
+     page.set_viewport_size({'width':width,'height':height});page.evaluate('window.scrollTo(0,0)')
+     page.screenshot(path=str(ROOT/f'docs/verification/space-shortcuts-{label}.png'),full_page=True)
+    axe_path=Path('/tmp/sullivan-a11y-audit/node_modules/axe-core/axe.min.js')
+    if axe_path.exists():
+     page.add_script_tag(path=str(axe_path))
+     axe=page.evaluate("async()=>{const r=await axe.run(document,{runOnly:{type:'tag',values:['wcag2a','wcag2aa','wcag21aa','wcag22aa']}});return {violations:r.violations,passes:r.passes.length};}")
+     (ROOT/'docs/verification/space-shortcuts-axe.json').write_text(json.dumps(axe,ensure_ascii=False,indent=2))
+     assert not axe['violations'],axe['violations']
     assert not errors,errors
-    result={'three_playback_buttons_in_requested_order':True,'shift_alone_previous':True,'native_shift_tab_single_move':True,'shift_typing_selection_and_modifier_chords_preserved':True,'modal_scope_and_escape':True,'window_blur_cancels_shift':True,'role_and_learning_first_focus':True,'four_core_actions_within_four_tabs':True,'lecture_before_help_in_tab_order':True,'viewport_widths':[320,390,1280,1920],'page_errors':errors,'real_screen_reader':'not tested','providers':'mocked; no real accounts or provider calls'}
+    result={'three_playback_buttons_in_requested_order':True,'shift_alone_previous':True,'native_shift_tab_single_move':True,'shift_typing_selection_and_modifier_chords_preserved':True,'modal_scope_and_escape':True,'window_blur_cancels_shift':True,'role_and_learning_first_focus':True,'four_core_actions_within_four_tabs':True,'lecture_before_help_in_tab_order':True,'space_global_home_and_playback_button':True,'voice_three_line_summary':True,'double_space_stops_summary_and_late_completion':True,'editor_emergency_stop_preserves_spaces':True,'voice_return_from_summary_resumes_lecture':True,'recognition_focus_and_window_cancel':True,'home_command_opens_numbered_lecture':True,'stopped_agent_result_cannot_restart_provider_or_fallback_speech':True,'viewport_widths':[320,390,1280,1920],'page_errors':errors,'real_screen_reader':'not tested','providers':'mocked; no real accounts or provider calls'}
+    result['transport_stop_aliases_bypass_chat_in_voice_and_text']=['영상 중지','강의 중지','중지']
     (ROOT/'docs/verification/keyboard-navigation-results.json').write_text(json.dumps(result,ensure_ascii=False,indent=2));print(json.dumps(result,ensure_ascii=False))
     browser.close()
   finally:

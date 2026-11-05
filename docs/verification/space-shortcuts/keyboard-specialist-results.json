@@ -1,0 +1,688 @@
+{
+  "skill": "keyboard-navigator",
+  "verdict": "pass",
+  "case_count": 35,
+  "browser": "Chrome/156.0.8078.80",
+  "main_28": {
+    "cases": [
+      {
+        "name": "native play single from paused",
+        "early": {
+          "focus": "learner-play",
+          "playing": false,
+          "dialog": false,
+          "voice": false,
+          "pending": true,
+          "starts": 0,
+          "stops": 0,
+          "aborts": 0,
+          "clicks": []
+        },
+        "after": {
+          "focus": "learner-play",
+          "playing": true,
+          "dialog": false,
+          "voice": false,
+          "pending": false,
+          "starts": 0,
+          "stops": 0,
+          "aborts": 0,
+          "clicks": [
+            {
+              "id": "learner-play",
+              "text": "강의 재생",
+              "time": 509.09999999403954
+            }
+          ]
+        },
+        "passed": true
+      },
+      {
+        "name": "native play single from playing",
+        "after": {
+          "focus": "learner-play",
+          "playing": false,
+          "dialog": false,
+          "voice": false,
+          "pending": false,
+          "starts": 0,
+          "stops": 0,
+          "aborts": 0,
+          "clicks": [
+            {
+              "id": "learner-play",
+              "text": "강의 재생",
+              "time": 509.09999999403954
+            },
+            {
+              "id": "learner-play",
+              "text": "강의 일시정지",
+              "time": 1063.7999999821186
+            }
+          ]
+        },
+        "passed": true
+      },
+      {
+        "name": "native Enter immediate",
+        "after": {
+          "focus": "learner-play",
+          "playing": true,
+          "dialog": false,
+          "voice": false,
+          "pending": false,
+          "starts": 0,
+          "stops": 0,
+          "aborts": 0,
+          "clicks": [
+            {
+              "id": "learner-play",
+              "text": "강의 재생",
+              "time": 509.09999999403954
+            },
+            {
+              "id": "learner-play",
+              "text": "강의 일시정지",
+              "time": 1063.7999999821186
+            },
+            {
+              "id": "learner-play",
+              "text": "강의 재생",
+              "time": 1146.199999988079
+            }
+          ]
+        },
+        "passed": true
+      },
+      {
+        "name": "double on native play stops without button activation",
+        "after": {
+          "focus": "learner-play",
+          "playing": false,
+          "dialog": false,
+          "voice": false,
+          "pending": false,
+          "starts": 0,
+          "stops": 0,
+          "aborts": 0,
+          "clicks": [
+            {
+              "id": "learner-play",
+              "text": "강의 재생",
+              "time": 80.5
+            }
+          ]
+        },
+        "passed": true
+      },
+      {
+        "name": "triple on native play and focus return",
+        "beforeEscape": {
+          "focus": "text-command-input",
+          "playing": false,
+          "dialog": true,
+          "voice": false,
+          "pending": false,
+          "starts": 0,
+          "stops": 0,
+          "aborts": 0,
+          "clicks": []
+        },
+        "after": {
+          "focus": "learner-play",
+          "playing": false,
+          "dialog": false,
+          "voice": false,
+          "pending": false,
+          "starts": 0,
+          "stops": 0,
+          "aborts": 0,
+          "clicks": []
+        },
+        "passed": true
+      },
+      {
+        "name": "triple does not first navigate panel",
+        "after": {
+          "focus": "text-command-input",
+          "playing": false,
+          "dialog": true,
+          "voice": false,
+          "pending": false,
+          "starts": 0,
+          "stops": 0,
+          "aborts": 0,
+          "clicks": []
+        },
+        "passed": true
+      },
+      {
+        "name": "focus loss cancels before hold threshold",
+        "after": {
+          "focus": "learner-stop",
+          "playing": false,
+          "dialog": false,
+          "voice": false,
+          "pending": false,
+          "starts": 0,
+          "stops": 0,
+          "aborts": 0,
+          "clicks": []
+        },
+        "passed": true
+      },
+      {
+        "name": "window blur cancels pending single",
+        "after": {
+          "focus": "learner-play",
+          "playing": false,
+          "dialog": false,
+          "voice": false,
+          "pending": false,
+          "starts": 0,
+          "stops": 0,
+          "aborts": 0,
+          "clicks": []
+        },
+        "passed": true
+      },
+      {
+        "name": "focus loss after recognition starts",
+        "before": {
+          "focus": "learner-play",
+          "playing": false,
+          "dialog": false,
+          "voice": true,
+          "pending": true,
+          "starts": 1,
+          "stops": 0,
+          "aborts": 0,
+          "clicks": []
+        },
+        "moved": {
+          "focus": "learner-stop",
+          "playing": false,
+          "dialog": false,
+          "voice": false,
+          "pending": false,
+          "starts": 1,
+          "stops": 0,
+          "aborts": 1,
+          "clicks": []
+        },
+        "after": {
+          "focus": "learner-stop",
+          "playing": false,
+          "dialog": false,
+          "voice": false,
+          "pending": false,
+          "starts": 1,
+          "stops": 0,
+          "aborts": 1,
+          "clicks": []
+        },
+        "passed": true
+      },
+      {
+        "name": "window blur after hold release cancels finalization",
+        "before": {
+          "focus": "learner-play",
+          "playing": false,
+          "dialog": false,
+          "voice": true,
+          "pending": false,
+          "starts": 1,
+          "stops": 1,
+          "aborts": 0,
+          "clicks": []
+        },
+        "after": {
+          "focus": "learner-play",
+          "playing": false,
+          "dialog": false,
+          "voice": false,
+          "pending": false,
+          "starts": 1,
+          "stops": 1,
+          "aborts": 1,
+          "clicks": []
+        },
+        "passed": true
+      },
+      {
+        "name": "hold starts voice; empty result fallback restores origin",
+        "before": {
+          "focus": "learner-play",
+          "playing": false,
+          "dialog": false,
+          "voice": true,
+          "pending": true,
+          "starts": 1,
+          "stops": 0,
+          "aborts": 0,
+          "clicks": []
+        },
+        "fallback": {
+          "focus": "text-command-input",
+          "playing": false,
+          "dialog": true,
+          "voice": false,
+          "pending": false,
+          "starts": 1,
+          "stops": 1,
+          "aborts": 1,
+          "clicks": []
+        },
+        "after": {
+          "focus": "learner-play",
+          "playing": false,
+          "dialog": false,
+          "voice": false,
+          "pending": false,
+          "starts": 1,
+          "stops": 1,
+          "aborts": 1,
+          "clicks": []
+        },
+        "passed": true
+      },
+      {
+        "name": "text input spaces preserved",
+        "after": {
+          "focus": "chat-input",
+          "playing": false,
+          "dialog": false,
+          "voice": false,
+          "starts": 0,
+          "stops": 0,
+          "aborts": 0,
+          "clicks": [
+            {
+              "id": "",
+              "text": "질문하기",
+              "time": 73.2000000178814
+            }
+          ]
+        },
+        "text": "a b c   ",
+        "passed": true
+      },
+      {
+        "name": "native checkbox deferred single preserved",
+        "after": {
+          "focus": "auto-narration",
+          "playing": false,
+          "dialog": false,
+          "voice": false,
+          "pending": false,
+          "starts": 0,
+          "stops": 0,
+          "aborts": 0,
+          "clicks": []
+        },
+        "before": false,
+        "checked": true,
+        "passed": true
+      },
+      {
+        "name": "native select Space preserved",
+        "after": {
+          "focus": "speech-rate",
+          "playing": false,
+          "dialog": false,
+          "voice": false,
+          "pending": false,
+          "starts": 0,
+          "stops": 0,
+          "aborts": 0,
+          "clicks": []
+        },
+        "value": "0.95",
+        "passed": true
+      },
+      {
+        "name": "modifier Space chords excluded",
+        "after": {
+          "focus": "command-surface",
+          "playing": false,
+          "dialog": false,
+          "voice": false,
+          "starts": 0,
+          "stops": 0,
+          "aborts": 0,
+          "clicks": []
+        },
+        "passed": true
+      },
+      {
+        "name": "modal text input Space preserved",
+        "after": {
+          "focus": "text-command-input",
+          "playing": false,
+          "dialog": true,
+          "voice": false,
+          "pending": false,
+          "starts": 0,
+          "stops": 0,
+          "aborts": 0,
+          "clicks": []
+        },
+        "text": "a b   ",
+        "passed": true
+      },
+      {
+        "name": "student home/header triple #student-list-open",
+        "beforeEscape": {
+          "focus": "text-command-input",
+          "playing": false,
+          "dialog": true,
+          "voice": false,
+          "pending": false,
+          "starts": 0,
+          "stops": 0,
+          "aborts": 0
+        },
+        "after": {
+          "focus": "student-list-open",
+          "playing": false,
+          "dialog": false,
+          "voice": false,
+          "pending": false,
+          "starts": 0,
+          "stops": 0,
+          "aborts": 0
+        },
+        "passed": true
+      },
+      {
+        "name": "student home/header triple #portal-logout",
+        "beforeEscape": {
+          "focus": "text-command-input",
+          "playing": false,
+          "dialog": true,
+          "voice": false,
+          "pending": false,
+          "starts": 0,
+          "stops": 0,
+          "aborts": 0
+        },
+        "after": {
+          "focus": "portal-logout",
+          "playing": false,
+          "dialog": false,
+          "voice": false,
+          "pending": false,
+          "starts": 0,
+          "stops": 0,
+          "aborts": 0
+        },
+        "passed": true
+      },
+      {
+        "name": "onboarding triple and focus return",
+        "beforeEscape": {
+          "focus": "text-command-input",
+          "playing": false,
+          "dialog": true,
+          "voice": false,
+          "pending": false,
+          "starts": 0,
+          "stops": 0,
+          "aborts": 0
+        },
+        "after": {
+          "focus": "onboarding-done",
+          "playing": false,
+          "dialog": false,
+          "voice": false,
+          "pending": false,
+          "starts": 0,
+          "stops": 0,
+          "aborts": 0
+        },
+        "passed": true
+      },
+      {
+        "name": "typed lecture list from fresh home",
+        "focus": "강의 1. 통합과학 · 천문학 — 천문학 특강 7강 · 별의 진화",
+        "passed": true
+      },
+      {
+        "name": "typed numbered lecture selection from home",
+        "after": {
+          "focus": "learner-play",
+          "playing": false,
+          "dialog": false,
+          "voice": false,
+          "pending": false,
+          "starts": 0,
+          "stops": 0,
+          "aborts": 0
+        },
+        "passed": true
+      },
+      {
+        "name": "double stops three-line summary and late utterance completion",
+        "summary": {
+          "lines": [
+            "1. 별은 성운의 중력 수축으로 태어나 중심 수소 핵융합이 시작되면 주계열성이 됩니다.",
+            "2. 별의 초기 질량에 따라 주계열 단계 이후의 진화 경로가 달라집니다.",
+            "3. 초신성에서 퍼진 원소는 새로운 별과 행성을 만드는 재료가 됩니다."
+          ],
+          "speech": true,
+          "token": 3
+        },
+        "stopped": {
+          "focus": "portal-logout",
+          "playing": false,
+          "dialog": false,
+          "voice": false,
+          "pending": true,
+          "starts": 0,
+          "stops": 0,
+          "aborts": 0,
+          "clicks": []
+        },
+        "after": {
+          "focus": "portal-logout",
+          "playing": false,
+          "dialog": false,
+          "voice": false,
+          "pending": false,
+          "starts": 0,
+          "stops": 0,
+          "aborts": 0,
+          "clicks": []
+        },
+        "passed": true
+      },
+      {
+        "name": "editor emergency stop preserves spaces",
+        "after": {
+          "focus": "learner-note",
+          "playing": false,
+          "dialog": false,
+          "voice": false,
+          "starts": 0,
+          "stops": 0,
+          "aborts": 0,
+          "clicks": [
+            {
+              "id": "learner-records",
+              "text": "학습 기록",
+              "time": 64.5
+            }
+          ]
+        },
+        "note": "note  ",
+        "stopped": true,
+        "passed": true
+      },
+      {
+        "name": "stop summary and resume lecture alias",
+        "after": {
+          "focus": "learner-play",
+          "playing": true,
+          "dialog": false,
+          "voice": false,
+          "starts": 0,
+          "stops": 0,
+          "aborts": 0,
+          "clicks": []
+        },
+        "passed": true
+      },
+      {
+        "name": "video stop alias",
+        "after": {
+          "focus": "learner-play",
+          "playing": false,
+          "dialog": false,
+          "voice": false,
+          "starts": 0,
+          "stops": 0,
+          "aborts": 0,
+          "clicks": []
+        },
+        "passed": true
+      },
+      {
+        "name": "Enter cancels pending single without duplicate activation",
+        "after": {
+          "focus": "learner-play",
+          "playing": true,
+          "dialog": false,
+          "voice": false,
+          "pending": false,
+          "starts": 0,
+          "stops": 0,
+          "aborts": 0,
+          "clicks": [
+            {
+              "id": "learner-play",
+              "text": "강의 재생",
+              "time": 180.09999999403954
+            }
+          ]
+        },
+        "passed": true
+      },
+      {
+        "name": "ordinary word spacing does not trigger emergency stop",
+        "ordinary": {
+          "speech": true,
+          "value": "a b c"
+        },
+        "emergency": {
+          "speech": false,
+          "value": "a b c  "
+        },
+        "passed": true
+      },
+      {
+        "name": "voice hold stops existing narration before listening",
+        "listening": {
+          "speech": false,
+          "voice": true,
+          "starts": 1
+        },
+        "passed": true
+      }
+    ],
+    "errors": [],
+    "blocked": [
+      "data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPHN2ZyB2ZXJzaW9uPSIxLjEiIGlkPSJMYXllcl8xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB4PSIwcHgiIHk9IjBweCIKCSB2aWV3Qm94PSIwIDAgMjQgMjQiIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDI1NSAyNTU7IiB4bWw6c3BhY2U9InByZXNlcnZlIiBmaWxsPSJXaW5kb3ciPgo8Zz4KCTxjaXJjbGUgY3g9IjEyIiBjeT0iNiIgcj0iMiIvPgoJPGNpcmNsZSBjeD0iMTIiIGN5PSIxMiIgcj0iMiIvPgoJPGNpcmNsZSBjeD0iMTIiIGN5PSIxOCIgcj0iMiIvPgo8L2c+Cjwvc3ZnPgo="
+    ],
+    "browser": "Chrome/156.0.8078.80",
+    "passed": true,
+    "caseCount": 28
+  },
+  "late_response_and_role_4": {
+    "cases": [
+      {
+        "name": "cancelled late agent 200",
+        "stopped": {
+          "generation": 3,
+          "speech": false,
+          "resume": false,
+          "status": "요청 실행을 중지했습니다. 늦게 도착한 응답으로 설명이나 재생을 다시 시작하지 않습니다."
+        },
+        "after": {
+          "spoken": 0,
+          "speech": false,
+          "playing": false,
+          "pending": false,
+          "output": null,
+          "status": "요청 실행을 중지했습니다. 늦게 도착한 응답으로 설명이나 재생을 다시 시작하지 않습니다."
+        },
+        "passed": true
+      },
+      {
+        "name": "cancelled late agent 503",
+        "stopped": {
+          "generation": 3,
+          "speech": false,
+          "resume": false,
+          "status": "요청 실행을 중지했습니다. 늦게 도착한 응답으로 설명이나 재생을 다시 시작하지 않습니다."
+        },
+        "after": {
+          "spoken": 0,
+          "speech": false,
+          "playing": false,
+          "pending": false,
+          "output": null,
+          "status": "요청 실행을 중지했습니다. 늦게 도착한 응답으로 설명이나 재생을 다시 시작하지 않습니다."
+        },
+        "passed": true
+      },
+      {
+        "name": "guardian native single Space immediate",
+        "passed": true
+      },
+      {
+        "name": "signed-out native single Space immediate",
+        "passed": true
+      }
+    ],
+    "errors": [],
+    "externalBlocked": [],
+    "browser": "Chrome/156.0.8078.80",
+    "passed": true
+  },
+  "fallback_and_voice_home_focus_2": {
+    "passed": true,
+    "fallback": {
+      "dialog": true,
+      "pending": false,
+      "value": "",
+      "focus": "text-command-input",
+      "restored": "student-list-open"
+    },
+    "voiceList": {
+      "focus": "강의 1. 통합과학 · 천문학 — 천문학 특강 7강 · 별의 진화",
+      "role": "student",
+      "agentVisible": false
+    }
+  },
+  "modal_draft_preservation_1": {
+    "before": {
+      "focus": "text-command-input",
+      "pending": false,
+      "voice": false,
+      "starts": 1,
+      "aborts": 1,
+      "value": "draft command",
+      "status": "명령을 입력하고 Enter로 보내세요. Esc로 취소합니다."
+    },
+    "after": {
+      "focus": "text-command-input",
+      "pending": false,
+      "voice": false,
+      "starts": 1,
+      "aborts": 1,
+      "value": "draft command",
+      "status": "명령을 입력하고 Enter로 보내세요. Esc로 취소합니다."
+    }
+  },
+  "privacy": "Disposable account/usage databases only. Speech recognition, synthesis, YouTube and delayed agent responses mocked. No provider calls or real microphone access."
+}

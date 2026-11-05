@@ -8,6 +8,14 @@
   "role_and_learning_first_focus": true,
   "four_core_actions_within_four_tabs": true,
   "lecture_before_help_in_tab_order": true,
+  "space_global_home_and_playback_button": true,
+  "voice_three_line_summary": true,
+  "double_space_stops_summary_and_late_completion": true,
+  "editor_emergency_stop_preserves_spaces": true,
+  "voice_return_from_summary_resumes_lecture": true,
+  "recognition_focus_and_window_cancel": true,
+  "home_command_opens_numbered_lecture": true,
+  "stopped_agent_result_cannot_restart_provider_or_fallback_speech": true,
   "viewport_widths": [
     320,
     390,
@@ -16,5 +24,10 @@
   ],
   "page_errors": [],
   "real_screen_reader": "not tested",
-  "providers": "mocked; no real accounts or provider calls"
+  "providers": "mocked; no real accounts or provider calls",
+  "transport_stop_aliases_bypass_chat_in_voice_and_text": [
+    "영상 중지",
+    "강의 중지",
+    "중지"
+  ]
 }

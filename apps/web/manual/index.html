@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Sullivan AI 기능 설명서. 보호자 강의 준비·배정, 학생 학습, 키보드 조작, 저장 및 안전 정책을 안내합니다.">
+<title>Sullivan AI 기능 설명서</title>
+<style>
+:root{--ink:#172c48;--muted:#465c73;--brand:#164b8b;--paper:#fff;--canvas:#eef3f8;--line:#bac9d8;--focus:#8c4700;--warm:#fff2d5;--green:#16583e}
+*{box-sizing:border-box}html{scroll-padding-top:24px}body{margin:0;background:var(--paper);color:var(--ink);font:18px/1.8 system-ui,-apple-system,"Apple SD Gothic Neo","Malgun Gothic",sans-serif;word-break:keep-all;overflow-wrap:anywhere}a{color:var(--brand);text-underline-offset:.22em}a:hover{text-decoration-thickness:2px}a:focus-visible,button:focus-visible,summary:focus-visible,[tabindex]:focus-visible{outline:4px solid var(--focus);outline-offset:4px}button{font:inherit;cursor:pointer}h1,h2,h3,p,ol,ul,dl{margin:0}h1{font-size:clamp(2.2rem,5vw,3.5rem);line-height:1.25;letter-spacing:-.035em}h2{font-size:1.8rem;line-height:1.4;margin:0 0 24px;letter-spacing:-.025em}h3{font-size:1.25rem;line-height:1.5;margin:24px 0 8px}p+p,p+ul,p+ol,ul+p,ol+p{margin-top:16px}ul,ol{padding-left:1.5em}li+li{margin-top:8px}strong{font-weight:700}code,kbd{font: .95em/1.6 ui-monospace,monospace;overflow-wrap:anywhere}kbd{display:inline-block;border:1px solid var(--line);border-bottom-width:3px;border-radius:4px;padding:0 7px;background:var(--paper)}pre{margin:16px 0;padding:20px;background:var(--canvas);white-space:pre-wrap;overflow-wrap:anywhere;border-left:4px solid var(--brand)}.wrap{width:min(1160px,calc(100% - 48px));margin:auto}.skip{position:absolute;top:-100px;left:16px;padding:12px 20px;background:var(--paper);z-index:10}.skip:focus{top:12px}.top{border-bottom:1px solid var(--line)}.top .wrap{display:flex;align-items:center;justify-content:space-between;gap:24px;padding-block:16px}.wordmark{font-size:22px;font-weight:750;color:var(--ink);text-decoration:none}.actions{display:flex;flex-wrap:wrap;gap:12px}.button{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:8px 18px;border:1px solid var(--brand);border-radius:6px;background:var(--paper);color:var(--brand);font-weight:650;text-decoration:none}.button:hover{background:var(--canvas)}[hidden]{display:none!important}.hero{background:var(--canvas);padding:56px 0}.eyebrow{font-weight:700;color:var(--brand);margin-bottom:12px}.hero p{max-width:62ch;margin-top:20px}.meta{color:var(--muted)}.layout{display:grid;grid-template-columns:240px minmax(0,1fr);gap:56px;padding-block:48px 80px}.toc{align-self:start;position:sticky;top:24px;border-top:3px solid var(--brand);padding-top:16px}.toc h2{font-size:1.1rem;margin-bottom:12px}.toc ol{padding:0;list-style:none}.toc li+li{margin:0}.toc a{display:flex;align-items:center;min-height:48px;padding:8px 0;border-bottom:1px solid var(--line);text-decoration:none}.toc a:hover{text-decoration:underline}main{min-width:0}section{padding:0 0 40px;margin:0 0 40px;border-bottom:1px solid var(--line);scroll-margin-top:24px}section:last-child{margin-bottom:0}.chapter{display:block;font-size:1.125rem;font-weight:650;color:var(--brand);margin-bottom:6px}.note{margin:24px 0;padding:20px 24px;border-left:4px solid var(--brand);background:var(--canvas)}.note.warning{background:var(--warm);border-color:var(--focus)}.note strong{display:block;margin-bottom:6px}.roles{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin:24px 0}.roles div{border-top:2px solid var(--brand);padding-top:16px}.roles h3{margin:0 0 8px}.table{width:100%;border-collapse:collapse;margin:24px 0;font-size:1.125rem;table-layout:fixed}.table caption{text-align:left;font-weight:700;padding-bottom:12px}.table th,.table td{padding:14px 12px;text-align:left;vertical-align:top;border-bottom:1px solid var(--line);overflow-wrap:anywhere}.table thead th{background:var(--canvas)}.table th:first-child{width:30%}.table tbody th{font-weight:650}.steps{padding-left:1.4em}.steps li{padding-left:4px}.steps li+li{margin-top:18px}.feature{padding:0 0 8px 20px;border-left:3px solid var(--brand);margin-top:24px}.feature h3{margin-top:0}.status{font-weight:700;color:var(--green)}details{border-bottom:1px solid var(--line);padding:8px 0}summary{min-height:52px;padding:12px 0;cursor:pointer;font-weight:700}details>div{padding:4px 0 20px}.footer{padding:24px 0;border-top:1px solid var(--line);color:var(--muted)}.small{font-size:1.125rem}.back{display:inline-flex;align-items:center;min-height:48px}
+@media(max-width:900px){.layout{grid-template-columns:1fr;gap:40px}.toc{position:static}.toc ol{display:grid;grid-template-columns:1fr 1fr;column-gap:24px}.hero{padding:40px 0}}
+@media(max-width:540px){.wrap{width:calc(100% - 40px)}.top .wrap{align-items:start;flex-direction:column;gap:12px}.actions{width:100%}.button{flex:1}.hero{padding:32px 0}h2{font-size:1.55rem}.layout{padding-top:32px}.toc ol,.roles{grid-template-columns:1fr}.table th,.table td{padding:12px 8px}.table th:first-child{width:34%}.note{padding:16px}.feature{padding-left:16px}}
+@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important}}
+@media(forced-colors:active){a:focus-visible,button:focus-visible,summary:focus-visible,[tabindex]:focus-visible{outline-color:Highlight}.button,kbd{border-color:ButtonText}}
+@media print{@page{size:A4;margin:18mm}.top,.toc,.skip,.back{display:none!important}.wrap{width:100%;max-width:none}.hero{padding:0 0 24px;background:none;border-bottom:2px solid #000}.layout{display:block;padding:24px 0 0}body{font-size:11pt;color:#000;background:#fff}h1{font-size:26pt}h2{font-size:18pt}h3{font-size:13pt}h2,h3{break-after:avoid}section{padding-bottom:20px;margin-bottom:24px}.table{font-size:10pt}.table tr,.note,.feature{break-inside:avoid}.note{background:none;border:1px solid #999;padding:12px}a{color:#000}.footer{font-size:10pt}pre{background:none;border:1px solid #999}.chapter,.meta,.eyebrow,.status{color:#000}}
+</style>
+</head>
+<body>
+<a class="skip" href="#content">본문 바로가기</a>
+<header class="top"><div class="wrap"><a class="wordmark" href="../intro/">Sullivan AI</a><div class="actions"><a class="button" href="../">앱 열기</a><button class="button" id="print" type="button" hidden>인쇄·PDF 저장</button></div></div></header>
+<div class="hero"><div class="wrap"><p class="eyebrow">보호자와 학생을 위한 기능 설명서</p><h1>강의를 준비하고,<br>학생의 속도로 이어가세요.</h1><p>설리번 AI는 인터넷 강의에서 말로 전달되지 않은 화면 정보를 보완하고, 긴 지문을 듣고 탐색하며 복습하도록 돕는 학습 도우미입니다.</p><p class="meta small">작성 기준: 2026년 11월 5일 · 학생 전역 Space 단축키 수정 포함 · 로컬 학생·보호자 버전</p></div></div>
+<div class="wrap layout">
+<nav class="toc" aria-label="설명서 목차"><h2>필요한 기능 찾기</h2><ol>
+<li><a href="#overview">01 서비스 구성</a></li><li><a href="#start">02 시작·로그인</a></li><li><a href="#guardian">03 보호자 준비실</a></li><li><a href="#prepare">04 강의 등록 3단계</a></li><li><a href="#assign">05 검토·배정·관리</a></li><li><a href="#student">06 학생 학습 기능</a></li><li><a href="#records">07 학습 기록·음성</a></li><li><a href="#keyboard">08 키보드 조작</a></li><li><a href="#voice-examples">음성·타자 명령 예시</a></li><li><a href="#safety">09 안전·저장 정책</a></li><li><a href="#trouble">10 문제 해결</a></li><li><a href="#availability">11 기능 제공 조건</a></li>
+</ol></nav>
+<main id="content" tabindex="-1">
+<section id="overview"><h2><span class="chapter">01 / 서비스 구성</span>보호자가 준비하고, 학생이 선택합니다</h2>
+<div class="roles"><div><h3>보호자</h3><p>학생 계정과 기본 설정을 관리합니다. 강의를 준비해 결과를 확인하고, 학생에게 배정합니다.</p></div><div><h3>학생</h3><p>배정된 강의를 직접 골라 듣습니다. 문단·개념을 탐색하고 밑줄·북마크·메모로 학습을 이어갑니다.</p></div></div>
+<div class="note warning"><strong>샘플과 실제 분석은 다릅니다</strong><p>샘플은 사전에 준비한 결과로 기능을 체험하는 방식입니다. 샘플을 열었다고 새 영상이나 업로드한 영상을 분석한 것은 아닙니다. 새 영상의 실제 분석에는 별도 설정·이용 권한·분석 동의가 필요합니다.</p></div>
+<p>권장 환경은 PC와 최신 Chrome입니다. 공개 회원가입 서비스가 아닌 로컬 계정 기반 시제품이며, 실제 보조공학 사용자 환경의 검증은 아직 진행 전입니다.</p></section>
+<section id="start"><h2><span class="chapter">02 / 시작·로그인</span>처음에는 보호자 계정부터 만드세요</h2>
+<ol class="steps"><li>프로젝트 폴더에서 샘플 실행기를 시작합니다.<pre><code>bash START_LOCAL.command --sample</code></pre></li><li><a href="http://127.0.0.1:8770/">로컬 앱 http://127.0.0.1:8770/</a>을 엽니다. 최초 설정 화면이면 보호자 로그인 이름·비밀번호·이름을 입력합니다.</li><li>설정이 끝난 환경에서는 ‘보호자 로그인’ 또는 ‘학생 로그인’을 선택합니다. 학생 계정은 보호자가 준비실에서 만듭니다.</li></ol>
+<p>로그인 이름은 영문·숫자·밑줄·마침표·하이픈으로 3~60자, 비밀번호는 8자 이상입니다. 보호자와 학생을 바꿀 때는 로그아웃한 뒤 다시 로그인하세요.</p>
+<p>학생 로그인 화면에는 앱 음성 안내와 ‘로그인 음성 시작·시험’이 있습니다. 자동 음성이 시작되지 않으면 버튼을 직접 선택하세요.</p></section>
+<section id="guardian"><h2><span class="chapter">03 / 보호자 준비실</span>지금 할 일을 한눈에 확인하세요</h2>
+<p>준비 현황은 학생·강의·배정 데이터에 따라 ‘완료’, ‘할 차례’, ‘아직’, ‘기본값’으로 표시됩니다. 다음 할 일 링크를 선택하면 해당 영역으로 이동합니다.</p>
+<table class="table"><caption>보호자 기능과 사용 방법</caption><thead><tr><th scope="col">기능</th><th scope="col">할 수 있는 일</th></tr></thead><tbody>
+<tr><th scope="row">학생 계정 만들기</th><td>학생 이름·로그인 이름·비밀번호를 등록합니다. 학생이 없으면 생성 영역이 먼저 열립니다.</td></tr>
+<tr><th scope="row">학생별 기본 설정</th><td>자동 해설, 문제 보호, 앱 음성·스크린리더 모드, 읽기 속도·음량을 설정합니다. 다음 로그인에서 사용법을 다시 안내하도록 선택할 수 있습니다.</td></tr>
+<tr><th scope="row">학습 현황</th><td>학생 카드에서 펼치면 강의별 저장 위치·밑줄 수·북마크 수·메모 수·저장 시각을 조회합니다. 이름과 로그인 이름으로 동명이인을 구분합니다.</td></tr>
+<tr><th scope="row">도움</th><td>현재 준비 단계의 설명과 사용 가이드로 이동합니다. 계정 전환·저장·연결 안내도 확인할 수 있습니다.</td></tr>
+</tbody></table>
+<div class="note"><strong>학습 현황은 읽기 전용입니다</strong><p>보호자 본인이 연결한 학생만 조회합니다. 메모 본문은 보내지 않으며, 메모 수는 강의당 메모가 있는지에 따라 0개 또는 1개입니다. 저장 위치는 마지막 저장 시점이며 실시간 시청 여부나 완료율을 뜻하지 않습니다. 옛 기록에 시각이 없으면 ‘저장 시각 기록 없음’으로 표시됩니다.</p></div></section>
+<section id="prepare"><h2><span class="chapter">04 / 강의 등록 3단계</span>샘플부터 연습해 보세요</h2>
+<p>‘강의 준비하기’의 ‘내 강의 자료 준비’를 열면 다음 순서로 진행합니다. 단계 이동 때 제목으로 포커스가 옮겨지며, 오류가 있으면 해당 입력에서 확인할 수 있습니다.</p>
+<table class="table"><caption>강의 등록 마법사</caption><thead><tr><th scope="col">단계</th><th scope="col">입력·확인 내용</th></tr></thead><tbody>
+<tr><th scope="row">1. 강의 정보</th><td>제목·과목·콘텐츠 출처·우선 분석 모드를 입력합니다.</td></tr>
+<tr><th scope="row">2. 영상·자료와 동의</th><td>샘플, 영상 링크, 영상 파일·학습자료 중 출처를 선택합니다. 실제 영상 분석을 선택한 경우 분석 동의와 체험 비밀번호가 필요합니다.</td></tr>
+<tr><th scope="row">3. 보호 설정 확인</th><td>입력 요약·문제 보호·이용 권한을 확인합니다. 샘플은 ‘샘플 결과 열기’, 실제 자료는 ‘분석 시작’으로 진행합니다.</td></tr>
+</tbody></table>
+<h3>등록할 수 있는 자료</h3><ul><li>사전 준비된 과학·역사 샘플.</li><li>이용·분석 권한이 있는 공개 YouTube 또는 직접 영상 링크.</li><li>브라우저에서 선택하는 영상 파일. 실제 AI 분석은 100MB 이하 영상이 대상입니다.</li><li>지문 TXT·MD, 자막 SRT·VTT, 프로그램 규격에 맞는 분석 JSON. 자막·지문만 준비할 수도 있습니다.</li></ul>
+<p>샘플과 텍스트 자료 준비는 유료 API 인증 없이 사용할 수 있습니다. 실제 영상 분석이 필요하면 샘플 전용 실행 대신 기존 로컬 실행기의 설정 절차를 따르세요. API 키는 실행기의 숨김 입력으로 설정하며 브라우저에 입력하지 않습니다.</p>
+<p>‘대기 취소’ 또는 <kbd>Esc</kbd>로 돌아올 수 있습니다. 이미 전송한 분석이 서버에서 계속될 수 있으며, 취소만으로 학생에게 준비 완료 강의를 제공하지 않습니다.</p></section>
+<section id="assign"><h2><span class="chapter">05 / 검토·배정·관리</span>결과를 먼저 보고 학생에게 제공하세요</h2>
+<ol class="steps"><li>결과 요약의 설명할 화면 수·보류 수·핵심 개념 수를 확인합니다. 샘플 표시도 함께 확인하세요.</li><li>‘강의 화면’, ‘핵심 개념 찾기’, ‘화면 정보 복습’, ‘AI 학습 노트’, ‘AI 학습 대화’, ‘해설한 이유’에서 결과를 검토합니다.</li><li>하단의 ‘이 강의를 학생에게 제공’을 선택하면 배정 양식으로 이동합니다. 이 링크 자체가 배정을 저장하지는 않습니다.</li><li>제목·과목·학생을 확인하고 ‘배정하고 준비 완료’를 누릅니다. 파일 강의는 브라우저 원본 저장에 별도로 동의하고 저장을 마쳐야 제공할 수 있습니다.</li><li>준비실 ‘강의’에서 배정 학생과 ‘준비 완료’를 확인합니다. ‘관리’에서 제목·과목·배정을 수정하고 강의 순서·삭제를 관리합니다.</li></ol>
+<p>순서를 바꿀 학생은 ‘학생별 기본 설정’에서 선택합니다. 해당 학생에게 배정된 강의에서 ‘순서 앞당기기’ 또는 ‘순서 뒤로 보내기’를 사용하세요.</p>
+<div class="note"><strong>미리보기와 배정은 별개입니다</strong><p>샘플 미리보기만 열면 학생에게 제공되지 않습니다. 빠르게 체험하려면 ‘샘플 바로 배정’에서 학생과 샘플을 고른 뒤 배정 버튼을 누르세요.</p></div></section>
+<section id="student"><h2><span class="chapter">06 / 학생 학습 기능</span>네 가지 활동으로 학습을 시작합니다</h2>
+<div class="feature"><h3>강의 듣기</h3><p>배정된 준비 완료 강의를 선택합니다. 강의를 열면 자동 재생하지 않고 저장 위치에서 기다립니다. ‘강의 재생’으로 시작하고 ‘영상·해설 모두 중지’로 영상과 음성을 함께 멈춥니다.</p><p>자동 정지·해설을 켜면 준비된 해설 지점에서 화면 정보를 보완합니다. ‘현재 화면 다시 설명’으로 필요한 설명을 다시 들을 수 있습니다.</p></div>
+<div class="feature"><h3>지문·문단 듣기</h3><p>준비된 지문을 문단·문장 단위로 선택하고 듣습니다. 중요한 문단에 밑줄을 표시하거나 해제해 다시 찾을 수 있습니다. 지문이 없는 강의에는 이 기능으로 읽을 문단이 없습니다.</p></div>
+<div class="feature"><h3>원하는 내용 찾기</h3><p>개념이나 키워드를 입력해 관련 내용을 찾습니다. 결과는 강의 시각과 연결됩니다. 개념 듣기에서는 해당 강사 구간과 준비된 설명을 활용하며, ‘원래 듣던 곳으로’로 탐색 전 위치에 돌아갈 수 있습니다.</p></div>
+<div class="feature"><h3>질문하기</h3><p>현재 강의의 준비된 지문·개념·복습 정보를 바탕으로 학습 질문이나 요약 요청을 합니다. 설정에 따라 로컬 보조 응답 또는 보호자가 허용한 Gemini 학습 대화를 사용합니다. 외부 대화에는 별도 설정·동의가 필요합니다.</p></div>
+<p>첫 로그인에는 사용법 안내가 표시됩니다. 나중에는 ‘사용법 알려줘’에서 다시 확인할 수 있습니다. 마이크를 사용할 수 없으면 텍스트 입력으로 조작하세요.</p></section>
+<section id="records"><h2><span class="chapter">07 / 학습 기록·음성</span>듣던 위치와 필요한 내용을 남깁니다</h2>
+<ul><li><strong>학습 위치:</strong> 학생별·강의별로 저장하고, 다시 열면 저장된 위치를 복원합니다.</li><li><strong>밑줄:</strong> 선택한 문단의 표시 상태를 유지합니다.</li><li><strong>북마크:</strong> 다시 볼 시각과 메모를 남깁니다.</li><li><strong>강의 메모:</strong> 학습 기록에서 작성하고 저장 상태를 확인합니다.</li><li><strong>복습·학습 노트:</strong> 준비된 요약, 화면 정보, 주요 구간, 개념과 복습 자료를 확인합니다.</li></ul>
+<h3>음성 안내 방식</h3><p>앱이 버튼 이름을 말하는 방식과 외부 스크린리더 안내 모드를 선택할 수 있습니다. 두 음성이 겹치면 ‘앱 음성 대신 스크린리더 안내’를 확인하세요. 학생은 읽기 속도·음량·자동 해설도 조절할 수 있습니다.</p>
+<p>‘학습 위치와 기록 저장됨’을 확인하세요. 저장 실패가 표시되면 연결을 확인하고 다시 저장해야 합니다. 브라우저를 닫기 전에 저장 상태를 확인하는 것이 좋습니다.</p></section>
+<section id="keyboard"><h2><span class="chapter">08 / 키보드 조작</span>포커스를 옮기고 선택하세요</h2>
+<table class="table"><caption>키보드와 빠른 명령</caption><thead><tr><th scope="col">키·동작</th><th scope="col">기능과 적용 위치</th></tr></thead><tbody>
+<tr><th scope="row"><kbd>Tab</kbd></th><td>다음 조작으로 이동합니다.</td></tr><tr><th scope="row"><kbd>Shift</kbd> + <kbd>Tab</kbd></th><td>이전 조작으로 이동합니다.</td></tr><tr><th scope="row"><kbd>Shift</kbd>만 누르기</th><td>앱에서 이전 조작으로 이동합니다. 입력 중 대문자·선택 등의 Shift 동작은 유지됩니다.</td></tr><tr><th scope="row"><kbd>Enter</kbd> / <kbd>Space</kbd></th><td>포커스된 버튼을 실행합니다. 학생 화면의 Space 한 번은 연속 입력 대기(약 0.4초) 후 선택하며, Enter는 바로 선택합니다.</td></tr><tr><th scope="row">왼쪽 / 오른쪽 방향키</th><td>학생 강의에서 10초 전 / 앞으로 이동합니다. 입력칸에서는 글자를 이동합니다.</td></tr><tr><th scope="row">학생 화면의 입력칸 밖에서 Space 길게</th><td>누른 채 말하고 떼어 음성 명령을 실행합니다.</td></tr><tr><th scope="row">학생 화면에서 Space 두 번 / 세 번</th><td>두 번은 영상·세 줄 요약 등 앱 음성 즉시 중지, 세 번은 타자 명령입니다. 설명 중에는 입력칸에서도 두 번으로 멈출 수 있습니다.</td></tr><tr><th scope="row">타자 명령의 Enter / Esc</th><td>명령 보내기 / 취소하고 돌아가기. Space는 띄어쓰기입니다.</td></tr></tbody></table>
+<p>빠른 명령 영역으로 초점을 옮길 필요가 없습니다. 학생 홈과 수강 화면에서 사용할 수 있습니다. 텍스트 입력의 일반 Space는 띄어쓰기입니다. 설명서 자체는 표준 Tab·Shift+Tab·Enter와 브라우저 찾기를 사용하세요.</p></section>
+<section id="voice-examples"><h2>음성·타자 명령 예시</h2><p>학생 화면의 입력칸 밖에서 Space를 길게 누른 채 말하고 떼거나, 세 번 눌러 타자로 같은 명령을 입력하세요. 마이크가 없거나 허용되지 않으면 타자 입력으로 전환합니다.</p><ul><li>강의 선택: “강의 목록”, “1번 강의 열어줘”, “별의 진화 강의 열어줘”</li><li>재생: “영상 재생”, “영상 멈춰”, “10초 앞으로”</li><li>요약: “세 줄 요약”, “요약 멈추고 강의로 돌아와”</li><li>학습: “밑줄 친 문단 읽어줘”, “주계열성 찾아줘”, “학습 기록”, “사용법”</li><li>직접 선택: 화면에 보이는 버튼 이름 뒤에 “버튼 눌러”를 붙입니다.</li></ul><div class="note"><strong>요약을 듣다가 멈추기</strong><p>Space를 두 번 빠르게 누르면 낭독을 즉시 멈춥니다. “요약 멈추고 강의로 돌아와”는 설명을 중단하고 원래 위치의 강의를 이어 듣습니다.</p></div></section><section id="safety"><h2><span class="chapter">09 / 안전·저장 정책</span>확실하지 않은 정보는 보류합니다</h2>
+<ul><li>확신도 0.72 미만의 화면 관찰은 보류합니다. 후보 문구를 공개 설명·복습·음성에 내보내지 않습니다.</li><li>문제 보호 모드의 최종 정답 정보는 차단합니다.</li><li>강사가 이미 말한 정보는 반복 해설보다 기록만 하는 방향으로 구분합니다.</li><li>시각과 판단 이유를 남겨 결과를 검토할 수 있게 합니다.</li><li>유료 강의·보호 스트림 다운로드·로그인 또는 DRM 우회를 지원하지 않습니다.</li></ul>
+<table class="table"><caption>자료가 저장·전송되는 위치</caption><thead><tr><th scope="col">자료</th><th scope="col">처리 방식</th></tr></thead><tbody>
+<tr><th scope="row">원본 영상</th><td>기본적으로 브라우저 안에 둡니다. 별도로 설정하고 동의한 실제 분석에서만 임시 전송합니다.</td></tr><tr><th scope="row">실제 분석용 임시 원본</th><td>서버와 공급자 파일 삭제를 시도합니다. 삭제를 확인하지 못하면 알리며, 공급자 사본이 최대 48시간 남을 수 있다는 동의 안내를 확인해야 합니다.</td></tr><tr><th scope="row">선택 저장한 파일 강의</th><td>브라우저에 AES-GCM으로 암호화해 저장합니다. 같은 브라우저·프로필·주소·포트에서 이용하세요. 사이트 데이터를 지우면 원본 보관함도 삭제될 수 있습니다.</td></tr><tr><th scope="row">계정·배정·학습 기록</th><td>서버의 계정별 저장소에 보관합니다. 로컬 실행에서는 해당 컴퓨터의 데이터이며 브라우저 원본 보관함과는 별개입니다.</td></tr><tr><th scope="row">보호자 학습 현황</th><td>연결 학생의 위치·개수·시각만 조회합니다. 학생 메모 본문을 보내지 않습니다.</td></tr></tbody></table>
+<p>브라우저 보관함과 서버 기록을 같은 저장소로 생각하지 마세요. 강의 삭제·사이트 데이터 삭제 전에 필요한 기록과 원본을 확인하세요.</p></section>
+<section id="trouble"><h2><span class="chapter">10 / 문제 해결</span>막힌 지점부터 확인하세요</h2>
+<details><summary>학생에게 강의가 보이지 않아요</summary><div><p>보호자 준비실에서 배정 학생과 ‘준비 완료’를 확인하세요. 학생 화면의 ‘강의 듣기’로 목록을 다시 불러옵니다. 미리보기만 열어서는 배정되지 않습니다.</p></div></details>
+<details><summary>파일 강의 원본이 없다고 나와요</summary><div><p>저장했던 브라우저·프로필·주소·포트인지 확인하세요. 다른 기기나 시크릿 창에는 같은 원본이 없을 수 있습니다. 사이트 데이터를 지웠다면 보호자에게 원본을 다시 준비해 달라고 요청하세요.</p></div></details>
+<details><summary>음성이 겹치거나 들리지 않아요</summary><div><p>앱 음성·스크린리더 모드와 PC 음량을 확인하세요. 로그인 화면에서는 ‘로그인 음성 시작·시험’을 직접 선택할 수 있습니다. 브라우저와 운영체제에 따라 음성·마이크 권한이 필요합니다.</p></div></details>
+<details><summary>실제 분석이 시작되지 않아요</summary><div><p>샘플 실행은 새 영상의 실제 분석을 하지 않습니다. 실제 분석 환경·체험 비밀번호·이용 권한·분석 동의를 확인하세요. 로컬 영상은 100MB 이하인지도 확인합니다. API 키는 브라우저에 넣지 마세요.</p></div></details>
+<details><summary>질문이 로컬 보조 모드로 응답해요</summary><div><p>외부 대화 설정·보호자 허용이 없거나 연결할 수 없으면 로컬 보조를 사용합니다. 현재 강의에 준비된 지문·개념·복습 자료를 이용하세요.</p></div></details>
+<details><summary>저장 실패 또는 로그인 안내가 나와요</summary><div><p>서버와 연결 상태를 확인하세요. 세션이 만료됐다면 다시 로그인합니다. 저장 실패 안내가 있으면 저장 완료를 확인하기 전까지 창을 닫지 마세요.</p></div></details>
+<p>문의할 때는 사용 환경·막힌 기능·화면의 오류 문구를 알려 주세요. 비밀번호·API 키·원본 영상을 함께 보내지 마세요.</p></section>
+<section id="availability"><h2><span class="chapter">11 / 기능 제공 조건</span>구현된 기능과 설정 조건을 구분하세요</h2>
+<table class="table"><caption>현재 버전에서 사용할 수 있는 범위</caption><thead><tr><th scope="col">기능</th><th scope="col">상태·조건</th></tr></thead><tbody>
+<tr><th scope="row">계정·배정·학생 학습 UI</th><td><span class="status">구현됨</span> · 로컬 서버와 연결된 계정 필요.</td></tr><tr><th scope="row">과학·역사 샘플</th><td><span class="status">구현됨</span> · 유료 인증 없이 사전 준비된 결과 사용.</td></tr><tr><th scope="row">지문·자막 자료 처리</th><td><span class="status">구현됨</span> · 지원 형식의 실제 텍스트를 처리.</td></tr><tr><th scope="row">새 영상 실제 분석</th><td>별도 공급자 설정·권한·분석 동의 필요. 미설정 시 실행하지 않음.</td></tr><tr><th scope="row">Gemini 학습 대화</th><td>공급자 설정과 보호자 허용 필요. 로컬 보조와 구분해 사용.</td></tr><tr><th scope="row">VoiceOver·NVDA 실사용 검증</th><td>검증 전. 키보드·브라우저 접근성 검사와 실제 낭독 검증을 구분.</td></tr></tbody></table>
+<p><a href="../guide/">화면별 사용 가이드</a>에서 실제 샘플 화면과 단계별 안내를 볼 수 있습니다. <a href="../intro/">보호자 소개</a>에서는 서비스 목적과 학습 활동을 살펴볼 수 있습니다.</p><a class="back" href="#content">설명서 처음으로</a></section>
+</main></div>
+<footer class="footer"><div class="wrap"><strong>Sullivan AI 기능 설명서</strong><p class="small">대전 남성중학교 SWIFT 팀의 시제품 · 인쇄 버튼 또는 브라우저 인쇄 기능으로 PDF 저장 가능</p></div></footer>
+<script>
+const printButton=document.getElementById('print');printButton.hidden=false;
+let printDisclosures=null;
+window.addEventListener('beforeprint',()=>{
+  if(printDisclosures)return;
+  printDisclosures=[...document.querySelectorAll('details')].map(node=>({node,open:node.open}));
+  printDisclosures.forEach(({node})=>{node.open=true;});
+});
+window.addEventListener('afterprint',()=>{
+  printDisclosures?.forEach(({node,open})=>{node.open=open;});printDisclosures=null;
+});
+printButton.addEventListener('click',()=>window.print());
+</script>
+</body>
+</html>

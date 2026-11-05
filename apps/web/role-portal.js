@@ -5,7 +5,7 @@ window.Portal = (() => {
   const requiredBuild='sullivan-roles-20261102-r2';
   let students=[], lectures=[], current=null, originMs=null, focusedPurpose='watch-panel';
   let savePromise=Promise.resolve(), progressTimer=null, opening=false, sampleSession=null;
-  let lastFocus=null, wasPlaying=false, recognition=null, transcript='', released=false, finalized=false;
+  let lastFocus=null, wasPlaying=false, recognition=null, transcript='', released=false, finalized=false,voiceFinishTimer=null,voiceGeneration=0;
   let setup=false,authGeneration=0;
   const views=['portal-login','portal-home','guardian-dashboard','setup-view','agent-view'];
   const el=id=>document.getElementById(id);
@@ -486,7 +486,8 @@ window.Portal = (() => {
       const instructions=[
         '버튼 이동: Tab은 다음, Shift만 눌렀다 떼면 이전으로 이동합니다. Shift+Tab도 이전입니다. 글자를 입력할 때 Shift는 대문자나 문자 선택에 그대로 사용합니다.',
         '강의 고르기: 강의 듣기에서 제목을 골라 Enter 또는 Space로 여세요. 영상이 있으면 재생 버튼에서 시작합니다. 왼쪽 방향키는 10초 전, 오른쪽은 10초 앞으로 이동합니다. 입력칸에서는 글자 이동에 사용합니다. 영상 내부 조작은 건너뛰고 앱 버튼으로 이동합니다.',
-        '빠른 명령: 빠른 명령 영역으로 이동해 Space를 길게 누른 채 말하고 떼면 실행합니다. 두 번은 영상과 음성 중지, 세 번은 타자 명령입니다.',
+        '빠른 명령: 학생 홈과 수강 화면 어디서든 입력칸 밖에서 Space를 길게 누른 채 말하고 떼면 실행합니다. 두 번은 영상과 요약 등 앱 음성 중지, 세 번은 타자 명령입니다. 버튼에서 한 번 누르면 잠시 뒤 선택됩니다. Enter로도 바로 선택할 수 있습니다. 설명을 듣는 중에는 입력칸에서도 두 번 누르면 멈춥니다.',
+        '명령 예시: 강의 목록, 1번 강의 열어줘, 영상 재생, 영상 멈춰, 세 줄 요약, 요약 멈추고 강의로 돌아와, 10초 앞으로, 밑줄 친 문단 읽어줘, 주계열성 찾아줘, 학습 기록, 사용법. 화면에 보이는 버튼 이름 뒤에 버튼 눌러라고 말할 수도 있습니다.',
         '타자 입력: Space는 띄어쓰기, Enter는 전송, Esc는 취소입니다.',
         '지문·문단 듣기, 원하는 내용 찾기, 질문하기도 직접 선택할 수 있습니다.'
       ];
@@ -558,16 +559,43 @@ window.Portal = (() => {
   function rememberSearch() {if(originMs===null){originMs=getCurrentPlaybackMs();el('learner-return').disabled=false;}}
   async function command(value,source='text') {
     const text=String(value||'').trim();if(!text)return feedback('명령을 입력해 주세요.');
-    if(/^(이거|그거|설명해줘|다시 설명해줘|비교해줘|찾아줘)$/.test(text))return typeDialog('어떤 개념이나 문단을 원하나요? 이름이나 문단 번호를 함께 입력해 주세요.');
+    const intent=SullivanVoiceCommands.classify(text);
     if(/사용법|단축키.*알려/.test(text)){await home();showHelp();return;}
+    if(intent.type==='pause'){stopStudentOutput();return;}
+    if(intent.type==='button'){await executeGlobalVoiceCommand(text,wasPlaying,{source});return;}
+    if(intent.type==='lecture_list'){await home();await openLectureList();return;}
+    if(intent.type==='open_lecture'){
+      if(!lectures.length)await loadStudent();
+      const selected=intent.ordinal?lectures[intent.ordinal-1]:lectures.find(l=>l.title.includes(intent.title));
+      if(!selected)return feedback('강의 목록에서 번호나 제목을 확인해 주세요. 강의 목록이라고 말하면 목록을 엽니다.');
+      await openLecture(selected.id);return;
+    }
+    if(['play','resume_lecture','summary_three','summary_audio','paragraph','concept','describe','panel','chat'].includes(intent.type)){
+      if(!state.snapshot||!ui.lectureId){
+        let last=null;try{last=localStorage.getItem('sullivan-last-'+ui.user.id);}catch{}
+        if(last&&lectures.some(l=>l.id===last))await openLecture(last);
+        if(!state.snapshot||!ui.lectureId){await home();await openLectureList();return feedback('먼저 강의 번호나 제목으로 강의를 골라 주세요.');}
+      }
+      show('agent-view');
+      if(intent.type==='resume_lecture'){
+        stopStudentOutput();selectPanel('watch-panel');
+        if(originMs!==null){seekTo(originMs);originMs=null;el('learner-return').disabled=true;}
+        if(!isPlaybackRunning())await play();return;
+      }
+      if(intent.type==='summary_three'){
+        const result=generateLearningResponse('3줄 요약');
+        el('current-description').textContent=result.text;
+        state.resumeAfterSpeech=wasPlaying||state.resumeAfterSpeech;
+        speakWithPlaybackPause(`${result.title}. ${result.text}`,'세 줄 요약 후 강의 이어 듣기');return;
+      }
+      if(intent.type==='play'){stopStudentOutput();if(!isPlaybackRunning())await play();return;}
+    }
+    if(/^(이거|그거|설명해줘|다시 설명해줘|비교해줘|찾아줘)$/.test(text))return typeDialog('어떤 개념이나 문단을 원하나요? 이름이나 문단 번호를 함께 입력해 주세요.');
     if(/원래.*(곳|위치)|듣던.*(곳|위치)/.test(text)){el('learner-return').click();return;}
     if(/학습 기록|북마크|메모/.test(text)){records();return;}
     if(/10초.*(전|뒤로)|뒤로.*10초/.test(text)){seekRelative(-10000);return;}
     if(/10초.*(후|앞으로)|앞으로.*10초/.test(text)){seekRelative(10000);return;}
-    const intent=SullivanVoiceCommands.classify(text);
     if(intent.type==='home'||intent.type==='save_home'){await home();return;}
-    if(intent.type==='play'){if(!isPlaybackRunning())await play();return;}
-    if(intent.type==='pause'){stopAllPlaybackAndSpeech();return;}
     if(intent.type==='sample'||intent.type==='saved'||intent.type==='free_mode'||intent.panelId==='evidence-panel')return feedback('배정된 강의는 강의 목록에서 고를 수 있습니다. 준비·관리는 보호자 기능입니다.');
     if(intent.type==='paragraph'){await purpose('paragraph',false);if(getParagraphs().length){if(/밑줄.*(표시|해제)|문단.*밑줄/.test(text)&&!/(듣|읽|낭독)/.test(text)){const p=SullivanPassages.findByOrdinal?.(getParagraphs(),text)||getParagraphs().find(p=>p.paragraph_id===state.currentParagraphId)||getParagraphs()[0];const wantsOff=/해제/.test(text);if(state.underlinedParagraphIds.has(p.paragraph_id)!==!wantsOff)toggleParagraphUnderline(p.paragraph_id);}else runParagraphCommand(text);}return;}
     if(intent.type==='concept'||/찾아|검색/.test(text)){rememberSearch();await purpose('search',false);el('navigation-command').value=text.replace(/핵심|키워드|개념|찾아\s*줘|찾아|검색해\s*줘|검색|해줘/g,'').trim()||'전체 흐름';el('navigation-form').requestSubmit();return;}
@@ -587,20 +615,29 @@ window.Portal = (() => {
     show('agent-view');
     el('learning-records').classList.remove('hidden');focusFirst('records');
   }
-  function stopVoice() {if(recognition){recognition.onend=null;recognition.onerror=null;try{recognition.abort();}catch{}}recognition=null;el('space-voice-overlay').classList.add('hidden');}
+  function stopVoice() {
+    voiceGeneration++;clearTimeout(voiceFinishTimer);voiceFinishTimer=null;finalized=true;
+    if(recognition){recognition.onstart=recognition.onresult=recognition.onend=recognition.onerror=null;try{recognition.abort();}catch{}}
+    recognition=null;el('space-voice-overlay').classList.add('hidden');
+  }
+  function stopStudentOutput() {
+    // Invalidate focus speech too, so its delayed completion cannot resume video.
+    SullivanFocusVoice.cancel();stopVoice();stopAllPlaybackAndSpeech();syncPlayback();
+    if(state.agentTurnPending)el('chat-status').textContent='요청 실행을 중지했습니다. 늦게 도착한 응답으로 설명이나 재생을 다시 시작하지 않습니다.';
+  }
   function typeDialog(message='명령을 입력하고 Enter로 보내세요. Esc로 취소합니다.') {
-    stopVoice();lastFocus=document.activeElement;pausePlayback();
+    stopVoice();lastFocus=document.activeElement;SullivanFocusVoice.cancel();stopAllPlaybackAndSpeech({announceStop:false});
     const dialog=el('text-command-dialog');dialog.classList.remove('hidden');if(!dialog.open)dialog.showModal();
     el('text-command-status').textContent=message;el('text-command-input').value='';el('text-command-input').focus();
   }
-  function closeDialog(resume=false) {el('text-command-dialog').close();el('text-command-dialog').classList.add('hidden');if(resume&&wasPlaying)resumePlayback();if(lastFocus?.isConnected&&lastFocus.getClientRects().length)lastFocus.focus();else el('command-surface').focus();}
+  function closeDialog(resume=false) {el('text-command-dialog').close();el('text-command-dialog').classList.add('hidden');if(resume&&wasPlaying)resumePlayback();if(lastFocus?.isConnected&&lastFocus.getClientRects().length)lastFocus.focus();else if(!el('agent-view').classList.contains('hidden'))el('command-surface').focus();else focusFirst('home');}
   function finishVoice() {
     if(finalized)return;finalized=true;const text=transcript;stopVoice();
     if(!text)return typeDialog('말을 인식하지 못했습니다. 같은 명령을 타자로 입력해 주세요.');
-    command(text,'voice').then(()=>{if(!el('text-command-dialog').open&&!el('agent-view').classList.contains('hidden'))el('command-surface').focus();}).catch(e=>error(e.message));
+    command(text,'voice').catch(e=>error(e.message));
   }
   function startVoice() {
-    pausePlayback();released=false;finalized=false;transcript='';
+    stopVoice();SullivanFocusVoice.cancel();stopAllPlaybackAndSpeech({announceStop:false});released=false;finalized=false;transcript='';
     const R=window.SpeechRecognition||window.webkitSpeechRecognition;
     if(!R)return typeDialog('마이크 음성 입력을 사용할 수 없습니다. 타자로 같은 명령을 입력해 주세요.');
     playSpaceVoiceReadyChime();recognition=new R();recognition.lang='ko-KR';recognition.interimResults=false;
@@ -611,10 +648,39 @@ window.Portal = (() => {
     el('space-voice-overlay').classList.remove('hidden');el('space-voice-title').textContent='말씀하세요';el('space-voice-text').textContent='키를 떼면 요청을 처리합니다.';
     try{recognition.start();}catch{typeDialog('마이크를 시작하지 못했습니다. 타자로 입력해 주세요.');}
   }
-  const gesture=SullivanSpaceGesture.create({hold:startVoice,release:()=>{ui.gesturePending=false;released=true;if(recognition){try{recognition.stop();}catch{}setTimeout(finishVoice,1500);}},taps:count=>{ui.gesturePending=false;if(count>=3)typeDialog();else if(count===2){stopVoice();stopAllPlaybackAndSpeech();}else if(wasPlaying)resumePlayback();},cancel:()=>{ui.gesturePending=false;stopVoice();}});
-  el('command-surface').addEventListener('keydown',e=>{if(e.code!=='Space')return;e.preventDefault();if(e.repeat)return;if(!ui.gesturePending) {wasPlaying=isPlaybackRunning();ui.gesturePending=true;}pausePlayback();gesture.down();});
+  // Collect the whole sequence before activating a button: double/triple/hold
+  // must not first click Play, navigate away, or open another learning panel.
+  let gestureOrigin=null,editorStopAt=0;
+  const gesture=SullivanSpaceGesture.create({hold:startVoice,doubleTap:stopStudentOutput,release:()=>{
+    ui.gesturePending=false;gestureOrigin=null;released=true;
+    if(recognition){const active=recognition,generation=voiceGeneration;try{active.stop();}catch{}
+      if(active===recognition)voiceFinishTimer=setTimeout(()=>{if(generation===voiceGeneration)finishVoice();},1500);
+    }
+  },taps:count=>{
+    const origin=gestureOrigin;ui.gesturePending=false;gestureOrigin=null;
+    if(count>=3)typeDialog();
+    else if(count===1&&origin?.matches('button:not(:disabled),a[href],summary,input[type="checkbox"],input[type="radio"]')&&origin.isConnected&&origin===document.activeElement&&origin.getClientRects().length)origin.click();
+  },cancel:()=>{ui.gesturePending=false;gestureOrigin=null;stopVoice();}});
+  document.addEventListener('keydown',e=>{
+    if(e.code!=='Space'){editorStopAt=0;if(ui.gesturePending||recognition)gesture.cancel();return;}
+    if(e.code!=='Space'||e.defaultPrevented||e.altKey||e.ctrlKey||e.metaKey||e.shiftKey||e.isComposing||
+       ui.user?.role!=='student'||
+       e.target.closest('input:not([type="checkbox"]):not([type="radio"]):not([type="range"]):not([type="button"]):not([type="submit"]),textarea,select,[contenteditable]:not([contenteditable="false"]),[role="textbox"],[role="combobox"]'))return;
+    e.preventDefault();if(e.repeat)return;
+    if(!ui.gesturePending){wasPlaying=isPlaybackRunning()||state.resumeAfterSpeech||SullivanFocusVoice.holdsPlayback();gestureOrigin=e.target.closest('button,a[href],summary,input')||e.target;ui.gesturePending=true;}
+    gesture.down();
+  });
   document.addEventListener('keyup',e=>{if(e.code!=='Space'||!ui.gesturePending)return;e.preventDefault();gesture.up();});
-  el('command-surface').addEventListener('blur',()=>{if(!recognition&&!el('text-command-dialog').open)gesture.cancel();});
+  document.addEventListener('focusin',e=>{editorStopAt=0;if((ui.gesturePending||recognition)&&e.target!==gestureOrigin)gesture.cancel();});
+  window.addEventListener('blur',()=>{editorStopAt=0;gesture.cancel();});
+  // While explanations are speaking, an emergency double tap also works in an
+  // editor. Single spaces stay native; typing cannot start voice or open a modal.
+  document.addEventListener('keyup',e=>{
+    if(e.code!=='Space'||e.defaultPrevented||e.altKey||e.ctrlKey||e.metaKey||e.shiftKey||e.isComposing||ui.user?.role!=='student'||
+       !e.target.closest('input,textarea,[contenteditable]:not([contenteditable="false"]),[role="textbox"]'))return;
+    if(!state.speechInProgress&&!state.agentTurnPending&&!SullivanFocusVoice.holdsPlayback()){editorStopAt=0;return;}
+    const now=performance.now();if(editorStopAt&&now-editorStopAt<=420){editorStopAt=0;stopStudentOutput();}else editorStopAt=now;
+  });
   // Own the native modal handlers, avoiding the legacy custom-dialog path.
   el('text-command-form').addEventListener('submit',e=>{e.preventDefault();e.stopImmediatePropagation();const value=el('text-command-input').value.trim();if(!value){el('text-command-status').textContent='명령을 입력해 주세요.';return;}closeDialog();command(value,'text').catch(e=>error(e.message));},true);
   el('close-text-command').addEventListener('click',e=>{e.stopImmediatePropagation();closeDialog(true);},true);
@@ -639,7 +705,7 @@ window.Portal = (() => {
   function syncChatChannel(){el('chat-log').setAttribute('aria-live',el('auto-speak-chat').checked&&!ui.readerMode?'off':'polite');}
   el('auto-speak-chat').addEventListener('change',syncChatChannel);
   for(const id of ['voice-command','paragraph-voice-command','chat-voice']){el(id).textContent='타자';el(id).setAttribute('aria-label','타자 명령 입력');}
-  for(const id of ['voice-command','paragraph-voice-command','chat-voice'])el(id).addEventListener('click',e=>{e.stopImmediatePropagation();lastFocus=e.currentTarget;wasPlaying=isPlaybackRunning();pausePlayback();typeDialog('Space 길게 명령은 빠른 명령 영역에서 사용할 수 있습니다. 이곳에서는 같은 명령을 타자로 입력해 주세요.');},true);
+  for(const id of ['voice-command','paragraph-voice-command','chat-voice'])el(id).addEventListener('click',e=>{e.stopImmediatePropagation();lastFocus=e.currentTarget;wasPlaying=isPlaybackRunning();pausePlayback();typeDialog('여기서는 명령을 타자로 입력해 주세요. 음성 명령은 창을 닫고 학생 화면의 입력칸 밖에서 Space를 길게 누르면 사용할 수 있습니다.');},true);
   el('reader-mode').addEventListener('change',()=>{ui.readerMode=el('reader-mode').checked;if(ui.readerMode){ui.focusVoice=false;el('focus-voice').checked=false;SullivanFocusVoice.cancel();}stopAllPlaybackAndSpeech({announceStop:false});syncChatChannel();saveSpeechPreferences();});
   el('focus-voice').addEventListener('change',()=>{if(el('focus-voice').checked&&(!('speechSynthesis' in window)||!('SpeechSynthesisUtterance' in window))){el('focus-voice').checked=false;ui.focusVoice=false;feedback('이 브라우저는 앱 음성 안내를 지원하지 않습니다. 외부 스크린리더를 사용해 주세요.',true);return;}ui.focusVoice=el('focus-voice').checked;if(ui.focusVoice){ui.readerMode=false;el('reader-mode').checked=false;SullivanFocusVoice.read(document.activeElement);}else SullivanFocusVoice.cancel();syncChatChannel();saveSpeechPreferences();});
   el('focus-voice-test').addEventListener('click',()=>{ui.focusVoice=true;ui.readerMode=false;el('focus-voice').checked=true;el('reader-mode').checked=false;SullivanFocusVoice.test();syncChatChannel();saveSpeechPreferences();});

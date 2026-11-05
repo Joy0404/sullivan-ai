@@ -1,0 +1,29 @@
+{
+  "viewports": [
+    {
+      "width": 1280,
+      "overflow": false,
+      "minTableFont": 18
+    },
+    {
+      "width": 390,
+      "overflow": false,
+      "minTableFont": 18
+    },
+    {
+      "width": 320,
+      "overflow": false,
+      "minTableFont": 18
+    }
+  ],
+  "errors": [],
+  "axe": {
+    "violations": [],
+    "passes": 22
+  },
+  "print": {
+    "pdfGenerated": true,
+    "hiddenNavigation": true,
+    "disclosureStatesRestored": true
+  }
+}

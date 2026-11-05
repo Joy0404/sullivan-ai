@@ -15,12 +15,22 @@
     const command = normalize(value);
     if (!command) return { type: "empty" };
 
-    if (/(자유 ?모드|수동 ?모드|직접 ?조작 ?모드|키보드 ?모드)/.test(command)) return { type: "free_mode" };
-    if (/(멈춰|멈추|일시 ?정지|재생 ?정지|음성 ?중지|말하기 ?중지|그만)/.test(command)) return { type: "pause" };
-    if (/(재생해|재생 ?시작|영상 ?시작|강의 ?시작|영상 ?틀|강의 ?틀|계속 ?재생|계속 ?틀|이어 ?재생|다시 ?재생)/.test(command)) return { type: "play" };
-    if (/(현재 )?(화면|칠판|슬라이드|그래프).*(해설|설명)|화면 ?해설/.test(command)) return { type: "describe" };
+    if (/(?:요약|설명|해설).*(?:멈추|중지|그만).*강의.*(?:돌아|이어|복귀)|(?:강의|영상)(?:로|으로|에)?\s*(?:돌아|복귀)|강의\s*이어\s*(?:듣|줘)/.test(command)) return { type: "resume_lecture" };
+    if (/(?:강의|영상)\s*(?:목록|고르기|선택하기)/.test(command)) return { type: "lecture_list" };
+    const numberedLecture=command.match(/(?:강의\s*)?(\d+)\s*번(?:\s*강의)?\s*(?:열|선택|듣|재생)/);
+    if(numberedLecture)return {type:"open_lecture",ordinal:Number(numberedLecture[1])};
+    const titledLecture=command.match(/^(.+?)\s*강의\s*(?:열어|선택해|들려)/);
+    if(titledLecture)return {type:"open_lecture",title:titledLecture[1].trim()};
+    if (/(?:세\s*줄|3\s*줄)\s*(?:로\s*)?요약/.test(command)&&!/(멈|중지|그만)/.test(command)) return { type: "summary_three" };
     if (/(자동 ?해설|자동 ?설명).*(켜|시작)/.test(command)) return { type: "auto_narration", enabled: true };
     if (/(자동 ?해설|자동 ?설명).*(꺼|중지|해제)/.test(command)) return { type: "auto_narration", enabled: false };
+
+    if (/(자유 ?모드|수동 ?모드|직접 ?조작 ?모드|키보드 ?모드)/.test(command)) return { type: "free_mode" };
+    const stopPlayback = /(?:동영상|영상|강의|재생|음성|말하기|설명|해설|낭독|요약)\s*(?:을|를)?\s*(?:(?:좀|잠깐|잠시)\s*)?(?:중지|정지|중단)/.test(command);
+    const stopOnly = /^(?:중지|정지|중단)(?:해(?:\s*(?:줘|주세요))?|시켜(?:\s*줘)?|하기)?$/.test(command);
+    if (stopPlayback || stopOnly || /(멈춰|멈추|멈춤|일시 ?정지|재생 ?정지|음성 ?중지|말하기 ?중지|요약.*중지|그만)/.test(command)) return { type: "pause" };
+    if (/(재생해|재생 ?시작|영상 ?재생|강의 ?재생|영상 ?시작|강의 ?시작|영상 ?틀|강의 ?틀|계속 ?재생|계속 ?틀|이어 ?재생|다시 ?재생)/.test(command)) return { type: "play" };
+    if (/(현재 )?(화면|칠판|슬라이드|그래프).*(해설|설명)|화면 ?해설/.test(command)) return { type: "describe" };
 
     if (/(샘플 ?1|과학 ?샘플|별의 ?진화)/.test(command)) return { type: "sample", sampleId: "science" };
     if (/(샘플 ?2|역사 ?샘플|왜란.*호란|호란.*왜란)/.test(command)) return { type: "sample", sampleId: "history" };

@@ -17,6 +17,16 @@ assert.deepEqual(commands.classify("자동 해설 꺼줘"), { type: "auto_narrat
 assert.deepEqual(commands.classify("학습 노트 열어줘"), { type: "panel", panelId: "study-panel" });
 assert.deepEqual(commands.classify("요약 버튼 눌러"), { type: "button", label: "요약" });
 assert.equal(commands.classify("이 내용을 발표문으로 만들어줘").type, "chat");
+for(const text of ['세 줄 요약','세줄 요약 시작','3줄 요약해줘'])assert.equal(commands.classify(text).type,'summary_three');
+for(const text of ['요약 멈추고 강의로 돌아와','세줄 요약 중지하고 강의로 돌아오기','강의로 돌아와','강의 이어 듣기'])assert.equal(commands.classify(text).type,'resume_lecture');
+for(const text of ['영상 재생','강의 재생'])assert.equal(commands.classify(text).type,'play');
+for(const text of ['영상 멈춤','세줄 요약 멈춰','요약 중지'])assert.equal(commands.classify(text).type,'pause');
+for(const text of ['영상 중지','영상중지','영상을 중지해줘','영상 좀 중지해 주세요','동영상 중지','강의 중지','강의를 정지해줘','재생 중지','음성 중지','설명 중지','해설 중지','낭독 중지','중지','정지','중지해 주세요'])assert.equal(commands.classify(text).type,'pause',text);
+assert.equal(commands.classify('강의 목록').type,'lecture_list');
+assert.deepEqual(commands.classify('1번 강의 열어줘'),{type:'open_lecture',ordinal:1});
+assert.deepEqual(commands.classify('강의 2번 재생'),{type:'open_lecture',ordinal:2});
+assert.deepEqual(commands.classify('별의 진화 강의 열어줘'),{type:'open_lecture',title:'별의 진화'});
+assert.deepEqual(commands.classify('자동 해설 중지'),{type:'auto_narration',enabled:false});
 assert.equal(commands.isDoubleTap(1000, 1999), true);
 assert.equal(commands.isDoubleTap(1000, 2001), false);
 assert.equal(commands.classifyTapSequence(1), "single_tap");
@@ -25,4 +35,4 @@ assert.equal(commands.classifyTapSequence(3), "open_text_command");
 assert.equal(commands.classifyTapSequence(1, { freeMode: true }), "toggle_playback");
 assert.equal(commands.classifyTapSequence(2, { freeMode: true }), "exit_free_mode");
 
-console.log("Voice command router: 23 checks passed");
+console.log("Voice command router: routing, playback, summary, return and gesture checks passed");
