@@ -1,0 +1,80 @@
+[
+  {
+    "foreground": "rgb(22, 75, 139)",
+    "background": "rgb(255, 255, 255)",
+    "contrast": 8.7,
+    "pass_normal_text": true
+  },
+  {
+    "foreground": "rgb(23, 44, 72)",
+    "background": "rgb(255, 255, 255)",
+    "contrast": 14.09,
+    "pass_normal_text": true
+  },
+  {
+    "foreground": "rgb(70, 92, 115)",
+    "background": "rgb(255, 255, 255)",
+    "contrast": 6.91,
+    "pass_normal_text": true
+  },
+  {
+    "foreground": "rgb(22, 75, 139)",
+    "background": "rgb(232, 240, 250)",
+    "contrast": 7.57,
+    "pass_normal_text": true
+  },
+  {
+    "foreground": "rgb(255, 255, 255)",
+    "background": "rgb(22, 75, 139)",
+    "contrast": 8.7,
+    "pass_normal_text": true
+  },
+  {
+    "foreground": "rgb(23, 44, 72)",
+    "background": "rgb(238, 243, 248)",
+    "contrast": 12.62,
+    "pass_normal_text": true
+  },
+  {
+    "foreground": "rgb(70, 92, 115)",
+    "background": "rgb(238, 243, 248)",
+    "contrast": 6.19,
+    "pass_normal_text": true
+  },
+  {
+    "foreground": "rgb(22, 75, 139)",
+    "background": "rgb(238, 243, 248)",
+    "contrast": 7.79,
+    "pass_normal_text": true
+  },
+  {
+    "foreground": "rgb(22, 88, 62)",
+    "background": "rgb(255, 255, 255)",
+    "contrast": 8.4,
+    "pass_normal_text": true
+  },
+  {
+    "foreground": "#8c4700",
+    "background": "#ffffff",
+    "contrast": 6.96,
+    "pass_non_text": true
+  },
+  {
+    "foreground": "#8c4700",
+    "background": "#eef3f8",
+    "contrast": 6.24,
+    "pass_non_text": true
+  },
+  {
+    "foreground": "#6f87a3",
+    "background": "#ffffff",
+    "contrast": 3.7,
+    "pass_non_text": true
+  },
+  {
+    "foreground": "#6f87a3",
+    "background": "#eef3f8",
+    "contrast": 3.32,
+    "pass_non_text": true
+  }
+]

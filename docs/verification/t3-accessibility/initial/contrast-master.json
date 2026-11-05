@@ -1,0 +1,37 @@
+{
+  "skill": "contrast-master",
+  "scope": [
+    "apps/web/index.html #lecture-form",
+    "apps/web/guardian-design.css T3 rules",
+    "apps/web/role-portal.js prepare"
+  ],
+  "findings": [
+    {
+      "rule": "VISUAL-T3-TEXT-SIZE",
+      "wcag": "n/a",
+      "severity": "moderate",
+      "location": "apps/web/guardian-design.css: T3 form typography selector",
+      "summary": "Inherited helper text and file-list styles remain14–15px instead of the playbook minimum18px.",
+      "fix": "Add stronger #lecture-form selectors for drop/link helper paragraphs/spans, optional-label, code help, file-list items and privacy/mode text; use1.125rem.",
+      "evidence": "Independent Chrome stage2 link/file and stage3 previews at320/390/1280 all expose14–15px helper text."
+    },
+    {
+      "rule": "VISUAL-T3-TARGET-SIZE",
+      "wcag": "n/a",
+      "severity": "minor",
+      "location": "apps/web/guardian-design.css: #lecture-form select and summary",
+      "summary": "Select controls measure46.75px and the Gemini disclosure30.59px instead of the requested48px.",
+      "fix": "Set min-height48px on wizard select and summary controls with sufficient selector specificity.",
+      "evidence": "Preferred-mode and sample select46.75px; Gemini disclosure30.59px at390/1280."
+    }
+  ],
+  "passed": [
+    "Nine measured text/background pairs pass4.5:1 AA, minimum6.19:1.",
+    "Calculated focus and functional control-border pairs pass3:1.",
+    "All five rendered wizard configurations at320/390/1280 have no horizontal overflow."
+  ],
+  "notes": [
+    "No API authentication or writes: independent script-free DOM preview with current styles.",
+    "Size findings are explicit project requirements, not failures of WCAG AA text-size or24px target criteria."
+  ]
+}

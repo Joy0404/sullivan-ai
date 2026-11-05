@@ -1,0 +1,5518 @@
+{
+  "artifact": "Condensed measurements; full independent capture retained in .a11y-history/final-audit/visual-runtime-evidence.json",
+  "views": {
+    "intro/320": {
+      "title": "보호자를 위한 Sullivan AI 소개",
+      "lang": "ko",
+      "screen": {
+        "w": 320,
+        "sw": 320,
+        "bw": 320
+      },
+      "headings": [
+        {
+          "tag": "H1",
+          "id": "intro-title",
+          "text": "선생님이 말하지 않은 칠판, 이제 들려드릴게요"
+        },
+        {
+          "tag": "H2",
+          "id": "barriers-title",
+          "text": "듣기만 해서는 놓치는 순간이 있습니다"
+        },
+        {
+          "tag": "H3",
+          "id": "",
+          "text": "“여기 이 그림 보면…”"
+        },
+        {
+          "tag": "H3",
+          "id": "",
+          "text": "다시 찾기 어려운 긴 지문"
+        },
+        {
+          "tag": "H3",
+          "id": "",
+          "text": "묻고 싶은 바로 그 부분"
+        },
+        {
+          "tag": "H2",
+          "id": "how-title",
+          "text": "강의를 듣고, 멈추고, 스스로 이어가요"
+        },
+        {
+          "tag": "H3",
+          "id": "",
+          "text": "필요한 순간에 잠깐 멈춰요"
+        },
+        {
+          "tag": "H3",
+          "id": "",
+          "text": "말하지 않은 화면을 짧게 들어요"
+        },
+        {
+          "tag": "H3",
+          "id": "",
+          "text": "핵심 개념을 찾고 복습해요"
+        },
+        {
+          "tag": "H2",
+          "id": "prepare-title",
+          "text": "보호자는 세 가지를 준비해 주세요"
+        },
+        {
+          "tag": "H2",
+          "id": "safety-title",
+          "text": "학생이 생각할 자리를 지킵니다"
+        },
+        {
+          "tag": "H3",
+          "id": "",
+          "text": "정답 대신 힌트"
+        },
+        {
+          "tag": "H3",
+          "id": "",
+          "text": "원본은 기본적으로 브라우저 안에"
+        },
+        {
+          "tag": "H3",
+          "id": "",
+          "text": "확실하지 않으면 말하지 않아요"
+        },
+        {
+          "tag": "H3",
+          "id": "",
+          "text": "연결한 계정 안에서 관리"
+        },
+        {
+          "tag": "H2",
+          "id": "student-title",
+          "text": "학생 화면은 큰 버튼 네 개부터"
+        },
+        {
+          "tag": "H2",
+          "id": "prototype-title",
+          "text": "지금은 함께 다듬어 가는 시제품입니다"
+        },
+        {
+          "tag": "H2",
+          "id": "faq-title",
+          "text": "시작하기 전에 궁금한 점"
+        },
+        {
+          "tag": "H2",
+          "id": "start-title",
+          "text": "첫 강의는 샘플로 준비해 보세요"
+        }
+      ],
+      "landmarks": [
+        {
+          "tag": "HEADER",
+          "label": null
+        },
+        {
+          "tag": "NAV",
+          "label": "주 메뉴"
+        },
+        {
+          "tag": "MAIN",
+          "label": null
+        },
+        {
+          "tag": "FOOTER",
+          "label": null
+        }
+      ],
+      "overflow": [],
+      "text_nodes_measured": 66,
+      "text_below_18px": [],
+      "button_targets_measured": 0,
+      "minimum_button_height": null
+    },
+    "intro/390": {
+      "title": "보호자를 위한 Sullivan AI 소개",
+      "lang": "ko",
+      "screen": {
+        "w": 390,
+        "sw": 390,
+        "bw": 390
+      },
+      "headings": [
+        {
+          "tag": "H1",
+          "id": "intro-title",
+          "text": "선생님이 말하지 않은 칠판, 이제 들려드릴게요"
+        },
+        {
+          "tag": "H2",
+          "id": "barriers-title",
+          "text": "듣기만 해서는 놓치는 순간이 있습니다"
+        },
+        {
+          "tag": "H3",
+          "id": "",
+          "text": "“여기 이 그림 보면…”"
+        },
+        {
+          "tag": "H3",
+          "id": "",
+          "text": "다시 찾기 어려운 긴 지문"
+        },
+        {
+          "tag": "H3",
+          "id": "",
+          "text": "묻고 싶은 바로 그 부분"
+        },
+        {
+          "tag": "H2",
+          "id": "how-title",
+          "text": "강의를 듣고, 멈추고, 스스로 이어가요"
+        },
+        {
+          "tag": "H3",
+          "id": "",
+          "text": "필요한 순간에 잠깐 멈춰요"
+        },
+        {
+          "tag": "H3",
+          "id": "",
+          "text": "말하지 않은 화면을 짧게 들어요"
+        },
+        {
+          "tag": "H3",
+          "id": "",
+          "text": "핵심 개념을 찾고 복습해요"
+        },
+        {
+          "tag": "H2",
+          "id": "prepare-title",
+          "text": "보호자는 세 가지를 준비해 주세요"
+        },
+        {
+          "tag": "H2",
+          "id": "safety-title",
+          "text": "학생이 생각할 자리를 지킵니다"
+        },
+        {
+          "tag": "H3",
+          "id": "",
+          "text": "정답 대신 힌트"
+        },
+        {
+          "tag": "H3",
+          "id": "",
+          "text": "원본은 기본적으로 브라우저 안에"
+        },
+        {
+          "tag": "H3",
+          "id": "",
+          "text": "확실하지 않으면 말하지 않아요"
+        },
+        {
+          "tag": "H3",
+          "id": "",
+          "text": "연결한 계정 안에서 관리"
+        },
+        {
+          "tag": "H2",
+          "id": "student-title",
+          "text": "학생 화면은 큰 버튼 네 개부터"
+        },
+        {
+          "tag": "H2",
+          "id": "prototype-title",
+          "text": "지금은 함께 다듬어 가는 시제품입니다"
+        },
+        {
+          "tag": "H2",
+          "id": "faq-title",
+          "text": "시작하기 전에 궁금한 점"
+        },
+        {
+          "tag": "H2",
+          "id": "start-title",
+          "text": "첫 강의는 샘플로 준비해 보세요"
+        }
+      ],
+      "landmarks": [
+        {
+          "tag": "HEADER",
+          "label": null
+        },
+        {
+          "tag": "NAV",
+          "label": "주 메뉴"
+        },
+        {
+          "tag": "MAIN",
+          "label": null
+        },
+        {
+          "tag": "FOOTER",
+          "label": null
+        }
+      ],
+      "overflow": [],
+      "text_nodes_measured": 66,
+      "text_below_18px": [],
+      "button_targets_measured": 0,
+      "minimum_button_height": null
+    },
+    "intro/1280": {
+      "title": "보호자를 위한 Sullivan AI 소개",
+      "lang": "ko",
+      "screen": {
+        "w": 1280,
+        "sw": 1280,
+        "bw": 1280
+      },
+      "headings": [
+        {
+          "tag": "H1",
+          "id": "intro-title",
+          "text": "선생님이 말하지 않은 칠판, 이제 들려드릴게요"
+        },
+        {
+          "tag": "H2",
+          "id": "barriers-title",
+          "text": "듣기만 해서는 놓치는 순간이 있습니다"
+        },
+        {
+          "tag": "H3",
+          "id": "",
+          "text": "“여기 이 그림 보면…”"
+        },
+        {
+          "tag": "H3",
+          "id": "",
+          "text": "다시 찾기 어려운 긴 지문"
+        },
+        {
+          "tag": "H3",
+          "id": "",
+          "text": "묻고 싶은 바로 그 부분"
+        },
+        {
+          "tag": "H2",
+          "id": "how-title",
+          "text": "강의를 듣고, 멈추고, 스스로 이어가요"
+        },
+        {
+          "tag": "H3",
+          "id": "",
+          "text": "필요한 순간에 잠깐 멈춰요"
+        },
+        {
+          "tag": "H3",
+          "id": "",
+          "text": "말하지 않은 화면을 짧게 들어요"
+        },
+        {
+          "tag": "H3",
+          "id": "",
+          "text": "핵심 개념을 찾고 복습해요"
+        },
+        {
+          "tag": "H2",
+          "id": "prepare-title",
+          "text": "보호자는 세 가지를 준비해 주세요"
+        },
+        {
+          "tag": "H2",
+          "id": "safety-title",
+          "text": "학생이 생각할 자리를 지킵니다"
+        },
+        {
+          "tag": "H3",
+          "id": "",
+          "text": "정답 대신 힌트"
+        },
+        {
+          "tag": "H3",
+          "id": "",
+          "text": "원본은 기본적으로 브라우저 안에"
+        },
+        {
+          "tag": "H3",
+          "id": "",
+          "text": "확실하지 않으면 말하지 않아요"
+        },
+        {
+          "tag": "H3",
+          "id": "",
+          "text": "연결한 계정 안에서 관리"
+        },
+        {
+          "tag": "H2",
+          "id": "student-title",
+          "text": "학생 화면은 큰 버튼 네 개부터"
+        },
+        {
+          "tag": "H2",
+          "id": "prototype-title",
+          "text": "지금은 함께 다듬어 가는 시제품입니다"
+        },
+        {
+          "tag": "H2",
+          "id": "faq-title",
+          "text": "시작하기 전에 궁금한 점"
+        },
+        {
+          "tag": "H2",
+          "id": "start-title",
+          "text": "첫 강의는 샘플로 준비해 보세요"
+        }
+      ],
+      "landmarks": [
+        {
+          "tag": "HEADER",
+          "label": null
+        },
+        {
+          "tag": "NAV",
+          "label": "주 메뉴"
+        },
+        {
+          "tag": "MAIN",
+          "label": null
+        },
+        {
+          "tag": "FOOTER",
+          "label": null
+        }
+      ],
+      "overflow": [],
+      "text_nodes_measured": 66,
+      "text_below_18px": [],
+      "button_targets_measured": 0,
+      "minimum_button_height": null
+    },
+    "guide/320": {
+      "title": "보호자 사용 가이드 | Sullivan AI",
+      "lang": "ko",
+      "screen": {
+        "w": 320,
+        "sw": 320,
+        "bw": 320
+      },
+      "headings": [
+        {
+          "tag": "H1",
+          "id": "",
+          "text": "학생의 첫 강의를 준비하는 순서"
+        },
+        {
+          "tag": "H2",
+          "id": "",
+          "text": "필요한 단계로 이동"
+        },
+        {
+          "tag": "H2",
+          "id": "step-title-1",
+          "text": "1단계.\n보호자 계정 만들기·로그인\n접기"
+        },
+        {
+          "tag": "H2",
+          "id": "step-title-2",
+          "text": "2단계.\n학생 계정 만들기\n접기"
+        },
+        {
+          "tag": "H2",
+          "id": "step-title-3",
+          "text": "3단계.\n학생별 기본 설정\n접기"
+        },
+        {
+          "tag": "H2",
+          "id": "step-title-4",
+          "text": "4단계.\n강의 준비하기\n접기"
+        },
+        {
+          "tag": "H3",
+          "id": "",
+          "text": "처음에는 샘플로 연습하기"
+        },
+        {
+          "tag": "H3",
+          "id": "",
+          "text": "내 강의와 자료 준비하기"
+        },
+        {
+          "tag": "H2",
+          "id": "step-title-5",
+          "text": "5단계.\n분석 결과 확인\n접기"
+        },
+        {
+          "tag": "H2",
+          "id": "step-title-6",
+          "text": "6단계.\n학생에게 배정하기\n접기"
+        },
+        {
+          "tag": "H2",
+          "id": "step-title-7",
+          "text": "7단계.\n학생은 이렇게 써요\n접기"
+        },
+        {
+          "tag": "H2",
+          "id": "step-title-8",
+          "text": "8단계.\n자주 묻는 질문·문제 해결\n접기"
+        },
+        {
+          "tag": "H3",
+          "id": "",
+          "text": "학생에게 강의가 보이지 않아요"
+        },
+        {
+          "tag": "H3",
+          "id": "",
+          "text": "음성이 겹치거나 들리지 않아요"
+        },
+        {
+          "tag": "H3",
+          "id": "",
+          "text": "실제 분석이 실행되지 않아요"
+        },
+        {
+          "tag": "H3",
+          "id": "",
+          "text": "이용 환경·비용·문의"
+        }
+      ],
+      "landmarks": [
+        {
+          "tag": "HEADER",
+          "label": null
+        },
+        {
+          "tag": "NAV",
+          "label": "주 메뉴"
+        },
+        {
+          "tag": "MAIN",
+          "label": null
+        },
+        {
+          "tag": "NAV",
+          "label": "가이드 단계"
+        },
+        {
+          "tag": "FOOTER",
+          "label": null
+        }
+      ],
+      "overflow": [],
+      "text_nodes_measured": 108,
+      "text_below_18px": [],
+      "button_targets_measured": 9,
+      "minimum_button_height": 52
+    },
+    "guide/390": {
+      "title": "보호자 사용 가이드 | Sullivan AI",
+      "lang": "ko",
+      "screen": {
+        "w": 390,
+        "sw": 390,
+        "bw": 390
+      },
+      "headings": [
+        {
+          "tag": "H1",
+          "id": "",
+          "text": "학생의 첫 강의를 준비하는 순서"
+        },
+        {
+          "tag": "H2",
+          "id": "",
+          "text": "필요한 단계로 이동"
+        },
+        {
+          "tag": "H2",
+          "id": "step-title-1",
+          "text": "1단계.\n보호자 계정 만들기·로그인\n접기"
+        },
+        {
+          "tag": "H2",
+          "id": "step-title-2",
+          "text": "2단계.\n학생 계정 만들기\n접기"
+        },
+        {
+          "tag": "H2",
+          "id": "step-title-3",
+          "text": "3단계.\n학생별 기본 설정\n접기"
+        },
+        {
+          "tag": "H2",
+          "id": "step-title-4",
+          "text": "4단계.\n강의 준비하기\n접기"
+        },
+        {
+          "tag": "H3",
+          "id": "",
+          "text": "처음에는 샘플로 연습하기"
+        },
+        {
+          "tag": "H3",
+          "id": "",
+          "text": "내 강의와 자료 준비하기"
+        },
+        {
+          "tag": "H2",
+          "id": "step-title-5",
+          "text": "5단계.\n분석 결과 확인\n접기"
+        },
+        {
+          "tag": "H2",
+          "id": "step-title-6",
+          "text": "6단계.\n학생에게 배정하기\n접기"
+        },
+        {
+          "tag": "H2",
+          "id": "step-title-7",
+          "text": "7단계.\n학생은 이렇게 써요\n접기"
+        },
+        {
+          "tag": "H2",
+          "id": "step-title-8",
+          "text": "8단계.\n자주 묻는 질문·문제 해결\n접기"
+        },
+        {
+          "tag": "H3",
+          "id": "",
+          "text": "학생에게 강의가 보이지 않아요"
+        },
+        {
+          "tag": "H3",
+          "id": "",
+          "text": "음성이 겹치거나 들리지 않아요"
+        },
+        {
+          "tag": "H3",
+          "id": "",
+          "text": "실제 분석이 실행되지 않아요"
+        },
+        {
+          "tag": "H3",
+          "id": "",
+          "text": "이용 환경·비용·문의"
+        }
+      ],
+      "landmarks": [
+        {
+          "tag": "HEADER",
+          "label": null
+        },
+        {
+          "tag": "NAV",
+          "label": "주 메뉴"
+        },
+        {
+          "tag": "MAIN",
+          "label": null
+        },
+        {
+          "tag": "NAV",
+          "label": "가이드 단계"
+        },
+        {
+          "tag": "FOOTER",
+          "label": null
+        }
+      ],
+      "overflow": [],
+      "text_nodes_measured": 108,
+      "text_below_18px": [],
+      "button_targets_measured": 9,
+      "minimum_button_height": 52
+    },
+    "guide/1280": {
+      "title": "보호자 사용 가이드 | Sullivan AI",
+      "lang": "ko",
+      "screen": {
+        "w": 1280,
+        "sw": 1280,
+        "bw": 1280
+      },
+      "headings": [
+        {
+          "tag": "H1",
+          "id": "",
+          "text": "학생의 첫 강의를 준비하는 순서"
+        },
+        {
+          "tag": "H2",
+          "id": "",
+          "text": "필요한 단계로 이동"
+        },
+        {
+          "tag": "H2",
+          "id": "step-title-1",
+          "text": "1단계.\n보호자 계정 만들기·로그인\n접기"
+        },
+        {
+          "tag": "H2",
+          "id": "step-title-2",
+          "text": "2단계.\n학생 계정 만들기\n접기"
+        },
+        {
+          "tag": "H2",
+          "id": "step-title-3",
+          "text": "3단계.\n학생별 기본 설정\n접기"
+        },
+        {
+          "tag": "H2",
+          "id": "step-title-4",
+          "text": "4단계.\n강의 준비하기\n접기"
+        },
+        {
+          "tag": "H3",
+          "id": "",
+          "text": "처음에는 샘플로 연습하기"
+        },
+        {
+          "tag": "H3",
+          "id": "",
+          "text": "내 강의와 자료 준비하기"
+        },
+        {
+          "tag": "H2",
+          "id": "step-title-5",
+          "text": "5단계.\n분석 결과 확인\n접기"
+        },
+        {
+          "tag": "H2",
+          "id": "step-title-6",
+          "text": "6단계.\n학생에게 배정하기\n접기"
+        },
+        {
+          "tag": "H2",
+          "id": "step-title-7",
+          "text": "7단계.\n학생은 이렇게 써요\n접기"
+        },
+        {
+          "tag": "H2",
+          "id": "step-title-8",
+          "text": "8단계.\n자주 묻는 질문·문제 해결\n접기"
+        },
+        {
+          "tag": "H3",
+          "id": "",
+          "text": "학생에게 강의가 보이지 않아요"
+        },
+        {
+          "tag": "H3",
+          "id": "",
+          "text": "음성이 겹치거나 들리지 않아요"
+        },
+        {
+          "tag": "H3",
+          "id": "",
+          "text": "실제 분석이 실행되지 않아요"
+        },
+        {
+          "tag": "H3",
+          "id": "",
+          "text": "이용 환경·비용·문의"
+        }
+      ],
+      "landmarks": [
+        {
+          "tag": "HEADER",
+          "label": null
+        },
+        {
+          "tag": "NAV",
+          "label": "주 메뉴"
+        },
+        {
+          "tag": "MAIN",
+          "label": null
+        },
+        {
+          "tag": "NAV",
+          "label": "가이드 단계"
+        },
+        {
+          "tag": "FOOTER",
+          "label": null
+        }
+      ],
+      "overflow": [],
+      "text_nodes_measured": 108,
+      "text_below_18px": [],
+      "button_targets_measured": 9,
+      "minimum_button_height": 52
+    },
+    "login": {
+      "title": "Sullivan AI · Internet Lecture Accessibility Agent",
+      "lang": "ko",
+      "screen": {
+        "w": 1280,
+        "sw": 1280,
+        "bw": 1280
+      },
+      "headings": [
+        {
+          "tag": "H1",
+          "id": "login-title",
+          "text": "처음 보호자 계정 만들기"
+        }
+      ],
+      "landmarks": [
+        {
+          "tag": "HEADER",
+          "label": null
+        },
+        {
+          "tag": "MAIN",
+          "label": null
+        },
+        {
+          "tag": "FOOTER",
+          "label": null
+        }
+      ],
+      "overflow": [],
+      "text_nodes_measured": 17,
+      "text_below_18px": [
+        {
+          "tag": "A",
+          "id": "",
+          "cls": "skip-link",
+          "text": "본문으로 바로가기",
+          "fg": "rgb(255, 255, 255)",
+          "bg": "rgb(23, 44, 72)",
+          "size": "16px",
+          "weight": "400",
+          "r": {
+            "x": 16,
+            "y": -80,
+            "w": 32,
+            "h": 25.59375
+          }
+        },
+        {
+          "tag": "SMALL",
+          "id": "",
+          "cls": "",
+          "text": "강의 학습 도우미",
+          "fg": "rgb(70, 92, 115)",
+          "bg": "rgb(255, 255, 255)",
+          "size": "14px",
+          "weight": "400",
+          "r": {
+            "x": 50,
+            "y": 52.96875,
+            "w": 99.3125,
+            "h": 23.09375
+          }
+        },
+        {
+          "tag": "SPAN",
+          "id": "",
+          "cls": "sr-only",
+          "text": "처음 화면",
+          "fg": "rgb(23, 44, 72)",
+          "bg": "rgb(255, 255, 255)",
+          "size": "16px",
+          "weight": "400",
+          "r": {
+            "x": 49,
+            "y": 45.53125,
+            "w": 1,
+            "h": 1
+          }
+        },
+        {
+          "tag": "P",
+          "id": "login-help",
+          "cls": "",
+          "text": "처음에는 보호자 계정을 먼저 만들어 주세요. 학생 계정은 보호자 준비실에서 만들 수 있습니다.",
+          "fg": "rgb(23, 44, 72)",
+          "bg": "rgb(255, 255, 255)",
+          "size": "16px",
+          "weight": "400",
+          "r": {
+            "x": 330,
+            "y": 207.375,
+            "w": 620,
+            "h": 26.390625
+          }
+        },
+        {
+          "tag": "BUTTON",
+          "id": "login-role-student",
+          "cls": "",
+          "text": "학생 로그인",
+          "fg": "rgb(70, 92, 115)",
+          "bg": "rgb(255, 255, 255)",
+          "size": "16px",
+          "weight": "700",
+          "r": {
+            "x": 330,
+            "y": 254.765625,
+            "w": 310,
+            "h": 64
+          }
+        },
+        {
+          "tag": "BUTTON",
+          "id": "login-role-guardian",
+          "cls": "",
+          "text": "보호자 로그인",
+          "fg": "rgb(70, 92, 115)",
+          "bg": "rgb(255, 255, 255)",
+          "size": "16px",
+          "weight": "700",
+          "r": {
+            "x": 640,
+            "y": 254.765625,
+            "w": 310,
+            "h": 64
+          }
+        },
+        {
+          "tag": "LABEL",
+          "id": "",
+          "cls": "",
+          "text": "로그인 앱 음성 안내",
+          "fg": "rgb(23, 44, 72)",
+          "bg": "rgb(255, 255, 255)",
+          "size": "16px",
+          "weight": "700",
+          "r": {
+            "x": 330,
+            "y": 339.765625,
+            "w": 171.359375,
+            "h": 40
+          }
+        },
+        {
+          "tag": "LABEL",
+          "id": "",
+          "cls": "",
+          "text": "로그인 이름",
+          "fg": "rgb(23, 44, 72)",
+          "bg": "rgb(255, 255, 255)",
+          "size": "16px",
+          "weight": "700",
+          "r": {
+            "x": 330,
+            "y": 399.765625,
+            "w": 620,
+            "h": 82.125
+          }
+        },
+        {
+          "tag": "LABEL",
+          "id": "",
+          "cls": "",
+          "text": "비밀번호",
+          "fg": "rgb(23, 44, 72)",
+          "bg": "rgb(255, 255, 255)",
+          "size": "16px",
+          "weight": "700",
+          "r": {
+            "x": 330,
+            "y": 497.890625,
+            "w": 620,
+            "h": 82.125
+          }
+        },
+        {
+          "tag": "LABEL",
+          "id": "setup-name-label",
+          "cls": "",
+          "text": "보호자 이름",
+          "fg": "rgb(23, 44, 72)",
+          "bg": "rgb(255, 255, 255)",
+          "size": "16px",
+          "weight": "700",
+          "r": {
+            "x": 330,
+            "y": 596.015625,
+            "w": 620,
+            "h": 82.125
+          }
+        },
+        {
+          "tag": "BUTTON",
+          "id": "login-submit",
+          "cls": "primary",
+          "text": "보호자 계정 만들기",
+          "fg": "rgb(255, 255, 255)",
+          "bg": "rgb(23, 44, 72)",
+          "size": "16px",
+          "weight": "700",
+          "r": {
+            "x": 330,
+            "y": 694.140625,
+            "w": 620,
+            "h": 53.59375
+          }
+        },
+        {
+          "tag": "BUTTON",
+          "id": "login-voice-test",
+          "cls": "",
+          "text": "로그인 음성 시작·시험",
+          "fg": "rgb(22, 75, 139)",
+          "bg": "rgb(255, 255, 255)",
+          "size": "16px",
+          "weight": "700",
+          "r": {
+            "x": 330,
+            "y": 772.734375,
+            "w": 137.828125,
+            "h": 44
+          }
+        },
+        {
+          "tag": "P",
+          "id": "login-voice-status",
+          "cls": "",
+          "text": "브라우저가 자동 음성을 차단했습니다. 로그인 음성 시작·시험 버튼을 눌러 주세요.",
+          "fg": "rgb(70, 92, 115)",
+          "bg": "rgb(255, 255, 255)",
+          "size": "14px",
+          "weight": "400",
+          "r": {
+            "x": 330,
+            "y": 824.734375,
+            "w": 573.296875,
+            "h": 23.796875
+          }
+        },
+        {
+          "tag": "A",
+          "id": "",
+          "cls": "",
+          "text": "처음이신가요? 보호자 소개 보기",
+          "fg": "rgb(23, 44, 72)",
+          "bg": "rgb(255, 255, 255)",
+          "size": "16px",
+          "weight": "400",
+          "r": {
+            "x": 330,
+            "y": 867.53125,
+            "w": 199.765625,
+            "h": 19
+          }
+        },
+        {
+          "tag": "SUMMARY",
+          "id": "",
+          "cls": "",
+          "text": "실행 정보",
+          "fg": "rgb(70, 92, 115)",
+          "bg": "rgb(255, 255, 255)",
+          "size": "14px",
+          "weight": "400",
+          "r": {
+            "x": 40,
+            "y": 930.921875,
+            "w": 66.953125,
+            "h": 44
+          }
+        }
+      ],
+      "button_targets_measured": 4,
+      "minimum_button_height": 44
+    },
+    "guardian0": {
+      "title": "Sullivan AI · Internet Lecture Accessibility Agent",
+      "lang": "ko",
+      "screen": {
+        "w": 1280,
+        "sw": 1280,
+        "bw": 1280
+      },
+      "headings": [
+        {
+          "tag": "H1",
+          "id": "guardian-title",
+          "text": "보호자 준비실"
+        },
+        {
+          "tag": "H2",
+          "id": "guardian-progress-title",
+          "text": "준비 현황"
+        },
+        {
+          "tag": "H2",
+          "id": "guardian-students-title",
+          "text": "학생 관리"
+        },
+        {
+          "tag": "H2",
+          "id": "guardian-lectures-title",
+          "text": "강의"
+        },
+        {
+          "tag": "H2",
+          "id": "guardian-preparation-title",
+          "text": "강의 준비하기"
+        }
+      ],
+      "landmarks": [
+        {
+          "tag": "HEADER",
+          "label": null
+        },
+        {
+          "tag": "MAIN",
+          "label": null
+        },
+        {
+          "tag": "ASIDE",
+          "label": "보호자 준비 도움"
+        },
+        {
+          "tag": "FOOTER",
+          "label": null
+        }
+      ],
+      "overflow": [],
+      "text_nodes_measured": 37,
+      "text_below_18px": [
+        {
+          "tag": "SMALL",
+          "id": "",
+          "cls": "",
+          "text": "강의 학습 도우미",
+          "fg": "rgb(70, 92, 115)",
+          "bg": "rgb(255, 255, 255)",
+          "size": "14px",
+          "weight": "400",
+          "r": {
+            "x": 50,
+            "y": 52.96875,
+            "w": 99.3125,
+            "h": 23.09375
+          }
+        }
+      ],
+      "button_targets_measured": 3,
+      "minimum_button_height": 48
+    },
+    "guardian320": {
+      "title": "Sullivan AI · Internet Lecture Accessibility Agent",
+      "lang": "ko",
+      "screen": {
+        "w": 320,
+        "sw": 320,
+        "bw": 320
+      },
+      "headings": [
+        {
+          "tag": "H1",
+          "id": "guardian-title",
+          "text": "보호자 준비실"
+        },
+        {
+          "tag": "H2",
+          "id": "guardian-progress-title",
+          "text": "준비 현황"
+        },
+        {
+          "tag": "H2",
+          "id": "guardian-students-title",
+          "text": "학생 관리"
+        },
+        {
+          "tag": "H3",
+          "id": "guardian-student-f2165b2d98d54b22a57bfd1a37509536",
+          "text": "학생"
+        },
+        {
+          "tag": "H3",
+          "id": "guardian-settings-title",
+          "text": "학생별 기본 설정"
+        },
+        {
+          "tag": "H2",
+          "id": "guardian-lectures-title",
+          "text": "강의"
+        },
+        {
+          "tag": "H2",
+          "id": "guardian-preparation-title",
+          "text": "강의 준비하기"
+        },
+        {
+          "tag": "H3",
+          "id": "sample-assign-title",
+          "text": "샘플 바로 배정"
+        }
+      ],
+      "landmarks": [
+        {
+          "tag": "HEADER",
+          "label": null
+        },
+        {
+          "tag": "MAIN",
+          "label": null
+        },
+        {
+          "tag": "ASIDE",
+          "label": "보호자 준비 도움"
+        },
+        {
+          "tag": "FOOTER",
+          "label": null
+        }
+      ],
+      "overflow": [],
+      "text_nodes_measured": 76,
+      "text_below_18px": [
+        {
+          "tag": "SMALL",
+          "id": "",
+          "cls": "",
+          "text": "강의 학습 도우미",
+          "fg": "rgb(70, 92, 115)",
+          "bg": "rgb(255, 255, 255)",
+          "size": "14px",
+          "weight": "400",
+          "r": {
+            "x": 20,
+            "y": 52.96875,
+            "w": 99.3125,
+            "h": 23.09375
+          }
+        }
+      ],
+      "button_targets_measured": 7,
+      "minimum_button_height": 48
+    },
+    "guardian390": {
+      "title": "Sullivan AI · Internet Lecture Accessibility Agent",
+      "lang": "ko",
+      "screen": {
+        "w": 390,
+        "sw": 390,
+        "bw": 390
+      },
+      "headings": [
+        {
+          "tag": "H1",
+          "id": "guardian-title",
+          "text": "보호자 준비실"
+        },
+        {
+          "tag": "H2",
+          "id": "guardian-progress-title",
+          "text": "준비 현황"
+        },
+        {
+          "tag": "H2",
+          "id": "guardian-students-title",
+          "text": "학생 관리"
+        },
+        {
+          "tag": "H3",
+          "id": "guardian-student-f2165b2d98d54b22a57bfd1a37509536",
+          "text": "학생"
+        },
+        {
+          "tag": "H3",
+          "id": "guardian-settings-title",
+          "text": "학생별 기본 설정"
+        },
+        {
+          "tag": "H2",
+          "id": "guardian-lectures-title",
+          "text": "강의"
+        },
+        {
+          "tag": "H2",
+          "id": "guardian-preparation-title",
+          "text": "강의 준비하기"
+        },
+        {
+          "tag": "H3",
+          "id": "sample-assign-title",
+          "text": "샘플 바로 배정"
+        }
+      ],
+      "landmarks": [
+        {
+          "tag": "HEADER",
+          "label": null
+        },
+        {
+          "tag": "MAIN",
+          "label": null
+        },
+        {
+          "tag": "ASIDE",
+          "label": "보호자 준비 도움"
+        },
+        {
+          "tag": "FOOTER",
+          "label": null
+        }
+      ],
+      "overflow": [],
+      "text_nodes_measured": 76,
+      "text_below_18px": [
+        {
+          "tag": "SMALL",
+          "id": "",
+          "cls": "",
+          "text": "강의 학습 도우미",
+          "fg": "rgb(70, 92, 115)",
+          "bg": "rgb(255, 255, 255)",
+          "size": "14px",
+          "weight": "400",
+          "r": {
+            "x": 20,
+            "y": 52.96875,
+            "w": 99.3125,
+            "h": 23.09375
+          }
+        }
+      ],
+      "button_targets_measured": 7,
+      "minimum_button_height": 48
+    },
+    "guardian1280": {
+      "title": "Sullivan AI · Internet Lecture Accessibility Agent",
+      "lang": "ko",
+      "screen": {
+        "w": 1280,
+        "sw": 1280,
+        "bw": 1280
+      },
+      "headings": [
+        {
+          "tag": "H1",
+          "id": "guardian-title",
+          "text": "보호자 준비실"
+        },
+        {
+          "tag": "H2",
+          "id": "guardian-progress-title",
+          "text": "준비 현황"
+        },
+        {
+          "tag": "H2",
+          "id": "guardian-students-title",
+          "text": "학생 관리"
+        },
+        {
+          "tag": "H3",
+          "id": "guardian-student-f2165b2d98d54b22a57bfd1a37509536",
+          "text": "학생"
+        },
+        {
+          "tag": "H3",
+          "id": "guardian-settings-title",
+          "text": "학생별 기본 설정"
+        },
+        {
+          "tag": "H2",
+          "id": "guardian-lectures-title",
+          "text": "강의"
+        },
+        {
+          "tag": "H2",
+          "id": "guardian-preparation-title",
+          "text": "강의 준비하기"
+        },
+        {
+          "tag": "H3",
+          "id": "sample-assign-title",
+          "text": "샘플 바로 배정"
+        }
+      ],
+      "landmarks": [
+        {
+          "tag": "HEADER",
+          "label": null
+        },
+        {
+          "tag": "MAIN",
+          "label": null
+        },
+        {
+          "tag": "ASIDE",
+          "label": "보호자 준비 도움"
+        },
+        {
+          "tag": "FOOTER",
+          "label": null
+        }
+      ],
+      "overflow": [],
+      "text_nodes_measured": 76,
+      "text_below_18px": [
+        {
+          "tag": "SMALL",
+          "id": "",
+          "cls": "",
+          "text": "강의 학습 도우미",
+          "fg": "rgb(70, 92, 115)",
+          "bg": "rgb(255, 255, 255)",
+          "size": "14px",
+          "weight": "400",
+          "r": {
+            "x": 50,
+            "y": 52.96875,
+            "w": 99.3125,
+            "h": 23.09375
+          }
+        }
+      ],
+      "button_targets_measured": 7,
+      "minimum_button_height": 48
+    },
+    "wizard1-320": {
+      "title": "Sullivan AI · Internet Lecture Accessibility Agent",
+      "lang": "ko",
+      "screen": {
+        "w": 320,
+        "sw": 320,
+        "bw": 320
+      },
+      "headings": [
+        {
+          "tag": "H1",
+          "id": "setup-form-title",
+          "text": "강의 등록"
+        },
+        {
+          "tag": "H2",
+          "id": "wizard-title-1",
+          "text": "강의 정보"
+        }
+      ],
+      "landmarks": [
+        {
+          "tag": "HEADER",
+          "label": null
+        },
+        {
+          "tag": "MAIN",
+          "label": null
+        },
+        {
+          "tag": "NAV",
+          "label": "현재 위치"
+        },
+        {
+          "tag": "FOOTER",
+          "label": null
+        }
+      ],
+      "overflow": [],
+      "text_nodes_measured": 24,
+      "text_below_18px": [
+        {
+          "tag": "SMALL",
+          "id": "",
+          "cls": "",
+          "text": "강의 학습 도우미",
+          "fg": "rgb(70, 92, 115)",
+          "bg": "rgb(255, 255, 255)",
+          "size": "14px",
+          "weight": "400",
+          "r": {
+            "x": 20,
+            "y": -334.03125,
+            "w": 99.3125,
+            "h": 23.09375
+          }
+        }
+      ],
+      "button_targets_measured": 3,
+      "minimum_button_height": 48
+    },
+    "wizard1-390": {
+      "title": "Sullivan AI · Internet Lecture Accessibility Agent",
+      "lang": "ko",
+      "screen": {
+        "w": 390,
+        "sw": 390,
+        "bw": 390
+      },
+      "headings": [
+        {
+          "tag": "H1",
+          "id": "setup-form-title",
+          "text": "강의 등록"
+        },
+        {
+          "tag": "H2",
+          "id": "wizard-title-1",
+          "text": "강의 정보"
+        }
+      ],
+      "landmarks": [
+        {
+          "tag": "HEADER",
+          "label": null
+        },
+        {
+          "tag": "MAIN",
+          "label": null
+        },
+        {
+          "tag": "NAV",
+          "label": "현재 위치"
+        },
+        {
+          "tag": "FOOTER",
+          "label": null
+        }
+      ],
+      "overflow": [],
+      "text_nodes_measured": 24,
+      "text_below_18px": [
+        {
+          "tag": "SMALL",
+          "id": "",
+          "cls": "",
+          "text": "강의 학습 도우미",
+          "fg": "rgb(70, 92, 115)",
+          "bg": "rgb(255, 255, 255)",
+          "size": "14px",
+          "weight": "400",
+          "r": {
+            "x": 20,
+            "y": -334.03125,
+            "w": 99.3125,
+            "h": 23.09375
+          }
+        }
+      ],
+      "button_targets_measured": 3,
+      "minimum_button_height": 48
+    },
+    "wizard1-1280": {
+      "title": "Sullivan AI · Internet Lecture Accessibility Agent",
+      "lang": "ko",
+      "screen": {
+        "w": 1280,
+        "sw": 1280,
+        "bw": 1280
+      },
+      "headings": [
+        {
+          "tag": "H1",
+          "id": "setup-form-title",
+          "text": "강의 등록"
+        },
+        {
+          "tag": "H2",
+          "id": "wizard-title-1",
+          "text": "강의 정보"
+        }
+      ],
+      "landmarks": [
+        {
+          "tag": "HEADER",
+          "label": null
+        },
+        {
+          "tag": "MAIN",
+          "label": null
+        },
+        {
+          "tag": "NAV",
+          "label": "현재 위치"
+        },
+        {
+          "tag": "FOOTER",
+          "label": null
+        }
+      ],
+      "overflow": [],
+      "text_nodes_measured": 24,
+      "text_below_18px": [
+        {
+          "tag": "SMALL",
+          "id": "",
+          "cls": "",
+          "text": "강의 학습 도우미",
+          "fg": "rgb(70, 92, 115)",
+          "bg": "rgb(255, 255, 255)",
+          "size": "14px",
+          "weight": "400",
+          "r": {
+            "x": 50,
+            "y": -334.03125,
+            "w": 99.3125,
+            "h": 23.09375
+          }
+        }
+      ],
+      "button_targets_measured": 3,
+      "minimum_button_height": 48
+    },
+    "wizard2-320": {
+      "title": "Sullivan AI · Internet Lecture Accessibility Agent",
+      "lang": "ko",
+      "screen": {
+        "w": 320,
+        "sw": 320,
+        "bw": 320
+      },
+      "headings": [
+        {
+          "tag": "H1",
+          "id": "setup-form-title",
+          "text": "강의 등록"
+        },
+        {
+          "tag": "H2",
+          "id": "wizard-title-2",
+          "text": "영상·자료와 동의"
+        }
+      ],
+      "landmarks": [
+        {
+          "tag": "HEADER",
+          "label": null
+        },
+        {
+          "tag": "MAIN",
+          "label": null
+        },
+        {
+          "tag": "NAV",
+          "label": "현재 위치"
+        },
+        {
+          "tag": "FOOTER",
+          "label": null
+        }
+      ],
+      "overflow": [],
+      "text_nodes_measured": 24,
+      "text_below_18px": [
+        {
+          "tag": "SMALL",
+          "id": "",
+          "cls": "",
+          "text": "강의 학습 도우미",
+          "fg": "rgb(70, 92, 115)",
+          "bg": "rgb(255, 255, 255)",
+          "size": "14px",
+          "weight": "400",
+          "r": {
+            "x": 20,
+            "y": -82.03125,
+            "w": 99.3125,
+            "h": 23.09375
+          }
+        }
+      ],
+      "button_targets_measured": 7,
+      "minimum_button_height": 48
+    },
+    "wizard2-390": {
+      "title": "Sullivan AI · Internet Lecture Accessibility Agent",
+      "lang": "ko",
+      "screen": {
+        "w": 390,
+        "sw": 390,
+        "bw": 390
+      },
+      "headings": [
+        {
+          "tag": "H1",
+          "id": "setup-form-title",
+          "text": "강의 등록"
+        },
+        {
+          "tag": "H2",
+          "id": "wizard-title-2",
+          "text": "영상·자료와 동의"
+        }
+      ],
+      "landmarks": [
+        {
+          "tag": "HEADER",
+          "label": null
+        },
+        {
+          "tag": "MAIN",
+          "label": null
+        },
+        {
+          "tag": "NAV",
+          "label": "현재 위치"
+        },
+        {
+          "tag": "FOOTER",
+          "label": null
+        }
+      ],
+      "overflow": [],
+      "text_nodes_measured": 24,
+      "text_below_18px": [
+        {
+          "tag": "SMALL",
+          "id": "",
+          "cls": "",
+          "text": "강의 학습 도우미",
+          "fg": "rgb(70, 92, 115)",
+          "bg": "rgb(255, 255, 255)",
+          "size": "14px",
+          "weight": "400",
+          "r": {
+            "x": 20,
+            "y": -82.03125,
+            "w": 99.3125,
+            "h": 23.09375
+          }
+        }
+      ],
+      "button_targets_measured": 7,
+      "minimum_button_height": 48
+    },
+    "wizard2-1280": {
+      "title": "Sullivan AI · Internet Lecture Accessibility Agent",
+      "lang": "ko",
+      "screen": {
+        "w": 1280,
+        "sw": 1280,
+        "bw": 1280
+      },
+      "headings": [
+        {
+          "tag": "H1",
+          "id": "setup-form-title",
+          "text": "강의 등록"
+        },
+        {
+          "tag": "H2",
+          "id": "wizard-title-2",
+          "text": "영상·자료와 동의"
+        }
+      ],
+      "landmarks": [
+        {
+          "tag": "HEADER",
+          "label": null
+        },
+        {
+          "tag": "MAIN",
+          "label": null
+        },
+        {
+          "tag": "NAV",
+          "label": "현재 위치"
+        },
+        {
+          "tag": "FOOTER",
+          "label": null
+        }
+      ],
+      "overflow": [],
+      "text_nodes_measured": 24,
+      "text_below_18px": [
+        {
+          "tag": "SMALL",
+          "id": "",
+          "cls": "",
+          "text": "강의 학습 도우미",
+          "fg": "rgb(70, 92, 115)",
+          "bg": "rgb(255, 255, 255)",
+          "size": "14px",
+          "weight": "400",
+          "r": {
+            "x": 50,
+            "y": -82.03125,
+            "w": 99.3125,
+            "h": 23.09375
+          }
+        }
+      ],
+      "button_targets_measured": 7,
+      "minimum_button_height": 48
+    },
+    "wizard3-320": {
+      "title": "Sullivan AI · Internet Lecture Accessibility Agent",
+      "lang": "ko",
+      "screen": {
+        "w": 320,
+        "sw": 320,
+        "bw": 320
+      },
+      "headings": [
+        {
+          "tag": "H1",
+          "id": "setup-form-title",
+          "text": "강의 등록"
+        },
+        {
+          "tag": "H2",
+          "id": "wizard-title-3",
+          "text": "보호 설정 확인"
+        }
+      ],
+      "landmarks": [
+        {
+          "tag": "HEADER",
+          "label": null
+        },
+        {
+          "tag": "MAIN",
+          "label": null
+        },
+        {
+          "tag": "NAV",
+          "label": "현재 위치"
+        },
+        {
+          "tag": "FOOTER",
+          "label": null
+        }
+      ],
+      "overflow": [],
+      "text_nodes_measured": 33,
+      "text_below_18px": [
+        {
+          "tag": "SMALL",
+          "id": "",
+          "cls": "",
+          "text": "강의 학습 도우미",
+          "fg": "rgb(70, 92, 115)",
+          "bg": "rgb(255, 255, 255)",
+          "size": "14px",
+          "weight": "400",
+          "r": {
+            "x": 20,
+            "y": -82.03125,
+            "w": 99.3125,
+            "h": 23.09375
+          }
+        }
+      ],
+      "button_targets_measured": 4,
+      "minimum_button_height": 48
+    },
+    "wizard3-390": {
+      "title": "Sullivan AI · Internet Lecture Accessibility Agent",
+      "lang": "ko",
+      "screen": {
+        "w": 390,
+        "sw": 390,
+        "bw": 390
+      },
+      "headings": [
+        {
+          "tag": "H1",
+          "id": "setup-form-title",
+          "text": "강의 등록"
+        },
+        {
+          "tag": "H2",
+          "id": "wizard-title-3",
+          "text": "보호 설정 확인"
+        }
+      ],
+      "landmarks": [
+        {
+          "tag": "HEADER",
+          "label": null
+        },
+        {
+          "tag": "MAIN",
+          "label": null
+        },
+        {
+          "tag": "NAV",
+          "label": "현재 위치"
+        },
+        {
+          "tag": "FOOTER",
+          "label": null
+        }
+      ],
+      "overflow": [],
+      "text_nodes_measured": 33,
+      "text_below_18px": [
+        {
+          "tag": "SMALL",
+          "id": "",
+          "cls": "",
+          "text": "강의 학습 도우미",
+          "fg": "rgb(70, 92, 115)",
+          "bg": "rgb(255, 255, 255)",
+          "size": "14px",
+          "weight": "400",
+          "r": {
+            "x": 20,
+            "y": -82.03125,
+            "w": 99.3125,
+            "h": 23.09375
+          }
+        }
+      ],
+      "button_targets_measured": 4,
+      "minimum_button_height": 48
+    },
+    "wizard3-1280": {
+      "title": "Sullivan AI · Internet Lecture Accessibility Agent",
+      "lang": "ko",
+      "screen": {
+        "w": 1280,
+        "sw": 1280,
+        "bw": 1280
+      },
+      "headings": [
+        {
+          "tag": "H1",
+          "id": "setup-form-title",
+          "text": "강의 등록"
+        },
+        {
+          "tag": "H2",
+          "id": "wizard-title-3",
+          "text": "보호 설정 확인"
+        }
+      ],
+      "landmarks": [
+        {
+          "tag": "HEADER",
+          "label": null
+        },
+        {
+          "tag": "MAIN",
+          "label": null
+        },
+        {
+          "tag": "NAV",
+          "label": "현재 위치"
+        },
+        {
+          "tag": "FOOTER",
+          "label": null
+        }
+      ],
+      "overflow": [],
+      "text_nodes_measured": 33,
+      "text_below_18px": [
+        {
+          "tag": "SMALL",
+          "id": "",
+          "cls": "",
+          "text": "강의 학습 도우미",
+          "fg": "rgb(70, 92, 115)",
+          "bg": "rgb(255, 255, 255)",
+          "size": "14px",
+          "weight": "400",
+          "r": {
+            "x": 50,
+            "y": -82.03125,
+            "w": 99.3125,
+            "h": 23.09375
+          }
+        }
+      ],
+      "button_targets_measured": 4,
+      "minimum_button_height": 48
+    },
+    "result320": {
+      "title": "Sullivan AI · Internet Lecture Accessibility Agent",
+      "lang": "ko",
+      "screen": {
+        "w": 320,
+        "sw": 320,
+        "bw": 320
+      },
+      "headings": [
+        {
+          "tag": "H1",
+          "id": "guardian-result-title",
+          "text": "천문학 특강 7강 · 별의 진화"
+        },
+        {
+          "tag": "H2",
+          "id": "watch-title",
+          "text": "강의 화면"
+        },
+        {
+          "tag": "H3",
+          "id": "description-title",
+          "text": "현재 화면 해설"
+        },
+        {
+          "tag": "H3",
+          "id": "",
+          "text": "준비한 자료"
+        },
+        {
+          "tag": "H2",
+          "id": "publish-title",
+          "text": "학생에게 제공하기"
+        }
+      ],
+      "landmarks": [
+        {
+          "tag": "HEADER",
+          "label": null
+        },
+        {
+          "tag": "MAIN",
+          "label": null
+        },
+        {
+          "tag": "ASIDE",
+          "label": null
+        },
+        {
+          "tag": "NAV",
+          "label": "Sullivan AI 기능"
+        },
+        {
+          "tag": "FOOTER",
+          "label": null
+        }
+      ],
+      "overflow": [],
+      "text_nodes_measured": 69,
+      "text_below_18px": [
+        {
+          "tag": "SMALL",
+          "id": "",
+          "cls": "",
+          "text": "강의 학습 도우미",
+          "fg": "rgb(70, 92, 115)",
+          "bg": "rgb(255, 255, 255)",
+          "size": "14px",
+          "weight": "400",
+          "r": {
+            "x": 20,
+            "y": 52.96875,
+            "w": 99.3125,
+            "h": 23.09375
+          }
+        }
+      ],
+      "button_targets_measured": 25,
+      "minimum_button_height": 48
+    },
+    "result390": {
+      "title": "Sullivan AI · Internet Lecture Accessibility Agent",
+      "lang": "ko",
+      "screen": {
+        "w": 390,
+        "sw": 390,
+        "bw": 390
+      },
+      "headings": [
+        {
+          "tag": "H1",
+          "id": "guardian-result-title",
+          "text": "천문학 특강 7강 · 별의 진화"
+        },
+        {
+          "tag": "H2",
+          "id": "watch-title",
+          "text": "강의 화면"
+        },
+        {
+          "tag": "H3",
+          "id": "description-title",
+          "text": "현재 화면 해설"
+        },
+        {
+          "tag": "H3",
+          "id": "",
+          "text": "준비한 자료"
+        },
+        {
+          "tag": "H2",
+          "id": "publish-title",
+          "text": "학생에게 제공하기"
+        }
+      ],
+      "landmarks": [
+        {
+          "tag": "HEADER",
+          "label": null
+        },
+        {
+          "tag": "MAIN",
+          "label": null
+        },
+        {
+          "tag": "ASIDE",
+          "label": null
+        },
+        {
+          "tag": "NAV",
+          "label": "Sullivan AI 기능"
+        },
+        {
+          "tag": "FOOTER",
+          "label": null
+        }
+      ],
+      "overflow": [],
+      "text_nodes_measured": 69,
+      "text_below_18px": [
+        {
+          "tag": "SMALL",
+          "id": "",
+          "cls": "",
+          "text": "강의 학습 도우미",
+          "fg": "rgb(70, 92, 115)",
+          "bg": "rgb(255, 255, 255)",
+          "size": "14px",
+          "weight": "400",
+          "r": {
+            "x": 20,
+            "y": 52.96875,
+            "w": 99.3125,
+            "h": 23.09375
+          }
+        }
+      ],
+      "button_targets_measured": 25,
+      "minimum_button_height": 48
+    },
+    "result1280": {
+      "title": "Sullivan AI · Internet Lecture Accessibility Agent",
+      "lang": "ko",
+      "screen": {
+        "w": 1280,
+        "sw": 1280,
+        "bw": 1280
+      },
+      "headings": [
+        {
+          "tag": "H1",
+          "id": "guardian-result-title",
+          "text": "천문학 특강 7강 · 별의 진화"
+        },
+        {
+          "tag": "H2",
+          "id": "watch-title",
+          "text": "강의 화면"
+        },
+        {
+          "tag": "H3",
+          "id": "description-title",
+          "text": "현재 화면 해설"
+        },
+        {
+          "tag": "H3",
+          "id": "",
+          "text": "준비한 자료"
+        },
+        {
+          "tag": "H2",
+          "id": "publish-title",
+          "text": "학생에게 제공하기"
+        }
+      ],
+      "landmarks": [
+        {
+          "tag": "HEADER",
+          "label": null
+        },
+        {
+          "tag": "MAIN",
+          "label": null
+        },
+        {
+          "tag": "ASIDE",
+          "label": null
+        },
+        {
+          "tag": "NAV",
+          "label": "Sullivan AI 기능"
+        },
+        {
+          "tag": "FOOTER",
+          "label": null
+        }
+      ],
+      "overflow": [],
+      "text_nodes_measured": 69,
+      "text_below_18px": [
+        {
+          "tag": "SMALL",
+          "id": "",
+          "cls": "",
+          "text": "강의 학습 도우미",
+          "fg": "rgb(70, 92, 115)",
+          "bg": "rgb(255, 255, 255)",
+          "size": "14px",
+          "weight": "400",
+          "r": {
+            "x": 50,
+            "y": 52.96875,
+            "w": 99.3125,
+            "h": 23.09375
+          }
+        }
+      ],
+      "button_targets_measured": 25,
+      "minimum_button_height": 48
+    },
+    "passage320": {
+      "title": "Sullivan AI · Internet Lecture Accessibility Agent",
+      "lang": "ko",
+      "screen": {
+        "w": 320,
+        "sw": 320,
+        "bw": 320
+      },
+      "headings": [
+        {
+          "tag": "H1",
+          "id": "guardian-result-title",
+          "text": "천문학 특강 7강 · 별의 진화"
+        },
+        {
+          "tag": "H2",
+          "id": "passage-title",
+          "text": "핵심 개념 음성 탐색"
+        },
+        {
+          "tag": "H3",
+          "id": "",
+          "text": "핵심 키워드나 흐름을 말해 보세요"
+        },
+        {
+          "tag": "H3",
+          "id": "passage-document-title",
+          "text": "별의 진화 · 핵심 개념"
+        },
+        {
+          "tag": "H3",
+          "id": "long-passage-title",
+          "text": "지문·문단 텍스트 낭독"
+        },
+        {
+          "tag": "H2",
+          "id": "publish-title",
+          "text": "학생에게 제공하기"
+        }
+      ],
+      "landmarks": [
+        {
+          "tag": "HEADER",
+          "label": null
+        },
+        {
+          "tag": "MAIN",
+          "label": null
+        },
+        {
+          "tag": "ASIDE",
+          "label": null
+        },
+        {
+          "tag": "NAV",
+          "label": "Sullivan AI 기능"
+        },
+        {
+          "tag": "HEADER",
+          "label": null
+        },
+        {
+          "tag": "HEADER",
+          "label": null
+        },
+        {
+          "tag": "HEADER",
+          "label": null
+        },
+        {
+          "tag": "HEADER",
+          "label": null
+        },
+        {
+          "tag": "FOOTER",
+          "label": null
+        }
+      ],
+      "overflow": [],
+      "text_nodes_measured": 225,
+      "text_below_18px": [
+        {
+          "tag": "SMALL",
+          "id": "",
+          "cls": "",
+          "text": "강의 학습 도우미",
+          "fg": "rgb(70, 92, 115)",
+          "bg": "rgb(255, 255, 255)",
+          "size": "14px",
+          "weight": "400",
+          "r": {
+            "x": 20,
+            "y": 52.96875,
+            "w": 99.3125,
+            "h": 23.09375
+          }
+        },
+        {
+          "tag": "B",
+          "id": "",
+          "cls": "",
+          "text": "탄생",
+          "fg": "rgb(22, 75, 139)",
+          "bg": "rgb(255, 255, 255)",
+          "size": "14px",
+          "weight": "700",
+          "r": {
+            "x": 38.59375,
+            "y": 1984.703125,
+            "w": 24.234375,
+            "h": 22.390625
+          }
+        },
+        {
+          "tag": "TIME",
+          "id": "",
+          "cls": "",
+          "text": "2:30",
+          "fg": "rgb(70, 92, 115)",
+          "bg": "rgb(255, 255, 255)",
+          "size": "14px",
+          "weight": "700",
+          "r": {
+            "x": 184.03125,
+            "y": 1984.703125,
+            "w": 27.875,
+            "h": 22.390625
+          }
+        },
+        {
+          "tag": "B",
+          "id": "",
+          "cls": "",
+          "text": "탄생",
+          "fg": "rgb(22, 75, 139)",
+          "bg": "rgb(255, 255, 255)",
+          "size": "14px",
+          "weight": "700",
+          "r": {
+            "x": 38.59375,
+            "y": 2214.1875,
+            "w": 24.234375,
+            "h": 22.390625
+          }
+        },
+        {
+          "tag": "TIME",
+          "id": "",
+          "cls": "",
+          "text": "2:38",
+          "fg": "rgb(70, 92, 115)",
+          "bg": "rgb(255, 255, 255)",
+          "size": "14px",
+          "weight": "700",
+          "r": {
+            "x": 184.75,
+            "y": 2214.1875,
+            "w": 27.15625,
+            "h": 22.390625
+          }
+        },
+        {
+          "tag": "B",
+          "id": "",
+          "cls": "",
+          "text": "탄생",
+          "fg": "rgb(22, 75, 139)",
+          "bg": "rgb(255, 255, 255)",
+          "size": "14px",
+          "weight": "700",
+          "r": {
+            "x": 38.59375,
+            "y": 2443.671875,
+            "w": 24.234375,
+            "h": 22.390625
+          }
+        },
+        {
+          "tag": "TIME",
+          "id": "",
+          "cls": "",
+          "text": "2:50",
+          "fg": "rgb(70, 92, 115)",
+          "bg": "rgb(255, 255, 255)",
+          "size": "14px",
+          "weight": "700",
+          "r": {
+            "x": 184.34375,
+            "y": 2443.671875,
+            "w": 27.5625,
+            "h": 22.390625
+          }
+        },
+        {
+          "tag": "B",
+          "id": "",
+          "cls": "",
+          "text": "판서 흐름",
+          "fg": "rgb(22, 75, 139)",
+          "bg": "rgb(255, 255, 255)",
+          "size": "14px",
+          "weight": "700",
+          "r": {
+            "x": 38.59375,
+            "y": 2673.15625,
+            "w": 52.125,
+            "h": 22.390625
+          }
+        },
+        {
+          "tag": "TIME",
+          "id": "",
+          "cls": "",
+          "text": "3:55",
+          "fg": "rgb(70, 92, 115)",
+          "bg": "rgb(255, 255, 255)",
+          "size": "14px",
+          "weight": "700",
+          "r": {
+            "x": 186.1875,
+            "y": 2673.15625,
+            "w": 25.71875,
+            "h": 22.390625
+          }
+        },
+        {
+          "tag": "B",
+          "id": "",
+          "cls": "",
+          "text": "별의 탄생",
+          "fg": "rgb(22, 75, 139)",
+          "bg": "rgb(255, 255, 255)",
+          "size": "14px",
+          "weight": "700",
+          "r": {
+            "x": 38.59375,
+            "y": 2960.234375,
+            "w": 52.125,
+            "h": 22.390625
+          }
+        },
+        {
+          "tag": "TIME",
+          "id": "",
+          "cls": "",
+          "text": "4:02",
+          "fg": "rgb(70, 92, 115)",
+          "bg": "rgb(255, 255, 255)",
+          "size": "14px",
+          "weight": "700",
+          "r": {
+            "x": 183.515625,
+            "y": 2960.234375,
+            "w": 28.390625,
+            "h": 22.390625
+          }
+        },
+        {
+          "tag": "B",
+          "id": "",
+          "cls": "",
+          "text": "별의 탄생",
+          "fg": "rgb(22, 75, 139)",
+          "bg": "rgb(255, 255, 255)",
+          "size": "14px",
+          "weight": "700",
+          "r": {
+            "x": 38.59375,
+            "y": 3218.515625,
+            "w": 52.125,
+            "h": 22.390625
+          }
+        },
+        {
+          "tag": "TIME",
+          "id": "",
+          "cls": "",
+          "text": "4:10",
+          "fg": "rgb(70, 92, 115)",
+          "bg": "rgb(255, 255, 255)",
+          "size": "14px",
+          "weight": "700",
+          "r": {
+            "x": 186.140625,
+            "y": 3218.515625,
+            "w": 25.765625,
+            "h": 22.390625
+          }
+        },
+        {
+          "tag": "B",
+          "id": "",
+          "cls": "",
+          "text": "주계열 단계",
+          "fg": "rgb(22, 75, 139)",
+          "bg": "rgb(255, 255, 255)",
+          "size": "14px",
+          "weight": "700",
+          "r": {
+            "x": 38.59375,
+            "y": 3476.796875,
+            "w": 64.234375,
+            "h": 22.390625
+          }
+        },
+        {
+          "tag": "TIME",
+          "id": "",
+          "cls": "",
+          "text": "5:18",
+          "fg": "rgb(70, 92, 115)",
+          "bg": "rgb(255, 255, 255)",
+          "size": "14px",
+          "weight": "700",
+          "r": {
+            "x": 187.90625,
+            "y": 3476.796875,
+            "w": 24,
+            "h": 22.390625
+          }
+        },
+        {
+          "tag": "B",
+          "id": "",
+          "cls": "",
+          "text": "주계열 단계",
+          "fg": "rgb(22, 75, 139)",
+          "bg": "rgb(255, 255, 255)",
+          "size": "14px",
+          "weight": "700",
+          "r": {
+            "x": 38.59375,
+            "y": 3735.078125,
+            "w": 64.234375,
+            "h": 22.390625
+          }
+        },
+        {
+          "tag": "TIME",
+          "id": "",
+          "cls": "",
+          "text": "5:30",
+          "fg": "rgb(70, 92, 115)",
+          "bg": "rgb(255, 255, 255)",
+          "size": "14px",
+          "weight": "700",
+          "r": {
+            "x": 184.328125,
+            "y": 3735.078125,
+            "w": 27.578125,
+            "h": 22.390625
+          }
+        },
+        {
+          "tag": "B",
+          "id": "",
+          "cls": "",
+          "text": "주계열 단계",
+          "fg": "rgb(22, 75, 139)",
+          "bg": "rgb(255, 255, 255)",
+          "size": "14px",
+          "weight": "700",
+          "r": {
+            "x": 38.59375,
+            "y": 3964.5625,
+            "w": 64.234375,
+            "h": 22.390625
+          }
+        },
+        {
+          "tag": "TIME",
+          "id": "",
+          "cls": "",
+          "text": "6:50",
+          "fg": "rgb(70, 92, 115)",
+          "bg": "rgb(255, 255, 255)",
+          "size": "14px",
+          "weight": "700",
+          "r": {
+            "x": 183.765625,
+            "y": 3964.5625,
+            "w": 28.140625,
+            "h": 22.390625
+          }
+        },
+        {
+          "tag": "B",
+          "id": "",
+          "cls": "",
+          "text": "진화 분기",
+          "fg": "rgb(22, 75, 139)",
+          "bg": "rgb(255, 255, 255)",
+          "size": "14px",
+          "weight": "700",
+          "r": {
+            "x": 38.59375,
+            "y": 4165.25,
+            "w": 52.125,
+            "h": 22.390625
+          }
+        },
+        {
+          "tag": "TIME",
+          "id": "",
+          "cls": "",
+          "text": "9:20",
+          "fg": "rgb(70, 92, 115)",
+          "bg": "rgb(255, 255, 255)",
+          "size": "14px",
+          "weight": "700",
+          "r": {
+            "x": 183.515625,
+            "y": 4165.25,
+            "w": 28.390625,
+            "h": 22.390625
+          }
+        },
+        {
+          "tag": "B",
+          "id": "",
+          "cls": "",
+          "text": "진화 분기",
+          "fg": "rgb(22, 75, 139)",
+          "bg": "rgb(255, 255, 255)",
+          "size": "14px",
+          "weight": "700",
+          "r": {
+            "x": 38.59375,
+            "y": 4394.734375,
+            "w": 52.125,
+            "h": 22.390625
+          }
+        },
+        {
+          "tag": "TIME",
+          "id": "",
+          "cls": "",
+          "text": "10:10",
+          "fg": "rgb(70, 92, 115)",
+          "bg": "rgb(255, 255, 255)",
+          "size": "14px",
+          "weight": "700",
+          "r": {
+            "x": 180.0625,
+            "y": 4394.734375,
+            "w": 31.84375,
+            "h": 22.390625
+          }
+        },
+        {
+          "tag": "B",
+          "id": "",
+          "cls": "",
+          "text": "태양형 별",
+          "fg": "rgb(22, 75, 139)",
+          "bg": "rgb(255, 255, 255)",
+          "size": "14px",
+          "weight": "700",
+          "r": {
+            "x": 38.59375,
+            "y": 4624.21875,
+            "w": 52.125,
+            "h": 22.390625
+          }
+        },
+        {
+          "tag": "TIME",
+          "id": "",
+          "cls": "",
+          "text": "14:44",
+          "fg": "rgb(70, 92, 115)",
+          "bg": "rgb(255, 255, 255)",
+          "size": "14px",
+          "weight": "700",
+          "r": {
+            "x": 177.953125,
+            "y": 4624.21875,
+            "w": 33.953125,
+            "h": 22.390625
+          }
+        },
+        {
+          "tag": "B",
+          "id": "",
+          "cls": "",
+          "text": "태양형 별",
+          "fg": "rgb(22, 75, 139)",
+          "bg": "rgb(255, 255, 255)",
+          "size": "14px",
+          "weight": "700",
+          "r": {
+            "x": 38.59375,
+            "y": 4824.90625,
+            "w": 52.125,
+            "h": 22.390625
+          }
+        },
+        {
+          "tag": "TIME",
+          "id": "",
+          "cls": "",
+          "text": "15:20",
+          "fg": "rgb(70, 92, 115)",
+          "bg": "rgb(255, 255, 255)",
+          "size": "14px",
+          "weight": "700",
+          "r": {
+            "x": 179.171875,
+            "y": 4824.90625,
+            "w": 32.734375,
+            "h": 22.390625
+          }
+        },
+        {
+          "tag": "B",
+          "id": "",
+          "cls": "",
+          "text": "태양형 별",
+          "fg": "rgb(22, 75, 139)",
+          "bg": "rgb(255, 255, 255)",
+          "size": "14px",
+          "weight": "700",
+          "r": {
+            "x": 38.59375,
+            "y": 5054.390625,
+            "w": 52.125,
+            "h": 22.390625
+          }
+        },
+        {
+          "tag": "TIME",
+          "id": "",
+          "cls": "",
+          "text": "15:42",
+          "fg": "rgb(70, 92, 115)",
+          "bg": "rgb(255, 255, 255)",
+          "size": "14px",
+          "weight": "700",
+          "r": {
+            "x": 180.0625,
+            "y": 5054.390625,
+            "w": 31.84375,
+            "h": 22.390625
+          }
+        },
+        {
+          "tag": "B",
+          "id": "",
+          "cls": "",
+          "text": "대질량 별",
+          "fg": "rgb(22, 75, 139)",
+          "bg": "rgb(255, 255, 255)",
+          "size": "14px",
+          "weight": "700",
+          "r": {
+            "x": 38.59375,
+            "y": 5255.078125,
+            "w": 52.125,
+            "h": 22.390625
+          }
+        },
+        {
+          "tag": "TIME",
+          "id": "",
+          "cls": "",
+          "text": "17:35",
+          "fg": "rgb(70, 92, 115)",
+          "bg": "rgb(255, 255, 255)",
+          "size": "14px",
+          "weight": "700",
+          "r": {
+            "x": 181.4375,
+            "y": 5255.078125,
+            "w": 30.46875,
+            "h": 22.390625
+          }
+        },
+        {
+          "tag": "B",
+          "id": "",
+          "cls": "",
+          "text": "대질량 별",
+          "fg": "rgb(22, 75, 139)",
+          "bg": "rgb(255, 255, 255)",
+          "size": "14px",
+          "weight": "700",
+          "r": {
+            "x": 38.59375,
+            "y": 5484.5625,
+            "w": 52.125,
+            "h": 22.390625
+          }
+        },
+        {
+          "tag": "TIME",
+          "id": "",
+          "cls": "",
+          "text": "19:02",
+          "fg": "rgb(70, 92, 115)",
+          "bg": "rgb(255, 255, 255)",
+          "size": "14px",
+          "weight": "700",
+          "r": {
+            "x": 178.40625,
+            "y": 5484.5625,
+            "w": 33.5,
+            "h": 22.390625
+          }
+        },
+        {
+          "tag": "B",
+          "id": "",
+          "cls": "",
+          "text": "대질량 별",
+          "fg": "rgb(22, 75, 139)",
+          "bg": "rgb(255, 255, 255)",
+          "size": "14px",
+          "weight": "700",
+          "r": {
+            "x": 38.59375,
+            "y": 5685.25,
+            "w": 52.125,
+            "h": 22.390625
+          }
+        },
+        {
+          "tag": "TIME",
+          "id": "",
+          "cls": "",
+          "text": "19:32",
+          "fg": "rgb(70, 92, 115)",
+          "bg": "rgb(255, 255, 255)",
+          "size": "14px",
+          "weight": "700",
+          "r": {
+            "x": 179.953125,
+            "y": 5685.25,
+            "w": 31.953125,
+            "h": 22.390625
+          }
+        },
+        {
+          "tag": "B",
+          "id": "",
+          "cls": "",
+          "text": "대질량 별",
+          "fg": "rgb(22, 75, 139)",
+          "bg": "rgb(255, 255, 255)",
+          "size": "14px",
+          "weight": "700",
+          "r": {
+            "x": 38.59375,
+            "y": 5885.9375,
+            "w": 52.125,
+            "h": 22.390625
+          }
+        },
+        {
+          "tag": "TIME",
+          "id": "",
+          "cls": "",
+          "text": "19:50",
+          "fg": "rgb(70, 92, 115)",
+          "bg": "rgb(255, 255, 255)",
+          "size": "14px",
+          "weight": "700",
+          "r": {
+            "x": 178.515625,
+            "y": 5885.9375,
+            "w": 33.390625,
+            "h": 22.390625
+          }
+        },
+        {
+          "tag": "B",
+          "id": "",
+          "cls": "",
+          "text": "우주 순환",
+          "fg": "rgb(22, 75, 139)",
+          "bg": "rgb(255, 255, 255)",
+          "size": "14px",
+          "weight": "700",
+          "r": {
+            "x": 38.59375,
+            "y": 6144.21875,
+            "w": 52.125,
+            "h": 22.390625
+          }
+        },
+        {
+          "tag": "TIME",
+          "id": "",
+          "cls": "",
+          "text": "22:40",
+          "fg": "rgb(70, 92, 115)",
+          "bg": "rgb(255, 255, 255)",
+          "size": "14px",
+          "weight": "700",
+          "r": {
+            "x": 175.828125,
+            "y": 6144.21875,
+            "w": 36.078125,
+            "h": 22.390625
+          }
+        },
+        {
+          "tag": "EM",
+          "id": "",
+          "cls": "",
+          "text": "강조",
+          "fg": "rgb(144, 60, 46)",
+          "bg": "rgb(255, 242, 213)",
+          "size": "14px",
+          "weight": "700",
+          "r": {
+            "x": 176.859375,
+            "y": 8308.125,
+            "w": 24.234375,
+            "h": 17
+          }
+        }
+      ],
+      "button_targets_measured": 83,
+      "minimum_button_height": 48
+    },
+    "passage390": {
+      "title": "Sullivan AI · Internet Lecture Accessibility Agent",
+      "lang": "ko",
+      "screen": {
+        "w": 390,
+        "sw": 390,
+        "bw": 390
+      },
+      "headings": [
+        {
+          "tag": "H1",
+          "id": "guardian-result-title",
+          "text": "천문학 특강 7강 · 별의 진화"
+        },
+        {
+          "tag": "H2",
+          "id": "passage-title",
+          "text": "핵심 개념 음성 탐색"
+        },
+        {
+          "tag": "H3",
+          "id": "",
+          "text": "핵심 키워드나 흐름을 말해 보세요"
+        },
+        {
+          "tag": "H3",
+          "id": "passage-document-title",
+          "text": "별의 진화 · 핵심 개념"
+        },
+        {
+          "tag": "H3",
+          "id": "long-passage-title",
+          "text": "지문·문단 텍스트 낭독"
+        },
+        {
+          "tag": "H2",
+          "id": "publish-title",
+          "text": "학생에게 제공하기"
+        }
+      ],
+      "landmarks": [
+        {
+          "tag": "HEADER",
+          "label": null
+        },
+        {
+          "tag": "MAIN",
+          "label": null
+        },
+        {
+          "tag": "ASIDE",
+          "label": null
+        },
+        {
+          "tag": "NAV",
+          "label": "Sullivan AI 기능"
+        },
+        {
+          "tag": "HEADER",
+          "label": null
+        },
+        {
+          "tag": "HEADER",
+          "label": null
+        },
+        {
+          "tag": "HEADER",
+          "label": null
+        },
+        {
+          "tag": "HEADER",
+          "label": null
+        },
+        {
+          "tag": "FOOTER",
+          "label": null
+        }
+      ],
+      "overflow": [],
+      "text_nodes_measured": 225,
+      "text_below_18px": [
+        {
+          "tag": "SMALL",
+          "id": "",
+          "cls": "",
+          "text": "강의 학습 도우미",
+          "fg": "rgb(70, 92, 115)",
+          "bg": "rgb(255, 255, 255)",
+          "size": "14px",
+          "weight": "400",
+          "r": {
+            "x": 20,
+            "y": 52.96875,
+            "w": 99.3125,
+            "h": 23.09375
+          }
+        },
+        {
+          "tag": "B",
+          "id": "",
+          "cls": "",
+          "text": "탄생",
+          "fg": "rgb(22, 75, 139)",
+          "bg": "rgb(255, 255, 255)",
+          "size": "14px",
+          "weight": "700",
+          "r": {
+            "x": 38.59375,
+            "y": 1849.046875,
+            "w": 24.234375,
+            "h": 22.390625
+          }
+        },
+        {
+          "tag": "TIME",
+          "id": "",
+          "cls": "",
+          "text": "2:30",
+          "fg": "rgb(70, 92, 115)",
+          "bg": "rgb(255, 255, 255)",
+          "size": "14px",
+          "weight": "700",
+          "r": {
+            "x": 254.03125,
+            "y": 1849.046875,
+            "w": 27.875,
+            "h": 22.390625
+          }
+        },
+        {
+          "tag": "B",
+          "id": "",
+          "cls": "",
+          "text": "탄생",
+          "fg": "rgb(22, 75, 139)",
+          "bg": "rgb(255, 255, 255)",
+          "size": "14px",
+          "weight": "700",
+          "r": {
+            "x": 38.59375,
+            "y": 2049.734375,
+            "w": 24.234375,
+            "h": 22.390625
+          }
+        },
+        {
+          "tag": "TIME",
+          "id": "",
+          "cls": "",
+          "text": "2:38",
+          "fg": "rgb(70, 92, 115)",
+          "bg": "rgb(255, 255, 255)",
+          "size": "14px",
+          "weight": "700",
+          "r": {
+            "x": 254.75,
+            "y": 2049.734375,
+            "w": 27.15625,
+            "h": 22.390625
+          }
+        },
+        {
+          "tag": "B",
+          "id": "",
+          "cls": "",
+          "text": "탄생",
+          "fg": "rgb(22, 75, 139)",
+          "bg": "rgb(255, 255, 255)",
+          "size": "14px",
+          "weight": "700",
+          "r": {
+            "x": 38.59375,
+            "y": 2279.21875,
+            "w": 24.234375,
+            "h": 22.390625
+          }
+        },
+        {
+          "tag": "TIME",
+          "id": "",
+          "cls": "",
+          "text": "2:50",
+          "fg": "rgb(70, 92, 115)",
+          "bg": "rgb(255, 255, 255)",
+          "size": "14px",
+          "weight": "700",
+          "r": {
+            "x": 254.34375,
+            "y": 2279.21875,
+            "w": 27.5625,
+            "h": 22.390625
+          }
+        },
+        {
+          "tag": "B",
+          "id": "",
+          "cls": "",
+          "text": "판서 흐름",
+          "fg": "rgb(22, 75, 139)",
+          "bg": "rgb(255, 255, 255)",
+          "size": "14px",
+          "weight": "700",
+          "r": {
+            "x": 38.59375,
+            "y": 2451.109375,
+            "w": 52.125,
+            "h": 22.390625
+          }
+        },
+        {
+          "tag": "TIME",
+          "id": "",
+          "cls": "",
+          "text": "3:55",
+          "fg": "rgb(70, 92, 115)",
+          "bg": "rgb(255, 255, 255)",
+          "size": "14px",
+          "weight": "700",
+          "r": {
+            "x": 256.1875,
+            "y": 2451.109375,
+            "w": 25.71875,
+            "h": 22.390625
+          }
+        },
+        {
+          "tag": "B",
+          "id": "",
+          "cls": "",
+          "text": "별의 탄생",
+          "fg": "rgb(22, 75, 139)",
+          "bg": "rgb(255, 255, 255)",
+          "size": "14px",
+          "weight": "700",
+          "r": {
+            "x": 38.59375,
+            "y": 2709.390625,
+            "w": 52.125,
+            "h": 22.390625
+          }
+        },
+        {
+          "tag": "TIME",
+          "id": "",
+          "cls": "",
+          "text": "4:02",
+          "fg": "rgb(70, 92, 115)",
+          "bg": "rgb(255, 255, 255)",
+          "size": "14px",
+          "weight": "700",
+          "r": {
+            "x": 253.515625,
+            "y": 2709.390625,
+            "w": 28.390625,
+            "h": 22.390625
+          }
+        },
+        {
+          "tag": "B",
+          "id": "",
+          "cls": "",
+          "text": "별의 탄생",
+          "fg": "rgb(22, 75, 139)",
+          "bg": "rgb(255, 255, 255)",
+          "size": "14px",
+          "weight": "700",
+          "r": {
+            "x": 38.59375,
+            "y": 2938.875,
+            "w": 52.125,
+            "h": 22.390625
+          }
+        },
+        {
+          "tag": "TIME",
+          "id": "",
+          "cls": "",
+          "text": "4:10",
+          "fg": "rgb(70, 92, 115)",
+          "bg": "rgb(255, 255, 255)",
+          "size": "14px",
+          "weight": "700",
+          "r": {
+            "x": 256.140625,
+            "y": 2938.875,
+            "w": 25.765625,
+            "h": 22.390625
+          }
+        },
+        {
+          "tag": "B",
+          "id": "",
+          "cls": "",
+          "text": "주계열 단계",
+          "fg": "rgb(22, 75, 139)",
+          "bg": "rgb(255, 255, 255)",
+          "size": "14px",
+          "weight": "700",
+          "r": {
+            "x": 38.59375,
+            "y": 3168.359375,
+            "w": 64.234375,
+            "h": 22.390625
+          }
+        },
+        {
+          "tag": "TIME",
+          "id": "",
+          "cls": "",
+          "text": "5:18",
+          "fg": "rgb(70, 92, 115)",
+          "bg": "rgb(255, 255, 255)",
+          "size": "14px",
+          "weight": "700",
+          "r": {
+            "x": 257.90625,
+            "y": 3168.359375,
+            "w": 24,
+            "h": 22.390625
+          }
+        },
+        {
+          "tag": "B",
+          "id": "",
+          "cls": "",
+          "text": "주계열 단계",
+          "fg": "rgb(22, 75, 139)",
+          "bg": "rgb(255, 255, 255)",
+          "size": "14px",
+          "weight": "700",
+          "r": {
+            "x": 38.59375,
+            "y": 3397.84375,
+            "w": 64.234375,
+            "h": 22.390625
+          }
+        },
+        {
+          "tag": "TIME",
+          "id": "",
+          "cls": "",
+          "text": "5:30",
+          "fg": "rgb(70, 92, 115)",
+          "bg": "rgb(255, 255, 255)",
+          "size": "14px",
+          "weight": "700",
+          "r": {
+            "x": 254.328125,
+            "y": 3397.84375,
+            "w": 27.578125,
+            "h": 22.390625
+          }
+        },
+        {
+          "tag": "B",
+          "id": "",
+          "cls": "",
+          "text": "주계열 단계",
+          "fg": "rgb(22, 75, 139)",
+          "bg": "rgb(255, 255, 255)",
+          "size": "14px",
+          "weight": "700",
+          "r": {
+            "x": 38.59375,
+            "y": 3598.53125,
+            "w": 64.234375,
+            "h": 22.390625
+          }
+        },
+        {
+          "tag": "TIME",
+          "id": "",
+          "cls": "",
+          "text": "6:50",
+          "fg": "rgb(70, 92, 115)",
+          "bg": "rgb(255, 255, 255)",
+          "size": "14px",
+          "weight": "700",
+          "r": {
+            "x": 253.765625,
+            "y": 3598.53125,
+            "w": 28.140625,
+            "h": 22.390625
+          }
+        },
+        {
+          "tag": "B",
+          "id": "",
+          "cls": "",
+          "text": "진화 분기",
+          "fg": "rgb(22, 75, 139)",
+          "bg": "rgb(255, 255, 255)",
+          "size": "14px",
+          "weight": "700",
+          "r": {
+            "x": 38.59375,
+            "y": 3799.21875,
+            "w": 52.125,
+            "h": 22.390625
+          }
+        },
+        {
+          "tag": "TIME",
+          "id": "",
+          "cls": "",
+          "text": "9:20",
+          "fg": "rgb(70, 92, 115)",
+          "bg": "rgb(255, 255, 255)",
+          "size": "14px",
+          "weight": "700",
+          "r": {
+            "x": 253.515625,
+            "y": 3799.21875,
+            "w": 28.390625,
+            "h": 22.390625
+          }
+        },
+        {
+          "tag": "B",
+          "id": "",
+          "cls": "",
+          "text": "진화 분기",
+          "fg": "rgb(22, 75, 139)",
+          "bg": "rgb(255, 255, 255)",
+          "size": "14px",
+          "weight": "700",
+          "r": {
+            "x": 38.59375,
+            "y": 4028.703125,
+            "w": 52.125,
+            "h": 22.390625
+          }
+        },
+        {
+          "tag": "TIME",
+          "id": "",
+          "cls": "",
+          "text": "10:10",
+          "fg": "rgb(70, 92, 115)",
+          "bg": "rgb(255, 255, 255)",
+          "size": "14px",
+          "weight": "700",
+          "r": {
+            "x": 250.0625,
+            "y": 4028.703125,
+            "w": 31.84375,
+            "h": 22.390625
+          }
+        },
+        {
+          "tag": "B",
+          "id": "",
+          "cls": "",
+          "text": "태양형 별",
+          "fg": "rgb(22, 75, 139)",
+          "bg": "rgb(255, 255, 255)",
+          "size": "14px",
+          "weight": "700",
+          "r": {
+            "x": 38.59375,
+            "y": 4200.59375,
+            "w": 52.125,
+            "h": 22.390625
+          }
+        },
+        {
+          "tag": "TIME",
+          "id": "",
+          "cls": "",
+          "text": "14:44",
+          "fg": "rgb(70, 92, 115)",
+          "bg": "rgb(255, 255, 255)",
+          "size": "14px",
+          "weight": "700",
+          "r": {
+            "x": 247.953125,
+            "y": 4200.59375,
+            "w": 33.953125,
+            "h": 22.390625
+          }
+        },
+        {
+          "tag": "B",
+          "id": "",
+          "cls": "",
+          "text": "태양형 별",
+          "fg": "rgb(22, 75, 139)",
+          "bg": "rgb(255, 255, 255)",
+          "size": "14px",
+          "weight": "700",
+          "r": {
+            "x": 38.59375,
+            "y": 4401.28125,
+            "w": 52.125,
+            "h": 22.390625
+          }
+        },
+        {
+          "tag": "TIME",
+          "id": "",
+          "cls": "",
+          "text": "15:20",
+          "fg": "rgb(70, 92, 115)",
+          "bg": "rgb(255, 255, 255)",
+          "size": "14px",
+          "weight": "700",
+          "r": {
+            "x": 249.171875,
+            "y": 4401.28125,
+            "w": 32.734375,
+            "h": 22.390625
+          }
+        },
+        {
+          "tag": "B",
+          "id": "",
+          "cls": "",
+          "text": "태양형 별",
+          "fg": "rgb(22, 75, 139)",
+          "bg": "rgb(255, 255, 255)",
+          "size": "14px",
+          "weight": "700",
+          "r": {
+            "x": 38.59375,
+            "y": 4630.765625,
+            "w": 52.125,
+            "h": 22.390625
+          }
+        },
+        {
+          "tag": "TIME",
+          "id": "",
+          "cls": "",
+          "text": "15:42",
+          "fg": "rgb(70, 92, 115)",
+          "bg": "rgb(255, 255, 255)",
+          "size": "14px",
+          "weight": "700",
+          "r": {
+            "x": 250.0625,
+            "y": 4630.765625,
+            "w": 31.84375,
+            "h": 22.390625
+          }
+        },
+        {
+          "tag": "B",
+          "id": "",
+          "cls": "",
+          "text": "대질량 별",
+          "fg": "rgb(22, 75, 139)",
+          "bg": "rgb(255, 255, 255)",
+          "size": "14px",
+          "weight": "700",
+          "r": {
+            "x": 38.59375,
+            "y": 4831.453125,
+            "w": 52.125,
+            "h": 22.390625
+          }
+        },
+        {
+          "tag": "TIME",
+          "id": "",
+          "cls": "",
+          "text": "17:35",
+          "fg": "rgb(70, 92, 115)",
+          "bg": "rgb(255, 255, 255)",
+          "size": "14px",
+          "weight": "700",
+          "r": {
+            "x": 251.4375,
+            "y": 4831.453125,
+            "w": 30.46875,
+            "h": 22.390625
+          }
+        },
+        {
+          "tag": "B",
+          "id": "",
+          "cls": "",
+          "text": "대질량 별",
+          "fg": "rgb(22, 75, 139)",
+          "bg": "rgb(255, 255, 255)",
+          "size": "14px",
+          "weight": "700",
+          "r": {
+            "x": 38.59375,
+            "y": 5003.34375,
+            "w": 52.125,
+            "h": 22.390625
+          }
+        },
+        {
+          "tag": "TIME",
+          "id": "",
+          "cls": "",
+          "text": "19:02",
+          "fg": "rgb(70, 92, 115)",
+          "bg": "rgb(255, 255, 255)",
+          "size": "14px",
+          "weight": "700",
+          "r": {
+            "x": 248.40625,
+            "y": 5003.34375,
+            "w": 33.5,
+            "h": 22.390625
+          }
+        },
+        {
+          "tag": "B",
+          "id": "",
+          "cls": "",
+          "text": "대질량 별",
+          "fg": "rgb(22, 75, 139)",
+          "bg": "rgb(255, 255, 255)",
+          "size": "14px",
+          "weight": "700",
+          "r": {
+            "x": 38.59375,
+            "y": 5204.03125,
+            "w": 52.125,
+            "h": 22.390625
+          }
+        },
+        {
+          "tag": "TIME",
+          "id": "",
+          "cls": "",
+          "text": "19:32",
+          "fg": "rgb(70, 92, 115)",
+          "bg": "rgb(255, 255, 255)",
+          "size": "14px",
+          "weight": "700",
+          "r": {
+            "x": 249.953125,
+            "y": 5204.03125,
+            "w": 31.953125,
+            "h": 22.390625
+          }
+        },
+        {
+          "tag": "B",
+          "id": "",
+          "cls": "",
+          "text": "대질량 별",
+          "fg": "rgb(22, 75, 139)",
+          "bg": "rgb(255, 255, 255)",
+          "size": "14px",
+          "weight": "700",
+          "r": {
+            "x": 38.59375,
+            "y": 5404.71875,
+            "w": 52.125,
+            "h": 22.390625
+          }
+        },
+        {
+          "tag": "TIME",
+          "id": "",
+          "cls": "",
+          "text": "19:50",
+          "fg": "rgb(70, 92, 115)",
+          "bg": "rgb(255, 255, 255)",
+          "size": "14px",
+          "weight": "700",
+          "r": {
+            "x": 248.515625,
+            "y": 5404.71875,
+            "w": 33.390625,
+            "h": 22.390625
+          }
+        },
+        {
+          "tag": "B",
+          "id": "",
+          "cls": "",
+          "text": "우주 순환",
+          "fg": "rgb(22, 75, 139)",
+          "bg": "rgb(255, 255, 255)",
+          "size": "14px",
+          "weight": "700",
+          "r": {
+            "x": 38.59375,
+            "y": 5634.203125,
+            "w": 52.125,
+            "h": 22.390625
+          }
+        },
+        {
+          "tag": "TIME",
+          "id": "",
+          "cls": "",
+          "text": "22:40",
+          "fg": "rgb(70, 92, 115)",
+          "bg": "rgb(255, 255, 255)",
+          "size": "14px",
+          "weight": "700",
+          "r": {
+            "x": 245.828125,
+            "y": 5634.203125,
+            "w": 36.078125,
+            "h": 22.390625
+          }
+        },
+        {
+          "tag": "EM",
+          "id": "",
+          "cls": "",
+          "text": "강조",
+          "fg": "rgb(144, 60, 46)",
+          "bg": "rgb(255, 242, 213)",
+          "size": "14px",
+          "weight": "700",
+          "r": {
+            "x": 315.625,
+            "y": 7484.59375,
+            "w": 24.234375,
+            "h": 17
+          }
+        }
+      ],
+      "button_targets_measured": 83,
+      "minimum_button_height": 48
+    },
+    "passage1280": {
+      "title": "Sullivan AI · Internet Lecture Accessibility Agent",
+      "lang": "ko",
+      "screen": {
+        "w": 1280,
+        "sw": 1280,
+        "bw": 1280
+      },
+      "headings": [
+        {
+          "tag": "H1",
+          "id": "guardian-result-title",
+          "text": "천문학 특강 7강 · 별의 진화"
+        },
+        {
+          "tag": "H2",
+          "id": "passage-title",
+          "text": "핵심 개념 음성 탐색"
+        },
+        {
+          "tag": "H3",
+          "id": "",
+          "text": "핵심 키워드나 흐름을 말해 보세요"
+        },
+        {
+          "tag": "H3",
+          "id": "passage-document-title",
+          "text": "별의 진화 · 핵심 개념"
+        },
+        {
+          "tag": "H3",
+          "id": "long-passage-title",
+          "text": "지문·문단 텍스트 낭독"
+        },
+        {
+          "tag": "H2",
+          "id": "publish-title",
+          "text": "학생에게 제공하기"
+        }
+      ],
+      "landmarks": [
+        {
+          "tag": "HEADER",
+          "label": null
+        },
+        {
+          "tag": "MAIN",
+          "label": null
+        },
+        {
+          "tag": "ASIDE",
+          "label": null
+        },
+        {
+          "tag": "NAV",
+          "label": "Sullivan AI 기능"
+        },
+        {
+          "tag": "HEADER",
+          "label": null
+        },
+        {
+          "tag": "HEADER",
+          "label": null
+        },
+        {
+          "tag": "HEADER",
+          "label": null
+        },
+        {
+          "tag": "HEADER",
+          "label": null
+        },
+        {
+          "tag": "FOOTER",
+          "label": null
+        }
+      ],
+      "overflow": [],
+      "text_nodes_measured": 225,
+      "text_below_18px": [
+        {
+          "tag": "SMALL",
+          "id": "",
+          "cls": "",
+          "text": "강의 학습 도우미",
+          "fg": "rgb(70, 92, 115)",
+          "bg": "rgb(255, 255, 255)",
+          "size": "14px",
+          "weight": "400",
+          "r": {
+            "x": 50,
+            "y": 52.96875,
+            "w": 99.3125,
+            "h": 23.09375
+          }
+        },
+        {
+          "tag": "B",
+          "id": "",
+          "cls": "",
+          "text": "탄생",
+          "fg": "rgb(22, 75, 139)",
+          "bg": "rgb(255, 255, 255)",
+          "size": "14px",
+          "weight": "700",
+          "r": {
+            "x": 634.59375,
+            "y": 752.4375,
+            "w": 24.234375,
+            "h": 22.390625
+          }
+        },
+        {
+          "tag": "TIME",
+          "id": "",
+          "cls": "",
+          "text": "2:30",
+          "fg": "rgb(70, 92, 115)",
+          "bg": "rgb(255, 255, 255)",
+          "size": "14px",
+          "weight": "700",
+          "r": {
+            "x": 820.03125,
+            "y": 752.4375,
+            "w": 27.875,
+            "h": 22.390625
+          }
+        },
+        {
+          "tag": "B",
+          "id": "",
+          "cls": "",
+          "text": "탄생",
+          "fg": "rgb(22, 75, 139)",
+          "bg": "rgb(255, 255, 255)",
+          "size": "14px",
+          "weight": "700",
+          "r": {
+            "x": 958.59375,
+            "y": 748.84375,
+            "w": 24.234375,
+            "h": 22.390625
+          }
+        },
+        {
+          "tag": "TIME",
+          "id": "",
+          "cls": "",
+          "text": "2:38",
+          "fg": "rgb(70, 92, 115)",
+          "bg": "rgb(255, 255, 255)",
+          "size": "14px",
+          "weight": "700",
+          "r": {
+            "x": 1144.75,
+            "y": 748.84375,
+            "w": 27.15625,
+            "h": 22.390625
+          }
+        },
+        {
+          "tag": "B",
+          "id": "",
+          "cls": "",
+          "text": "탄생",
+          "fg": "rgb(22, 75, 139)",
+          "bg": "rgb(255, 255, 255)",
+          "size": "14px",
+          "weight": "700",
+          "r": {
+            "x": 634.59375,
+            "y": 985.515625,
+            "w": 24.234375,
+            "h": 22.390625
+          }
+        },
+        {
+          "tag": "TIME",
+          "id": "",
+          "cls": "",
+          "text": "2:50",
+          "fg": "rgb(70, 92, 115)",
+          "bg": "rgb(255, 255, 255)",
+          "size": "14px",
+          "weight": "700",
+          "r": {
+            "x": 820.34375,
+            "y": 985.515625,
+            "w": 27.5625,
+            "h": 22.390625
+          }
+        },
+        {
+          "tag": "B",
+          "id": "",
+          "cls": "",
+          "text": "판서 흐름",
+          "fg": "rgb(22, 75, 139)",
+          "bg": "rgb(255, 255, 255)",
+          "size": "14px",
+          "weight": "700",
+          "r": {
+            "x": 958.59375,
+            "y": 978.328125,
+            "w": 52.125,
+            "h": 22.390625
+          }
+        },
+        {
+          "tag": "TIME",
+          "id": "",
+          "cls": "",
+          "text": "3:55",
+          "fg": "rgb(70, 92, 115)",
+          "bg": "rgb(255, 255, 255)",
+          "size": "14px",
+          "weight": "700",
+          "r": {
+            "x": 1146.1875,
+            "y": 978.328125,
+            "w": 25.71875,
+            "h": 22.390625
+          }
+        },
+        {
+          "tag": "B",
+          "id": "",
+          "cls": "",
+          "text": "별의 탄생",
+          "fg": "rgb(22, 75, 139)",
+          "bg": "rgb(255, 255, 255)",
+          "size": "14px",
+          "weight": "700",
+          "r": {
+            "x": 634.59375,
+            "y": 1240.203125,
+            "w": 52.125,
+            "h": 22.390625
+          }
+        },
+        {
+          "tag": "TIME",
+          "id": "",
+          "cls": "",
+          "text": "4:02",
+          "fg": "rgb(70, 92, 115)",
+          "bg": "rgb(255, 255, 255)",
+          "size": "14px",
+          "weight": "700",
+          "r": {
+            "x": 819.515625,
+            "y": 1240.203125,
+            "w": 28.390625,
+            "h": 22.390625
+          }
+        },
+        {
+          "tag": "B",
+          "id": "",
+          "cls": "",
+          "text": "별의 탄생",
+          "fg": "rgb(22, 75, 139)",
+          "bg": "rgb(255, 255, 255)",
+          "size": "14px",
+          "weight": "700",
+          "r": {
+            "x": 958.59375,
+            "y": 1236.609375,
+            "w": 52.125,
+            "h": 22.390625
+          }
+        },
+        {
+          "tag": "TIME",
+          "id": "",
+          "cls": "",
+          "text": "4:10",
+          "fg": "rgb(70, 92, 115)",
+          "bg": "rgb(255, 255, 255)",
+          "size": "14px",
+          "weight": "700",
+          "r": {
+            "x": 1146.140625,
+            "y": 1236.609375,
+            "w": 25.765625,
+            "h": 22.390625
+          }
+        },
+        {
+          "tag": "B",
+          "id": "",
+          "cls": "",
+          "text": "주계열 단계",
+          "fg": "rgb(22, 75, 139)",
+          "bg": "rgb(255, 255, 255)",
+          "size": "14px",
+          "weight": "700",
+          "r": {
+            "x": 634.59375,
+            "y": 1494.890625,
+            "w": 64.234375,
+            "h": 22.390625
+          }
+        },
+        {
+          "tag": "TIME",
+          "id": "",
+          "cls": "",
+          "text": "5:18",
+          "fg": "rgb(70, 92, 115)",
+          "bg": "rgb(255, 255, 255)",
+          "size": "14px",
+          "weight": "700",
+          "r": {
+            "x": 823.90625,
+            "y": 1494.890625,
+            "w": 24,
+            "h": 22.390625
+          }
+        },
+        {
+          "tag": "B",
+          "id": "",
+          "cls": "",
+          "text": "주계열 단계",
+          "fg": "rgb(22, 75, 139)",
+          "bg": "rgb(255, 255, 255)",
+          "size": "14px",
+          "weight": "700",
+          "r": {
+            "x": 958.59375,
+            "y": 1498.484375,
+            "w": 64.234375,
+            "h": 22.390625
+          }
+        },
+        {
+          "tag": "TIME",
+          "id": "",
+          "cls": "",
+          "text": "5:30",
+          "fg": "rgb(70, 92, 115)",
+          "bg": "rgb(255, 255, 255)",
+          "size": "14px",
+          "weight": "700",
+          "r": {
+            "x": 1144.328125,
+            "y": 1498.484375,
+            "w": 27.578125,
+            "h": 22.390625
+          }
+        },
+        {
+          "tag": "B",
+          "id": "",
+          "cls": "",
+          "text": "주계열 단계",
+          "fg": "rgb(22, 75, 139)",
+          "bg": "rgb(255, 255, 255)",
+          "size": "14px",
+          "weight": "700",
+          "r": {
+            "x": 634.59375,
+            "y": 1727.96875,
+            "w": 64.234375,
+            "h": 22.390625
+          }
+        },
+        {
+          "tag": "TIME",
+          "id": "",
+          "cls": "",
+          "text": "6:50",
+          "fg": "rgb(70, 92, 115)",
+          "bg": "rgb(255, 255, 255)",
+          "size": "14px",
+          "weight": "700",
+          "r": {
+            "x": 819.765625,
+            "y": 1727.96875,
+            "w": 28.140625,
+            "h": 22.390625
+          }
+        },
+        {
+          "tag": "B",
+          "id": "",
+          "cls": "",
+          "text": "진화 분기",
+          "fg": "rgb(22, 75, 139)",
+          "bg": "rgb(255, 255, 255)",
+          "size": "14px",
+          "weight": "700",
+          "r": {
+            "x": 958.59375,
+            "y": 1724.375,
+            "w": 52.125,
+            "h": 22.390625
+          }
+        },
+        {
+          "tag": "TIME",
+          "id": "",
+          "cls": "",
+          "text": "9:20",
+          "fg": "rgb(70, 92, 115)",
+          "bg": "rgb(255, 255, 255)",
+          "size": "14px",
+          "weight": "700",
+          "r": {
+            "x": 1143.515625,
+            "y": 1724.375,
+            "w": 28.390625,
+            "h": 22.390625
+          }
+        },
+        {
+          "tag": "B",
+          "id": "",
+          "cls": "",
+          "text": "진화 분기",
+          "fg": "rgb(22, 75, 139)",
+          "bg": "rgb(255, 255, 255)",
+          "size": "14px",
+          "weight": "700",
+          "r": {
+            "x": 634.59375,
+            "y": 1953.859375,
+            "w": 52.125,
+            "h": 22.390625
+          }
+        },
+        {
+          "tag": "TIME",
+          "id": "",
+          "cls": "",
+          "text": "10:10",
+          "fg": "rgb(70, 92, 115)",
+          "bg": "rgb(255, 255, 255)",
+          "size": "14px",
+          "weight": "700",
+          "r": {
+            "x": 816.0625,
+            "y": 1953.859375,
+            "w": 31.84375,
+            "h": 22.390625
+          }
+        },
+        {
+          "tag": "B",
+          "id": "",
+          "cls": "",
+          "text": "태양형 별",
+          "fg": "rgb(22, 75, 139)",
+          "bg": "rgb(255, 255, 255)",
+          "size": "14px",
+          "weight": "700",
+          "r": {
+            "x": 958.59375,
+            "y": 1953.859375,
+            "w": 52.125,
+            "h": 22.390625
+          }
+        },
+        {
+          "tag": "TIME",
+          "id": "",
+          "cls": "",
+          "text": "14:44",
+          "fg": "rgb(70, 92, 115)",
+          "bg": "rgb(255, 255, 255)",
+          "size": "14px",
+          "weight": "700",
+          "r": {
+            "x": 1137.953125,
+            "y": 1953.859375,
+            "w": 33.953125,
+            "h": 22.390625
+          }
+        },
+        {
+          "tag": "B",
+          "id": "",
+          "cls": "",
+          "text": "태양형 별",
+          "fg": "rgb(22, 75, 139)",
+          "bg": "rgb(255, 255, 255)",
+          "size": "14px",
+          "weight": "700",
+          "r": {
+            "x": 634.59375,
+            "y": 2154.546875,
+            "w": 52.125,
+            "h": 22.390625
+          }
+        },
+        {
+          "tag": "TIME",
+          "id": "",
+          "cls": "",
+          "text": "15:20",
+          "fg": "rgb(70, 92, 115)",
+          "bg": "rgb(255, 255, 255)",
+          "size": "14px",
+          "weight": "700",
+          "r": {
+            "x": 815.171875,
+            "y": 2154.546875,
+            "w": 32.734375,
+            "h": 22.390625
+          }
+        },
+        {
+          "tag": "B",
+          "id": "",
+          "cls": "",
+          "text": "태양형 별",
+          "fg": "rgb(22, 75, 139)",
+          "bg": "rgb(255, 255, 255)",
+          "size": "14px",
+          "weight": "700",
+          "r": {
+            "x": 958.59375,
+            "y": 2158.140625,
+            "w": 52.125,
+            "h": 22.390625
+          }
+        },
+        {
+          "tag": "TIME",
+          "id": "",
+          "cls": "",
+          "text": "15:42",
+          "fg": "rgb(70, 92, 115)",
+          "bg": "rgb(255, 255, 255)",
+          "size": "14px",
+          "weight": "700",
+          "r": {
+            "x": 1140.0625,
+            "y": 2158.140625,
+            "w": 31.84375,
+            "h": 22.390625
+          }
+        },
+        {
+          "tag": "B",
+          "id": "",
+          "cls": "",
+          "text": "대질량 별",
+          "fg": "rgb(22, 75, 139)",
+          "bg": "rgb(255, 255, 255)",
+          "size": "14px",
+          "weight": "700",
+          "r": {
+            "x": 634.59375,
+            "y": 2384.03125,
+            "w": 52.125,
+            "h": 22.390625
+          }
+        },
+        {
+          "tag": "TIME",
+          "id": "",
+          "cls": "",
+          "text": "17:35",
+          "fg": "rgb(70, 92, 115)",
+          "bg": "rgb(255, 255, 255)",
+          "size": "14px",
+          "weight": "700",
+          "r": {
+            "x": 817.4375,
+            "y": 2384.03125,
+            "w": 30.46875,
+            "h": 22.390625
+          }
+        },
+        {
+          "tag": "B",
+          "id": "",
+          "cls": "",
+          "text": "대질량 별",
+          "fg": "rgb(22, 75, 139)",
+          "bg": "rgb(255, 255, 255)",
+          "size": "14px",
+          "weight": "700",
+          "r": {
+            "x": 958.59375,
+            "y": 2384.03125,
+            "w": 52.125,
+            "h": 22.390625
+          }
+        },
+        {
+          "tag": "TIME",
+          "id": "",
+          "cls": "",
+          "text": "19:02",
+          "fg": "rgb(70, 92, 115)",
+          "bg": "rgb(255, 255, 255)",
+          "size": "14px",
+          "weight": "700",
+          "r": {
+            "x": 1138.40625,
+            "y": 2384.03125,
+            "w": 33.5,
+            "h": 22.390625
+          }
+        },
+        {
+          "tag": "B",
+          "id": "",
+          "cls": "",
+          "text": "대질량 별",
+          "fg": "rgb(22, 75, 139)",
+          "bg": "rgb(255, 255, 255)",
+          "size": "14px",
+          "weight": "700",
+          "r": {
+            "x": 634.59375,
+            "y": 2588.3125,
+            "w": 52.125,
+            "h": 22.390625
+          }
+        },
+        {
+          "tag": "TIME",
+          "id": "",
+          "cls": "",
+          "text": "19:32",
+          "fg": "rgb(70, 92, 115)",
+          "bg": "rgb(255, 255, 255)",
+          "size": "14px",
+          "weight": "700",
+          "r": {
+            "x": 815.953125,
+            "y": 2588.3125,
+            "w": 31.953125,
+            "h": 22.390625
+          }
+        },
+        {
+          "tag": "B",
+          "id": "",
+          "cls": "",
+          "text": "대질량 별",
+          "fg": "rgb(22, 75, 139)",
+          "bg": "rgb(255, 255, 255)",
+          "size": "14px",
+          "weight": "700",
+          "r": {
+            "x": 958.59375,
+            "y": 2584.71875,
+            "w": 52.125,
+            "h": 22.390625
+          }
+        },
+        {
+          "tag": "TIME",
+          "id": "",
+          "cls": "",
+          "text": "19:50",
+          "fg": "rgb(70, 92, 115)",
+          "bg": "rgb(255, 255, 255)",
+          "size": "14px",
+          "weight": "700",
+          "r": {
+            "x": 1138.515625,
+            "y": 2584.71875,
+            "w": 33.390625,
+            "h": 22.390625
+          }
+        },
+        {
+          "tag": "B",
+          "id": "",
+          "cls": "",
+          "text": "우주 순환",
+          "fg": "rgb(22, 75, 139)",
+          "bg": "rgb(255, 255, 255)",
+          "size": "14px",
+          "weight": "700",
+          "r": {
+            "x": 634.59375,
+            "y": 2814.203125,
+            "w": 52.125,
+            "h": 22.390625
+          }
+        },
+        {
+          "tag": "TIME",
+          "id": "",
+          "cls": "",
+          "text": "22:40",
+          "fg": "rgb(70, 92, 115)",
+          "bg": "rgb(255, 255, 255)",
+          "size": "14px",
+          "weight": "700",
+          "r": {
+            "x": 811.828125,
+            "y": 2814.203125,
+            "w": 36.078125,
+            "h": 22.390625
+          }
+        },
+        {
+          "tag": "EM",
+          "id": "",
+          "cls": "",
+          "text": "강조",
+          "fg": "rgb(144, 60, 46)",
+          "bg": "rgb(255, 242, 213)",
+          "size": "14px",
+          "weight": "700",
+          "r": {
+            "x": 446.859375,
+            "y": 3890.234375,
+            "w": 24.234375,
+            "h": 17
+          }
+        }
+      ],
+      "button_targets_measured": 83,
+      "minimum_button_height": 48
+    },
+    "review320": {
+      "title": "Sullivan AI · Internet Lecture Accessibility Agent",
+      "lang": "ko",
+      "screen": {
+        "w": 320,
+        "sw": 320,
+        "bw": 320
+      },
+      "headings": [
+        {
+          "tag": "H1",
+          "id": "guardian-result-title",
+          "text": "천문학 특강 7강 · 별의 진화"
+        },
+        {
+          "tag": "H2",
+          "id": "review-title",
+          "text": "강의 후 화면 정보 복습"
+        },
+        {
+          "tag": "H3",
+          "id": "",
+          "text": "오늘의 핵심 내용"
+        },
+        {
+          "tag": "H3",
+          "id": "",
+          "text": "화면으로만 제시된 정보"
+        },
+        {
+          "tag": "H3",
+          "id": "",
+          "text": "강사가 강조한 문장"
+        },
+        {
+          "tag": "H3",
+          "id": "",
+          "text": "다시 볼 핵심 구간"
+        },
+        {
+          "tag": "H2",
+          "id": "publish-title",
+          "text": "학생에게 제공하기"
+        }
+      ],
+      "landmarks": [
+        {
+          "tag": "HEADER",
+          "label": null
+        },
+        {
+          "tag": "MAIN",
+          "label": null
+        },
+        {
+          "tag": "ASIDE",
+          "label": null
+        },
+        {
+          "tag": "NAV",
+          "label": "Sullivan AI 기능"
+        },
+        {
+          "tag": "FOOTER",
+          "label": null
+        }
+      ],
+      "overflow": [],
+      "text_nodes_measured": 78,
+      "text_below_18px": [
+        {
+          "tag": "SMALL",
+          "id": "",
+          "cls": "",
+          "text": "강의 학습 도우미",
+          "fg": "rgb(70, 92, 115)",
+          "bg": "rgb(255, 255, 255)",
+          "size": "14px",
+          "weight": "400",
+          "r": {
+            "x": 20,
+            "y": 52.96875,
+            "w": 99.3125,
+            "h": 23.09375
+          }
+        }
+      ],
+      "button_targets_measured": 22,
+      "minimum_button_height": 48
+    },
+    "review390": {
+      "title": "Sullivan AI · Internet Lecture Accessibility Agent",
+      "lang": "ko",
+      "screen": {
+        "w": 390,
+        "sw": 390,
+        "bw": 390
+      },
+      "headings": [
+        {
+          "tag": "H1",
+          "id": "guardian-result-title",
+          "text": "천문학 특강 7강 · 별의 진화"
+        },
+        {
+          "tag": "H2",
+          "id": "review-title",
+          "text": "강의 후 화면 정보 복습"
+        },
+        {
+          "tag": "H3",
+          "id": "",
+          "text": "오늘의 핵심 내용"
+        },
+        {
+          "tag": "H3",
+          "id": "",
+          "text": "화면으로만 제시된 정보"
+        },
+        {
+          "tag": "H3",
+          "id": "",
+          "text": "강사가 강조한 문장"
+        },
+        {
+          "tag": "H3",
+          "id": "",
+          "text": "다시 볼 핵심 구간"
+        },
+        {
+          "tag": "H2",
+          "id": "publish-title",
+          "text": "학생에게 제공하기"
+        }
+      ],
+      "landmarks": [
+        {
+          "tag": "HEADER",
+          "label": null
+        },
+        {
+          "tag": "MAIN",
+          "label": null
+        },
+        {
+          "tag": "ASIDE",
+          "label": null
+        },
+        {
+          "tag": "NAV",
+          "label": "Sullivan AI 기능"
+        },
+        {
+          "tag": "FOOTER",
+          "label": null
+        }
+      ],
+      "overflow": [],
+      "text_nodes_measured": 78,
+      "text_below_18px": [
+        {
+          "tag": "SMALL",
+          "id": "",
+          "cls": "",
+          "text": "강의 학습 도우미",
+          "fg": "rgb(70, 92, 115)",
+          "bg": "rgb(255, 255, 255)",
+          "size": "14px",
+          "weight": "400",
+          "r": {
+            "x": 20,
+            "y": 52.96875,
+            "w": 99.3125,
+            "h": 23.09375
+          }
+        }
+      ],
+      "button_targets_measured": 22,
+      "minimum_button_height": 48
+    },
+    "review1280": {
+      "title": "Sullivan AI · Internet Lecture Accessibility Agent",
+      "lang": "ko",
+      "screen": {
+        "w": 1280,
+        "sw": 1280,
+        "bw": 1280
+      },
+      "headings": [
+        {
+          "tag": "H1",
+          "id": "guardian-result-title",
+          "text": "천문학 특강 7강 · 별의 진화"
+        },
+        {
+          "tag": "H2",
+          "id": "review-title",
+          "text": "강의 후 화면 정보 복습"
+        },
+        {
+          "tag": "H3",
+          "id": "",
+          "text": "오늘의 핵심 내용"
+        },
+        {
+          "tag": "H3",
+          "id": "",
+          "text": "화면으로만 제시된 정보"
+        },
+        {
+          "tag": "H3",
+          "id": "",
+          "text": "강사가 강조한 문장"
+        },
+        {
+          "tag": "H3",
+          "id": "",
+          "text": "다시 볼 핵심 구간"
+        },
+        {
+          "tag": "H2",
+          "id": "publish-title",
+          "text": "학생에게 제공하기"
+        }
+      ],
+      "landmarks": [
+        {
+          "tag": "HEADER",
+          "label": null
+        },
+        {
+          "tag": "MAIN",
+          "label": null
+        },
+        {
+          "tag": "ASIDE",
+          "label": null
+        },
+        {
+          "tag": "NAV",
+          "label": "Sullivan AI 기능"
+        },
+        {
+          "tag": "FOOTER",
+          "label": null
+        }
+      ],
+      "overflow": [],
+      "text_nodes_measured": 78,
+      "text_below_18px": [
+        {
+          "tag": "SMALL",
+          "id": "",
+          "cls": "",
+          "text": "강의 학습 도우미",
+          "fg": "rgb(70, 92, 115)",
+          "bg": "rgb(255, 255, 255)",
+          "size": "14px",
+          "weight": "400",
+          "r": {
+            "x": 50,
+            "y": 52.96875,
+            "w": 99.3125,
+            "h": 23.09375
+          }
+        }
+      ],
+      "button_targets_measured": 22,
+      "minimum_button_height": 48
+    },
+    "study320": {
+      "title": "Sullivan AI · Internet Lecture Accessibility Agent",
+      "lang": "ko",
+      "screen": {
+        "w": 320,
+        "sw": 320,
+        "bw": 320
+      },
+      "headings": [
+        {
+          "tag": "H1",
+          "id": "guardian-result-title",
+          "text": "천문학 특강 7강 · 별의 진화"
+        },
+        {
+          "tag": "H2",
+          "id": "study-title",
+          "text": "AI 학습 노트"
+        },
+        {
+          "tag": "H3",
+          "id": "study-overview-title",
+          "text": "한눈에 요약"
+        },
+        {
+          "tag": "H3",
+          "id": "",
+          "text": "개념 연결 지도"
+        },
+        {
+          "tag": "H3",
+          "id": "",
+          "text": "핵심 용어"
+        },
+        {
+          "tag": "H3",
+          "id": "",
+          "text": "스스로 확인하기"
+        },
+        {
+          "tag": "H3",
+          "id": "",
+          "text": "내 타임스탬프 노트"
+        },
+        {
+          "tag": "H2",
+          "id": "publish-title",
+          "text": "학생에게 제공하기"
+        }
+      ],
+      "landmarks": [
+        {
+          "tag": "HEADER",
+          "label": null
+        },
+        {
+          "tag": "MAIN",
+          "label": null
+        },
+        {
+          "tag": "ASIDE",
+          "label": null
+        },
+        {
+          "tag": "NAV",
+          "label": "Sullivan AI 기능"
+        },
+        {
+          "tag": "FOOTER",
+          "label": null
+        }
+      ],
+      "overflow": [],
+      "text_nodes_measured": 67,
+      "text_below_18px": [
+        {
+          "tag": "SMALL",
+          "id": "",
+          "cls": "",
+          "text": "강의 학습 도우미",
+          "fg": "rgb(70, 92, 115)",
+          "bg": "rgb(255, 255, 255)",
+          "size": "14px",
+          "weight": "400",
+          "r": {
+            "x": 20,
+            "y": 52.96875,
+            "w": 99.3125,
+            "h": 23.09375
+          }
+        }
+      ],
+      "button_targets_measured": 12,
+      "minimum_button_height": 48
+    },
+    "study390": {
+      "title": "Sullivan AI · Internet Lecture Accessibility Agent",
+      "lang": "ko",
+      "screen": {
+        "w": 390,
+        "sw": 390,
+        "bw": 390
+      },
+      "headings": [
+        {
+          "tag": "H1",
+          "id": "guardian-result-title",
+          "text": "천문학 특강 7강 · 별의 진화"
+        },
+        {
+          "tag": "H2",
+          "id": "study-title",
+          "text": "AI 학습 노트"
+        },
+        {
+          "tag": "H3",
+          "id": "study-overview-title",
+          "text": "한눈에 요약"
+        },
+        {
+          "tag": "H3",
+          "id": "",
+          "text": "개념 연결 지도"
+        },
+        {
+          "tag": "H3",
+          "id": "",
+          "text": "핵심 용어"
+        },
+        {
+          "tag": "H3",
+          "id": "",
+          "text": "스스로 확인하기"
+        },
+        {
+          "tag": "H3",
+          "id": "",
+          "text": "내 타임스탬프 노트"
+        },
+        {
+          "tag": "H2",
+          "id": "publish-title",
+          "text": "학생에게 제공하기"
+        }
+      ],
+      "landmarks": [
+        {
+          "tag": "HEADER",
+          "label": null
+        },
+        {
+          "tag": "MAIN",
+          "label": null
+        },
+        {
+          "tag": "ASIDE",
+          "label": null
+        },
+        {
+          "tag": "NAV",
+          "label": "Sullivan AI 기능"
+        },
+        {
+          "tag": "FOOTER",
+          "label": null
+        }
+      ],
+      "overflow": [],
+      "text_nodes_measured": 67,
+      "text_below_18px": [
+        {
+          "tag": "SMALL",
+          "id": "",
+          "cls": "",
+          "text": "강의 학습 도우미",
+          "fg": "rgb(70, 92, 115)",
+          "bg": "rgb(255, 255, 255)",
+          "size": "14px",
+          "weight": "400",
+          "r": {
+            "x": 20,
+            "y": 52.96875,
+            "w": 99.3125,
+            "h": 23.09375
+          }
+        }
+      ],
+      "button_targets_measured": 12,
+      "minimum_button_height": 48
+    },
+    "study1280": {
+      "title": "Sullivan AI · Internet Lecture Accessibility Agent",
+      "lang": "ko",
+      "screen": {
+        "w": 1280,
+        "sw": 1280,
+        "bw": 1280
+      },
+      "headings": [
+        {
+          "tag": "H1",
+          "id": "guardian-result-title",
+          "text": "천문학 특강 7강 · 별의 진화"
+        },
+        {
+          "tag": "H2",
+          "id": "study-title",
+          "text": "AI 학습 노트"
+        },
+        {
+          "tag": "H3",
+          "id": "study-overview-title",
+          "text": "한눈에 요약"
+        },
+        {
+          "tag": "H3",
+          "id": "",
+          "text": "개념 연결 지도"
+        },
+        {
+          "tag": "H3",
+          "id": "",
+          "text": "핵심 용어"
+        },
+        {
+          "tag": "H3",
+          "id": "",
+          "text": "스스로 확인하기"
+        },
+        {
+          "tag": "H3",
+          "id": "",
+          "text": "내 타임스탬프 노트"
+        },
+        {
+          "tag": "H2",
+          "id": "publish-title",
+          "text": "학생에게 제공하기"
+        }
+      ],
+      "landmarks": [
+        {
+          "tag": "HEADER",
+          "label": null
+        },
+        {
+          "tag": "MAIN",
+          "label": null
+        },
+        {
+          "tag": "ASIDE",
+          "label": null
+        },
+        {
+          "tag": "NAV",
+          "label": "Sullivan AI 기능"
+        },
+        {
+          "tag": "FOOTER",
+          "label": null
+        }
+      ],
+      "overflow": [],
+      "text_nodes_measured": 67,
+      "text_below_18px": [
+        {
+          "tag": "SMALL",
+          "id": "",
+          "cls": "",
+          "text": "강의 학습 도우미",
+          "fg": "rgb(70, 92, 115)",
+          "bg": "rgb(255, 255, 255)",
+          "size": "14px",
+          "weight": "400",
+          "r": {
+            "x": 50,
+            "y": 52.96875,
+            "w": 99.3125,
+            "h": 23.09375
+          }
+        }
+      ],
+      "button_targets_measured": 12,
+      "minimum_button_height": 48
+    },
+    "chat320": {
+      "title": "Sullivan AI · Internet Lecture Accessibility Agent",
+      "lang": "ko",
+      "screen": {
+        "w": 320,
+        "sw": 320,
+        "bw": 320
+      },
+      "headings": [
+        {
+          "tag": "H1",
+          "id": "guardian-result-title",
+          "text": "천문학 특강 7강 · 별의 진화"
+        },
+        {
+          "tag": "H2",
+          "id": "chat-title",
+          "text": "AI 학습 대화"
+        },
+        {
+          "tag": "H3",
+          "id": "chat-tools-title",
+          "text": "빠른 결과물 만들기"
+        },
+        {
+          "tag": "H2",
+          "id": "publish-title",
+          "text": "학생에게 제공하기"
+        }
+      ],
+      "landmarks": [
+        {
+          "tag": "HEADER",
+          "label": null
+        },
+        {
+          "tag": "MAIN",
+          "label": null
+        },
+        {
+          "tag": "ASIDE",
+          "label": null
+        },
+        {
+          "tag": "NAV",
+          "label": "Sullivan AI 기능"
+        },
+        {
+          "tag": "ASIDE",
+          "label": null
+        },
+        {
+          "tag": "FOOTER",
+          "label": null
+        }
+      ],
+      "overflow": [],
+      "text_nodes_measured": 57,
+      "text_below_18px": [
+        {
+          "tag": "SMALL",
+          "id": "",
+          "cls": "",
+          "text": "강의 학습 도우미",
+          "fg": "rgb(70, 92, 115)",
+          "bg": "rgb(255, 255, 255)",
+          "size": "14px",
+          "weight": "400",
+          "r": {
+            "x": 20,
+            "y": -792.03125,
+            "w": 99.3125,
+            "h": 23.09375
+          }
+        }
+      ],
+      "button_targets_measured": 20,
+      "minimum_button_height": 48
+    },
+    "chat390": {
+      "title": "Sullivan AI · Internet Lecture Accessibility Agent",
+      "lang": "ko",
+      "screen": {
+        "w": 390,
+        "sw": 390,
+        "bw": 390
+      },
+      "headings": [
+        {
+          "tag": "H1",
+          "id": "guardian-result-title",
+          "text": "천문학 특강 7강 · 별의 진화"
+        },
+        {
+          "tag": "H2",
+          "id": "chat-title",
+          "text": "AI 학습 대화"
+        },
+        {
+          "tag": "H3",
+          "id": "chat-tools-title",
+          "text": "빠른 결과물 만들기"
+        },
+        {
+          "tag": "H2",
+          "id": "publish-title",
+          "text": "학생에게 제공하기"
+        }
+      ],
+      "landmarks": [
+        {
+          "tag": "HEADER",
+          "label": null
+        },
+        {
+          "tag": "MAIN",
+          "label": null
+        },
+        {
+          "tag": "ASIDE",
+          "label": null
+        },
+        {
+          "tag": "NAV",
+          "label": "Sullivan AI 기능"
+        },
+        {
+          "tag": "ASIDE",
+          "label": null
+        },
+        {
+          "tag": "FOOTER",
+          "label": null
+        }
+      ],
+      "overflow": [],
+      "text_nodes_measured": 57,
+      "text_below_18px": [
+        {
+          "tag": "SMALL",
+          "id": "",
+          "cls": "",
+          "text": "강의 학습 도우미",
+          "fg": "rgb(70, 92, 115)",
+          "bg": "rgb(255, 255, 255)",
+          "size": "14px",
+          "weight": "400",
+          "r": {
+            "x": 20,
+            "y": -748.03125,
+            "w": 99.3125,
+            "h": 23.09375
+          }
+        }
+      ],
+      "button_targets_measured": 20,
+      "minimum_button_height": 48
+    },
+    "chat1280": {
+      "title": "Sullivan AI · Internet Lecture Accessibility Agent",
+      "lang": "ko",
+      "screen": {
+        "w": 1280,
+        "sw": 1280,
+        "bw": 1280
+      },
+      "headings": [
+        {
+          "tag": "H1",
+          "id": "guardian-result-title",
+          "text": "천문학 특강 7강 · 별의 진화"
+        },
+        {
+          "tag": "H2",
+          "id": "chat-title",
+          "text": "AI 학습 대화"
+        },
+        {
+          "tag": "H3",
+          "id": "chat-tools-title",
+          "text": "빠른 결과물 만들기"
+        },
+        {
+          "tag": "H2",
+          "id": "publish-title",
+          "text": "학생에게 제공하기"
+        }
+      ],
+      "landmarks": [
+        {
+          "tag": "HEADER",
+          "label": null
+        },
+        {
+          "tag": "MAIN",
+          "label": null
+        },
+        {
+          "tag": "ASIDE",
+          "label": null
+        },
+        {
+          "tag": "NAV",
+          "label": "Sullivan AI 기능"
+        },
+        {
+          "tag": "ASIDE",
+          "label": null
+        },
+        {
+          "tag": "FOOTER",
+          "label": null
+        }
+      ],
+      "overflow": [],
+      "text_nodes_measured": 57,
+      "text_below_18px": [
+        {
+          "tag": "SMALL",
+          "id": "",
+          "cls": "",
+          "text": "강의 학습 도우미",
+          "fg": "rgb(70, 92, 115)",
+          "bg": "rgb(255, 255, 255)",
+          "size": "14px",
+          "weight": "400",
+          "r": {
+            "x": 50,
+            "y": -601.03125,
+            "w": 99.3125,
+            "h": 23.09375
+          }
+        }
+      ],
+      "button_targets_measured": 20,
+      "minimum_button_height": 48
+    },
+    "evidence320": {
+      "title": "Sullivan AI · Internet Lecture Accessibility Agent",
+      "lang": "ko",
+      "screen": {
+        "w": 320,
+        "sw": 320,
+        "bw": 320
+      },
+      "headings": [
+        {
+          "tag": "H1",
+          "id": "guardian-result-title",
+          "text": "천문학 특강 7강 · 별의 진화"
+        },
+        {
+          "tag": "H2",
+          "id": "evidence-title",
+          "text": "해설한 이유"
+        },
+        {
+          "tag": "H3",
+          "id": "",
+          "text": "화면 제목 아래에 오늘 다룰 탄생, 주계열 단계, 질량에 따른 최후가 순서대로 제시되어 있습니다."
+        },
+        {
+          "tag": "H3",
+          "id": "",
+          "text": "칠판에는 성운의 가스와 먼지가 한곳으로 모여 원시별이 되는 과정이, 왼쪽에서 오른쪽 화살표로 그려져 있습니다."
+        },
+        {
+          "tag": "H3",
+          "id": "",
+          "text": "칠판에는 성운의 가스와 먼지가 중력 수축해 원시별을 이루고, 다시 중심 수축을 거쳐 주계열성이 되는 과정이 왼쪽에서 오른쪽 화살표로 연결되어 있습니다. 주계열성 아래에는 중심 온도 약 천만 켈빈이 적혀 있습니다."
+        },
+        {
+          "tag": "H3",
+          "id": "",
+          "text": "그림의 안쪽 화살표는 중력, 바깥쪽 화살표는 내부 기체 압력을 나타내며 두 힘이 평형을 이룹니다."
+        },
+        {
+          "tag": "H3",
+          "id": "",
+          "text": "진화 흐름도가 주계열성 이후 두 갈래로 나뉩니다. 위쪽은 질량이 큰 별, 아래쪽은 태양 정도 질량의 별입니다."
+        },
+        {
+          "tag": "H3",
+          "id": "",
+          "text": "화면의 수명 비교 막대에서 질량이 큰 별은 짧고, 질량이 작은 별은 훨씬 길게 표시됩니다. 질량이 클수록 연료를 더 빠르게 쓰는 관계입니다."
+        },
+        {
+          "tag": "H3",
+          "id": "",
+          "text": "강사가 다음 경로를 강조했습니다. 태양 정도 질량의 별은 주계열성, 적색 거성, 행성상 성운, 백색 왜성 순서로 진화합니다."
+        },
+        {
+          "tag": "H3",
+          "id": "",
+          "text": "강사가 다음 경로를 강조했습니다. 질량이 큰 별은 주계열성, 초거성, 초신성, 중성자별 또는 블랙홀 순서로 진화합니다."
+        },
+        {
+          "tag": "H3",
+          "id": "",
+          "text": "비교표의 왼쪽 열은 태양 정도 질량의 별, 오른쪽 열은 질량이 큰 별입니다. 두 열은 행성상 성운과 초신성에서 갈라지고, 마지막 천체도 백색 왜성과 중성자별·블랙홀로 다릅니다."
+        },
+        {
+          "tag": "H3",
+          "id": "",
+          "text": "마지막 천체 그림은 백색 왜성, 중성자별, 블랙홀 순으로 더 작고 조밀한 대상으로 배치되어 있습니다. 블랙홀 쪽 화살표에는 매우 큰 초기 질량이라는 조건이 붙습니다."
+        },
+        {
+          "tag": "H3",
+          "id": "",
+          "text": "초신성에서 무거운 원소가 생성되고 성간 물질로 퍼져 새 별과 행성의 재료가 되는 순환 화살표가 있습니다."
+        },
+        {
+          "tag": "H3",
+          "id": "",
+          "text": "내용 비공개 · 말하지 않고 보류한 정보"
+        },
+        {
+          "tag": "H2",
+          "id": "publish-title",
+          "text": "학생에게 제공하기"
+        }
+      ],
+      "landmarks": [
+        {
+          "tag": "HEADER",
+          "label": null
+        },
+        {
+          "tag": "MAIN",
+          "label": null
+        },
+        {
+          "tag": "ASIDE",
+          "label": null
+        },
+        {
+          "tag": "NAV",
+          "label": "Sullivan AI 기능"
+        },
+        {
+          "tag": "FOOTER",
+          "label": null
+        }
+      ],
+      "overflow": [],
+      "text_nodes_measured": 107,
+      "text_below_18px": [
+        {
+          "tag": "SMALL",
+          "id": "",
+          "cls": "",
+          "text": "강의 학습 도우미",
+          "fg": "rgb(70, 92, 115)",
+          "bg": "rgb(255, 255, 255)",
+          "size": "14px",
+          "weight": "400",
+          "r": {
+            "x": 20,
+            "y": -147.03125,
+            "w": 99.3125,
+            "h": 23.09375
+          }
+        }
+      ],
+      "button_targets_measured": 9,
+      "minimum_button_height": 48
+    },
+    "evidence390": {
+      "title": "Sullivan AI · Internet Lecture Accessibility Agent",
+      "lang": "ko",
+      "screen": {
+        "w": 390,
+        "sw": 390,
+        "bw": 390
+      },
+      "headings": [
+        {
+          "tag": "H1",
+          "id": "guardian-result-title",
+          "text": "천문학 특강 7강 · 별의 진화"
+        },
+        {
+          "tag": "H2",
+          "id": "evidence-title",
+          "text": "해설한 이유"
+        },
+        {
+          "tag": "H3",
+          "id": "",
+          "text": "화면 제목 아래에 오늘 다룰 탄생, 주계열 단계, 질량에 따른 최후가 순서대로 제시되어 있습니다."
+        },
+        {
+          "tag": "H3",
+          "id": "",
+          "text": "칠판에는 성운의 가스와 먼지가 한곳으로 모여 원시별이 되는 과정이, 왼쪽에서 오른쪽 화살표로 그려져 있습니다."
+        },
+        {
+          "tag": "H3",
+          "id": "",
+          "text": "칠판에는 성운의 가스와 먼지가 중력 수축해 원시별을 이루고, 다시 중심 수축을 거쳐 주계열성이 되는 과정이 왼쪽에서 오른쪽 화살표로 연결되어 있습니다. 주계열성 아래에는 중심 온도 약 천만 켈빈이 적혀 있습니다."
+        },
+        {
+          "tag": "H3",
+          "id": "",
+          "text": "그림의 안쪽 화살표는 중력, 바깥쪽 화살표는 내부 기체 압력을 나타내며 두 힘이 평형을 이룹니다."
+        },
+        {
+          "tag": "H3",
+          "id": "",
+          "text": "진화 흐름도가 주계열성 이후 두 갈래로 나뉩니다. 위쪽은 질량이 큰 별, 아래쪽은 태양 정도 질량의 별입니다."
+        },
+        {
+          "tag": "H3",
+          "id": "",
+          "text": "화면의 수명 비교 막대에서 질량이 큰 별은 짧고, 질량이 작은 별은 훨씬 길게 표시됩니다. 질량이 클수록 연료를 더 빠르게 쓰는 관계입니다."
+        },
+        {
+          "tag": "H3",
+          "id": "",
+          "text": "강사가 다음 경로를 강조했습니다. 태양 정도 질량의 별은 주계열성, 적색 거성, 행성상 성운, 백색 왜성 순서로 진화합니다."
+        },
+        {
+          "tag": "H3",
+          "id": "",
+          "text": "강사가 다음 경로를 강조했습니다. 질량이 큰 별은 주계열성, 초거성, 초신성, 중성자별 또는 블랙홀 순서로 진화합니다."
+        },
+        {
+          "tag": "H3",
+          "id": "",
+          "text": "비교표의 왼쪽 열은 태양 정도 질량의 별, 오른쪽 열은 질량이 큰 별입니다. 두 열은 행성상 성운과 초신성에서 갈라지고, 마지막 천체도 백색 왜성과 중성자별·블랙홀로 다릅니다."
+        },
+        {
+          "tag": "H3",
+          "id": "",
+          "text": "마지막 천체 그림은 백색 왜성, 중성자별, 블랙홀 순으로 더 작고 조밀한 대상으로 배치되어 있습니다. 블랙홀 쪽 화살표에는 매우 큰 초기 질량이라는 조건이 붙습니다."
+        },
+        {
+          "tag": "H3",
+          "id": "",
+          "text": "초신성에서 무거운 원소가 생성되고 성간 물질로 퍼져 새 별과 행성의 재료가 되는 순환 화살표가 있습니다."
+        },
+        {
+          "tag": "H3",
+          "id": "",
+          "text": "내용 비공개 · 말하지 않고 보류한 정보"
+        },
+        {
+          "tag": "H2",
+          "id": "publish-title",
+          "text": "학생에게 제공하기"
+        }
+      ],
+      "landmarks": [
+        {
+          "tag": "HEADER",
+          "label": null
+        },
+        {
+          "tag": "MAIN",
+          "label": null
+        },
+        {
+          "tag": "ASIDE",
+          "label": null
+        },
+        {
+          "tag": "NAV",
+          "label": "Sullivan AI 기능"
+        },
+        {
+          "tag": "FOOTER",
+          "label": null
+        }
+      ],
+      "overflow": [],
+      "text_nodes_measured": 107,
+      "text_below_18px": [
+        {
+          "tag": "SMALL",
+          "id": "",
+          "cls": "",
+          "text": "강의 학습 도우미",
+          "fg": "rgb(70, 92, 115)",
+          "bg": "rgb(255, 255, 255)",
+          "size": "14px",
+          "weight": "400",
+          "r": {
+            "x": 20,
+            "y": -147.03125,
+            "w": 99.3125,
+            "h": 23.09375
+          }
+        }
+      ],
+      "button_targets_measured": 9,
+      "minimum_button_height": 48
+    },
+    "evidence1280": {
+      "title": "Sullivan AI · Internet Lecture Accessibility Agent",
+      "lang": "ko",
+      "screen": {
+        "w": 1280,
+        "sw": 1280,
+        "bw": 1280
+      },
+      "headings": [
+        {
+          "tag": "H1",
+          "id": "guardian-result-title",
+          "text": "천문학 특강 7강 · 별의 진화"
+        },
+        {
+          "tag": "H2",
+          "id": "evidence-title",
+          "text": "해설한 이유"
+        },
+        {
+          "tag": "H3",
+          "id": "",
+          "text": "화면 제목 아래에 오늘 다룰 탄생, 주계열 단계, 질량에 따른 최후가 순서대로 제시되어 있습니다."
+        },
+        {
+          "tag": "H3",
+          "id": "",
+          "text": "칠판에는 성운의 가스와 먼지가 한곳으로 모여 원시별이 되는 과정이, 왼쪽에서 오른쪽 화살표로 그려져 있습니다."
+        },
+        {
+          "tag": "H3",
+          "id": "",
+          "text": "칠판에는 성운의 가스와 먼지가 중력 수축해 원시별을 이루고, 다시 중심 수축을 거쳐 주계열성이 되는 과정이 왼쪽에서 오른쪽 화살표로 연결되어 있습니다. 주계열성 아래에는 중심 온도 약 천만 켈빈이 적혀 있습니다."
+        },
+        {
+          "tag": "H3",
+          "id": "",
+          "text": "그림의 안쪽 화살표는 중력, 바깥쪽 화살표는 내부 기체 압력을 나타내며 두 힘이 평형을 이룹니다."
+        },
+        {
+          "tag": "H3",
+          "id": "",
+          "text": "진화 흐름도가 주계열성 이후 두 갈래로 나뉩니다. 위쪽은 질량이 큰 별, 아래쪽은 태양 정도 질량의 별입니다."
+        },
+        {
+          "tag": "H3",
+          "id": "",
+          "text": "화면의 수명 비교 막대에서 질량이 큰 별은 짧고, 질량이 작은 별은 훨씬 길게 표시됩니다. 질량이 클수록 연료를 더 빠르게 쓰는 관계입니다."
+        },
+        {
+          "tag": "H3",
+          "id": "",
+          "text": "강사가 다음 경로를 강조했습니다. 태양 정도 질량의 별은 주계열성, 적색 거성, 행성상 성운, 백색 왜성 순서로 진화합니다."
+        },
+        {
+          "tag": "H3",
+          "id": "",
+          "text": "강사가 다음 경로를 강조했습니다. 질량이 큰 별은 주계열성, 초거성, 초신성, 중성자별 또는 블랙홀 순서로 진화합니다."
+        },
+        {
+          "tag": "H3",
+          "id": "",
+          "text": "비교표의 왼쪽 열은 태양 정도 질량의 별, 오른쪽 열은 질량이 큰 별입니다. 두 열은 행성상 성운과 초신성에서 갈라지고, 마지막 천체도 백색 왜성과 중성자별·블랙홀로 다릅니다."
+        },
+        {
+          "tag": "H3",
+          "id": "",
+          "text": "마지막 천체 그림은 백색 왜성, 중성자별, 블랙홀 순으로 더 작고 조밀한 대상으로 배치되어 있습니다. 블랙홀 쪽 화살표에는 매우 큰 초기 질량이라는 조건이 붙습니다."
+        },
+        {
+          "tag": "H3",
+          "id": "",
+          "text": "초신성에서 무거운 원소가 생성되고 성간 물질로 퍼져 새 별과 행성의 재료가 되는 순환 화살표가 있습니다."
+        },
+        {
+          "tag": "H3",
+          "id": "",
+          "text": "내용 비공개 · 말하지 않고 보류한 정보"
+        },
+        {
+          "tag": "H2",
+          "id": "publish-title",
+          "text": "학생에게 제공하기"
+        }
+      ],
+      "landmarks": [
+        {
+          "tag": "HEADER",
+          "label": null
+        },
+        {
+          "tag": "MAIN",
+          "label": null
+        },
+        {
+          "tag": "ASIDE",
+          "label": null
+        },
+        {
+          "tag": "NAV",
+          "label": "Sullivan AI 기능"
+        },
+        {
+          "tag": "FOOTER",
+          "label": null
+        }
+      ],
+      "overflow": [],
+      "text_nodes_measured": 107,
+      "text_below_18px": [
+        {
+          "tag": "SMALL",
+          "id": "",
+          "cls": "",
+          "text": "강의 학습 도우미",
+          "fg": "rgb(70, 92, 115)",
+          "bg": "rgb(255, 255, 255)",
+          "size": "14px",
+          "weight": "400",
+          "r": {
+            "x": 50,
+            "y": -77.03125,
+            "w": 99.3125,
+            "h": 23.09375
+          }
+        }
+      ],
+      "button_targets_measured": 9,
+      "minimum_button_height": 48
+    }
+  },
+  "logs": []
+}

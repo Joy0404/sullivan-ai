@@ -1,0 +1,80 @@
+[
+  {
+    "foreground": "rgb(23, 44, 72)",
+    "background": "rgb(238, 243, 248)",
+    "ratio": 12.62,
+    "normalAA": true
+  },
+  {
+    "foreground": "rgb(70, 92, 115)",
+    "background": "rgb(238, 243, 248)",
+    "ratio": 6.19,
+    "normalAA": true
+  },
+  {
+    "foreground": "rgb(22, 75, 139)",
+    "background": "rgb(232, 240, 250)",
+    "ratio": 7.57,
+    "normalAA": true
+  },
+  {
+    "foreground": "rgb(23, 44, 72)",
+    "background": "rgb(255, 255, 255)",
+    "ratio": 14.09,
+    "normalAA": true
+  },
+  {
+    "foreground": "rgb(22, 88, 62)",
+    "background": "rgb(230, 244, 237)",
+    "ratio": 7.41,
+    "normalAA": true
+  },
+  {
+    "foreground": "rgb(255, 255, 255)",
+    "background": "rgb(17, 28, 44)",
+    "ratio": 17.12,
+    "normalAA": true
+  },
+  {
+    "foreground": "rgb(70, 92, 115)",
+    "background": "rgb(255, 255, 255)",
+    "ratio": 6.91,
+    "normalAA": true
+  },
+  {
+    "foreground": "rgb(22, 75, 139)",
+    "background": "rgb(255, 255, 255)",
+    "ratio": 8.7,
+    "normalAA": true
+  },
+  {
+    "foreground": "rgb(255, 255, 255)",
+    "background": "rgb(22, 75, 139)",
+    "ratio": 8.7,
+    "normalAA": true
+  },
+  {
+    "foreground": "rgb(144, 60, 46)",
+    "background": "rgb(238, 243, 248)",
+    "ratio": 6.55,
+    "normalAA": true
+  },
+  {
+    "foreground": "rgb(22, 75, 139)",
+    "background": "rgb(238, 243, 248)",
+    "ratio": 7.79,
+    "normalAA": true
+  },
+  {
+    "foreground": "rgb(23, 44, 72)",
+    "background": "rgb(232, 240, 250)",
+    "ratio": 12.26,
+    "normalAA": true
+  },
+  {
+    "foreground": "rgb(144, 60, 46)",
+    "background": "rgb(252, 238, 234)",
+    "ratio": 6.46,
+    "normalAA": true
+  }
+]

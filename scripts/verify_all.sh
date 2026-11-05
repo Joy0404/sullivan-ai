@@ -8,6 +8,11 @@ python scripts/verify_project.py
 
 if command -v node >/dev/null 2>&1; then
   node --check apps/web/app.js
+  node --check apps/web/role-portal.js
+  node --check apps/web/focus-voice.js
+  node --check apps/web/space-gesture.js
+  node --check apps/web/keyboard-navigation.js
+  node scripts/test_space_gesture.js
   node scripts/test_playback_scheduler.js
   node scripts/test_concept_tools.js
   node scripts/test_sample_catalog.js

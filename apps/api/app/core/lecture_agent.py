@@ -251,20 +251,32 @@ class LectureAgent:
         if safe_guide.model_dump(exclude_defaults=True):
             self._study_guides[session_id] = safe_guide
 
+        blocked = [item for item in self._visuals[session_id]
+                   if item.confidence < 0.72 or (session.problem_mode and item.kind == "answer")]
+        blocked_text = [value for item in blocked for value in (item.text, item.annotation) if value]
+        def derived_is_blocked(value):
+            return any(text in (value or "") for text in blocked_text)
+        # Model summaries have no per-sentence provenance: with a protected answer,
+        # fail closed instead of carrying the same answer through a different output.
+        if any(item.kind == "answer" for item in blocked) or derived_is_blocked(safe_guide.model_dump_json()):
+            self._study_guides[session_id] = StudyGuide()
         visual_hints = [
             (item.text, item.timestamp_ms)
             for item in self._visuals[session_id]
-            if item.text
+            if item.text and item not in blocked
         ]
         highlighted = [
-            *[redact_sensitive_text(item) or "" for item in payload.highlighted_texts],
+            *[redact_sensitive_text(item) or "" for item in payload.highlighted_texts if not derived_is_blocked(item)],
             *[
                 item.text
                 for item in self._visuals[session_id]
-                if item.kind == "highlight" and item.text
+                if item.kind == "highlight" and item.text and item not in blocked
             ],
         ]
         safe_passage_text = redact_sensitive_text(payload.passage_text)
+        if any(item.kind == "answer" for item in blocked) or derived_is_blocked(safe_passage_text):
+            safe_passage_text = None
+            self._passages[session_id] = None
         if safe_passage_text:
             self._passages[session_id] = structure_passage(
                 safe_passage_text,
@@ -297,7 +309,7 @@ class LectureAgent:
                 problem_mode=session.problem_mode,
             )
             gaps.append(gap)
-            if observation.text:
+            if observation.text and gap.safe_to_speak:
                 previous_by_screen[observation.screen_type] = observation.text
 
         self._gaps[session_id] = gaps

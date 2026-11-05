@@ -1,0 +1,60 @@
+{
+  "source": "Exact current T5 progress block in isolated DOM, all request results mocked; no actual server contact",
+  "checks": [
+    "Real Tab reaches native summary; Enter opens progress and focus stays on summary during loading",
+    "Async success appends semantic read-only records and updates persistent status without moving focus",
+    "Space collapses; Enter reopens cached records without another request; Tab and Shift+Tab pass between progress and settings without traps",
+    "Failure keeps summary focus; close/reopen with Enter/Space retries successfully and reports empty state",
+    "Native summary target height is at least48px and there is no horizontal overflow at320,390,1280px"
+  ],
+  "widths": [
+    {
+      "width": 320,
+      "targets": [
+        {
+          "height": 53.6875,
+          "outlineWidth": "3px",
+          "text": "학습 현황"
+        },
+        {
+          "height": 53.6875,
+          "outlineWidth": "4px",
+          "text": "학습 현황"
+        }
+      ],
+      "overflow": false
+    },
+    {
+      "width": 390,
+      "targets": [
+        {
+          "height": 53.6875,
+          "outlineWidth": "3px",
+          "text": "학습 현황"
+        },
+        {
+          "height": 53.6875,
+          "outlineWidth": "4px",
+          "text": "학습 현황"
+        }
+      ],
+      "overflow": false
+    },
+    {
+      "width": 1280,
+      "targets": [
+        {
+          "height": 53.6875,
+          "outlineWidth": "3px",
+          "text": "학습 현황"
+        },
+        {
+          "height": 53.6875,
+          "outlineWidth": "4px",
+          "text": "학습 현황"
+        }
+      ],
+      "overflow": false
+    }
+  ]
+}

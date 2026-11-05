@@ -1,0 +1,36 @@
+{
+  "skill": "live-region-controller",
+  "scope": [
+    "apps/web/role-portal.js",
+    "apps/web/index.html",
+    "apps/web/guide/index.html",
+    "apps/web/guide/guide.js",
+    "scripts/verify_roles_browser.py",
+    "scripts/verify_keyboard_navigation.py"
+  ],
+  "findings": [
+    {
+      "rule": "LIVE-STALE-401-SESSION",
+      "wcag": "n/a",
+      "severity": "moderate",
+      "location": "apps/web/role-portal.js:17",
+      "summary": "A stale guardian progress401 clears a newly authenticated student’s UI session and moves focus to login even though the student remains authenticated.",
+      "fix": "Capture an authentication generation or requesting user identity before fetch; process401 by signing out only if that generation is still current. Abort or invalidate pending progress requests on role changes. Test an old guardian401 after student login and a current-session401.",
+      "evidence": "Hold guardian GET /students/:id/progress, log out, log in as student via UI, wait for loaded home and enabled login submit, then return held401. Before: student, focus student-list-open; after: user=null, signed-out, focus login-role-student. /local/me returns200 for the same student both times; no page errors. /tmp/reaudit-312a607/stale401-results.json",
+      "component": "guardian-learning-progress"
+    }
+  ],
+  "passed": [
+    "Student-name prefixes remain present in concurrent loading, empty, and error status messages; messages stay polite persistent status nodes.",
+    "A held successful progress response after roster replacement populated neither the detached disclosure nor its replacement.",
+    "Wizard source clearing and nested input/change events produced coherent final source/consent state and no page errors.",
+    "Guide bulk expansion exposed its status and matching expanded panel states; refreshed images are outside live regions."
+  ],
+  "notes": [
+    "The401 behavior originates in the unchanged generic request helper and is exposed by the newly added asynchronous T5 progress path; it was not introduced by the latest student-name/source-reset fix.",
+    "Duplicate display-name progress messages remain ambiguous; the shared identity defect is reported once in aria-specialist.json.",
+    "Known baseline sample-assignment loading silence, late-cancel behavior, and stale URL labels were excluded from new findings.",
+    "Actual VoiceOver/NVDA was unavailable. Verification uses real browser DOM/focus/AX, disposable local accounts, held mock responses, and no provider calls.",
+    "Evidence: /tmp/reaudit-312a607/aria-live-results.json and /tmp/reaudit-312a607/stale401-results.json. Source assertions in committed browser tests do not exercise stale progress401 after role changes."
+  ]
+}

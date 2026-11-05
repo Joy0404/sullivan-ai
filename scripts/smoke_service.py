@@ -4,22 +4,25 @@ from __future__ import annotations
 
 import argparse
 import json
+from http.cookiejar import CookieJar
+import secrets
 import time
 from urllib.error import HTTPError
 from urllib.parse import urlsplit
-from urllib.request import Request, urlopen
+from urllib.request import HTTPCookieProcessor, Request, build_opener
 
 
-def verify(base: str, wait_seconds: int = 60) -> None:
+def verify(base: str, wait_seconds: int = 60, allow_fixture_setup: bool = False) -> None:
+    client = build_opener(HTTPCookieProcessor(CookieJar()))
     def fetch(path, body=None):
         request = Request(
             base + path,
             data=None if body is None else json.dumps(body).encode(),
-            headers={"Content-Type": "application/json"},
+            headers={"Content-Type": "application/json", "X-Local-Request": "1"},
             method="GET" if body is None else "POST",
         )
         try:
-            with urlopen(request, timeout=5) as response:
+            with client.open(request, timeout=5) as response:
                 return response.status, response.read()
         except HTTPError as error:
             # Keep server response bodies out of logs.
@@ -42,8 +45,22 @@ def verify(base: str, wait_seconds: int = 60) -> None:
     )
     assert b"gemini_api_key" not in javascript
     assert fetch("/styles.css")[0] == 200
-    for path in ["/.env", "/.git/config", "/v1/unknown"]:
+    for path in ["/.env", "/.git/config"]:
         assert fetch(path)[0] == 404
+    status, data = fetch('/local/status')
+    if status == 200:
+        account_status = json.loads(data)
+        assert fetch('/v1/lectures', {'title':'Anonymous access must fail'})[0] == 401
+        assert fetch('/v1/unknown')[0] == 401
+        # Only an explicitly requested, empty loopback test instance can receive
+        # a disposable fixture account. Public services and existing accounts
+        # are checked read-only; never attempt to claim their initial guardian.
+        if not (allow_fixture_setup and urlsplit(base).hostname in {'127.0.0.1','localhost'} and account_status['needs_setup']):
+            print('PASS: public health/assets, secret-path blocking and authentication gates; authenticated flow not run')
+            return
+        assert fetch('/local/setup', {'username':'smoke-guardian','password':secrets.token_urlsafe(24),'name':'Smoke fixture'})[0] == 200
+    else:
+        assert fetch('/v1/unknown')[0] == 404
     status, data = fetch("/v1/lectures", {"title": "Deployment sample verification"})
     assert status == 201
     sid = json.loads(data)["session_id"]
@@ -102,7 +119,7 @@ if __name__ == "__main__":
             "Use a service root HTTPS URL, or explicit --allow-local for loopback HTTP"
         )
     try:
-        verify(args.url.rstrip("/"))
+        verify(args.url.rstrip("/"), allow_fixture_setup=args.allow_local)
     except Exception:
         raise SystemExit(
             "FAIL: service acceptance check failed; credentials and response details suppressed"

@@ -1,0 +1,6 @@
+{
+  "method": "Isolated Chrome page reproducing the old literal pattern, no application changes",
+  "console_errors": [
+    "Pattern attribute value [a-zA-Z0-9_.-]{3,60} is not a valid regular expression: Uncaught SyntaxError: Failed to execute 'checkValidity' on 'HTMLInputElement': Invalid regular expression: /[a-zA-Z0-9_.-]{3,60}/v: Invalid character in character class"
+  ]
+}

@@ -108,7 +108,11 @@ class DailyUsageLimiter:
         except ValueError:
             return 3
 
-    def _access(self, ip: str, consume: bool) -> int:
+    def _access(self, ip: str, consume: bool) -> int | None:
+        if os.getenv("LOCAL_TEST_UNLIMITED") == "1":
+            if os.getenv("RENDER") == "true" or os.getenv("DATABASE_URL"):
+                raise DemoGateError(503, "무제한 테스트는 로컬에서만 사용할 수 있습니다.")
+            return None
         day = usage_day()  # one date per transaction, including midnight boundaries
         identity = hashlib.sha256(f"{day}:{ip}".encode()).hexdigest()
         limit = self.limit()
@@ -152,7 +156,7 @@ class DailyUsageLimiter:
     def ensure_available(self, ip: str) -> None:
         self._access(ip, False)
 
-    def consume(self, ip: str) -> int:
+    def consume(self, ip: str) -> int | None:
         return self._access(ip, True)
 
     def reset(self) -> None:

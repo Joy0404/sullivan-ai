@@ -1,0 +1,22 @@
+{
+  "skill": "alt-text-headings",
+  "scope": [
+    "apps/web/role-portal.js loadGuardian guardian-learning-progress",
+    "apps/web/guardian-design.css T5 rules",
+    "docs/verification/t5-progress-1280.png",
+    "docs/verification/t5-progress-390.png"
+  ],
+  "findings": [],
+  "passed": [
+    "Visible heading order is H1 guardian room → H2 student management → H3 student name → H4 assigned lecture titles, without skipped levels.",
+    "Each lecture progress group has a real h4 and a description list with four dt/dd pairs.",
+    "Native details/summary has a visible descriptive label; aria-describedby identifies the owning student.",
+    "Position and count units are textual; valid saved time and missing saved-time fallback are expressed in words.",
+    "No new images, icon-only controls, SVGs or color-only information require alternatives.",
+    "Long lecture titles wrap within the progress group at320/390px; the parent student/card reading association remains clear."
+  ],
+  "notes": [
+    "Reviewed source, independent current-function rendered fixture and both parent actual screenshots.",
+    "No parent API mutations or authentication. Actual screen-reader speech was not tested."
+  ]
+}

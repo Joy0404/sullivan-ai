@@ -1,0 +1,249 @@
+{
+  "method": "Isolated DOM executing current prepare() plus original consent/file change handlers; analyzer and sample boundaries are in-memory stubs, no API authentication or requests.",
+  "checks": [
+    "All wizard ARIA ID references resolve.",
+    "Focused stage heading has the current step-count accessible description; no competing step live region.",
+    "Validation focuses the invalid visible field and exposes associated inline error as its description.",
+    "Correction/next transition clears aria-invalid and restores the original field description.",
+    "Source choice exposes exactly one pressed native button and its relevant controls.",
+    "Sample path calls only the existing sample boundary stub, never the real analyzer submit listener."
+  ],
+  "observations": [
+    "Successful scripted drop selected one TXT and updated its list."
+  ],
+  "limitations": [
+    "No actual VoiceOver/NVDA audio test.",
+    "Parent separately tests real local HTTP integration."
+  ],
+  "stage1Heading": [
+    {
+      "name": {
+        "type": "computedString",
+        "value": "강의 정보",
+        "sources": [
+          {
+            "type": "relatedElement",
+            "attribute": "aria-labelledby"
+          },
+          {
+            "type": "attribute",
+            "attribute": "aria-label"
+          },
+          {
+            "type": "contents",
+            "value": {
+              "type": "computedString",
+              "value": "강의 정보"
+            }
+          },
+          {
+            "type": "attribute",
+            "attribute": "title",
+            "superseded": true
+          }
+        ]
+      },
+      "description": {
+        "type": "computedString",
+        "value": "1/3 단계"
+      },
+      "properties": [
+        {
+          "name": "focusable",
+          "value": {
+            "type": "booleanOrUndefined",
+            "value": true
+          }
+        },
+        {
+          "name": "focused",
+          "value": {
+            "type": "booleanOrUndefined",
+            "value": true
+          }
+        },
+        {
+          "name": "level",
+          "value": {
+            "type": "integer",
+            "value": 2
+          }
+        },
+        {
+          "name": "describedby",
+          "value": {
+            "type": "idrefList",
+            "value": "wizard-stage-label",
+            "relatedNodes": [
+              {
+                "backendDOMNodeId": 304,
+                "idref": "wizard-stage-label"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "errorTitle": [
+    {
+      "name": {
+        "type": "computedString",
+        "value": "강의 제목",
+        "sources": [
+          {
+            "type": "relatedElement",
+            "attribute": "aria-labelledby"
+          },
+          {
+            "type": "attribute",
+            "attribute": "aria-label"
+          },
+          {
+            "type": "relatedElement",
+            "value": {
+              "type": "computedString",
+              "value": "강의 제목"
+            },
+            "nativeSource": "labelwrapped",
+            "nativeSourceValue": {
+              "type": "nodeList",
+              "relatedNodes": [
+                {
+                  "backendDOMNodeId": 315,
+                  "text": "강의 제목"
+                }
+              ]
+            }
+          },
+          {
+            "type": "attribute",
+            "attribute": "title",
+            "superseded": true
+          },
+          {
+            "type": "placeholder",
+            "attribute": "placeholder",
+            "superseded": true
+          },
+          {
+            "type": "placeholder",
+            "attribute": "aria-placeholder",
+            "superseded": true
+          },
+          {
+            "type": "attribute",
+            "attribute": "title",
+            "superseded": true
+          }
+        ]
+      },
+      "description": {
+        "type": "computedString",
+        "value": "필수값과 입력 형식을 확인해 주세요. 이 입력란을 작성하세요."
+      },
+      "properties": [
+        {
+          "name": "invalid",
+          "value": {
+            "type": "token",
+            "value": "true"
+          }
+        },
+        {
+          "name": "focusable",
+          "value": {
+            "type": "booleanOrUndefined",
+            "value": true
+          }
+        },
+        {
+          "name": "focused",
+          "value": {
+            "type": "booleanOrUndefined",
+            "value": true
+          }
+        },
+        {
+          "name": "editable",
+          "value": {
+            "type": "token",
+            "value": "plaintext"
+          }
+        },
+        {
+          "name": "settable",
+          "value": {
+            "type": "booleanOrUndefined",
+            "value": true
+          }
+        },
+        {
+          "name": "multiline",
+          "value": {
+            "type": "boolean",
+            "value": false
+          }
+        },
+        {
+          "name": "readonly",
+          "value": {
+            "type": "boolean",
+            "value": false
+          }
+        },
+        {
+          "name": "required",
+          "value": {
+            "type": "boolean",
+            "value": true
+          }
+        },
+        {
+          "name": "describedby",
+          "value": {
+            "type": "idrefList",
+            "value": "wizard-error-1",
+            "relatedNodes": [
+              {
+                "backendDOMNodeId": 311,
+                "idref": "wizard-error-1"
+              }
+            ]
+          }
+        },
+        {
+          "name": "labelledby",
+          "value": {
+            "type": "nodeList",
+            "relatedNodes": [
+              {
+                "backendDOMNodeId": 315,
+                "text": "강의 제목"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "drop": {
+    "activeId": "material-files",
+    "fileCount": 1,
+    "list": "passage.txt 1KB",
+    "live": null,
+    "role": null
+  },
+  "sampleRights": {
+    "visible": false,
+    "required": true,
+    "disabled": true,
+    "checked": false
+  },
+  "sampleRightsIgnored": false,
+  "regions": [
+    "보호자 강의 준비",
+    "보호 설정 확인"
+  ],
+  "passed": true
+}

@@ -1,0 +1,22 @@
+{
+  "skill": "keyboard-navigator",
+  "scope": [
+    "apps/web/intro.css:75",
+    "apps/web/intro/index.html:33",
+    "apps/web/intro/index.html:94"
+  ],
+  "findings": [],
+  "passed": [
+    "All eight native activity links were reached by actual Tab navigation at 320px, 390px and 1280px widths (24 focus checks).",
+    "Every focused activity link matched :focus-visible with a solid 4px outline and -6px inset, keeping the indicator inside the rounded overflow container.",
+    "Every activity label had the common 24px left inset. Text-range geometry and scroll widths showed no clipped labels or horizontal overflow at all three widths.",
+    "Enter activated each of the eight links and navigated to /guide/#step-7 with the corresponding disclosure expanded.",
+    "Visual inspection of the 320px first-item and 390px last-item focus captures confirmed visible outlines and readable, unclipped labels.",
+    "The two figure captions explicitly identify an activity overview and explain that each item opens the guide."
+  ],
+  "notes": [
+    "Verdict: no reproducible keyboard or label-clipping defect found in the targeted intro alignment working diff. No broader audit performed.",
+    "Evidence: /tmp/intro-alignment-keyboard/results.json; script: /tmp/intro-alignment-keyboard/check.cjs; focus screenshots: /tmp/intro-alignment-keyboard/focus-{320,390,1280}-{0,3,4,7}.png.",
+    "Chrome/156.0.8078.80 with Puppeteer, viewport height 900px. Used the existing public server on port 8770; only public intro/guide assets were requested. Auth/API paths and external traffic were blocked; none were attempted. No account database access or product edits."
+  ]
+}

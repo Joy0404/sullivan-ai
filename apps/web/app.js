@@ -2,22 +2,7 @@
 const API = "";
 const MAX_UPLOAD_VIDEO_BYTES = 100 * 1024 * 1024;
 const SAMPLE_VIDEO_URL = "https://www.youtube.com/watch?v=R0dqsl3Vgns";
-const SAMPLE_CATALOG = {
-  science: {
-    title: "천문학 특강 7강 · 별의 진화",
-    subject: "통합과학 · 천문학",
-    videoUrl: SAMPLE_VIDEO_URL,
-    embedUrl: "https://www.youtube-nocookie.com/embed/R0dqsl3Vgns?enablejsapi=1&rel=0&disablekb=1",
-    announcement: "별의 진화",
-  },
-  history: {
-    title: "중3 역사 · 왜란과 호란의 발발과 영향",
-    subject: "중학교 역사 · 조선 후기",
-    videoUrl: "https://www.youtube.com/watch?v=thJxqtTgSNY&list=PLD5ojEfJUayNED1OvOabV8P9WVroE92Qm&index=20",
-    embedUrl: "https://www.youtube-nocookie.com/embed/thJxqtTgSNY?enablejsapi=1&rel=0&disablekb=1",
-    announcement: "왜란과 호란의 발발과 영향",
-  },
-};
+const SAMPLE_CATALOG = window.SullivanSamples.catalog;
 const state = {
   session: null,
   snapshot: null,
@@ -26,10 +11,14 @@ const state = {
   linkedPlaybackKind: null,
   pendingLinkResult: null,
   youtubePlayer: null,
+  youtubeVideoId: null,
+  youtubeCueMs: null,
   youtubeTimer: null,
   analysisTimer: null,
   analysisPercent: 0,
   analysisLocalOnly: false,
+  analysisController: null,
+  analysisFocus: null,
   isSample: false,
   activeSampleId: null,
   localVideoFile: null,
@@ -52,32 +41,7 @@ const state = {
   conceptSequenceActive: false,
   demoAccessCode: "",
   agentTurnPending: false,
-  freeControlMode: false,
-  freeSpaceTapAt: 0,
-  freeSpaceTapTimer: null,
-  spaceVoice: {
-    holdTimer: null,
-    target: null,
-    activated: false,
-    released: false,
-    finalized: false,
-    recognition: null,
-    transcript: "",
-    error: "",
-    wasPlaying: false,
-    audioContext: null,
-    keyHeld: false,
-    guidePlaying: false,
-    pressStartedAt: 0,
-    lastShortTapAt: 0,
-    shortTapCount: 0,
-    shortTapTimer: null,
-    guideCancelTap: false,
-    guideSkipTimer: null,
-    recognitionRestartTimer: null,
-    recognitionFatal: false,
-    skipGuideNextHold: false,
-  },
+  voiceAudioContext: null,
 };
 
 const $ = (selector) => document.querySelector(selector);
@@ -86,12 +50,15 @@ const $$ = (selector) => [...document.querySelectorAll(selector)];
 function escapeHtml(value) {
   const node = document.createElement("div");
   node.textContent = value ?? "";
-  return node.innerHTML;
+  return node.innerHTML.replace(/"/g, "&quot;").replace(/'/g, "&#39;");
 }
 
 function announce(message) {
+  window.clearTimeout(state.liveAnnouncementTimer);
+  const existing = [...document.querySelectorAll('[aria-live="polite"]')].find(n => n.id !== "live-region" && n.getClientRects().length && n.textContent.trim() === message);
+  if (existing) return;
   $("#live-region").textContent = "";
-  window.setTimeout(() => { $("#live-region").textContent = message; }, 20);
+  state.liveAnnouncementTimer = window.setTimeout(() => { $("#live-region").textContent = message; }, 20);
 }
 
 function uid(prefix) {
@@ -106,14 +73,17 @@ function formatTime(milliseconds) {
 }
 
 async function api(path, options = {}) {
+  if (window.Portal?.user?.role === "student" && path.endsWith("/agent-turn")) path = `/local/lectures/${window.Portal.lectureId}/agent-turn`;
   let response;
   try {
     const isFormData = options.body instanceof FormData;
     response = await fetch(`${API}${path}`, {
+      ...(state.analysisController ? { signal: state.analysisController.signal } : {}),
       ...options,
-      headers: { ...(isFormData ? {} : { "Content-Type": "application/json" }), ...(options.headers || {}) },
+      headers: { "X-Local-Request": "1", ...(isFormData ? {} : { "Content-Type": "application/json" }), ...(options.headers || {}) },
     });
-  } catch {
+  } catch (error) {
+    if (error.name === 'AbortError') throw error;
     throw new Error("분석 서버에 연결할 수 없습니다. 인터넷 연결을 확인하고 잠시 뒤 다시 시도해 주세요.");
   }
   if (!response.ok) {
@@ -161,6 +131,7 @@ const localPreparationMessages = [
 ];
 
 function showAnalysisProgress(isLocalVideo = false) {
+  state.analysisFocus ||= document.activeElement;
   state.analysisPercent = 4;
   state.analysisLocalOnly = isLocalVideo;
   $("#analysis-overlay").classList.remove("hidden");
@@ -200,6 +171,11 @@ function hideAnalysisProgress() {
   window.clearInterval(state.analysisTimer);
   $("#analysis-overlay").classList.add("hidden");
 }
+
+$("#cancel-analysis-wait").addEventListener('click', () => {
+  if (state.analysisController) state.analysisController.abort();
+  else hideAnalysisProgress();
+});
 
 function syncAnalysisConsent() {
   const consent = $("#local-video-ai-consent input");
@@ -242,6 +218,7 @@ $$('[data-sample-id]').forEach((button) => button.addEventListener("click", asyn
 }));
 
 async function openSampleSession(sampleId = "science") {
+  try {await window.SullivanSamples.load(sampleId);}catch(error){if(window.Portal)Portal.error(error.message);else alert(error.message);return;}
   const config = SAMPLE_CATALOG[sampleId] || SAMPLE_CATALOG.science;
   const sampleData = window.SULLIVAN_SAMPLE_LIBRARY?.[sampleId];
   if (!sampleData) return alert("선택한 샘플 데이터를 불러오지 못했습니다.");
@@ -267,6 +244,7 @@ async function openSampleSession(sampleId = "science") {
     status: "active",
     policy_version: "internet-lecture-access-v1",
   };
+  state.conceptSearchResults = null;
   state.snapshot = JSON.parse(JSON.stringify(sampleData));
   state.snapshot.session = state.session;
   state.pendingLinkResult = {
@@ -297,6 +275,10 @@ async function openSampleSession(sampleId = "science") {
 }
 
 async function startSession(useDemo) {
+  if (state.analysisController) return;
+  const controller = new AbortController();
+  state.analysisController = controller;
+  state.analysisFocus = document.activeElement;
   const form = new FormData($("#lecture-form"));
   const videoUrl = useDemo ? SAMPLE_VIDEO_URL : String(form.get("video_url") || "").trim();
   const videoFile = useDemo ? null : $("#video-file").files[0];
@@ -324,6 +306,16 @@ async function startSession(useDemo) {
     }
     if (analysisConsent && !accessCode) {
       throw new Error("실제 AI 분석에는 체험 코드가 필요합니다. 샘플은 코드 없이 이용할 수 있어요.");
+    }
+    state.snapshot = null;
+    if (videoFile && !analysisConsent) {
+      throw new Error("파일을 실제 분석하려면 Gemini 임시 전송·분석 동의를 체크해 주세요.");
+    }
+    if (analysisConsent) {
+      const health = await api("/health");
+      if (health.real_analysis_access !== "trial-code-required") {
+        throw new Error("실제 분석 설정이 필요합니다. 로컬 실행 창에서 Gemini 키와 체험 코드를 설정한 뒤 다시 시작해 주세요.");
+      }
     }
     state.session = await api("/v1/lectures", {
       method: "POST",
@@ -401,6 +393,8 @@ async function startSession(useDemo) {
       if (cleanupWarning) alert(`분석 결과는 받았지만 삭제가 끝나지 않았습니다. ${cleanupWarning}`);
     }
 
+    if (controller.signal.aborted) throw new DOMException('Waiting canceled', 'AbortError');
+
     $("#setup-view").classList.add("hidden");
     $("#agent-view").classList.remove("hidden");
     $("#lecture-title").textContent = state.session.title;
@@ -412,9 +406,16 @@ async function startSession(useDemo) {
     announce(useDemo ? "별의 진화 사전 준비 샘플을 바로 열었습니다." : "강의 자료 준비가 완료되어 접근성 가이드를 활성화했습니다.");
   } catch (error) {
     hideAnalysisProgress();
-    alert(`분석 세션을 시작하지 못했습니다. ${error.message}`);
+    if (error.name === 'AbortError') {
+      state.snapshot = null;
+      const message = '대기를 취소했습니다. 강의는 준비 완료로 제공하지 않았습니다. 이미 전송한 분석은 서버에서 계속될 수 있으며 원본 삭제 정책은 그대로 적용됩니다.';
+      if (window.Portal) window.Portal.feedback(message);
+      else announce(message);
+    } else if (window.Portal) window.Portal.error(`준비를 마치지 못했습니다. ${error.message}`, "lecture-form");
+    else alert(`분석 세션을 시작하지 못했습니다. ${error.message}`);
   } finally {
     submitButtons.forEach((button) => { button.disabled = false; });
+    if (state.analysisController === controller) state.analysisController = null;
   }
 }
 
@@ -465,7 +466,7 @@ async function registerVideoLink(url, rightsConfirmed, accessCode, requestAnalys
   return result;
 }
 
-async function setupLinkPlayback(result) {
+async function setupLinkPlayback(result, { positionMs = 0 } = {}) {
   state.linkedPlaybackKind = result.playback_kind;
   const video = $("#lecture-video");
   const youtube = $("#lecture-youtube");
@@ -474,11 +475,14 @@ async function setupLinkPlayback(result) {
   $("#video-placeholder").classList.add("hidden");
 
   if (result.playback_kind === "direct") {
+    video.autoplay = false;
+    video.pause();
+    video.addEventListener("loadedmetadata", () => seekTo(positionMs), { once: true });
     video.src = result.playback_url;
     video.classList.remove("hidden");
   } else if (result.playback_kind === "youtube") {
     youtube.classList.remove("hidden");
-    await setupYouTubePlayer(result.playback_url);
+    await setupYouTubePlayer(result.playback_url, { positionMs });
   } else {
     $("#video-placeholder").classList.remove("hidden");
     $("#video-placeholder strong").textContent = "외부 강의 링크 등록 완료";
@@ -565,6 +569,7 @@ function renderAll() {
   renderBookmarks();
   renderEvidence();
   updateAutoNarrationStatus(0);
+  window.Portal?.lectureReady();
 }
 
 function renderAssets() {
@@ -589,7 +594,7 @@ function renderTimeline() {
   const maxTimestamp = Math.max(40_000, ...gaps.map((gap) => gap.timestamp_ms));
   $("#visual-timeline").innerHTML = `<div class="timeline-track"></div>${safeGaps.map((gap) => {
     const left = Math.min(98, (gap.timestamp_ms / maxTimestamp) * 100);
-    return `<button class="timeline-marker ${gap.action.toLowerCase()}" style="left:${left}%" data-gap="${gap.gap_id}" aria-label="${formatTime(gap.timestamp_ms)} ${escapeHtml(gap.public_description)}"><span>${formatTime(gap.timestamp_ms)}</span></button>`;
+    return `<button class="timeline-marker ${gap.action.toLowerCase()}" style="left:${left}%" data-gap="${escapeHtml(gap.gap_id)}" aria-label="${formatTime(gap.timestamp_ms)} ${escapeHtml(gap.public_description)}"><span>${formatTime(gap.timestamp_ms)}</span></button>`;
   }).join("")}`;
   $$(".timeline-marker").forEach((button) => button.addEventListener("click", () => {
     const gap = gaps.find((item) => item.gap_id === button.dataset.gap);
@@ -600,6 +605,8 @@ function renderTimeline() {
 function loadYouTubeApi() {
   if (window.YT?.Player) return Promise.resolve();
   return new Promise((resolve, reject) => {
+    const deadline = setTimeout(() => reject(new Error("영상 모듈 연결 시간이 초과됐습니다. 연결 뒤 다시 시도하세요.")), 8000);
+    const finish = resolve; resolve = () => {clearTimeout(deadline);finish();};
     const existing = document.querySelector("script[data-sullivan-youtube-api]");
     const previousReady = window.onYouTubeIframeAPIReady;
     window.onYouTubeIframeAPIReady = () => {
@@ -621,30 +628,66 @@ function loadYouTubeApi() {
   });
 }
 
-async function setupYouTubePlayer(playbackUrl) {
+function disposeYouTubePlayer() {
+  window.clearInterval(state.youtubeTimer);
+  state.youtubeTimer = null;
+  // Detach first: logout/login and callbacks must never reuse a destroyed SDK object.
+  const player = state.youtubePlayer;
+  state.youtubePlayer = null;
+  state.youtubeVideoId = null;
+  state.youtubeCueMs = null;
+  state.youtubeGeneration = (state.youtubeGeneration || 0) + 1;
+  if (state.linkedPlaybackKind === "youtube") state.linkedPlaybackKind = null;
+  try { player?.destroy?.(); } catch { /* A removed provider iframe is already disposed. */ }
+  // YouTube destroy removes its iframe; it does not guarantee a reusable mount.
+  let mount = $("#lecture-youtube");
+  if (mount?.tagName === "IFRAME") { mount.remove(); mount = null; }
+  if (!mount) {
+    mount = document.createElement("div");
+    mount.id = "lecture-youtube";
+    mount.className = "youtube-player hidden";
+    mount.setAttribute("aria-label", "YouTube 강의 영상");
+    $("#lecture-video").after(mount);
+  }
+}
+
+async function setupYouTubePlayer(playbackUrl, { positionMs = 0 } = {}) {
+  disposeYouTubePlayer();
+  const generation = state.youtubeGeneration;
   await loadYouTubeApi();
+  if (generation !== state.youtubeGeneration) return;
+  state.linkedPlaybackKind = "youtube";
+  $("#lecture-youtube").classList.remove("hidden");
   const parsed = new URL(playbackUrl);
   const videoId = parsed.pathname.split("/").filter(Boolean).pop();
   if (!videoId) throw new Error("YouTube 영상 ID를 확인할 수 없습니다.");
+  state.youtubeVideoId = videoId;
   await new Promise((resolve, reject) => {
+    const deadline = setTimeout(() => reject(new Error("영상 연결 시간이 초과됐습니다. 학습자료를 이용하거나 다시 열어 주세요.")), 8000);
+    const finish = resolve; resolve = () => {clearTimeout(deadline);finish();};
     state.youtubePlayer = new window.YT.Player("lecture-youtube", {
       host: "https://www.youtube-nocookie.com",
       videoId,
-      playerVars: { rel: 0, enablejsapi: 1, disablekb: 1, origin: window.location.origin },
+      playerVars: { autoplay: 0, rel: 0, enablejsapi: 1, disablekb: 1, origin: window.location.origin },
       events: {
         onReady: () => {
-          state.lastPlaybackMs = null;
+          if (generation !== state.youtubeGeneration) return;
+          const frame = $("#lecture-youtube");
+          if (frame?.tagName === "IFRAME") frame.title = `${state.session?.title || "강의"} 영상 플레이어`;
+          syncMediaNavigation();
+          cueYouTubeAt(positionMs);
           window.clearInterval(state.youtubeTimer);
           state.youtubeTimer = window.setInterval(() => {
-            const seconds = state.youtubePlayer?.getCurrentTime?.();
-            if (Number.isFinite(seconds)) processPlaybackTime(seconds * 1000);
+            processPlaybackTime(getCurrentPlaybackMs());
           }, 200);
           updateAutoNarrationStatus(0);
           restoreGlobalSpaceFocus();
           resolve();
         },
         onStateChange: (event) => {
+          if (generation !== state.youtubeGeneration) return;
           if (event.data === window.YT?.PlayerState?.PLAYING) {
+            state.youtubeCueMs = null;
             const seconds = state.youtubePlayer?.getCurrentTime?.();
             if (Number.isFinite(seconds)) {
               state.lastPlaybackMs = Math.max(0, seconds * 1000 - 700);
@@ -715,6 +758,9 @@ function updateAutoNarrationStatus(currentMs = 0, message = null) {
 
 function getCurrentPlaybackMs() {
   if (state.linkedPlaybackKind === "youtube") {
+    // Before first play the SDK may report zero even for a non-zero cue.
+    // Keep the restored position available to progress saves and arrow keys.
+    if (Number.isFinite(state.youtubeCueMs)) return state.youtubeCueMs;
     const seconds = state.youtubePlayer?.getCurrentTime?.();
     return Number.isFinite(seconds) ? seconds * 1000 : 0;
   }
@@ -729,12 +775,28 @@ function isPlaybackRunning() {
   return !video.classList.contains("hidden") && !video.paused && !video.ended;
 }
 
-function pausePlayback() {
+function syncMediaNavigation() {
+  const student = window.Portal?.user?.role === "student";
+  const video = $("#lecture-video");
+  // Students use the named app controls. The embedded player's separate tab
+  // sequence (including cross-origin iframe controls) is redundant and lengthy.
+  video.closest(".video-stage").inert = student;
+  video.controls = !student;
+  for (const media of [video, $("#lecture-youtube")]) {
+    if (!media) continue;
+    if (student) media.tabIndex = -1;
+    else media.removeAttribute("tabindex");
+  }
+}
+
+function pausePlayback({ forFocusNotice = false } = {}) {
+  if (!forFocusNotice) window.SullivanFocusVoice?.cancel();
   if (state.linkedPlaybackKind === "youtube") state.youtubePlayer?.pauseVideo?.();
   else $("#lecture-video").pause();
 }
 
 function resumePlayback() {
+  window.SullivanFocusVoice?.cancel();
   if (state.linkedPlaybackKind === "youtube") state.youtubePlayer?.playVideo?.();
   else $("#lecture-video").play().catch(() => {});
 }
@@ -749,7 +811,10 @@ function markLectureComplete() {
   if (state.lectureCompleted) return;
   state.lectureCompleted = true;
   $("#lecture-complete-card").classList.remove("hidden");
-  announce("강의를 끝까지 들었습니다. 원본과 요약을 이 노트북에 저장한 뒤 홈으로 돌아갈 수 있습니다.");
+  if (window.Portal?.user?.role === "student") {
+    window.Portal.saveProgress();
+    announce("강의를 끝까지 들었습니다. 학습 기록에서 복습하거나 다른 강의를 선택할 수 있습니다.");
+  } else announce("강의를 끝까지 들었습니다. 원본과 요약을 이 노트북에 저장한 뒤 홈으로 돌아갈 수 있습니다.");
 }
 
 function narrateGap(gap, { automatic = false, pauseForDescription = false } = {}) {
@@ -765,7 +830,11 @@ function narrateGap(gap, { automatic = false, pauseForDescription = false } = {}
   $("#pause-overlay-label").textContent = shouldPause ? "해설 후 자동 재생" : "현재 화면 해설";
   $("#pause-overlay").classList.toggle("hidden", !shouldPause);
   if (automatic) updateAutoNarrationStatus(gap.timestamp_ms, "영상 정지 · 화면 해설 중");
-  announce(narrationText);
+  if (window.Portal?.readerMode) {
+    state.resumeAfterSpeech = false;
+    announce(narrationText + " 설명 뒤 재생 버튼으로 이어 들으세요.");
+    return;
+  }
   speak(narrationText, () => {
     $("#pause-overlay").classList.add("hidden");
     if (state.resumeAfterSpeech) resumePlayback();
@@ -812,7 +881,7 @@ function findConcept(conceptId) {
 }
 
 function renderPassage() {
-  const concepts = getConcepts();
+  const concepts = state.conceptSearchResults || getConcepts();
   if (!concepts.length) {
     $("#passage-count").textContent = "개념 대기";
     $("#passage-document").className = "passage-document empty-state";
@@ -828,13 +897,13 @@ function renderPassage() {
   $("#passage-document").className = "passage-document concept-document";
   $("#passage-document").innerHTML = concepts.map((concept) => `
     <article class="concept-item ${state.currentConceptId === concept.concept_id ? "current" : ""}">
-      <button type="button" class="concept-select" data-concept="${escapeHtml(concept.concept_id)}">
+      <button type="button" class="concept-select" data-concept="${escapeHtml(concept.concept_id)}" aria-pressed="${state.currentConceptId === concept.concept_id}">
         <span class="concept-meta"><b>${escapeHtml(concept.category)}</b><time>${formatTime(concept.timestamp_ms)}</time></span>
         <strong>${escapeHtml(concept.keyword)}</strong>
         <p>${escapeHtml(concept.lecturer_point)}</p>
         ${concept.flow ? `<small>${escapeHtml(concept.flow)}</small>` : ""}
       </button>
-      <button type="button" class="concept-speak secondary" data-speak-concept="${escapeHtml(concept.concept_id)}" aria-label="${escapeHtml(concept.keyword)} 강사 구간을 듣고 AI 설명 듣기">말하기</button>
+      <button type="button" class="concept-speak secondary" data-speak-concept="${escapeHtml(concept.concept_id)}" aria-label="말하기: ${escapeHtml(concept.keyword)} 강사 구간을 듣고 AI 설명 듣기">말하기</button>
     </article>`).join("");
   $$(".concept-select").forEach((button) => button.addEventListener("click", () => selectConcept(button.dataset.concept)));
   $$(".concept-speak").forEach((button) => button.addEventListener("click", () => {
@@ -857,8 +926,8 @@ function renderLongPassage() {
   const underlinedCount = paragraphs.filter((paragraph) => state.underlinedParagraphIds.has(paragraph.paragraph_id)).length;
   $("#long-passage-count").textContent = `${paragraphs.length}개 문단 · 밑줄 ${underlinedCount}개`;
   $("#paragraph-flow").innerHTML = paragraphs.map((paragraph, index) => `
-    <button type="button" data-flow-paragraph="${escapeHtml(paragraph.paragraph_id)}" aria-label="${paragraph.paragraph_index}문단 ${escapeHtml(paragraph.flow_role)} 선택">
-      <span>${paragraph.paragraph_index}</span><strong>${escapeHtml(paragraph.flow_role)}</strong>${index < paragraphs.length - 1 ? "<i aria-hidden=\"true\">→</i>" : ""}
+    <button type="button" data-flow-paragraph="${escapeHtml(paragraph.paragraph_id)}" aria-label="${paragraph.paragraph_index}문단 ${escapeHtml(paragraph.flow_role)} 선택" aria-pressed="${state.currentParagraphId === paragraph.paragraph_id}">
+      <span>${paragraph.paragraph_index}문단</span> <strong>${escapeHtml(paragraph.flow_role)}</strong>${index < paragraphs.length - 1 ? "<i aria-hidden=\"true\">→</i>" : ""}
     </button>`).join("");
   documentBox.className = "passage-document paragraph-document";
   documentBox.innerHTML = paragraphs.map((paragraph) => {
@@ -873,7 +942,7 @@ function renderLongPassage() {
             <button type="button" class="secondary" data-read-paragraph="${escapeHtml(paragraph.paragraph_id)}">문단 듣기</button>
           </div>
         </header>
-        <p class="paragraph-text">${paragraph.sentences.map((sentence) => `<button type="button" class="sentence ${sentence.highlighted ? "highlighted" : ""}" data-paragraph-sentence="${escapeHtml(paragraph.paragraph_id)}" data-time="${sentence.timestamp_ms || 0}" aria-label="${paragraph.paragraph_index}문단 ${sentence.sentence_index}번째 문장, ${escapeHtml(sentence.text)}${sentence.highlighted ? ", 강사가 강조한 문장" : ""}"><span>${sentence.sentence_index}</span>${escapeHtml(sentence.text)}${sentence.highlighted ? "<em>강조</em>" : ""}</button>`).join(" ")}</p>
+        <p class="paragraph-text">${paragraph.sentences.map((sentence) => `<button type="button" class="sentence ${sentence.highlighted ? "highlighted" : ""}" data-paragraph-sentence="${escapeHtml(paragraph.paragraph_id)}" data-sentence-id="${escapeHtml(sentence.sentence_id)}" data-time="${sentence.timestamp_ms || 0}"><span class="sr-only">${paragraph.paragraph_index}문단 </span><span>${sentence.sentence_index}</span> ${escapeHtml(sentence.text)}${sentence.highlighted ? " <em>강조</em>" : ""}</button>`).join(" ")}</p>
       </article>`;
   }).join("");
 
@@ -881,9 +950,11 @@ function renderLongPassage() {
   $$('[data-underline-paragraph]').forEach((button) => button.addEventListener("click", () => toggleParagraphUnderline(button.dataset.underlineParagraph)));
   $$('[data-read-paragraph]').forEach((button) => button.addEventListener("click", () => replayParagraphs([findParagraph(button.dataset.readParagraph)].filter(Boolean))));
   $$('[data-paragraph-sentence]').forEach((button) => button.addEventListener("click", () => {
+    const sentenceId = button.dataset.sentenceId;
     state.currentParagraphId = button.dataset.paragraphSentence;
     seekTo(Number(button.dataset.time));
     renderLongPassage();
+    document.querySelector(`[data-sentence-id="${CSS.escape(sentenceId)}"]`)?.focus();
     announce(`${findParagraph(state.currentParagraphId)?.paragraph_index || "선택한"}문단의 강사 구간으로 이동했습니다.`);
   }));
 }
@@ -893,6 +964,7 @@ function selectParagraph(paragraphId) {
   if (!paragraph) return;
   state.currentParagraphId = paragraphId;
   renderLongPassage();
+  document.querySelector(`[data-flow-paragraph="${CSS.escape(paragraphId)}"]`)?.focus();
   $("#paragraph-navigation-answer").textContent = `${paragraph.paragraph_index}문단, ${paragraph.flow_role}. 문단 듣기 또는 밑줄 표시를 선택할 수 있습니다.`;
   announce(`${paragraph.paragraph_index}문단 ${paragraph.flow_role}을 선택했습니다.`);
 }
@@ -905,6 +977,7 @@ function toggleParagraphUnderline(paragraphId) {
   if (wasUnderlined) state.underlinedParagraphIds.delete(paragraphId);
   else state.underlinedParagraphIds.add(paragraphId);
   renderLongPassage();
+  document.querySelector(`[data-underline-paragraph="${CSS.escape(paragraphId)}"]`)?.focus();
   const message = `${paragraph.paragraph_index}문단 밑줄을 ${wasUnderlined ? "해제" : "표시"}했습니다.`;
   $("#paragraph-navigation-answer").textContent = `${message} “밑줄 친 문단 다시 들려줘”라고 요청할 수 있습니다.`;
   announce(message);
@@ -915,6 +988,7 @@ function replayParagraphs(paragraphs, speechOverride = "") {
   state.currentParagraphId = paragraphs[0].paragraph_id;
   renderLongPassage();
   const text = speechOverride || paragraphs.map((paragraph) => window.SullivanPassages.paragraphSpeech(paragraph)).join(" ");
+  document.querySelector(`[data-read-paragraph="${CSS.escape(state.currentParagraphId)}"]`)?.focus();
   $("#paragraph-navigation-answer").textContent = `${paragraphs.map((paragraph) => `${paragraph.paragraph_index}문단`).join(", ")}을 다시 읽고 있습니다.`;
   announce($("#paragraph-navigation-answer").textContent);
   speakWithPlaybackPause(text, "문단 낭독 후 자동 재생");
@@ -951,39 +1025,27 @@ $$('[data-paragraph-command]').forEach((button) => button.addEventListener("clic
   $("#paragraph-navigation-form").requestSubmit();
 }));
 
-$("#paragraph-voice-command").addEventListener("click", () => {
-  const Recognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-  if (!Recognition) return alert("이 브라우저에서는 음성 명령을 지원하지 않습니다. 명령을 직접 입력해 주세요.");
-  const recognition = new Recognition();
-  recognition.lang = "ko-KR";
-  recognition.interimResults = false;
-  $("#paragraph-voice-command").classList.add("listening");
-  announce("문단 음성 명령을 듣고 있습니다.");
-  recognition.onresult = (event) => {
-    $("#paragraph-navigation-command").value = event.results[0][0].transcript;
-    $("#paragraph-navigation-form").requestSubmit();
-  };
-  recognition.onerror = () => announce("문단 음성 명령을 인식하지 못했습니다. 다시 시도해 주세요.");
-  recognition.onend = () => $("#paragraph-voice-command").classList.remove("listening");
-  recognition.start();
-});
 
 function selectConcept(conceptId) {
   const concept = findConcept(conceptId);
   if (!concept) return;
   state.currentConceptId = concept.concept_id;
   renderPassage();
+  document.querySelector(`[data-concept="${CSS.escape(conceptId)}"]`)?.focus();
+  $("#navigation-answer").setAttribute("aria-live", "off");
   $("#navigation-answer").textContent = `${concept.keyword}. 강사 설명 ${formatTime(concept.timestamp_ms)}. ${concept.ai_explanation}`;
-  announce(`${concept.keyword} 개념을 선택했습니다. 말하기를 누르면 강사 구간 뒤에 AI가 다시 설명합니다.`);
+  // The refocused pressed button already announces the selection; details remain browseable.
 }
 
 function playConceptSequence(concept) {
+  $("#navigation-answer").setAttribute("aria-live", "off");
   stopAllPlaybackAndSpeech({ announceStop: false });
   state.currentConceptId = concept.concept_id;
   state.conceptSequenceToken += 1;
   const token = state.conceptSequenceToken;
   state.conceptSequenceActive = true;
   renderPassage();
+  document.querySelector(`[data-speak-concept="${CSS.escape(concept.concept_id)}"]`)?.focus();
   const segmentEndMs = Math.min(concept.end_ms, concept.timestamp_ms + 22_000);
   $("#navigation-answer").textContent = `${concept.keyword}: ${formatTime(concept.timestamp_ms)}부터 강사 설명을 먼저 재생합니다. 이어서 AI가 핵심을 다시 말합니다.`;
   announce(`${concept.keyword} 강사 설명을 먼저 재생합니다.`);
@@ -1009,7 +1071,9 @@ function playConceptSequence(concept) {
       const lecturerStatus = lecturerPlaybackStarted
         ? "강사 구간 재생 완료"
         : "영상 플레이어가 재생되지 않아 강사 구간은 건너뜀";
+      $("#navigation-answer").setAttribute("aria-live", window.Portal?.readerMode ? "polite" : "off");
       $("#navigation-answer").textContent = `${concept.keyword} · ${lecturerStatus}. ${aiText}`;
+      if (window.Portal?.readerMode) return; // Keep the explanation available; SR completion is not observable.
       announce(lecturerPlaybackStarted ? "강사 설명이 끝났습니다. AI 설명을 이어서 재생합니다." : "영상 재생을 시작하지 못해 AI 설명부터 재생합니다.");
       speak(aiText, () => {
         if (token !== state.conceptSequenceToken) return;
@@ -1024,6 +1088,7 @@ $("#navigation-form").addEventListener("submit", async (event) => {
   event.preventDefault();
   const command = new FormData(event.currentTarget).get("command")?.trim();
   if (!command || !state.session) return;
+  $("#navigation-answer").setAttribute("aria-live", "polite");
   try {
     const concepts = getConcepts();
     const matches = window.SullivanConcepts?.search(concepts, command) || [];
@@ -1033,10 +1098,12 @@ $("#navigation-form").addEventListener("submit", async (event) => {
       announce(message);
       return;
     }
+    state.conceptSearchResults = matches;
     state.currentConceptId = matches[0].concept_id;
     renderPassage();
-    const listed = matches.slice(0, 6).map((item) => `${item.keyword} ${formatTime(item.timestamp_ms)}`).join(", ");
-    const message = `${matches.length}개를 찾았습니다. ${listed}. 원하는 개념의 말하기 버튼을 누르면 강사 구간 뒤에 AI 설명이 이어집니다.`;
+    if (matches.length === 1) { playConceptSequence(matches[0]); return; }
+    const listed = matches.slice(0, 6).map((item, i) => `${i+1}번 ${item.keyword} ${formatTime(item.timestamp_ms)}`).join(", ");
+    const message = `${matches.length}개를 찾았습니다. ${listed}. 결과 번호를 말하거나 타자로 입력하거나 원하는 개념의 말하기 버튼을 누르면 강사 구간 뒤에 AI 설명이 이어집니다.`;
     $("#navigation-answer").textContent = message;
     announce(message);
   } catch (error) { alert(error.message); }
@@ -1054,22 +1121,6 @@ $("#read-current").addEventListener("click", () => {
 
 $("#stop-concept-sequence").addEventListener("click", () => stopAllPlaybackAndSpeech());
 
-$("#voice-command").addEventListener("click", () => {
-  const Recognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-  if (!Recognition) return alert("이 브라우저에서는 음성 명령을 지원하지 않습니다. 명령을 직접 입력해 주세요.");
-  const recognition = new Recognition();
-  recognition.lang = "ko-KR";
-  recognition.interimResults = false;
-  $("#voice-command").classList.add("listening");
-  announce("음성 명령을 듣고 있습니다.");
-  recognition.onresult = (event) => {
-    $("#navigation-command").value = event.results[0][0].transcript;
-    $("#navigation-form").requestSubmit();
-  };
-  recognition.onerror = () => announce("음성 명령을 인식하지 못했습니다. 다시 시도해 주세요.");
-  recognition.onend = () => $("#voice-command").classList.remove("listening");
-  recognition.start();
-});
 
 function renderReview() {
   const review = state.snapshot.review;
@@ -1152,6 +1203,7 @@ function addBookmark() {
   const noteInput = $("#bookmark-note");
   const note = noteInput.value.trim() || $("#current-description").textContent.trim() || "다시 볼 장면";
   state.bookmarks.push({ timestamp_ms: getCurrentPlaybackMs(), note });
+  window.Portal?.saveProgress();
   noteInput.value = "";
   renderBookmarks();
   announce(`${formatTime(state.bookmarks.at(-1).timestamp_ms)} 위치를 학습 노트에 저장했습니다.`);
@@ -1447,6 +1499,7 @@ function executeAgentAction(result, userMessage, { forceSpeak = false } = {}) {
 async function submitChatMessage(message, { forceSpeak = false } = {}) {
   const value = String(message || "").trim();
   if (!value || !state.snapshot || state.agentTurnPending) return;
+  $("#chat-log").setAttribute("aria-live", (forceSpeak || $("#auto-speak-chat").checked || /읽어|말해|음성/.test(value)) && !window.Portal?.readerMode ? "off" : "polite");
   appendChatMessage("user", "나", value);
   state.agentTurnPending = true;
   $("#chat-status").textContent = "강의 상태를 관찰하고 다음 행동을 판단하는 중입니다.";
@@ -1464,7 +1517,7 @@ async function submitChatMessage(message, { forceSpeak = false } = {}) {
     appendChatMessage("assistant", `Sullivan 로컬 보조 · ${result.title}`, result.text);
     state.lastChatOutput = result;
     $("#agent-model-status").textContent = "로컬 보조 모드 · Gemini 연결 시 행동 에이전트 추론 활성화";
-    $("#chat-status").textContent = `${result.title} 생성 완료 · ${error.message}`;
+    $("#chat-status").textContent = window.Portal?.user?.role === "student" ? `${result.title}. 준비된 강의 자료를 바탕으로 로컬 보조 모드에서 답했습니다.` : `${result.title} 생성 완료 · ${error.message}`;
     announce(`${result.title} 결과를 로컬 보조 모드로 생성했습니다.`);
     if (forceSpeak || $("#auto-speak-chat").checked || /읽어|말해|음성/.test(value)) {
       speakWithPlaybackPause(`${result.title}. ${result.text}`, "로컬 보조 응답 후 자동 재생");
@@ -1484,25 +1537,6 @@ $("#chat-form").addEventListener("submit", (event) => {
 
 $$('[data-chat-prompt]').forEach((button) => button.addEventListener("click", () => submitChatMessage(button.dataset.chatPrompt)));
 
-$("#chat-voice").addEventListener("click", () => {
-  const Recognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-  if (!Recognition) return alert("이 브라우저에서는 음성 인식을 지원하지 않습니다. 요청을 직접 입력해 주세요.");
-  const recognition = new Recognition();
-  recognition.lang = "ko-KR";
-  recognition.interimResults = false;
-  $("#chat-voice").classList.add("listening");
-  $("#chat-status").textContent = "요청을 듣고 있습니다. 말씀해 주세요.";
-  announce("AI 학습 요청을 듣고 있습니다.");
-  recognition.onresult = (event) => {
-    const message = event.results[0][0].transcript;
-    $("#chat-input").value = message;
-    submitChatMessage(message);
-    $("#chat-input").value = "";
-  };
-  recognition.onerror = () => { $("#chat-status").textContent = "음성을 인식하지 못했습니다. 다시 시도해 주세요."; };
-  recognition.onend = () => $("#chat-voice").classList.remove("listening");
-  recognition.start();
-});
 
 $("#save-chat-output").addEventListener("click", () => {
   if (!state.lastChatOutput) return;
@@ -1525,10 +1559,24 @@ function renderEvidence() {
   box.innerHTML = gaps.map((gap) => `<article class="evidence-row ${gap.action.toLowerCase()}"><div class="decision"><span>${formatTime(gap.timestamp_ms)}</span><strong>${gap.action}</strong></div><div><h3>${gap.safe_to_speak ? escapeHtml(gap.public_description || "자동 해설 생략") : "내용 비공개 · 안전 보류"}</h3><p>${escapeHtml(gap.reason)}</p><small>화면 확신도 ${Math.round(gap.confidence * 100)}% · 중요도 ${Math.round(gap.importance * 100)}% · 발화 중복 ${Math.round(gap.spoken_overlap * 100)}%</small></div></article>`).join("");
 }
 
+function cueYouTubeAt(milliseconds) {
+  const position = Number.isFinite(milliseconds) ? Math.max(0, milliseconds) : 0;
+  state.youtubeCueMs = position;
+  state.lastPlaybackMs = Math.max(0, position - 700);
+  state.youtubePlayer.cueVideoById({ videoId: state.youtubeVideoId, startSeconds: position / 1000 });
+}
+
 function seekTo(milliseconds) {
   const video = $("#lecture-video");
   state.lastPlaybackMs = Math.max(0, milliseconds - 700);
   if (state.linkedPlaybackKind === "youtube") {
+    const status = state.youtubePlayer?.getPlayerState?.();
+    // seekTo from CUED/UNSTARTED/ENDED starts YouTube automatically. Queue
+    // instead until the student explicitly plays; paused/playing seeks stay native.
+    if ([-1, 0, 5].includes(status) || (Number.isFinite(state.youtubeCueMs) && status !== 1 && status !== 3)) {
+      cueYouTubeAt(milliseconds);
+      return;
+    }
     state.youtubePlayer?.seekTo?.(Math.max(0, milliseconds / 1000), true);
     return;
   }
@@ -1536,13 +1584,20 @@ function seekTo(milliseconds) {
   video.currentTime = Math.min(video.duration, Math.max(0, milliseconds / 1000));
 }
 
-function seekRelative(deltaMs) {
+function seekRelative(deltaMs, { announceMove = true } = {}) {
   seekTo(Math.max(0, getCurrentPlaybackMs() + deltaMs));
-  announce(`${deltaMs < 0 ? "뒤로" : "앞으로"} ${Math.abs(deltaMs) / 1000}초 이동했습니다.`);
+  if (announceMove) announce(`${deltaMs < 0 ? "뒤로" : "앞으로"} ${Math.abs(deltaMs) / 1000}초 이동했습니다.`);
 }
 
 function speakWithPlaybackPause(text, overlayLabel = "음성 안내 후 자동 재생") {
   if (!text) return;
+  if (window.Portal?.readerMode) {
+    state.resumeAfterSpeech = false;
+    pausePlayback();
+    $("#pause-overlay").classList.add("hidden");
+    speak(text);
+    return;
+  }
   const wasPlaying = isPlaybackRunning();
   if (wasPlaying) pausePlayback();
   state.resumeAfterSpeech = wasPlaying || state.resumeAfterSpeech;
@@ -1592,6 +1647,15 @@ function selectedKoreanVoice() {
   const selected = $("#speech-voice")?.value;
   if (selected && selected !== "auto") {
     return voices.find((voice) => voice.voiceURI === selected) || voices[0] || null;
+  }
+  // The local startup greeting uses the Mac voice published by the server.
+  // Reuse that voice for automatic app speech instead of switching to a
+  // higher-scored cloud voice after the first button.
+  const localName = window.Portal?.localVoiceProfile?.name?.toLowerCase();
+  if (localName) {
+    const matching = voices.find(voice => voice.name.toLowerCase() === localName ||
+      voice.voiceURI.toLowerCase().endsWith(`.${localName}`));
+    if (matching) return matching;
   }
   return voices[0] || null;
 }
@@ -1645,9 +1709,20 @@ function speechChunks(text, maxLength = 82) {
 
 function speak(text, onEnd) {
   if (!text) return;
-  if (!("speechSynthesis" in window)) {
+  window.SullivanFocusVoice?.cancel();
+  if (window.Portal?.readerMode) {
+    // Screen-reader completion is not observable; never resume over its reading.
+    state.resumeAfterSpeech = false;
+    pausePlayback();
     announce(text);
-    if (onEnd) onEnd();
+    state.speechInProgress = false;
+    // A live-region update does not signal speech completion.
+    return;
+  }
+  if (!("speechSynthesis" in window)) {
+    state.resumeAfterSpeech = false;
+    pausePlayback();
+    announce(text);
     return;
   }
   state.speechToken += 1;
@@ -1742,41 +1817,20 @@ function stopAllPlaybackAndSpeech({ announceStop = true } = {}) {
 
 $("#stop-speech").addEventListener("click", () => stopAllPlaybackAndSpeech());
 
-$$('.nav-button').forEach((button) => button.addEventListener("click", () => {
-  $$('.nav-button').forEach((item) => item.classList.toggle("active", item === button));
-  $$('.view-panel').forEach((panel) => panel.classList.toggle("hidden", panel.id !== button.dataset.panel));
-  $(`#${button.dataset.panel}`).querySelector("h2")?.focus();
-}));
-
-const SPACE_COMMAND_GUIDE = "사용할 수 있는 명령은 영상 시작, 영상 멈춤, 현재 화면 해설, 요약 듣기, 핵심 탐색, 문단 다시 듣기, 샘플 1 또는 2, 저장하고 홈으로, 홈으로 돌아가기, 자유 모드입니다. 말하기 어려울 때는 스페이스 키를 빠르게 세 번 눌러 텍스트 명령을 입력할 수 있습니다. 안내를 건너뛰려면 스페이스 키를 다시 길게 누르세요.";
-
-function isEditableSpaceTarget(target) {
-  return target instanceof HTMLTextAreaElement
-    || (target instanceof HTMLInputElement && ["", "text", "search"].includes(target.type))
-    || Boolean(target?.isContentEditable);
-}
-
 function restoreGlobalSpaceFocus() {
   window.setTimeout(() => {
-    if (document.activeElement?.tagName === "IFRAME") {
-      $("#space-command-focus")?.focus({ preventScroll: true });
+    if (document.activeElement?.tagName === "IFRAME" && window.Portal?.user?.role === "student") {
+      $("#command-surface")?.focus({ preventScroll: true });
     }
   }, 0);
-}
-
-function updateSpaceVoiceOverlay(active, title = "음성 명령 듣는 중", message = "스페이스 키를 떼면 명령을 실행합니다.") {
-  const overlay = $("#space-voice-overlay");
-  $("#space-voice-title").textContent = title;
-  $("#space-voice-text").textContent = message;
-  overlay.classList.toggle("hidden", !active);
 }
 
 function prepareSpaceVoiceAudio() {
   const AudioContext = window.AudioContext || window.webkitAudioContext;
   if (!AudioContext) return null;
-  if (!state.spaceVoice.audioContext) state.spaceVoice.audioContext = new AudioContext();
-  state.spaceVoice.audioContext.resume?.().catch(() => {});
-  return state.spaceVoice.audioContext;
+  if (!state.voiceAudioContext) state.voiceAudioContext = new AudioContext();
+  state.voiceAudioContext.resume?.().catch(() => {});
+  return state.voiceAudioContext;
 }
 
 function playSpaceVoiceReadyChime() {
@@ -1796,31 +1850,6 @@ function playSpaceVoiceReadyChime() {
     oscillator.start(begin);
     oscillator.stop(begin + 0.09);
   });
-}
-
-function insertShortSpace(target) {
-  if (target instanceof HTMLTextAreaElement || (target instanceof HTMLInputElement && ["", "text", "search"].includes(target.type))) {
-    const start = target.selectionStart ?? target.value.length;
-    const end = target.selectionEnd ?? start;
-    target.setRangeText(" ", start, end, "end");
-    target.dispatchEvent(new Event("input", { bubbles: true }));
-    return;
-  }
-  if (target?.isContentEditable) {
-    document.execCommand?.("insertText", false, " ");
-    return;
-  }
-  if (target instanceof HTMLButtonElement || target instanceof HTMLAnchorElement || (target instanceof HTMLInputElement && ["button", "submit", "checkbox", "radio"].includes(target.type))) {
-    target.click();
-    return;
-  }
-  if (target instanceof HTMLSelectElement) {
-    if (typeof target.showPicker === "function") target.showPicker();
-    else target.focus();
-    return;
-  }
-  if (state.snapshot && !$("#agent-view").classList.contains("hidden")) return;
-  window.scrollBy({ top: Math.max(240, window.innerHeight * 0.78), behavior: "smooth" });
 }
 
 function openVoicePanel(panelId) {
@@ -1850,128 +1879,7 @@ function visibleVoiceButton(label) {
   return candidates[0]?.element || null;
 }
 
-function isTextCommandDialogTarget(target) {
-  return Boolean(target?.closest?.("#text-command-dialog"));
-}
-
-function stopVoiceForTextCommand() {
-  window.clearTimeout(state.spaceVoice.holdTimer);
-  window.clearTimeout(state.spaceVoice.guideSkipTimer);
-  window.clearTimeout(state.spaceVoice.recognitionRestartTimer);
-  const recognition = state.spaceVoice.recognition;
-  if (recognition) {
-    recognition.onresult = null;
-    recognition.onerror = null;
-    recognition.onend = null;
-    try { recognition.abort(); } catch { /* already stopped */ }
-  }
-  state.speechToken += 1;
-  state.speechInProgress = false;
-  state.resumeAfterSpeech = false;
-  window.speechSynthesis?.cancel();
-  updateSpaceVoiceOverlay(false);
-  resetSpaceVoiceGesture();
-}
-
-function openTextCommandDialog() {
-  stopVoiceForTextCommand();
-  const dialog = $("#text-command-dialog");
-  const input = $("#text-command-input");
-  dialog.classList.remove("hidden");
-  input.value = "";
-  $("#text-command-status").textContent = "명령을 입력하고 Enter를 누르세요. Esc를 누르면 닫습니다.";
-  window.setTimeout(() => input.focus({ preventScroll: true }), 0);
-  announce("텍스트 명령 입력창을 열었습니다. 바로 입력하고 엔터를 누르세요.");
-}
-
-function closeTextCommandDialog({ restoreFocus = true } = {}) {
-  $("#text-command-dialog").classList.add("hidden");
-  if (restoreFocus) $("#space-command-focus")?.focus({ preventScroll: true });
-}
-
-function updateFreeControlModeUi() {
-  document.body.classList.toggle("free-control-mode", state.freeControlMode);
-  $("#free-mode-indicator").classList.toggle("hidden", !state.freeControlMode);
-  $("#space-command-hint").textContent = state.freeControlMode
-    ? "한 번: 재생·정지 · 두 번: 자유 모드 종료"
-    : "길게: 음성 · 세 번: 텍스트 · 두 번: 중지";
-}
-
-function enterFreeControlMode({ resume = false } = {}) {
-  window.clearTimeout(state.spaceVoice.shortTapTimer);
-  state.spaceVoice.shortTapTimer = null;
-  state.spaceVoice.shortTapCount = 0;
-  state.spaceVoice.lastShortTapAt = 0;
-  state.freeControlMode = true;
-  updateFreeControlModeUi();
-  if (resume) resumePlayback();
-  announce("자유 모드입니다. 마우스 클릭과 화면의 모든 버튼을 직접 사용할 수 있습니다. 스페이스 한 번은 재생과 일시정지, 좌우 화살표는 10초 이동, 스페이스 두 번은 자유 모드 종료입니다.");
-}
-
-function exitFreeControlMode({ announceExit = true } = {}) {
-  window.clearTimeout(state.freeSpaceTapTimer);
-  state.freeSpaceTapTimer = null;
-  state.freeSpaceTapAt = 0;
-  state.freeControlMode = false;
-  updateFreeControlModeUi();
-  if (announceExit) announce("자유 모드를 종료하고 에이전트 명령 모드로 돌아왔습니다.");
-}
-
-function toggleFreeModePlayback() {
-  if (!state.snapshot || $("#agent-view").classList.contains("hidden")) {
-    announce("현재 재생할 강의가 없습니다.");
-    return;
-  }
-  if (isPlaybackRunning()) {
-    pausePlayback();
-    announce("강의를 일시정지했습니다.");
-  } else {
-    resumePlayback();
-    announce("강의를 재생합니다.");
-  }
-}
-
-function handleFreeModeSpaceTap() {
-  const now = performance.now();
-  const isSecondTap = window.SullivanVoiceCommands?.isDoubleTap(state.freeSpaceTapAt, now, 650);
-  if (isSecondTap) {
-    window.clearTimeout(state.freeSpaceTapTimer);
-    state.freeSpaceTapTimer = null;
-    state.freeSpaceTapAt = 0;
-    exitFreeControlMode();
-    return;
-  }
-  state.freeSpaceTapAt = now;
-  window.clearTimeout(state.freeSpaceTapTimer);
-  state.freeSpaceTapTimer = window.setTimeout(() => {
-    state.freeSpaceTapAt = 0;
-    state.freeSpaceTapTimer = null;
-    const action = window.SullivanVoiceCommands?.classifyTapSequence(1, { freeMode: true });
-    if (action === "toggle_playback") toggleFreeModePlayback();
-  }, 650);
-}
-
-$("#close-text-command").addEventListener("click", () => closeTextCommandDialog());
-$("#text-command-form").addEventListener("submit", (event) => {
-  event.preventDefault();
-  const command = $("#text-command-input").value.trim();
-  if (!command) {
-    $("#text-command-status").textContent = "명령을 한 글자 이상 입력해 주세요.";
-    $("#text-command-input").focus();
-    return;
-  }
-  const wasPlaying = isPlaybackRunning();
-  closeTextCommandDialog();
-  executeGlobalVoiceCommand(command, wasPlaying, { source: "text" }).catch((error) => {
-    announce(`텍스트 명령을 실행하지 못했습니다. ${error.message}`);
-  });
-});
-$("#text-command-dialog").addEventListener("keydown", (event) => {
-  if (event.key !== "Escape") return;
-  event.preventDefault();
-  event.stopPropagation();
-  closeTextCommandDialog();
-});
+let openTextCommandDialog, closeTextCommandDialog;
 
 async function executeGlobalVoiceCommand(command, wasPlaying = false, { source = "voice" } = {}) {
   const intent = window.SullivanVoiceCommands?.classify(command) || { type: "chat", command };
@@ -1981,11 +1889,6 @@ async function executeGlobalVoiceCommand(command, wasPlaying = false, { source =
     }, 120);
   };
   announce(`${source === "text" ? "텍스트" : "음성"} 명령을 실행합니다. ${command}`);
-
-  if (intent.type === "free_mode") {
-    enterFreeControlMode({ resume: wasPlaying });
-    return;
-  }
 
   if (intent.type === "pause") {
     stopAllPlaybackAndSpeech();
@@ -2076,360 +1979,10 @@ async function executeGlobalVoiceCommand(command, wasPlaying = false, { source =
   await runSavedLectureCommand(command);
 }
 
-function resetSpaceVoiceGesture() {
-  window.clearTimeout(state.spaceVoice.holdTimer);
-  window.clearTimeout(state.spaceVoice.guideSkipTimer);
-  window.clearTimeout(state.spaceVoice.recognitionRestartTimer);
-  state.spaceVoice.holdTimer = null;
-  state.spaceVoice.guideSkipTimer = null;
-  state.spaceVoice.recognitionRestartTimer = null;
-  state.spaceVoice.target = null;
-  state.spaceVoice.activated = false;
-  state.spaceVoice.released = false;
-  state.spaceVoice.finalized = false;
-  state.spaceVoice.recognition = null;
-  state.spaceVoice.transcript = "";
-  state.spaceVoice.error = "";
-  state.spaceVoice.wasPlaying = false;
-  state.spaceVoice.keyHeld = false;
-  state.spaceVoice.guidePlaying = false;
-  state.spaceVoice.pressStartedAt = 0;
-  state.spaceVoice.guideCancelTap = false;
-  state.spaceVoice.recognitionFatal = false;
-}
-
-function cancelVoiceGuidanceAndResume() {
-  window.clearTimeout(state.spaceVoice.holdTimer);
-  window.clearTimeout(state.spaceVoice.shortTapTimer);
-  window.clearTimeout(state.spaceVoice.guideSkipTimer);
-  window.clearTimeout(state.spaceVoice.recognitionRestartTimer);
-  state.spaceVoice.holdTimer = null;
-  state.spaceVoice.shortTapTimer = null;
-  state.spaceVoice.lastShortTapAt = 0;
-  state.spaceVoice.shortTapCount = 0;
-  state.spaceVoice.skipGuideNextHold = false;
-  state.spaceVoice.finalized = true;
-  const recognition = state.spaceVoice.recognition;
-  if (recognition) {
-    recognition.onresult = null;
-    recognition.onerror = null;
-    recognition.onend = null;
-    try { recognition.abort(); } catch { /* already stopped */ }
-  }
-  state.speechToken += 1;
-  state.speechInProgress = false;
-  state.resumeAfterSpeech = false;
-  window.speechSynthesis?.cancel();
-  $("#pause-overlay")?.classList.add("hidden");
-  updateSpaceVoiceOverlay(false);
-  resetSpaceVoiceGesture();
-  if (state.snapshot) resumePlayback();
-  announce("음성 안내를 멈추고 강의로 돌아갑니다.");
-}
-
-function handleQuickSpaceTap(target) {
-  const now = performance.now();
-  const continuesSequence = window.SullivanVoiceCommands?.isDoubleTap(
-    state.spaceVoice.lastShortTapAt,
-    now,
-    650,
-  );
-  state.spaceVoice.shortTapCount = continuesSequence ? state.spaceVoice.shortTapCount + 1 : 1;
-  state.spaceVoice.lastShortTapAt = now;
-  window.clearTimeout(state.spaceVoice.shortTapTimer);
-
-  const immediateAction = window.SullivanVoiceCommands?.classifyTapSequence(state.spaceVoice.shortTapCount);
-  if (immediateAction === "open_text_command") {
-    state.spaceVoice.shortTapTimer = null;
-    state.spaceVoice.lastShortTapAt = 0;
-    state.spaceVoice.shortTapCount = 0;
-    openTextCommandDialog();
-    return;
-  }
-
-  state.spaceVoice.shortTapTimer = window.setTimeout(() => {
-    const tapCount = state.spaceVoice.shortTapCount;
-    const action = window.SullivanVoiceCommands?.classifyTapSequence(tapCount);
-    state.spaceVoice.lastShortTapAt = 0;
-    state.spaceVoice.shortTapCount = 0;
-    state.spaceVoice.shortTapTimer = null;
-    if (action === "cancel_guidance") {
-      cancelVoiceGuidanceAndResume();
-      return;
-    }
-    if (target) insertShortSpace(target);
-  }, 650);
-}
-
-function finishSpaceVoiceGesture() {
-  if (state.spaceVoice.finalized) return;
-  state.spaceVoice.finalized = true;
-  const command = state.spaceVoice.transcript.trim();
-  const error = state.spaceVoice.error;
-  const wasPlaying = state.spaceVoice.wasPlaying;
-  updateSpaceVoiceOverlay(false);
-  window.setTimeout(resetSpaceVoiceGesture, 0);
-  if (command) {
-    executeGlobalVoiceCommand(command, wasPlaying).catch((executionError) => {
-      announce(`음성 명령을 실행하지 못했습니다. ${executionError.message}`);
-      if (wasPlaying) resumePlayback();
-    });
-  } else {
-    announce(error || "인식된 음성 명령이 없습니다. 다시 스페이스 키를 2초간 눌러 주세요.");
-    if (wasPlaying) resumePlayback();
-  }
-}
-
-function startSpaceRecognitionEngine() {
-  if (!state.spaceVoice.activated
-    || state.spaceVoice.finalized
-    || state.spaceVoice.released
-    || !state.spaceVoice.keyHeld
-    || state.spaceVoice.recognitionFatal) return;
-  const Recognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-  if (!Recognition) {
-    state.spaceVoice.error = "이 브라우저는 음성 인식을 지원하지 않습니다. Chrome 또는 Edge에서 실행해 주세요.";
-    state.spaceVoice.recognitionFatal = true;
-    updateSpaceVoiceOverlay(true, "음성 인식 지원 필요", state.spaceVoice.error);
-    return;
-  }
-  const previousTranscript = state.spaceVoice.transcript.trim();
-  const recognition = new Recognition();
-  state.spaceVoice.recognition = recognition;
-  recognition.lang = "ko-KR";
-  recognition.continuous = true;
-  recognition.interimResults = true;
-  recognition.onstart = () => {
-    if (state.spaceVoice.recognition !== recognition) return;
-    state.spaceVoice.error = "";
-    updateSpaceVoiceOverlay(
-      true,
-      "마이크 켜짐 · 음성 명령 듣는 중",
-      state.spaceVoice.transcript || "누르고 있는 동안 말씀하세요. 스페이스 키를 떼면 실행합니다.",
-    );
-  };
-  recognition.onresult = (event) => {
-    if (state.spaceVoice.recognition !== recognition) return;
-    const currentTranscript = [...event.results]
-      .map((result) => result[0]?.transcript || "")
-      .join(" ")
-      .replace(/\s+/g, " ")
-      .trim();
-    state.spaceVoice.transcript = [previousTranscript, currentTranscript].filter(Boolean).join(" ").trim();
-    updateSpaceVoiceOverlay(true, "음성 명령 듣는 중", state.spaceVoice.transcript || "말씀해 주세요. 키를 떼면 실행합니다.");
-  };
-  recognition.onerror = (event) => {
-    if (state.spaceVoice.recognition !== recognition) return;
-    const fatalErrors = ["not-allowed", "service-not-allowed", "audio-capture"];
-    state.spaceVoice.recognitionFatal = fatalErrors.includes(event.error);
-    if (event.error === "no-speech" || event.error === "aborted") {
-      state.spaceVoice.error = "";
-      updateSpaceVoiceOverlay(true, "계속 듣는 중", "아직 음성이 들리지 않았습니다. 누른 채로 말씀해 주세요.");
-      return;
-    }
-    const errorMessages = {
-      "not-allowed": "마이크 권한이 필요합니다. 브라우저 주소창에서 마이크를 허용해 주세요.",
-      "service-not-allowed": "브라우저의 음성 인식 권한이 차단되어 있습니다. 사이트 권한에서 마이크를 허용해 주세요.",
-      "audio-capture": "사용할 수 있는 마이크를 찾지 못했습니다. 노트북 마이크 설정을 확인해 주세요.",
-      network: "음성 인식 서비스 연결이 잠시 끊겼습니다. 누르고 있으면 다시 연결합니다.",
-    };
-    state.spaceVoice.error = errorMessages[event.error] || "음성을 인식하지 못했습니다. 누르고 있으면 다시 시도합니다.";
-    updateSpaceVoiceOverlay(true, "음성 인식 확인", state.spaceVoice.error);
-  };
-  recognition.onend = () => {
-    if (state.spaceVoice.recognition !== recognition) return;
-    state.spaceVoice.recognition = null;
-    if (!state.spaceVoice.activated || state.spaceVoice.finalized) return;
-    if (state.spaceVoice.released || !state.spaceVoice.keyHeld) {
-      finishSpaceVoiceGesture();
-      return;
-    }
-    if (state.spaceVoice.recognitionFatal) {
-      updateSpaceVoiceOverlay(true, "마이크 확인 필요", `${state.spaceVoice.error} 스페이스 키를 떼면 종료합니다.`);
-      return;
-    }
-    updateSpaceVoiceOverlay(
-      true,
-      "음성 입력 유지 중",
-      state.spaceVoice.transcript ? `${state.spaceVoice.transcript} · 계속 말씀할 수 있습니다.` : "마이크를 다시 연결하고 있습니다.",
-    );
-    window.clearTimeout(state.spaceVoice.recognitionRestartTimer);
-    state.spaceVoice.recognitionRestartTimer = window.setTimeout(startSpaceRecognitionEngine, 180);
-  };
-  try {
-    recognition.start();
-  } catch {
-    state.spaceVoice.error = "음성 인식을 시작하지 못했습니다. 마이크 권한을 확인해 주세요.";
-    state.spaceVoice.recognitionFatal = true;
-    state.spaceVoice.recognition = null;
-    updateSpaceVoiceOverlay(true, "마이크 확인 필요", state.spaceVoice.error);
-  }
-}
-
-function beginSpaceVoiceRecognition() {
-  if (!state.spaceVoice.keyHeld || state.spaceVoice.released || state.spaceVoice.finalized) {
-    finishSpaceVoiceGesture();
-    return;
-  }
-  state.spaceVoice.recognitionFatal = false;
-  playSpaceVoiceReadyChime();
-  updateSpaceVoiceOverlay(true, "음성 명령 듣는 중", "두 번째 띠링이 울렸습니다. 누르고 있는 동안 말씀한 뒤 스페이스 키를 떼세요.");
-  announce("띠링. 음성 명령을 듣고 있습니다. 말씀한 뒤 스페이스 키를 떼세요.");
-  startSpaceRecognitionEngine();
-}
-
-function skipGuideAndBeginListening() {
-  if (!state.spaceVoice.activated
-    || !state.spaceVoice.guidePlaying
-    || !state.spaceVoice.keyHeld
-    || state.spaceVoice.finalized) return;
-  window.clearTimeout(state.spaceVoice.guideSkipTimer);
-  state.spaceVoice.guideSkipTimer = null;
-  state.spaceVoice.guideCancelTap = false;
-  state.spaceVoice.guidePlaying = false;
-  state.spaceVoice.released = false;
-  state.spaceVoice.transcript = "";
-  state.spaceVoice.error = "";
-  state.speechToken += 1;
-  state.speechInProgress = false;
-  window.speechSynthesis?.cancel();
-  beginSpaceVoiceRecognition();
-}
-
-function finishSpaceCommandGuide() {
-  const wasPlaying = state.spaceVoice.wasPlaying;
-  state.spaceVoice.skipGuideNextHold = true;
-  updateSpaceVoiceOverlay(false);
-  resetSpaceVoiceGesture();
-  if (wasPlaying) resumePlayback();
-  announce("음성 명령 안내를 마쳤습니다. 다시 스페이스 키를 길게 누르면 바로 음성 명령을 말할 수 있습니다.");
-}
-
-function startSpaceVoiceRecognition() {
-  state.spaceVoice.holdTimer = null;
-  state.spaceVoice.activated = true;
-  state.spaceVoice.wasPlaying = isPlaybackRunning();
-  if (state.spaceVoice.wasPlaying) pausePlayback();
-  state.speechToken += 1;
-  state.speechInProgress = false;
-  state.resumeAfterSpeech = false;
-  window.speechSynthesis?.cancel();
-  $("#pause-overlay")?.classList.add("hidden");
-  if (state.spaceVoice.skipGuideNextHold) {
-    state.spaceVoice.skipGuideNextHold = false;
-    state.spaceVoice.guidePlaying = false;
-    beginSpaceVoiceRecognition();
-    return;
-  }
-  playSpaceVoiceReadyChime();
-  state.spaceVoice.guidePlaying = true;
-  updateSpaceVoiceOverlay(true, "사용할 수 있는 음성 명령", "안내를 듣는 중입니다. 키를 떼어도 안내는 계속됩니다. 다시 길게 누르면 즉시 음성 명령을 시작합니다.");
-  announce("띠링. 사용할 수 있는 음성 명령을 먼저 안내합니다.");
-  speak(SPACE_COMMAND_GUIDE, () => {
-    window.clearTimeout(state.spaceVoice.guideSkipTimer);
-    state.spaceVoice.guideSkipTimer = null;
-    state.spaceVoice.guideCancelTap = false;
-    state.spaceVoice.guidePlaying = false;
-    if (!state.spaceVoice.activated || state.spaceVoice.finalized) return;
-    if (!state.spaceVoice.keyHeld || state.spaceVoice.released) {
-      finishSpaceCommandGuide();
-      return;
-    }
-    beginSpaceVoiceRecognition();
-  });
-}
-
 window.addEventListener("keydown", (event) => {
-  if ((event.code !== "Space" && event.key !== " ") || event.altKey || event.ctrlKey || event.metaKey || event.isComposing) return;
-  if (isTextCommandDialogTarget(event.target)) return;
-  event.preventDefault();
-  if (event.repeat) return;
-  if (state.freeControlMode) return;
-  state.spaceVoice.pressStartedAt = performance.now();
-  if (state.spaceVoice.activated && state.spaceVoice.guidePlaying && state.spaceVoice.released) {
-    state.spaceVoice.keyHeld = true;
-    state.spaceVoice.released = false;
-    state.spaceVoice.guideCancelTap = true;
-    prepareSpaceVoiceAudio();
-    window.clearTimeout(state.spaceVoice.guideSkipTimer);
-    state.spaceVoice.guideSkipTimer = window.setTimeout(skipGuideAndBeginListening, 650);
-    updateSpaceVoiceOverlay(true, "안내 건너뛰기", "조금만 더 누르면 안내를 멈추고 마이크를 켭니다.");
-    return;
-  }
-  if (state.spaceVoice.holdTimer || state.spaceVoice.activated) return;
-  state.spaceVoice.keyHeld = true;
-  prepareSpaceVoiceAudio();
-  state.spaceVoice.target = event.target;
-  state.spaceVoice.holdTimer = window.setTimeout(startSpaceVoiceRecognition, 2_000);
-});
-
-window.addEventListener("keyup", (event) => {
-  if (event.code !== "Space" && event.key !== " ") return;
-  if (isTextCommandDialogTarget(event.target)) return;
-  event.preventDefault();
-  if (state.freeControlMode) {
-    handleFreeModeSpaceTap();
-    return;
-  }
-  if (state.spaceVoice.guideCancelTap) {
-    window.clearTimeout(state.spaceVoice.guideSkipTimer);
-    state.spaceVoice.guideSkipTimer = null;
-    state.spaceVoice.guideCancelTap = false;
-    state.spaceVoice.keyHeld = false;
-    state.spaceVoice.released = true;
-    handleQuickSpaceTap(event.target);
-    return;
-  }
-  if (!state.spaceVoice.activated) {
-    window.clearTimeout(state.spaceVoice.holdTimer);
-    const target = state.spaceVoice.target;
-    const wasQuickTap = performance.now() - state.spaceVoice.pressStartedAt < 700;
-    const wasEditable = isEditableSpaceTarget(target);
-    resetSpaceVoiceGesture();
-    if (target && wasEditable) insertShortSpace(target);
-    else if (target && wasQuickTap) handleQuickSpaceTap(target);
-    return;
-  }
-  state.spaceVoice.keyHeld = false;
-  state.spaceVoice.released = true;
-  if (state.spaceVoice.guidePlaying) return;
-  if (state.spaceVoice.recognition) {
-    try {
-      state.spaceVoice.recognition.stop();
-      window.setTimeout(() => {
-        if (!state.spaceVoice.finalized && state.spaceVoice.released) finishSpaceVoiceGesture();
-      }, 1_000);
-    } catch { finishSpaceVoiceGesture(); }
-  } else {
-    finishSpaceVoiceGesture();
-  }
-});
-
-window.addEventListener("blur", () => {
-  if (document.activeElement?.tagName === "IFRAME") {
-    restoreGlobalSpaceFocus();
-    return;
-  }
-  if (!state.spaceVoice.holdTimer && !state.spaceVoice.activated) return;
-  // A microphone permission popover also blurs the page. Keep an activated
-  // push-to-talk session alive; visibilitychange handles a real tab switch.
-  if (state.spaceVoice.activated) return;
-  window.clearTimeout(state.spaceVoice.holdTimer);
-  resetSpaceVoiceGesture();
-});
-
-document.addEventListener("visibilitychange", () => {
-  if (document.visibilityState !== "hidden") return;
-  if (!state.spaceVoice.holdTimer && !state.spaceVoice.activated) return;
-  if (state.spaceVoice.activated) cancelVoiceGuidanceAndResume();
-  else resetSpaceVoiceGesture();
-});
-
-window.addEventListener("keydown", (event) => {
+  if (event.defaultPrevented) return;
   if (!state.snapshot || $("#agent-view").classList.contains("hidden")) return;
-  if (isTextCommandDialogTarget(event.target)
-    || isEditableSpaceTarget(event.target)
-    || event.target instanceof HTMLSelectElement) return;
+  if (event.target.closest?.("button, a, input, select, textarea, summary, [contenteditable]")) return;
   const key = event.key.toLowerCase();
   const plainArrow = !event.altKey && !event.ctrlKey && !event.metaKey && !event.shiftKey;
   if (event.altKey && key === "d") {
@@ -2441,10 +1994,10 @@ window.addEventListener("keydown", (event) => {
   } else if (event.altKey && key === "b") {
     event.preventDefault();
     addBookmark();
-  } else if ((event.altKey || plainArrow) && event.key === "ArrowLeft") {
+  } else if (window.Portal?.user?.role !== "student" && (event.altKey || plainArrow) && event.key === "ArrowLeft") {
     event.preventDefault();
     seekRelative(-10_000);
-  } else if ((event.altKey || plainArrow) && event.key === "ArrowRight") {
+  } else if (window.Portal?.user?.role !== "student" && (event.altKey || plainArrow) && event.key === "ArrowRight") {
     event.preventDefault();
     seekRelative(10_000);
   } else if (event.key === "Escape") {
@@ -2458,13 +2011,12 @@ function stopCurrentLectureForNavigation() {
   window.speechSynthesis?.cancel();
   pausePlayback();
   if (state.videoUrl) URL.revokeObjectURL(state.videoUrl);
-  window.clearInterval(state.youtubeTimer);
-  state.youtubePlayer?.destroy?.();
+  disposeYouTubePlayer();
 }
 
 function returnHome() {
-  if (state.freeControlMode) exitFreeControlMode({ announceExit: false });
   stopCurrentLectureForNavigation();
+  if (window.Portal) { window.Portal.home(); return; }
   window.location.href = `${window.location.pathname}${window.location.search}#saved-library-title`;
   window.location.reload();
 }
@@ -2616,8 +2168,7 @@ async function openSavedLecture(id) {
         playback_url: record.playback.playback_url,
         analysis_status: "saved",
       };
-      await setupLinkPlayback(state.pendingLinkResult);
-      seekTo(record.last_position_ms || 0);
+      await setupLinkPlayback(state.pendingLinkResult, { positionMs: record.last_position_ms || 0 });
       $("#linked-playback-note").textContent = "보관함에 저장된 원본 링크와 분석 요약을 불러왔습니다. 영상 파일을 복제하거나 내려받지 않았습니다.";
     } else {
       $("#video-placeholder").classList.remove("hidden");
@@ -2626,7 +2177,8 @@ async function openSavedLecture(id) {
     }
     announce(`${record.title} 저장 강의를 열었습니다. 마지막 위치부터 다시 들을 수 있습니다.`);
   } catch (error) {
-    alert(`저장 강의를 열지 못했습니다. ${error.message}`);
+    if (window.Portal) window.Portal.error("강의를 열지 못했습니다. 목록에서 다시 선택해 주세요.");
+    else alert(`저장 강의를 열지 못했습니다. ${error.message}`);
   }
 }
 

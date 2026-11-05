@@ -1,0 +1,257 @@
+{
+  "method": "isolated DOM fixture executing current loadGuardian/fillSettings/renderGuardianLectures source; mocked data reads; no API requests or authentication",
+  "checks": [
+    "All scoped ARIA ID references resolve in empty state.",
+    "Next create link opens the disclosure and keyboard activation focuses student-name input.",
+    "Unavailable settings remain discoverable through disclosure; controls disabled and explanation retained.",
+    "Student Settings link selects the matching student, opens settings and focuses its summary.",
+    "Native lecture Manage disclosure works by keyboard, with title context in aria-describedby.",
+    "Chrome AX tree exposes persistent preparation status as polite and disclosure states natively.",
+    "Unchanged totals do not retrigger status; changed totals update existing live node once.",
+    "Breakpoint auto-collapse preserves focus on Help summary instead of dropping it to body.",
+    "Mobile Help link opens native disclosure and focuses summary."
+  ],
+  "limitations": [
+    "No actual VoiceOver/NVDA speech tested.",
+    "Parent separately validates authenticated integration."
+  ],
+  "ax": {
+    "taskLinks": [
+      "학생 계정 만들기 완료",
+      "강의 준비하기 완료",
+      "학생에게 배정하기 완료"
+    ],
+    "regions": [
+      "보호자 준비실",
+      "준비 현황",
+      "학생",
+      "강의",
+      "강의 준비하기",
+      "샘플 바로 배정"
+    ],
+    "statuses": [
+      {
+        "name": "",
+        "properties": [
+          {
+            "name": "live",
+            "value": {
+              "type": "token",
+              "value": "polite"
+            }
+          },
+          {
+            "name": "atomic",
+            "value": {
+              "type": "boolean",
+              "value": true
+            }
+          },
+          {
+            "name": "relevant",
+            "value": {
+              "type": "tokenList",
+              "value": "additions text"
+            }
+          }
+        ]
+      }
+    ],
+    "disclosures": [
+      {
+        "name": "실행 정보",
+        "properties": [
+          {
+            "name": "focusable",
+            "value": {
+              "type": "booleanOrUndefined",
+              "value": true
+            }
+          },
+          {
+            "name": "expanded",
+            "value": {
+              "type": "booleanOrUndefined",
+              "value": false
+            }
+          }
+        ]
+      },
+      {
+        "name": "도움",
+        "properties": [
+          {
+            "name": "focusable",
+            "value": {
+              "type": "booleanOrUndefined",
+              "value": true
+            }
+          },
+          {
+            "name": "expanded",
+            "value": {
+              "type": "booleanOrUndefined",
+              "value": true
+            }
+          }
+        ]
+      },
+      {
+        "name": "새 학생 계정 만들기",
+        "properties": [
+          {
+            "name": "focusable",
+            "value": {
+              "type": "booleanOrUndefined",
+              "value": true
+            }
+          },
+          {
+            "name": "expanded",
+            "value": {
+              "type": "booleanOrUndefined",
+              "value": false
+            }
+          }
+        ]
+      },
+      {
+        "name": "학생별 기본 설정",
+        "properties": [
+          {
+            "name": "focusable",
+            "value": {
+              "type": "booleanOrUndefined",
+              "value": true
+            }
+          },
+          {
+            "name": "expanded",
+            "value": {
+              "type": "booleanOrUndefined",
+              "value": true
+            }
+          }
+        ]
+      },
+      {
+        "name": "샘플로 연습하기",
+        "properties": [
+          {
+            "name": "focusable",
+            "value": {
+              "type": "booleanOrUndefined",
+              "value": true
+            }
+          },
+          {
+            "name": "expanded",
+            "value": {
+              "type": "booleanOrUndefined",
+              "value": true
+            }
+          }
+        ]
+      },
+      {
+        "name": "준비 현황은 어떻게 바뀌나요?",
+        "properties": [
+          {
+            "name": "focusable",
+            "value": {
+              "type": "booleanOrUndefined",
+              "value": true
+            }
+          },
+          {
+            "name": "expanded",
+            "value": {
+              "type": "booleanOrUndefined",
+              "value": false
+            }
+          }
+        ]
+      },
+      {
+        "name": "계정 전환·저장·API 연결 안내",
+        "properties": [
+          {
+            "name": "focusable",
+            "value": {
+              "type": "booleanOrUndefined",
+              "value": true
+            }
+          },
+          {
+            "name": "expanded",
+            "value": {
+              "type": "booleanOrUndefined",
+              "value": false
+            }
+          }
+        ]
+      },
+      {
+        "name": "관리",
+        "properties": [
+          {
+            "name": "focusable",
+            "value": {
+              "type": "booleanOrUndefined",
+              "value": true
+            }
+          },
+          {
+            "name": "focused",
+            "value": {
+              "type": "booleanOrUndefined",
+              "value": true
+            }
+          },
+          {
+            "name": "expanded",
+            "value": {
+              "type": "booleanOrUndefined",
+              "value": true
+            }
+          },
+          {
+            "name": "describedby",
+            "value": {
+              "type": "idrefList",
+              "value": "guardian-lecture-title-l1",
+              "relatedNodes": [
+                {
+                  "backendDOMNodeId": 258,
+                  "idref": "guardian-lecture-title-l1"
+                }
+              ]
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "statusMutation": {
+    "unchanged": 0,
+    "changed": 1,
+    "text": "학생 1명, 준비한 강의 0개, 준비 완료한 배정 강의 0개입니다.",
+    "preserved": true
+  },
+  "helpResizeFocus": {
+    "before": {
+      "id": "guardian-help-guide",
+      "tag": "A",
+      "parent": "",
+      "visible": true,
+      "helpOpen": true
+    },
+    "after": {
+      "id": "",
+      "tag": "SUMMARY",
+      "parent": "guardian-help",
+      "visible": true,
+      "helpOpen": false
+    }
+  }
+}

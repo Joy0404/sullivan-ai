@@ -1,0 +1,27 @@
+{
+  "skill": "aria-specialist",
+  "scope": [
+    "apps/web/index.html guardian-result-summary/guardian-publish",
+    "apps/web/role-portal.js loadGuardian presentation observer",
+    "apps/web/workspace-design.css T4"
+  ],
+  "findings": [],
+  "passed": [
+    "First new guardian result focuses its visible h1 instead of the lower assignment form.",
+    "Summary/moved form ID references resolve; native description list labels each count.",
+    "Fixed native action link focuses the publish heading within the viewport.",
+    "Guardian labels/enums restore on student and signed-out roles; raw enum metadata remains unchanged.",
+    "Restoration preserves fresh content written to the same text node at a role transition.",
+    "Generated student checkbox identity labels are excluded from translation.",
+    "Metadata count test used throwing getters for candidate text fields; observer accessed none.",
+    "Quick-command aria-label maps to 핵심 개념 찾기 only for guardian and restores its original student/signed-out value.",
+    "Concurrent fresh aria-label updates remain intact because restoration checks the prior displayed attribute before overwriting.",
+    "Authoritative safe_description_count includes INTERRUPT and respects explicit zero; candidate getters remain unread."
+  ],
+  "notes": [
+    "Current-source isolated Chrome fixture; no backend auth or mutation.",
+    "Initial identity-label finding and first-result focus/restoration concerns were corrected and rechecked.",
+    "Runtime evidence: /tmp/sullivan-t4-work/review/aria-live-runtime.json.",
+    "Actual VoiceOver/NVDA audio not tested."
+  ]
+}

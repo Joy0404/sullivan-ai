@@ -1,0 +1,35 @@
+{
+  "skill": "alt-text-headings",
+  "scope": [
+    "apps/web/intro.css",
+    "apps/web/intro/index.html",
+    "apps/web/guide/index.html",
+    "apps/web/guardian-design.css",
+    "apps/web/workspace-design.css",
+    "apps/web/index.html"
+  ],
+  "findings": [
+    {
+      "rule": "GUIDE-STALE-SCREENSHOTS",
+      "wcag": "n/a",
+      "severity": "moderate",
+      "location": "apps/web/guide/index.html:73",
+      "summary": "The guide still illustrates pre-T3/T4 screens while its text instructs guardians to use the final three-step wizard and renamed review UI.",
+      "fix": "Recapture guardian-prepare.png from the current three-step sample wizard, provide the step views needed to explain navigation, and refresh guardian-review.png after T4. Keep alt text, captions and surrounding instructions aligned with those final screens.",
+      "evidence": "Guide :69 describes steps 1–3, but :73 guardian-prepare.png shows one long form with “선택한 자료 실제 분석” and no step navigation. Current screenshot current-wizard-step1-390.png shows “1/3 단계” and “다음 단계”. At :80 guardian-review.png says “강의 후 접근성 복습”; runtime review1280 says “강의 후 화면 정보 복습”.",
+      "component": "Guide steps 4 and 5 screenshots"
+    }
+  ],
+  "passed": [
+    "Visually inspected all 12 unique local screenshots referenced by intro/guide; all images have meaningful alt text, and guide image links have functional accessible names.",
+    "Intro and expanded guide have one visible h1 and sequential h2/h3 outlines; current guardian dashboard/wizard/result views also expose one visible h1 with orderly subheadings.",
+    "Each page uses lang=ko, one main landmark, a skip link, and distinct labels for multiple navigation landmarks; decorative inline SVGs are aria-hidden.",
+    "Intro/guide explicitly label prepared sample results, state no new video was analyzed, identify prototype/user-test status, and qualify real analysis with configuration and consent requirements.",
+    "No missing alt attributes, unverifiable user counts, fabricated outcomes or unqualified VoiceOver/NVDA certification claims found."
+  ],
+  "notes": [
+    "Screenshot drift is instructional consistency debt rather than a proven WCAG 1.1.1 failure; existing alt text describes the old images accurately.",
+    "Current screen runtime evidence: visual-runtime-evidence.json. Current wizard/result screenshots: current-wizard-step1-390.png and current-results-390.png.",
+    "The app retains a generic Sullivan AI document title across guardian internal views; unique intro and guide titles are present. No WCAG title failure asserted for the single-document workflow."
+  ]
+}

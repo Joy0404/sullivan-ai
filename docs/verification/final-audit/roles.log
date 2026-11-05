@@ -1,0 +1,36 @@
+AX audit account-setup: 11 named focused controls; axe findings 0
+AX audit guardian-dashboard: 23 named focused controls; axe findings 0
+AX audit guardian-settings-unavailable: 23 named focused controls; axe findings 0
+AX audit guardian-settings: 35 named focused controls; axe findings 0
+AX audit guardian-publish: 39 named focused controls; axe findings 0
+AX audit guardian-watch: 39 named focused controls; axe findings 0
+AX audit guardian-passage: 94 named focused controls; axe findings 0
+AX audit guardian-review: 31 named focused controls; axe findings 0
+AX audit guardian-study: 22 named focused controls; axe findings 0
+AX audit guardian-chat: 30 named focused controls; axe findings 0
+AX audit guardian-evidence: 18 named focused controls; axe findings 0
+AX audit guardian-preparation: 12 named focused controls; axe findings 0
+Traceback (most recent call last):
+  File "/tmp/final-reskin-audit/run-unaltered.py", line 12, in <module>
+    test.main()
+  File "/Users/joy/Documents/Codex/Sullivan-AI-Develop-local/scripts/verify_roles_browser.py", line 110, in main
+    page.locator('#analysis-overlay').wait_for(state='visible')
+  File "/Users/joy/Documents/Codex/Sullivan-AI-Develop-local/.venv/lib/python3.12/site-packages/playwright/sync_api/_generated.py", line 13635, in wait_for
+    self._sync(
+  File "/Users/joy/Documents/Codex/Sullivan-AI-Develop-local/.venv/lib/python3.12/site-packages/playwright/_impl/_sync_base.py", line 111, in _sync
+    return task.result()
+           ^^^^^^^^^^^^^
+  File "/Users/joy/Documents/Codex/Sullivan-AI-Develop-local/.venv/lib/python3.12/site-packages/playwright/_impl/_locator.py", line 767, in wait_for
+    await self._frame.wait_for_selector(
+  File "/Users/joy/Documents/Codex/Sullivan-AI-Develop-local/.venv/lib/python3.12/site-packages/playwright/_impl/_frame.py", line 395, in wait_for_selector
+    await self._channel.send(
+  File "/Users/joy/Documents/Codex/Sullivan-AI-Develop-local/.venv/lib/python3.12/site-packages/playwright/_impl/_connection.py", line 78, in send
+    return await self._connection.wrap_api_call(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/joy/Documents/Codex/Sullivan-AI-Develop-local/.venv/lib/python3.12/site-packages/playwright/_impl/_connection.py", line 636, in wrap_api_call
+    raise rewrite_error(error, f"{parsed_st['apiName']}: {error}") from None
+playwright._impl._errors.TimeoutError: Locator.wait_for: Timeout 30000ms exceeded.
+Call log:
+  - waiting for locator("#analysis-overlay") to be visible
+    64 × locator resolved to hidden <section role="dialog" aria-modal="true" id="analysis-overlay" class="analysis-overlay hidden" aria-labelledby="analysis-title">…</section>
+

@@ -1,0 +1,276 @@
+{
+  "errors": [],
+  "initial": {
+    "role": "guardian",
+    "events": [
+      {
+        "type": "focus",
+        "id": "login-role-student",
+        "text": "학생 로그인",
+        "time": 22.80000001192093
+      },
+      {
+        "type": "live",
+        "id": "<div class=\"api-status\" role=\"status\">\n        <span id=\"api-dot\" class=\"status-dot ok\" ar",
+        "text": "\n        \n        분석 엔진 연결 · 영상 비저장\n      ",
+        "visible": true,
+        "time": 26.69999998807907
+      },
+      {
+        "type": "live",
+        "id": "login-voice-status",
+        "text": "Tab은 다음, Shift만 눌렀다 떼면 이전으로 이동합니다. 입력 중 Shift와 Shift+Tab은 원래대로 사용합니다. 이름과 비밀번호 값은 읽지 않습니다.",
+        "visible": true,
+        "time": 27.900000005960464
+      },
+      {
+        "type": "live",
+        "id": "guardian-progress-status",
+        "text": "학생 1명, 준비한 강의 1개, 준비 완료한 배정 강의 1개입니다.",
+        "visible": true,
+        "busy": "true",
+        "time": 37.900000005960464
+      },
+      {
+        "type": "focus",
+        "id": "guardian-prepare",
+        "text": "내 강의 자료 준비",
+        "time": 40
+      }
+    ],
+    "brokenRefs": []
+  },
+  "progressLoading": {
+    "events": [
+      {
+        "type": "focus",
+        "id": "",
+        "text": "학습 현황",
+        "time": 58.900000005960464
+      },
+      {
+        "type": "live",
+        "id": "<p role=\"status\">학습 현황을 불러오고 있습니다.</p>",
+        "text": "학습 현황을 불러오고 있습니다.",
+        "visible": true,
+        "busy": "false",
+        "time": 72.40000000596046
+      }
+    ],
+    "open": true,
+    "status": "<p role=\"status\">학습 현황을 불러오고 있습니다.</p>"
+  },
+  "progressLoaded": {
+    "events": [
+      {
+        "type": "focus",
+        "id": "",
+        "text": "학습 현황",
+        "time": 58.900000005960464
+      },
+      {
+        "type": "live",
+        "id": "<p role=\"status\">학습 현황을 불러오고 있습니다.</p>",
+        "text": "학습 현황을 불러오고 있습니다.",
+        "visible": true,
+        "busy": "false",
+        "time": 72.40000000596046
+      },
+      {
+        "type": "live",
+        "id": "<p role=\"status\">저장된 현황을 불러왔습니다. 메모는 강의당 0개 또는 1개이며, 내용은 표시하지 않습니다.</p>",
+        "text": "저장된 현황을 불러왔습니다. 메모는 강의당 0개 또는 1개이며, 내용은 표시하지 않습니다.",
+        "visible": true,
+        "busy": "false",
+        "time": 3086
+      }
+    ],
+    "html": "<details class=\"guardian-learning-progress\" open=\"\"><summary aria-describedby=\"guardian-student-1209583116d04e54ad726f41005d0f62\">학습 현황</summary><p role=\"status\">저장된 현황을 불러왔습니다. 메모는 강의당 0개 또는 1개이며, 내용은 표시하지 않습니다.</p><ul><li><h4>천문학 특강 7강 · 별의 진화</h4><p>통합과학 · 천문학</p><dl><dt>저장된 위치</dt><dd>0:00</dd><dt>밑줄</dt><dd>0개</dd><dt>북마크</dt><dd>0개</dd><dt>메모</dt><dd>0개</dd></dl><p class=\"guardian-progress-saved\">저장 시각 기록 없음</p></li></ul></details>"
+  },
+  "assignLoading": {
+    "events": [
+      {
+        "type": "focus",
+        "id": "sample-assign-submit",
+        "text": "선택한 학생에게 샘플 배정",
+        "time": 3110.4000000059605
+      }
+    ],
+    "focused": "",
+    "receipt": "<p id=\"sample-assign-receipt\">선택한 샘플의 배정을 저장하고 있습니다.</p>",
+    "disabled": true
+  },
+  "assignDone": {
+    "events": [
+      {
+        "type": "focus",
+        "id": "sample-assign-submit",
+        "text": "선택한 학생에게 샘플 배정",
+        "time": 3110.4000000059605
+      },
+      {
+        "type": "live",
+        "id": "guardian-progress-status",
+        "text": "학생 1명, 준비한 강의 2개, 준비 완료한 배정 강의 2개입니다.",
+        "visible": true,
+        "busy": "false",
+        "time": 6143.300000011921
+      },
+      {
+        "type": "focus",
+        "id": "portal-feedback",
+        "text": "천문학 특강 7강 · 별의 진화 강의를 검증학생 (aria.student) 학생에게 배정하고 준비 완료로 저장했습니다. 학생으로 로그인해 강의 듣기를 누르세요.",
+        "time": 6144.5
+      },
+      {
+        "type": "live",
+        "id": "learner-playback-state",
+        "text": "강의를 먼저 선택하세요.",
+        "visible": false,
+        "time": 6144.800000011921
+      }
+    ],
+    "feedback": "천문학 특강 7강 · 별의 진화 강의를 검증학생 (aria.student) 학생에게 배정하고 준비 완료로 저장했습니다. 학생으로 로그인해 강의 듣기를 누르세요."
+  },
+  "sample": {
+    "events": [
+      {
+        "type": "focus",
+        "id": "guardian-science",
+        "text": "과학 샘플 미리보기",
+        "time": 6173.0999999940395
+      },
+      {
+        "type": "focus",
+        "id": "",
+        "text": "",
+        "time": 6203.199999988079
+      },
+      {
+        "type": "live",
+        "id": "learner-playback-state",
+        "text": "강의 일시정지. 재생 버튼으로 이어 들으세요.",
+        "visible": false,
+        "time": 6204
+      },
+      {
+        "type": "focus",
+        "id": "guardian-result-title",
+        "text": "천문학 특강 7강 · 별의 진화",
+        "time": 6205.199999988079
+      },
+      {
+        "type": "live",
+        "id": "live-region",
+        "text": "별의 진화 샘플을 바로 열었습니다. 분석 서버 연결 없이 이용할 수 있습니다.",
+        "visible": true,
+        "time": 6224.0999999940395
+      }
+    ],
+    "title": "<div id=\"guardian-result-summary\" class=\"guardian-result-summary\">\n          <h1 id=\"guardian-result-title\" tabindex=\"-1\">천문학 특강 7강 · 별의 진화</h1><p id=\"guardian-result-source\">사전 준비된 샘플 결과입니다. 새 영상을 분석한 결과가 아닙니다.</p>\n          <dl class=\"guardian-result-counts\"><div><dt>설명할 화면</dt><dd id=\"guardian-result-descriptions\">10곳</dd></div><div><dt>말하지 않고 보류한 정보</dt><dd id=\"guardian-result-held\">1곳</dd></div><div><dt>핵심 개념</dt><dd id=\"guardian-result-concepts\">19개</dd></div></dl>\n          <p>세부 내용을 확인한 뒤 하단에서 학생에게 제공해 주세요.</p>\n        </div>",
+    "labels": [
+      "01강의 화면",
+      "02핵심 개념 찾기",
+      "03화면 정보 복습",
+      "04AI 학습 노트",
+      "05AI 학습 대화",
+      "06해설한 이유"
+    ]
+  },
+  "logout": {
+    "role": "signed-out",
+    "resultHidden": true,
+    "labels": [
+      "01강의 화면",
+      "02핵심 탐색",
+      "03접근성 복습",
+      "04AI 학습 노트",
+      "05AI 학습 대화",
+      "06안전·판단 근거"
+    ]
+  },
+  "student": {
+    "role": "student",
+    "resultHidden": true,
+    "labels": [
+      "01강의 화면",
+      "02핵심 탐색",
+      "03접근성 복습",
+      "04AI 학습 노트",
+      "05AI 학습 대화",
+      "06안전·판단 근거"
+    ]
+  },
+  "guideHash": {
+    "active": "<button type=\"button\" class=\"step-toggle\" aria-controls=\"step-content-4\" aria-expanded=\"true\"><span><span class=\"sr-only\">4단계. </span>강의 준비하기</span><span class=\"toggle-word\" aria-hidden=\"true\">접기</span></button>",
+    "expanded": "true",
+    "hidden": false,
+    "events": [
+      {
+        "type": "focus",
+        "id": "",
+        "text": "4단계. 강의 준비하기접기",
+        "time": 23
+      },
+      {
+        "type": "focus",
+        "id": "",
+        "text": "강의 준비하기",
+        "time": 39.69999998807907
+      },
+      {
+        "type": "focus",
+        "id": "",
+        "text": "4단계. 강의 준비하기접기",
+        "time": 40.19999998807907
+      }
+    ]
+  },
+  "guideAll": {
+    "status": "8개 단계를 모두 펼쳤습니다.",
+    "controls": "step-content-1 step-content-2 step-content-3 step-content-4 step-content-5 step-content-6 step-content-7 step-content-8",
+    "expanded": [
+      "true",
+      "true",
+      "true",
+      "true",
+      "true",
+      "true",
+      "true",
+      "true"
+    ],
+    "events": [
+      {
+        "type": "focus",
+        "id": "",
+        "text": "4단계. 강의 준비하기접기",
+        "time": 23
+      },
+      {
+        "type": "focus",
+        "id": "",
+        "text": "강의 준비하기",
+        "time": 39.69999998807907
+      },
+      {
+        "type": "focus",
+        "id": "",
+        "text": "4단계. 강의 준비하기접기",
+        "time": 40.19999998807907
+      },
+      {
+        "type": "focus",
+        "id": "toggle-all",
+        "text": "모두 펼치기",
+        "time": 56.69999998807907
+      },
+      {
+        "type": "live",
+        "id": "guide-status",
+        "text": "8개 단계를 모두 펼쳤습니다.",
+        "visible": true,
+        "time": 58
+      }
+    ]
+  }
+}

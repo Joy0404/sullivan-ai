@@ -1,0 +1,15 @@
+{
+  "skill": "aria-specialist",
+  "scope": [
+    "/Users/joy/Documents/Codex/Sullivan-AI-Develop-local/apps/web/intro/index.html (landmark remediation only)"
+  ],
+  "findings": [],
+  "passed": [
+    "ARIA-LANDMARK-OVERUSE resolved: hero, barriers, guardian preparation, prototype notice and closing call to action no longer create region landmarks.",
+    "All existing section headings and heading IDs remain available for heading navigation.",
+    "The four remaining named regions represent substantive learning features, learning safeguards, student controls and frequently asked questions; every aria-labelledby reference resolves to its visible heading."
+  ],
+  "notes": [
+    "Targeted static recheck of the landmark remediation only; earlier guide and login-link checks were not repeated."
+  ]
+}

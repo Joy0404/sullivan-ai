@@ -1,0 +1,10 @@
+{
+  "student_html_exact_match": true,
+  "javascript_outside_loadGuardian_renderGuardianLectures_exact_match": true,
+  "student_css_tokens_workspace_api_unchanged": true,
+  "forms_names_payloads_auth_provider_config_unchanged": true,
+  "safety_logic_changed": false,
+  "reference_files_tracked": [],
+  "tests": "verify_all.sh: 116 passed, 4 skipped; previous count retained",
+  "guide_copy": "Only matching preparation/management button instructions updated, within playbook section 2."
+}

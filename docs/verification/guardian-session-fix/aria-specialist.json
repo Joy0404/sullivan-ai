@@ -1,0 +1,21 @@
+{
+  "skill": "aria-specialist",
+  "scope": [
+    "apps/web/role-portal.js:14-18",
+    "apps/web/role-portal.js:201-232",
+    "apps/web/index.html:137",
+    "scripts/verify_guardian_sessions.py"
+  ],
+  "findings": [],
+  "passed": [
+    "Closed ARIA-STUDENT-IDENTITY: same-name students had distinct full name(username) roster headings and Chrome AX disclosure descriptions.",
+    "A 60-character username remained complete in DOM and AX identity; page had no horizontal overflow at390px and1280px.",
+    "Sample assignment loading uses an existing role=status node; its visible receipt retains ordinary paragraph semantics."
+  ],
+  "notes": [
+    "Targeted read-only product recheck of the current working diff; no product edits.",
+    "Actual VoiceOver/NVDA unavailable; verification covers Chrome DOM, keyboard focus, and AX behavior.",
+    "Evidence: /tmp/sullivan-session-fix/results.json. Used disposable SQLite accounts on8893, synthetic fixtures, mocked delayed responses, and blocked nonlocal requests.",
+    "Reviewed scripts/verify_guardian_sessions.py: it includes duplicate-name identity, old401 after student/same-guardian login, current401 signout, logout URL-label reset, and assignment status checks. This specialist ran an independent Puppeteer harness rather than the durable script."
+  ]
+}

@@ -1,0 +1,657 @@
+{
+  "head": "312a607",
+  "errors": [],
+  "externalBlocked": [],
+  "sameName": {
+    "focus": "guardian-prepare",
+    "events": [
+      {
+        "text": "동명이인 학생의 학습 현황을 불러오고 있습니다.",
+        "student": "동명이인",
+        "visible": true
+      },
+      {
+        "text": "동명이인 학생의 학습 현황을 불러오고 있습니다.",
+        "student": "동명이인",
+        "visible": true
+      },
+      {
+        "text": "동명이인 학생: 아직 배정된 강의가 없습니다.",
+        "student": "동명이인",
+        "visible": true
+      },
+      {
+        "text": "동명이인 학생의 학습 현황을 불러오지 못했습니다. 접었다가 다시 펼치면 재시도합니다.",
+        "student": "동명이인",
+        "visible": true
+      }
+    ],
+    "roster": [
+      {
+        "text": "동명이인배정 강의 0개학습 현황동명이인 학생: 아직 배정된 강의가 없습니다.설정",
+        "html": "<article class=\"guardian-student\" aria-labelledby=\"guardian-student-25fc9b9e871c4bac90bc810210715127\"><div><h3 id=\"guardian-student-25fc9b9e871c4bac90bc810210715127\">동명이인</h3><p>배정 강의 0개</p><details class=\"guardian-learning-progress\" open=\"\"><summary aria-describedby=\"guardian-student-25fc9b9e871c4bac90bc810210715127\">학습 현황</summary><p role=\"status\">동명이인 학생: 아직 배정된 강의가 없습니다.</p><ul></ul></details></div><a href=\"#guardian-settings-panel\" data-guardian-target=\"settings\" data-student=\"25fc9b9e871c4bac90bc810210715127\" aria-describedby=\"guardian-student-25fc9b9e871c4bac90bc810210715127\">설정</a></article>"
+      },
+      {
+        "text": "동명이인배정 강의 0개학습 현황동명이인 학생의 학습 현황을 불러오지 못했습니다. 접었다가 다시 펼치면 재시도합니다.설정",
+        "html": "<article class=\"guardian-student\" aria-labelledby=\"guardian-student-f562cb25ef544b249a706d72ec1fc6dc\"><div><h3 id=\"guardian-student-f562cb25ef544b249a706d72ec1fc6dc\">동명이인</h3><p>배정 강의 0개</p><details class=\"guardian-learning-progress\" open=\"\"><summary aria-describedby=\"guardian-student-f562cb25ef544b249a706d72ec1fc6dc\">학습 현황</summary><p role=\"status\">동명이인 학생의 학습 현황을 불러오지 못했습니다. 접었다가 다시 펼치면 재시도합니다.</p><ul></ul></details></div><a href=\"#guardian-settings-panel\" data-guardian-target=\"settings\" data-student=\"f562cb25ef544b249a706d72ec1fc6dc\" aria-describedby=\"guardian-student-f562cb25ef544b249a706d72ec1fc6dc\">설정</a></article>"
+      }
+    ]
+  },
+  "sameNameAX": [
+    {
+      "role": "DisclosureTriangle",
+      "name": "실행 정보"
+    },
+    {
+      "role": "status",
+      "name": ""
+    },
+    {
+      "role": "DisclosureTriangle",
+      "name": "도움"
+    },
+    {
+      "role": "article",
+      "name": "동명이인"
+    },
+    {
+      "role": "article",
+      "name": "동명이인"
+    },
+    {
+      "role": "DisclosureTriangle",
+      "name": "새 학생 계정 만들기"
+    },
+    {
+      "role": "DisclosureTriangle",
+      "name": "학생별 기본 설정"
+    },
+    {
+      "role": "DisclosureTriangle",
+      "name": "샘플로 연습하기"
+    },
+    {
+      "role": "DisclosureTriangle",
+      "name": "준비 현황은 어떻게 바뀌나요?"
+    },
+    {
+      "role": "DisclosureTriangle",
+      "name": "계정 전환·저장·API 연결 안내"
+    },
+    {
+      "role": "DisclosureTriangle",
+      "name": "학습 현황",
+      "description": "동명이인"
+    },
+    {
+      "role": "status",
+      "name": ""
+    },
+    {
+      "role": "DisclosureTriangle",
+      "name": "학습 현황",
+      "description": "동명이인"
+    },
+    {
+      "role": "status",
+      "name": ""
+    }
+  ],
+  "replaced": {
+    "connected": false,
+    "oldMarker": false,
+    "newMarker": false,
+    "focus": "portal-feedback"
+  },
+  "beforeStale401": {
+    "role": "student",
+    "focus": "student-list-open"
+  },
+  "afterStale401": {
+    "role": null,
+    "bodyRole": "signed-out",
+    "focus": "portal-feedback",
+    "loginVisible": true,
+    "serverMe": {
+      "status": 200,
+      "data": {
+        "id": "25fc9b9e871c4bac90bc810210715127",
+        "username": "audit.student.a",
+        "name": "동명이인",
+        "role": "student",
+        "guardian": "75ce97695d6d4fb49d17db98a69f0871",
+        "onboarded": 1,
+        "settings": {
+          "auto_description": true,
+          "problem_mode": true,
+          "speech_rate": 0.95,
+          "speech_volume": 0.9,
+          "reader_mode": false,
+          "focus_voice": true
+        }
+      }
+    }
+  },
+  "fileAfterLink": {
+    "source": "file",
+    "link": "",
+    "consent": false,
+    "consentDisabled": true,
+    "pressed": [
+      {
+        "kind": "file",
+        "pressed": null
+      },
+      {
+        "kind": "sample",
+        "pressed": "false"
+      },
+      {
+        "kind": "link",
+        "pressed": "false"
+      },
+      {
+        "kind": "file",
+        "pressed": "true"
+      }
+    ],
+    "events": [
+      {
+        "id": "video-file",
+        "type": "change",
+        "source": "file"
+      },
+      {
+        "id": "video-file",
+        "type": "change",
+        "source": "link"
+      },
+      {
+        "id": "video-url",
+        "type": "input",
+        "source": "link"
+      },
+      {
+        "id": "video-url",
+        "type": "input",
+        "source": "link"
+      },
+      {
+        "id": "video-url",
+        "type": "input",
+        "source": "link"
+      },
+      {
+        "id": "video-url",
+        "type": "input",
+        "source": "link"
+      },
+      {
+        "id": "video-url",
+        "type": "input",
+        "source": "link"
+      },
+      {
+        "id": "video-url",
+        "type": "input",
+        "source": "link"
+      },
+      {
+        "id": "video-url",
+        "type": "input",
+        "source": "link"
+      },
+      {
+        "id": "video-url",
+        "type": "input",
+        "source": "link"
+      },
+      {
+        "id": "video-url",
+        "type": "input",
+        "source": "link"
+      },
+      {
+        "id": "video-url",
+        "type": "input",
+        "source": "link"
+      },
+      {
+        "id": "video-url",
+        "type": "input",
+        "source": "link"
+      },
+      {
+        "id": "video-url",
+        "type": "input",
+        "source": "link"
+      },
+      {
+        "id": "video-url",
+        "type": "input",
+        "source": "link"
+      },
+      {
+        "id": "video-url",
+        "type": "input",
+        "source": "link"
+      },
+      {
+        "id": "video-url",
+        "type": "input",
+        "source": "link"
+      },
+      {
+        "id": "video-url",
+        "type": "input",
+        "source": "link"
+      },
+      {
+        "id": "video-url",
+        "type": "input",
+        "source": "link"
+      },
+      {
+        "id": "video-url",
+        "type": "input",
+        "source": "link"
+      },
+      {
+        "id": "video-url",
+        "type": "input",
+        "source": "link"
+      },
+      {
+        "id": "video-url",
+        "type": "input",
+        "source": "link"
+      },
+      {
+        "id": "video-url",
+        "type": "input",
+        "source": "link"
+      },
+      {
+        "id": "video-url",
+        "type": "input",
+        "source": "link"
+      },
+      {
+        "id": "video-url",
+        "type": "input",
+        "source": "link"
+      },
+      {
+        "id": "video-url",
+        "type": "input",
+        "source": "link"
+      },
+      {
+        "id": "video-url",
+        "type": "input",
+        "source": "link"
+      },
+      {
+        "id": "video-url",
+        "type": "input",
+        "source": "link"
+      },
+      {
+        "id": "video-url",
+        "type": "input",
+        "source": "link"
+      },
+      {
+        "id": "video-url",
+        "type": "input",
+        "source": "link"
+      },
+      {
+        "id": "video-url",
+        "type": "input",
+        "source": "link"
+      },
+      {
+        "id": "video-url",
+        "type": "input",
+        "source": "link"
+      },
+      {
+        "id": "video-url",
+        "type": "input",
+        "source": "link"
+      },
+      {
+        "id": "material-files",
+        "type": "change",
+        "source": "link"
+      },
+      {
+        "id": "video-url",
+        "type": "change",
+        "source": "link"
+      },
+      {
+        "id": "video-url",
+        "type": "input",
+        "source": "file"
+      }
+    ]
+  },
+  "review": {
+    "text": "강의 제목Sullivan AI 접근성 데모 강의과목통합 학습자료학습자료만 준비보조 자료fixture.txt분석 동의동의하지 않음",
+    "focus": "wizard-title-3",
+    "rightsDisabled": false
+  },
+  "sampleAfterFile": {
+    "source": "sample",
+    "link": "",
+    "video": 0,
+    "materials": 0,
+    "consent": false,
+    "disabled": true,
+    "focus": "sample",
+    "events": [
+      {
+        "id": "video-file",
+        "type": "change",
+        "source": "file"
+      },
+      {
+        "id": "video-file",
+        "type": "change",
+        "source": "link"
+      },
+      {
+        "id": "video-url",
+        "type": "input",
+        "source": "link"
+      },
+      {
+        "id": "video-url",
+        "type": "input",
+        "source": "link"
+      },
+      {
+        "id": "video-url",
+        "type": "input",
+        "source": "link"
+      },
+      {
+        "id": "video-url",
+        "type": "input",
+        "source": "link"
+      },
+      {
+        "id": "video-url",
+        "type": "input",
+        "source": "link"
+      },
+      {
+        "id": "video-url",
+        "type": "input",
+        "source": "link"
+      },
+      {
+        "id": "video-url",
+        "type": "input",
+        "source": "link"
+      },
+      {
+        "id": "video-url",
+        "type": "input",
+        "source": "link"
+      },
+      {
+        "id": "video-url",
+        "type": "input",
+        "source": "link"
+      },
+      {
+        "id": "video-url",
+        "type": "input",
+        "source": "link"
+      },
+      {
+        "id": "video-url",
+        "type": "input",
+        "source": "link"
+      },
+      {
+        "id": "video-url",
+        "type": "input",
+        "source": "link"
+      },
+      {
+        "id": "video-url",
+        "type": "input",
+        "source": "link"
+      },
+      {
+        "id": "video-url",
+        "type": "input",
+        "source": "link"
+      },
+      {
+        "id": "video-url",
+        "type": "input",
+        "source": "link"
+      },
+      {
+        "id": "video-url",
+        "type": "input",
+        "source": "link"
+      },
+      {
+        "id": "video-url",
+        "type": "input",
+        "source": "link"
+      },
+      {
+        "id": "video-url",
+        "type": "input",
+        "source": "link"
+      },
+      {
+        "id": "video-url",
+        "type": "input",
+        "source": "link"
+      },
+      {
+        "id": "video-url",
+        "type": "input",
+        "source": "link"
+      },
+      {
+        "id": "video-url",
+        "type": "input",
+        "source": "link"
+      },
+      {
+        "id": "video-url",
+        "type": "input",
+        "source": "link"
+      },
+      {
+        "id": "video-url",
+        "type": "input",
+        "source": "link"
+      },
+      {
+        "id": "video-url",
+        "type": "input",
+        "source": "link"
+      },
+      {
+        "id": "video-url",
+        "type": "input",
+        "source": "link"
+      },
+      {
+        "id": "video-url",
+        "type": "input",
+        "source": "link"
+      },
+      {
+        "id": "video-url",
+        "type": "input",
+        "source": "link"
+      },
+      {
+        "id": "video-url",
+        "type": "input",
+        "source": "link"
+      },
+      {
+        "id": "video-url",
+        "type": "input",
+        "source": "link"
+      },
+      {
+        "id": "video-url",
+        "type": "input",
+        "source": "link"
+      },
+      {
+        "id": "video-url",
+        "type": "input",
+        "source": "link"
+      },
+      {
+        "id": "material-files",
+        "type": "change",
+        "source": "link"
+      },
+      {
+        "id": "video-url",
+        "type": "change",
+        "source": "link"
+      },
+      {
+        "id": "video-url",
+        "type": "input",
+        "source": "file"
+      },
+      {
+        "id": "video-file",
+        "type": "change",
+        "source": "sample"
+      },
+      {
+        "id": "video-url",
+        "type": "input",
+        "source": "sample"
+      },
+      {
+        "id": "material-files",
+        "type": "change",
+        "source": "sample"
+      }
+    ]
+  },
+  "guide": {
+    "brokenRefs": [],
+    "images": [
+      {
+        "src": "/intro/img/guardian-login.png",
+        "naturalWidth": 620,
+        "alt": "처음 보호자 계정 만들기 화면의 로그인 이름, 비밀번호, 보호자 이름 입력칸",
+        "label": "1단계 보호자 최초 설정 화면 원래 크기로 보기"
+      },
+      {
+        "src": "/intro/img/guardian-student.png",
+        "naturalWidth": 814,
+        "alt": "학생 이름, 로그인 이름, 비밀번호를 입력하고 학생 계정을 만드는 보호자 화면",
+        "label": "2단계 학생 계정 만들기 화면 원래 크기로 보기"
+      },
+      {
+        "src": "/intro/img/guardian-settings.png",
+        "naturalWidth": 814,
+        "alt": "학습 보호, 앱 음성·스크린리더 모드, 읽기 속도와 음량을 선택하는 학생별 설정",
+        "label": "3단계 학생별 기본 설정 화면 원래 크기로 보기"
+      },
+      {
+        "src": "/intro/img/guardian-prepare.png",
+        "naturalWidth": 880,
+        "alt": "강의 등록 1단계의 제목·과목·출처와 우선 분석 모드 입력칸",
+        "label": "4단계 강의 자료 준비 화면 원래 크기로 보기"
+      },
+      {
+        "src": "/intro/img/guardian-prepare-step2.png",
+        "naturalWidth": 880,
+        "alt": "강의 등록 2단계: 자료 출처를 고르는 영상·자료와 동의 화면",
+        "label": "강의 등록 2단계 원래 크기로 보기"
+      },
+      {
+        "src": "/intro/img/guardian-prepare-step3.png",
+        "naturalWidth": 880,
+        "alt": "강의 등록 3단계: 샘플 입력 요약과 보호 정책 확인 화면",
+        "label": "강의 등록 3단계 원래 크기로 보기"
+      },
+      {
+        "src": "/intro/img/guardian-review.png",
+        "naturalWidth": 962,
+        "alt": "사전 준비된 샘플 결과의 핵심 내용, 화면으로만 제시된 정보, 강조 문장과 다시 볼 구간을 확인하는 화면 정보 복습 화면",
+        "label": "5단계 샘플 결과 복습 화면 원래 크기로 보기"
+      },
+      {
+        "src": "/intro/img/guardian-assign.png",
+        "naturalWidth": 1100,
+        "alt": "강의 제목·과목과 배정 학생을 확인하고 배정하고 준비 완료를 누르는 보호자 화면",
+        "label": "6단계 학생에게 배정하기 화면 원래 크기로 보기"
+      },
+      {
+        "src": "/intro/img/student-home.png",
+        "naturalWidth": 1040,
+        "alt": "큰 활동 버튼 네 개와 배정된 샘플 강의가 있는 실제 학생 학습 시작 화면",
+        "label": "7단계 학생 학습 시작 화면 원래 크기로 보기"
+      },
+      {
+        "src": "/intro/img/student-help.png",
+        "naturalWidth": 1040,
+        "alt": "버튼 이동, 강의 고르기, 빠른 명령과 타자 입력을 다시 안내하는 실제 학생 사용법 화면",
+        "label": "8단계 학생 사용법 안내 화면 원래 크기로 보기"
+      }
+    ],
+    "status": "8개 단계를 모두 펼쳤습니다.",
+    "states": [
+      {
+        "expanded": "true",
+        "hidden": false
+      },
+      {
+        "expanded": "true",
+        "hidden": false
+      },
+      {
+        "expanded": "true",
+        "hidden": false
+      },
+      {
+        "expanded": "true",
+        "hidden": false
+      },
+      {
+        "expanded": "true",
+        "hidden": false
+      },
+      {
+        "expanded": "true",
+        "hidden": false
+      },
+      {
+        "expanded": "true",
+        "hidden": false
+      },
+      {
+        "expanded": "true",
+        "hidden": false
+      }
+    ]
+  },
+  "guideHash": {
+    "focused": "step-title-4",
+    "expanded": "true",
+    "hidden": false
+  }
+}

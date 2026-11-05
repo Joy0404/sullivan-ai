@@ -1,0 +1,23 @@
+{
+  "skill": "forms-specialist",
+  "scope": [
+    "apps/web/role-portal.js:342",
+    "apps/web/role-portal.js:383",
+    "scripts/verify_roles_browser.py:81"
+  ],
+  "findings": [],
+  "passed": [
+    "P1 FORMS-WIZARD-RESET-SOURCE closed: a link plus supplemental TXT remains link mode after home/reopen; URL and consent remain visible, and step-3 review includes the retained URL.",
+    "Focused browser interception confirmed the submitted /video-link URL and analysis consent match the visible link source and review. The request was intercepted before any provider call.",
+    "Switching to file/material mode clears video_url, unchecks and disables text-only analysis consent, omits that consent from FormData, and rebuilds the visible review as 학습자료만 준비 / 동의하지 않음.",
+    "Switching from file to link clears the inactive video input. Source-change handlers completed without recursion or browser errors in the focused scenario.",
+    "Reviewed durable regression in scripts/verify_roles_browser.py: link plus TXT → home/reopen → visible URL/consent → review/FormData agreement → file switch with URL/consent clearing.",
+    "The P1 fix preserves form names, API request structure, authentication and provider settings."
+  ],
+  "notes": [
+    "Read-only recheck of the current working diff on 2026-11-05. No product or test edits made by this review.",
+    "Runtime: Chrome/156.0.8078.80 with Puppeteer against fresh disposable TemporaryDirectory account/usage databases on port 8892. Provider configuration removed; external requests blocked. Configured health was browser-mocked only for payload capture, and /video-link was intercepted with HTTP400.",
+    "Proof: /tmp/final-wizard-fix-recheck-results.json; focused script: /tmp/final-wizard-fix-recheck.cjs. The full durable browser script was reviewed here, not rerun in this focused recheck.",
+    "P1-only scope: previously documented baseline cancellation, username-format-help and reset-label issues were not reclassified or expanded."
+  ]
+}

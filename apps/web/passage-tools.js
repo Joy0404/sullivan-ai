@@ -65,6 +65,8 @@
     const normalized = normalize(query);
     if (!normalized) return { type: "empty", items: [], speech: "문단 명령을 말하거나 입력해 주세요." };
 
+    if (/전체지문|전체문단/.test(normalized)) return {type:"paragraph",items:paragraphs,speech:paragraphs.map(paragraphSpeech).join(" ")};
+
     if (normalized.includes("밑줄") || normalized.includes("표시한문단") || normalized.includes("저장한문단")) {
       const items = paragraphs.filter((paragraph) => underlinedIds.has(paragraph.paragraph_id));
       return items.length
@@ -99,5 +101,5 @@
       : { type: "not-found", items: [], speech: `“${query}”과 연결된 문단을 찾지 못했습니다. 2문단, 다음 문단, 전체 흐름, 밑줄 친 문단처럼 말해 주세요.` };
   }
 
-  return { normalize, paragraphsForSnapshot, paragraphSpeech, flowSpeech, resolveCommand };
+  return { normalize, findByOrdinal, paragraphsForSnapshot, paragraphSpeech, flowSpeech, resolveCommand };
 });

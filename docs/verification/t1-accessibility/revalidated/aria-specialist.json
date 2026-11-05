@@ -1,0 +1,25 @@
+{
+  "skill": "aria-specialist",
+  "scope": [
+    "apps/web/intro/index.html",
+    "apps/web/guide/index.html",
+    "apps/web/guide/guide.js",
+    "apps/web/intro.css"
+  ],
+  "findings": [],
+  "passed": [
+    "Native anchors/buttons/details-summary are used for links, accordion controls, and FAQ disclosure; no redundant implicit roles.",
+    "Chrome runtime: all aria-controls/labelledby/describedby references resolve in both routes.",
+    "Chrome accessibility tree: 8 named per-step buttons and one named expand-all button expose expanded state.",
+    "Chrome runtime: per-step Enter/Space and expand-all Enter/Space keep aria-expanded synchronized with panel hidden state.",
+    "Chrome runtime: hashchange opens selected step and focuses its toggle; same-hash activation reopens a collapsed selected step; initial hash opens requested step.",
+    "Chrome runtime: FAQ native details toggles with Enter/Space.",
+    "Code inspection: decorative SVG icons and visual expand/collapse helper words are aria-hidden, while the step number remains in the accessible button label.",
+    "Chrome runtime: JavaScript disabled leaves all eight guide panels readable and enhancement-only expand-all control hidden."
+  ],
+  "notes": [
+    "Revalidation used a temporary static HTTP server on localhost:8897 and headless Chrome. Evidence: /tmp/sullivan-t1-work/revalidated/aria-live-runtime.json.",
+    "No actual VoiceOver/NVDA audio testing was performed.",
+    "The introduction has four named major content regions within main; these are the product behavior, safety, student preview and FAQ sections, with no nested named region proliferation."
+  ]
+}

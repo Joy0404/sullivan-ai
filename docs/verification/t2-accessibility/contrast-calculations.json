@@ -1,0 +1,188 @@
+[
+  {
+    "fg": "ink",
+    "bg": "paper",
+    "ratio": 14.09,
+    "threshold": 4.5
+  },
+  {
+    "fg": "ink",
+    "bg": "canvas",
+    "ratio": 12.62,
+    "threshold": 4.5
+  },
+  {
+    "fg": "ink",
+    "bg": "brand-soft",
+    "ratio": 12.26,
+    "threshold": 4.5
+  },
+  {
+    "fg": "ink",
+    "bg": "amber-soft",
+    "ratio": 12.69,
+    "threshold": 4.5
+  },
+  {
+    "fg": "muted",
+    "bg": "paper",
+    "ratio": 6.91,
+    "threshold": 4.5
+  },
+  {
+    "fg": "muted",
+    "bg": "canvas",
+    "ratio": 6.19,
+    "threshold": 4.5
+  },
+  {
+    "fg": "muted",
+    "bg": "brand-soft",
+    "ratio": 6.01,
+    "threshold": 4.5
+  },
+  {
+    "fg": "muted",
+    "bg": "amber-soft",
+    "ratio": 6.22,
+    "threshold": 4.5
+  },
+  {
+    "fg": "brand",
+    "bg": "paper",
+    "ratio": 8.7,
+    "threshold": 4.5
+  },
+  {
+    "fg": "brand",
+    "bg": "canvas",
+    "ratio": 7.79,
+    "threshold": 4.5
+  },
+  {
+    "fg": "brand",
+    "bg": "brand-soft",
+    "ratio": 7.57,
+    "threshold": 4.5
+  },
+  {
+    "fg": "brand",
+    "bg": "amber-soft",
+    "ratio": 7.84,
+    "threshold": 4.5
+  },
+  {
+    "fg": "green",
+    "bg": "paper",
+    "ratio": 8.4,
+    "threshold": 4.5
+  },
+  {
+    "fg": "green",
+    "bg": "canvas",
+    "ratio": 7.53,
+    "threshold": 4.5
+  },
+  {
+    "fg": "green",
+    "bg": "brand-soft",
+    "ratio": 7.31,
+    "threshold": 4.5
+  },
+  {
+    "fg": "green",
+    "bg": "amber-soft",
+    "ratio": 7.57,
+    "threshold": 4.5
+  },
+  {
+    "fg": "amber",
+    "bg": "paper",
+    "ratio": 7.98,
+    "threshold": 4.5
+  },
+  {
+    "fg": "amber",
+    "bg": "canvas",
+    "ratio": 7.15,
+    "threshold": 4.5
+  },
+  {
+    "fg": "amber",
+    "bg": "brand-soft",
+    "ratio": 6.94,
+    "threshold": 4.5
+  },
+  {
+    "fg": "amber",
+    "bg": "amber-soft",
+    "ratio": 7.18,
+    "threshold": 4.5
+  },
+  {
+    "fg": "red",
+    "bg": "paper",
+    "ratio": 7.31,
+    "threshold": 4.5
+  },
+  {
+    "fg": "red",
+    "bg": "canvas",
+    "ratio": 6.55,
+    "threshold": 4.5
+  },
+  {
+    "fg": "red",
+    "bg": "brand-soft",
+    "ratio": 6.36,
+    "threshold": 4.5
+  },
+  {
+    "fg": "red",
+    "bg": "amber-soft",
+    "ratio": 6.59,
+    "threshold": 4.5
+  },
+  {
+    "fg": "focus",
+    "bg": "paper",
+    "ratio": 6.96,
+    "threshold": 3
+  },
+  {
+    "fg": "focus",
+    "bg": "canvas",
+    "ratio": 6.24,
+    "threshold": 3
+  },
+  {
+    "fg": "focus",
+    "bg": "brand-soft",
+    "ratio": 6.06,
+    "threshold": 3
+  },
+  {
+    "fg": "focus",
+    "bg": "amber-soft",
+    "ratio": 6.27,
+    "threshold": 3
+  },
+  {
+    "fg": "paper",
+    "bg": "brand",
+    "ratio": 8.7,
+    "threshold": 4.5
+  },
+  {
+    "fg": "paper",
+    "bg": "ink",
+    "ratio": 14.09,
+    "threshold": 4.5
+  },
+  {
+    "fg": "control",
+    "bg": "paper",
+    "ratio": 3.7,
+    "threshold": 3
+  }
+]

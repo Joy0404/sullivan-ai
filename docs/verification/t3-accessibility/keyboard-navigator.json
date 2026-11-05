@@ -1,0 +1,26 @@
+{
+  "skill": "keyboard-navigator",
+  "scope": [
+    "apps/web/index.html #lecture-form",
+    "apps/web/role-portal.js:prepare",
+    "apps/web/guardian-design.css T3 rules"
+  ],
+  "findings": [],
+  "passed": [
+    "Prepare focuses step heading with numbered-step description",
+    "Required step-1 field focuses invalid visible input and associates inline error",
+    "Enter in input advances current step without reaching existing analyzer",
+    "Back/forward preserves previously entered title",
+    "Missing and invalid link are rejected in step 2 with focus",
+    "Material-only TXT path requires no video/cloud consent/code and reaches original submit handler; native file chooser remains keyboard-accessible",
+    "Sample submits to existing sample function, not real analyzer; prior source files cleared explicitly on mode choice",
+    "320px: visible native wizard controls reachable by actual Tab, hidden panels not focused",
+    "390px: visible native wizard controls reachable by actual Tab, hidden panels not focused",
+    "1280px: visible native wizard controls reachable by actual Tab, hidden panels not focused"
+  ],
+  "notes": [
+    "Runtime used an isolated current-source DOM fixture with the analyzer/sample boundaries mocked; no API authentication or writes.",
+    "Actual VoiceOver/NVDA speech was not tested.",
+    "Detailed runtime evidence: /tmp/sullivan-t3-work/review/forms-keyboard-runtime.json."
+  ]
+}

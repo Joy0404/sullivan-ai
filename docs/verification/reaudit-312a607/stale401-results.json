@@ -1,0 +1,57 @@
+{
+  "errors": [],
+  "before": {
+    "user": {
+      "role": "student",
+      "id": "25fc9b9e871c4bac90bc810210715127"
+    },
+    "role": "student",
+    "focus": "student-list-open",
+    "feedback": "",
+    "me": {
+      "status": 200,
+      "data": {
+        "id": "25fc9b9e871c4bac90bc810210715127",
+        "username": "audit.student.a",
+        "name": "동명이인",
+        "role": "student",
+        "guardian": "75ce97695d6d4fb49d17db98a69f0871",
+        "onboarded": 1,
+        "settings": {
+          "auto_description": true,
+          "problem_mode": true,
+          "speech_rate": 0.95,
+          "speech_volume": 0.9,
+          "reader_mode": false,
+          "focus_voice": false
+        }
+      }
+    }
+  },
+  "after": {
+    "user": null,
+    "role": "signed-out",
+    "focus": "login-role-student",
+    "loginVisible": true,
+    "feedback": "",
+    "me": {
+      "status": 200,
+      "data": {
+        "id": "25fc9b9e871c4bac90bc810210715127",
+        "username": "audit.student.a",
+        "name": "동명이인",
+        "role": "student",
+        "guardian": "75ce97695d6d4fb49d17db98a69f0871",
+        "onboarded": 1,
+        "settings": {
+          "auto_description": true,
+          "problem_mode": true,
+          "speech_rate": 0.95,
+          "speech_volume": 0.9,
+          "reader_mode": false,
+          "focus_voice": false
+        }
+      }
+    }
+  }
+}

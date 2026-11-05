@@ -1,0 +1,42 @@
+{
+  "skill": "alt-text-headings",
+  "scope": [
+    "apps/web/intro/index.html",
+    "apps/web/guide/index.html"
+  ],
+  "findings": [
+    {
+      "rule": "ALT-ACCURACY-001",
+      "wcag": "1.1.1 A",
+      "severity": "minor",
+      "location": "apps/web/intro/index.html:61",
+      "summary": "The description screenshot alt text claims listening controls are shown, but the image contains only the prepared description and timestamp.",
+      "fix": "Replace the alt with an accurate contextual description, for example “샘플의 현재 화면 해설. 오늘 다룰 내용이 순서대로 제시되었다는 설명과 0:12 시각이 보입니다.”",
+      "evidence": "alt=\"샘플의 현재 화면 해설과 설명을 들을 수 있는 조작 화면\"; student-description.png contains no controls."
+    },
+    {
+      "rule": "ALT-INSTRUCTIONS-002",
+      "wcag": "1.1.1 A",
+      "severity": "moderate",
+      "location": "apps/web/guide/index.html:69",
+      "summary": "Step 4 omits the final analysis action from its text, leaving the screenshot as the only place that names the submission control.",
+      "fix": "After the prerequisites, add text explaining that configured users confirm rights and consent, then activate “선택한 자료 실제 분석”; explain the sample-only fallback without suggesting that a sample analyzes uploaded video.",
+      "evidence": "guardian-prepare.png shows “선택한 자료 실제 분석”; Step 4 prose stops at choosing inputs and explaining prerequisites."
+    }
+  ],
+  "passed": [
+    "Each page has exactly one h1 and a logical h1 → h2 → h3 outline without skipped heading levels.",
+    "Both pages have unique descriptive titles and html lang=\"ko\".",
+    "Both pages use a semantic header, one main, a page footer and a skip link to main.",
+    "The guide distinguishes its two navigation landmarks as “주 메뉴” and “가이드 단계”.",
+    "All 14 img occurrences have meaningful alt text; the 12 distinct referenced screenshots were visually inspected.",
+    "Decorative inline SVGs are hidden from assistive technology.",
+    "Screenshots use figure and figcaption, and guide image links describe opening the original-size screen.",
+    "Core sample preparation, student creation and assignment instructions appear in text outside the screenshots.",
+    "Sample screenshots are explicitly identified as prepared sample results, and the text states that no new video analysis occurred."
+  ],
+  "notes": [
+    "Source and screenshot review only; actual screen-reader announcements and browser accessibility trees were not exercised.",
+    "guide.js was read only to confirm its enhancement preserves h2 headings and moves existing heading text into native buttons."
+  ]
+}

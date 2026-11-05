@@ -1,0 +1,112 @@
+{
+  "baseline": false,
+  "initial_entry": {
+    "playing": false,
+    "calls": [
+      "cue"
+    ]
+  },
+  "restored_entry": {
+    "playing": false,
+    "position_ms": 92000,
+    "calls": [
+      "cue"
+    ]
+  },
+  "preference_layouts": [
+    {
+      "width": 320,
+      "overflow": false,
+      "overlaps": [],
+      "checks": [
+        {
+          "id": "auto-narration",
+          "width": 24,
+          "padding": "0px"
+        },
+        {
+          "id": "focus-voice",
+          "width": 24,
+          "padding": "0px"
+        },
+        {
+          "id": "reader-mode",
+          "width": 24,
+          "padding": "0px"
+        }
+      ],
+      "testButtonBackground": "rgb(255, 255, 255)"
+    },
+    {
+      "width": 390,
+      "overflow": false,
+      "overlaps": [],
+      "checks": [
+        {
+          "id": "auto-narration",
+          "width": 24,
+          "padding": "0px"
+        },
+        {
+          "id": "focus-voice",
+          "width": 24,
+          "padding": "0px"
+        },
+        {
+          "id": "reader-mode",
+          "width": 24,
+          "padding": "0px"
+        }
+      ],
+      "testButtonBackground": "rgb(255, 255, 255)"
+    },
+    {
+      "width": 640,
+      "overflow": false,
+      "overlaps": [],
+      "checks": [
+        {
+          "id": "auto-narration",
+          "width": 24,
+          "padding": "0px"
+        },
+        {
+          "id": "focus-voice",
+          "width": 24,
+          "padding": "0px"
+        },
+        {
+          "id": "reader-mode",
+          "width": 24,
+          "padding": "0px"
+        }
+      ],
+      "testButtonBackground": "rgb(255, 255, 255)"
+    },
+    {
+      "width": 1280,
+      "overflow": false,
+      "overlaps": [],
+      "checks": [
+        {
+          "id": "auto-narration",
+          "width": 24,
+          "padding": "0px"
+        },
+        {
+          "id": "focus-voice",
+          "width": 24,
+          "padding": "0px"
+        },
+        {
+          "id": "reader-mode",
+          "width": 24,
+          "padding": "0px"
+        }
+      ],
+      "testButtonBackground": "rgb(255, 255, 255)"
+    }
+  ],
+  "page_errors": [],
+  "scope": "real Chromium and temporary accounts; documented YouTube CUED behavior simulated; no actual screen reader or live provider/audio"
+}

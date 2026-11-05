@@ -12,7 +12,9 @@ RUN pip install -r requirements.txt
 COPY apps/api/app ./app
 COPY apps/web /app/apps/web
 
-RUN useradd --create-home --uid 10001 sullivan
+# app.launch drops to this user; provision only the two private SQLite directories.
+RUN useradd --create-home --uid 10001 sullivan \
+    && install -d -m 0700 -o sullivan -g sullivan /app/data/private /app/apps/api/data
 USER root
 
 EXPOSE 10000

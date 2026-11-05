@@ -1,0 +1,28 @@
+{
+  "skill": "keyboard-navigator",
+  "scope": [
+    "apps/web/intro/index.html",
+    "apps/web/guide/index.html",
+    "apps/web/guide/guide.js",
+    "apps/web/intro.css",
+    "http://127.0.0.1:8873/intro/",
+    "http://127.0.0.1:8873/guide/"
+  ],
+  "findings": [],
+  "passed": [
+    "Runtime Chrome, widths 320/390/1280: real Tab traversal reaches every visible link, native summary and button in each default page state; hidden guide panels are absent from the Tab order.",
+    "Runtime Chrome, widths 320/390/1280: first Tab reaches the skip link; Enter focuses main; focused controls remain inside the viewport with an immediate solid 4px outline.",
+    "Runtime Chrome, widths 320/390/1280: native FAQ summaries and guide disclosure buttons toggle with Enter and Space.",
+    "Runtime Chrome, widths 320/390/1280: expand-all and collapse-all respond to Enter and Space, and hidden state matches the visible accordion state.",
+    "Runtime Chrome, widths 320/390/1280: keyboard activation of guide step links opens the requested panel and focuses its toggle; activating a same-hash link reopens a collapsed panel; direct initial #step-7 URL opens that step.",
+    "Runtime Chrome, widths 320/390/1280: all-expanded intro FAQ and guide states support full forward Tab and backward Shift+Tab traversal with no hidden targets, missing focus indicator or keyboard trap.",
+    "Runtime Chrome with JavaScript disabled: all eight guide sections remain visible, the inactive expand-all control remains hidden, and the skip link focuses main.",
+    "Static inspection: no positive tabindex, custom arrow-key widget, keyboard shortcut interception, or modal requiring additional focus trapping is introduced."
+  ],
+  "notes": [
+    "Saved findings: /tmp/sullivan-t1-work/revalidated/keyboard-navigator.json.",
+    "Runtime evidence: /tmp/sullivan-t1-work/revalidated/keyboard-runtime-results.json (13 grouped checks) and keyboard-expanded-results.json (12 traversal checks). Browser: Chrome/156.0.8078.80.",
+    "Independent temporary static server at 127.0.0.1:8873 served the actual app web files; no application files were edited. No authenticated guardian/sample assignment flow is included in this specialist scope.",
+    "Actual VoiceOver/NVDA speech and assistive-technology interaction were not tested. Computed keyboard focus and keyboard-driven browser behavior were tested."
+  ]
+}

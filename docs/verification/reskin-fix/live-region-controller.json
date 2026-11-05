@@ -1,0 +1,18 @@
+{
+  "skill": "live-region-controller",
+  "scope": [
+    "apps/web/role-portal.js:198-225"
+  ],
+  "findings": [],
+  "passed": [
+    "Closed LIVE-PROGRESS-STUDENT-CONTEXT: all three concurrent loading messages included their corresponding student name.",
+    "Returned empty results, HTTP500, and populated results to three simultaneously open disclosures while focus remained on #guardian-prepare; each completion message identified its corresponding student.",
+    "Observed exactly six status text mutations: one loading and one completion per disclosure, with no page errors.",
+    "Chrome accessibility tree retained polite atomic role=status semantics and exposed each student name in the status text."
+  ],
+  "notes": [
+    "Targeted read-only recheck of the current working diff; no broader scan or product edits.",
+    "Evidence: /tmp/sullivan-aria-recheck-results.json. Used fresh disposable SQLite accounts on port 8893, mocked playback, and blocked external requests.",
+    "Verification covers DOM, focus, and Chrome accessibility-tree output; no VoiceOver or NVDA speech session was run."
+  ]
+}

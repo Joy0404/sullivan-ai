@@ -1,0 +1,20 @@
+{
+  "notice_pauses_before_speech_and_resumes": true,
+  "waits_for_delayed_provider_pause": true,
+  "unconfirmed_provider_pause_withholds_speech": true,
+  "paused_lecture_stays_paused": true,
+  "rapid_navigation_ignores_stale_completion": true,
+  "explicit_pause_stop_and_home_prevent_resume": true,
+  "speech_failure_and_start_timeout_release_hold": true,
+  "arrow_seek_and_start_boundary": true,
+  "editing_select_modifiers_dialog_preserved": true,
+  "native_tab_shift_and_shift_tab_skip_embedded_controls": true,
+  "native_video_controls_skipped": true,
+  "guardian_controls_restored": true,
+  "external_reader_requires_explicit_resume": true,
+  "actual_native_video_pause_resume": true,
+  "replaces_prior_explanation_without_stale_token": true,
+  "page_errors": [],
+  "actual_screen_reader_and_heard_audio": "not tested",
+  "providers": "YouTube/TTS mocked; twelve controls in a real cross-origin iframe fixture; no Gemini calls"
+}

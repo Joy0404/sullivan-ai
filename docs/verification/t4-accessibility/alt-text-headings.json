@@ -1,0 +1,22 @@
+{
+  "skill": "alt-text-headings",
+  "scope": [
+    "apps/web/index.html guardian-result-summary/guardian-publish",
+    "apps/web/workspace-design.css T4 guardian rules",
+    "apps/web/role-portal.js loadGuardian display mapping"
+  ],
+  "findings": [],
+  "passed": [
+    "One visible result H1 precedes tab navigation and the current H2 panel, with H3 subheads where needed and the final assignment H2.",
+    "New result summary and assignment block expose descriptive section labels.",
+    "The moved assignment controls occur after result content in DOM order.",
+    "Summary quantities are text in a description list, not color or decorative marks.",
+    "The fixed assignment link has a clear text label and a real heading fragment destination.",
+    "No new meaningful images or unlabeled decorative icons were introduced; the shared existing media placeholder uses existing labeled controls.",
+    "Korean page language, application title, skip link and main landmark are preserved."
+  ],
+  "notes": [
+    "Independent script-free preview and source review; parent owns actual authenticated mapping/flow tests.",
+    "Actual VoiceOver/NVDA speech not tested."
+  ]
+}

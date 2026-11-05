@@ -1,0 +1,23 @@
+{
+  "skill": "aria-specialist",
+  "scope": [
+    "apps/web/index.html guardian-result-summary/guardian-publish",
+    "apps/web/role-portal.js loadGuardian presentation observer",
+    "apps/web/workspace-design.css T4"
+  ],
+  "findings": [
+    {
+      "rule": "ARIA-IDENTITY-LABEL-MAP",
+      "wcag": "n/a",
+      "severity": "minor",
+      "location": "apps/web/role-portal.js guardianPresentation SHOW_TEXT loop",
+      "summary": "The jargon mapping also rewrites generated student identities, changing a checkbox accessible name when the name contains a mapped phrase.",
+      "fix": "Skip text nodes whose parent is inside #publish-students; keep generated identity labels verbatim.",
+      "evidence": "Student checkbox text 체험 코드 (example) becomes 체험 비밀번호 (실제 분석에만 필요) (example)."
+    }
+  ],
+  "notes": [
+    "Confirmed in isolated Chrome fixture; no authentication or API mutation.",
+    "The first-result focus and stale-role restoration concerns were corrected during review."
+  ]
+}

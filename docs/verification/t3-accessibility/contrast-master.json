@@ -1,0 +1,24 @@
+{
+  "skill": "contrast-master",
+  "scope": [
+    "apps/web/index.html #lecture-form",
+    "apps/web/guardian-design.css T3 rules",
+    "apps/web/role-portal.js prepare"
+  ],
+  "findings": [],
+  "passed": [
+    "Current source and independent Chrome recheck: all15 stage/source/width combinations at320/390/1280 have no wizard text below18px.",
+    "Preferred-mode/sample selects, Gemini disclosure and all other non-checkbox wizard controls meet the requested48px minimum after stronger selector fixes.",
+    "Nine measured text/background pairs pass4.5:1 AA, minimum6.19:1; primary white/brand8.70:1.",
+    "Focus brown on white/canvas6.96:1/6.24:1; functional control-border on white/canvas3.70:1/3.32:1.",
+    "No horizontal overflow in step1, step2sample/link/file, or step3 previews at320/390/1280.",
+    "Current step/source/error information uses textual labels and semantic states in addition to color.",
+    "New wizard rules introduce no animation, flashing or automatic media playback; inherited guardian focus remains instant4px and forced-colors uses system focus token."
+  ],
+  "notes": [
+    "Initial issues VISUAL-T3-TEXT-SIZE and VISUAL-T3-TARGET-SIZE are resolved; evidence in initial/contrast-master.json and final visual-results.json.",
+    "Read-only, script-free DOM preview with current CSS; no API authentication/writes/provider requests. Parent separately verifies actual interaction and processing.",
+    "Actual VoiceOver/NVDA speech, user-selected OS contrast palette and hardware touch were not tested.",
+    "Contrast evidence: contrast-results.json; visual states: visual-results.json."
+  ]
+}

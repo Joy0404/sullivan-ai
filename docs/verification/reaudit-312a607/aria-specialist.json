@@ -1,0 +1,36 @@
+{
+  "skill": "aria-specialist",
+  "scope": [
+    "apps/web/role-portal.js",
+    "apps/web/index.html",
+    "apps/web/guide/index.html",
+    "apps/web/guide/guide.js",
+    "scripts/verify_roles_browser.py",
+    "scripts/verify_keyboard_navigation.py"
+  ],
+  "findings": [
+    {
+      "rule": "ARIA-STUDENT-IDENTITY",
+      "wcag": "n/a",
+      "severity": "minor",
+      "location": "apps/web/role-portal.js:201",
+      "summary": "Students sharing a display name receive identical roster headings and disclosure descriptions, leaving guardians unable to distinguish their accounts.",
+      "fix": "Use a human-readable unique identity such as `${s.name} (${s.username})` in each roster h3, keeping summaries/settings links described by that h3; use the same identity in progress status strings. Add a duplicate-name regression case.",
+      "evidence": "Created distinct accounts audit.student.a and audit.student.b, both named 동명이인. Chrome AX shows both articles named 동명이인 and both 학습 현황 disclosures described only as 동명이인; neither roster card contains its username. Concurrent status messages also prefix only 동명이인. /tmp/reaudit-312a607/aria-live-results.json",
+      "component": "guardian-student",
+      "confidence": "medium"
+    }
+  ],
+  "passed": [
+    "At published HEAD 312a607b330f2d1aef0311b2477cc54db6b3a478, file→link→file→sample source changes completed without recursion or page errors; source buttons exposed the selected pressed state and inactive sources/consent were cleared.",
+    "Wizard review focused #wizard-title-3 and described the active text-only material source after link removal.",
+    "Updated guide had no broken aria-controls, aria-labelledby, or aria-describedby references; all eight expanded states matched panel visibility.",
+    "All ten guide images decoded successfully and retained nonempty alt text and named image links; same-hash navigation reopened step4 and focused its disclosure."
+  ],
+  "notes": [
+    "The duplicate-name case is a residual T5 identity gap, not a newly introduced regression in the latest fix. This is recorded outside a specific WCAG failure because the labels are valid but insufficiently distinct for the supported account model.",
+    "Actual VoiceOver/NVDA was unavailable; evidence is browser DOM, keyboard focus, and Chrome AX data. No speech output is claimed.",
+    "Used isolated temporary SQLite, disposable accounts on8893, synthetic files, mocked responses, and blocked nonlocal requests. No product edits or private databases.",
+    "Committed browser verification covers source reset/review/FormData cases at scripts/verify_roles_browser.py:81-102, but contains no progress duplicate-name or delayed-progress/auth-switch assertion."
+  ]
+}

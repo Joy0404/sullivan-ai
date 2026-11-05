@@ -1,0 +1,151 @@
+{
+  "method": "Isolated Chrome DOM executing current loadGuardian with mocked in-memory progress promises; no HTTP/auth/backend mutation.",
+  "checks": [
+    "Native disclosure has the student name as description and exposes expanded state; loading status is polite in Chrome AX.",
+    "Completion updates the existing status once, leaves the record list outside the live region and preserves summary focus.",
+    "Native heading/list/description-list structures label location and all counts; missing timestamp is explicit; private note getters stay unread.",
+    "Space toggles the native details; re-opening loaded data does not duplicate the request or announcement.",
+    "Failure gives a persistent polite retry instruction without focus theft; close/re-open retries successfully.",
+    "A pending successful response after role/user switch does not render records or a completion announcement.",
+    "A response for a detached roster disclosure does not update the removed records or status."
+  ],
+  "limitations": [
+    "No actual VoiceOver/NVDA speech tested.",
+    "Parent owns the real API permission tests and authenticated integration."
+  ],
+  "loadingAX": {
+    "summary": [
+      {
+        "name": "학습 현황",
+        "description": "체험 학생",
+        "properties": [
+          {
+            "name": "focusable",
+            "value": {
+              "type": "booleanOrUndefined",
+              "value": true
+            }
+          },
+          {
+            "name": "focused",
+            "value": {
+              "type": "booleanOrUndefined",
+              "value": true
+            }
+          },
+          {
+            "name": "expanded",
+            "value": {
+              "type": "booleanOrUndefined",
+              "value": true
+            }
+          },
+          {
+            "name": "describedby",
+            "value": {
+              "type": "idrefList",
+              "value": "guardian-student-s1",
+              "relatedNodes": [
+                {
+                  "backendDOMNodeId": 159,
+                  "idref": "guardian-student-s1"
+                }
+              ]
+            }
+          }
+        ]
+      }
+    ],
+    "statuses": [
+      {
+        "name": "",
+        "properties": [
+          {
+            "name": "live",
+            "value": {
+              "type": "token",
+              "value": "polite"
+            }
+          },
+          {
+            "name": "atomic",
+            "value": {
+              "type": "boolean",
+              "value": true
+            }
+          },
+          {
+            "name": "relevant",
+            "value": {
+              "type": "tokenList",
+              "value": "additions text"
+            }
+          }
+        ]
+      },
+      {
+        "name": "",
+        "properties": [
+          {
+            "name": "live",
+            "value": {
+              "type": "token",
+              "value": "polite"
+            }
+          },
+          {
+            "name": "atomic",
+            "value": {
+              "type": "boolean",
+              "value": true
+            }
+          },
+          {
+            "name": "relevant",
+            "value": {
+              "type": "tokenList",
+              "value": "additions text"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "records": [
+    {
+      "title": "과학 첫 강의",
+      "labels": [
+        "저장된 위치",
+        "밑줄",
+        "북마크",
+        "메모"
+      ],
+      "values": [
+        "0:43",
+        "2개",
+        "1개",
+        "1개"
+      ],
+      "saved": "마지막 저장: 2026. 11. 5. 오전 9:01"
+    },
+    {
+      "title": "과학 두 강의",
+      "labels": [
+        "저장된 위치",
+        "밑줄",
+        "북마크",
+        "메모"
+      ],
+      "values": [
+        "0:00",
+        "0개",
+        "0개",
+        "0개"
+      ],
+      "saved": "저장 시각 기록 없음"
+    }
+  ],
+  "error": "학습 현황을 불러오지 못했습니다. 접었다가 다시 펼치면 재시도합니다.",
+  "privateReads": 0,
+  "passed": true
+}

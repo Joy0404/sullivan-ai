@@ -1,0 +1,408 @@
+{
+  "task": "T5",
+  "axe": [
+    {
+      "width": 390,
+      "violations": [],
+      "incomplete": [
+        "aria-allowed-role"
+      ]
+    },
+    {
+      "width": 1280,
+      "violations": [],
+      "incomplete": [
+        "aria-allowed-role"
+      ]
+    }
+  ],
+  "checks": [
+    "Keyboard-only guardian setup, student creation and direct sample preparation/assignment",
+    "One lazy GET, native Space toggle, no duplicate fetch on reopen, focus stays on summary",
+    "Real student progress save and guardian reload: position 2:03, scalar counts only, no note/bookmark/underline bodies",
+    "403 failure stays on disclosure, readable status and close/reopen retry succeeds"
+  ],
+  "requests": [
+    {
+      "path": "/",
+      "method": "GET"
+    },
+    {
+      "path": "/styles.css",
+      "method": "GET"
+    },
+    {
+      "path": "/student-design.css",
+      "method": "GET"
+    },
+    {
+      "path": "/guardian-design.css",
+      "method": "GET"
+    },
+    {
+      "path": "/workspace-design.css",
+      "method": "GET"
+    },
+    {
+      "path": "/playback-scheduler.js",
+      "method": "GET"
+    },
+    {
+      "path": "/concept-tools.js",
+      "method": "GET"
+    },
+    {
+      "path": "/passage-tools.js",
+      "method": "GET"
+    },
+    {
+      "path": "/lecture-library.js",
+      "method": "GET"
+    },
+    {
+      "path": "/narration-context.js",
+      "method": "GET"
+    },
+    {
+      "path": "/sample-catalog.js",
+      "method": "GET"
+    },
+    {
+      "path": "/voice-command-router.js",
+      "method": "GET"
+    },
+    {
+      "path": "/app.js",
+      "method": "GET"
+    },
+    {
+      "path": "/space-gesture.js",
+      "method": "GET"
+    },
+    {
+      "path": "/focus-voice.js",
+      "method": "GET"
+    },
+    {
+      "path": "/keyboard-navigation.js",
+      "method": "GET"
+    },
+    {
+      "path": "/role-portal.js",
+      "method": "GET"
+    },
+    {
+      "path": "/tokens.css",
+      "method": "GET"
+    },
+    {
+      "path": "/health",
+      "method": "GET"
+    },
+    {
+      "path": "/local/status",
+      "method": "GET"
+    },
+    {
+      "path": "/favicon.ico",
+      "method": "GET"
+    },
+    {
+      "path": "/local/me",
+      "method": "GET"
+    },
+    {
+      "path": "/local/setup",
+      "method": "POST"
+    },
+    {
+      "path": "/local/students",
+      "method": "GET"
+    },
+    {
+      "path": "/local/lectures",
+      "method": "GET"
+    },
+    {
+      "path": "/local/students",
+      "method": "POST"
+    },
+    {
+      "path": "/local/students",
+      "method": "GET"
+    },
+    {
+      "path": "/local/lectures",
+      "method": "GET"
+    },
+    {
+      "path": "/local/samples/science/assign",
+      "method": "POST"
+    },
+    {
+      "path": "/local/students",
+      "method": "GET"
+    },
+    {
+      "path": "/local/lectures",
+      "method": "GET"
+    },
+    {
+      "path": "/local/students",
+      "method": "GET"
+    },
+    {
+      "path": "/local/lectures",
+      "method": "GET"
+    },
+    {
+      "path": "/local/students/b1de61c642634200b11bd3e6c9fa8f4f/progress",
+      "method": "GET"
+    },
+    {
+      "path": "/local/logout",
+      "method": "POST"
+    },
+    {
+      "path": "/local/login",
+      "method": "POST"
+    },
+    {
+      "path": "/local/lectures/8fe548522dd54491ac962aec444dc1d9/progress",
+      "method": "PUT"
+    },
+    {
+      "path": "/local/logout",
+      "method": "POST"
+    },
+    {
+      "path": "/local/login",
+      "method": "POST"
+    },
+    {
+      "path": "/",
+      "method": "GET"
+    },
+    {
+      "path": "/styles.css",
+      "method": "GET"
+    },
+    {
+      "path": "/student-design.css",
+      "method": "GET"
+    },
+    {
+      "path": "/guardian-design.css",
+      "method": "GET"
+    },
+    {
+      "path": "/workspace-design.css",
+      "method": "GET"
+    },
+    {
+      "path": "/playback-scheduler.js",
+      "method": "GET"
+    },
+    {
+      "path": "/concept-tools.js",
+      "method": "GET"
+    },
+    {
+      "path": "/passage-tools.js",
+      "method": "GET"
+    },
+    {
+      "path": "/lecture-library.js",
+      "method": "GET"
+    },
+    {
+      "path": "/narration-context.js",
+      "method": "GET"
+    },
+    {
+      "path": "/sample-catalog.js",
+      "method": "GET"
+    },
+    {
+      "path": "/voice-command-router.js",
+      "method": "GET"
+    },
+    {
+      "path": "/app.js",
+      "method": "GET"
+    },
+    {
+      "path": "/space-gesture.js",
+      "method": "GET"
+    },
+    {
+      "path": "/focus-voice.js",
+      "method": "GET"
+    },
+    {
+      "path": "/keyboard-navigation.js",
+      "method": "GET"
+    },
+    {
+      "path": "/role-portal.js",
+      "method": "GET"
+    },
+    {
+      "path": "/tokens.css",
+      "method": "GET"
+    },
+    {
+      "path": "/health",
+      "method": "GET"
+    },
+    {
+      "path": "/local/status",
+      "method": "GET"
+    },
+    {
+      "path": "/local/me",
+      "method": "GET"
+    },
+    {
+      "path": "/local/students",
+      "method": "GET"
+    },
+    {
+      "path": "/local/lectures",
+      "method": "GET"
+    },
+    {
+      "path": "/local/students/b1de61c642634200b11bd3e6c9fa8f4f/progress",
+      "method": "GET"
+    },
+    {
+      "path": "/local/students/b1de61c642634200b11bd3e6c9fa8f4f/progress",
+      "method": "GET"
+    },
+    {
+      "path": "/tokens.css",
+      "method": "GET"
+    },
+    {
+      "path": "/tokens.css",
+      "method": "GET"
+    },
+    {
+      "path": "/",
+      "method": "GET"
+    },
+    {
+      "path": "/styles.css",
+      "method": "GET"
+    },
+    {
+      "path": "/student-design.css",
+      "method": "GET"
+    },
+    {
+      "path": "/guardian-design.css",
+      "method": "GET"
+    },
+    {
+      "path": "/workspace-design.css",
+      "method": "GET"
+    },
+    {
+      "path": "/playback-scheduler.js",
+      "method": "GET"
+    },
+    {
+      "path": "/concept-tools.js",
+      "method": "GET"
+    },
+    {
+      "path": "/passage-tools.js",
+      "method": "GET"
+    },
+    {
+      "path": "/lecture-library.js",
+      "method": "GET"
+    },
+    {
+      "path": "/narration-context.js",
+      "method": "GET"
+    },
+    {
+      "path": "/sample-catalog.js",
+      "method": "GET"
+    },
+    {
+      "path": "/voice-command-router.js",
+      "method": "GET"
+    },
+    {
+      "path": "/app.js",
+      "method": "GET"
+    },
+    {
+      "path": "/space-gesture.js",
+      "method": "GET"
+    },
+    {
+      "path": "/focus-voice.js",
+      "method": "GET"
+    },
+    {
+      "path": "/keyboard-navigation.js",
+      "method": "GET"
+    },
+    {
+      "path": "/role-portal.js",
+      "method": "GET"
+    },
+    {
+      "path": "/tokens.css",
+      "method": "GET"
+    },
+    {
+      "path": "/health",
+      "method": "GET"
+    },
+    {
+      "path": "/local/status",
+      "method": "GET"
+    },
+    {
+      "path": "/local/me",
+      "method": "GET"
+    },
+    {
+      "path": "/local/students",
+      "method": "GET"
+    },
+    {
+      "path": "/local/lectures",
+      "method": "GET"
+    },
+    {
+      "path": "/local/students/b1de61c642634200b11bd3e6c9fa8f4f/progress",
+      "method": "GET"
+    },
+    {
+      "path": "/local/students/b1de61c642634200b11bd3e6c9fa8f4f/progress",
+      "method": "GET"
+    }
+  ],
+  "page_errors": [],
+  "summary": {
+    "student_id": "b1de61c642634200b11bd3e6c9fa8f4f",
+    "lectures": [
+      {
+        "lecture_id": "8fe548522dd54491ac962aec444dc1d9",
+        "title": "천문학 특강 7강 · 별의 진화",
+        "subject": "통합과학 · 천문학",
+        "position_ms": 123000,
+        "underlined_count": 1,
+        "bookmark_count": 1,
+        "note_count": 1,
+        "updated_at": "2026-11-04T15:13:42+00:00"
+      }
+    ]
+  },
+  "passed": true
+}

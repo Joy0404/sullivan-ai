@@ -1,0 +1,14 @@
+{
+  "native_start_without_browser_activation": true,
+  "one_native_start_per_reload": true,
+  "startup_and_automatic_labels_share_voice_and_defaults": true,
+  "explicit_voice_selection_preserved": true,
+  "no_duplicate_browser_startup_speech": true,
+  "native_cancel_on_tab_and_guardian_choice": true,
+  "native_cancel_on_pagehide": true,
+  "authenticated_page_has_no_login_greeting": true,
+  "lost_native_response_waits_for_stop": true,
+  "late_stop_failure_keeps_guardian_status": true,
+  "page_errors": [],
+  "scope": "real Chromium and HTTP; native process mocked; no heard screen-reader verification"
+}

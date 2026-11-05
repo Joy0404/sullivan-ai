@@ -1,0 +1,23 @@
+{
+  "skill": "live-region-controller",
+  "scope": [
+    "apps/web/index.html #guardian-dashboard",
+    "apps/web/role-portal.js loadGuardian and renderGuardianLectures",
+    "apps/web/guardian-design.css guardian rules"
+  ],
+  "findings": [],
+  "passed": [
+    "Preparation status exists in initial DOM, uses role=status and aria-atomic=true, and is filled with textContent without replacing the live node.",
+    "Chrome AX tree exposes preparation status with polite live behavior.",
+    "Chrome MutationObserver fixture: reloading unchanged totals produces0 mutations; changed totals update existing status node exactly once.",
+    "Student/assignment/settings outcomes keep the existing focused feedback group; non-focused order outcomes use existing polite announce().",
+    "Dashboard home loading uses aria-busy and inert while fetching, then restores normal state.",
+    "Native disclosure state and focus communicate task navigation without extra duplicate live messages.",
+    "No assertive live region or streaming analysis content was introduced by T2."
+  ],
+  "notes": [
+    "No real screen-reader utterance was heard; checks cover DOM, Chrome accessibility tree and mutation behavior.",
+    "Read-only mocked data boundaries in isolated fixture; authenticated integration is validated by parent.",
+    "Runtime evidence: /tmp/sullivan-t2-work/review/aria-live-runtime.json."
+  ]
+}

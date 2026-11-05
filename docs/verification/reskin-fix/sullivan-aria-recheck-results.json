@@ -1,0 +1,185 @@
+{
+  "errors": [],
+  "concurrent": {
+    "focus": "guardian-prepare",
+    "events": [
+      {
+        "text": "검증학생 학생의 학습 현황을 불러오고 있습니다.",
+        "student": "검증학생",
+        "role": "status",
+        "label": null,
+        "labelledby": null
+      },
+      {
+        "text": "검증학생둘 학생의 학습 현황을 불러오고 있습니다.",
+        "student": "검증학생둘",
+        "role": "status",
+        "label": null,
+        "labelledby": null
+      },
+      {
+        "text": "검증학생셋 학생의 학습 현황을 불러오고 있습니다.",
+        "student": "검증학생셋",
+        "role": "status",
+        "label": null,
+        "labelledby": null
+      },
+      {
+        "text": "검증학생 학생: 아직 배정된 강의가 없습니다.",
+        "student": "검증학생",
+        "role": "status",
+        "label": null,
+        "labelledby": null
+      },
+      {
+        "text": "검증학생둘 학생의 학습 현황을 불러오지 못했습니다. 접었다가 다시 펼치면 재시도합니다.",
+        "student": "검증학생둘",
+        "role": "status",
+        "label": null,
+        "labelledby": null
+      },
+      {
+        "text": "검증학생셋 학생: 저장된 현황을 불러왔습니다. 메모는 강의당 0개 또는 1개이며, 내용은 표시하지 않습니다.",
+        "student": "검증학생셋",
+        "role": "status",
+        "label": null,
+        "labelledby": null
+      }
+    ],
+    "html": [
+      "<details class=\"guardian-learning-progress\" open=\"\"><summary aria-describedby=\"guardian-student-08aeefa848a64f83a14a6777c90c2dc9\">학습 현황</summary><p role=\"status\">검증학생 학생: 아직 배정된 강의가 없습니다.</p><ul></ul></details>",
+      "<details class=\"guardian-learning-progress\" open=\"\"><summary aria-describedby=\"guardian-student-2e1168cdea154fa08a7b7ee4d09b83de\">학습 현황</summary><p role=\"status\">검증학생둘 학생의 학습 현황을 불러오지 못했습니다. 접었다가 다시 펼치면 재시도합니다.</p><ul></ul></details>",
+      "<details class=\"guardian-learning-progress\" open=\"\"><summary aria-describedby=\"guardian-student-68dff3e9f4474e79855e73b0a1f64512\">학습 현황</summary><p role=\"status\">검증학생셋 학생: 저장된 현황을 불러왔습니다. 메모는 강의당 0개 또는 1개이며, 내용은 표시하지 않습니다.</p><ul><li><h4>검증 강의</h4><p>검증</p><dl><dt>저장된 위치</dt><dd>0:01</dd><dt>밑줄</dt><dd>0개</dd><dt>북마크</dt><dd>0개</dd><dt>메모</dt><dd>0개</dd></dl><p class=\"guardian-progress-saved\">저장 시각 기록 없음</p></li></ul></details>"
+    ]
+  },
+  "statusAX": [
+    {
+      "name": "",
+      "properties": [
+        {
+          "name": "live",
+          "value": {
+            "type": "token",
+            "value": "polite"
+          }
+        },
+        {
+          "name": "atomic",
+          "value": {
+            "type": "boolean",
+            "value": true
+          }
+        },
+        {
+          "name": "relevant",
+          "value": {
+            "type": "tokenList",
+            "value": "additions text"
+          }
+        }
+      ],
+      "children": [
+        {
+          "role": "StaticText",
+          "name": "학생 3명, 준비한 강의 0개, 준비 완료한 배정 강의 0개입니다."
+        }
+      ]
+    },
+    {
+      "name": "",
+      "properties": [
+        {
+          "name": "live",
+          "value": {
+            "type": "token",
+            "value": "polite"
+          }
+        },
+        {
+          "name": "atomic",
+          "value": {
+            "type": "boolean",
+            "value": true
+          }
+        },
+        {
+          "name": "relevant",
+          "value": {
+            "type": "tokenList",
+            "value": "additions text"
+          }
+        }
+      ],
+      "children": [
+        {
+          "role": "StaticText",
+          "name": "검증학생 학생: 아직 배정된 강의가 없습니다."
+        }
+      ]
+    },
+    {
+      "name": "",
+      "properties": [
+        {
+          "name": "live",
+          "value": {
+            "type": "token",
+            "value": "polite"
+          }
+        },
+        {
+          "name": "atomic",
+          "value": {
+            "type": "boolean",
+            "value": true
+          }
+        },
+        {
+          "name": "relevant",
+          "value": {
+            "type": "tokenList",
+            "value": "additions text"
+          }
+        }
+      ],
+      "children": [
+        {
+          "role": "StaticText",
+          "name": "검증학생둘 학생의 학습 현황을 불러오지 못했습니다. 접었다가 다시 펼치면 재시도합니다."
+        }
+      ]
+    },
+    {
+      "name": "",
+      "properties": [
+        {
+          "name": "live",
+          "value": {
+            "type": "token",
+            "value": "polite"
+          }
+        },
+        {
+          "name": "atomic",
+          "value": {
+            "type": "boolean",
+            "value": true
+          }
+        },
+        {
+          "name": "relevant",
+          "value": {
+            "type": "tokenList",
+            "value": "additions text"
+          }
+        }
+      ],
+      "children": [
+        {
+          "role": "StaticText",
+          "name": "검증학생셋 학생: 저장된 현황을 불러왔습니다. 메모는 강의당 0개 또는 1개이며, 내용은 표시하지 않습니다."
+        }
+      ]
+    }
+  ]
+}

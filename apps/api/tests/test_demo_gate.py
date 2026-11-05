@@ -361,6 +361,7 @@ def test_link_analysis_requires_consent(monkeypatch) -> None:
 )
 def test_link_analysis_only_allows_listed_samples(monkeypatch, url) -> None:
     use_fake_link_analysis(monkeypatch)
+    monkeypatch.setenv("RESTRICT_SAMPLE_LINKS", "1")
 
     response = link(create_session(), url)
 
@@ -402,6 +403,7 @@ def test_link_analysis_timeout_is_reported(monkeypatch) -> None:
 
 def test_allowed_samples_can_be_configured(monkeypatch) -> None:
     use_fake_link_analysis(monkeypatch)
+    monkeypatch.setenv("RESTRICT_SAMPLE_LINKS", "1")
     monkeypatch.setenv("ALLOWED_SAMPLE_VIDEO_IDS", "dQw4w9WgXcQ")
 
     assert link(create_session(), "https://youtu.be/dQw4w9WgXcQ").status_code == 200

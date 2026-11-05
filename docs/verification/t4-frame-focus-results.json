@@ -1,0 +1,7 @@
+{
+  "real_tab_into_mock_external_frame": true,
+  "guardian_container_focus_ring": "4px plus white contrast halo",
+  "clears_on_return_to_app_controls": true,
+  "student_styles_unchanged": true,
+  "limitation": "Mocked YouTube boundary; real cross-origin media not loaded."
+}

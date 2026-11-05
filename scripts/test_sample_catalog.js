@@ -1,15 +1,6 @@
 const assert = require("node:assert/strict");
-const fs = require("node:fs");
-const path = require("node:path");
-const vm = require("node:vm");
-
-const context = vm.createContext({ window: {} });
-for (const name of ["sample-data.js", "sample-data-history.js"]) {
-  const source = fs.readFileSync(path.join(__dirname, "..", "apps", "web", name), "utf8");
-  vm.runInContext(source, context, { filename: name });
-}
-
-const library = context.window.SULLIVAN_SAMPLE_LIBRARY;
+const entries = require("../apps/web/sample-catalog.json");
+const library = Object.fromEntries(Object.entries(entries).map(([id,spec])=>[id,spec.snapshot]));
 assert.deepEqual(Object.keys(library), ["science", "history"]);
 assert.ok(library.science.concept_index.length >= 19);
 assert.ok(library.history.concept_index.length >= 35);

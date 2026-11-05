@@ -1,0 +1,420 @@
+{
+  "scope": "T1 public intro and guide; isolated sample account flow recorded separately",
+  "screens": [
+    {
+      "screen": "intro default 390",
+      "version": "4.14.0",
+      "violations": [],
+      "incomplete": []
+    },
+    {
+      "screen": "intro default 1280",
+      "version": "4.14.0",
+      "violations": [],
+      "incomplete": []
+    },
+    {
+      "screen": "intro all FAQ expanded",
+      "version": "4.14.0",
+      "violations": [],
+      "incomplete": []
+    },
+    {
+      "screen": "guide default 390",
+      "version": "4.14.0",
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            [
+              "button[aria-controls=\"step-content-1\"] > span:nth-child(1)"
+            ],
+            [
+              "button[aria-controls=\"step-content-1\"] > .toggle-word[aria-hidden=\"true\"]"
+            ],
+            [
+              "li:nth-child(1) > a[href=\"/\"]"
+            ],
+            [
+              "button[aria-controls=\"step-content-2\"] > span:nth-child(1)"
+            ],
+            [
+              "button[aria-controls=\"step-content-2\"] > .toggle-word[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[aria-controls=\"step-content-3\"] > span:nth-child(1)"
+            ],
+            [
+              "button[aria-controls=\"step-content-3\"] > .toggle-word[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[aria-controls=\"step-content-4\"] > span:nth-child(1)"
+            ],
+            [
+              "button[aria-controls=\"step-content-4\"] > .toggle-word[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[aria-controls=\"step-content-5\"] > span:nth-child(1)"
+            ],
+            [
+              "button[aria-controls=\"step-content-5\"] > .toggle-word[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[aria-controls=\"step-content-6\"] > span:nth-child(1)"
+            ],
+            [
+              "button[aria-controls=\"step-content-6\"] > .toggle-word[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[aria-controls=\"step-content-7\"] > span:nth-child(1)"
+            ],
+            [
+              "button[aria-controls=\"step-content-7\"] > .toggle-word[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[aria-controls=\"step-content-8\"] > span:nth-child(1)"
+            ],
+            [
+              "button[aria-controls=\"step-content-8\"] > .toggle-word[aria-hidden=\"true\"]"
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "screen": "guide default 1280",
+      "version": "4.14.0",
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            [
+              "button[aria-controls=\"step-content-1\"] > .toggle-word[aria-hidden=\"true\"]"
+            ],
+            [
+              "li:nth-child(1) > a[href=\"/\"]"
+            ],
+            [
+              "button[aria-controls=\"step-content-2\"] > span:nth-child(1)"
+            ],
+            [
+              "button[aria-controls=\"step-content-2\"] > .toggle-word[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[aria-controls=\"step-content-3\"] > span:nth-child(1)"
+            ],
+            [
+              "button[aria-controls=\"step-content-3\"] > .toggle-word[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[aria-controls=\"step-content-4\"] > span:nth-child(1)"
+            ],
+            [
+              "button[aria-controls=\"step-content-4\"] > .toggle-word[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[aria-controls=\"step-content-5\"] > span:nth-child(1)"
+            ],
+            [
+              "button[aria-controls=\"step-content-5\"] > .toggle-word[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[aria-controls=\"step-content-6\"] > span:nth-child(1)"
+            ],
+            [
+              "button[aria-controls=\"step-content-6\"] > .toggle-word[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[aria-controls=\"step-content-7\"] > .toggle-word[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[aria-controls=\"step-content-8\"] > .toggle-word[aria-hidden=\"true\"]"
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "screen": "guide all 8 steps expanded",
+      "version": "4.14.0",
+      "violations": [],
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "nodes": [
+            [
+              "button[aria-controls=\"step-content-1\"] > .toggle-word[aria-hidden=\"true\"]"
+            ],
+            [
+              "li:nth-child(1) > a[href=\"/\"]"
+            ],
+            [
+              "button[aria-controls=\"step-content-2\"] > span:nth-child(1)"
+            ],
+            [
+              "button[aria-controls=\"step-content-2\"] > .toggle-word[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[aria-controls=\"step-content-3\"] > span:nth-child(1)"
+            ],
+            [
+              "button[aria-controls=\"step-content-3\"] > .toggle-word[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[aria-controls=\"step-content-4\"] > span:nth-child(1)"
+            ],
+            [
+              "button[aria-controls=\"step-content-4\"] > .toggle-word[aria-hidden=\"true\"]"
+            ],
+            [
+              "p:nth-child(1) > strong"
+            ],
+            [
+              "button[aria-controls=\"step-content-5\"] > span:nth-child(1)"
+            ],
+            [
+              "button[aria-controls=\"step-content-5\"] > .toggle-word[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[aria-controls=\"step-content-6\"] > span:nth-child(1)"
+            ],
+            [
+              "button[aria-controls=\"step-content-6\"] > .toggle-word[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[aria-controls=\"step-content-7\"] > .toggle-word[aria-hidden=\"true\"]"
+            ],
+            [
+              "button[aria-controls=\"step-content-8\"] > .toggle-word[aria-hidden=\"true\"]"
+            ]
+          ]
+        }
+      ]
+    }
+  ],
+  "keyboard": [
+    "intro: Tab to skip link; Enter focuses main",
+    "guide: Tab to skip link; Enter focuses main",
+    "guide: individual Enter/Space toggles, all open/close, polite live status, aria-expanded and aria-controls",
+    "guide: initial hash opens target; same-hash reopens closed target; hash changes open and focus selected step"
+  ],
+  "links": [
+    {
+      "path": "/intro.css",
+      "status": 200
+    },
+    {
+      "path": "/intro/#main",
+      "status": 200
+    },
+    {
+      "path": "/intro/",
+      "status": 200
+    },
+    {
+      "path": "/intro/#how",
+      "status": 200
+    },
+    {
+      "path": "/guide/",
+      "status": 200
+    },
+    {
+      "path": "/",
+      "status": 200
+    },
+    {
+      "path": "/intro/img/student-actions-mobile.png",
+      "status": 200
+    },
+    {
+      "path": "/intro/img/student-lecture.png",
+      "status": 200
+    },
+    {
+      "path": "/intro/img/student-description.png",
+      "status": 200
+    },
+    {
+      "path": "/intro/img/student-passage.png",
+      "status": 200
+    },
+    {
+      "path": "/guide/#step-2",
+      "status": 200
+    },
+    {
+      "path": "/guide/#step-4",
+      "status": 200
+    },
+    {
+      "path": "/guide/#step-6",
+      "status": 200
+    },
+    {
+      "path": "/intro/img/student-home.png",
+      "status": 200
+    },
+    {
+      "path": "/guide/#step-7",
+      "status": 200
+    },
+    {
+      "path": "/guide/#step-1",
+      "status": 200
+    },
+    {
+      "path": "/guide/#step-3",
+      "status": 200
+    },
+    {
+      "path": "/guide/#step-8",
+      "status": 200
+    },
+    {
+      "path": "/intro.css",
+      "status": 200
+    },
+    {
+      "path": "/guide/guide.js",
+      "status": 200
+    },
+    {
+      "path": "/guide/#main",
+      "status": 200
+    },
+    {
+      "path": "/intro/",
+      "status": 200
+    },
+    {
+      "path": "/guide/",
+      "status": 200
+    },
+    {
+      "path": "/",
+      "status": 200
+    },
+    {
+      "path": "/guide/#step-1",
+      "status": 200
+    },
+    {
+      "path": "/guide/#step-2",
+      "status": 200
+    },
+    {
+      "path": "/guide/#step-3",
+      "status": 200
+    },
+    {
+      "path": "/guide/#step-4",
+      "status": 200
+    },
+    {
+      "path": "/guide/#step-5",
+      "status": 200
+    },
+    {
+      "path": "/guide/#step-6",
+      "status": 200
+    },
+    {
+      "path": "/guide/#step-7",
+      "status": 200
+    },
+    {
+      "path": "/guide/#step-8",
+      "status": 200
+    },
+    {
+      "path": "/intro/img/guardian-login.png",
+      "status": 200
+    },
+    {
+      "path": "/intro/img/guardian-student.png",
+      "status": 200
+    },
+    {
+      "path": "/intro/img/guardian-settings.png",
+      "status": 200
+    },
+    {
+      "path": "/intro/img/guardian-prepare.png",
+      "status": 200
+    },
+    {
+      "path": "/intro/img/guardian-review.png",
+      "status": 200
+    },
+    {
+      "path": "/intro/img/guardian-assign.png",
+      "status": 200
+    },
+    {
+      "path": "/intro/img/student-home.png",
+      "status": 200
+    },
+    {
+      "path": "/intro/img/student-help.png",
+      "status": 200
+    }
+  ],
+  "limitations": [
+    "Browser accessibility tree and live-region DOM inspected; actual VoiceOver/NVDA audio not heard.",
+    "App media and speech boundaries mocked only while capturing sample-app UI; no provider invocation."
+  ],
+  "intro_no_auth": true,
+  "guide_no_auth": true,
+  "guide_expanded_ax": [
+    {
+      "name": "모두 펼치기",
+      "expanded": false
+    },
+    {
+      "name": "1단계. 보호자 계정 만들기·로그인",
+      "expanded": false
+    },
+    {
+      "name": "2단계. 학생 계정 만들기",
+      "expanded": false
+    },
+    {
+      "name": "3단계. 학생별 기본 설정",
+      "expanded": false
+    },
+    {
+      "name": "4단계. 강의 준비하기",
+      "expanded": true
+    },
+    {
+      "name": "5단계. 분석 결과 확인",
+      "expanded": false
+    },
+    {
+      "name": "6단계. 학생에게 배정하기",
+      "expanded": true
+    },
+    {
+      "name": "7단계. 학생은 이렇게 써요",
+      "expanded": false
+    },
+    {
+      "name": "8단계. 자주 묻는 질문·문제 해결",
+      "expanded": false
+    }
+  ],
+  "no_javascript": "All eight guide steps readable; inactive enhancement control hidden",
+  "page_errors": [],
+  "checked_reflow_widths": [
+    320,
+    390,
+    640,
+    1280,
+    1920
+  ],
+  "zoom": "1280px CSS zoom 200% and 640px equivalent layout both checked",
+  "passed": true
+}

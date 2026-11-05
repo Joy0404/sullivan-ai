@@ -1,0 +1,43 @@
+{
+  "beforeHome": {
+    "source": "link",
+    "selected": [
+      "link"
+    ],
+    "link": "https://example.com/expected-link.mp4",
+    "linkHidden": false,
+    "videoConsentHidden": false,
+    "consent": true,
+    "review": ""
+  },
+  "afterReopen": {
+    "source": "file",
+    "selected": [
+      "file"
+    ],
+    "link": "https://example.com/expected-link.mp4",
+    "linkHidden": true,
+    "videoConsentHidden": true,
+    "consent": true,
+    "review": ""
+  },
+  "beforeSubmit": {
+    "source": "file",
+    "selected": [
+      "file"
+    ],
+    "link": "https://example.com/expected-link.mp4",
+    "linkHidden": true,
+    "videoConsentHidden": true,
+    "consent": true,
+    "review": "강의 제목Sullivan AI 접근성 데모 강의과목통합 학습자료학습자료만 준비보조 자료audit-material.txt분석 동의직접 동의함"
+  },
+  "capturedHiddenLinkRequest": {
+    "url": "https://example.com/expected-link.mp4",
+    "rights_confirmed": true,
+    "request_analysis": true,
+    "analysis_consent": true,
+    "access_code": "mock-code"
+  },
+  "feedback": "준비를 마치지 못했습니다. audit mock stopped provider request"
+}

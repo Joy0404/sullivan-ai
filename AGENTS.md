@@ -38,3 +38,13 @@ Also verify keyboard focus, screen-reader live announcements, problem-mode block
 - Low-confidence and answer content cannot leak through UI, TTS, review, or API source text.
 - Uploaded subtitles and passages are actually processed.
 - Documentation distinguishes implemented, deterministic demo, and adapter-required features.
+
+## Redesign
+- 리스킨 작업은 `docs/redesign/RESKIN_PLAYBOOK.md`의 해당 작업 절과 2·9절을 따른다.
+- T6 외에는 `apps/web/student-design.css`와 학생 영역 `#portal-home`, `#learner-tools`, `#learning-records`, `#text-command-dialog`를 수정하지 않는다.
+- T6 외에는 `apps/web/role-portal.js`의 학생 함수 `loadStudent`, `openLectureList`, `openLecture`, `purpose`, `play`, `command`, `records` 및 제스처 관련 함수를 수정하지 않는다.
+- 서버 API 요청·응답 형식, 인증 방식, 폼 `name`, Gemini 키·모델·호출 설정은 변경하지 않는다.
+- 완료 시 `bash scripts/verify_all.sh` 통과와 테스트 수 유지, 학생 CSS diff 없음(T6 제외)을 확인한다.
+- 1280px·390px 화면 캡처를 `docs/verification/`에 저장한다.
+- 키보드만으로 보호자 흐름(학생 만들기 → 샘플 준비 → 배정)을 완료한다.
+- axe 위반 0과 `git status`에 레퍼런스 이미지가 포함되지 않음을 확인하며, `docs/redesign/refs/`는 커밋하지 않는다.

@@ -1,0 +1,21 @@
+{
+  "skill": "alt-text-headings",
+  "scope": [
+    "apps/web/index.html #lecture-form",
+    "apps/web/guardian-design.css T3 rules",
+    "apps/web/role-portal.js prepare"
+  ],
+  "findings": [],
+  "passed": [
+    "All five visible wizard configurations expose exactly one H1, 강의 등록, followed by a correctly ordered H2 for the current stage.",
+    "html lang=ko and a descriptive application title are present.",
+    "One main landmark, labeled breadcrumb navigation and labeled wizard sections are preserved.",
+    "Wizard contains no meaningful raster images or decorative icons requiring additional alternatives.",
+    "Materials, choices and progress are conveyed by text; active step state has aria-current and the textual fraction."
+  ],
+  "notes": [
+    "Heading/landmark review used current source plus script-free Chrome previews, not authenticated API flow.",
+    "Application-wide document title remains shared across views; step headings and focus identify current wizard content.",
+    "Actual VoiceOver/NVDA speech was not tested."
+  ]
+}

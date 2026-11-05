@@ -1,0 +1,17 @@
+{
+  "skill": "contrast-master",
+  "scope": [
+    "apps/web/intro.css:62",
+    "apps/web/tokens.css",
+    "http://127.0.0.1:8871/intro/",
+    "http://127.0.0.1:8871/guide/"
+  ],
+  "findings": [],
+  "passed": [
+    "CONTRAST-001 is fixed: .button-primary:active explicitly sets color: var(--paper).",
+    "At 1280px and 390px on both pages, holding the pointer down on a primary link and moving outside leaves :active=true and :hover=false, with computed white text (#ffffff) over brand blue (#164b8b): 8.70:1 contrast, exceeding the required 4.5:1."
+  ],
+  "notes": [
+    "This focused recheck covers the previously reported active-primary-link finding only; secondary-button changes and other contrast checks were not rerun."
+  ]
+}

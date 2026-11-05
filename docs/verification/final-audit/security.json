@@ -1,0 +1,23 @@
+{
+  "checked_head": "48b3ac1",
+  "status_checks": {
+    "other_guardian": 403,
+    "own_student": 403,
+    "foreign_student": 403,
+    "unauthenticated": 401,
+    "sql_injection": 403
+  },
+  "only_scalar_progress_keys": [
+    "lecture_id",
+    "title",
+    "subject",
+    "position_ms",
+    "underlined_count",
+    "bookmark_count",
+    "note_count",
+    "updated_at"
+  ],
+  "private_body_not_returned": true,
+  "get_did_not_update_record": true,
+  "passed": true
+}

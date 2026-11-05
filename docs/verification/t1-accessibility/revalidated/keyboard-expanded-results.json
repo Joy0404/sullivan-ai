@@ -1,0 +1,114 @@
+{
+  "date": "2026-11-04T13:00:45.685Z",
+  "browser": "Chrome/156.0.8078.80",
+  "checks": [
+    {
+      "width": 320,
+      "route": "intro",
+      "state": "all expanded",
+      "key": "Tab",
+      "targets": 24,
+      "allReachable": true,
+      "visibleFocus": true
+    },
+    {
+      "width": 320,
+      "route": "intro",
+      "state": "all expanded",
+      "key": "Shift+Tab",
+      "targets": 24,
+      "allReachable": true,
+      "visibleFocus": true
+    },
+    {
+      "width": 320,
+      "route": "guide",
+      "state": "all expanded",
+      "key": "Tab",
+      "targets": 37,
+      "allReachable": true,
+      "visibleFocus": true
+    },
+    {
+      "width": 320,
+      "route": "guide",
+      "state": "all expanded",
+      "key": "Shift+Tab",
+      "targets": 37,
+      "allReachable": true,
+      "visibleFocus": true
+    },
+    {
+      "width": 390,
+      "route": "intro",
+      "state": "all expanded",
+      "key": "Tab",
+      "targets": 24,
+      "allReachable": true,
+      "visibleFocus": true
+    },
+    {
+      "width": 390,
+      "route": "intro",
+      "state": "all expanded",
+      "key": "Shift+Tab",
+      "targets": 24,
+      "allReachable": true,
+      "visibleFocus": true
+    },
+    {
+      "width": 390,
+      "route": "guide",
+      "state": "all expanded",
+      "key": "Tab",
+      "targets": 37,
+      "allReachable": true,
+      "visibleFocus": true
+    },
+    {
+      "width": 390,
+      "route": "guide",
+      "state": "all expanded",
+      "key": "Shift+Tab",
+      "targets": 37,
+      "allReachable": true,
+      "visibleFocus": true
+    },
+    {
+      "width": 1280,
+      "route": "intro",
+      "state": "all expanded",
+      "key": "Tab",
+      "targets": 24,
+      "allReachable": true,
+      "visibleFocus": true
+    },
+    {
+      "width": 1280,
+      "route": "intro",
+      "state": "all expanded",
+      "key": "Shift+Tab",
+      "targets": 24,
+      "allReachable": true,
+      "visibleFocus": true
+    },
+    {
+      "width": 1280,
+      "route": "guide",
+      "state": "all expanded",
+      "key": "Tab",
+      "targets": 37,
+      "allReachable": true,
+      "visibleFocus": true
+    },
+    {
+      "width": 1280,
+      "route": "guide",
+      "state": "all expanded",
+      "key": "Shift+Tab",
+      "targets": 37,
+      "allReachable": true,
+      "visibleFocus": true
+    }
+  ]
+}

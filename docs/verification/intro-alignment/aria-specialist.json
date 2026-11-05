@@ -1,0 +1,18 @@
+{
+  "skill": "aria-specialist",
+  "scope": [
+    "apps/web/intro/index.html:33",
+    "apps/web/intro/index.html:94"
+  ],
+  "findings": [],
+  "passed": [
+    "Final markup removes aria-label from all eight activity links; each Chrome AX native link name includes its complete visible activity title and hint.",
+    "All eight links retain native anchor semantics and /guide/#step-7 destinations.",
+    "The two previews retain native figure/figcaption and ul/li semantics with captions identifying activity composition guidance; no false interactive activity controls."
+  ],
+  "notes": [
+    "This final payload supersedes the earlier claim that link names contain 사용법 보기; final names derive from the full visible title and hint.",
+    "Targeted read-only public-port8770 DOM/AX recheck; no auth, database, provider, or product edits.",
+    "Actual assistive technology unavailable. Evidence: /tmp/sullivan-intro-alignment/final-aria-results.json."
+  ]
+}

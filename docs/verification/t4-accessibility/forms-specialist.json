@@ -1,0 +1,20 @@
+{
+  "skill": "forms-specialist",
+  "scope": [
+    "apps/web/index.html #guardian-result-summary and #guardian-publish",
+    "apps/web/workspace-design.css T4 guardian rules",
+    "apps/web/role-portal.js:loadGuardian presentation observer"
+  ],
+  "findings": [],
+  "passed": [
+    "Assignment form retains native labeled title/subject inputs, fieldset/legend and labeled student checkboxes.",
+    "Checkbox labels use24px plus flexible text grid at320,390,1280px without horizontal overflow.",
+    "Fixed assignment link navigates to the form heading; it does not prematurely submit or imply a completed assignment.",
+    "Original publish form submit handler retains selected-student and explicit local-storage consent validation, with existing feedback focus.",
+    "Disabled source-storage choice retains its visible aria-describedby explanation."
+  ],
+  "notes": [
+    "Forms review covers unchanged submission semantics by source inspection and current rendered layout; no real API submission was performed by this specialist.",
+    "Runtime evidence: keyboard-layout-runtime.json. Actual VoiceOver/NVDA speech was not tested."
+  ]
+}

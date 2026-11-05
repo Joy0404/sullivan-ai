@@ -1,0 +1,22 @@
+{
+  "unchanged_files": {
+    "apps/web/student-design.css": true,
+    "apps/web/app.js": true,
+    "apps/web/tokens.css": true,
+    "apps/api/app/main.py": true,
+    "apps/api/app/models.py": true,
+    "apps/api/app/core/visual_gap.py": true,
+    "apps/api/app/core/lecture_agent.py": true
+  },
+  "frozen_student_regions": {
+    "portal-home": true,
+    "learner-tools": true,
+    "learning-records": true,
+    "text-command-dialog": true
+  },
+  "form_names_unchanged": true,
+  "role_portal_outside_allowed_functions_identical": true,
+  "refs_tracked": [],
+  "refs_ignored": true,
+  "added_get_routes": 1
+}

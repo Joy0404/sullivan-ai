@@ -1,0 +1,22 @@
+[
+  {
+    "view": "guardian",
+    "width": 1280,
+    "violations": []
+  },
+  {
+    "view": "guardian",
+    "width": 390,
+    "violations": []
+  },
+  {
+    "view": "guide",
+    "width": 390,
+    "violations": []
+  },
+  {
+    "view": "guide",
+    "width": 1280,
+    "violations": []
+  }
+]

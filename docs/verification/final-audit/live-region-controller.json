@@ -1,0 +1,36 @@
+{
+  "skill": "live-region-controller",
+  "scope": [
+    "apps/web/role-portal.js",
+    "apps/web/index.html",
+    "apps/web/guide/index.html",
+    "apps/web/guide/guide.js",
+    "apps/web/intro/index.html"
+  ],
+  "findings": [
+    {
+      "rule": "LIVE-PROGRESS-STUDENT-CONTEXT",
+      "wcag": "4.1.3 AA",
+      "severity": "moderate",
+      "confidence": "medium",
+      "location": "apps/web/role-portal.js:209",
+      "summary": "Concurrent student progress announcements omit student identity, so screen-reader users cannot tell whose request completed or failed.",
+      "fix": "Include s.name in every loading, success, empty, and error status string, for example `${s.name} 학생의 학습 현황을 불러오지 못했습니다. 접었다가 다시 펼치면 재시도합니다.` Keep the existing persistent role=status node and polite behavior.",
+      "evidence": "Reproduced with two disposable students: open both disclosures, hold both GET /progress, focus #guardian-prepare, return first lectures=[] and second HTTP500. Separate unnamed AX status nodes emit only “아직 배정된 강의가 없습니다.” and “학습 현황을 불러오지 못했습니다. 접었다가 다시 펼치면 재시도합니다.” Student identity appears only in ancestor cards. /tmp/sullivan-aria-concurrent-results.json",
+      "component": "guardian-learning-progress"
+    }
+  ],
+  "passed": [
+    "T5 opening a disclosure produced one visible polite loading mutation; a delayed successful response produced one visible polite completion mutation.",
+    "T5 a response released after logout did not populate visible or hidden progress content and did not steal focus from #login-role-student.",
+    "T5 a response released after loadGuardian replaced the roster did not populate the detached disclosure or the replacement.",
+    "T5 HTTP401 during progress fetch returned focus to the login choice without announcing a stale progress error.",
+    "T4 sample opening focused the result heading and issued one separate sample-source status; no duplicate result-heading focus was observed.",
+    "Guide bulk expansion updated the existing #guide-status polite region exactly once; individual and hash disclosure changes exposed state through the focused button."
+  ],
+  "notes": [
+    "HEAD 48b3ac10c459b53076294376122e63d235dd1dee; Chrome DOM/focus/AX evidence, no VoiceOver or NVDA speech verification. Confidence on concurrent-message interpretation is medium.",
+    "Pre-existing gap, excluded from reskin regressions: #sample-assign-receipt lacks live semantics. Holding POST /local/samples/science/assign for 3 seconds visibly displayed a saving message with no live mutation or focus message until completion; the same markup and assignSample behavior exist in baseline 36ef70b.",
+    "Evidence: /tmp/sullivan-aria-audit-results.json, /tmp/sullivan-aria-races-results.json, /tmp/sullivan-aria-concurrent-results.json. Real providers and actual user data were not accessed."
+  ]
+}

@@ -1,0 +1,1699 @@
+{
+  "source": "Current DOM/CSS isolated fixture; scripts removed, no API auth or mutation",
+  "widths": [
+    {
+      "width": 320,
+      "controls": [
+        {
+          "tag": "A",
+          "id": "",
+          "text": "본문으로 바로가기"
+        },
+        {
+          "tag": "A",
+          "id": "",
+          "text": "Sullivan AI\n강의 학습 도우미\n처음 화면"
+        },
+        {
+          "tag": "BUTTON",
+          "id": "",
+          "text": "강의 화면"
+        },
+        {
+          "tag": "BUTTON",
+          "id": "",
+          "text": "핵심 탐색"
+        },
+        {
+          "tag": "BUTTON",
+          "id": "",
+          "text": "접근성 복습"
+        },
+        {
+          "tag": "BUTTON",
+          "id": "",
+          "text": "AI 학습 노트"
+        },
+        {
+          "tag": "BUTTON",
+          "id": "",
+          "text": "AI 학습 대화"
+        },
+        {
+          "tag": "BUTTON",
+          "id": "",
+          "text": "안전·판단 근거"
+        },
+        {
+          "tag": "VIDEO",
+          "id": "lecture-video",
+          "text": "강의 영상 재생기"
+        },
+        {
+          "tag": "INPUT",
+          "id": "auto-narration",
+          "text": ""
+        },
+        {
+          "tag": "SELECT",
+          "id": "speech-rate",
+          "text": "0.85×\n0.95×\n1.05×\n1.15×"
+        },
+        {
+          "tag": "SELECT",
+          "id": "speech-voice",
+          "text": "사람에 가까운 음성 자동 선택"
+        },
+        {
+          "tag": "SELECT",
+          "id": "speech-style",
+          "text": "따뜻한 학습 안내\n차분한 강의\n또렷한 복습"
+        },
+        {
+          "tag": "SELECT",
+          "id": "speech-pitch",
+          "text": "낮게\n보통\n높게"
+        },
+        {
+          "tag": "SELECT",
+          "id": "speech-volume",
+          "text": "작게\n편안하게\n크게"
+        },
+        {
+          "tag": "BUTTON",
+          "id": "describe-now",
+          "text": "현재 화면 해설"
+        },
+        {
+          "tag": "BUTTON",
+          "id": "preview-voice",
+          "text": "음성 미리 듣기"
+        },
+        {
+          "tag": "BUTTON",
+          "id": "read-summary-guide",
+          "text": "요약 음성 가이드"
+        },
+        {
+          "tag": "BUTTON",
+          "id": "stop-speech",
+          "text": "영상·음성 멈춤"
+        },
+        {
+          "tag": "BUTTON",
+          "id": "run-demo-analysis",
+          "text": "샘플 분석 다시 실행"
+        },
+        {
+          "tag": "SUMMARY",
+          "id": "",
+          "text": "강사 발화 구간 더 보기"
+        },
+        {
+          "tag": "INPUT",
+          "id": "publish-title-input",
+          "text": ""
+        },
+        {
+          "tag": "INPUT",
+          "id": "publish-subject",
+          "text": ""
+        },
+        {
+          "tag": "INPUT",
+          "id": "",
+          "text": ""
+        },
+        {
+          "tag": "INPUT",
+          "id": "",
+          "text": ""
+        },
+        {
+          "tag": "INPUT",
+          "id": "publish-store",
+          "text": ""
+        },
+        {
+          "tag": "INPUT",
+          "id": "publish-chat",
+          "text": ""
+        },
+        {
+          "tag": "BUTTON",
+          "id": "",
+          "text": "배정하고 준비 완료"
+        },
+        {
+          "tag": "BUTTON",
+          "id": "",
+          "text": "보호자 준비실로"
+        },
+        {
+          "tag": "A",
+          "id": "",
+          "text": "이 강의를 학생에게 제공"
+        },
+        {
+          "tag": "SUMMARY",
+          "id": "",
+          "text": "실행 정보"
+        }
+      ],
+      "focus": [
+        {
+          "tag": "BUTTON",
+          "id": "",
+          "text": "강의 화면",
+          "top": 590.640625,
+          "bottom": 643.640625,
+          "barTop": 819,
+          "covered": false,
+          "invisible": false,
+          "outline": "4px"
+        },
+        {
+          "tag": "BUTTON",
+          "id": "",
+          "text": "핵심 탐색",
+          "top": 590.640625,
+          "bottom": 643.640625,
+          "barTop": 819,
+          "covered": false,
+          "invisible": false,
+          "outline": "4px"
+        },
+        {
+          "tag": "BUTTON",
+          "id": "",
+          "text": "접근성 복습",
+          "top": 651.640625,
+          "bottom": 704.640625,
+          "barTop": 819,
+          "covered": false,
+          "invisible": false,
+          "outline": "4px"
+        },
+        {
+          "tag": "BUTTON",
+          "id": "",
+          "text": "AI 학습 노트",
+          "top": 651.640625,
+          "bottom": 704.640625,
+          "barTop": 819,
+          "covered": false,
+          "invisible": false,
+          "outline": "4px"
+        },
+        {
+          "tag": "BUTTON",
+          "id": "",
+          "text": "AI 학습 대화",
+          "top": 710.640625,
+          "bottom": 763.640625,
+          "barTop": 819,
+          "covered": false,
+          "invisible": false,
+          "outline": "4px"
+        },
+        {
+          "tag": "BUTTON",
+          "id": "",
+          "text": "안전·판단 근거",
+          "top": 710.640625,
+          "bottom": 763.640625,
+          "barTop": 819,
+          "covered": false,
+          "invisible": false,
+          "outline": "4px"
+        },
+        {
+          "tag": "VIDEO",
+          "id": "lecture-video",
+          "text": "강의 영상 재생기",
+          "top": 319.25,
+          "bottom": 469.25,
+          "barTop": 819,
+          "covered": false,
+          "invisible": false,
+          "outline": "3px"
+        },
+        {
+          "tag": "INPUT",
+          "id": "auto-narration",
+          "text": "",
+          "top": 544.640625,
+          "bottom": 568.640625,
+          "barTop": 819,
+          "covered": false,
+          "invisible": false,
+          "outline": "4px"
+        },
+        {
+          "tag": "SELECT",
+          "id": "speech-rate",
+          "text": "0.85×\n0.95×\n1.05×\n1.15×",
+          "top": 532.640625,
+          "bottom": 580.640625,
+          "barTop": 819,
+          "covered": false,
+          "invisible": false,
+          "outline": "4px"
+        },
+        {
+          "tag": "SELECT",
+          "id": "speech-voice",
+          "text": "사람에 가까운 음성 자동 선택",
+          "top": 599.828125,
+          "bottom": 647.828125,
+          "barTop": 819,
+          "covered": false,
+          "invisible": false,
+          "outline": "4px"
+        },
+        {
+          "tag": "SELECT",
+          "id": "speech-style",
+          "text": "따뜻한 학습 안내\n차분한 강의\n또렷한 복습",
+          "top": 662.21875,
+          "bottom": 710.21875,
+          "barTop": 819,
+          "covered": false,
+          "invisible": false,
+          "outline": "4px"
+        },
+        {
+          "tag": "SELECT",
+          "id": "speech-pitch",
+          "text": "낮게\n보통\n높게",
+          "top": 715.609375,
+          "bottom": 763.609375,
+          "barTop": 819,
+          "covered": false,
+          "invisible": false,
+          "outline": "4px"
+        },
+        {
+          "tag": "SELECT",
+          "id": "speech-volume",
+          "text": "작게\n편안하게\n크게",
+          "top": 715.609375,
+          "bottom": 763.609375,
+          "barTop": 819,
+          "covered": false,
+          "invisible": false,
+          "outline": "4px"
+        },
+        {
+          "tag": "BUTTON",
+          "id": "describe-now",
+          "text": "현재 화면 해설",
+          "top": 683,
+          "bottom": 764.34375,
+          "barTop": 819,
+          "covered": false,
+          "invisible": false,
+          "outline": "4px"
+        },
+        {
+          "tag": "BUTTON",
+          "id": "preview-voice",
+          "text": "음성 미리 듣기",
+          "top": 683,
+          "bottom": 764.34375,
+          "barTop": 819,
+          "covered": false,
+          "invisible": false,
+          "outline": "4px"
+        },
+        {
+          "tag": "BUTTON",
+          "id": "read-summary-guide",
+          "text": "요약 음성 가이드",
+          "top": 682.9375,
+          "bottom": 764.28125,
+          "barTop": 819,
+          "covered": false,
+          "invisible": false,
+          "outline": "4px"
+        },
+        {
+          "tag": "BUTTON",
+          "id": "stop-speech",
+          "text": "영상·음성 멈춤",
+          "top": 682.9375,
+          "bottom": 764.28125,
+          "barTop": 819,
+          "covered": false,
+          "invisible": false,
+          "outline": "4px"
+        },
+        {
+          "tag": "BUTTON",
+          "id": "run-demo-analysis",
+          "text": "샘플 분석 다시 실행",
+          "top": 370.453125,
+          "bottom": 418.453125,
+          "barTop": 819,
+          "covered": false,
+          "invisible": false,
+          "outline": "4px"
+        },
+        {
+          "tag": "SUMMARY",
+          "id": "",
+          "text": "강사 발화 구간 더 보기",
+          "top": 622,
+          "bottom": 670,
+          "barTop": 819,
+          "covered": false,
+          "invisible": false,
+          "outline": "4px"
+        },
+        {
+          "tag": "INPUT",
+          "id": "publish-title-input",
+          "text": "",
+          "top": 366.375,
+          "bottom": 420.71875,
+          "barTop": 819,
+          "covered": false,
+          "invisible": false,
+          "outline": "4px"
+        },
+        {
+          "tag": "INPUT",
+          "id": "publish-subject",
+          "text": "",
+          "top": 472.90625,
+          "bottom": 527.25,
+          "barTop": 819,
+          "covered": false,
+          "invisible": false,
+          "outline": "4px"
+        },
+        {
+          "tag": "INPUT",
+          "id": "",
+          "text": "",
+          "top": 597.84375,
+          "bottom": 621.84375,
+          "barTop": 819,
+          "covered": false,
+          "invisible": false,
+          "outline": "4px"
+        },
+        {
+          "tag": "INPUT",
+          "id": "",
+          "text": "",
+          "top": 642.640625,
+          "bottom": 666.640625,
+          "barTop": 819,
+          "covered": false,
+          "invisible": false,
+          "outline": "4px"
+        },
+        {
+          "tag": "INPUT",
+          "id": "publish-store",
+          "text": "",
+          "top": 707.640625,
+          "bottom": 731.640625,
+          "barTop": 819,
+          "covered": false,
+          "invisible": false,
+          "outline": "4px"
+        },
+        {
+          "tag": "INPUT",
+          "id": "publish-chat",
+          "text": "",
+          "top": 382.203125,
+          "bottom": 406.203125,
+          "barTop": 819,
+          "covered": false,
+          "invisible": false,
+          "outline": "4px"
+        },
+        {
+          "tag": "BUTTON",
+          "id": "",
+          "text": "배정하고 준비 완료",
+          "top": 625.765625,
+          "bottom": 685.953125,
+          "barTop": 819,
+          "covered": false,
+          "invisible": false,
+          "outline": "4px"
+        },
+        {
+          "tag": "BUTTON",
+          "id": "",
+          "text": "보호자 준비실로",
+          "top": 701.953125,
+          "bottom": 762.140625,
+          "barTop": 819,
+          "covered": false,
+          "invisible": false,
+          "outline": "4px"
+        },
+        {
+          "tag": "A",
+          "id": "",
+          "text": "이 강의를 학생에게 제공",
+          "top": 836,
+          "bottom": 884,
+          "barTop": 819,
+          "covered": false,
+          "invisible": false,
+          "outline": "4px"
+        },
+        {
+          "tag": "SUMMARY",
+          "id": "",
+          "text": "실행 정보",
+          "top": 720.140625,
+          "bottom": 764.140625,
+          "barTop": 819,
+          "covered": false,
+          "invisible": false,
+          "outline": "4px"
+        },
+        {
+          "tag": "BODY",
+          "id": "",
+          "text": "본문으로 바로가기\nSullivan AI\n강의 학습 도우미\n처음 화면\n사전 준비된 과학 샘플\n\n설명할 화면\n0곳\n말하지 않고 보",
+          "top": -3096,
+          "bottom": 900.140625,
+          "barTop": 819,
+          "covered": false,
+          "invisible": false,
+          "outline": "3px"
+        },
+        {
+          "tag": "A",
+          "id": "",
+          "text": "본문으로 바로가기",
+          "top": 16,
+          "bottom": 71.28125,
+          "barTop": 819,
+          "covered": false,
+          "invisible": false,
+          "outline": "4px"
+        },
+        {
+          "tag": "A",
+          "id": "",
+          "text": "Sullivan AI\n강의 학습 도우미\n처음 화면",
+          "top": 16,
+          "bottom": 76.0625,
+          "barTop": 819,
+          "covered": false,
+          "invisible": false,
+          "outline": "4px"
+        },
+        {
+          "tag": "BUTTON",
+          "id": "",
+          "text": "강의 화면",
+          "top": 590.640625,
+          "bottom": 643.640625,
+          "barTop": 819,
+          "covered": false,
+          "invisible": false,
+          "outline": "4px"
+        }
+      ],
+      "target": {
+        "id": "publish-title",
+        "top": 23.59375,
+        "bottom": 63.1875,
+        "barTop": 819
+      },
+      "grids": [
+        {
+          "display": "grid",
+          "columns": "24px 102.891px",
+          "inputWidth": 24,
+          "inputHeight": 24,
+          "labelWidth": 138.890625
+        },
+        {
+          "display": "grid",
+          "columns": "24px 87.3281px",
+          "inputWidth": 24,
+          "inputHeight": 24,
+          "labelWidth": 123.328125
+        },
+        {
+          "display": "grid",
+          "columns": "24px 284px",
+          "inputWidth": 24,
+          "inputHeight": 24,
+          "labelWidth": 320
+        },
+        {
+          "display": "grid",
+          "columns": "24px 284px",
+          "inputWidth": 24,
+          "inputHeight": 24,
+          "labelWidth": 320
+        }
+      ],
+      "overflow": false
+    },
+    {
+      "width": 390,
+      "controls": [
+        {
+          "tag": "A",
+          "id": "",
+          "text": "본문으로 바로가기"
+        },
+        {
+          "tag": "A",
+          "id": "",
+          "text": "Sullivan AI\n강의 학습 도우미\n처음 화면"
+        },
+        {
+          "tag": "BUTTON",
+          "id": "",
+          "text": "강의 화면"
+        },
+        {
+          "tag": "BUTTON",
+          "id": "",
+          "text": "핵심 탐색"
+        },
+        {
+          "tag": "BUTTON",
+          "id": "",
+          "text": "접근성 복습"
+        },
+        {
+          "tag": "BUTTON",
+          "id": "",
+          "text": "AI 학습 노트"
+        },
+        {
+          "tag": "BUTTON",
+          "id": "",
+          "text": "AI 학습 대화"
+        },
+        {
+          "tag": "BUTTON",
+          "id": "",
+          "text": "안전·판단 근거"
+        },
+        {
+          "tag": "VIDEO",
+          "id": "lecture-video",
+          "text": "강의 영상 재생기"
+        },
+        {
+          "tag": "INPUT",
+          "id": "auto-narration",
+          "text": ""
+        },
+        {
+          "tag": "SELECT",
+          "id": "speech-rate",
+          "text": "0.85×\n0.95×\n1.05×\n1.15×"
+        },
+        {
+          "tag": "SELECT",
+          "id": "speech-voice",
+          "text": "사람에 가까운 음성 자동 선택"
+        },
+        {
+          "tag": "SELECT",
+          "id": "speech-style",
+          "text": "따뜻한 학습 안내\n차분한 강의\n또렷한 복습"
+        },
+        {
+          "tag": "SELECT",
+          "id": "speech-pitch",
+          "text": "낮게\n보통\n높게"
+        },
+        {
+          "tag": "SELECT",
+          "id": "speech-volume",
+          "text": "작게\n편안하게\n크게"
+        },
+        {
+          "tag": "BUTTON",
+          "id": "describe-now",
+          "text": "현재 화면 해설"
+        },
+        {
+          "tag": "BUTTON",
+          "id": "preview-voice",
+          "text": "음성 미리 듣기"
+        },
+        {
+          "tag": "BUTTON",
+          "id": "read-summary-guide",
+          "text": "요약 음성 가이드"
+        },
+        {
+          "tag": "BUTTON",
+          "id": "stop-speech",
+          "text": "영상·음성 멈춤"
+        },
+        {
+          "tag": "BUTTON",
+          "id": "run-demo-analysis",
+          "text": "샘플 분석 다시 실행"
+        },
+        {
+          "tag": "SUMMARY",
+          "id": "",
+          "text": "강사 발화 구간 더 보기"
+        },
+        {
+          "tag": "INPUT",
+          "id": "publish-title-input",
+          "text": ""
+        },
+        {
+          "tag": "INPUT",
+          "id": "publish-subject",
+          "text": ""
+        },
+        {
+          "tag": "INPUT",
+          "id": "",
+          "text": ""
+        },
+        {
+          "tag": "INPUT",
+          "id": "",
+          "text": ""
+        },
+        {
+          "tag": "INPUT",
+          "id": "publish-store",
+          "text": ""
+        },
+        {
+          "tag": "INPUT",
+          "id": "publish-chat",
+          "text": ""
+        },
+        {
+          "tag": "BUTTON",
+          "id": "",
+          "text": "배정하고 준비 완료"
+        },
+        {
+          "tag": "BUTTON",
+          "id": "",
+          "text": "보호자 준비실로"
+        },
+        {
+          "tag": "A",
+          "id": "",
+          "text": "이 강의를 학생에게 제공"
+        },
+        {
+          "tag": "SUMMARY",
+          "id": "",
+          "text": "실행 정보"
+        }
+      ],
+      "focus": [
+        {
+          "tag": "INPUT",
+          "id": "publish-title-input",
+          "text": "",
+          "top": 366.984375,
+          "bottom": 421.328125,
+          "barTop": 819,
+          "covered": false,
+          "invisible": false,
+          "outline": "4px"
+        },
+        {
+          "tag": "INPUT",
+          "id": "publish-subject",
+          "text": "",
+          "top": 473.515625,
+          "bottom": 527.859375,
+          "barTop": 819,
+          "covered": false,
+          "invisible": false,
+          "outline": "4px"
+        },
+        {
+          "tag": "INPUT",
+          "id": "",
+          "text": "",
+          "top": 598.453125,
+          "bottom": 622.453125,
+          "barTop": 819,
+          "covered": false,
+          "invisible": false,
+          "outline": "4px"
+        },
+        {
+          "tag": "INPUT",
+          "id": "",
+          "text": "",
+          "top": 598.453125,
+          "bottom": 622.453125,
+          "barTop": 819,
+          "covered": false,
+          "invisible": false,
+          "outline": "4px"
+        },
+        {
+          "tag": "INPUT",
+          "id": "publish-store",
+          "text": "",
+          "top": 663.453125,
+          "bottom": 687.453125,
+          "barTop": 819,
+          "covered": false,
+          "invisible": false,
+          "outline": "4px"
+        },
+        {
+          "tag": "INPUT",
+          "id": "publish-chat",
+          "text": "",
+          "top": 382.421875,
+          "bottom": 406.421875,
+          "barTop": 819,
+          "covered": false,
+          "invisible": false,
+          "outline": "4px"
+        },
+        {
+          "tag": "BUTTON",
+          "id": "",
+          "text": "배정하고 준비 완료",
+          "top": 595.390625,
+          "bottom": 655.578125,
+          "barTop": 819,
+          "covered": false,
+          "invisible": false,
+          "outline": "4px"
+        },
+        {
+          "tag": "BUTTON",
+          "id": "",
+          "text": "보호자 준비실로",
+          "top": 671.578125,
+          "bottom": 731.765625,
+          "barTop": 819,
+          "covered": false,
+          "invisible": false,
+          "outline": "4px"
+        },
+        {
+          "tag": "A",
+          "id": "",
+          "text": "이 강의를 학생에게 제공",
+          "top": 836,
+          "bottom": 884,
+          "barTop": 819,
+          "covered": false,
+          "invisible": false,
+          "outline": "4px"
+        },
+        {
+          "tag": "SUMMARY",
+          "id": "",
+          "text": "실행 정보",
+          "top": 719.765625,
+          "bottom": 763.765625,
+          "barTop": 819,
+          "covered": false,
+          "invisible": false,
+          "outline": "4px"
+        },
+        {
+          "tag": "A",
+          "id": "",
+          "text": "본문으로 바로가기",
+          "top": 16,
+          "bottom": 71.28125,
+          "barTop": 819,
+          "covered": false,
+          "invisible": false,
+          "outline": "4px"
+        },
+        {
+          "tag": "A",
+          "id": "",
+          "text": "Sullivan AI\n강의 학습 도우미\n처음 화면",
+          "top": 16,
+          "bottom": 76.0625,
+          "barTop": 819,
+          "covered": false,
+          "invisible": false,
+          "outline": "4px"
+        },
+        {
+          "tag": "BUTTON",
+          "id": "",
+          "text": "강의 화면",
+          "top": 590.640625,
+          "bottom": 643.640625,
+          "barTop": 819,
+          "covered": false,
+          "invisible": false,
+          "outline": "4px"
+        },
+        {
+          "tag": "BUTTON",
+          "id": "",
+          "text": "핵심 탐색",
+          "top": 590.640625,
+          "bottom": 643.640625,
+          "barTop": 819,
+          "covered": false,
+          "invisible": false,
+          "outline": "4px"
+        },
+        {
+          "tag": "BUTTON",
+          "id": "",
+          "text": "접근성 복습",
+          "top": 651.640625,
+          "bottom": 704.640625,
+          "barTop": 819,
+          "covered": false,
+          "invisible": false,
+          "outline": "4px"
+        },
+        {
+          "tag": "BUTTON",
+          "id": "",
+          "text": "AI 학습 노트",
+          "top": 651.640625,
+          "bottom": 704.640625,
+          "barTop": 819,
+          "covered": false,
+          "invisible": false,
+          "outline": "4px"
+        },
+        {
+          "tag": "BUTTON",
+          "id": "",
+          "text": "AI 학습 대화",
+          "top": 710.640625,
+          "bottom": 763.640625,
+          "barTop": 819,
+          "covered": false,
+          "invisible": false,
+          "outline": "4px"
+        },
+        {
+          "tag": "BUTTON",
+          "id": "",
+          "text": "안전·판단 근거",
+          "top": 710.640625,
+          "bottom": 763.640625,
+          "barTop": 819,
+          "covered": false,
+          "invisible": false,
+          "outline": "4px"
+        },
+        {
+          "tag": "VIDEO",
+          "id": "lecture-video",
+          "text": "강의 영상 재생기",
+          "top": 319.25,
+          "bottom": 469.25,
+          "barTop": 819,
+          "covered": false,
+          "invisible": false,
+          "outline": "3px"
+        },
+        {
+          "tag": "INPUT",
+          "id": "auto-narration",
+          "text": "",
+          "top": 544.640625,
+          "bottom": 568.640625,
+          "barTop": 819,
+          "covered": false,
+          "invisible": false,
+          "outline": "4px"
+        },
+        {
+          "tag": "SELECT",
+          "id": "speech-rate",
+          "text": "0.85×\n0.95×\n1.05×\n1.15×",
+          "top": 532.640625,
+          "bottom": 580.640625,
+          "barTop": 819,
+          "covered": false,
+          "invisible": false,
+          "outline": "4px"
+        },
+        {
+          "tag": "SELECT",
+          "id": "speech-voice",
+          "text": "사람에 가까운 음성 자동 선택",
+          "top": 599.828125,
+          "bottom": 647.828125,
+          "barTop": 819,
+          "covered": false,
+          "invisible": false,
+          "outline": "4px"
+        },
+        {
+          "tag": "SELECT",
+          "id": "speech-style",
+          "text": "따뜻한 학습 안내\n차분한 강의\n또렷한 복습",
+          "top": 662.21875,
+          "bottom": 710.21875,
+          "barTop": 819,
+          "covered": false,
+          "invisible": false,
+          "outline": "4px"
+        },
+        {
+          "tag": "SELECT",
+          "id": "speech-pitch",
+          "text": "낮게\n보통\n높게",
+          "top": 715.8125,
+          "bottom": 763.8125,
+          "barTop": 819,
+          "covered": false,
+          "invisible": false,
+          "outline": "4px"
+        },
+        {
+          "tag": "SELECT",
+          "id": "speech-volume",
+          "text": "작게\n편안하게\n크게",
+          "top": 715.8125,
+          "bottom": 763.8125,
+          "barTop": 819,
+          "covered": false,
+          "invisible": false,
+          "outline": "4px"
+        },
+        {
+          "tag": "BUTTON",
+          "id": "describe-now",
+          "text": "현재 화면 해설",
+          "top": 711.40625,
+          "bottom": 763.953125,
+          "barTop": 819,
+          "covered": false,
+          "invisible": false,
+          "outline": "4px"
+        },
+        {
+          "tag": "BUTTON",
+          "id": "preview-voice",
+          "text": "음성 미리 듣기",
+          "top": 711.40625,
+          "bottom": 763.953125,
+          "barTop": 819,
+          "covered": false,
+          "invisible": false,
+          "outline": "4px"
+        },
+        {
+          "tag": "BUTTON",
+          "id": "read-summary-guide",
+          "text": "요약 음성 가이드",
+          "top": 682.546875,
+          "bottom": 763.890625,
+          "barTop": 819,
+          "covered": false,
+          "invisible": false,
+          "outline": "4px"
+        },
+        {
+          "tag": "BUTTON",
+          "id": "stop-speech",
+          "text": "영상·음성 멈춤",
+          "top": 682.546875,
+          "bottom": 763.890625,
+          "barTop": 819,
+          "covered": false,
+          "invisible": false,
+          "outline": "4px"
+        },
+        {
+          "tag": "BUTTON",
+          "id": "run-demo-analysis",
+          "text": "샘플 분석 다시 실행",
+          "top": 370.0625,
+          "bottom": 418.0625,
+          "barTop": 819,
+          "covered": false,
+          "invisible": false,
+          "outline": "4px"
+        },
+        {
+          "tag": "SUMMARY",
+          "id": "",
+          "text": "강사 발화 구간 더 보기",
+          "top": 621.609375,
+          "bottom": 669.609375,
+          "barTop": 819,
+          "covered": false,
+          "invisible": false,
+          "outline": "4px"
+        },
+        {
+          "tag": "INPUT",
+          "id": "publish-title-input",
+          "text": "",
+          "top": 366.984375,
+          "bottom": 421.328125,
+          "barTop": 819,
+          "covered": false,
+          "invisible": false,
+          "outline": "4px"
+        },
+        {
+          "tag": "INPUT",
+          "id": "publish-subject",
+          "text": "",
+          "top": 473.515625,
+          "bottom": 527.859375,
+          "barTop": 819,
+          "covered": false,
+          "invisible": false,
+          "outline": "4px"
+        }
+      ],
+      "target": {
+        "id": "publish-title",
+        "top": 24.203125,
+        "bottom": 63.796875,
+        "barTop": 819
+      },
+      "grids": [
+        {
+          "display": "grid",
+          "columns": "24px 102.891px",
+          "inputWidth": 24,
+          "inputHeight": 24,
+          "labelWidth": 138.890625
+        },
+        {
+          "display": "grid",
+          "columns": "24px 87.3281px",
+          "inputWidth": 24,
+          "inputHeight": 24,
+          "labelWidth": 123.328125
+        },
+        {
+          "display": "grid",
+          "columns": "24px 354px",
+          "inputWidth": 24,
+          "inputHeight": 24,
+          "labelWidth": 390
+        },
+        {
+          "display": "grid",
+          "columns": "24px 354px",
+          "inputWidth": 24,
+          "inputHeight": 24,
+          "labelWidth": 390
+        }
+      ],
+      "overflow": false
+    },
+    {
+      "width": 1280,
+      "controls": [
+        {
+          "tag": "A",
+          "id": "",
+          "text": "본문으로 바로가기"
+        },
+        {
+          "tag": "A",
+          "id": "",
+          "text": "Sullivan AI\n강의 학습 도우미\n처음 화면"
+        },
+        {
+          "tag": "BUTTON",
+          "id": "",
+          "text": "강의 화면"
+        },
+        {
+          "tag": "BUTTON",
+          "id": "",
+          "text": "핵심 탐색"
+        },
+        {
+          "tag": "BUTTON",
+          "id": "",
+          "text": "접근성 복습"
+        },
+        {
+          "tag": "BUTTON",
+          "id": "",
+          "text": "AI 학습 노트"
+        },
+        {
+          "tag": "BUTTON",
+          "id": "",
+          "text": "AI 학습 대화"
+        },
+        {
+          "tag": "BUTTON",
+          "id": "",
+          "text": "안전·판단 근거"
+        },
+        {
+          "tag": "VIDEO",
+          "id": "lecture-video",
+          "text": "강의 영상 재생기"
+        },
+        {
+          "tag": "INPUT",
+          "id": "auto-narration",
+          "text": ""
+        },
+        {
+          "tag": "SELECT",
+          "id": "speech-rate",
+          "text": "0.85×\n0.95×\n1.05×\n1.15×"
+        },
+        {
+          "tag": "SELECT",
+          "id": "speech-voice",
+          "text": "사람에 가까운 음성 자동 선택"
+        },
+        {
+          "tag": "SELECT",
+          "id": "speech-style",
+          "text": "따뜻한 학습 안내\n차분한 강의\n또렷한 복습"
+        },
+        {
+          "tag": "SELECT",
+          "id": "speech-pitch",
+          "text": "낮게\n보통\n높게"
+        },
+        {
+          "tag": "SELECT",
+          "id": "speech-volume",
+          "text": "작게\n편안하게\n크게"
+        },
+        {
+          "tag": "BUTTON",
+          "id": "describe-now",
+          "text": "현재 화면 해설"
+        },
+        {
+          "tag": "BUTTON",
+          "id": "preview-voice",
+          "text": "음성 미리 듣기"
+        },
+        {
+          "tag": "BUTTON",
+          "id": "read-summary-guide",
+          "text": "요약 음성 가이드"
+        },
+        {
+          "tag": "BUTTON",
+          "id": "stop-speech",
+          "text": "영상·음성 멈춤"
+        },
+        {
+          "tag": "BUTTON",
+          "id": "run-demo-analysis",
+          "text": "샘플 분석 다시 실행"
+        },
+        {
+          "tag": "SUMMARY",
+          "id": "",
+          "text": "강사 발화 구간 더 보기"
+        },
+        {
+          "tag": "INPUT",
+          "id": "publish-title-input",
+          "text": ""
+        },
+        {
+          "tag": "INPUT",
+          "id": "publish-subject",
+          "text": ""
+        },
+        {
+          "tag": "INPUT",
+          "id": "",
+          "text": ""
+        },
+        {
+          "tag": "INPUT",
+          "id": "",
+          "text": ""
+        },
+        {
+          "tag": "INPUT",
+          "id": "publish-store",
+          "text": ""
+        },
+        {
+          "tag": "INPUT",
+          "id": "publish-chat",
+          "text": ""
+        },
+        {
+          "tag": "BUTTON",
+          "id": "",
+          "text": "배정하고 준비 완료"
+        },
+        {
+          "tag": "BUTTON",
+          "id": "",
+          "text": "보호자 준비실로"
+        },
+        {
+          "tag": "A",
+          "id": "",
+          "text": "이 강의를 학생에게 제공"
+        },
+        {
+          "tag": "SUMMARY",
+          "id": "",
+          "text": "실행 정보"
+        }
+      ],
+      "focus": [
+        {
+          "tag": "INPUT",
+          "id": "publish-title-input",
+          "text": "",
+          "top": 366.59375,
+          "bottom": 420.9375,
+          "barTop": 819,
+          "covered": false,
+          "invisible": false,
+          "outline": "4px"
+        },
+        {
+          "tag": "INPUT",
+          "id": "publish-subject",
+          "text": "",
+          "top": 366.59375,
+          "bottom": 420.9375,
+          "barTop": 819,
+          "covered": false,
+          "invisible": false,
+          "outline": "4px"
+        },
+        {
+          "tag": "INPUT",
+          "id": "",
+          "text": "",
+          "top": 491.53125,
+          "bottom": 515.53125,
+          "barTop": 819,
+          "covered": false,
+          "invisible": false,
+          "outline": "4px"
+        },
+        {
+          "tag": "INPUT",
+          "id": "",
+          "text": "",
+          "top": 491.53125,
+          "bottom": 515.53125,
+          "barTop": 819,
+          "covered": false,
+          "invisible": false,
+          "outline": "4px"
+        },
+        {
+          "tag": "INPUT",
+          "id": "publish-store",
+          "text": "",
+          "top": 556.53125,
+          "bottom": 580.53125,
+          "barTop": 819,
+          "covered": false,
+          "invisible": false,
+          "outline": "4px"
+        },
+        {
+          "tag": "INPUT",
+          "id": "publish-chat",
+          "text": "",
+          "top": 687.125,
+          "bottom": 711.125,
+          "barTop": 819,
+          "covered": false,
+          "invisible": false,
+          "outline": "4px"
+        },
+        {
+          "tag": "BUTTON",
+          "id": "",
+          "text": "배정하고 준비 완료",
+          "top": 391.3125,
+          "bottom": 451.5,
+          "barTop": 819,
+          "covered": false,
+          "invisible": false,
+          "outline": "4px"
+        },
+        {
+          "tag": "BUTTON",
+          "id": "",
+          "text": "보호자 준비실로",
+          "top": 467.5,
+          "bottom": 527.6875,
+          "barTop": 819,
+          "covered": false,
+          "invisible": false,
+          "outline": "4px"
+        },
+        {
+          "tag": "A",
+          "id": "",
+          "text": "이 강의를 학생에게 제공",
+          "top": 836,
+          "bottom": 884,
+          "barTop": 819,
+          "covered": false,
+          "invisible": false,
+          "outline": "4px"
+        },
+        {
+          "tag": "SUMMARY",
+          "id": "",
+          "text": "실행 정보",
+          "top": 719.6875,
+          "bottom": 763.6875,
+          "barTop": 819,
+          "covered": false,
+          "invisible": false,
+          "outline": "4px"
+        },
+        {
+          "tag": "BODY",
+          "id": "",
+          "text": "본문으로 바로가기\nSullivan AI\n강의 학습 도우미\n처음 화면\n사전 준비된 과학 샘플\n\n설명할 화면\n0곳\n말하지 않고 보",
+          "top": -1493,
+          "bottom": 899.6875,
+          "barTop": 819,
+          "covered": false,
+          "invisible": false,
+          "outline": "3px"
+        },
+        {
+          "tag": "A",
+          "id": "",
+          "text": "본문으로 바로가기",
+          "top": 16,
+          "bottom": 71.28125,
+          "barTop": 819,
+          "covered": false,
+          "invisible": false,
+          "outline": "4px"
+        },
+        {
+          "tag": "A",
+          "id": "",
+          "text": "Sullivan AI\n강의 학습 도우미\n처음 화면",
+          "top": 16,
+          "bottom": 76.0625,
+          "barTop": 819,
+          "covered": false,
+          "invisible": false,
+          "outline": "4px"
+        },
+        {
+          "tag": "BUTTON",
+          "id": "",
+          "text": "강의 화면",
+          "top": 462.046875,
+          "bottom": 515.046875,
+          "barTop": 819,
+          "covered": false,
+          "invisible": false,
+          "outline": "4px"
+        },
+        {
+          "tag": "BUTTON",
+          "id": "",
+          "text": "핵심 탐색",
+          "top": 523.046875,
+          "bottom": 576.046875,
+          "barTop": 819,
+          "covered": false,
+          "invisible": false,
+          "outline": "4px"
+        },
+        {
+          "tag": "BUTTON",
+          "id": "",
+          "text": "접근성 복습",
+          "top": 584.046875,
+          "bottom": 637.046875,
+          "barTop": 819,
+          "covered": false,
+          "invisible": false,
+          "outline": "4px"
+        },
+        {
+          "tag": "BUTTON",
+          "id": "",
+          "text": "AI 학습 노트",
+          "top": 645.046875,
+          "bottom": 698.046875,
+          "barTop": 819,
+          "covered": false,
+          "invisible": false,
+          "outline": "4px"
+        },
+        {
+          "tag": "BUTTON",
+          "id": "",
+          "text": "AI 학습 대화",
+          "top": 706.046875,
+          "bottom": 759.046875,
+          "barTop": 819,
+          "covered": false,
+          "invisible": false,
+          "outline": "4px"
+        },
+        {
+          "tag": "BUTTON",
+          "id": "",
+          "text": "안전·판단 근거",
+          "top": 711.046875,
+          "bottom": 764.046875,
+          "barTop": 819,
+          "covered": false,
+          "invisible": false,
+          "outline": "4px"
+        },
+        {
+          "tag": "VIDEO",
+          "id": "lecture-video",
+          "text": "강의 영상 재생기",
+          "top": 580.359375,
+          "bottom": 730.359375,
+          "barTop": 819,
+          "covered": false,
+          "invisible": false,
+          "outline": "3px"
+        },
+        {
+          "tag": "INPUT",
+          "id": "auto-narration",
+          "text": "",
+          "top": 381.9375,
+          "bottom": 405.9375,
+          "barTop": 819,
+          "covered": false,
+          "invisible": false,
+          "outline": "4px"
+        },
+        {
+          "tag": "SELECT",
+          "id": "speech-rate",
+          "text": "0.85×\n0.95×\n1.05×\n1.15×",
+          "top": 369.953125,
+          "bottom": 417.953125,
+          "barTop": 819,
+          "covered": false,
+          "invisible": false,
+          "outline": "4px"
+        },
+        {
+          "tag": "SELECT",
+          "id": "speech-voice",
+          "text": "사람에 가까운 음성 자동 선택",
+          "top": 427.546875,
+          "bottom": 475.546875,
+          "barTop": 819,
+          "covered": false,
+          "invisible": false,
+          "outline": "4px"
+        },
+        {
+          "tag": "SELECT",
+          "id": "speech-style",
+          "text": "따뜻한 학습 안내\n차분한 강의\n또렷한 복습",
+          "top": 427.546875,
+          "bottom": 475.546875,
+          "barTop": 819,
+          "covered": false,
+          "invisible": false,
+          "outline": "4px"
+        },
+        {
+          "tag": "SELECT",
+          "id": "speech-pitch",
+          "text": "낮게\n보통\n높게",
+          "top": 487.40625,
+          "bottom": 535.40625,
+          "barTop": 819,
+          "covered": false,
+          "invisible": false,
+          "outline": "4px"
+        },
+        {
+          "tag": "SELECT",
+          "id": "speech-volume",
+          "text": "작게\n편안하게\n크게",
+          "top": 487.40625,
+          "bottom": 535.40625,
+          "barTop": 819,
+          "covered": false,
+          "invisible": false,
+          "outline": "4px"
+        },
+        {
+          "tag": "BUTTON",
+          "id": "describe-now",
+          "text": "현재 화면 해설",
+          "top": 485.140625,
+          "bottom": 537.6875,
+          "barTop": 819,
+          "covered": false,
+          "invisible": false,
+          "outline": "4px"
+        },
+        {
+          "tag": "BUTTON",
+          "id": "preview-voice",
+          "text": "음성 미리 듣기",
+          "top": 485.140625,
+          "bottom": 537.6875,
+          "barTop": 819,
+          "covered": false,
+          "invisible": false,
+          "outline": "4px"
+        },
+        {
+          "tag": "BUTTON",
+          "id": "read-summary-guide",
+          "text": "요약 음성 가이드",
+          "top": 547.28125,
+          "bottom": 599.828125,
+          "barTop": 819,
+          "covered": false,
+          "invisible": false,
+          "outline": "4px"
+        },
+        {
+          "tag": "BUTTON",
+          "id": "stop-speech",
+          "text": "영상·음성 멈춤",
+          "top": 547.28125,
+          "bottom": 599.828125,
+          "barTop": 819,
+          "covered": false,
+          "invisible": false,
+          "outline": "4px"
+        },
+        {
+          "tag": "BUTTON",
+          "id": "run-demo-analysis",
+          "text": "샘플 분석 다시 실행",
+          "top": 276.75,
+          "bottom": 324.75,
+          "barTop": 819,
+          "covered": false,
+          "invisible": false,
+          "outline": "4px"
+        },
+        {
+          "tag": "SUMMARY",
+          "id": "",
+          "text": "강사 발화 구간 더 보기",
+          "top": 528.296875,
+          "bottom": 576.296875,
+          "barTop": 819,
+          "covered": false,
+          "invisible": false,
+          "outline": "4px"
+        },
+        {
+          "tag": "INPUT",
+          "id": "publish-title-input",
+          "text": "",
+          "top": 366.59375,
+          "bottom": 420.9375,
+          "barTop": 819,
+          "covered": false,
+          "invisible": false,
+          "outline": "4px"
+        }
+      ],
+      "target": {
+        "id": "publish-title",
+        "top": 23.8125,
+        "bottom": 63.40625,
+        "barTop": 819
+      },
+      "grids": [
+        {
+          "display": "grid",
+          "columns": "24px 102.891px",
+          "inputWidth": 24,
+          "inputHeight": 24,
+          "labelWidth": 138.890625
+        },
+        {
+          "display": "grid",
+          "columns": "24px 87.3281px",
+          "inputWidth": 24,
+          "inputHeight": 24,
+          "labelWidth": 123.328125
+        },
+        {
+          "display": "grid",
+          "columns": "24px 1064px",
+          "inputWidth": 24,
+          "inputHeight": 24,
+          "labelWidth": 1100
+        },
+        {
+          "display": "grid",
+          "columns": "24px 1064px",
+          "inputWidth": 24,
+          "inputHeight": 24,
+          "labelWidth": 1100
+        }
+      ],
+      "overflow": false
+    }
+  ],
+  "checks": [
+    "DOM order places result summary and workspace before assignment form; fixed CTA follows form in source.",
+    "Native footer CTA Enter focuses the tabindex=-1 publish-title heading at320,390,1280px.",
+    "Checkbox labels use24px plus flexible text grid; native checkboxes retain their labels."
+  ],
+  "limitations": [
+    "No actual VoiceOver/NVDA speech. Parent owns live authenticated integration."
+  ]
+}

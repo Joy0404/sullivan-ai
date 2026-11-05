@@ -1,0 +1,24 @@
+{
+  "skill": "aria-specialist",
+  "scope": [
+    "apps/web/role-portal.js",
+    "apps/web/index.html",
+    "apps/web/guide/index.html",
+    "apps/web/guide/guide.js",
+    "apps/web/intro/index.html"
+  ],
+  "findings": [],
+  "passed": [
+    "HEAD 48b3ac10c459b53076294376122e63d235dd1dee: runtime reference scan found no missing aria-labelledby, aria-describedby, or aria-controls targets.",
+    "T4 guardian navigation terms changed only in guardian mode, restored on logout, and remained original after student authentication.",
+    "T4 opening a sample focused #guardian-result-title once; the result summary was hidden after logout and in student mode.",
+    "T5 native details disclosures expose their expanded state; summaries describe their student through the matching h3 ID.",
+    "Guide hash navigation reopened a collapsed current step and focused its disclosure button; aria-expanded matched panel visibility.",
+    "Guide toggle-all aria-controls resolved to all eight panel IDs and all aria-expanded values tracked bulk expansion."
+  ],
+  "notes": [
+    "Read-only product audit in headless Chrome using Puppeteer, an ephemeral SQLite test server on port 8893, disposable accounts, and a mocked YouTube player; external requests were blocked.",
+    "No VoiceOver or NVDA session was run; findings and passes describe DOM, focus, and Chrome accessibility-tree evidence.",
+    "Evidence: /tmp/sullivan-aria-audit-results.json, /tmp/sullivan-aria-races-results.json, /tmp/sullivan-aria-concurrent-results.json."
+  ]
+}

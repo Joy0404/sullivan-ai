@@ -1,0 +1,23 @@
+{
+  "skill": "keyboard-navigator",
+  "scope": [
+    "apps/web/index.html#guardian-dashboard",
+    "apps/web/role-portal.js:loadGuardian",
+    "apps/web/role-portal.js:renderGuardianLectures",
+    "apps/web/guardian-design.css (guardian dashboard rules)"
+  ],
+  "findings": [
+    {
+      "rule": "KEYBOARD-FOCUS-SCROLL",
+      "wcag": "2.4.7 AA",
+      "severity": "moderate",
+      "location": "apps/web/role-portal.js:214",
+      "summary": "The assignment task link focuses its heading then scrolls the inner list, moving the focused heading entirely above the viewport.",
+      "fix": "Scroll the actual focused target, or its containing section, after focus({preventScroll:true}); verify the heading remains visible.",
+      "evidence": "Chrome 1280×800: #guardian-lectures-title top=-93.08px, bottom=-59.48px after keyboard activation."
+    }
+  ],
+  "notes": [
+    "Resolved in current source; retained only as initial finding evidence."
+  ]
+}

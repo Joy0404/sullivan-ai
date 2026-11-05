@@ -1,0 +1,20 @@
+{
+  "skill": "keyboard-navigator",
+  "scope": [
+    "apps/web/role-portal.js:loadGuardian guardian-learning-progress block",
+    "apps/web/guardian-design.css:guardian-learning-progress rules"
+  ],
+  "findings": [],
+  "passed": [
+    "Real Tab reaches native summary; Enter opens progress and focus stays on summary during loading",
+    "Async success appends semantic read-only records and updates persistent status without moving focus",
+    "Space collapses; Enter reopens cached records without another request; Tab and Shift+Tab pass between progress and settings without traps",
+    "Failure keeps summary focus; close/reopen with Enter/Space retries successfully and reports empty state",
+    "Native summary target height is at least48px and there is no horizontal overflow at320,390,1280px"
+  ],
+  "notes": [
+    "Runtime used the exact current progress block in an isolated DOM with all requests mocked; no authentication or mutation of parent server8880.",
+    "Runtime evidence: /tmp/sullivan-t5-work/review/keyboard-runtime.json.",
+    "Actual VoiceOver/NVDA speech and assistive-device touch interaction were not tested."
+  ]
+}

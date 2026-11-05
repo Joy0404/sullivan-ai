@@ -1,0 +1,36 @@
+{
+  "skill": "contrast-master",
+  "scope": [
+    "apps/web/intro.css",
+    "apps/web/intro/index.html",
+    "apps/web/guide/index.html",
+    "apps/web/guardian-design.css",
+    "apps/web/workspace-design.css",
+    "apps/web/index.html"
+  ],
+  "findings": [
+    {
+      "rule": "PROJECT-TEXT-018",
+      "wcag": "n/a",
+      "severity": "minor",
+      "location": "apps/web/workspace-design.css:183",
+      "summary": "Guardian concept categories, timestamps and sentence emphasis remain 14px, below the project’s required 18px text size.",
+      "fix": "Extend the guardian-only workspace typography rule to .concept-meta b, .concept-meta time and .sentence > em (or include b, time and em) with font-size:1.125rem; preserve student styling.",
+      "evidence": "At 320/390/1280, computed .concept-meta b and time and .sentence > em are 14px. The selector at line 183 omits b/time/em; styles.css:798 and :490 set 0.875rem. Runtime: .a11y-history/final-audit/visual-runtime-evidence.json, passage320/passage390/passage1280.",
+      "component": "Guardian core-concept and passage review"
+    }
+  ],
+  "passed": [
+    "Independent headless Chrome/Puppeteer runtime on HEAD 48b3ac1 using port 8894 and disposable accounts; no provider requests permitted.",
+    "Measured visible text foreground/background combinations in intro, fully expanded guide, guardian dashboard, all wizard steps and all six result panels: no WCAG 1.4.3 contrast failures.",
+    "All tested interactive controls have visible 4px keyboard focus outlines; ring #8c4700 contrasted with white/canvas/amber-soft backgrounds. Detailed computed styles in visual-focus-evidence.json.",
+    "Intro, guide, guardian dashboard, wizard steps and result panels reflow without measured horizontal overflow at 320, 390 and 1280 CSS px.",
+    "Guardian flow and intro/guide button elements meet 48px minimum height; 24px native checkbox visuals have associated text labels.",
+    "Reduced-motion preference produced no visible animations or transitions in guardian results."
+  ],
+  "notes": [
+    "The 18px finding is a stricter RESKIN_PLAYBOOK section 6 requirement, not a WCAG minimum-font-size failure.",
+    "Audit date 2026-11-05; Puppeteer 25.16.0, local Google Chrome; read-only product audit, only disposable account data and audit artifacts created.",
+    "Login’s existing 14–16px typography and 44px voice-test control were observed but excluded from findings because the redesign permits only one added login link."
+  ]
+}

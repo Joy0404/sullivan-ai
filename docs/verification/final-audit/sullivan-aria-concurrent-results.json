@@ -1,0 +1,138 @@
+{
+  "errors": [],
+  "concurrent": {
+    "focus": "guardian-prepare",
+    "events": [
+      {
+        "text": "학습 현황을 불러오고 있습니다.",
+        "student": "검증학생",
+        "role": "status",
+        "label": null,
+        "labelledby": null
+      },
+      {
+        "text": "학습 현황을 불러오고 있습니다.",
+        "student": "검증학생둘",
+        "role": "status",
+        "label": null,
+        "labelledby": null
+      },
+      {
+        "text": "아직 배정된 강의가 없습니다.",
+        "student": "검증학생",
+        "role": "status",
+        "label": null,
+        "labelledby": null
+      },
+      {
+        "text": "학습 현황을 불러오지 못했습니다. 접었다가 다시 펼치면 재시도합니다.",
+        "student": "검증학생둘",
+        "role": "status",
+        "label": null,
+        "labelledby": null
+      }
+    ],
+    "html": [
+      "<details class=\"guardian-learning-progress\" open=\"\"><summary aria-describedby=\"guardian-student-1209583116d04e54ad726f41005d0f62\">학습 현황</summary><p role=\"status\">아직 배정된 강의가 없습니다.</p><ul></ul></details>",
+      "<details class=\"guardian-learning-progress\" open=\"\"><summary aria-describedby=\"guardian-student-e3572b15175f49eb9ca20b739f5b5b18\">학습 현황</summary><p role=\"status\">학습 현황을 불러오지 못했습니다. 접었다가 다시 펼치면 재시도합니다.</p><ul></ul></details>"
+    ]
+  },
+  "statusAX": [
+    {
+      "name": "",
+      "properties": [
+        {
+          "name": "live",
+          "value": {
+            "type": "token",
+            "value": "polite"
+          }
+        },
+        {
+          "name": "atomic",
+          "value": {
+            "type": "boolean",
+            "value": true
+          }
+        },
+        {
+          "name": "relevant",
+          "value": {
+            "type": "tokenList",
+            "value": "additions text"
+          }
+        }
+      ],
+      "children": [
+        {
+          "role": "StaticText",
+          "name": "학생 2명, 준비한 강의 2개, 준비 완료한 배정 강의 2개입니다."
+        }
+      ]
+    },
+    {
+      "name": "",
+      "properties": [
+        {
+          "name": "live",
+          "value": {
+            "type": "token",
+            "value": "polite"
+          }
+        },
+        {
+          "name": "atomic",
+          "value": {
+            "type": "boolean",
+            "value": true
+          }
+        },
+        {
+          "name": "relevant",
+          "value": {
+            "type": "tokenList",
+            "value": "additions text"
+          }
+        }
+      ],
+      "children": [
+        {
+          "role": "StaticText",
+          "name": "아직 배정된 강의가 없습니다."
+        }
+      ]
+    },
+    {
+      "name": "",
+      "properties": [
+        {
+          "name": "live",
+          "value": {
+            "type": "token",
+            "value": "polite"
+          }
+        },
+        {
+          "name": "atomic",
+          "value": {
+            "type": "boolean",
+            "value": true
+          }
+        },
+        {
+          "name": "relevant",
+          "value": {
+            "type": "tokenList",
+            "value": "additions text"
+          }
+        }
+      ],
+      "children": [
+        {
+          "role": "StaticText",
+          "name": "학습 현황을 불러오지 못했습니다. 접었다가 다시 펼치면 재시도합니다."
+        }
+      ]
+    }
+  ]
+}
