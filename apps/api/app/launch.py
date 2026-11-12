@@ -1,4 +1,4 @@
-"""Drop privileges and exec the web server; no persistent disk is required."""
+"""Drop privileges and run one worker. Production accounts require a persistent volume."""
 
 import os
 import sys

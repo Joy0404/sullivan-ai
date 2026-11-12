@@ -1,0 +1,16 @@
+<section id="recovery-output" hidden aria-labelledby="recovery-title">
+  <h2 id="recovery-title" tabindex="-1">복구 코드 보관</h2>
+  <p>코드는 지금만 표시됩니다. 비밀번호를 잊었을 때 한 개씩 사용할 수 있습니다. 보관한 뒤 로그인하세요.</p>
+  <label>발급한 복구 코드<textarea id="recovery-codes" readonly rows="8"></textarea></label>
+  <div class="actions"><button id="download-recovery" type="button">복구 코드 파일로 저장</button><button id="clear-recovery" type="button" class="secondary">코드를 보관했고 화면에서 지우기</button></div>
+</section>
+<section id="account-controls" hidden aria-labelledby="account-title">
+  <h2 id="account-title" tabindex="-1">내 계정과 로그인 기기</h2>
+  <details><summary>복구 코드 새로 발급</summary>
+    <form id="recovery-form"><label>현재 비밀번호<input name="password" type="password" required minlength="8" maxlength="128" autocomplete="current-password" aria-describedby="reauth-help"></label><p id="reauth-help">현재 비밀번호(8~128자)를 확인한 뒤 이전 복구 코드를 폐기하고 새 코드를 만듭니다.</p><button type="submit">복구 코드 새로 만들기</button></form>
+  </details>
+  <details><summary>로그인 기기 관리</summary><button id="devices-refresh" type="button">내 로그인 기기 확인</button><ul id="devices"></ul>
+    <button id="logout-all" type="button">모든 기기 로그아웃</button>
+    <div id="logout-all-confirm" hidden><p id="logout-all-question">이 계정의 모든 웹·확장 로그인을 종료할까요? 학생·보호자의 다른 계정 로그인은 유지됩니다.</p><button id="logout-all-yes" type="button" aria-describedby="logout-all-question">모든 기기 로그아웃 실행</button><button id="logout-all-no" type="button" class="secondary">취소</button></div>
+  </details>
+</section>

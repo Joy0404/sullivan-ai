@@ -34,12 +34,29 @@ def db():
     con.executescript('''
     CREATE TABLE IF NOT EXISTS users(id TEXT PRIMARY KEY, username TEXT UNIQUE, name TEXT, role TEXT, guardian TEXT, salt TEXT, password TEXT, onboarded INTEGER DEFAULT 0, settings TEXT DEFAULT '{}');
     CREATE TABLE IF NOT EXISTS sessions(token TEXT PRIMARY KEY, user TEXT REFERENCES users(id), expires REAL);
+    CREATE TABLE IF NOT EXISTS extension_sessions(token TEXT PRIMARY KEY, user TEXT REFERENCES users(id), client TEXT NOT NULL CHECK(client IN ('student','guardian')), expires REAL);
     CREATE TABLE IF NOT EXISTS owners(session TEXT PRIMARY KEY, guardian TEXT);
     CREATE TABLE IF NOT EXISTS lectures(id TEXT PRIMARY KEY, guardian TEXT, title TEXT, subject TEXT, snapshot TEXT, playback TEXT, ready INTEGER DEFAULT 0, media_key TEXT, chat_allowed INTEGER DEFAULT 0);
     CREATE TABLE IF NOT EXISTS assignments(lecture TEXT REFERENCES lectures(id) ON DELETE CASCADE, student TEXT REFERENCES users(id), position INTEGER, PRIMARY KEY(lecture, student));
     CREATE TABLE IF NOT EXISTS progress(lecture TEXT REFERENCES lectures(id) ON DELETE CASCADE, student TEXT REFERENCES users(id), payload TEXT, PRIMARY KEY(lecture, student));
     CREATE TABLE IF NOT EXISTS failures(identity TEXT PRIMARY KEY, count INTEGER, until REAL);
+    CREATE TABLE IF NOT EXISTS preparations(id TEXT PRIMARY KEY, guardian TEXT NOT NULL REFERENCES users(id), session_id TEXT NOT NULL UNIQUE, title TEXT NOT NULL, subject TEXT NOT NULL, source_kind TEXT NOT NULL, state TEXT NOT NULL, message TEXT NOT NULL, snapshot TEXT, playback TEXT NOT NULL DEFAULT '{}', instance TEXT NOT NULL, updated REAL NOT NULL);
+    CREATE TABLE IF NOT EXISTS preparation_publications(preparation TEXT PRIMARY KEY REFERENCES preparations(id), lecture TEXT NOT NULL REFERENCES lectures(id) ON DELETE CASCADE);
+    CREATE TABLE IF NOT EXISTS lecture_media(lecture TEXT PRIMARY KEY REFERENCES lectures(id) ON DELETE CASCADE, identity TEXT NOT NULL);
+    CREATE TABLE IF NOT EXISTS auth_families(id TEXT PRIMARY KEY, user TEXT NOT NULL REFERENCES users(id), client TEXT NOT NULL, created REAL NOT NULL, expires REAL NOT NULL, revoked INTEGER NOT NULL DEFAULT 0);
+    CREATE TABLE IF NOT EXISTS refresh_tokens(token TEXT PRIMARY KEY, family TEXT NOT NULL REFERENCES auth_families(id), expires REAL NOT NULL, used INTEGER NOT NULL DEFAULT 0);
+    CREATE TABLE IF NOT EXISTS auth_requests(ticket TEXT PRIMARY KEY, client TEXT NOT NULL, role TEXT NOT NULL, redirect TEXT NOT NULL, challenge TEXT NOT NULL, state TEXT NOT NULL, csrf TEXT NOT NULL, expires REAL NOT NULL);
+    CREATE TABLE IF NOT EXISTS auth_codes(code TEXT PRIMARY KEY, user TEXT NOT NULL REFERENCES users(id), client TEXT NOT NULL, role TEXT NOT NULL, redirect TEXT NOT NULL, challenge TEXT NOT NULL, expires REAL NOT NULL, used INTEGER NOT NULL DEFAULT 0);
+    CREATE TABLE IF NOT EXISTS recovery_codes(code TEXT PRIMARY KEY, user TEXT NOT NULL REFERENCES users(id), used INTEGER NOT NULL DEFAULT 0);
+    CREATE TABLE IF NOT EXISTS pair_codes(code TEXT PRIMARY KEY, guardian TEXT NOT NULL REFERENCES users(id), expires REAL NOT NULL, consumed_by TEXT);
+    CREATE TABLE IF NOT EXISTS pair_requests(id TEXT PRIMARY KEY, code TEXT NOT NULL REFERENCES pair_codes(code), student TEXT NOT NULL REFERENCES users(id), guardian TEXT NOT NULL REFERENCES users(id), expires REAL NOT NULL);
+    CREATE TABLE IF NOT EXISTS schema_info(version INTEGER PRIMARY KEY, applied REAL NOT NULL);
     ''')
+    con.execute('BEGIN IMMEDIATE')
+    if 'family' not in {row[1] for row in con.execute('PRAGMA table_info(extension_sessions)')}:
+        con.execute('ALTER TABLE extension_sessions ADD COLUMN family TEXT')
+    con.execute('INSERT OR IGNORE INTO schema_info VALUES(4,?)', (time.time(),))
+    con.commit()
     os.chmod(path, 0o600)
     try:
         yield con
@@ -57,6 +74,9 @@ def public(user):
     return {k:user[k] for k in ('id','username','name','role','guardian','onboarded')} | {'settings':json.loads(user['settings'])}
 
 def current(request):
+    if 'authorization' in request.headers:
+        from app.extension_access import current as extension_current
+        return extension_current(request)
     token = request.cookies.get(COOKIE, '')
     if not token: return None
     with db() as c:
@@ -79,7 +99,7 @@ def own(c, user, lecture):
     return row
 
 def attach_owner(request, session):
-    if enabled():
+    if enabled() or 'authorization' in request.headers:
         u=require(request,'guardian')
         with db() as c:c.execute('INSERT INTO owners VALUES (?,?)',(session,u['id']))
 
@@ -89,7 +109,10 @@ async def guard(request, call_next):
     try:
         if request.method not in ('GET','HEAD','OPTIONS') and (path.startswith('/v1/') or path.startswith('/local/')):
             origin=request.headers.get('origin')
-            if origin and origin != str(request.base_url).rstrip('/'):
+            from app.extension_access import allowed_origin
+            extension_request = 'authorization' in request.headers and allowed_origin(request)
+            own_origin = os.getenv('SULLIVAN_PUBLIC_URL','').rstrip('/') if os.getenv('SULLIVAN_PRODUCTION')=='1' else str(request.base_url).rstrip('/')
+            if origin and origin != own_origin and not extension_request:
                 raise HTTPException(403,'다른 출처의 요청은 허용하지 않습니다.')
             if request.headers.get('x-local-request')!='1':raise HTTPException(403,'요청 확인 헤더가 필요합니다.')
         if path.startswith('/v1/'):
@@ -123,7 +146,7 @@ def login_response(c,ident):
     c.execute('INSERT INTO sessions VALUES(?,?,?)',(hashlib.sha256(token.encode()).hexdigest(),ident,time.time()+28800))
     response=JSONResponse(public(c.execute('SELECT * FROM users WHERE id=?',(ident,)).fetchone()))
     # The local launcher binds loopback HTTP. SameSite, origin checks and a custom header protect mutations.
-    response.set_cookie(COOKIE,token,httponly=True,samesite='strict',max_age=28800)
+    response.set_cookie(COOKIE,token,httponly=True,secure=os.getenv('SULLIVAN_PRODUCTION')=='1',samesite='strict',max_age=28800)
     return response
 
 @router.get('/status')
@@ -147,6 +170,7 @@ def initial_login_voice(p:LoginVoiceRequest,request:Request):
 
 @router.post('/setup')
 def setup(p:Credentials):
+    if os.getenv('SULLIVAN_PRODUCTION')=='1':raise HTTPException(403,'운영 서버는 확장의 초대 가입으로 계정을 만듭니다.')
     with db() as c:
         c.execute('BEGIN IMMEDIATE')
         if c.execute("SELECT 1 FROM users WHERE role='guardian'").fetchone():raise HTTPException(403,'초기 보호자 설정은 이미 완료됐습니다.')
@@ -182,6 +206,7 @@ def me(request:Request):return public(require(request))
 
 @router.post('/students')
 def student_create(p:Credentials,request:Request):
+    if os.getenv('SULLIVAN_PRODUCTION')=='1':raise HTTPException(403,'학생이 직접 가입하고 일회용 연결 코드를 확인해야 합니다.')
     u=require(request,'guardian')
     with db() as c:return {'id':create_user(c,p,'student',u['id'])}
 
@@ -272,51 +297,55 @@ class Publish(BaseModel):
 
 @router.post('/lectures')
 def publish(p:Publish,request:Request):
+    u=require(request,'guardian')
+    with db() as c:return publish_prepared(c,u,p)
+
+def publish_prepared(c,u,p):
     from app.main import agent
     from app.models import LectureSnapshot
     from app.adapters.video_link import normalize_video_link
-    u=require(request,'guardian')
     if p.chat_consent:
         from app.core.demo_gate import check_access_code, DemoGateError
         try:check_access_code(p.access_code.get_secret_value() if p.access_code else None)
         except DemoGateError as e:raise HTTPException(e.status_code,e.message) from None
-    with db() as c:
-        if len(set(p.students))!=len(p.students):raise HTTPException(400,'같은 학생을 여러 번 배정할 수 없습니다.')
-        for student in p.students:
-            if not c.execute('SELECT 1 FROM users WHERE id=? AND guardian=?',(student,u['id'])).fetchone():raise HTTPException(403,'연결된 학생만 배정할 수 있습니다.')
-        if p.sample_id not in (None,'science','history'):raise HTTPException(400,'샘플을 확인해 주세요.')
-        if p.sample_id:
-            from app.sample_catalog import prepared_sample
-            _,snap=prepared_sample(p.sample_id)
-        else:
-            owner=c.execute('SELECT guardian FROM owners WHERE session=?',(p.session_id,)).fetchone()
-            if not owner or owner[0]!=u['id']:raise HTTPException(403,'본인의 분석 세션만 사용할 수 있습니다.')
-            snap=agent.snapshot(p.session_id)
-            if snap.active_mode=='waiting':raise HTTPException(400,'분석 또는 학습자료 준비를 먼저 완료해 주세요.')
-        # Only server-checked metadata is published; provider keys and access codes are never persisted.
-        playback={'kind':'none'}
-        kind=p.playback.get('kind')
-        if kind in ('youtube','direct'):
-            link=normalize_video_link(str(p.playback.get('normalized_url','')))
-            if link.playback_kind not in ('youtube','direct'):raise HTTPException(400,'재생 가능한 영상 주소가 필요합니다.')
-            playback={'kind':link.playback_kind,'normalized_url':link.normalized_url,'playback_url':link.playback_url}
-        elif p.store_local_media:
-            playback={'kind':'local','name':str(p.playback.get('name','강의 영상'))[:160]}
-        from app.core.lecture_agent import redact_sensitive_text
-        def redact_tree(value):
-            if isinstance(value,str): return redact_sensitive_text(value)
-            if isinstance(value,list): return [redact_tree(v) for v in value]
-            if isinstance(value,dict): return {k:redact_tree(v) for k,v in value.items()}
-            return value
-        snap=LectureSnapshot.model_validate(redact_tree(snap.model_dump(mode='json')))
-        if p.ready and p.store_local_media:raise HTTPException(400,'파일 강의는 브라우저 암호화 저장을 마친 뒤 준비 완료로 제공해 주세요.')
-        if p.ready and snap.active_mode=='waiting':raise HTTPException(400,'학습자료 준비를 먼저 완료해 주세요.')
-        ident=uuid4().hex
-        key=secrets.token_hex(32) if p.store_local_media else None
-        c.execute('INSERT INTO lectures VALUES(?,?,?,?,?,?,?,?,?)',(ident,u['id'],p.title,p.subject,snap.model_dump_json(),json.dumps(playback),int(p.ready),key,int(p.chat_consent)))
-        for student in p.students:
-            position=c.execute('SELECT COALESCE(MAX(position),0)+1 FROM assignments WHERE student=?',(student,)).fetchone()[0]
-            c.execute('INSERT INTO assignments VALUES(?,?,?)',(ident,student,position))
+    if len(set(p.students))!=len(p.students):raise HTTPException(400,'같은 학생을 여러 번 배정할 수 없습니다.')
+    for student in p.students:
+        if not c.execute('SELECT 1 FROM users WHERE id=? AND guardian=?',(student,u['id'])).fetchone():raise HTTPException(403,'연결된 학생만 배정할 수 있습니다.')
+    if p.sample_id not in (None,'science','history'):raise HTTPException(400,'샘플을 확인해 주세요.')
+    if p.sample_id:
+        from app.sample_catalog import prepared_sample
+        _,snap=prepared_sample(p.sample_id)
+    else:
+        owner=c.execute('SELECT guardian FROM owners WHERE session=?',(p.session_id,)).fetchone()
+        if not owner or owner[0]!=u['id']:raise HTTPException(403,'본인의 분석 세션만 사용할 수 있습니다.')
+        from app.guardian_preparation import completed_snapshot
+        snap=completed_snapshot(c,u['id'],p.session_id)
+        if snap is None:snap=agent.snapshot(p.session_id)
+        if snap.active_mode=='waiting' and not snap.transcript_segments:raise HTTPException(400,'분석 또는 학습자료 준비를 먼저 완료해 주세요.')
+    # Only server-checked metadata is published; provider keys and access codes are never persisted.
+    playback={'kind':'none'}
+    kind=p.playback.get('kind')
+    if kind in ('youtube','direct'):
+        link=normalize_video_link(str(p.playback.get('normalized_url','')))
+        if link.playback_kind not in ('youtube','direct'):raise HTTPException(400,'재생 가능한 영상 주소가 필요합니다.')
+        playback={'kind':link.playback_kind,'normalized_url':link.normalized_url,'playback_url':link.playback_url}
+    elif p.store_local_media:
+        playback={'kind':'local','name':str(p.playback.get('name','강의 영상'))[:160]}
+    from app.core.lecture_agent import redact_sensitive_text
+    def redact_tree(value):
+        if isinstance(value,str): return redact_sensitive_text(value)
+        if isinstance(value,list): return [redact_tree(v) for v in value]
+        if isinstance(value,dict): return {k:redact_tree(v) for k,v in value.items()}
+        return value
+    snap=LectureSnapshot.model_validate(redact_tree(snap.model_dump(mode='json')))
+    if p.ready and p.store_local_media:raise HTTPException(400,'파일 강의는 브라우저 암호화 저장을 마친 뒤 준비 완료로 제공해 주세요.')
+    if p.ready and snap.active_mode=='waiting' and not snap.transcript_segments:raise HTTPException(400,'학습자료 준비를 먼저 완료해 주세요.')
+    ident=uuid4().hex
+    key=secrets.token_hex(32) if p.store_local_media else None
+    c.execute('INSERT INTO lectures VALUES(?,?,?,?,?,?,?,?,?)',(ident,u['id'],p.title,p.subject,snap.model_dump_json(),json.dumps(playback),int(p.ready),key,int(p.chat_consent)))
+    for student in p.students:
+        position=c.execute('SELECT COALESCE(MAX(position),0)+1 FROM assignments WHERE student=?',(student,)).fetchone()[0]
+        c.execute('INSERT INTO assignments VALUES(?,?,?)',(ident,student,position))
     return {'id':ident,'media_key':key,'ready':p.ready}
 
 class SampleAssignment(BaseModel):
@@ -336,7 +365,8 @@ def ready(ident:str,request:Request):
     u=require(request,'guardian')
     with db() as c:
         row=own(c,u,ident)
-        if json.loads(row['snapshot']).get('active_mode')=='waiting':raise HTTPException(400,'학습자료 준비를 먼저 완료해 주세요.')
+        snap=json.loads(row['snapshot'])
+        if snap.get('active_mode')=='waiting' and not snap.get('transcript_segments'):raise HTTPException(400,'학습자료 준비를 먼저 완료해 주세요.')
         c.execute('UPDATE lectures SET ready=1 WHERE id=?',(ident,))
     return {'ok':True}
 

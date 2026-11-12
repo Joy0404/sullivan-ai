@@ -1,0 +1,28 @@
+{
+  "skill": "live-region-controller",
+  "scope": [
+    "apps/extensions/shared/ui.js",
+    "apps/extensions/shared/accounts.js",
+    "apps/extensions/shared/accounts.html",
+    "apps/extensions/shared/client.js",
+    "apps/extensions/student/app.js",
+    "apps/extensions/student/workspace.html",
+    "apps/extensions/guardian/app.js",
+    "apps/extensions/guardian/workspace.html",
+    "scripts/build_extensions.py",
+    "apps/api/app/extension_accounts.py"
+  ],
+  "findings": [],
+  "passed": [
+    "Generated pages include persistent role=status and role=alert containers before requests complete; status helper updates textContent.",
+    "Signup, password recovery, code download, device refresh/removal, logout-all and login/logout have concise status or error feedback.",
+    "Pairing preview is exposed through focus on its heading rather than making the code/details a verbose live region.",
+    "Manual student connection refresh reports completion; pairing and unlink success report completion.",
+    "Task helper preserves focus and marks busy controls with aria-busy and aria-disabled; routine success uses polite status and failures use alert."
+  ],
+  "notes": [
+    "Static source review only; announcements were not listened to with a screen reader.",
+    "No delayed-network timing measurement was performed; aria-busy is present on the initiating control.",
+    "The missing manual connection-refresh completion announcement was corrected before this final reread."
+  ]
+}

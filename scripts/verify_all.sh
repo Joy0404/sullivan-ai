@@ -5,6 +5,7 @@ PROJECT_DIR=$(CDPATH= cd -- "$(dirname -- "$0")/.." && pwd)
 cd "$PROJECT_DIR"
 
 python scripts/verify_project.py
+python scripts/test_build_extensions.py
 
 if command -v node >/dev/null 2>&1; then
   node --check apps/web/app.js
@@ -12,6 +13,9 @@ if command -v node >/dev/null 2>&1; then
   node --check apps/web/focus-voice.js
   node --check apps/web/space-gesture.js
   node --check apps/web/keyboard-navigation.js
+  for source in apps/extensions/shared/*.js apps/extensions/student/*.js apps/extensions/guardian/*.js; do
+    node --check "$source"
+  done
   node scripts/test_space_gesture.js
   node scripts/test_playback_scheduler.js
   node scripts/test_concept_tools.js
@@ -20,6 +24,7 @@ if command -v node >/dev/null 2>&1; then
   node scripts/test_passage_tools.js
   node scripts/test_lecture_library.js
   node scripts/test_voice_command_router.js
+  node scripts/test_student_core.mjs
 else
   echo "WARN: node가 없어 JavaScript 구문 검사를 건너뜁니다."
 fi

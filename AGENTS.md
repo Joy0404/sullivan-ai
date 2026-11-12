@@ -40,6 +40,8 @@ Also verify keyboard focus, screen-reader live announcements, problem-mode block
 - Documentation distinguishes implemented, deterministic demo, and adapter-required features.
 
 ## Redesign
+아래 리스킨의 인증·API 변경 제한은 기존 웹 리스킨 범위에 적용한다. 2026-11-12 사용자가 승인한 확장 분리 작업은 `docs/EXTENSION_DEVELOPMENT_PLAN.md`를 따르며, 독립 확장 인증과 신규 API를 추가할 수 있다. 기존 웹의 쿠키 인증·API 계약·학생 화면·Gemini 설정은 회귀 검증으로 보존한다.
+
 - 리스킨 작업은 `docs/redesign/RESKIN_PLAYBOOK.md`의 해당 작업 절과 2·9절을 따른다.
 - T6 외에는 `apps/web/student-design.css`와 학생 영역 `#portal-home`, `#learner-tools`, `#learning-records`, `#text-command-dialog`를 수정하지 않는다.
 - T6 외에는 `apps/web/role-portal.js`의 학생 함수 `loadStudent`, `openLectureList`, `openLecture`, `purpose`, `play`, `command`, `records` 및 제스처 관련 함수를 수정하지 않는다.

@@ -1,0 +1,24 @@
+{
+  "skill": "modal-specialist",
+  "scope": [
+    "apps/extensions/student/workspace.html",
+    "apps/extensions/student/app.js",
+    "apps/extensions/shared/ui.js"
+  ],
+  "findings": [],
+  "passed": [
+    "The text command uses native dialog.showModal() with a valid heading reference.",
+    "The command input is explicitly focused on opening.",
+    "Native modality provides background inertness, tab containment and Escape dismissal.",
+    "A visible native cancellation button closes the dialog.",
+    "Cancellation and Escape have an explicit trigger/fallback focus restoration path.",
+    "Native required validation prevents empty command submission.",
+    "Submitted commands now await the dialog close event before executing destination navigation.",
+    "An isolated Chromium regression confirms corrected submission ends at the intended destination, while Escape and cancellation return to the trigger."
+  ],
+  "notes": [
+    "The previous modal submission focus-order finding is resolved.",
+    "Source re-review plus isolated Chromium regression; this specialist did not execute the complete installed-extension flow or actual screen-reader audio.",
+    "Updated .a11y-history/2026-11-12-extensions-phase3/modal.json."
+  ]
+}

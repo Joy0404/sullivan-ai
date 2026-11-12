@@ -70,3 +70,39 @@ jobs:
       - name: Stop test container
         if: always()
         run: docker rm --force sullivan-ci || true
+
+  extensions:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Install browser verification dependencies
+        run: |
+          pip install -r apps/api/requirements.txt -r scripts/requirements-extension-tests.txt
+          python -m playwright install --with-deps chromium
+          npm install --prefix "$RUNNER_TEMP/sullivan-a11y" --ignore-scripts axe-core@4.14.0
+      - name: Verify two installed extensions and account lifecycle
+        env:
+          SULLIVAN_AXE_SOURCE: ${{ runner.temp }}/sullivan-a11y/node_modules/axe-core/axe.min.js
+        run: python scripts/verify_extensions_phase4.py
+      - name: Verify durable preparation recovery
+        run: python scripts/verify_preparation_restart.py
+      - name: Verify production startup policy
+        run: python scripts/verify_extension_production.py
+      - name: Package local development artifacts
+        run: python scripts/package_extensions.py
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: extension-development-verification
+          path: |
+            dist/releases/0.4.0/
+            docs/verification/extension-*.json
+            docs/verification/extension-*.png
+          if-no-files-found: warn

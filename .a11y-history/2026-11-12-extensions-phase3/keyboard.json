@@ -1,0 +1,33 @@
+{
+  "skill": "keyboard-navigator",
+  "scope": [
+    "apps/extensions/student/app.js",
+    "apps/extensions/student/workspace.html",
+    "apps/extensions/student/worker.js",
+    "apps/extensions/shared/ui.js",
+    "apps/extensions/shared/base.css",
+    "scripts/build_extensions.py"
+  ],
+  "findings": [],
+  "passed": [
+    "Native buttons, links, inputs, selects and details remain in normal Tab order; no positive tabindex found.",
+    "The modal uses native dialog.showModal() with Escape support and explicit focus restoration.",
+    "Lesson open, search, record deletion and underline toggling provide focus destinations.",
+    "Shared tasks preserve focus with aria-disabled rather than native disabling during requests.",
+    "Input, textarea, select and dialog editing retain normal Space and arrow behavior.",
+    "Arrow shortcuts remain inside the student extension, without site-wide key interception.",
+    "A visible focus outline and first-in-DOM skip link remain present.",
+    "Optional Space now defers activation for summaries and links as well as buttons.",
+    "Matching Space keyup is delivered even after a dialog receives focus, releasing held gestures.",
+    "Evidence navigation now targets a focusable destination.",
+    "Playback ownership loss invalidates pending voice, focus speech and AI actions.",
+    "Optional Shift preserves edited fields and does not double-handle Shift+Tab.",
+    "Opening another lesson now immediately focuses the visible workspace heading before the asynchronous request; request failure leaves a valid focus destination.",
+    "Indexed sentence navigation uses the existing text-command path without intercepting editing keys."
+  ],
+  "notes": [
+    "All five findings reported during this review have been corrected.",
+    "Source re-review plus an earlier isolated Chromium hidden-subtree focus probe; no complete installed-extension or actual screen-reader run by this specialist.",
+    "No critical or serious keyboard findings remain within the reviewed scope."
+  ]
+}

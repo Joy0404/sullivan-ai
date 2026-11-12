@@ -1,0 +1,26 @@
+{
+  "skill": "keyboard-navigator",
+  "scope": [
+    "apps/extensions/guardian/app.js",
+    "apps/extensions/guardian/workspace.html",
+    "apps/extensions/shared/ui.js",
+    "apps/extensions/shared/base.css",
+    "scripts/build_extensions.py"
+  ],
+  "findings": [],
+  "passed": [
+    "Preparation, publishing, assignment editing, settings, and order controls use native keyboard-operable elements without positive tabindex or single-key interception.",
+    "Successful preparation, publishing, editing, student management, and result opening explicitly focus visible headings with tabindex=-1.",
+    "Missing student selection focuses the corresponding fieldset before reporting an error.",
+    "Polling avoids rebuilding unchanged job lists and restores the focused job action by stable job ID when a changed list is rendered.",
+    "Withdrawal confirmation is an inline nonmodal region; opening focuses its confirm button, cancellation returns to the invoking button, and completion focuses the editor heading.",
+    "Reordering has explicit up/down buttons, disables out-of-range actions, and restores focus to an available action on the moved lecture.",
+    "Shared asynchronous task handling retains native focus and suppresses duplicate activation with guarded aria-disabled and aria-busy states.",
+    "Skip link, native details/summary, and visible focus styling remain available; no keyboard trap or sticky focus obstruction was found in reviewed source."
+  ],
+  "notes": [
+    "Source review only: no complete extension browser, actual screen-reader, or platform file-dialog execution was performed by this specialist.",
+    "No critical or serious keyboard finding was identified within the current phase-2 scope.",
+    "Live announcements for automatically changing job statuses are outside this keyboard review and should be checked with the dynamic-content review."
+  ]
+}

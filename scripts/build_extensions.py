@@ -1,0 +1,124 @@
+"""Build two self-contained MV3 packages. Never copy the opposite role's UI."""
+import argparse
+import json
+from pathlib import Path
+import shutil
+from urllib.parse import urlsplit
+from extension_icons import icon
+
+ROOT = Path(__file__).resolve().parents[1]
+SOURCE = ROOT / 'apps/extensions'
+STUDENT_MODULES = ('media.js', 'speech.js', 'video-control.js', 'media-store.js')
+LEARNING_MODULES = ('playback-scheduler.js', 'narration-context.js', 'passage-tools.js',
+                    'concept-tools.js', 'voice-command-router.js', 'space-gesture.js')
+
+
+def learning_response():
+    """Package the existing deterministic learning tools, without the legacy role UI."""
+    source = (ROOT / 'apps/web/app.js').read_text()
+    start = source.index('function generateLearningResponse(message) {')
+    end = source.index('\nfunction appendChatMessage', start)
+    function = source[start:end].replace('전체 화면 설명이 필요한 학습 상황이라면 새 세션에서 문제 보호 모드를 끌 수 있습니다.',
+        '문제 보호 정책은 보호자에게 문의하세요.')
+    return '''(function(root) { root.SullivanLearning = {respond(snapshot, message, currentMs = 0) {
+      const state = {snapshot, session: snapshot.session,
+        activeSampleId: snapshot.concept_index?.some(c => c.concept_id.startsWith('history-')) ? 'history' : 'science'};
+      const getConcepts = () => root.SullivanConcepts.conceptsForSnapshot(snapshot);
+      const findConcept = id => getConcepts().find(c => c.concept_id === id);
+      const getCurrentPlaybackMs = () => currentMs;
+      const formatTime = ms => `${Math.floor(ms/60000)}분 ${Math.floor(ms/1000)%60}초`;
+    ''' + function + '\nreturn generateLearningResponse(message);\n}};})(globalThis);\n'
+
+
+def build(server='http://127.0.0.1:8770', output=None):
+    parsed = urlsplit(server)
+    if (parsed.scheme not in ('http', 'https') or not parsed.hostname or parsed.username or parsed.password
+            or parsed.path not in ('', '/') or parsed.query or parsed.fragment
+            or (parsed.scheme == 'http' and parsed.hostname not in ('127.0.0.1', 'localhost', '::1'))):
+        raise ValueError('서버 주소는 HTTPS 출처 또는 로컬 HTTP 출처여야 합니다.')
+    server = server.rstrip('/')
+    output = Path(output) if output else ROOT / 'dist/extensions'
+    for role, label in [('student', '학생'), ('guardian', '보호자')]:
+        target = output / role
+        target.mkdir(parents=True, exist_ok=True)
+        expected = {'client.js', 'ui.js', 'accounts.js', 'base.css', 'app.js', 'worker.js', 'config.js', 'manifest.json', 'index.html', 'icons'}
+        if role == 'student':
+            expected.update(STUDENT_MODULES + LEARNING_MODULES + ('learning-response.js',))
+        if {path.name for path in target.iterdir()} - expected:
+            raise ValueError(f'빌드 폴더에 예상하지 않은 파일이 있습니다. 새 출력 폴더를 사용하세요: {target}')
+        icons=target/'icons';icons.mkdir(exist_ok=True)
+        if {path.name for path in icons.iterdir()}-{'16.png','32.png','48.png','128.png'}:raise ValueError('아이콘 폴더에 예상하지 않은 파일이 있습니다.')
+        for size in (16,32,48,128):(icons/f'{size}.png').write_bytes(icon(role,size))
+        for name in ('client.js', 'ui.js', 'accounts.js', 'base.css'):
+            shutil.copyfile(SOURCE / 'shared' / name, target / name)
+        for name in ('app.js', 'worker.js'):
+            shutil.copyfile(SOURCE / role / name, target / name)
+        if role == 'student':
+            for name in STUDENT_MODULES:
+                shutil.copyfile(SOURCE / role / name, target / name)
+            for name in LEARNING_MODULES:
+                shutil.copyfile(ROOT / 'apps/web' / name, target / name)
+            (target / 'learning-response.js').write_text(learning_response())
+        (target / 'config.js').write_text(f'export const ROLE = {json.dumps(role)};\nexport const SERVER = {json.dumps(server)};\nexport const VERSION = "0.4.0";\n')
+        manifest = {'manifest_version': 3, 'name': f'Sullivan AI {label}', 'version': '0.4.0',
+                    'description': f'{label} 전용 분리 개발 버전: 독립 로그인과 강의 자료 연결',
+                    'minimum_chrome_version': '116', 'permissions': ['storage', 'identity'],
+                    'host_permissions': [f'{parsed.scheme}://{"["+parsed.hostname+"]" if ":" in parsed.hostname else parsed.hostname}/*'],
+                    'background': {'service_worker': 'worker.js'},
+                    'action': {'default_title': f'Sullivan AI {label} 열기', 'default_icon': {str(size):f'icons/{size}.png' for size in (16,32)}},
+                    'icons': {str(size):f'icons/{size}.png' for size in (16,32,48,128)},
+                    'content_security_policy': {'extension_pages': "script-src 'self'; object-src 'none'"}}
+        if role == 'student':
+            manifest['permissions'] += ['sidePanel', 'scripting', 'activeTab']
+            manifest['optional_host_permissions'] = ['https://*/*', 'http://*/*']
+            manifest['background']['type'] = 'module'
+            manifest['side_panel'] = {'default_path': 'index.html'}
+            manifest['commands'] = {'_execute_action': {'suggested_key': {'default': 'Alt+Shift+S'}, 'description': '학생 학습 패널 열기'},
+                'stop-learning': {'suggested_key': {'default': 'Alt+Shift+X'}, 'description': '영상과 앱 음성 모두 중지'}}
+        (target / 'manifest.json').write_text(json.dumps(manifest, ensure_ascii=False, indent=2)+'\n')
+        register = '''<details><summary>로컬 개발 계정 만들기</summary>
+        <form id="register-form">
+          <label>보호자 이름<input name="name" required minlength="1" maxlength="80" autocomplete="name"></label>
+          <label>새 로그인 이름<input name="username" required minlength="3" maxlength="60" pattern="[a-zA-Z0-9_.\\-]+" autocomplete="username" aria-describedby="register-username-help"></label>
+          <p id="register-username-help">영문·숫자·밑줄·마침표·하이픈, 3자 이상.</p>
+          <label>새 비밀번호<input name="password" type="password" required minlength="8" maxlength="128" autocomplete="new-password" aria-describedby="register-password-help"></label>
+          <p id="register-password-help">비밀번호는 8~128자로 입력하세요.</p>
+          <button type="submit" class="secondary">보호자 개발 계정 생성</button>
+        </form></details>''' if role == 'guardian' else ''
+        workspace = (SOURCE / role / 'workspace.html').read_text()
+        account_sections = (SOURCE / 'shared/accounts.html').read_text()
+        dev_hidden = ' hidden' if parsed.scheme == 'https' else ''
+        html = f'''<!doctype html>
+<html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Sullivan AI {label}</title><link rel="stylesheet" href="base.css"><script type="module" src="app.js"></script></head>
+<body><a class="skip" href="#main">본문으로 이동</a>
+<header><p>Sullivan AI · {label} 전용</p><span id="account-name"></span><button id="logout" type="button" hidden>로그아웃</button></header>
+<main id="main" tabindex="-1"><h1>Sullivan AI {label}</h1>
+<p id="status" role="status"></p><p id="error" role="alert"></p>
+<section id="auth" hidden aria-labelledby="login-title"><h2 id="login-title" tabindex="-1">{label} 로그인</h2>
+<p>이 프로그램은 {label} 계정만 사용합니다. 운영 서버에서는 브라우저 로그인으로 계정을 확인합니다.</p>
+<label class="check"><input id="remember-login" type="checkbox">브라우저 로그인에서 내 기기 로그인 유지 (선택)</label><button id="oauth-login" type="button">브라우저에서 {label} 로그인</button>
+<form id="login-form"{dev_hidden}><label>로그인 이름<input id="username" name="username" required minlength="3" maxlength="60" autocomplete="username" pattern="[a-zA-Z0-9_.\\-]+" aria-describedby="username-help"></label>
+<p id="username-help">영문·숫자·밑줄·마침표·하이픈, 3자 이상.</p>
+<label>비밀번호<input id="password" name="password" type="password" required minlength="8" maxlength="128" autocomplete="current-password" aria-describedby="password-help"></label>
+<p id="password-help">비밀번호는 8~128자입니다.</p>
+<button type="submit">{label} 로그인</button></form><div{dev_hidden}>{register}</div>
+<details><summary>{label} 계정 가입</summary><form id="signup-form">
+<label>이름<input name="name" required maxlength="80" autocomplete="name"></label><label>새 로그인 이름<input name="username" required minlength="3" maxlength="60" pattern="[a-zA-Z0-9_.\\-]+" autocomplete="username" aria-describedby="signup-name-help"></label><p id="signup-name-help">영문·숫자·밑줄·마침표·하이픈, 3~60자.</p>
+<label>새 비밀번호<input name="password" type="password" required minlength="8" maxlength="128" autocomplete="new-password" aria-describedby="signup-pass-help"></label><p id="signup-pass-help">8~128자. 가입 후 표시되는 복구 코드를 별도로 보관하세요.</p><label>운영자 가입 초대 코드 (로컬 개발에서는 선택)<input name="invite" type="password" maxlength="200" autocomplete="off"></label><button type="submit">{label} 계정 만들기</button></form></details>
+<details><summary>복구 코드로 비밀번호 변경</summary><form id="recover-form"><label>로그인 이름<input name="username" required minlength="3" maxlength="60" autocomplete="username"></label><label>사용하지 않은 복구 코드<input name="code" required autocomplete="off"></label><label>새 비밀번호<input name="password" type="password" required minlength="8" maxlength="128" autocomplete="new-password" aria-describedby="recover-help"></label><p id="recover-help">8~128자. 변경하면 기존 기기의 로그인을 모두 종료합니다.</p><button type="submit">비밀번호 변경</button></form></details></section>
+{account_sections}
+<div id="workspace" hidden>{workspace}</div>
+<details><summary>키보드 사용 안내</summary><p>Tab과 Shift+Tab으로 이동하고 Enter 또는 Space로 버튼을 선택하세요. 본문은 스크린리더로 읽을 수 있습니다. 오류는 안내 영역에서 확인할 수 있습니다.</p></details>
+</main><footer><p>분리 개발 버전 0.4 · 기존 웹도 계속 이용할 수 있습니다.</p></footer></body></html>
+'''
+        (target / 'index.html').write_text(html)
+        print(target)
+    return output
+
+
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--server', default='http://127.0.0.1:8770')
+    args = parser.parse_args()
+    build(args.server)

@@ -1,0 +1,27 @@
+{
+  "skill": "keyboard-navigator",
+  "scope": [
+    "apps/extensions/shared/ui.js",
+    "apps/extensions/shared/base.css",
+    "apps/extensions/student/app.js",
+    "apps/extensions/student/workspace.html",
+    "apps/extensions/guardian/app.js",
+    "apps/extensions/guardian/workspace.html",
+    "scripts/build_extensions.py"
+  ],
+  "findings": [],
+  "passed": [
+    "Re-review confirmed focused asynchronous controls now use aria-disabled/aria-busy plus a duplicate-action guard instead of native disabling.",
+    "An isolated Chromium execution of the current task() helper retained focus during and after the pending action and blocked duplicate activation.",
+    "Initial restoration keeps the authentication subtree hidden until restoration completes and tracks keyboard/pointer interaction before assigning initial focus.",
+    "Native buttons, inputs, selects and details/summary support keyboard operation without custom keyboard traps.",
+    "First-in-DOM skip link targets the main landmark with tabindex=-1; no positive tabindex or single-character shortcut interception was found.",
+    "Successful login, logout, student creation and lesson opening explicitly assign a destination focus.",
+    "CSS provides a 4px focus-visible outline; no sticky header obscures focus."
+  ],
+  "notes": [
+    "The two initial source-review findings KEYBOARD-ASYNC-FOCUS and KEYBOARD-RESTORE-FOCUS were corrected in the reviewed revision.",
+    "This is a source re-review with an isolated Chromium helper probe, not a full extension or screen-reader audit.",
+    "Actual side-panel focus transfer and VoiceOver/NVDA end-to-end verification remain necessary."
+  ]
+}

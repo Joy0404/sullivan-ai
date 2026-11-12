@@ -1,0 +1,31 @@
+{
+  "skill": "forms-specialist",
+  "scope": [
+    "apps/extensions/guardian/workspace.html",
+    "apps/extensions/guardian/app.js",
+    "apps/extensions/shared/ui.js",
+    "apps/extensions/shared/client.js",
+    "scripts/build_extensions.py"
+  ],
+  "findings": [],
+  "passed": [
+    "Reviewed inputs, file controls, selects and textareas have native wrapping labels.",
+    "Material and video size/processing explanations are visible and associated with their file inputs.",
+    "Student assignment checkboxes are grouped by fieldset/legend with a minimum-selection instruction.",
+    "Native required, numeric bounds, string length and username pattern validation remain available.",
+    "Independent registration/login keep password-manager autocomplete and allow password entry without cognitive challenges.",
+    "Withdrawal requires a separate confirmation action and exposes a cancellation path.",
+    "Shared asynchronous task helper preserves native focus using aria-disabled/aria-busy and guards repeated activation.",
+    "Success and error messages use persistent status/alert regions; failed submissions retain entered values.",
+    "Re-review confirmed inactive preparation controls are disabled as well as hidden; isolated Chromium reproduction now submits materials mode after an invalid hidden link.",
+    "Video source likewise disables the hidden URL and material inputs while enabling its required original-file input.",
+    "Required preparation fields/consents have visible indication and associated instructions describe file-versus-pasted-passage alternatives.",
+    "Withdrawal confirmation button is associated with the affected-course/student-count question via aria-describedby.",
+    "Source, URL and original-file changes reset rights and transmission consent; changing analysis mode resets transmission consent."
+  ],
+  "notes": [
+    "All three previously reported findings are resolved within the reviewed scope.",
+    "Source re-review plus isolated Chromium regression; full installed-extension flow was reported by the parent agent, not executed by this specialist.",
+    "Actual screen-reader audio was not tested. No remaining forms findings identified in this phase-2 review."
+  ]
+}

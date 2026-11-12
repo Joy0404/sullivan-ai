@@ -1,0 +1,27 @@
+{
+  "skill": "live-region-controller",
+  "scope": [
+    "apps/extensions/guardian/app.js",
+    "apps/extensions/guardian/workspace.html",
+    "apps/extensions/shared/ui.js",
+    "apps/extensions/shared/client.js",
+    "scripts/build_extensions.py"
+  ],
+  "findings": [],
+  "passed": [
+    "Persistent polite #job-status and #connection-status regions exist before job updates.",
+    "Known job IDs announce transitions to completed, failed or interrupted once; unchanged polling snapshots and the initial snapshot do not announce.",
+    "Preparation submissions seed the job-state map so fast completion can still produce a terminal-state announcement.",
+    "Background connection failures are deduplicated by message and use a polite region; successful reconnection is announced once.",
+    "Preparation submission immediately announces upload/request progress before awaiting a potentially long network request.",
+    "The full job list remains non-live, preventing full-list rereading on each poll.",
+    "Live messages use textContent and persistent region elements.",
+    "Publishing, settings, reordering, refresh and logout retain explicit success feedback."
+  ],
+  "notes": [
+    "All three initial live-region findings have been corrected in the reviewed source.",
+    "Static source re-review only; actual VoiceOver/NVDA announcement order and speech were not executed.",
+    "No critical or serious live-region findings remain within this scope.",
+    "Persisted to .a11y-history/2026-11-12-extensions-phase2/live.json."
+  ]
+}

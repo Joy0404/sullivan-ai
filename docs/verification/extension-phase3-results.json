@@ -1,0 +1,79 @@
+{
+  "browser": "156.0.8078.4",
+  "result": "passed",
+  "actual_extensions": 2,
+  "same_profile": true,
+  "checks": [
+    "independent registration/login",
+    "student creation",
+    "sample assignment",
+    "safe material reading",
+    "progress persistence",
+    "independent logout",
+    "wrong-role rejection",
+    "focus after save/error",
+    "390/1280 layout",
+    "skip link",
+    "material preparation",
+    "job state recovery after tab close",
+    "source switch validation",
+    "student settings",
+    "assignment editing",
+    "lecture order",
+    "confirmed withdrawal",
+    "student refresh after withdrawal",
+    "native local video pause/play/seek",
+    "fingerprint-verified file, no student upload",
+    "encrypted original reload",
+    "caption track and toggle",
+    "automatic prepared narration in reader mode",
+    "late TTS stop cancellation",
+    "optional Space and modal fallback",
+    "bookmark and underline persistence",
+    "concept search and deterministic learning tools",
+    "notes export",
+    "cross-view delayed answer cancellation",
+    "isolated native tab control",
+    "closed-view playback watchdog"
+  ],
+  "limitations": [
+    "Native decoded video fixture; actual YouTube compatibility, real speech recognition, speech quality and VoiceOver/NVDA audio not verified"
+  ],
+  "axe": {
+    "enabled": true,
+    "screens": [
+      {
+        "screen": "student-login",
+        "version": "4.14.0",
+        "violations": 0
+      },
+      {
+        "screen": "guardian-login",
+        "version": "4.14.0",
+        "violations": 0
+      },
+      {
+        "screen": "student-material",
+        "version": "4.14.0",
+        "violations": 0
+      },
+      {
+        "screen": "guardian-workspace",
+        "version": "4.14.0",
+        "violations": 0
+      },
+      {
+        "screen": "guardian-phase2",
+        "version": "4.14.0",
+        "violations": 0
+      },
+      {
+        "screen": "student-phase3",
+        "version": "4.14.0",
+        "violations": 0
+      }
+    ],
+    "scope": "check_layout screens, WCAG A/AA tags",
+    "violations": 0
+  }
+}

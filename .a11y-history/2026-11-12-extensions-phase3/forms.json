@@ -1,0 +1,31 @@
+{
+  "skill": "forms-specialist",
+  "scope": [
+    "apps/extensions/student/workspace.html",
+    "apps/extensions/student/app.js",
+    "apps/extensions/student/media.js",
+    "apps/extensions/student/media-store.js",
+    "apps/extensions/shared/ui.js",
+    "scripts/build_extensions.py"
+  ],
+  "findings": [],
+  "passed": [
+    "Reviewed inputs, selects, checkboxes and textarea controls have native wrapping labels.",
+    "Command input has associated command examples and editing-key guidance.",
+    "Local-file privacy and identity-matching instructions are linked with aria-describedby.",
+    "Optional browser storage and network-backed speech recognition each require an explicit checkbox.",
+    "Position entry uses a native numeric control with bounds and an associated explanation.",
+    "Settings use native numeric bounds and checkboxes rather than custom widgets.",
+    "Login and registration retain username/password guidance and password-manager autocomplete.",
+    "Shared asynchronous submission uses guarded aria-disabled/aria-busy and persistent status/error regions.",
+    "Failed requests preserve entered questions, commands and notes.",
+    "Local-file help now lists MP4/WebM/MOV/M4V, codec limitations and 100MB conditions.",
+    "File connection announces checking and optional encryption through the persistent connection status.",
+    "Changing assignments clears the selected local file and optional storage checkbox."
+  ],
+  "notes": [
+    "Both initially reported form findings are resolved.",
+    "Source re-review only; no full extension form execution or actual screen-reader audio was performed.",
+    "Visible speech-rate range and step guidance remains an optional usability improvement."
+  ]
+}

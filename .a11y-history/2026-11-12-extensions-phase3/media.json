@@ -1,0 +1,31 @@
+{
+  "skill": "media-accessibility",
+  "scope": [
+    "apps/extensions/student/workspace.html",
+    "apps/extensions/student/app.js",
+    "apps/extensions/student/media.js",
+    "apps/extensions/student/speech.js",
+    "apps/extensions/student/video-control.js",
+    "apps/extensions/student/worker.js",
+    "scripts/build_extensions.py"
+  ],
+  "findings": [],
+  "passed": [
+    "All four original media review findings are corrected in the reviewed source.",
+    "Fingerprint-verified local media receives a generated WebVTT captions track from valid timed transcript cues.",
+    "The local captions toggle exposes aria-pressed; missing caption or identity data has explicit status text.",
+    "Reader-mode descriptions are copied into a persistent polite status region with pause and manual-resume guidance.",
+    "Reader-mode announcement text is disabled while app TTS is used, avoiding that duplicate speech channel.",
+    "Separate labelled native video volume and mute controls now update local and remote audio.",
+    "The app-speech volume setting is labelled distinctly from video audio.",
+    "Playback transitions are deduplicated and announced independently of continuously changing non-live timestamps.",
+    "Native playback and stop controls, cancellation fences, explicit storage consent and prepared-description labelling remain intact.",
+    "Local playback state includes ended, enabling the deduplicated end-of-playback announcement."
+  ],
+  "notes": [
+    "Updated .a11y-history/2026-11-12-extensions-phase3/media.json.",
+    "Source re-review only; caption synchronization, actual speech quality, YouTube playback and real VoiceOver/NVDA audio were not executed by this specialist.",
+    "No critical or serious media findings remain within the reviewed source scope.",
+    "No media findings remain in this source re-review; runtime and real-content limitations still apply."
+  ]
+}

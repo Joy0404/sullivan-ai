@@ -1,0 +1,26 @@
+{
+  "skill": "forms-specialist",
+  "scope": [
+    "apps/extensions/shared/ui.js",
+    "apps/extensions/shared/accounts.js",
+    "apps/extensions/shared/accounts.html",
+    "apps/extensions/student/app.js",
+    "apps/extensions/student/workspace.html",
+    "apps/extensions/guardian/app.js",
+    "apps/extensions/guardian/workspace.html",
+    "scripts/build_extensions.py",
+    "apps/api/app/extension_accounts.py"
+  ],
+  "findings": [],
+  "passed": [
+    "Reviewed phase-4 native control labels, autocomplete tokens, visible password limits, paste-compatible password/recovery inputs and preserved hosted-login username on authentication failure.",
+    "Recovery-code output uses a labelled readonly textarea with explicit download and clear actions; raw codes are not placed in live-region announcements.",
+    "Guardian pairing code is readonly, selectable and associated with expiry and single-use instructions.",
+    "Guardian and student unlink execution buttons reference their visible consequence questions; cancellation controls are present.",
+    "Current generated login heading is programmatically focusable and the remember-login label identifies its browser-login scope.",
+    "Rechecked student pairing consent: both the required checkbox and submission button now reference the visible guardian identity and sharing scope through aria-describedby=\"pair-guardian pair-sharing\"."
+  ],
+  "notes": [
+    "Source review only; no assistive-technology session or browser flow was executed by this specialist. Final current-state review on 2026-11-12 confirms FORM-PAIR-CONSENT-CONTEXT is resolved."
+  ]
+}

@@ -80,7 +80,9 @@ def _delete_temporary_file(path: str) -> bool:
     return True
 
 
+from app.extension_operations import lifespan
 app = FastAPI(
+    lifespan=lifespan,
     title="Sullivan AI Internet Lecture Accessibility Agent API",
     version="1.0.0-mvp",
     description=(
@@ -93,6 +95,16 @@ agent = LectureAgent()
 from app import local_access
 app.include_router(local_access.router)
 app.middleware("http")(local_access.guard)
+from app import extension_access
+app.include_router(extension_access.router)
+app.middleware("http")(extension_access.guard)
+from app import guardian_preparation
+app.include_router(guardian_preparation.router)
+from app import student_learning
+app.include_router(student_learning.router)
+from app import extension_accounts
+app.include_router(extension_accounts.router)
+app.include_router(extension_accounts.auth_router)
 
 app.add_middleware(UploadBodyLimit)
 

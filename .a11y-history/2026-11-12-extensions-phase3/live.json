@@ -1,0 +1,35 @@
+{
+  "skill": "live-region-controller",
+  "scope": [
+    "apps/extensions/student/app.js",
+    "apps/extensions/student/workspace.html",
+    "apps/extensions/student/speech.js",
+    "apps/extensions/shared/ui.js",
+    "scripts/build_extensions.py"
+  ],
+  "findings": [],
+  "passed": [
+    "Shared status and error regions are persistent and use textContent.",
+    "Continuous timestamps are non-live, while playback state transitions are deduplicated.",
+    "Reader-mode explanations use a persistent polite region with manual-resume guidance.",
+    "The reader explanation channel is suppressed while app TTS is used.",
+    "Search results announce a concise count while keeping the full result list non-live.",
+    "Chat announces completed response availability without repeatedly reading the full transcript.",
+    "Remote connection, file verification and encrypted-copy processing have loading messages.",
+    "Note input save requests are debounced before submission.",
+    "Connection loss and explicit stop have accessible status feedback.",
+    "Routine playback checkpoints use quiet saves and do not announce saving/saved every ten seconds.",
+    "Periodic checkpoints skip dirty notes, leaving debounced note-saving feedback distinct.",
+    "Playback transitions update their dedicated persistent player-status region and no longer clear shared user errors.",
+    "Voice fallback reasons are populated inside the modal before showModal and associated with dialog and input through aria-describedby.",
+    "Reader-description remains mounted when empty; app TTS does not populate that reader announcement channel.",
+    "Reader-mode pause announcements avoid duplicating a currently available explanation.",
+    "Media readiness gates prevent player polling before initial metadata and seek setup complete."
+  ],
+  "notes": [
+    "All three previously reported live-region findings are corrected in the reviewed source.",
+    "Updated .a11y-history/2026-11-12-extensions-phase3/live.json.",
+    "Source re-review only; actual VoiceOver/NVDA announcement ordering and speech quality were not executed by this specialist.",
+    "No critical, serious, moderate or minor findings remain in this source re-review."
+  ]
+}
