@@ -90,11 +90,8 @@ jobs:
       - name: Verify two installed extensions and account lifecycle
         env:
           SULLIVAN_AXE_SOURCE: ${{ runner.temp }}/sullivan-a11y/node_modules/axe-core/axe.min.js
-        run: python scripts/verify_extensions_phase4.py
-      - name: Verify durable preparation recovery
-        run: python scripts/verify_preparation_restart.py
-      - name: Verify production startup policy
-        run: python scripts/verify_extension_production.py
+        run: |
+          python scripts/verify_extensions.py
       - name: Package local development artifacts
         run: python scripts/package_extensions.py
       - uses: actions/upload-artifact@v4
@@ -102,7 +99,11 @@ jobs:
         with:
           name: extension-development-verification
           path: |
-            dist/releases/0.4.0/
+            dist/releases/
+            docs/verification/2026-11-14-fixes/
+            docs/verification/2026-11-14-followup/
+            docs/verification/extension-optimization/
+            docs/verification/extension-acceptance/
             docs/verification/extension-*.json
             docs/verification/extension-*.png
           if-no-files-found: warn

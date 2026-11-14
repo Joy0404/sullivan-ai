@@ -1,0 +1,128 @@
+{
+  "browser": "156.0.8078.4",
+  "result": "completed-with-parity-gaps",
+  "actual_extensions": 2,
+  "same_profile": true,
+  "checks": [
+    "independent registration/login",
+    "student creation",
+    "sample assignment",
+    "safe material reading",
+    "progress persistence",
+    "independent logout",
+    "wrong-role rejection",
+    "focus after save/error",
+    "390/1280 layout",
+    "skip link",
+    "material preparation",
+    "job state recovery after tab close",
+    "source switch validation",
+    "student settings",
+    "assignment editing",
+    "lecture order",
+    "confirmed withdrawal",
+    "student refresh after withdrawal",
+    "native local video pause/play/seek",
+    "fingerprint-verified file, no student upload",
+    "encrypted original reload",
+    "caption track and toggle",
+    "automatic prepared narration in reader mode",
+    "late TTS stop cancellation",
+    "optional Space and modal fallback",
+    "bookmark and underline persistence",
+    "concept search and deterministic learning tools",
+    "notes export",
+    "cross-view delayed answer cancellation",
+    "isolated native tab control",
+    "closed-view playback watchdog",
+    "independent student signup",
+    "one-time recovery code export",
+    "actual S256 PKCE browser login for both roles",
+    "remembered refresh after session storage reset",
+    "pair preview and explicit consent",
+    "paired assignment and progress",
+    "unlink removes assignment and guardian lookup",
+    "account recovery",
+    "native side-panel keyboard containment",
+    "manual-based learning tools and passage commands",
+    "functional parity probes recorded separately, including failures"
+  ],
+  "limitations": [
+    "Actual native panel and decoded video; speech synthesis/recognition and providers use test doubles. Actual VoiceOver/NVDA, live microphone, Korean audio quality and real lecture sites not verified."
+  ],
+  "axe": {
+    "enabled": true,
+    "screens": [
+      {
+        "screen": "student-login",
+        "version": "4.14.0",
+        "violations": 0
+      },
+      {
+        "screen": "guardian-login",
+        "version": "4.14.0",
+        "violations": 0
+      },
+      {
+        "screen": "student-material",
+        "version": "4.14.0",
+        "violations": 0
+      },
+      {
+        "screen": "guardian-workspace",
+        "version": "4.14.0",
+        "violations": 0
+      },
+      {
+        "screen": "guardian-phase2",
+        "version": "4.14.0",
+        "violations": 0
+      },
+      {
+        "screen": "student-phase3",
+        "version": "4.14.0",
+        "violations": 0
+      },
+      {
+        "screen": "hosted-guardian-login",
+        "version": "4.14.0",
+        "violations": 0
+      },
+      {
+        "screen": "student-recovery-codes",
+        "version": "4.14.0",
+        "violations": 0
+      },
+      {
+        "screen": "hosted-student-login",
+        "version": "4.14.0",
+        "violations": 0
+      },
+      {
+        "screen": "student-pair-confirm",
+        "version": "4.14.0",
+        "violations": 0
+      }
+    ],
+    "scope": "check_layout screens, WCAG A/AA tags",
+    "violations": 0
+  },
+  "regression_result": "passed",
+  "parity_probes": {
+    "total": 30,
+    "passed": 19,
+    "gaps": [
+      "focus_pause",
+      "reader_pause",
+      "answer_mute",
+      "pending_space",
+      "cancel_resume",
+      "concept_sequence",
+      "home_text",
+      "home_help",
+      "home_voice",
+      "onboarding",
+      "guardian_delete"
+    ]
+  }
+}

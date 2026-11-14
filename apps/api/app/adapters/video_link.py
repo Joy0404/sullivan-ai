@@ -102,6 +102,15 @@ def normalize_video_link(raw_url: str) -> PlaybackLink:
     return PlaybackLink(normalized, "external", normalized)
 
 
+def normalize_extension_video_link(raw_url: str) -> PlaybackLink:
+    """Preserve SPA lecture routes for browser control; legacy normalization is unchanged."""
+    link = normalize_video_link(raw_url)
+    fragment = urlparse(raw_url.strip()).fragment
+    if link.playback_kind == 'external' and fragment:
+        return PlaybackLink(link.normalized_url + '#' + fragment, 'external', link.playback_url + '#' + fragment)
+    return link
+
+
 async def analyze_video_link(
     source_url: str,
     *,

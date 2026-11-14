@@ -11,6 +11,7 @@ ROOT=Path(__file__).resolve().parents[3]
 sys.path.insert(0,str(ROOT/'scripts'))
 from manage_extension_data import copy_database
 from package_extensions import package
+from build_extensions import VERSION
 
 
 def configured(monkeypatch,tmp_path):
@@ -30,9 +31,9 @@ def test_preflight_refuses_incomplete_production_and_exposes_no_secrets(monkeypa
     assert not diagnose()['ready']
     configured(monkeypatch,tmp_path)
     assert diagnose()['ready']
-    monkeypatch.setenv('SULLIVAN_SIGNUP_INVITE','short')
+    monkeypatch.setenv('SULLIVAN_MIN_EXTENSION_VERSION','invalid')
     assert not diagnose()['ready']
-    assert 'short' not in json.dumps(diagnose())
+    assert 'invalid' not in json.dumps(diagnose())
 
 
 def test_exclusive_production_process_lease(monkeypatch,tmp_path):
@@ -76,7 +77,8 @@ def test_release_packages_only_generated_files_and_requires_https(tmp_path):
             names=archive.namelist()
             assert 'manifest.json' in names and 'icons/128.png' in names
             assert not any('.env' in name or '.sqlite' in name or name.endswith('.py') for name in names)
-            assert json.loads(archive.read('manifest.json'))['version']=='0.4.0'
+            from app.extension_accounts import VERSION as server_version
+            assert json.loads(archive.read('manifest.json'))['version'] == VERSION == server_version
             if artifact['role']=='guardian':assert 'media.js' not in names
             else:assert 'student-form' not in archive.read('index.html').decode()
     with pytest.raises(ValueError):package('http://127.0.0.1:8770',tmp_path/'bad',release=True)

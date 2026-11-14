@@ -32,11 +32,25 @@ class Packages(unittest.TestCase):
             self.assertNotIn('/local/students', (student / 'app.js').read_text())
             self.assertNotIn('보호자 계정을 만들었습니다', (student / 'ui.js').read_text())
             self.assertNotIn('progress-form', (guardian / 'index.html').read_text())
-            self.assertEqual(len(list(student.iterdir())), 11 + len(STUDENT_MODULES) + len(LEARNING_MODULES))
+            self.assertEqual(len(list(student.iterdir())), 13 + len(STUDENT_MODULES) + len(LEARNING_MODULES))
             self.assertNotIn('media.js', {path.name for path in guardian.iterdir()})
             if shutil.which('node'):
                 for source in Path(output).rglob('*.js'):
                     subprocess.run(['node','--check',str(source)],check=True,capture_output=True)
+                subprocess.run(['node','--input-type=module','-e', '''
+                    import assert from 'node:assert/strict';
+                    await import(process.argv[1]);const p=globalThis.SullivanSpeechProfile;
+                    const voices=[{lang:'ko-KR',name:'Default',voiceURI:'basic'},
+                      {lang:'ko-KR',name:'Sunhi Natural Online',voiceURI:'natural'},
+                      {lang:'en-US',name:'Natural',voiceURI:'english'}];
+                    assert.equal(p.select(voices,'').voiceURI,'natural');
+                    assert.equal(p.select(voices,'basic').voiceURI,'basic');
+                    assert.equal(p.voices(voices).length,2);
+                    assert.equal(p.select([{lang:'ko-KR',name:'Basic',voiceURI:'basic'},
+                      {lang:'ko-KR',name:'Yuna Enhanced',voiceURI:'enhanced'}],'').voiceURI,'enhanced');
+                    assert.match(p.prepareSpeechText('AI와 TTS'),/에이 아이.*티 티 에스/);
+                    assert.deepEqual(p.speechChunks('첫 문장. 다음 문장!'),['첫 문장.','다음 문장!']);
+                ''',(student/'speech-profile.js').as_uri()],check=True,capture_output=True)
             # A stale opposite-role file must not silently enter a new package.
             (student / 'guardian-app.js').write_text('stale')
             with self.assertRaises(ValueError):

@@ -1,0 +1,22 @@
+{
+  "skill": "aria-specialist",
+  "scope": [
+    "apps/extensions/student/app.js",
+    "apps/extensions/student/speech.js",
+    "apps/extensions/student/workspace.html",
+    "scripts/build_extensions.py"
+  ],
+  "findings": [],
+  "passed": [
+    "Home command and onboarding headings retain a coherent workspace heading hierarchy.",
+    "New style and preview controls use native labelled HTML.",
+    "Onboarding availability is delivered through an existing persistent status region.",
+    "Guidance status and lesson description have separate output channels.",
+    "Reader answer and narration status regions remain persistent and native controls retain accessible names and states."
+  ],
+  "notes": [
+    "No remaining source-level ARIA findings in the reviewed restoration scope.",
+    "Static semantic review only; actual screen-reader speech, announcement ordering and audio output were not executed or verified.",
+    "No product or test files were modified by this review."
+  ]
+}

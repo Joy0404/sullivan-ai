@@ -1,0 +1,17 @@
+refresh cannot revive logged-out session PASS
+failed old refresh cannot clear another account PASS
+old 401 cannot replay write with new account token PASS
+concurrent expiry rotates only once PASS
+delayed storage event cannot replay an old write FAIL Expected values to be strictly deep-equal:
++ actual - expected
+
+  [
+    'Bearer token-A',
++   'Bearer token-B'
+  ]
+
+delayed storage event cannot return another account response FAIL Expected values to be strictly equal:
++ actual - expected
+
++ undefined
+- true

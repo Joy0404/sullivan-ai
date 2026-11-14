@@ -1,0 +1,27 @@
+refresh cannot revive logged-out session FAIL Expected values to be strictly equal:
++ actual - expected
+
++ {
++   expires_at: 1794694253.306,
++   refresh_token: 'refresh-A',
++   token: 'token-A',
++   user: {
++     id: 'A',
++     role: 'student'
++   }
++ }
+- undefined
+
+failed old refresh cannot clear another account FAIL Expected values to be strictly equal:
+
+undefined !== 'B'
+
+old 401 cannot replay write with new account token FAIL Expected values to be strictly deep-equal:
++ actual - expected
+
+  [
+    'Bearer token-A',
++   'Bearer token-B'
+  ]
+
+concurrent expiry rotates only once PASS

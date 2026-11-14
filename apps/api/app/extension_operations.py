@@ -32,8 +32,6 @@ def diagnose():
     if os.getenv('SULLIVAN_PERSISTENT_STORAGE')!='1':errors.append('영속 볼륨을 연결하고 SULLIVAN_PERSISTENT_STORAGE=1을 지정하세요.')
     if os.getenv('SULLIVAN_ROLE_AUTH','1')=='0':errors.append('운영 모드에서 역할 인증을 끌 수 없습니다.')
     if os.getenv('WEB_CONCURRENCY','1')!='1':errors.append('현재 SQLite 작업 실행기는 서버 프로세스 한 개만 지원합니다.')
-    invite=os.getenv('SULLIVAN_SIGNUP_INVITE','')
-    if invite and len(invite)<16:errors.append('가입 초대 코드는 16자 이상이어야 합니다.')
     return {'ready':not errors,'mode':'production','errors':errors,'protocol':1,'database':'configured' if database else 'missing','single_process':True}
 
 

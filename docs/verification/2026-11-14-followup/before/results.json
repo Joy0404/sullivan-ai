@@ -1,0 +1,67 @@
+{
+  "result": "failed",
+  "checks": {
+    "S01.note_autosave_preserves_entered_position": {
+      "passed": false,
+      "observed": 42000
+    },
+    "S02.home_saves_entered_position": {
+      "passed": false,
+      "observed": 42000
+    },
+    "S03.failed_bookmark_blocks_switch": {
+      "passed": false,
+      "observed": "저장 복구 검사"
+    },
+    "S04.actionable_save_failure": {
+      "passed": false,
+      "observed": ""
+    },
+    "S05.retry_retains_bookmark_and_focus": {
+      "passed": false,
+      "observed": "No retry path"
+    },
+    "S06.failed_manual_position_blocks_switch": {
+      "passed": false,
+      "observed": "0"
+    },
+    "S07.retry_keeps_entered_position": {
+      "passed": false,
+      "observed": "No retry path"
+    },
+    "G01.preparation_dashboard": {
+      "passed": false,
+      "observed": {
+        "filter": 0
+      }
+    }
+  },
+  "axe": [
+    {
+      "screen": "student-login",
+      "version": "4.14.0",
+      "violations": 0
+    },
+    {
+      "screen": "guardian-login",
+      "version": "4.14.0",
+      "violations": 0
+    },
+    {
+      "screen": "student-material",
+      "version": "4.14.0",
+      "violations": 0
+    },
+    {
+      "screen": "guardian-workspace",
+      "version": "4.14.0",
+      "violations": 0
+    },
+    {
+      "screen": "student-save-recovery",
+      "version": "4.14.0",
+      "violations": 0
+    }
+  ],
+  "boundary": "Disposable installed extensions/API/DB; injected save 503; no paid services or actual screen reader audio"
+}

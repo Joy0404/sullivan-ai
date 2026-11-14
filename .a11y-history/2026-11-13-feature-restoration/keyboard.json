@@ -1,0 +1,25 @@
+{
+  "skill": "keyboard-navigator",
+  "scope": [
+    "apps/extensions/student/keyboard.js",
+    "apps/extensions/student/app.js",
+    "apps/extensions/student/workspace.html",
+    "scripts/build_extensions.py"
+  ],
+  "findings": [],
+  "passed": [
+    "Student-home gesture scope and visible voice/text command entry restored.",
+    "Non-Space navigation, focus change and composition reset cancel pending gestures and recognition.",
+    "Editor emergency stop ignores modifier chords and interrupted/cross-focus tap sequences.",
+    "Updated Space contract, DOM-adjacent Tab, standalone Shift and explicit Escape exit retained.",
+    "First-use help, persistent replay button and reader status notice restored; help completion preserves focus when user has moved away.",
+    "Voice-button pointerdown/focusin/Enter completion preserves recognition until startVoice calls recognition.stop(); unrelated interaction and reset still abort recognition."
+  ],
+  "notes": [
+    "Final source re-review after parent notification. Earlier restoration observations were corrected before this snapshot.",
+    "Ephemeral Node mocked-event checks: home gesture down/up 1/1, Space-letter-Space stops 0, consecutive editor double stops 1, Ctrl+Space pair stops 0, focus-change aborts 1.",
+    "No product/test edits; no physical keyboard or live browser/screen-reader execution by this specialist. Browser regression is handled separately by the parent.",
+    "Final incremental source review: reset/cancelPending forward the initiating event and only #voice pointerdown/focusin/Enter bypass recognition abort. No new findings.",
+    "Parent reports browser mouse/Enter start-to-completion regression passed with one recognizer start and transcript execution; this specialist did not independently rerun that browser test."
+  ]
+}

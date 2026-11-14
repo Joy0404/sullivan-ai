@@ -1,0 +1,27 @@
+{
+  "version": "0.4.4",
+  "checks": 17,
+  "source_sha256": {
+    "apps/extensions/student/media-store.js": "add62e4f94e079b9c77d256b8041c4ab6d9a60a0ad9248cc4a765c88e4c85656",
+    "apps/extensions/student/lesson-data.js": "b5823b78e8bcfbbd0364877010398ae79f412805b1d3c6d472a9d16f29320fd8",
+    "apps/extensions/student/media.js": "6139ac84aa7577b55e70f8de51fd93f1910c354febc321d432aa7bf00eef9679",
+    "apps/extensions/student/video-control.js": "358e1394f166d2e4341939e67713a190fd844944b129563974cef1f47f603ce5",
+    "apps/extensions/student/worker.js": "51b382e310ce465a3c94226fce65837d7129dbeb67ba6cc96e85b1be84e3af86",
+    "apps/extensions/student/speech.js": "86dfbade9e26c0cc88949a436edf83e76249450bd07a495370647a45fe65f555",
+    "apps/extensions/student/keyboard.js": "4d79d199a23f313ca6f4668930b8183bad10f6559e57b7266247d96ce6e00935",
+    "apps/extensions/student/app.js": "44cc14e0cbc39607eec26f026ec0a095339c0b557a5ba5d2b036d40abd7600e3",
+    "apps/extensions/shared/client.js": "1a57816cffee670fd2a5e5c47d409800fcd1b309bde4bff0e724e17d09661fbd",
+    "apps/extensions/shared/ui.js": "20b5305c08f0bc61ff5b197421c4b9d0dbbe5697262d16123935e5cb91703dec",
+    "apps/extensions/shared/accounts.js": "78f2eddf89cc1dc0366b8c7ec730a3946e564aaacd5ec0839902b35a207dff80",
+    "apps/extensions/guardian/worker.js": "b57ddb435675e7b3a67cdafdffca4019c500afb9750a5d93c37864f8ba289275",
+    "apps/extensions/guardian/app.js": "f096e1e2c14e8a8e78ec5aa86a546ef5469325554c167b61ac123393742e1b04",
+    "apps/extensions/student/workspace.html": "4178c1dc8393e76c42643ebf77b1742918d7b3e19918bc2550b2bcb5e4e79cf5",
+    "apps/extensions/shared/accounts.html": "38b43597af1494dd2e73096d1415a194879996fa4d0a43ff48f65fbd84fd59d5",
+    "apps/extensions/guardian/workspace.html": "25458a3c99129ba870fae38b7ab11e0093d86a347e77f9c22c4a36c2c1d54533",
+    "apps/api/app/extension_accounts.py": "723627f348d06a59de3ebb056b726dfc6f6fe66640f77646c423108b80bc6edc",
+    "scripts/build_extensions.py": "b028644a81d7bdf781a629ab547b3f549d74b1f903cfc11e59bda8eee4fc6318",
+    "scripts/verify_extension_followup.py": "aaed8692390fac88fa4afff1de3227a353853fc9a18f558565c35d56d5026680"
+  },
+  "protected_web_diff": false,
+  "boundary": "Local development build only; no store publish, live paid analysis, or actual screen reader audio verification"
+}

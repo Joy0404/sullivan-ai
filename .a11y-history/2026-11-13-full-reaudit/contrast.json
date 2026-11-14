@@ -1,0 +1,22 @@
+{
+  "skill": "contrast-master",
+  "scope": [
+    "apps/extensions/shared/base.css",
+    "apps/web/tokens.css",
+    "scripts/build_extensions.py",
+    "generated student/guardian extension interfaces"
+  ],
+  "findings": [],
+  "passed": [
+    "Fresh rendered Chromium checks using the current shared CSS and original token sheet measured normal text/primary button contrast at 14.09:1, primary hover at 8.70:1, secondary hover/notice text at 12.26:1 and error text at 7.31:1.",
+    "Text input, textarea and select boundaries measured 3.70:1 against white. The 4px focus outline with 3px offset measured 6.96:1 against white.",
+    "Text fields, textareas, selects, primary/secondary buttons, links and summary controls all retained a computed visible focus outline in the probe.",
+    "Forced-colors emulation preserved native system text/background, control boundaries and focus outlines. The stylesheet does not suppress forced-color adjustment.",
+    "Links retain an underline; errors and toggle/selection semantics do not depend solely on color. Reduced-motion handling is present and no authored animation was found."
+  ],
+  "notes": [
+    "Fresh 0.4.2 review on 2026-11-13. Shared palette values were also collected from both actual extension pages. Detailed normal/hover/focus/forced-color measurements used a standalone Chromium DOM loaded with the exact current CSS and tokens.",
+    "Evidence: contrast-runtime.json and runtime-forms-media/probe-results.json. No manual screen magnifier or assistive-technology session was performed.",
+    "Native video chrome and arbitrary user-provided video content were not certified for contrast or caption quality by these CSS measurements."
+  ]
+}

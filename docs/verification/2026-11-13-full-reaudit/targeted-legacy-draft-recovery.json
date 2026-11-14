@@ -1,0 +1,6 @@
+{
+  "passed": true,
+  "original_script_passed": false,
+  "product_and_existing_test_source_edited": false,
+  "adjustment": "Reload the fixture created through API, open its native 관리 disclosure, exercise same original ready action; stop after verifying student count."
+}

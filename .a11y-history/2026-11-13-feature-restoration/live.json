@@ -1,0 +1,28 @@
+{
+  "skill": "live-region-controller",
+  "scope": [
+    "apps/extensions/student/app.js",
+    "apps/extensions/student/speech.js",
+    "apps/extensions/student/workspace.html",
+    "scripts/build_extensions.py"
+  ],
+  "findings": [],
+  "passed": [
+    "Original Korean voice scoring, pronunciation normalization and sentence chunk helpers are packaged and shared by narration and guidance.",
+    "Opening and closing rate/pitch modifiers and punctuation-sensitive 70/130ms inter-chunk delays are present.",
+    "Inter-chunk delay is cancellable and narration rechecks cancellation generation before subsequent chunks and prior-state resume.",
+    "Voice preview now preserves prior playback intent through the default state-aware resume path.",
+    "Delegated guidance uses purpose=guidance and updates speech-status instead of replacing the current lesson explanation.",
+    "Ready-media focus/status guidance uses acknowledged pause and guarded conditional resume; login guidance remains independent of media.",
+    "External-reader focus pauses ready media and does not automatically resume over reader speech.",
+    "Home command controls, help-before-lesson handling and first-use onboarding are present.",
+    "Automatic first-use help now updates the persistent voice-status region when focus is intentionally retained.",
+    "Answer speech remains independent of focus guidance, and ordinary reader answers use one full-answer channel."
+  ],
+  "notes": [
+    "All reported restoration findings are corrected in the current reviewed source.",
+    "Final static source review only; actual Korean TTS/audio quality and VoiceOver/NVDA speech were not executed or verified.",
+    "Original Mac native startup greeting remains a documented platform difference; browser startup sound is subject to browser policy.",
+    "No product or test files were modified by this review."
+  ]
+}

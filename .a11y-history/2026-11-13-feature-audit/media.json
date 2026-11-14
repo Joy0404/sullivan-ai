@@ -1,0 +1,87 @@
+{
+  "skill": "media-accessibility",
+  "scope": [
+    "docs/FEATURE_STATUS.md",
+    "apps/web/manual/index.html",
+    "apps/web/app.js",
+    "apps/web/role-portal.js",
+    "apps/web/voice-command-router.js",
+    "apps/extensions/student/app.js",
+    "apps/extensions/student/media.js",
+    "apps/extensions/student/media-store.js",
+    "apps/extensions/student/speech.js",
+    "apps/extensions/student/video-control.js",
+    "apps/extensions/guardian/app.js",
+    "apps/extensions/guardian/workspace.html",
+    "apps/api/app/guardian_preparation.py",
+    "apps/api/app/student_learning.py"
+  ],
+  "findings": [
+    {
+      "rule": "PARITY-CONCEPT-SEQUENCE",
+      "wcag": "n/a",
+      "severity": "serious",
+      "location": "apps/extensions/student/app.js:287",
+      "summary": "Concept search lacks the original bounded lecturer-segment then AI-explanation sequence.",
+      "fix": "Restore a cancellable sequence that remembers the origin, seeks to concept.timestamp_ms, plays through a bounded end_ms, pauses, presents/speaks the AI explanation, and leaves explicit stop/return controls. Preserve manual resume for screen-reader users.",
+      "evidence": "Original app.js:1041–1085 implements segment timing and AI handoff. Extension :293–294 exposes separate explanation and seek/play buttons; the latter has no segment end or follow-up explanation."
+    },
+    {
+      "rule": "PARITY-GUARDIAN-PREVIEW",
+      "wcag": "n/a",
+      "severity": "serious",
+      "location": "apps/extensions/guardian/app.js:106",
+      "summary": "Guardian preparation preview exposes counts, summary and paragraph text but omits the original media and learning review tools.",
+      "fix": "Provide guardian preview of actual safe visual descriptions, transcript, concepts, review categories, study guide and decision reasons before publication; allow an explicit connected/local-media playback preview and appropriately consented learning-chat preview.",
+      "evidence": "openPreparation renders source label, counts, core_summary and passage sentences only (:106–109). Original manual:55 specifies lecture, concept, visual-review, study-note, chat and evidence inspection before assignment."
+    },
+    {
+      "rule": "PARITY-ORIGINAL-FILE-HANDOFF",
+      "wcag": "n/a",
+      "severity": "serious",
+      "location": "apps/extensions/guardian/app.js:174",
+      "summary": "Publishing a local-file lesson no longer delivers a playable original from guardian preparation to the student.",
+      "fix": "Design an explicit consented handoff between isolated applications, or a clear manual file-delivery workflow with readiness checks and student-side identity validation. Explain that server assignment transfers prepared data, not the original; preserve no-server-storage by default.",
+      "evidence": "Original role-portal.js:539–553 saves encrypted media later loaded by the student at :443–449. Extension publication persists local-reference hash/size (guardian_preparation.py:140,253–259); student/app.js:209 requires independent file selection."
+    },
+    {
+      "rule": "PARITY-REVIEW-CATEGORIES",
+      "wcag": "n/a",
+      "severity": "moderate",
+      "location": "apps/extensions/student/app.js:162",
+      "summary": "Student review omits original visual/highlight review categories and hides key-segment descriptions behind successful media seeking.",
+      "fix": "Restore timestamped visual-only and highlighted-sentence review alongside summary/key segments, display each description as readable text, and permit reading/listening without connected media. Render study_guide.overview and add the original review/study-guide read actions.",
+      "evidence": "Original app.js:1126–1184 renders all four review categories and overview with read controls. Extension :164–169 renders summary, seek-then-speak key segments and three study lists; seek (:186) throws when no video is connected."
+    },
+    {
+      "rule": "PARITY-EXPLORATION-RETURN",
+      "wcag": "n/a",
+      "severity": "moderate",
+      "location": "apps/extensions/student/app.js:289",
+      "summary": "Return-to-origin works after concept search but does not cover the original broader exploration workflow or its “곳” voice phrasing.",
+      "fix": "Capture a fresh media position before paragraph/review/question exploration as well as search, share one stop-and-return operation, and accept both 원래/듣던 곳 and 위치 phrases. Keep explicit play after returning.",
+      "evidence": "Extension assigns originMs only in search (:289); paragraph/review seeks do not capture it, and :356 matches 위치 only. Original role-portal.js:465–478 captures origin for learning purposes and :594 accepts 곳 or 위치."
+    },
+    {
+      "rule": "PARITY-TTS-PROSODY",
+      "wcag": "n/a",
+      "severity": "minor",
+      "location": "apps/extensions/student/speech.js:26",
+      "summary": "Lesson narration retains rate, pitch, volume and voice choice but drops the original speech-style and sentence-level prosody behavior.",
+      "fix": "If full original narration parity is required, reuse sentence-aware chunking, Korean natural-voice ranking and the warm/calm/clear style profiles while retaining the extension cancellation and playback fences. Otherwise document this deliberate reduction.",
+      "evidence": "Original app.js:1691,1714–1775 uses speechChunks, selectedKoreanVoice, style profiles and opening/closing adjustments. Extension splits fixed 180-character chunks and applies one rate/pitch directly."
+    }
+  ],
+  "passed": [
+    "Both original describe-now (web/app.js:860–865) and extension describe (student/app.js:330–333) select the nearest prepared safe gap. Fresh current-frame OCR/vision is not an implemented original capability lost in this migration; the extension explicitly announces the prepared timestamp.",
+    "Extension code retains safe-gap confidence/problem-mode filtering, due-gap scheduling, pause/speech/resume, cancellation fencing, video volume/mute, transcript text and dynamically generated WebVTT captions for verified local originals.",
+    "Extension code retains source-tab/manual-local playback, concept search, paragraph/sentence reading, underlines, bookmarks, notes export and prepared study tools; these are not completely absent.",
+    "Recovery of encrypted student-local originals remains explicit and scoped by account plus lecture; no raw-media delivery endpoint was found in the inspected student API."
+  ],
+  "notes": [
+    "Inspection only on 2026-11-13: no tests, media playback, microphone, TTS voices, provider calls or Chrome extension flows were executed. All findings are implementation parity gaps, not demonstrated WCAG failures.",
+    "Actual Gemini/link analysis requires configured services, network access and valid consent. Source wiring is not evidence that a live provider or a particular lecture currently succeeds.",
+    "Original media handoff was limited to the same web origin/browser profile; it never established cross-device automatic video delivery. Separate extension origins cannot inherit that IndexedDB automatically.",
+    "Detailed evidence, retained features and limitations are recorded in parity-notes.md alongside this report."
+  ]
+}

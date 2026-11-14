@@ -1,0 +1,93 @@
+{
+  "skill": "live-region-controller",
+  "scope": [
+    "apps/web/manual/index.html",
+    "docs/FEATURE_STATUS.md",
+    "apps/web/focus-voice.js",
+    "apps/web/app.js",
+    "apps/web/role-portal.js",
+    "apps/web/styles.css",
+    "apps/extensions/student/app.js",
+    "apps/extensions/student/speech.js",
+    "apps/extensions/student/workspace.html",
+    "apps/extensions/student/keyboard.js"
+  ],
+  "findings": [
+    {
+      "rule": "PARITY-FOCUS-PLAYBACK-HOLD",
+      "wcag": "n/a",
+      "severity": "serious",
+      "location": "apps/web/focus-voice.js:19-35 versus apps/extensions/student/speech.js:57-76; app.js:441-448",
+      "summary": "Extension control/status speech runs over an actively playing lecture instead of preserving the original pause-for-guidance and resume-after-guidance behavior.",
+      "fix": "Add optional playback coordination for the currently owned connected media view: acknowledge pause before UI speech, remember prior playing state, and resume only after the latest guidance ends with unchanged lesson/session/fence. Keep login guidance independent of any media lease.",
+      "evidence": "Original holdPlayback/releasePlayback save and restore playback; StudentAnnouncer has no media pause/resume hooks and busy() only checks lesson speech/recognition.",
+      "component": "Focus and status app narration"
+    },
+    {
+      "rule": "PARITY-READER-FOCUS-PAUSE",
+      "wcag": "n/a",
+      "severity": "serious",
+      "location": "apps/web/focus-voice.js:168-173 versus apps/extensions/student/app.js:441-444",
+      "summary": "External-reader mode no longer pauses lecture playback when the student moves focus, so original protection against simultaneous lecture audio and screen-reader speech is lost.",
+      "fix": "On student focus navigation in reader mode, pause currently owned playing media without auto-resuming; let the student explicitly resume. Do not claim a different media view or infer OS screen-reader speech completion.",
+      "evidence": "Original readerMode focusin pauses running playback. Extension focusin only calls announcer.say(), which immediately returns in reader_mode.",
+      "component": "External-reader navigation"
+    },
+    {
+      "rule": "PARITY-HOME-COMMAND-ENTRY",
+      "wcag": "n/a",
+      "severity": "serious",
+      "location": "apps/web/manual/index.html:70-72; role-portal.js:560-575 versus extensions/student/workspace.html:13,50-55; keyboard.js:28",
+      "summary": "Voice and typed commands cannot be opened before selecting a lesson, preventing original home-screen commands such as opening the first lecture or asking for help.",
+      "fix": "Expose student-wide voice/typed command entry on the home screen, allow Space command entry without a selected lesson, and handle help/list/open-lecture before needLesson(). Keep playback actions guarded when no lesson is loaded.",
+      "evidence": "Command forms/buttons are descendants of hidden #lesson; Space handlers require hasLesson(); command() calls needLesson() before the help branch.",
+      "component": "Student home voice and typed commands"
+    },
+    {
+      "rule": "PARITY-NATURAL-VOICE-SELECTION",
+      "wcag": "n/a",
+      "severity": "moderate",
+      "location": "apps/web/app.js:1617-1664 versus apps/extensions/student/speech.js:38-42,67-69; app.js:525-529",
+      "summary": "Extension narration loses the original automatic ranking of Korean Natural/Neural/Online voices and can choose a different default voice from control guidance.",
+      "fix": "Extract the original pure Korean voice scoring/selection helpers into a shared speech module; use the same selected-or-ranked fallback for narration and UI guidance, preserve explicit user voice choice, and refresh safely when voices load.",
+      "evidence": "Original voiceScore ranks natural/neural/online and named Korean voices. StudentSpeech only sets an exact saved voice; StudentAnnouncer otherwise takes the first Korean voice.",
+      "component": "Automatic Korean voice selection"
+    },
+    {
+      "rule": "PARITY-NATURAL-SPEECH-PROFILE",
+      "wcag": "n/a",
+      "severity": "moderate",
+      "location": "apps/web/app.js:1667-1805; index.html:389-399 versus apps/extensions/student/speech.js:27-46; workspace.html:36-48",
+      "summary": "Original text-pronunciation normalization, sentence-based breath pauses, opening/closing prosody and warm/calm/clear profiles are replaced with fixed 180-character narration chunks.",
+      "fix": "Port pure text normalization and sentence/prosody profiles while retaining extension cancellation/fence safety. Add an equivalent narration preview if retaining advanced profiles. Document that original profile/preview controls were hidden in student role; the default speech engine behavior still requires parity.",
+      "evidence": "Original prepareSpeechText, speechChunks, styleProfile and 70/130ms pauses are absent; extension applies constant rate/pitch to arbitrary 180-character chunks.",
+      "component": "Natural narration engine and advanced preview"
+    },
+    {
+      "rule": "PARITY-ANSWER-SPEECH-PREFERENCE",
+      "wcag": "n/a",
+      "severity": "moderate",
+      "location": "apps/web/app.js:1470,1503,1526 versus apps/extensions/student/app.js:313,326; workspace.html:68",
+      "summary": "Disabling the answer-speech checkbox does not mute typed answers when focus guidance remains enabled, unlike the original independent answer and focus speech choices.",
+      "fix": "Remove focus_voice as an override of the explicit answer-speech preference; retain forced speech only for explicit spoken/read-aloud requests. When answer speech is off, provide the result via a reader announcement or managed result focus without speaking it through focus guidance.",
+      "evidence": "Extension ask() condition includes forceSpeak || speak-answer.checked || settings.focus_voice; original auto-speak-chat was independent of focusVoice.",
+      "component": "Independent answer output preference"
+    }
+  ],
+  "passed": [
+    "Extension retains speed, volume, pitch and explicit Korean-voice selection plus per-device preference storage.",
+    "Lesson narration still pauses playback before output and uses generation/fence checks before resuming.",
+    "External-reader lesson-description delivery avoids browser TTS and does not guess reader completion to resume playback.",
+    "App guidance now covers login/home controls and protects password field contents.",
+    "Typed, speech-recognition and local fallback command engines remain present for an opened lesson.",
+    "Current reader-mode ordinary answers have a single full-answer delivery channel."
+  ],
+  "notes": [
+    "Functional parity audit, not a complete WCAG audit. All findings use n/a because they concern implemented product behavior rather than asserted conformance failures.",
+    "No actual Korean audio, VoiceOver or NVDA was heard or executed.",
+    "Original advanced speech-style/voice-preview controls live in .player-tools, which styles.css:674 hides for student role; only speed, volume and auto-narration are moved to student preferences. Their engine effects still run by default.",
+    "Original Mac native initial-login greeting is replaced with browser focus speech and an explicit start/test control. This is a changed platform boundary; automatic first audio after reload is not established by source inspection.",
+    "Neither original nor extension reader mode starts or detects an OS screen reader.",
+    "Persisted accompanying detailed parity notes to live-parity-notes.md."
+  ]
+}

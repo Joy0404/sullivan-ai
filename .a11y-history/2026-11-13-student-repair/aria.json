@@ -1,0 +1,23 @@
+{
+  "skill": "aria-specialist",
+  "scope": [
+    "apps/extensions/student/app.js",
+    "apps/extensions/student/speech.js",
+    "apps/extensions/student/workspace.html",
+    "apps/extensions/shared/ui.js",
+    "apps/extensions/student/keyboard.js",
+    "scripts/build_extensions.py"
+  ],
+  "findings": [],
+  "passed": [
+    "App-wide access mode and voice test are named native select/button controls available before login.",
+    "Changed caption/underline controls retain native buttons with correct pressed state.",
+    "New microphone consent dialog has native dialog semantics and valid labelledby/describedby IDs.",
+    "New reader-description and answer-status regions are persistent status regions.",
+    "The former silent option is accurately named “초점·상태 음성 끄기”; its completion message explains that explicit material-listening controls remain available."
+  ],
+  "notes": [
+    "All reported semantic source findings have been corrected.",
+    "Static semantic re-review only; no real assistive-technology execution was performed."
+  ]
+}

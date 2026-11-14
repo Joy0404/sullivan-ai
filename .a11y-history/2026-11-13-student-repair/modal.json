@@ -1,0 +1,22 @@
+{
+  "skill": "modal-specialist",
+  "scope": [
+    "apps/extensions/student/app.js",
+    "apps/extensions/student/keyboard.js",
+    "apps/extensions/student/workspace.html"
+  ],
+  "findings": [],
+  "passed": [
+    "Text and microphone permission overlays use native dialog elements with showModal, heading-based names, concise descriptions and visible cancel buttons.",
+    "Text dialog initially focuses its labelled command input; permission dialog focuses its explicitly named consent/permission action.",
+    "Tab remains within the open dialog, background content is natively inert and Escape retains native dialog dismissal.",
+    "Closing restores the prior visible focus target; text command submission awaits the close event before executing navigation.",
+    "Microphone permission is requested from an explicit native action; granted streams have their tracks stopped after permission preparation.",
+    "Pending microphone completion is fenced by request generation, account, lesson and open-dialog state; close, cancellation and context clearing invalidate the request.",
+    "Unsupported or failed recognition has a keyboard-accessible text-command fallback."
+  ],
+  "notes": [
+    "Source review only; no claim of live screen-reader testing or actual Chrome microphone-prompt execution.",
+    "The asynchronous microphone completion race observed during review was corrected before this final re-review."
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "passed": true,
+  "checks": [
+    "duplicate display names have unique visible and live identities",
+    "old 401 preserves newly logged-in student, including same guardian identity",
+    "old 401 preserves newly logged-in guardian, including same guardian identity",
+    "old 200 preserves newly logged-in student, including same guardian identity",
+    "current-session 401 still signs out and focuses login",
+    "logout resets link value and displayed link state",
+    "sample assignment has persistent polite loading status, cleared on completion"
+  ],
+  "page_errors": [],
+  "providers": "blocked; no paid analysis",
+  "screen_reader": "not tested"
+}

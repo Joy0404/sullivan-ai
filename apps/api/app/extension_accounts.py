@@ -22,7 +22,7 @@ from app.extension_access import digest, current, issue
 router = APIRouter(prefix='/extension/v1')
 auth_router = APIRouter(prefix='/extension/auth')
 Role = Literal['guardian', 'student']
-VERSION = '0.4.0'
+VERSION = '0.4.7'
 
 
 def production():
@@ -125,22 +125,18 @@ def token_pair(con, ident, role, client, family=None):
 @router.get('/{role}/capabilities')
 def capabilities(role: Role, request: Request):
     return {'version': VERSION, 'protocol': 1, 'minimum_version': os.getenv('SULLIVAN_MIN_EXTENSION_VERSION', '0.1.0'),
-            'production': production(), 'pkce': 'S256', 'signup_enabled': not production() or bool(os.getenv('SULLIVAN_SIGNUP_INVITE')),
+            'production': production(), 'pkce': 'S256', 'signup_enabled': os.getenv('SULLIVAN_SIGNUP_ENABLED','1')!='0',
             'role': role, 'raw_media_transfer': False}
 
 
 class Signup(accounts.Credentials):
     model_config = {'extra': 'forbid'}
-    invite: SecretStr | None = None
 
 
 @router.post('/{role}/accounts', status_code=201)
 def signup(role: Role, p: Signup, request: Request):
     if request.headers.get('x-sullivan-client') != role or p.role not in (None, role): raise HTTPException(403, '이 프로그램의 계정으로 가입하세요.')
-    if production():
-        expected = os.getenv('SULLIVAN_SIGNUP_INVITE', '')
-        if not expected or not p.invite or not hmac.compare_digest(expected, p.invite.get_secret_value()):
-            raise HTTPException(403, '운영자의 가입 초대 코드를 확인하세요.')
+    if os.getenv('SULLIVAN_SIGNUP_ENABLED','1')=='0':raise HTTPException(403,'지금은 신규 가입을 받지 않습니다.')
     key = digest(f'signup:{request.client.host if request.client else "local"}')
     with accounts.db() as con:
         con.execute('BEGIN IMMEDIATE')

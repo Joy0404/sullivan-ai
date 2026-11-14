@@ -1,0 +1,68 @@
+[
+  {
+    "script": "verify_roles_browser.py",
+    "exit_code": 1,
+    "seconds": 12.83,
+    "log": "verify_roles_browser.log"
+  },
+  {
+    "script": "verify_guardian_sessions.py",
+    "exit_code": 0,
+    "seconds": 2.28,
+    "log": "verify_guardian_sessions.log"
+  },
+  {
+    "script": "verify_voice_preferences.py",
+    "exit_code": 1,
+    "seconds": 1.92,
+    "log": "verify_voice_preferences.log"
+  },
+  {
+    "script": "verify_keyboard_navigation.py",
+    "exit_code": 0,
+    "seconds": 21.37,
+    "log": "verify_keyboard_navigation.log"
+  },
+  {
+    "script": "verify_student_entry.py",
+    "exit_code": 0,
+    "seconds": 9.06,
+    "log": "verify_student_entry.log"
+  },
+  {
+    "script": "verify_login_startup.py",
+    "exit_code": 0,
+    "seconds": 3.05,
+    "log": "verify_login_startup.log"
+  },
+  {
+    "script": "verify_audio_navigation.py",
+    "exit_code": 1,
+    "seconds": 39.32,
+    "log": "verify_audio_navigation.log"
+  },
+  {
+    "script": "verify_login_assignment.py",
+    "exit_code": 1,
+    "seconds": 33.05,
+    "log": "verify_login_assignment.log"
+  },
+  {
+    "script": "verify_sample_restart.py",
+    "exit_code": 0,
+    "seconds": 1.06,
+    "log": "verify_sample_restart.log"
+  },
+  {
+    "script": "verify_preparation_restart.py",
+    "exit_code": 0,
+    "seconds": 1.12,
+    "log": "verify_preparation_restart.log"
+  },
+  {
+    "script": "verify_extension_production.py",
+    "exit_code": 0,
+    "seconds": 0.78,
+    "log": "verify_extension_production.log"
+  }
+]

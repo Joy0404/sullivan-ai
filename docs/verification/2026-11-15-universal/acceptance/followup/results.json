@@ -1,0 +1,123 @@
+{
+  "result": "passed",
+  "checks": {
+    "S01.note_autosave_preserves_entered_position": {
+      "passed": true,
+      "observed": 77000
+    },
+    "S02.home_saves_entered_position": {
+      "passed": true,
+      "observed": 83000
+    },
+    "S03.failed_bookmark_blocks_switch": {
+      "passed": true,
+      "observed": "천문학 특강 7강 · 별의 진화"
+    },
+    "S04.actionable_save_failure": {
+      "passed": true,
+      "observed": "아직 저장하지 못했습니다. 시험 저장 실패 연결을 확인한 뒤 학습 기록 다시 저장을 누르세요. 이 화면을 닫으면 미저장 기록을 잃을 수 있습니다."
+    },
+    "S05.retry_retains_bookmark_and_focus": {
+      "passed": true,
+      "observed": 1
+    },
+    "S06.failed_manual_position_blocks_switch": {
+      "passed": true,
+      "observed": "99"
+    },
+    "S07.retry_keeps_entered_position": {
+      "passed": true,
+      "observed": 99000
+    },
+    "S08.failed_underline_blocks_switch": {
+      "passed": true,
+      "observed": "저장 복구 검사"
+    },
+    "S09.retry_keeps_underline": {
+      "passed": true,
+      "observed": 1
+    },
+    "S10.failure_voice_once": {
+      "passed": true,
+      "observed": {
+        "first": 1,
+        "after_retry": 1
+      }
+    },
+    "S13.explicit_retry_failure_voice": {
+      "passed": true,
+      "observed": "Explicit retry announces repeated failure"
+    },
+    "S11.recovery_voice": {
+      "passed": true,
+      "observed": "연결이 복구되어 학습 기록을 저장했습니다."
+    },
+    "S12.logout_cancels_queued_save": {
+      "passed": true,
+      "observed": {
+        "requests": 1
+      }
+    },
+    "G01.preparation_dashboard": {
+      "passed": true,
+      "observed": {
+        "filter": 1
+      }
+    },
+    "G02.filter_search_and_counts": {
+      "passed": true,
+      "observed": "전체 1개 · 접수 0개 · 진행 중 0개 · 준비 완료 1개 · 실패 0개 · 중단 0개"
+    },
+    "G03.removed_job_focus_and_running_notice": {
+      "passed": true,
+      "observed": "저장 복구 검사: 진행 중. 시험 상태: 처리 시작"
+    },
+    "G04.keyboard_only_guardian_flow": {
+      "passed": true,
+      "observed": {
+        "pointer_events": 0,
+        "selected_student": "92e2f716ea7849a4bbdce899de3956b4",
+        "target": "92e2f716ea7849a4bbdce899de3956b4"
+      }
+    }
+  },
+  "axe": [
+    {
+      "screen": "student-login",
+      "version": "4.14.0",
+      "violations": 0
+    },
+    {
+      "screen": "guardian-login",
+      "version": "4.14.0",
+      "violations": 0
+    },
+    {
+      "screen": "student-material",
+      "version": "4.14.0",
+      "violations": 0
+    },
+    {
+      "screen": "guardian-workspace",
+      "version": "4.14.0",
+      "violations": 0
+    },
+    {
+      "screen": "student-save-recovery",
+      "version": "4.14.0",
+      "violations": 0
+    },
+    {
+      "screen": "guardian-preparation-dashboard",
+      "version": "4.14.0",
+      "violations": 0
+    },
+    {
+      "screen": "guardian-keyboard-assignment",
+      "version": "4.14.0",
+      "violations": 0
+    }
+  ],
+  "error": null,
+  "boundary": "Disposable installed extensions/API/DB; injected save 503 and listed running state; synthetic speech; no paid services or actual screen reader audio"
+}

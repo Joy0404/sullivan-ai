@@ -1,0 +1,25 @@
+{
+  "crossAccountFileRead": {
+    "httpStatus": 202,
+    "currentAccount": "Synthetic Guardian B",
+    "storedOwner": "guardian_new_account",
+    "title": "Account A private import",
+    "state": "completed",
+    "containsAccountAMaterial": true
+  },
+  "guidedInvalidJson": {
+    "stage": "3/3단계: 3. 동의와 최종 확인",
+    "error": "분석 JSON의 형식을 확인하세요.",
+    "localError": "",
+    "fileVisible": false,
+    "fileInvalid": null,
+    "active": "자료 준비 시작"
+  },
+  "guidedPerFileLimit": {
+    "stage": "2/3단계: 2. 자료 선택",
+    "localError": "자료 파일은 하나당 30만 자 이내로 나눠 주세요.",
+    "fileVisible": true,
+    "fileInvalid": "true",
+    "active": "material-files"
+  }
+}

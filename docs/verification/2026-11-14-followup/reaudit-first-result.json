@@ -1,0 +1,265 @@
+{
+  "version": "0.4.4",
+  "result": "failed",
+  "groups": [
+    {
+      "group": "supplement",
+      "result": "failed",
+      "error": "Traceback (most recent call last):\n  File \"/Users/joy/Documents/Codex/Sullivan-AI-Develop-local/scripts/verify_reaudit_fixes.py\", line 242, in run\n    try:browser.main(exercise,phase='fixed-'+name,output=output)\n        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/joy/Documents/Codex/Sullivan-AI-Develop-local/scripts/verify_extensions_browser.py\", line 132, in main\n    guardian = exercise(guardian, student, output)\n               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/joy/Documents/Codex/Sullivan-AI-Develop-local/scripts/verify_reaudit_fixes.py\", line 67, in supplement\n    assert len(audit.OBS)==30 and all(o['result']=='passed' for o in audit.OBS),audit.OBS\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: [{'id': 'pending_play_then_focus', 'features': ['F35', 'F41'], 'expected': '새 초점 안내가 끝날 때까지 영상 정지', 'observed': {'before_release_paused': True, 'after_release_paused': True, 'guidance_held': True}, 'result': 'passed', 'detail': '지연된 worker play 응답만 제어. 영상은 실제 MP4, 음성은 종료를 보류한 시험 장치.'}, {'id': 'voice_test_resume', 'features': ['F41', 'F57'], 'expected': '재생 중 시작한 음성 시험이 끝나면 기존 재생 복원', 'observed': {'paused_after_test': False, 'texts': ['음성 안내 시작, 시험', 'Sullivan 학생 음성 안내입니다.', 'Tab은 다음 항목, Shift는 이전 항목입니다.', '스페이스 한 번은 영상 재생과 정지, 두 번은 전체 중지, 세 번은 텍스트 명령, 3초 누르기는 음성 명령입니다.']}, 'result': 'passed', 'detail': ''}, {'id': 'shift_arrow', 'features': ['F35', 'F68'], 'expected': '수정키 조합은 강의 10초 이동을 실행하지 않음', 'observed': {'before': 2, 'after': 2}, 'result': 'passed', 'detail': ''}, {'id': 'disabled_space_editor', 'features': ['F65', 'F69'], 'expected': 'Space 명령 사용을 끄면 편집 중 제스처도 실행하지 않음', 'observed': {'space_enabled': False, 'status': ''}, 'result': 'passed', 'detail': ''}, {'id': 'stale_command', 'features': ['F67'], 'expected': '새 명령창은 이전 실행 명령을 지운 빈 입력으로 시작', 'observed': '', 'result': 'passed', 'detail': ''}, {'id': 'numeric_value_guidance', 'features': ['F57', 'F58'], 'expected': '앱 안내에 현재 변경한 영상 음량 0.4 포함', 'observed': ['앱 음성 안내를 켰습니다.', '영상 음량 (0~1).', '영상 음량 (0~1).', '현재 0점4.'], 'result': 'passed', 'detail': ''}, {'id': 'save_failure_retry', 'features': ['F54', 'F56'], 'result': 'inconclusive', 'error': 'Locator expected to contain text \\'아직 저장하지 못했습니다\\'\\nActual value: 저장에 실패했습니다. 감사 시험: 저장 실패 연결을 확인한 뒤 학습 기록 다시 저장을 누르세요. 이 화면을 닫으면 미저장 기록을 잃을 수 있습니다. \\nCall log:\\n  - Expect \"to_contain_text\" locator(\"#save-status\") with timeout 4000ms\\n  - waiting for locator(\"#save-status\")\\n    5 × locator resolved to <p role=\"status\" id=\"save-status\" aria-atomic=\"true\">학습 기록 저장됨</p>\\n      - unexpected value \"학습 기록 저장됨\"\\n    7 × locator resolved to <p role=\"status\" id=\"save-status\" aria-atomic=\"true\">저장에 실패했습니다. 감사 시험: 저장 실패 연결을 확인한 뒤 학습 기록 다시 저장을 누…</p>\\n      - unexpected value \"저장에 실패했습니다. 감사 시험: 저장 실패 연결을 확인한 뒤 학습 기록 다시 저장을 누르세요. 이 화면을 닫으면 미저장 기록을 잃을 수 있습니다.\"\\n\\nAria snapshot:\\n- status: \"저장에 실패했습니다. 감사 시험: 저장 실패 연결을 확인한 뒤 학습 기록 다시 저장을 누르세요. 이 화면을 닫으면 미저장 기록을 잃을 수 있습니다.\"'}, {'id': 'offline_reconnect', 'features': ['F56'], 'result': 'inconclusive', 'error': 'Locator expected to contain text \\'아직 저장하지 못했습니다\\'\\nActual value: 저장에 실패했습니다. 서버에 연결하지 못했습니다. 서버 실행과 인터넷 연결을 확인해 주세요. 연결을 확인한 뒤 학습 기록 다시 저장을 누르세요. 이 화면을 닫으면 미저장 기록을 잃을 수 있습니다. \\nCall log:\\n  - Expect \"to_contain_text\" locator(\"#save-status\") with timeout 4000ms\\n  - waiting for locator(\"#save-status\")\\n    5 × locator resolved to <p role=\"status\" id=\"save-status\" aria-atomic=\"true\">저장에 실패했습니다. 감사 시험: 저장 실패 연결을 확인한 뒤 학습 기록 다시 저장을 누…</p>\\n      - unexpected value \"저장에 실패했습니다. 감사 시험: 저장 실패 연결을 확인한 뒤 학습 기록 다시 저장을 누르세요. 이 화면을 닫으면 미저장 기록을 잃을 수 있습니다.\"\\n    7 × locator resolved to <p role=\"status\" id=\"save-status\" aria-atomic=\"true\">저장에 실패했습니다. 서버에 연결하지 못했습니다. 서버 실행과 인터넷 연결을 확인해 주세…</p>\\n      - unexpected value \"저장에 실패했습니다. 서버에 연결하지 못했습니다. 서버 실행과 인터넷 연결을 확인해 주세요. 연결을 확인한 뒤 학습 기록 다시 저장을 누르세요. 이 화면을 닫으면 미저장 기록을 잃을 수 있습니다.\"\\n\\nAria snapshot:\\n- status: 저장에 실패했습니다. 서버에 연결하지 못했습니다. 서버 실행과 인터넷 연결을 확인해 주세요. 연결을 확인한 뒤 학습 기록 다시 저장을 누르세요. 이 화면을 닫으면 미저장 기록을 잃을 수 있습니다.'}, {'id': 'passage_1문단', 'features': ['F43'], 'expected': ['1문단', '합의 원리'], 'observed': '강의를 일시정지했습니다. 1문단, 문제 제기. 합의 원리를 살펴봅니다. 계속 들으려면 강의 재생을 누르세요.', 'result': 'passed', 'detail': ''}, {'id': 'passage_다음 문단', 'features': ['F43'], 'expected': ['2문단', '두 수'], 'observed': '강의를 일시정지했습니다. 2문단, 정리. 두 수를 함께 묶는 과정을 설명합니다. 계속 들으려면 강의 재생을 누르세요.', 'result': 'passed', 'detail': ''}, {'id': 'passage_이전 문단', 'features': ['F43'], 'expected': ['1문단'], 'observed': '강의를 일시정지했습니다. 1문단, 문제 제기. 합의 원리를 살펴봅니다. 계속 들으려면 강의 재생을 누르세요.', 'result': 'passed', 'detail': ''}, {'id': 'passage_전체 지문', 'features': ['F43'], 'expected': ['1문단', '2문단'], 'observed': '강의를 일시정지했습니다. 1문단, 문제 제기. 합의 원리를 살펴봅니다. 2문단, 정리. 두 수를 함께 묶는 과정을 설명합니다. 계속 들으려면 강의 재생을 누르세요.', 'result': 'passed', 'detail': ''}, {'id': 'passage_지문 흐름', 'features': ['F43'], 'expected': ['흐름'], 'observed': '강의를 일시정지했습니다. 긴 지문은 모두 2문단입니다. 흐름은 1문단 문제 제기, 다음은 2문단 정리 순서입니다. 계속 들으려면 강의 재생을 누르세요.', 'result': 'passed', 'detail': ''}, {'id': 'passage_1문단 1문장', 'features': ['F43'], 'expected': ['합의 원리'], 'observed': '강의를 일시정지했습니다. 합의 원리를 살펴봅니다. 계속 들으려면 강의 재생을 누르세요.', 'result': 'passed', 'detail': ''}, {'id': 'passage_다음 문장', 'features': ['F43'], 'expected': ['두 수'], 'observed': '강의를 일시정지했습니다. 두 수를 함께 묶는 과정을 설명합니다. 계속 들으려면 강의 재생을 누르세요.', 'result': 'passed', 'detail': ''}, {'id': 'tool_3줄 요약', 'features': ['F51'], 'expected': '선택한 학습 도구 결과 표시', 'observed': {'title': '2줄 핵심 요약', 'text': '1. 합의 원리 학습 2. 두 수에서 합으로 연결'}, 'result': 'passed', 'detail': '결과 생성·표시 검사이며 모델 품질 검증은 아님.'}, {'id': 'tool_핵심 용어 카드', 'features': ['F51'], 'expected': '선택한 학습 도구 결과 표시', 'observed': {'title': '강사가 강조한 핵심 키워드', 'text': '• 합의 원리 (0분 0초): 두 수를 함께 묶어 살펴보는 원리입니다.'}, 'result': 'passed', 'detail': '결과 생성·표시 검사이며 모델 품질 검증은 아님.'}, {'id': 'tool_두 개념 비교', 'features': ['F51'], 'expected': '선택한 학습 도구 결과 표시', 'observed': {'title': '개념 비교', 'text': '비교할 두 개념을 함께 말해 주세요. 예: 정묘호란과 병자호란 비교, 북벌론과 북학론 비교.'}, 'result': 'passed', 'detail': '결과 생성·표시 검사이며 모델 품질 검증은 아님.'}, {'id': 'tool_원인 전개 결과', 'features': ['F51'], 'expected': '선택한 학습 도구 결과 표시', 'observed': {'title': '원인·전개·결과 정리', 'text': '원인. 합의 원리 학습 전개. 두 수에서 합으로 연결 결과와 영향. 연습용 영상의 자막입니다.'}, 'result': 'passed', 'detail': '결과 생성·표시 검사이며 모델 품질 검증은 아님.'}, {'id': 'tool_시간순 흐름', 'features': ['F51'], 'expected': '선택한 학습 도구 결과 표시', 'observed': {'title': '강의 흐름과 시간순 정리', 'text': '1. 두 수에서 합으로 연결'}, 'result': 'passed', 'detail': '결과 생성·표시 검사이며 모델 품질 검증은 아님.'}, {'id': 'tool_암기표', 'features': ['F51'], 'expected': '선택한 학습 도구 결과 표시', 'observed': {'title': '시험 직전 음성 암기표', 'text': '1. 합의 원리 — 두 수를 함께 묶어 살펴보는 원리입니다.'}, 'result': 'passed', 'detail': '결과 생성·표시 검사이며 모델 품질 검증은 아님.'}, {'id': 'tool_복습 계획', 'features': ['F51'], 'expected': '선택한 학습 도구 결과 표시', 'observed': {'title': '맞춤 복습 계획', 'text': '1단계 · 전체 흐름 듣기: 합의 원리 학습 2단계 · 개념 연결 확인: 두 수에서 합으로 연결 3단계 · 중요 장면 다시 듣기: 0분 0초 4단계 · 스스로 설명하기: 합의 원리를 설명해 보세요.'}, 'result': 'passed', 'detail': '결과 생성·표시 검사이며 모델 품질 검증은 아님.'}, {'id': 'tool_퀴즈', 'features': ['F51'], 'expected': '선택한 학습 도구 결과 표시', 'observed': {'title': '자기점검 퀴즈', 'text': '1. 합의 원리를 설명해 보세요. 정답은 먼저 스스로 말한 뒤 핵심 탐색에서 해당 강사 구간을 확인하세요.'}, 'result': 'passed', 'detail': '결과 생성·표시 검사이며 모델 품질 검증은 아님.'}, {'id': 'tool_1분 발표문', 'features': ['F51'], 'expected': '선택한 학습 도구 결과 표시', 'observed': {'title': '1분 발표문', 'text': '안녕하세요. 이번 강의의 핵심 주제를 설명하겠습니다. 합의 원리 학습 핵심 내용은 다음과 같습니다. 두 수에서 합으로 연결 이 흐름을 기억하면 개별 사건과 개념의 관계도 함께 이해할 수 있습니다. 이상으로 발표를 마치겠습니다.'}, 'result': 'passed', 'detail': '결과 생성·표시 검사이며 모델 품질 검증은 아님.'}, {'id': 'tool_3분 발표문', 'features': ['F51'], 'expected': '선택한 학습 도구 결과 표시', 'observed': {'title': '3분 발표문', 'text': '안녕하세요. 이번 강의의 핵심 주제를 설명하겠습니다. 합의 원리 학습 핵심 내용은 다음과 같습니다. 두 수에서 합으로 연결 이 흐름을 기억하면 개별 사건과 개념의 관계도 함께 이해할 수 있습니다. 이상으로 발표를 마치겠습니다.'}, 'result': 'passed', 'detail': '결과 생성·표시 검사이며 모델 품질 검증은 아님.'}, {'id': 'tool_개념 지도', 'features': ['F51'], 'expected': '선택한 학습 도구 결과 표시', 'observed': {'title': '음성형 개념 지도', 'text': '1단계. 두 수에서 합으로 연결'}, 'result': 'passed', 'detail': '결과 생성·표시 검사이며 모델 품질 검증은 아님.'}, {'id': 'home_button_command', 'features': ['F66'], 'expected': '강의 선택 전 표시된 홈 버튼 명령 실행', 'observed': {'ok': True}, 'result': 'passed', 'detail': ''}, {'id': 'home_open_numbered', 'features': ['F66'], 'expected': '홈 타자 명령으로 1번 강의 열기', 'observed': '천문학 특강 7강 · 별의 진화', 'result': 'passed', 'detail': ''}, {'id': 'read_review_without_video', 'features': ['F52'], 'expected': '영상 미연결 상태에서 복습 읽기', 'observed': '강의를 일시정지했습니다. 별은 성운의 중력 수축으로 태어나 중심 수소 핵융합이 시작되면 주계열성이 됩니다.별의 초기 질량에 따라 주계열 단계 이후의 진화 경로가 달라집니다.초신성에서 퍼진 원소는 새로운 별과 행성을 만드는 재료가 됩니다.3분 55초 원시별에서 주계열성으로중력 수축과 중심 온도 상승을 거쳐 주계열성이 되는 판서 흐름을 확인합니다.11분 45초 진화 경로 분기초기 질량에 따라 달라지는 두 경로를 비교합니다.21분 25초 원소의 순환초신성에서 퍼진 원소가 새 별의 재료가 됩니다.0분 43초. 성운의 가스와 먼지가 한곳으로 모여 원시별이 되는 흐름이 화살표로 표시됩니다.3분 55초. 성운의 가스와 먼지 → 중력 수축 → 원시별 → 중심 수축 → 주계열성의 흐름과 중심 온도 약 천만 켈빈이 판서되어 있습니다.6분 50초. 중력과 내부 기체 압력이 서로 반대 방향으로 평형을 이룹니다.11분 45초. 주계열성 이후 진화 경로가 초기 질량에 따라 두 갈래로 나뉩니다.13분 55초.', 'result': 'passed', 'detail': ''}, {'id': 'read_guide_without_video', 'features': ['F52'], 'expected': '영상 미연결 상태에서 학습 가이드 읽기', 'observed': '강의를 일시정지했습니다. 별은 성운에서 태어나 주계열성으로 가장 긴 시간을 보냅니다. 중심의 수소가 고갈된 뒤에는 초기 질량에 따라 진화 경로가 갈라집니다. 태양 정도 질량의 별은 백색 왜성으로, 질량이 큰 별은 초신성 뒤 중성자별이나 블랙홀로 이어질 수 있습니다. 성운 → 중력 수축 → 원시별 원시별 → 중심 수소 핵융합 시작 → 주계열성 태양 정도 질량 → 적색 거성 → 행성상 성운 → 백색 왜성 큰 질량 → 초거성 → 초신성 → 중성자별 또는 블랙홀 초신성에서 퍼진 원소 → 새로운 별과 행성의 재료 주계열성. 중심에서 수소 핵융합을 하며 중력과 내부 압력이 평형을 이룬 안정된 별입니다. 적색 거성. 중심 수소가 줄어든 뒤 바깥층이 크게 팽창하고 표면 온도가 낮아진 별입니다. 초신성. 질량이 큰 별의 마지막 단계에서 일어나는 매우 큰 폭발입니다. 백색 왜성. 태양 정도 질량의 별이 바깥층을 방출한 뒤 남기는 작고 밀도 높은 핵입니다. 원시별. 성운의 가스와 먼지가 중력으로 모여 ', 'result': 'passed', 'detail': ''}]\n"
+    },
+    {
+      "group": "media",
+      "result": "passed"
+    },
+    {
+      "group": "live",
+      "result": "passed"
+    },
+    {
+      "group": "forms",
+      "result": "passed"
+    }
+  ],
+  "issues": {
+    "R03": {
+      "result": "passed",
+      "observed": {
+        "id": "pending_play_then_focus",
+        "features": [
+          "F35",
+          "F41"
+        ],
+        "expected": "새 초점 안내가 끝날 때까지 영상 정지",
+        "observed": {
+          "before_release_paused": true,
+          "after_release_paused": true,
+          "guidance_held": true
+        },
+        "result": "passed",
+        "detail": "지연된 worker play 응답만 제어. 영상은 실제 MP4, 음성은 종료를 보류한 시험 장치."
+      }
+    },
+    "R05": {
+      "result": "passed",
+      "observed": {
+        "id": "voice_test_resume",
+        "features": [
+          "F41",
+          "F57"
+        ],
+        "expected": "재생 중 시작한 음성 시험이 끝나면 기존 재생 복원",
+        "observed": {
+          "paused_after_test": false,
+          "texts": [
+            "음성 안내 시작, 시험",
+            "Sullivan 학생 음성 안내입니다.",
+            "Tab은 다음 항목, Shift는 이전 항목입니다.",
+            "스페이스 한 번은 영상 재생과 정지, 두 번은 전체 중지, 세 번은 텍스트 명령, 3초 누르기는 음성 명령입니다."
+          ]
+        },
+        "result": "passed",
+        "detail": ""
+      }
+    },
+    "R06": {
+      "result": "passed",
+      "observed": {
+        "id": "shift_arrow",
+        "features": [
+          "F35",
+          "F68"
+        ],
+        "expected": "수정키 조합은 강의 10초 이동을 실행하지 않음",
+        "observed": {
+          "before": 2,
+          "after": 2
+        },
+        "result": "passed",
+        "detail": ""
+      }
+    },
+    "R07": {
+      "result": "passed",
+      "observed": {
+        "id": "disabled_space_editor",
+        "features": [
+          "F65",
+          "F69"
+        ],
+        "expected": "Space 명령 사용을 끄면 편집 중 제스처도 실행하지 않음",
+        "observed": {
+          "space_enabled": false,
+          "status": ""
+        },
+        "result": "passed",
+        "detail": ""
+      }
+    },
+    "R08": {
+      "result": "passed",
+      "observed": {
+        "id": "stale_command",
+        "features": [
+          "F67"
+        ],
+        "expected": "새 명령창은 이전 실행 명령을 지운 빈 입력으로 시작",
+        "observed": "",
+        "result": "passed",
+        "detail": ""
+      }
+    },
+    "R09": {
+      "result": "passed",
+      "observed": {
+        "id": "numeric_value_guidance",
+        "features": [
+          "F57",
+          "F58"
+        ],
+        "expected": "앱 안내에 현재 변경한 영상 음량 0.4 포함",
+        "observed": [
+          "앱 음성 안내를 켰습니다.",
+          "영상 음량 (0~1).",
+          "영상 음량 (0~1).",
+          "현재 0점4."
+        ],
+        "result": "passed",
+        "detail": ""
+      }
+    },
+    "R10": {
+      "result": "passed",
+      "observed": {
+        "id": "home_button_command",
+        "features": [
+          "F66"
+        ],
+        "expected": "강의 선택 전 표시된 홈 버튼 명령 실행",
+        "observed": {
+          "ok": true
+        },
+        "result": "passed",
+        "detail": ""
+      }
+    },
+    "R01": {
+      "result": "passed",
+      "observed": {
+        "lesson": "천문학 특강 7강 · 별의 진화",
+        "lease": null
+      }
+    },
+    "R02": {
+      "result": "passed",
+      "observed": {
+        "before": {
+          "position_ms": 42000,
+          "bookmarks": [],
+          "underlined": [],
+          "note": "확장 분리 검증 메모",
+          "updated_at": "2026-11-14T12:20:50+00:00"
+        },
+        "after": {
+          "position_ms": 42000,
+          "bookmarks": [],
+          "underlined": [],
+          "note": "확장 분리 검증 메모",
+          "updated_at": "2026-11-14T12:20:50+00:00"
+        },
+        "writes": []
+      }
+    },
+    "R04": {
+      "result": "passed",
+      "observed": {
+        "tab_failure_words": [
+          "원본 강의 연결이 끊겼습니다. 원본 탭을 다시 열거나 파일을 다시 연결해 주세요."
+        ],
+        "lease_words": [
+          "다른 수강 화면에서 재생을 시작했습니다. 이 화면에서 연결하면 다시 사용할 수 있습니다."
+        ],
+        "lease_owner": "regression-new-view"
+      }
+    },
+    "R12": {
+      "result": "passed",
+      "observed": {
+        "terminal_error": "답변을 만들지 못했습니다. 서버에 실제 학습 대화 연결이 없습니다. 준비된 자료를 확인해 주세요. 연결과 동의를 확인한 뒤 다시 질문하세요.",
+        "newer_result": ""
+      }
+    },
+    "R11": {
+      "result": "passed",
+      "observed": {
+        "initial_words": [],
+        "login_words": []
+      }
+    },
+    "R13": {
+      "result": "passed",
+      "observed": "다시 준비할 작업 · 일반 · 자막·지문·분석 JSON · 자동 판별. 문제 보호 켜짐. 내용을 확인하고 필요한 동의를 선택한 뒤 준비를 시작하세요."
+    },
+    "R14": {
+      "result": "passed",
+      "observed": {
+        "error": "입력 정보와 자료 전체가 100만 자를 넘었습니다. 파일 수나 지문 길이를 줄이거나 여러 강의로 나누어 준비하세요.",
+        "sent": []
+      }
+    },
+    "R15": {
+      "result": "passed",
+      "observed": {
+        "sentence_controls": 4,
+        "current": "true",
+        "paragraph_cursor_synced": true
+      }
+    },
+    "R16": {
+      "result": "passed",
+      "observed": "<button type=\"button\" class=\"secondary sentence\" data-sentence-id=\"p1-s1\" data-material-key=\"sentence:p1-s1\" data-paragraph-id=\"p1\">1문단 1문장. 중요한 강조 문장입니다.<strong class=\"highlight-label\"> 강조</strong></button>"
+    },
+    "R17": {
+      "result": "passed",
+      "observed": "command-input"
+    },
+    "R18": {
+      "result": "passed",
+      "observed": "workspace-title"
+    }
+  },
+  "missing": [],
+  "additional_boundaries": {
+    "stop_during_pending_claim": {
+      "passed": true,
+      "video_paused": true
+    },
+    "focus_during_delayed_save": {
+      "passed": true,
+      "focus": "command-input"
+    }
+  },
+  "source_sha256": {
+    "apps/extensions/student/media-store.js": "add62e4f94e079b9c77d256b8041c4ab6d9a60a0ad9248cc4a765c88e4c85656",
+    "apps/extensions/student/lesson-data.js": "b5823b78e8bcfbbd0364877010398ae79f412805b1d3c6d472a9d16f29320fd8",
+    "apps/extensions/student/media.js": "6139ac84aa7577b55e70f8de51fd93f1910c354febc321d432aa7bf00eef9679",
+    "apps/extensions/student/video-control.js": "358e1394f166d2e4341939e67713a190fd844944b129563974cef1f47f603ce5",
+    "apps/extensions/student/worker.js": "51b382e310ce465a3c94226fce65837d7129dbeb67ba6cc96e85b1be84e3af86",
+    "apps/extensions/student/speech.js": "86dfbade9e26c0cc88949a436edf83e76249450bd07a495370647a45fe65f555",
+    "apps/extensions/student/keyboard.js": "4d79d199a23f313ca6f4668930b8183bad10f6559e57b7266247d96ce6e00935",
+    "apps/extensions/student/workspace.html": "4178c1dc8393e76c42643ebf77b1742918d7b3e19918bc2550b2bcb5e4e79cf5",
+    "apps/extensions/student/app.js": "8f307cfbf9f69bb23bdf838670ef6ccda3259f0eab092ebcb419ba780879446f",
+    "apps/extensions/shared/client.js": "1a57816cffee670fd2a5e5c47d409800fcd1b309bde4bff0e724e17d09661fbd",
+    "apps/extensions/shared/ui.js": "20b5305c08f0bc61ff5b197421c4b9d0dbbe5697262d16123935e5cb91703dec",
+    "apps/extensions/shared/accounts.html": "38b43597af1494dd2e73096d1415a194879996fa4d0a43ff48f65fbd84fd59d5",
+    "apps/extensions/shared/accounts.js": "78f2eddf89cc1dc0366b8c7ec730a3946e564aaacd5ec0839902b35a207dff80",
+    "apps/extensions/shared/base.css": "f163a65f5ea2b10fdd92d6276ea2eed5463ea11e258030234f7e9dbdfcd9a6e5",
+    "apps/extensions/guardian/worker.js": "b57ddb435675e7b3a67cdafdffca4019c500afb9750a5d93c37864f8ba289275",
+    "apps/extensions/guardian/workspace.html": "25458a3c99129ba870fae38b7ab11e0093d86a347e77f9c22c4a36c2c1d54533",
+    "apps/extensions/guardian/app.js": "f096e1e2c14e8a8e78ec5aa86a546ef5469325554c167b61ac123393742e1b04"
+  },
+  "boundaries": [
+    "Temporary DB/profile and real decoded video/API/worker",
+    "Speech/recognition and delayed replies are explicit test doubles",
+    "Actual VoiceOver/NVDA, microphone and live provider quality not verified"
+  ]
+}

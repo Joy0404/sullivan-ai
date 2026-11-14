@@ -1,0 +1,320 @@
+{
+  "version": "0.4.1",
+  "basis": "original manual + original code + user updated key contract",
+  "observations": [
+    {
+      "id": "focus_pause",
+      "title": "앱 초점 음성 중 영상 정지",
+      "expected": true,
+      "observed": false,
+      "result": "gap-reproduced",
+      "detail": "음성 요청은 관찰됨. 영상은 실제 디코딩 MP4, TTS만 시험 장치.",
+      "evidence_level": "browser"
+    },
+    {
+      "id": "reader_pause",
+      "title": "외부 스크린리더 모드 초점 이동 시 영상 정지",
+      "expected": true,
+      "observed": false,
+      "result": "gap-reproduced",
+      "detail": "외부 스크린리더의 실제 낭독이 아닌 모드·영상 상태 검사.",
+      "evidence_level": "browser"
+    },
+    {
+      "id": "answer_mute",
+      "title": "답변 음성 체크 해제의 독립 적용",
+      "expected": false,
+      "observed": true,
+      "result": "gap-reproduced",
+      "detail": "앱 초점 안내는 켜고 답변 음성만 끔. 준비 자료 기반 대체 답변 경로.",
+      "evidence_level": "browser"
+    },
+    {
+      "id": "pending_space",
+      "title": "Space 뒤 Tab 이동 시 지연 명령 취소",
+      "expected": false,
+      "observed": true,
+      "result": "gap-reproduced",
+      "detail": "",
+      "evidence_level": "browser"
+    },
+    {
+      "id": "cancel_resume",
+      "title": "텍스트 명령 취소 후 이전 재생 복원",
+      "expected": true,
+      "observed": false,
+      "result": "gap-reproduced",
+      "detail": "최신 2회 중지는 별개. 아무 명령도 실행하지 않고 취소한 경우.",
+      "evidence_level": "browser"
+    },
+    {
+      "id": "tool_1",
+      "title": "3줄 요약",
+      "expected": "비어 있지 않은 도구 결과",
+      "observed": "2줄 핵심 요약",
+      "result": "passed",
+      "detail": "실제 제어·준비자료 기반 결과. 두 개념 미제공 시 비교는 추가 입력 안내. 모델 품질 검사가 아님.",
+      "evidence_level": "browser"
+    },
+    {
+      "id": "tool_2",
+      "title": "핵심 용어 카드",
+      "expected": "비어 있지 않은 도구 결과",
+      "observed": "강사가 강조한 핵심 키워드",
+      "result": "passed",
+      "detail": "실제 제어·준비자료 기반 결과. 두 개념 미제공 시 비교는 추가 입력 안내. 모델 품질 검사가 아님.",
+      "evidence_level": "browser"
+    },
+    {
+      "id": "tool_3",
+      "title": "두 개념 비교",
+      "expected": "비어 있지 않은 도구 결과",
+      "observed": "개념 비교",
+      "result": "passed",
+      "detail": "실제 제어·준비자료 기반 결과. 두 개념 미제공 시 비교는 추가 입력 안내. 모델 품질 검사가 아님.",
+      "evidence_level": "browser"
+    },
+    {
+      "id": "tool_4",
+      "title": "원인 전개 결과",
+      "expected": "비어 있지 않은 도구 결과",
+      "observed": "원인·전개·결과 정리",
+      "result": "passed",
+      "detail": "실제 제어·준비자료 기반 결과. 두 개념 미제공 시 비교는 추가 입력 안내. 모델 품질 검사가 아님.",
+      "evidence_level": "browser"
+    },
+    {
+      "id": "tool_5",
+      "title": "시간순 흐름",
+      "expected": "비어 있지 않은 도구 결과",
+      "observed": "강의 흐름과 시간순 정리",
+      "result": "passed",
+      "detail": "실제 제어·준비자료 기반 결과. 두 개념 미제공 시 비교는 추가 입력 안내. 모델 품질 검사가 아님.",
+      "evidence_level": "browser"
+    },
+    {
+      "id": "tool_6",
+      "title": "암기표",
+      "expected": "비어 있지 않은 도구 결과",
+      "observed": "시험 직전 음성 암기표",
+      "result": "passed",
+      "detail": "실제 제어·준비자료 기반 결과. 두 개념 미제공 시 비교는 추가 입력 안내. 모델 품질 검사가 아님.",
+      "evidence_level": "browser"
+    },
+    {
+      "id": "tool_7",
+      "title": "복습 계획",
+      "expected": "비어 있지 않은 도구 결과",
+      "observed": "맞춤 복습 계획",
+      "result": "passed",
+      "detail": "실제 제어·준비자료 기반 결과. 두 개념 미제공 시 비교는 추가 입력 안내. 모델 품질 검사가 아님.",
+      "evidence_level": "browser"
+    },
+    {
+      "id": "tool_8",
+      "title": "퀴즈",
+      "expected": "비어 있지 않은 도구 결과",
+      "observed": "자기점검 퀴즈",
+      "result": "passed",
+      "detail": "실제 제어·준비자료 기반 결과. 두 개념 미제공 시 비교는 추가 입력 안내. 모델 품질 검사가 아님.",
+      "evidence_level": "browser"
+    },
+    {
+      "id": "tool_9",
+      "title": "1분 발표문",
+      "expected": "비어 있지 않은 도구 결과",
+      "observed": "1분 발표문",
+      "result": "passed",
+      "detail": "실제 제어·준비자료 기반 결과. 두 개념 미제공 시 비교는 추가 입력 안내. 모델 품질 검사가 아님.",
+      "evidence_level": "browser"
+    },
+    {
+      "id": "tool_10",
+      "title": "3분 발표문",
+      "expected": "비어 있지 않은 도구 결과",
+      "observed": "3분 발표문",
+      "result": "passed",
+      "detail": "실제 제어·준비자료 기반 결과. 두 개념 미제공 시 비교는 추가 입력 안내. 모델 품질 검사가 아님.",
+      "evidence_level": "browser"
+    },
+    {
+      "id": "tool_11",
+      "title": "개념 지도",
+      "expected": "비어 있지 않은 도구 결과",
+      "observed": "음성형 개념 지도",
+      "result": "passed",
+      "detail": "실제 제어·준비자료 기반 결과. 두 개념 미제공 시 비교는 추가 입력 안내. 모델 품질 검사가 아님.",
+      "evidence_level": "browser"
+    },
+    {
+      "id": "passage_16",
+      "title": "1문단",
+      "expected": [
+        "1문단",
+        "합의 원리"
+      ],
+      "observed": {
+        "text": "강의를 일시정지했습니다. 1문단, 문제 제기. 합의 원리를 살펴봅니다. 계속 들으려면 강의 재생을 누르세요."
+      },
+      "result": "passed",
+      "detail": "이전 출력 초기화 후 해당 문단·문장 내용까지 검사. OS 낭독 미검증.",
+      "evidence_level": "browser"
+    },
+    {
+      "id": "passage_17",
+      "title": "다음 문단",
+      "expected": [
+        "2문단",
+        "두 수"
+      ],
+      "observed": {
+        "text": "강의를 일시정지했습니다. 2문단, 정리. 두 수를 함께 묶는 과정을 설명합니다. 계속 들으려면 강의 재생을 누르세요."
+      },
+      "result": "passed",
+      "detail": "이전 출력 초기화 후 해당 문단·문장 내용까지 검사. OS 낭독 미검증.",
+      "evidence_level": "browser"
+    },
+    {
+      "id": "passage_18",
+      "title": "이전 문단",
+      "expected": [
+        "1문단"
+      ],
+      "observed": {
+        "text": "강의를 일시정지했습니다. 1문단, 문제 제기. 합의 원리를 살펴봅니다. 계속 들으려면 강의 재생을 누르세요."
+      },
+      "result": "passed",
+      "detail": "이전 출력 초기화 후 해당 문단·문장 내용까지 검사. OS 낭독 미검증.",
+      "evidence_level": "browser"
+    },
+    {
+      "id": "passage_19",
+      "title": "전체 지문",
+      "expected": [
+        "1문단",
+        "2문단"
+      ],
+      "observed": {
+        "text": "강의를 일시정지했습니다. 1문단, 문제 제기. 합의 원리를 살펴봅니다. 2문단, 정리. 두 수를 함께 묶는 과정을 설명합니다. 계속 들으려면 강의 재생을 누르세요."
+      },
+      "result": "passed",
+      "detail": "이전 출력 초기화 후 해당 문단·문장 내용까지 검사. OS 낭독 미검증.",
+      "evidence_level": "browser"
+    },
+    {
+      "id": "passage_20",
+      "title": "지문 흐름",
+      "expected": [
+        "흐름",
+        "2문단"
+      ],
+      "observed": {
+        "text": "강의를 일시정지했습니다. 긴 지문은 모두 2문단입니다. 흐름은 1문단 문제 제기, 다음은 2문단 정리 순서입니다. 계속 들으려면 강의 재생을 누르세요."
+      },
+      "result": "passed",
+      "detail": "이전 출력 초기화 후 해당 문단·문장 내용까지 검사. OS 낭독 미검증.",
+      "evidence_level": "browser"
+    },
+    {
+      "id": "passage_21",
+      "title": "1문단 1문장",
+      "expected": [
+        "합의 원리"
+      ],
+      "observed": {
+        "text": "강의를 일시정지했습니다. 합의 원리를 살펴봅니다. 계속 들으려면 강의 재생을 누르세요."
+      },
+      "result": "passed",
+      "detail": "이전 출력 초기화 후 해당 문단·문장 내용까지 검사. OS 낭독 미검증.",
+      "evidence_level": "browser"
+    },
+    {
+      "id": "passage_22",
+      "title": "다음 문장",
+      "expected": [
+        "두 수"
+      ],
+      "observed": {
+        "text": "강의를 일시정지했습니다. 두 수를 함께 묶는 과정을 설명합니다. 계속 들으려면 강의 재생을 누르세요."
+      },
+      "result": "passed",
+      "detail": "이전 출력 초기화 후 해당 문단·문장 내용까지 검사. OS 낭독 미검증.",
+      "evidence_level": "browser"
+    },
+    {
+      "id": "concept_sequence",
+      "title": "강사 구간 다음 AI 설명 자동 연결",
+      "expected": "구간 종료 뒤 자동 AI 설명",
+      "observed": [
+        "합의 원리 설명 듣기",
+        "합의 원리 강사 구간 듣기"
+      ],
+      "result": "gap-reproduced",
+      "detail": "서로 독립된 설명 듣기 / 강사 구간 듣기 버튼. 코드에도 end_ms 구간 감시·연결 상태 기계 없음.",
+      "evidence_level": "browser+source"
+    },
+    {
+      "id": "arrow_seek",
+      "title": "방향키 10초 이동",
+      "expected": "위치 변경 안내",
+      "observed": "0분 8초 위치로 이동했습니다.",
+      "result": "passed",
+      "detail": "",
+      "evidence_level": "browser"
+    },
+    {
+      "id": "home_text",
+      "title": "홈에서 Space 세 번 텍스트 명령",
+      "expected": true,
+      "observed": false,
+      "result": "gap-reproduced",
+      "detail": "",
+      "evidence_level": "browser"
+    },
+    {
+      "id": "home_help",
+      "title": "강의 선택 전 사용법 명령",
+      "expected": "사용법 안내",
+      "observed": {
+        "error": "강의를 먼저 선택하세요."
+      },
+      "result": "gap-reproduced",
+      "detail": "",
+      "evidence_level": "browser"
+    },
+    {
+      "id": "home_voice",
+      "title": "홈의 음성 명령 시작 버튼",
+      "expected": true,
+      "observed": false,
+      "result": "gap-reproduced",
+      "detail": "",
+      "evidence_level": "browser"
+    },
+    {
+      "id": "onboarding",
+      "title": "최초 안내 및 보호자의 안내 다시 표시",
+      "expected": "사용법 안내 UI와 완료 처리",
+      "observed": {
+        "onboarded": 0,
+        "onboarding_controls": 0
+      },
+      "result": "gap-reproduced",
+      "detail": "reset_onboarding은 서버에 저장되지만 학생 확장은 onboarded를 소비하지 않음.",
+      "evidence_level": "browser+source"
+    },
+    {
+      "id": "guardian_delete",
+      "title": "보호자 강의 삭제 UI",
+      "expected": "삭제 제어",
+      "observed": [],
+      "result": "gap-reproduced",
+      "detail": "DELETE API는 남아 있으나 확장에는 배정 회수만 있음.",
+      "evidence_level": "browser+source"
+    }
+  ],
+  "limitations": [
+    "Speech synthesis and recognition use test doubles; no real VoiceOver/NVDA or paid provider call",
+    "Probes use temporary database and profile; no user data changed"
+  ]
+}

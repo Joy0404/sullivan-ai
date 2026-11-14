@@ -1,0 +1,29 @@
+{
+  "skill": "live-region-controller",
+  "scope": [
+    "apps/extensions/student/media.js",
+    "apps/extensions/student/speech.js",
+    "apps/extensions/student/app.js",
+    "apps/extensions/student/worker.js",
+    "apps/extensions/shared/ui.js",
+    "apps/extensions/student/workspace.html",
+    "apps/extensions/guardian/app.js",
+    "apps/extensions/guardian/workspace.html",
+    "scripts/build_extensions.py"
+  ],
+  "findings": [],
+  "passed": [
+    "R03: StudentMedia invalidates pending play with playRevision when speech is cancelled or pauses media; play rechecks its scope and revision before applying local playback. StudentSpeech preserves wantsPlayback as the prior playback intention before its hold.",
+    "R04: autonomous tick failure and matching lease loss share loseConnection, synchronously cancel active output and reset media before connectionNotice. Reset makes lessonReady false, so app guidance is detached from the former lease; reader feedback uses the existing connection status region.",
+    "R05: voice-test calls speaker.cancel(true), and StudentAnnouncer preserves delegated resume intention when replacing guidance; StudentSpeech retains the intention while holding an already-paused lecture and checks its fence before resuming.",
+    "R09: controlDescription exposes only allowlisted numeric settings with units; input announcements debounce for 180 milliseconds, change flushes immediately, and current focus, focusTicket, generation and validity guard delivery.",
+    "R11: shared signedIn invokes beforeUserFocus before exposing and focusing the workspace. Student mode application cancels pending speech before that focus; local and browser login success statuses follow signedIn.",
+    "R12: guardian preview captures preparation identity, preparationGeneration and question revision. Both success and error settle the existing preview-answer status only for the matching request; stale replies are discarded and a local terminal error replaces pending text without rethrowing a duplicate global error.",
+    "Narration channels remain separate: app guidance updates speech-status, lesson content updates current-description and conditional reader-description, and full reader answers use answer-status. Mode checks suppress app guidance for external-reader mode."
+  ],
+  "notes": [
+    "2026-11-14 final static source re-review of implemented fixes R03, R04, R05, R09, R11 and R12; this supersedes the pre-implementation safeguards in this directory.",
+    "This specialist did not run the installed extension, actual OS speech, VoiceOver or NVDA during this final re-review. Synthetic speech callbacks and browser/media regressions run by the implementing agent are separate evidence and are not proof of audible or assistive-technology output.",
+    "Scope is the requested fix set and narration ordering, not a new full-product conformance certification."
+  ]
+}

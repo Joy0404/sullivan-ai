@@ -8,9 +8,10 @@ from extension_icons import icon
 
 ROOT = Path(__file__).resolve().parents[1]
 SOURCE = ROOT / 'apps/extensions'
-STUDENT_MODULES = ('media.js', 'speech.js', 'video-control.js', 'media-store.js')
+STUDENT_MODULES = ('media.js', 'speech.js', 'video-control.js', 'media-store.js', 'keyboard.js', 'lesson-data.js')
 LEARNING_MODULES = ('playback-scheduler.js', 'narration-context.js', 'passage-tools.js',
                     'concept-tools.js', 'voice-command-router.js', 'space-gesture.js')
+VERSION = '0.4.7'
 
 
 def learning_response():
@@ -30,6 +31,18 @@ def learning_response():
     ''' + function + '\nreturn generateLearningResponse(message);\n}};})(globalThis);\n'
 
 
+def speech_profile():
+    source=(ROOT/'apps/web/app.js').read_text()
+    scoring=source[source.index('function voiceScore('):source.index('\nfunction koreanVoices(')].replace('natural|neural|online','natural|neural|online|enhanced|premium|고품질|향상')
+    preparation=source[source.index('function prepareSpeechText('):source.index('\nfunction speak(text, onEnd)')]
+    return '(function(root){'+scoring+preparation+'''
+    function voices(list){return list.filter(v=>String(v.lang).toLowerCase().startsWith('ko')).sort((a,b)=>voiceScore(b)-voiceScore(a));}
+    function select(list,uri){const ranked=voices(list);return ranked.find(v=>v.voiceURI===uri)||ranked[0];}
+    root.SullivanSpeechProfile={voiceScore,voices,select,prepareSpeechText,speechChunks};
+    })(globalThis);
+    '''
+
+
 def build(server='http://127.0.0.1:8770', output=None):
     parsed = urlsplit(server)
     if (parsed.scheme not in ('http', 'https') or not parsed.hostname or parsed.username or parsed.password
@@ -41,9 +54,9 @@ def build(server='http://127.0.0.1:8770', output=None):
     for role, label in [('student', '학생'), ('guardian', '보호자')]:
         target = output / role
         target.mkdir(parents=True, exist_ok=True)
-        expected = {'client.js', 'ui.js', 'accounts.js', 'base.css', 'app.js', 'worker.js', 'config.js', 'manifest.json', 'index.html', 'icons'}
+        expected = {'client.js', 'ui.js', 'accounts.js', 'base.css', 'tokens.css', 'app.js', 'worker.js', 'config.js', 'manifest.json', 'index.html', 'icons'}
         if role == 'student':
-            expected.update(STUDENT_MODULES + LEARNING_MODULES + ('learning-response.js',))
+            expected.update(STUDENT_MODULES + LEARNING_MODULES + ('learning-response.js', 'speech-profile.js'))
         if {path.name for path in target.iterdir()} - expected:
             raise ValueError(f'빌드 폴더에 예상하지 않은 파일이 있습니다. 새 출력 폴더를 사용하세요: {target}')
         icons=target/'icons';icons.mkdir(exist_ok=True)
@@ -51,6 +64,7 @@ def build(server='http://127.0.0.1:8770', output=None):
         for size in (16,32,48,128):(icons/f'{size}.png').write_bytes(icon(role,size))
         for name in ('client.js', 'ui.js', 'accounts.js', 'base.css'):
             shutil.copyfile(SOURCE / 'shared' / name, target / name)
+        shutil.copyfile(ROOT/'apps/web/tokens.css',target/'tokens.css')
         for name in ('app.js', 'worker.js'):
             shutil.copyfile(SOURCE / role / name, target / name)
         if role == 'student':
@@ -59,8 +73,9 @@ def build(server='http://127.0.0.1:8770', output=None):
             for name in LEARNING_MODULES:
                 shutil.copyfile(ROOT / 'apps/web' / name, target / name)
             (target / 'learning-response.js').write_text(learning_response())
-        (target / 'config.js').write_text(f'export const ROLE = {json.dumps(role)};\nexport const SERVER = {json.dumps(server)};\nexport const VERSION = "0.4.0";\n')
-        manifest = {'manifest_version': 3, 'name': f'Sullivan AI {label}', 'version': '0.4.0',
+            (target / 'speech-profile.js').write_text(speech_profile())
+        (target / 'config.js').write_text(f'export const ROLE = {json.dumps(role)};\nexport const SERVER = {json.dumps(server)};\nexport const VERSION = "{VERSION}";\n')
+        manifest = {'manifest_version': 3, 'name': f'Sullivan AI {label}', 'version': VERSION,
                     'description': f'{label} 전용 분리 개발 버전: 독립 로그인과 강의 자료 연결',
                     'minimum_chrome_version': '116', 'permissions': ['storage', 'identity'],
                     'host_permissions': [f'{parsed.scheme}://{"["+parsed.hostname+"]" if ":" in parsed.hostname else parsed.hostname}/*'],
@@ -88,12 +103,19 @@ def build(server='http://127.0.0.1:8770', output=None):
         workspace = (SOURCE / role / 'workspace.html').read_text()
         account_sections = (SOURCE / 'shared/accounts.html').read_text()
         dev_hidden = ' hidden' if parsed.scheme == 'https' else ''
+        student_access='''<section class="student-access" aria-labelledby="access-title"><h2 id="access-title">읽기와 키보드 안내</h2>
+<label>읽기 방식<select id="access-mode"><option value="app">앱 음성 안내</option><option value="reader">VoiceOver·NVDA 등 외부 스크린리더</option><option value="silent">초점·상태 음성 끄기</option></select></label>
+<div class="actions"><button id="voice-test" type="button">음성 안내 시작·시험</button><button id="panel-keyboard" type="button" class="secondary">패널 키보드 모드 사용 중</button></div>
+<p id="speech-status" role="status" aria-atomic="true">Tab은 다음 항목, Shift 또는 Shift+Tab은 이전 항목입니다. Esc는 패널 키보드 모드 해제, F6는 Chrome 영역 이동입니다.</p>
+<p>강의에서 Space 한 번: 재생·정지 / 두 번: 영상·음성·진행 기능 중지 / 세 번: 텍스트 명령 / 3초 누르기: 음성 명령. 버튼 실행은 Enter를 사용하세요. 입력칸과 체크 상자의 Space는 기본 동작을 유지합니다.</p></section>''' if role=='student' else ''
+        keyboard_help='Tab과 Shift+Tab은 패널 안에서 이동합니다. Shift만 누르면 이전 항목, Enter는 버튼 실행입니다. 강의에서 Space 1회는 재생·정지, 2회는 전체 중지, 3회는 텍스트 명령, 3초 누르기는 음성 명령입니다. Esc로 패널 키보드 모드를 해제하고 F6로 Chrome 영역을 이동할 수 있습니다.' if role=='student' else 'Tab과 Shift+Tab으로 이동하고 Enter 또는 Space로 버튼을 선택하세요. 오류는 안내 영역에서 확인할 수 있습니다.'
         html = f'''<!doctype html>
 <html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Sullivan AI {label}</title><link rel="stylesheet" href="base.css"><script type="module" src="app.js"></script></head>
+<title>Sullivan AI {label}</title><link rel="stylesheet" href="tokens.css"><link rel="stylesheet" href="base.css"><script type="module" src="app.js"></script></head>
 <body><a class="skip" href="#main">본문으로 이동</a>
 <header><p>Sullivan AI · {label} 전용</p><span id="account-name"></span><button id="logout" type="button" hidden>로그아웃</button></header>
 <main id="main" tabindex="-1"><h1>Sullivan AI {label}</h1>
+{student_access}
 <p id="status" role="status"></p><p id="error" role="alert"></p>
 <section id="auth" hidden aria-labelledby="login-title"><h2 id="login-title" tabindex="-1">{label} 로그인</h2>
 <p>이 프로그램은 {label} 계정만 사용합니다. 운영 서버에서는 브라우저 로그인으로 계정을 확인합니다.</p>
@@ -105,12 +127,12 @@ def build(server='http://127.0.0.1:8770', output=None):
 <button type="submit">{label} 로그인</button></form><div{dev_hidden}>{register}</div>
 <details><summary>{label} 계정 가입</summary><form id="signup-form">
 <label>이름<input name="name" required maxlength="80" autocomplete="name"></label><label>새 로그인 이름<input name="username" required minlength="3" maxlength="60" pattern="[a-zA-Z0-9_.\\-]+" autocomplete="username" aria-describedby="signup-name-help"></label><p id="signup-name-help">영문·숫자·밑줄·마침표·하이픈, 3~60자.</p>
-<label>새 비밀번호<input name="password" type="password" required minlength="8" maxlength="128" autocomplete="new-password" aria-describedby="signup-pass-help"></label><p id="signup-pass-help">8~128자. 가입 후 표시되는 복구 코드를 별도로 보관하세요.</p><label>운영자 가입 초대 코드 (로컬 개발에서는 선택)<input name="invite" type="password" maxlength="200" autocomplete="off"></label><button type="submit">{label} 계정 만들기</button></form></details>
+<label>새 비밀번호<input name="password" type="password" required minlength="8" maxlength="128" autocomplete="new-password" aria-describedby="signup-pass-help"></label><p id="signup-pass-help">8~128자. 가입 후 표시되는 복구 코드를 별도로 보관하세요.</p><button type="submit">{label} 계정 만들기</button></form></details>
 <details><summary>복구 코드로 비밀번호 변경</summary><form id="recover-form"><label>로그인 이름<input name="username" required minlength="3" maxlength="60" autocomplete="username"></label><label>사용하지 않은 복구 코드<input name="code" required autocomplete="off"></label><label>새 비밀번호<input name="password" type="password" required minlength="8" maxlength="128" autocomplete="new-password" aria-describedby="recover-help"></label><p id="recover-help">8~128자. 변경하면 기존 기기의 로그인을 모두 종료합니다.</p><button type="submit">비밀번호 변경</button></form></details></section>
 {account_sections}
 <div id="workspace" hidden>{workspace}</div>
-<details><summary>키보드 사용 안내</summary><p>Tab과 Shift+Tab으로 이동하고 Enter 또는 Space로 버튼을 선택하세요. 본문은 스크린리더로 읽을 수 있습니다. 오류는 안내 영역에서 확인할 수 있습니다.</p></details>
-</main><footer><p>분리 개발 버전 0.4 · 기존 웹도 계속 이용할 수 있습니다.</p></footer></body></html>
+<details><summary>키보드 사용 안내</summary><p>{keyboard_help}</p></details>
+</main><footer><p>분리 개발 버전 {VERSION} · 기존 웹도 계속 이용할 수 있습니다.</p></footer></body></html>
 '''
         (target / 'index.html').write_text(html)
         print(target)

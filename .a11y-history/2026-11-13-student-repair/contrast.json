@@ -1,0 +1,26 @@
+{
+  "skill": "contrast-master",
+  "scope": [
+    "apps/web/tokens.css",
+    "apps/web/student-design.css",
+    "apps/web/workspace-design.css",
+    "apps/web/styles.css",
+    "apps/web/guardian-design.css",
+    "apps/web/intro.css",
+    "apps/extensions/shared/base.css",
+    "scripts/build_extensions.py"
+  ],
+  "findings": [],
+  "passed": [
+    "Original authoritative palette comes from apps/web/tokens.css. The final web learning-desk-4 cascade uses white surfaces and navy #172c48 primary actions, with blue #164b8b accents; the extension now reproduces those choices.",
+    "Builder copies original tokens.css into each extension and loads it before base.css, keeping token definitions authoritative.",
+    "Calculated normal text contrast: ink #172c48 on white 14.09:1; muted #465c73 on white 6.91:1; white on navy 14.09:1; white on blue hover #164b8b 8.70:1.",
+    "Control boundary #6f87a3 has 3.70:1 contrast on white and 3.32:1 on canvas. Lower contrast --line is restricted to decorative article and section separators.",
+    "The 4px focus ring #8c4700 has 6.96:1 contrast on white and 6.24:1 on canvas. It is offset from controls; native forced-color adaptation remains enabled.",
+    "Links remain underlined by native styling, errors use text in addition to color, and reduced-motion handling is present."
+  ],
+  "notes": [
+    "Final source review and WCAG sRGB contrast calculations on 2026-11-13; no browser rendering or assistive-technology session was run by this specialist.",
+    "The separate forms-specialist current-state report is persisted alongside this file as forms.json with no outstanding findings."
+  ]
+}

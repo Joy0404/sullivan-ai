@@ -1,0 +1,40 @@
+{
+  "boundaries": {
+    "extension": "actual installed MV3 extension in disposable Chromium profile",
+    "API_DB": "temporary real server/DB; agent-turn responses deliberately controlled",
+    "media": "native generated MP4 playback",
+    "speech": "recording synthetic callbacks, no audible or OS AT verification"
+  },
+  "source_sha256": {
+    "apps/extensions/student/app.js": "75a8d8fa66373603f48c8fc4a492877b4fdb02dd77aa99c14193eb8c39477762",
+    "apps/extensions/student/speech.js": "86dfbade9e26c0cc88949a436edf83e76249450bd07a495370647a45fe65f555",
+    "apps/extensions/student/media.js": "6139ac84aa7577b55e70f8de51fd93f1910c354febc321d432aa7bf00eef9679"
+  },
+  "observations": [
+    {
+      "id": "pair-consent-app-guidance",
+      "visible_details": "연결할 보호자: 보호자 배정 강의, 학습 위치와 기록 개수 요약, 학습 기본 설정. 메모·질문 원문은 공유하지 않습니다.",
+      "spoken_after_preview_and_controls": [
+        "연결할 보호자와 공유 범위 확인",
+        "연결 승인",
+        "이 보호자와 위 범위를 공유하는 데 동의합니다.. 꺼짐.",
+        "확인한 보호자와 연결"
+      ],
+      "guardian_name_spoken": false,
+      "sharing_scope_spoken": false
+    },
+    {
+      "id": "guardian-management-delayed-focus",
+      "before_release": "<input name=\"title\" required=\"\" maxlength=\"160\" style=\"\">",
+      "after_release": "<h4 id=\"management-detail-title\" tabindex=\"-1\">학생 하나 설정과 학습 현황</h4>",
+      "focus_stolen": true
+    },
+    {
+      "id": "guardian-preparation-delayed-focus",
+      "before_release": "<input name=\"title\" required=\"\" maxlength=\"160\" style=\"\">",
+      "after_release": "<h4 id=\"prepared-title\" tabindex=\"-1\">감사 초점 결과 준비 결과</h4>",
+      "focus_stolen": true
+    }
+  ],
+  "browser": "156.0.8078.4"
+}

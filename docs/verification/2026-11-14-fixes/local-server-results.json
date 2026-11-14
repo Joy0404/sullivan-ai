@@ -1,0 +1,43 @@
+{
+  "result": "passed",
+  "server": "http://127.0.0.1:8770",
+  "health": {
+    "status": "ok",
+    "product": "sullivan-ai-internet-lecture-agent",
+    "project_stage": "competition-mvp",
+    "analysis_mode": "local-agent-demo",
+    "raw_video_storage": "disabled",
+    "uploaded_video_analysis": "explicit-consent-gemini",
+    "temporary_media_retention": "deleted-after-analysis",
+    "youtube_link_analysis": "needs-api-key",
+    "agent_reasoning": "needs-api-key",
+    "visual_verification": "needs-api-key",
+    "external_link_analysis": "optional",
+    "real_analysis_access": "disabled",
+    "daily_trial_limit": "unlimited"
+  },
+  "capabilities": {
+    "student": {
+      "version": "0.4.3",
+      "protocol": 1,
+      "minimum_version": "0.1.0",
+      "production": false,
+      "pkce": "S256",
+      "signup_enabled": true,
+      "role": "student",
+      "raw_media_transfer": false
+    },
+    "guardian": {
+      "version": "0.4.3",
+      "protocol": 1,
+      "minimum_version": "0.1.0",
+      "production": false,
+      "pkce": "S256",
+      "signup_enabled": true,
+      "role": "guardian",
+      "raw_media_transfer": false
+    }
+  },
+  "mode": "sample (paid analysis disabled)",
+  "restart": "same-workspace launcher --restart --sample --no-open"
+}

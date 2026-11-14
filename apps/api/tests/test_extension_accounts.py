@@ -136,10 +136,10 @@ def test_production_registration_client_allowlist_and_version_gate(family,monkey
     monkeypatch.setenv('SULLIVAN_PRODUCTION','1')
     monkeypatch.setenv('SULLIVAN_PUBLIC_URL','https://sullivan.example')
     monkeypatch.setenv('SULLIVAN_EXTENSION_CLIENTS',json.dumps({'guardian':CLIENT,'student':'b'*32}))
-    monkeypatch.setenv('SULLIVAN_SIGNUP_INVITE','fixture-invite')
     assert client.post(BASE+'/guardian/session',headers=headers('guardian'),json={'username':'guardian','password':PASSWORD}).status_code==403
-    assert client.post(BASE+'/guardian/accounts',headers=headers('guardian'),json={'username':'produser','password':PASSWORD}).status_code==403
-    assert client.post(BASE+'/guardian/accounts',headers=headers('guardian'),json={'username':'produser','password':PASSWORD,'invite':'fixture-invite'}).status_code==201
+    assert client.post(BASE+'/guardian/accounts',headers=headers('guardian'),json={'username':'produser','password':PASSWORD}).status_code==201
+    monkeypatch.setenv('SULLIVAN_SIGNUP_ENABLED','0')
+    assert client.post(BASE+'/student/accounts',headers=headers('student'),json={'username':'closeduser','password':PASSWORD}).status_code==403
     assert client.post('/local/setup',headers={'X-Local-Request':'1'},json={'username':'bad','password':PASSWORD}).status_code==403
     monkeypatch.setenv('SULLIVAN_MIN_EXTENSION_VERSION','0.4.0')
     assert client.get(BASE+'/guardian/capabilities',headers=headers('guardian')).status_code==426

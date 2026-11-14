@@ -1,0 +1,96 @@
+{
+  "result": "failed",
+  "checks": {
+    "RACE01.single_position_write": {
+      "passed": false,
+      "observed": {
+        "writes": 2
+      }
+    },
+    "RACE02.new_position_stays_pending": {
+      "passed": false,
+      "observed": {
+        "saved_ms": 5000,
+        "field": "5",
+        "writes": [
+          {
+            "position_ms": 3000,
+            "note": "",
+            "bookmarks": [],
+            "underlined": []
+          },
+          {
+            "position_ms": 5000,
+            "note": "",
+            "bookmarks": [],
+            "underlined": []
+          },
+          {
+            "position_ms": 5000,
+            "note": "",
+            "bookmarks": [],
+            "underlined": []
+          },
+          {
+            "position_ms": 5000,
+            "note": "",
+            "bookmarks": [],
+            "underlined": []
+          }
+        ]
+      }
+    },
+    "RACE03.editor_keeps_new_input": {
+      "passed": false,
+      "observed": {
+        "value": "처음 저장한 제목",
+        "focus": "edit-title"
+      }
+    },
+    "RACE04.withdraw_keeps_other_editor": {
+      "passed": false,
+      "observed": {
+        "value": "수정된 지문 강의",
+        "focus": "edit-title"
+      }
+    }
+  },
+  "axe": [
+    {
+      "screen": "student-login",
+      "version": "4.14.0",
+      "violations": 0
+    },
+    {
+      "screen": "guardian-login",
+      "version": "4.14.0",
+      "violations": 0
+    },
+    {
+      "screen": "student-material",
+      "version": "4.14.0",
+      "violations": 0
+    },
+    {
+      "screen": "guardian-workspace",
+      "version": "4.14.0",
+      "violations": 0
+    },
+    {
+      "screen": "guardian-phase2",
+      "version": "4.14.0",
+      "violations": 0
+    },
+    {
+      "screen": "guardian-editor-races",
+      "version": "4.14.0",
+      "violations": 0
+    },
+    {
+      "screen": "student-position-races",
+      "version": "4.14.0",
+      "violations": 0
+    }
+  ],
+  "boundary": "Real installed extensions/API/DB/decoded MP4; explicit delayed PUT/withdraw transport; synthetic speech; no actual user DB or paid provider"
+}

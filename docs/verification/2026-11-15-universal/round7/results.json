@@ -1,0 +1,83 @@
+{
+  "result": "passed",
+  "checks": {
+    "U01.empty_mime_file": {
+      "passed": true,
+      "observed": "분석한 원본과 일치하는 로컬 영상입니다. 자동 해설을 사용할 수 있습니다."
+    },
+    "U02.mismatch_fails_closed": {
+      "passed": true,
+      "observed": "분석한 원본과 다른 파일입니다. 자동 해설을 연결하지 않았습니다."
+    },
+    "U06.decode_failure_cleans_up": {
+      "passed": true,
+      "observed": "Chrome이 이 파일의 영상 형식 또는 코덱을 재생하지 못했습니다. 재생 가능한 MP4(H.264/AAC)·WebM 파일을 선택하세요. 준비된 자료는 계속 이용할 수 있습니다."
+    },
+    "U03.unsaved_voice_preserved": {
+      "passed": true,
+      "observed": "basic"
+    },
+    "U04.generic_same_origin_shadow_frame": {
+      "passed": true,
+      "observed": {
+        "frame_count": 2,
+        "root": "http://127.0.0.1:62860/generic-course#/lesson/7"
+      }
+    },
+    "U05.cross_origin_frame_permission": {
+      "passed": true,
+      "observed": {
+        "frame_count": 2,
+        "lease": {
+          "documentId": "5D3A389B02B9654BF8672AC4D618D383",
+          "fence": 2,
+          "frameId": 10,
+          "frameUrl": "http://localhost:62860/shadow-player",
+          "tabId": 764767783,
+          "url": "http://127.0.0.1:62860/cross-course",
+          "view": "884e7131-bf8f-48cd-8489-928825acdbcd"
+        }
+      }
+    },
+    "U07.link_only_is_playback_not_analysis": {
+      "passed": true,
+      "observed": {
+        "agent_turns": 0,
+        "source_label": "보호자가 등록한 링크·자료 · 원본 링크만 등록됨: 영상 분석은 실행하지 않았습니다. 재생·명령·기록을 이용할 수 있으며 내용 질문·해설에는 자료 또는 실제 분석 연결이 필요합니다."
+      }
+    }
+  },
+  "axe": [
+    {
+      "screen": "student-login",
+      "version": "4.14.0",
+      "violations": 0
+    },
+    {
+      "screen": "guardian-login",
+      "version": "4.14.0",
+      "violations": 0
+    },
+    {
+      "screen": "student-material",
+      "version": "4.14.0",
+      "violations": 0
+    },
+    {
+      "screen": "guardian-workspace",
+      "version": "4.14.0",
+      "violations": 0
+    },
+    {
+      "screen": "guardian-phase2",
+      "version": "4.14.0",
+      "violations": 0
+    },
+    {
+      "screen": "student-universal-playback",
+      "version": "4.14.0",
+      "violations": 0
+    }
+  ],
+  "boundary": "Actual installed extensions/API/DB/decoded media, real iframe/shadow DOM injection with fixture localhost host pregrant. Native permission need/deny/allow completion and speech/analyzer are explicit test fixtures; no paid site scraping."
+}

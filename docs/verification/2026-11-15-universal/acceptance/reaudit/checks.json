@@ -1,0 +1,207 @@
+{
+  "R03": {
+    "result": "passed",
+    "observed": {
+      "id": "pending_play_then_focus",
+      "features": [
+        "F35",
+        "F41"
+      ],
+      "expected": "새 초점 안내가 끝날 때까지 영상 정지",
+      "observed": {
+        "before_release_paused": true,
+        "after_release_paused": true,
+        "guidance_held": true
+      },
+      "result": "passed",
+      "detail": "지연된 worker play 응답만 제어. 영상은 실제 MP4, 음성은 종료를 보류한 시험 장치."
+    }
+  },
+  "R05": {
+    "result": "passed",
+    "observed": {
+      "id": "voice_test_resume",
+      "features": [
+        "F41",
+        "F57"
+      ],
+      "expected": "재생 중 시작한 음성 시험이 끝나면 기존 재생 복원",
+      "observed": {
+        "paused_after_test": false,
+        "texts": [
+          "음성 안내 시작, 시험",
+          "Sullivan 학생 음성 안내입니다.",
+          "Tab은 다음 항목, Shift는 이전 항목입니다.",
+          "스페이스 한 번은 영상 재생과 정지, 두 번은 전체 중지, 세 번은 텍스트 명령, 3초 누르기는 음성 명령입니다."
+        ]
+      },
+      "result": "passed",
+      "detail": ""
+    }
+  },
+  "R06": {
+    "result": "passed",
+    "observed": {
+      "id": "shift_arrow",
+      "features": [
+        "F35",
+        "F68"
+      ],
+      "expected": "수정키 조합은 강의 10초 이동을 실행하지 않음",
+      "observed": {
+        "before": 2,
+        "after": 2
+      },
+      "result": "passed",
+      "detail": ""
+    }
+  },
+  "R07": {
+    "result": "passed",
+    "observed": {
+      "id": "disabled_space_editor",
+      "features": [
+        "F65",
+        "F69"
+      ],
+      "expected": "Space 명령 사용을 끄면 편집 중 제스처도 실행하지 않음",
+      "observed": {
+        "space_enabled": false,
+        "status": ""
+      },
+      "result": "passed",
+      "detail": ""
+    }
+  },
+  "R08": {
+    "result": "passed",
+    "observed": {
+      "id": "stale_command",
+      "features": [
+        "F67"
+      ],
+      "expected": "새 명령창은 이전 실행 명령을 지운 빈 입력으로 시작",
+      "observed": "",
+      "result": "passed",
+      "detail": ""
+    }
+  },
+  "R09": {
+    "result": "passed",
+    "observed": {
+      "id": "numeric_value_guidance",
+      "features": [
+        "F57",
+        "F58"
+      ],
+      "expected": "앱 안내에 현재 변경한 영상 음량 0.4 포함",
+      "observed": [
+        "앱 음성 안내를 켰습니다.",
+        "영상 음량 (0~1).",
+        "영상 음량 (0~1).",
+        "현재 0점4."
+      ],
+      "result": "passed",
+      "detail": ""
+    }
+  },
+  "R10": {
+    "result": "passed",
+    "observed": {
+      "id": "home_button_command",
+      "features": [
+        "F66"
+      ],
+      "expected": "강의 선택 전 표시된 홈 버튼 명령 실행",
+      "observed": {
+        "ok": true
+      },
+      "result": "passed",
+      "detail": ""
+    }
+  },
+  "R01": {
+    "result": "passed",
+    "observed": {
+      "lesson": "천문학 특강 7강 · 별의 진화",
+      "lease": null
+    }
+  },
+  "R02": {
+    "result": "passed",
+    "observed": {
+      "before": {
+        "position_ms": 42000,
+        "bookmarks": [],
+        "underlined": [],
+        "note": "확장 분리 검증 메모",
+        "updated_at": "2026-11-14T22:45:12+00:00"
+      },
+      "after": {
+        "position_ms": 42000,
+        "bookmarks": [],
+        "underlined": [],
+        "note": "확장 분리 검증 메모",
+        "updated_at": "2026-11-14T22:45:12+00:00"
+      },
+      "writes": []
+    }
+  },
+  "R04": {
+    "result": "passed",
+    "observed": {
+      "tab_failure_words": [
+        "원본 강의 연결이 끊겼습니다. 원본 탭을 다시 열거나 파일을 다시 연결해 주세요."
+      ],
+      "lease_words": [
+        "다른 수강 화면에서 재생을 시작했습니다. 이 화면에서 연결하면 다시 사용할 수 있습니다."
+      ],
+      "lease_owner": "regression-new-view"
+    }
+  },
+  "R12": {
+    "result": "passed",
+    "observed": {
+      "terminal_error": "답변을 만들지 못했습니다. 서버에 실제 학습 대화 연결이 없습니다. 준비된 자료를 확인해 주세요. 연결과 동의를 확인한 뒤 다시 질문하세요.",
+      "newer_result": ""
+    }
+  },
+  "R11": {
+    "result": "passed",
+    "observed": {
+      "initial_words": [],
+      "login_words": []
+    }
+  },
+  "R13": {
+    "result": "passed",
+    "observed": "다시 준비할 작업 · 일반 · 자막·지문·분석 JSON · 자동 판별. 문제 보호 켜짐. 내용을 확인하고 필요한 동의를 선택한 뒤 준비를 시작하세요."
+  },
+  "R14": {
+    "result": "passed",
+    "observed": {
+      "error": "입력 정보와 자료 전체가 100만 자를 넘었습니다. 파일 수나 지문 길이를 줄이거나 여러 강의로 나누어 준비하세요.",
+      "sent": []
+    }
+  },
+  "R15": {
+    "result": "passed",
+    "observed": {
+      "sentence_controls": 4,
+      "current": "true",
+      "paragraph_cursor_synced": true
+    }
+  },
+  "R16": {
+    "result": "passed",
+    "observed": "<button type=\"button\" class=\"secondary sentence\" data-sentence-id=\"p1-s1\" data-material-key=\"sentence:p1-s1\" data-paragraph-id=\"p1\">1문단 1문장. 중요한 강조 문장입니다.<strong class=\"highlight-label\"> 강조</strong></button>"
+  },
+  "R17": {
+    "result": "passed",
+    "observed": "command-input"
+  },
+  "R18": {
+    "result": "passed",
+    "observed": "workspace-title"
+  }
+}

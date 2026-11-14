@@ -1,0 +1,9 @@
+{
+  "runtime_product_hashes_match": true,
+  "all_manifest_hashes_match": false,
+  "changed_runtime_files": [],
+  "changed_documentation_files": [
+    "apps/extensions/README.md"
+  ],
+  "note": "README documentation points to the new audit; no runtime app/API/web file was changed."
+}

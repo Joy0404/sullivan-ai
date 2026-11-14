@@ -1,0 +1,26 @@
+[
+  {
+    "script": "verify_roles_browser.py",
+    "diagnostic_exit_code": 1,
+    "source_edited": false,
+    "log": "diagnostic-verify_roles_browser.log"
+  },
+  {
+    "script": "verify_voice_preferences.py",
+    "diagnostic_exit_code": 1,
+    "source_edited": false,
+    "log": "diagnostic-verify_voice_preferences.log"
+  },
+  {
+    "script": "verify_audio_navigation.py",
+    "diagnostic_exit_code": 1,
+    "source_edited": false,
+    "log": "diagnostic-verify_audio_navigation.log"
+  },
+  {
+    "script": "verify_login_assignment.py",
+    "diagnostic_exit_code": 1,
+    "source_edited": false,
+    "log": "diagnostic-verify_login_assignment.log"
+  }
+]

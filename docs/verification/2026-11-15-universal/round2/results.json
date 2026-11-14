@@ -1,0 +1,72 @@
+{
+  "result": "passed",
+  "checks": {
+    "U01.empty_mime_file": {
+      "passed": true,
+      "observed": "분석한 원본과 일치하는 로컬 영상입니다. 자동 해설을 사용할 수 있습니다."
+    },
+    "U02.mismatch_fails_closed": {
+      "passed": true,
+      "observed": "분석한 원본과 다른 파일입니다. 자동 해설을 연결하지 않았습니다."
+    },
+    "U03.unsaved_voice_preserved": {
+      "passed": true,
+      "observed": "basic"
+    },
+    "U04.generic_same_origin_shadow_frame": {
+      "passed": true,
+      "observed": {
+        "frame_count": 2,
+        "root": "http://127.0.0.1:62773/generic-course#/lesson/7"
+      }
+    },
+    "U05.cross_origin_frame_permission": {
+      "passed": true,
+      "observed": {
+        "frame_count": 2,
+        "lease": {
+          "documentId": "7F18DA9FE6D6315CEA9EDDF2B59D3F59",
+          "fence": 2,
+          "frameId": 10,
+          "frameUrl": "http://localhost:62773/shadow-player",
+          "tabId": 1017302648,
+          "url": "http://127.0.0.1:62773/cross-course",
+          "view": "036462c8-1f02-4013-b3ce-20f9af7d84a8"
+        }
+      }
+    }
+  },
+  "axe": [
+    {
+      "screen": "student-login",
+      "version": "4.14.0",
+      "violations": 0
+    },
+    {
+      "screen": "guardian-login",
+      "version": "4.14.0",
+      "violations": 0
+    },
+    {
+      "screen": "student-material",
+      "version": "4.14.0",
+      "violations": 0
+    },
+    {
+      "screen": "guardian-workspace",
+      "version": "4.14.0",
+      "violations": 0
+    },
+    {
+      "screen": "guardian-phase2",
+      "version": "4.14.0",
+      "violations": 0
+    },
+    {
+      "screen": "student-universal-playback",
+      "version": "4.14.0",
+      "violations": 0
+    }
+  ],
+  "boundary": "Actual installed extensions/API/DB/decoded media, real iframe/shadow DOM injection with fixture localhost host pregrant. Native permission need/deny/allow completion and speech/analyzer are explicit test fixtures; no paid site scraping."
+}

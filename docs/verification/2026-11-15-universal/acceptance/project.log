@@ -1,0 +1,42 @@
+Python syntax: 90 files
+JSON: 2 files
+Web contract: 93 DOM ids
+Safety markers: 9 checks
+Playback and voice: 32 checks
+Legacy removal: 3 checks
+Verification complete
+...
+----------------------------------------------------------------------
+Ran 3 tests in 0.548s
+
+OK
+Extension contract: {"features": 78, "declared_implementation_gaps": 0, "external_pending": ["F24", "F25", "F26", "F33", "F34", "F49", "F61", "F62"], "release_ready": false} (negative guards passed)
+Space gesture: single/double/triple defer, hold/release, repeat and cancel PASS
+Playback scheduler: 8 checks passed
+Concept tools: 7 checks passed
+Sample catalog: 14 checks passed
+Contextual narration: 89 checks passed
+Passage tools: 10 checks passed
+Lecture library: 8 checks passed
+Voice command router: routing, playback, summary, return and gesture checks passed
+Generic player: shadow/main selection, pinned target, SPA identity, protected media and origin-only discovery PASS
+Student speech: cancellation, stale completion, overlapping focus, chunking, reader mode and connection loss PASS
+Student media: pending play hold, stale seek, past-state pause snapshot and changed-view rejection PASS
+Student keyboard: home gesture, native editing, interrupted double-space, modifiers and IME cancellation PASS
+refresh cannot revive logged-out session PASS
+failed old refresh cannot clear another account PASS
+old 401 cannot replay write with new account token PASS
+concurrent expiry rotates only once PASS
+delayed storage event cannot replay an old write PASS
+delayed storage event cannot return another account response PASS
+new request from stale view cannot borrow a silently changed account PASS
+........................................................................ [ 43%]
+.....................................................ssss............... [ 87%]
+....................                                                     [100%]
+=============================== warnings summary ===============================
+../../.venv/lib/python3.12/site-packages/starlette/testclient.py:51
+  /Users/joy/Documents/Codex/Sullivan-AI-Develop-local/.venv/lib/python3.12/site-packages/starlette/testclient.py:51: DeprecationWarning: The anyio.abc.BlockingPortal alias is deprecated, use anyio.from_thread.BlockingPortal instead.
+    _PortalFactoryType = Callable[[], AbstractContextManager[anyio.abc.BlockingPortal]]
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+160 passed, 4 skipped, 1 warning in 7.09s

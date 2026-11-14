@@ -1,0 +1,80 @@
+{
+  "audit_completed": true,
+  "result": "release-blocked",
+  "version": "0.4.2",
+  "completed_at": "2026-11-13T23:56:08.950394+00:00",
+  "source_unchanged": true,
+  "core": {
+    "passed": 152,
+    "skipped": 4,
+    "package_tests_passed": 3,
+    "log": "verify-all.log"
+  },
+  "installed_extension_baseline": {
+    "result": "passed",
+    "actual_extensions": 2,
+    "native_panel": true,
+    "axe_screens": 14,
+    "axe_violations": 0,
+    "file": "baseline/extension-full-baseline-results.json"
+  },
+  "supplement": {
+    "audit_completed": true,
+    "result": "failed",
+    "observations": 30,
+    "passed": 23,
+    "failed": 7,
+    "inconclusive": 0,
+    "limitations": [
+      "Speech and delayed transport/permissions are explicit test boundaries. Real video and Chrome extension documents used; no actual OS screen reader or live provider."
+    ]
+  },
+  "confirmed_unique_issues": 18,
+  "release_blocking_issues": [
+    "R01",
+    "R02",
+    "R03",
+    "R04"
+  ],
+  "severity_counts": {
+    "serious": 4,
+    "moderate": 12,
+    "minor": 2
+  },
+  "focused_observations": {
+    "total": 42,
+    "passed": 23,
+    "failed": 19,
+    "explanation": "30 supplement + 2 keyboard boundary + 4 live delivery + 3 forms/media + 3 focus observations. Tab-error and lease-loss share one unique issue."
+  },
+  "legacy_original_scripts": {
+    "passed": 7,
+    "failed": 4,
+    "list": "service-web-results.json",
+    "diagnostic_adjusted_full_flows_passed": 3,
+    "targeted_draft_recovery_passed": true,
+    "source_edited": false,
+    "note": "Raw failures retained. Diagnostic copies allow deferred state updates and open collapsed controls; the draft probe reloads API-created fixture then opens its management disclosure. Diagnostic success does not rewrite original scripts as passing."
+  },
+  "feature_counts": {
+    "적용 확인": 42,
+    "부분 적용": 23,
+    "미적용": 0,
+    "의도 변경": 4,
+    "검증 불가": 7,
+    "기존 미지원": 2
+  },
+  "not_executed": [
+    "Actual VoiceOver/NVDA utterances",
+    "Live microphone and speech recognition service",
+    "Human Korean voice-quality review",
+    "Live Gemini analysis/chat quality",
+    "Actual YouTube/target-site compatibility matrix",
+    "All OS and codec combinations",
+    "PostgreSQL live DB tests (4 skipped)",
+    "Public HTTPS/store deployment"
+  ],
+  "product_files_modified": false,
+  "report": "../../EXTENSION_FULL_REAUDIT.md",
+  "source_integrity_scope": "Runtime app/API/web files. Changed README documentation is listed in product-integrity.json."
+}

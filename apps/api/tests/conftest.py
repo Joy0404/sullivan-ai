@@ -4,7 +4,7 @@ import pytest
 @pytest.fixture(autouse=True)
 def isolated_usage_storage(monkeypatch, tmp_path):
     monkeypatch.setenv("SULLIVAN_PRODUCTION", "0")
-    for name in ("SULLIVAN_PUBLIC_URL", "SULLIVAN_EXTENSION_CLIENTS", "SULLIVAN_EXTENSION_ORIGINS", "SULLIVAN_MIN_EXTENSION_VERSION", "SULLIVAN_SIGNUP_INVITE", "SULLIVAN_PERSISTENT_STORAGE", "WEB_CONCURRENCY"):
+    for name in ("SULLIVAN_PUBLIC_URL", "SULLIVAN_EXTENSION_CLIENTS", "SULLIVAN_EXTENSION_ORIGINS", "SULLIVAN_MIN_EXTENSION_VERSION", "SULLIVAN_SIGNUP_INVITE", "SULLIVAN_SIGNUP_ENABLED", "SULLIVAN_PERSISTENT_STORAGE", "WEB_CONCURRENCY"):
         monkeypatch.delenv(name, raising=False)
     # Existing domain tests isolate adapters; dedicated local access tests enable the guard.
     monkeypatch.setenv("SULLIVAN_ROLE_AUTH", "0")

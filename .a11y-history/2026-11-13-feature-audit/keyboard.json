@@ -1,0 +1,110 @@
+{
+  "skill": "keyboard-navigator",
+  "scope": [
+    "apps/web/manual/index.html",
+    "apps/web/role-portal.js",
+    "apps/web/focus-voice.js",
+    "apps/web/keyboard-navigation.js",
+    "apps/extensions/student/keyboard.js",
+    "apps/extensions/student/app.js",
+    "apps/extensions/student/speech.js",
+    "apps/extensions/student/workspace.html",
+    "scripts/build_extensions.py",
+    "scripts/verify_student_repair.py"
+  ],
+  "findings": [
+    {
+      "rule": "PARITY-FIRST-LOGIN-GUIDE",
+      "wcag": "n/a",
+      "severity": "moderate",
+      "location": "apps/extensions/student/app.js:534",
+      "summary": "The extension omits the original first-login guide, completion state and replayable onboarding flow.",
+      "fix": "Restore a student-only guide available before lesson selection, retain completion/reset state, and update its Space instructions to the user’s new contract.",
+      "evidence": "Original role-portal.js:116-117 calls showHelp for !user.onboarded; :480-506 creates the guide and saves /onboarding. Extension boot only loads settings, lectures and connections."
+    },
+    {
+      "rule": "PARITY-HOME-COMMAND-ACCESS",
+      "wcag": "n/a",
+      "severity": "moderate",
+      "location": "apps/extensions/student/keyboard.js:28",
+      "summary": "Voice and triple-Space text commands cannot be invoked from student home before selecting a lesson.",
+      "fix": "Make non-playback command entry available on student home; restrict only playback/seek to an active lesson. Keep the new single-Space playback contract and native text entry.",
+      "evidence": "Space handling requires hasLesson(); app.js:435 supplies Boolean(current). Voice/type-command triggers and command form are inside hidden #lesson. Original role-portal.js:664-674 scopes gestures by student role, not lecture selection."
+    },
+    {
+      "rule": "PARITY-FOCUS-PLAYBACK-HOLD",
+      "wcag": "n/a",
+      "severity": "serious",
+      "location": "apps/extensions/student/app.js:441",
+      "summary": "Moving focus no longer pauses video for app guidance or external-reader access, and app focus labels are skipped while lesson speech is active.",
+      "fix": "Restore a generation-fenced focus playback hold: pause before app guidance, resume only after valid completion, and pause with explicit resume in reader mode; define interruption of lesson speech on navigation.",
+      "evidence": "Original focus-voice.js:19-35 manages pause/resume and :167-174 pauses on reader focus. Current focusin only calls announcer.say; speech.js:62 returns in reader mode or when busy, and StudentAnnouncer has no media control."
+    },
+    {
+      "rule": "PARITY-HELP-CONTENT",
+      "wcag": "n/a",
+      "severity": "moderate",
+      "location": "apps/extensions/student/app.js:343",
+      "summary": "The “사용법” command requires a lesson and reads only command examples instead of reopening the original complete usage guide.",
+      "fix": "Handle help before needLesson(), expose the complete updated instructions visibly and audibly, and provide a persistent help button or manual link.",
+      "evidence": "Original role-portal.js:563 handles help before lesson checks and opens showHelp; current :343-344 calls needLesson then speaks #command-help, which only contains examples and text-entry guidance."
+    },
+    {
+      "rule": "PARITY-GESTURE-INVALIDATION",
+      "wcag": "n/a",
+      "severity": "moderate",
+      "location": "apps/extensions/student/keyboard.js:19",
+      "summary": "A pending Space sequence survives Tab or other keyboard navigation, so playback or a voice/text action can fire after the user has moved away.",
+      "fix": "Cancel pending gestures when a different key, focus change or composition begins; fence delayed tap actions against their initiating context while preserving deliberate multi-tap input.",
+      "evidence": "Original role-portal.js:665 cancels on non-Space keys and :674 cancels on focus change. Current reset only runs for Escape, pointerdown, blur or hidden document; Tab moves focus without cancelling gesture timers."
+    },
+    {
+      "rule": "PARITY-EDITOR-DOUBLE-STOP",
+      "wcag": "n/a",
+      "severity": "moderate",
+      "location": "apps/extensions/student/keyboard.js:28",
+      "summary": "The original emergency double-Space stop during explanation or pending work is unavailable while focus is in an editor.",
+      "fix": "Preserve ordinary typed spaces while restoring the original stop-only double-tap path during active output, or explicitly document an approved replacement that is reachable without leaving the field.",
+      "evidence": "Original role-portal.js:676-682 detects editor double taps while speech or agent work is active. Current nativeSpace excludes editors from all gesture handling, with no separate stop-only listener."
+    },
+    {
+      "rule": "PARITY-CANCEL-RESUMPTION",
+      "wcag": "n/a",
+      "severity": "moderate",
+      "location": "apps/extensions/student/app.js:506",
+      "summary": "Cancel or Escape from text-command entry restores focus but no longer resumes the lecture that opening the dialog paused.",
+      "fix": "Retain the prior playback intention and restore it only on cancellation in the same lesson/account with no subsequent stop; do not resume after submitted commands or explicit stop.",
+      "evidence": "Original role-portal.js:633 resumes when closeDialog(true), used by cancel/Escape at :686-689. Current openDialog calls stopAll, and its close handler only restores focus."
+    },
+    {
+      "rule": "PARITY-APP-STATE-FEEDBACK",
+      "wcag": "n/a",
+      "severity": "minor",
+      "location": "apps/extensions/student/app.js:445",
+      "summary": "App voice no longer announces a disclosure’s changed state while its summary retains focus, and omits pressed/current state on refocus.",
+      "fix": "Restore focused-details toggle announcements and include meaningful aria-pressed/aria-current states in controlDescription without duplicating external-reader speech.",
+      "evidence": "Original focus-voice.js:61-63 describes current/pressed and :181-185 handles details toggle. Current listens only to focusin and input/select change; speech.js:79-89 has no pressed/current handling."
+    },
+    {
+      "rule": "PARITY-VOICE-READY-CUE",
+      "wcag": "n/a",
+      "severity": "moderate",
+      "location": "apps/extensions/student/app.js:405",
+      "summary": "The original audible voice-ready cue is missing, leaving app-voice users without an audible signal that the three-second hold has reached recognition.",
+      "fix": "Provide a short nonverbal ready cue when recognition actually starts, plus an accessible status; keep the cue separate from speech captured by the recognizer.",
+      "evidence": "Original role-portal.js:643 invokes playSpaceVoiceReadyChime and displays a speaking overlay. Extension startVoice updates #voice-status only; StudentAnnouncer is suppressed while recognition is active."
+    }
+  ],
+  "passed": [
+    "The updated user Space contract is implemented and is treated as an intentional override of the older manual’s single-Space button behavior and shorter hold timing.",
+    "Tab/Shift+Tab, standalone Shift, DOM-adjacent heading traversal, native field typing, explicit Escape exit and native dialog containment are present.",
+    "Login/field app voice, password-value exclusion, checkbox/select state descriptions, voice selection, reader mode and speech testing are present.",
+    "Panel-only event handlers and extension open/stop commands are present; lecture-host keys are not intercepted."
+  ],
+  "notes": [
+    "This is an original-feature parity inspection, not a WCAG conformance result: n/a findings record missing original behavior without asserting a specific WCAG failure.",
+    "No product or test files were edited. Findings and parity notes only were written.",
+    "Static source comparison only; no fresh browser, physical keyboard, real microphone, VoiceOver or NVDA test was performed.",
+    "The existing repair test covers selected-lesson gestures and containment, not complete original-feature parity. See keyboard-parity-notes.md for evidence and test gaps."
+  ]
+}

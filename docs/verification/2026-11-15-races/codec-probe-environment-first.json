@@ -1,0 +1,23 @@
+{
+  "browser_scope": "Current local Chromium only; actual decoding/playback via StudentMedia, synthetic files, runtime lease boundary stub, no original identity or other OS certification",
+  "checks": [
+    {
+      "format": "webm",
+      "mime": "video/webm",
+      "result": "unverified",
+      "reason": "Page.evaluate: TypeError: crypto.randomUUID is not a function\n    at new StudentMedia (data:text/javascript;base64,ZXhwb3J0IGNsYXNzIENhbmNlbGxlZE1lZGlhT3BlcmF0aW9uIGV4dGVuZHMgRXJyb3IgewogIGNvbnN0cnVjdG9yKCl7c3VwZXIoJ+ydtOyghCDtlZnsirUg7ZmU66m07J2YIOyalOyyreydhCDst6jshoztlojsirXri4jri6QuJyk7dGhpcy5jYW5jZWxsZWQ9dHJ1ZTt9Cn0KCmV4cG9ydCBjbGFzcyBTdHVkZW50TWVkaWEgewogIGNvbnN0cnVjdG9yKHZpZGVvKSB7IHRoaXMudmlkZW8gPSB2aWRlbzsgdGhpcy52aWV3ID0gY3J5cHRvLnJhbmRvbVVVSUQoKTsgdGhpcy5mZW5jZSA9IDA7IHRoaXMua2luZCA9IG51bGw7IHRoaXMudmVyaWZpZWQgPSBmYWxzZTsgdGhpcy51cmwgPSBudWxsOyB0aGlzLmdlbmVyYXRpb24gPSAwOyB0aGlzLnJlYWR5ID0gZmFsc2U7dGhpcy5wbGF5UmV2aXNpb249MDt0aGlzLndhbnRzUGxheWJhY2s9ZmFsc2U7dGhpcy5wZW5kaW5nQ2xhaW1zPW5ldyBTZXQoKTsgfQogIHNjb3BlKGZlbmNlPXRoaXMuZmVuY2Upe3JldHVybiB7dmlldzp0aGlzLnZpZXcsZ2VuZXJhdGlvbjp0a"
+    },
+    {
+      "format": "mov",
+      "mime": "video/quicktime",
+      "result": "unverified",
+      "reason": "Page.evaluate: TypeError: crypto.randomUUID is not a function\n    at new StudentMedia (data:text/javascript;base64,ZXhwb3J0IGNsYXNzIENhbmNlbGxlZE1lZGlhT3BlcmF0aW9uIGV4dGVuZHMgRXJyb3IgewogIGNvbnN0cnVjdG9yKCl7c3VwZXIoJ+ydtOyghCDtlZnsirUg7ZmU66m07J2YIOyalOyyreydhCDst6jshoztlojsirXri4jri6QuJyk7dGhpcy5jYW5jZWxsZWQ9dHJ1ZTt9Cn0KCmV4cG9ydCBjbGFzcyBTdHVkZW50TWVkaWEgewogIGNvbnN0cnVjdG9yKHZpZGVvKSB7IHRoaXMudmlkZW8gPSB2aWRlbzsgdGhpcy52aWV3ID0gY3J5cHRvLnJhbmRvbVVVSUQoKTsgdGhpcy5mZW5jZSA9IDA7IHRoaXMua2luZCA9IG51bGw7IHRoaXMudmVyaWZpZWQgPSBmYWxzZTsgdGhpcy51cmwgPSBudWxsOyB0aGlzLmdlbmVyYXRpb24gPSAwOyB0aGlzLnJlYWR5ID0gZmFsc2U7dGhpcy5wbGF5UmV2aXNpb249MDt0aGlzLndhbnRzUGxheWJhY2s9ZmFsc2U7dGhpcy5wZW5kaW5nQ2xhaW1zPW5ldyBTZXQoKTsgfQogIHNjb3BlKGZlbmNlPXRoaXMuZmVuY2Upe3JldHVybiB7dmlldzp0aGlzLnZpZXcsZ2VuZXJhdGlvbjp0a"
+    },
+    {
+      "format": "m4v",
+      "mime": "video/x-m4v",
+      "result": "unverified",
+      "reason": "Page.evaluate: TypeError: crypto.randomUUID is not a function\n    at new StudentMedia (data:text/javascript;base64,ZXhwb3J0IGNsYXNzIENhbmNlbGxlZE1lZGlhT3BlcmF0aW9uIGV4dGVuZHMgRXJyb3IgewogIGNvbnN0cnVjdG9yKCl7c3VwZXIoJ+ydtOyghCDtlZnsirUg7ZmU66m07J2YIOyalOyyreydhCDst6jshoztlojsirXri4jri6QuJyk7dGhpcy5jYW5jZWxsZWQ9dHJ1ZTt9Cn0KCmV4cG9ydCBjbGFzcyBTdHVkZW50TWVkaWEgewogIGNvbnN0cnVjdG9yKHZpZGVvKSB7IHRoaXMudmlkZW8gPSB2aWRlbzsgdGhpcy52aWV3ID0gY3J5cHRvLnJhbmRvbVVVSUQoKTsgdGhpcy5mZW5jZSA9IDA7IHRoaXMua2luZCA9IG51bGw7IHRoaXMudmVyaWZpZWQgPSBmYWxzZTsgdGhpcy51cmwgPSBudWxsOyB0aGlzLmdlbmVyYXRpb24gPSAwOyB0aGlzLnJlYWR5ID0gZmFsc2U7dGhpcy5wbGF5UmV2aXNpb249MDt0aGlzLndhbnRzUGxheWJhY2s9ZmFsc2U7dGhpcy5wZW5kaW5nQ2xhaW1zPW5ldyBTZXQoKTsgfQogIHNjb3BlKGZlbmNlPXRoaXMuZmVuY2Upe3JldHVybiB7dmlldzp0aGlzLnZpZXcsZ2VuZXJhdGlvbjp0a"
+    }
+  ]
+}

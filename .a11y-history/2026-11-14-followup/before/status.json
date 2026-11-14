@@ -1,0 +1,50 @@
+{
+  "skill": "live-region-controller",
+  "scope": [
+    "apps/extensions/student/app.js",
+    "apps/extensions/student/workspace.html",
+    "apps/extensions/guardian/app.js",
+    "apps/extensions/guardian/workspace.html",
+    "apps/extensions/shared/ui.js"
+  ],
+  "findings": [
+    {
+      "rule": "LIVE-SAVE-APP-VOICE",
+      "wcag": "n/a",
+      "severity": "moderate",
+      "location": "apps/extensions/student/app.js:353",
+      "summary": "자동 저장과 메모 저장 실패는 상태 글만 바꾸므로 앱 음성 안내를 사용하는 학생에게 실패와 재시도 필요가 전달되지 않습니다.",
+      "fix": "save()에서 실패 상태를 한곳에서 처리하고, 첫 실패 및 복구 전환에만 announcer.say()로 같은 안내를 전달하세요. #save-status의 role=\"status\"는 유지하고 외부 스크린리더 모드에는 앱 음성을 보내지 마세요.",
+      "evidence": "saveFailed=true;$('save-status').textContent=`아직 저장하지 못했습니다. ${error.message}`;"
+    },
+    {
+      "rule": "LIVE-SAVE-DUPLICATE",
+      "wcag": "4.1.3 AA",
+      "severity": "minor",
+      "confidence": "medium",
+      "location": "apps/extensions/student/app.js:276",
+      "summary": "수동 저장 성공이 두 개의 role=status 영역을 동시에 갱신해 스크린리더에서 중복되거나 서로 덮이는 안내가 생길 수 있습니다.",
+      "fix": "명시 저장은 #save-status 또는 공통 #status 중 한 곳으로 완료 안내를 모으세요. 앱 음성은 직접 announcer.say()를 호출하거나 별도 이벤트로 전달하고 두 live region에 같은 결과를 쓰지 마세요.",
+      "evidence": "$('save-status').textContent='학습 기록 저장됨'; if(announce) status('학습 위치와 메모를 저장했습니다.');"
+    },
+    {
+      "rule": "LIVE-PREPARATION-START",
+      "wcag": "4.1.3 AA",
+      "severity": "moderate",
+      "location": "apps/extensions/guardian/app.js:75",
+      "summary": "준비 작업이 접수에서 진행 중으로 바뀌어도 최종 상태만 알리므로 스크린리더 사용자는 실제 처리 시작을 알 수 없습니다.",
+      "fix": "jobStates와 현재 상태가 달라진 항목에 running도 포함하고 #job-status에 간결한 상태 전환을 알리세요. 동일 상태의 5초 폴링과 경과 시간 갱신은 반복 안내하지 마세요.",
+      "evidence": "['completed', 'failed', 'interrupted'].includes(job.state)"
+    }
+  ],
+  "passed": [
+    "학생 저장·보호자 작업·연결 상태의 live region은 정적 HTML에 먼저 존재함",
+    "상태 메시지는 textContent를 갱신하며 준비 목록 전체를 live region에 넣지 않음",
+    "동일 작업 상태·동일 폴링 오류는 재발화하지 않음",
+    "일반 상태는 role=status, 사용자 제출 오류는 공통 role=alert로 구분함"
+  ],
+  "notes": [
+    "소스 검토 결과이며 실제 VoiceOver/NVDA 발화 순서나 앱 음성 청취는 실행하지 않음",
+    "준비 상태 필터와 재시도 UI는 아직 구현 전이라 변경 후 재검토가 필요함"
+  ]
+}

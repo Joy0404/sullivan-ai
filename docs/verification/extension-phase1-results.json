@@ -17,5 +17,32 @@
   ],
   "limitations": [
     "No real screen-reader audio, TTS quality or external player verification"
-  ]
+  ],
+  "axe": {
+    "enabled": true,
+    "screens": [
+      {
+        "screen": "student-login",
+        "version": "4.14.0",
+        "violations": 0
+      },
+      {
+        "screen": "guardian-login",
+        "version": "4.14.0",
+        "violations": 0
+      },
+      {
+        "screen": "student-material",
+        "version": "4.14.0",
+        "violations": 0
+      },
+      {
+        "screen": "guardian-workspace",
+        "version": "4.14.0",
+        "violations": 0
+      }
+    ],
+    "scope": "check_layout screens, WCAG A/AA tags",
+    "violations": 0
+  }
 }

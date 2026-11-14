@@ -1,0 +1,29 @@
+{
+  "skill": "keyboard-navigator",
+  "scope": [
+    "apps/extensions/student/app.js",
+    "apps/extensions/student/media.js",
+    "apps/extensions/student/keyboard.js",
+    "apps/extensions/student/speech.js",
+    "apps/extensions/student/worker.js",
+    "apps/extensions/shared/ui.js"
+  ],
+  "findings": [],
+  "passed": [
+    "R01: account/lesson/view/action is captured before host permission; context is checked after permission and connection awaits.",
+    "R02: media operations reject stale view/generation/fence; app seek rechecks context before updating position or saving progress.",
+    "R03: pause/reset and speech cancellation invalidate pending play through a separate playRevision, retaining legitimate wantsPlayback intent.",
+    "R06/R07: Shift-modified arrows remain native; disabling Space also disables editor double-stop.",
+    "R10: visible enabled non-inert home button dispatch occurs before needLesson; accessible names are used and protected permission actions require Enter.",
+    "R16: sentence/paragraph controls carry stable material keys; rerender restores the active replacement or a visible heading fallback.",
+    "R17: keyboard/pointer/input/focus revisions guard delayed lesson focus, including both focus moves after a pending dirty save.",
+    "R18: focused lecture replacement is restored; removed items use a remaining list control or workspace-title fallback, preserving outside focus.",
+    "Additional reviewed boundary: Stop during a pending claim now sends a worker pause even before kind is assigned."
+  ],
+  "notes": [
+    "Final scoped source re-review of the requested cancellation/focus fixes; no product/test edits.",
+    "Independent ephemeral Node boundary checks: pending play followed by guidance pause was cancelled with zero local play calls; stale seek after reset changed no time; allowPause state snapshot still rejected a view change.",
+    "Independent mocked claim check observed worker actions claim then pause when stopping before claim completion. This is not an actual browser/video observation.",
+    "Parent reports the existing complete extension regression passed; the R01-R18 browser regression was still running when this source review completed. No fresh physical keyboard, microphone or VoiceOver/NVDA execution by this specialist."
+  ]
+}

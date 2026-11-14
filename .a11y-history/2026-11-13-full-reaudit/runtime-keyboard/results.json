@@ -1,0 +1,158 @@
+{
+  "scope": "installed 0.4.2 extensions, temporary DB/profile, phase3 student_check hook",
+  "boundaries": "real decoded video and real API/extension worker; permission promise and one reply delivery explicitly delayed",
+  "cases": [
+    {
+      "name": "permission_completion_after_lesson_switch",
+      "old_source": "http://127.0.0.1:57285/audit-keyboard-native-player",
+      "before_release": {
+        "title": "천문학 특강 7강 · 별의 진화",
+        "connection": "영상을 아직 연결하지 않았습니다.",
+        "position": "42",
+        "status": "준비된 자료를 열었습니다. 영상은 연결한 뒤 직접 재생하세요.",
+        "error": "",
+        "focus": "lesson-title",
+        "lease": null,
+        "lectures": [
+          {
+            "id": "ece2a4ee8b634eeb896babb60c38c269",
+            "title": "천문학 특강 7강 · 별의 진화",
+            "subject": "통합과학 · 천문학",
+            "ready": 1,
+            "position": 2
+          },
+          {
+            "id": "cac1c1d19c694ccf859be2a10e210c45",
+            "title": "동기화 테스트 강의",
+            "subject": "일반",
+            "ready": 1,
+            "position": 3
+          }
+        ]
+      },
+      "new_lesson_playback": {
+        "kind": "youtube",
+        "normalized_url": "https://www.youtube.com/watch?v=R0dqsl3Vgns",
+        "playback_url": "https://www.youtube-nocookie.com/embed/R0dqsl3Vgns?enablejsapi=1&rel=0&disablekb=1"
+      },
+      "after_release": {
+        "title": "천문학 특강 7강 · 별의 진화",
+        "connection": "원본 강의 탭을 연결했습니다. 강의 재생을 눌러 시작하세요.",
+        "position": "42",
+        "status": "강의 플레이어에 연결하고 있습니다.",
+        "error": "",
+        "focus": "lesson-title",
+        "lease": {
+          "documentId": "139182378E7756BB54731999E00371E4",
+          "fence": 0,
+          "tabId": 407785936,
+          "url": "http://127.0.0.1:57285/audit-keyboard-native-player",
+          "view": "521e5324-c362-4703-9c0a-2a1e91cd9b35"
+        },
+        "lectures": [
+          {
+            "id": "ece2a4ee8b634eeb896babb60c38c269",
+            "title": "천문학 특강 7강 · 별의 진화",
+            "subject": "통합과학 · 천문학",
+            "ready": 1,
+            "position": 2
+          },
+          {
+            "id": "cac1c1d19c694ccf859be2a10e210c45",
+            "title": "동기화 테스트 강의",
+            "subject": "일반",
+            "ready": 1,
+            "position": 3
+          }
+        ]
+      },
+      "reproduced": true,
+      "release_impact": "block release: old source is attached under a different lesson and marked connected/verified"
+    },
+    {
+      "name": "seek_reply_after_lesson_switch",
+      "new_progress_before": {
+        "position_ms": 42000,
+        "bookmarks": [],
+        "underlined": [],
+        "note": "확장 분리 검증 메모",
+        "updated_at": "2026-11-13T23:46:35+00:00"
+      },
+      "before_release": {
+        "title": "천문학 특강 7강 · 별의 진화",
+        "connection": "영상을 아직 연결하지 않았습니다.",
+        "position": "42",
+        "status": "준비된 자료를 열었습니다. 영상은 연결한 뒤 직접 재생하세요.",
+        "error": "",
+        "focus": "lesson-title",
+        "lease": null,
+        "lectures": [
+          {
+            "id": "ece2a4ee8b634eeb896babb60c38c269",
+            "title": "천문학 특강 7강 · 별의 진화",
+            "subject": "통합과학 · 천문학",
+            "ready": 1,
+            "position": 2
+          },
+          {
+            "id": "cac1c1d19c694ccf859be2a10e210c45",
+            "title": "동기화 테스트 강의",
+            "subject": "일반",
+            "ready": 1,
+            "position": 3
+          }
+        ]
+      },
+      "after_release": {
+        "title": "천문학 특강 7강 · 별의 진화",
+        "connection": "영상을 아직 연결하지 않았습니다.",
+        "position": "8",
+        "status": "준비된 자료를 열었습니다. 영상은 연결한 뒤 직접 재생하세요.",
+        "error": "",
+        "focus": "lesson-title",
+        "lease": null,
+        "lectures": [
+          {
+            "id": "ece2a4ee8b634eeb896babb60c38c269",
+            "title": "천문학 특강 7강 · 별의 진화",
+            "subject": "통합과학 · 천문학",
+            "ready": 1,
+            "position": 2
+          },
+          {
+            "id": "cac1c1d19c694ccf859be2a10e210c45",
+            "title": "동기화 테스트 강의",
+            "subject": "일반",
+            "ready": 1,
+            "position": 3
+          }
+        ]
+      },
+      "new_progress_after": {
+        "position_ms": 8000,
+        "bookmarks": [],
+        "underlined": [],
+        "note": "확장 분리 검증 메모",
+        "updated_at": "2026-11-13T23:46:41+00:00"
+      },
+      "writes": [
+        {
+          "url": "http://127.0.0.1:57285/local/lectures/ece2a4ee8b634eeb896babb60c38c269/progress",
+          "body": {
+            "position_ms": 8000,
+            "note": "확장 분리 검증 메모",
+            "bookmarks": [],
+            "underlined": []
+          }
+        }
+      ],
+      "reproduced": true,
+      "release_impact": "block release: old seek writes the newly selected lesson position/progress"
+    }
+  ],
+  "page_errors": [],
+  "lesson_ids": {
+    "old": "cac1c1d19c694ccf859be2a10e210c45",
+    "new": "ece2a4ee8b634eeb896babb60c38c269"
+  }
+}

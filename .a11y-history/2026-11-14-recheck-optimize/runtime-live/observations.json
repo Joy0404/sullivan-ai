@@ -1,0 +1,108 @@
+{
+  "boundaries": {
+    "extension": "actual installed MV3 extension in disposable Chromium profile",
+    "API_DB": "temporary real server/DB; agent-turn responses deliberately controlled",
+    "media": "native generated MP4 playback",
+    "speech": "recording synthetic callbacks, no audible or OS AT verification"
+  },
+  "source_sha256": {
+    "apps/extensions/student/app.js": "75a8d8fa66373603f48c8fc4a492877b4fdb02dd77aa99c14193eb8c39477762",
+    "apps/extensions/student/speech.js": "86dfbade9e26c0cc88949a436edf83e76249450bd07a495370647a45fe65f555",
+    "apps/extensions/student/media.js": "6139ac84aa7577b55e70f8de51fd93f1910c354febc321d432aa7bf00eef9679"
+  },
+  "observations": [
+    {
+      "id": "parallel-question-order",
+      "request_messages": [
+        "감사 질문 A",
+        "감사 질문 B"
+      ],
+      "before_release_A": {
+        "lesson": "천문학 특강 7강 · 별의 진화",
+        "answerStatus": "",
+        "playerStatus": "",
+        "chat": "B 응답Gemini 학습 대화B 최신 응답입니다.",
+        "spoken": [
+          "읽기 방식. 앱 음성 안내",
+          "앱 음성 안내를 켰습니다.",
+          "질문",
+          "질문하기",
+          "강의 근거로 질문을 확인하고 있습니다.",
+          "명령 또는 질문",
+          "명령 실행",
+          "강의 근거로 질문을 확인하고 있습니다.",
+          "학습 대화 답변을 준비했습니다.",
+          "B 최신 응답입니다."
+        ]
+      },
+      "after_release_A": {
+        "lesson": "천문학 특강 7강 · 별의 진화",
+        "answerStatus": "",
+        "playerStatus": "",
+        "chat": "B 응답Gemini 학습 대화B 최신 응답입니다.A 응답Gemini 학습 대화A 이전 응답입니다.",
+        "spoken": [
+          "읽기 방식. 앱 음성 안내",
+          "앱 음성 안내를 켰습니다.",
+          "질문",
+          "질문하기",
+          "강의 근거로 질문을 확인하고 있습니다.",
+          "명령 또는 질문",
+          "명령 실행",
+          "강의 근거로 질문을 확인하고 있습니다.",
+          "학습 대화 답변을 준비했습니다.",
+          "B 최신 응답입니다.",
+          "학습 대화 답변을 준비했습니다.",
+          "A 이전 응답입니다."
+        ]
+      },
+      "failure_observed": true
+    },
+    {
+      "id": "cross-lesson-live-status",
+      "before_open_new": {
+        "lesson": "천문학 특강 7강 · 별의 진화",
+        "answerStatus": "A 전용 답변. Gemini 학습 대화. 이 문장은 A 강의에서만 나온 답변입니다.",
+        "playerStatus": "강의를 재생하고 있습니다.",
+        "chat": "B 응답Gemini 학습 대화B 최신 응답입니다.A 응답Gemini 학습 대화A 이전 응답입니다.A 전용 답변Gemini 학습 대화이 문장은 A 강의에서만 나온 답변입니다.",
+        "spoken": [
+          "읽기 방식. 앱 음성 안내",
+          "앱 음성 안내를 켰습니다.",
+          "질문",
+          "질문하기",
+          "강의 근거로 질문을 확인하고 있습니다.",
+          "명령 또는 질문",
+          "명령 실행",
+          "강의 근거로 질문을 확인하고 있습니다.",
+          "학습 대화 답변을 준비했습니다.",
+          "B 최신 응답입니다.",
+          "학습 대화 답변을 준비했습니다.",
+          "A 이전 응답입니다."
+        ]
+      },
+      "after_open_new": {
+        "lesson": "중3 역사 · 왜란과 호란의 발발과 영향",
+        "answerStatus": "A 전용 답변. Gemini 학습 대화. 이 문장은 A 강의에서만 나온 답변입니다.",
+        "playerStatus": "강의를 재생하고 있습니다.",
+        "chat": "",
+        "spoken": [
+          "읽기 방식. 앱 음성 안내",
+          "앱 음성 안내를 켰습니다.",
+          "질문",
+          "질문하기",
+          "강의 근거로 질문을 확인하고 있습니다.",
+          "명령 또는 질문",
+          "명령 실행",
+          "강의 근거로 질문을 확인하고 있습니다.",
+          "학습 대화 답변을 준비했습니다.",
+          "B 최신 응답입니다.",
+          "학습 대화 답변을 준비했습니다.",
+          "A 이전 응답입니다."
+        ]
+      },
+      "answer_failure_observed": true,
+      "player_failure_observed": true,
+      "new_media_hidden": true
+    }
+  ],
+  "browser": "156.0.8078.4"
+}

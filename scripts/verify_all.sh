@@ -6,6 +6,7 @@ cd "$PROJECT_DIR"
 
 python scripts/verify_project.py
 python scripts/test_build_extensions.py
+python scripts/check_extension_contract.py
 
 if command -v node >/dev/null 2>&1; then
   node --check apps/web/app.js
@@ -25,6 +26,7 @@ if command -v node >/dev/null 2>&1; then
   node scripts/test_lecture_library.js
   node scripts/test_voice_command_router.js
   node scripts/test_student_core.mjs
+  node scripts/test_extension_client.mjs
 else
   echo "WARN: node가 없어 JavaScript 구문 검사를 건너뜁니다."
 fi

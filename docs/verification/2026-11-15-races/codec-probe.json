@@ -1,0 +1,44 @@
+{
+  "browser_scope": "Current local Chromium only; actual decoding/playback via StudentMedia, synthetic files, runtime lease boundary stub, no original identity or other OS certification",
+  "checks": [
+    {
+      "format": "webm",
+      "mime": "video/webm",
+      "result": "passed",
+      "state": {
+        "positionMs": 610,
+        "paused": false,
+        "durationMs": 2008,
+        "ended": false,
+        "ad": false,
+        "verified": false
+      }
+    },
+    {
+      "format": "mov",
+      "mime": "video/quicktime",
+      "result": "passed",
+      "state": {
+        "positionMs": 609,
+        "paused": false,
+        "durationMs": 2000,
+        "ended": false,
+        "ad": false,
+        "verified": false
+      }
+    },
+    {
+      "format": "m4v",
+      "mime": "video/x-m4v",
+      "result": "passed",
+      "state": {
+        "positionMs": 610,
+        "paused": false,
+        "durationMs": 2000,
+        "ended": false,
+        "ad": false,
+        "verified": false
+      }
+    }
+  ]
+}

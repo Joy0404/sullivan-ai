@@ -1,0 +1,27 @@
+{
+  "skill": "aria-specialist",
+  "scope": [
+    "apps/extensions/student/app.js",
+    "apps/extensions/student/speech.js",
+    "apps/extensions/student/keyboard.js",
+    "apps/extensions/student/workspace.html",
+    "apps/extensions/guardian/app.js",
+    "apps/extensions/guardian/workspace.html",
+    "apps/extensions/shared/ui.js",
+    "apps/extensions/shared/base.css",
+    "scripts/build_extensions.py"
+  ],
+  "findings": [],
+  "passed": [
+    "Fresh generated student and guardian HTML has no missing aria-labelledby/describedby/controls ID targets.",
+    "Native buttons, selects, checkboxes, fields, details and dialogs retain appropriate names and semantics.",
+    "Caption/underline and guided-entry toggles update native button aria-pressed state.",
+    "Persistent status/alert containers exist before updates; rapidly changing playback time remains non-live.",
+    "Native dialogs have named headings and explanatory descriptions."
+  ],
+  "notes": [
+    "Static source and temporary generated-HTML inspection only; no actual assistive-technology execution.",
+    "App-only speech-delivery omissions are in live.json; no duplicate formal ARIA finding is asserted.",
+    "Named region density is high in the learning surface, but no conformance failure is inferred from count alone."
+  ]
+}

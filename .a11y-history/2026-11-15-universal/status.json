@@ -1,0 +1,28 @@
+{
+  "skill": "live-region-controller",
+  "scope": [
+    "apps/extensions/student/app.js",
+    "apps/extensions/student/workspace.html",
+    "apps/extensions/student/media.js",
+    "apps/extensions/guardian/app.js",
+    "apps/extensions/guardian/workspace.html"
+  ],
+  "findings": [],
+  "passed": [
+    "로컬 파일 식별·디코더 확인 시작도 connectionNotice를 통해 상태 영역과 앱 음성에 안내함",
+    "사이트 연결의 진행·최종 결과가 같은 connection live region을 사용함",
+    "추가 권한 origin 목록을 앱 음성 안내와 버튼의 리더 설명에 전달함",
+    "권한 거절 시 같은 버튼 재시도와 자료 읽기를 안내함",
+    "로컬 코덱 오류를 최종 상태로 알리고 재생 가능한 파일 대안을 제공함",
+    "취소·강의 전환 뒤 늦은 오류를 폐기함",
+    "재생용 등록과 영상 분석 미실행을 학생 열기 상태에서 구분함",
+    "자료 없는 질문·학습 도구 요청은 자료 또는 실제 분석 필요를 명시함",
+    "로컬 메타정보 등록 입력 설명과 준비 결과 메시지는 원본 미전송·영상 분석 미실행을 구분함"
+  ],
+  "notes": [
+    "최종 소스 재검토 범위의 미해결 지적 없음",
+    "실제 VoiceOver/NVDA 낭독과 앱 음성 청취는 실행하지 않음",
+    "이전 LIVE-CONNECTION-TERMINAL·LIVE-PLAYER-ORIGIN-VOICE·LIVE-LOCAL-CONNECT-PROGRESS 지적의 코드 수정을 확인함",
+    "코드 변경 없이 검토 JSON만 /tmp에 저장함"
+  ]
+}

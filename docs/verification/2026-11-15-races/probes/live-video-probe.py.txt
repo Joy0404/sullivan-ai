@@ -1,0 +1,36 @@
+import json
+from pathlib import Path
+from playwright.sync_api import sync_playwright
+root=Path('/Users/joy/Documents/Codex/Sullivan-AI-Develop-local')
+url='https://www.youtube.com/watch?v=R0dqsl3Vgns'
+source=(root/'apps/extensions/student/video-control.js').read_text().replace('export async function','async function')
+report={'url':url,'scope':'Anonymous public-page player DOM probe only; not full extension/site certification; no stream download, account or paid analyzer','result':'unverified'}
+with sync_playwright() as p:
+    browser=p.chromium.launch(channel='chromium',headless=True)
+    page=browser.new_page()
+    try:
+        page.goto(url,wait_until='domcontentloaded',timeout=20000)
+        page.wait_for_function('()=>Boolean(document.querySelector("video"))',timeout=15000)
+        state=page.evaluate('async expected=>{'+source+';return await controlVideo("state",null,expected);}',url)
+        report['state']=state
+        report['result']='player-dom-observed' if not state.get('error') else 'unverified'
+        if not state.get('error'):
+            def control(action,value=None):
+                return page.evaluate('async args=>{'+source+';return await controlVideo(args.action,args.value,args.url);}',{'action':action,'value':value,'url':url})
+            report['audio']=control('audio',{'volume':0,'muted':True})
+            report['play']=control('play')
+            observed=[]
+            for _ in range(6):
+                page.wait_for_timeout(500);observed.append(control('state'))
+            report['playback_observations']=observed
+            latest=observed[-1]
+            if not latest.get('ad') and not latest.get('error') and latest.get('durationMs'):
+                report['seek']=control('seek',10000)
+            report['result']='public-player-playback-observed' if any(x.get('positionMs',0)>500 and not x.get('paused',True) for x in observed) else 'player-dom-observed'
+            report['pause']=page.evaluate('async expected=>{'+source+';return await controlVideo("pause",null,expected);}',url)
+            page.evaluate('async expected=>{'+source+';return await controlVideo("release",null,expected);}',url)
+    except Exception as e:report['reason']=str(e).split('Call log:')[0][:900]
+    finally:browser.close()
+out=root/'docs/verification/2026-11-15-races';out.mkdir(parents=True,exist_ok=True)
+(out/'live-video-playback-probe.json').write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n')
+print(json.dumps(report,ensure_ascii=False,indent=2))

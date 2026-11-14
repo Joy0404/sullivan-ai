@@ -1,0 +1,53 @@
+{
+  "version": "0.4.3",
+  "result": "confirmed-audit-fixes-passed",
+  "resolved_issues": 18,
+  "unresolved_confirmed_issues": 0,
+  "api": {
+    "passed": 153,
+    "skipped": 4
+  },
+  "package_tests": 3,
+  "baseline_axe": {
+    "screens": 14,
+    "violations": 0
+  },
+  "additional_axe": {
+    "supplement_screens": 7,
+    "forms_screens": 6,
+    "violations": 0
+  },
+  "regression_groups": 4,
+  "source_hashes_verified": true,
+  "original_web_changed": false,
+  "build_and_zips_match": true,
+  "local_sample_server": "0.4.3",
+  "feature_counts": {
+    "적용 확인": 61,
+    "부분 적용": 4,
+    "미적용": 0,
+    "의도 변경": 4,
+    "검증 불가": 7,
+    "기존 미지원": 2
+  },
+  "publication": {
+    "committed_in_this_fix_step": false,
+    "pushed_in_this_fix_step": false,
+    "deployed": false
+  },
+  "reports": [
+    "results.json",
+    "results-forms.json",
+    "resolution.json",
+    "feature-inventory.json",
+    "source-manifest.json",
+    "package-results.json",
+    "local-server-results.json",
+    "verify-all.log"
+  ],
+  "limitations": [
+    "Temporary DB/profile and real decoded video/API/worker",
+    "Speech/recognition and delayed replies are explicit test doubles",
+    "Actual VoiceOver/NVDA, microphone and live provider quality not verified"
+  ]
+}

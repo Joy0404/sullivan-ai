@@ -1,0 +1,84 @@
+{
+  "skill": "live-region-controller",
+  "scope": [
+    "apps/extensions/student/app.js",
+    "apps/extensions/student/speech.js",
+    "apps/extensions/student/keyboard.js",
+    "apps/extensions/student/workspace.html",
+    "apps/extensions/guardian/app.js",
+    "apps/extensions/guardian/workspace.html",
+    "apps/extensions/shared/ui.js",
+    "apps/extensions/shared/base.css",
+    "scripts/build_extensions.py"
+  ],
+  "findings": [
+    {
+      "rule": "LIVE-VOICE-TEST-RESUME-LOSS",
+      "wcag": "n/a",
+      "severity": "moderate",
+      "location": "apps/extensions/student/app.js:538-540; apps/extensions/student/speech.js:4,14-15",
+      "summary": "Clicking the app voice test while its focused-control guidance is holding playback discards the saved playing state, leaving the lecture paused after the test.",
+      "fix": "Preserve the currently held playback intent when replacing control guidance with the explicit test, then resume only with unchanged view/lesson/fence. Do not force play when initially paused.",
+      "evidence": "실제 확장·MP4 재생 상태에서 재현: 보류 중인 초점 안내를 음성 시험으로 교체한 뒤 paused_after_test=true. supplement/observations.json voice_test_resume.",
+      "component": "App voice start/test",
+      "confidence": "high"
+    },
+    {
+      "rule": "LIVE-APP-VOICE-DIRECT-STATUS",
+      "wcag": "n/a",
+      "severity": "serious",
+      "location": "apps/extensions/student/app.js:304-305,537,553",
+      "summary": "Playback failures and learning-view ownership loss stop the lecture but update only ARIA text, bypassing built-in app speech for students without an external screen reader.",
+      "fix": "Route important connection-loss and lease-loss messages through a mode-aware announcement helper: app TTS when enabled, persistent ARIA in reader mode, deduplicated to avoid polling spam. Preserve ordinary silent progress updates.",
+      "evidence": "실제 영상 탭 종료 및 다른 확장 화면의 재생 lease 취득에서 영상은 멈추고 connection 텍스트는 바뀌었으나 앱 합성 호출과 sullivan-status 이벤트는 모두 비어 있음. runtime-live/observations.json.",
+      "component": "Autonomous connection failure feedback",
+      "confidence": "high"
+    },
+    {
+      "rule": "LIVE-READER-SETTING-FOCUS-RACE",
+      "wcag": "n/a",
+      "severity": "moderate",
+      "confidence": "high",
+      "location": "apps/extensions/shared/ui.js:53-61 versus apps/extensions/student/app.js:631-632",
+      "summary": "Login focuses the workspace before applying the account’s external-reader preference, allowing app TTS to start under the previous default mode.",
+      "fix": "Apply student mode before the authenticated focus move, or suppress/cancel initial guidance until account preferences have been applied. Retain the user-navigation guard for delayed restoration.",
+      "evidence": "기기별 override를 제거하고 서버 reader_mode=true로 새 확장 문서를 열면 최종 모드는 reader이나 speechSynthesis 호출에 내 강의 1회가 기록됨. runtime-live/observations.json.",
+      "component": "Authenticated initial voice mode"
+    },
+    {
+      "rule": "LIVE-NUMERIC-SETTING-VALUE-SILENCE",
+      "wcag": "n/a",
+      "severity": "moderate",
+      "location": "apps/extensions/student/speech.js:92-104; apps/extensions/student/app.js:534-536; workspace.html:53-57",
+      "summary": "Built-in guidance names numeric speed, volume and pitch fields without their current values and does not announce arrow-key changes, so app-only users cannot verify adjustments.",
+      "fix": "Include nonsensitive numeric setting values and units in control guidance and announce committed or debounced changes for these specific fields. Continue excluding password, account and free-text values.",
+      "evidence": "실제 확장에서 영상 음량을 0.4로 바꿔도 합성 요청은 영상 음량 (0~1)만 포함하고 0.4는 포함하지 않음. supplement/observations.json numeric_value_guidance.",
+      "component": "App-only numeric learning preferences",
+      "confidence": "high"
+    },
+    {
+      "rule": "LIVE-GUARDIAN-PREVIEW-PENDING-ERROR",
+      "wcag": "n/a",
+      "severity": "minor",
+      "location": "apps/extensions/guardian/app.js:162-168; apps/extensions/shared/ui.js:21",
+      "summary": "A failed guardian preview question leaves its result status saying the answer is still being checked even after the global error is announced.",
+      "fix": "When the request fails, replace the pending preview status with a terminal failure for the same preparation, or clear it before forwarding the error. Guard against replacing a newer selection’s status.",
+      "evidence": "실제 키 미설정 API의 503 이후 global_error는 표시되나 preview-answer는 준비 자료의 근거로 답변을 확인하고 있습니다에 남음. runtime-live/observations.json.",
+      "component": "Guardian preview question result",
+      "confidence": "high"
+    }
+  ],
+  "passed": [
+    "Freshly reread current source instead of reusing prior clean reports.",
+    "Natural Korean voice selection, pronunciation normalization, sentence chunking, style/edge prosody and cancellable breath delays are implemented.",
+    "Narration cancellation generation and media fence protect normal stale completion and prior-state resume paths.",
+    "Connected guidance and external-reader focus now pause playback; no-lesson guidance remains available.",
+    "Home command entry and onboarding are reachable before selecting a lesson.",
+    "Guardian terminal job transitions and connection failures use persistent deduplicated status channels.",
+    "Ordinary reader answers avoid duplicating full response through two narration channels."
+  ],
+  "notes": [
+    "원본 소스 재검토 후 부모 에이전트가 실제 임시 Chromium 확장 문서에서 다섯 항목 모두를 재현했다. 음성은 호출 기록용 시험 장치이며 실제 사람이 듣는 음성·OS 스크린리더 실행을 주장하지 않는다.",
+    "runtime-live의 최초 환경 오류 및 runtime-keyboard의 최초 CSP 검사 도구 오류는 제품 오류로 세지 않았다. 수정한 감사 스크립트로 새 임시 프로필에서 재실행했다."
+  ]
+}

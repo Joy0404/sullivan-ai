@@ -1,0 +1,31 @@
+{
+  "skill": "live-region-controller",
+  "scope": [
+    "apps/extensions/student/app.js",
+    "apps/extensions/student/workspace.html",
+    "apps/extensions/shared/ui.js",
+    "apps/extensions/guardian/app.js",
+    "apps/extensions/guardian/workspace.html"
+  ],
+  "findings": [],
+  "passed": [
+    "첫 저장 실패를 중앙 save 처리에서 상태 영역과 앱 음성에 전달함",
+    "명시 저장·재시도는 저장 중 상태와 반복 실패를 다시 안내함",
+    "수동 위치 이동을 동반하는 재시도도 notifySaveFailure를 seek와 save에 전달함",
+    "백그라운드 반복 실패의 앱 음성을 억제하고 복구 시 한 번 안내함",
+    "수동 저장 완료는 하나의 live region으로 전달함",
+    "error.reported로 공통 오류 영역의 중복 안내를 막음",
+    "외부 스크린리더 모드는 앱 음성을 차단함",
+    "성공 뒤 재시도 버튼을 숨기기 전에 기본 저장 버튼으로 초점을 이동함",
+    "준비 running 및 최종 상태 전환을 job-status에 안내함",
+    "상태별 총계는 비 live 영역에 표시함",
+    "필터 결과 수는 정적 role=status 영역에 값이 바뀔 때만 안내함",
+    "준비 목록 전체는 live region 밖에 있음"
+  ],
+  "notes": [
+    "최종 소스 재검토에서 이 범위의 미해결 지적 없음",
+    "실제 VoiceOver/NVDA 발화와 앱 음성 청취는 실행하지 않음",
+    "S10/S11/S13의 합성 음성 경계 회귀 통과는 부모 에이전트가 수행한 근거로 별도 기록함",
+    "필터 입력에 별도 타이핑 디바운스는 없지만 변한 결과 수만 안내하며 이 범위에서 차단 결함으로 판정하지 않음"
+  ]
+}

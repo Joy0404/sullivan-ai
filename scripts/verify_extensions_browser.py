@@ -42,7 +42,7 @@ def check_layout(page, name, output, skip=True):
         assert page.evaluate("document.activeElement.tagName !== 'BODY'")
 
 
-def main(exercise=None, phase='phase2'):
+def main(exercise=None, phase='phase2', output=None):
     with tempfile.TemporaryDirectory(prefix='sullivan-extensions-') as temporary:
         temp = Path(temporary)
         os.environ['SULLIVAN_ACCOUNTS_DB'] = str(temp / 'accounts.sqlite')
@@ -66,7 +66,7 @@ def main(exercise=None, phase='phase2'):
             if time.monotonic() > deadline:
                 raise RuntimeError('Test server failed to start')
             time.sleep(.02)
-        output = ROOT / 'docs/verification'
+        output = Path(output) if output else ROOT / 'docs/verification'
         output.mkdir(exist_ok=True)
         packages = build(f'http://127.0.0.1:{port}', temp / 'packages')
         paths = ','.join(str(packages / role) for role in ('student', 'guardian'))
@@ -115,7 +115,15 @@ def main(exercise=None, phase='phase2'):
                     student.locator('#username').fill('student')
                     student.locator('#password').fill('extension-pass-123')
                     student.locator('#login-form button').click()
-                    expect(student.locator('#lectures button')).to_have_count(1)
+                    try:
+                        expect(student.locator('#lectures button')).to_have_count(1)
+                    except Exception:
+                        diagnostic={'page_errors':errors,'status':student.locator('#status').inner_text(),
+                            'error':student.locator('#error').inner_text(),'workspace_visible':student.locator('#workspace').is_visible(),
+                            'account':student.locator('#account-name').inner_text(),
+                            'session':student.evaluate('async()=>{const {session}=await chrome.storage.session.get("session");return session?{user:session.user?.id,role:session.user?.role,has_token:Boolean(session.token)}:null;}')}
+                        (output/'startup-failure.json').write_text(json.dumps(diagnostic,ensure_ascii=False,indent=2)+'\n')
+                        raise
                     student.locator('#lectures button').click()
                     expect(student.locator('#lesson')).to_be_visible()
                     expect(student.locator('#lesson-title')).to_be_focused()
@@ -163,7 +171,8 @@ def main(exercise=None, phase='phase2'):
                     report['axe'] = {'enabled': bool(os.getenv('SULLIVAN_AXE_SOURCE')),
                         'screens': AXE_RESULTS,
                         'scope': 'check_layout screens, WCAG A/AA tags', 'violations': 0 if os.getenv('SULLIVAN_AXE_SOURCE') else None}
-                    if phase in ('phase3','phase4'):
+                    report['checks']=list(dict.fromkeys(report['checks']))
+                    if phase in ('phase3','phase4','student-repair','feature-restoration'):
                         report['limitations'] = ['Native decoded video fixture; actual YouTube compatibility, real speech recognition, speech quality and VoiceOver/NVDA audio not verified']
                     (output / (f'extension-{phase}-results.json' if exercise else 'extension-phase1-results.json')).write_text(json.dumps(report, ensure_ascii=False, indent=2)+'\n')
                     print(json.dumps(report, ensure_ascii=False, indent=2))

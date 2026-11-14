@@ -1,0 +1,23 @@
+{
+  "skill": "forms-specialist",
+  "scope": [
+    "scripts/build_extensions.py",
+    "apps/extensions/student/workspace.html",
+    "apps/extensions/student/app.js",
+    "apps/extensions/guardian/workspace.html",
+    "apps/extensions/guardian/app.js",
+    "apps/api/app/extension_accounts.py"
+  ],
+  "findings": [],
+  "passed": [
+    "Student and guardian signup forms no longer contain administrator invite fields; retained identity and password fields have native labels, autocomplete tokens and visible associated requirements.",
+    "Server signup no longer expects an invite code. The optional signup-disabled policy gives a visible explanation rather than requesting a removed field.",
+    "Guardian analysis forms no longer request administrator usage codes, and submission no longer reads those removed controls.",
+    "Account authentication, recovery-code controls and guardian/student pairing controls remain available; recovery and pairing code inputs retain descriptive labels.",
+    "Student pairing checkbox and confirmation button reference guardian identity and sharing scope through aria-describedby.",
+    "Reading-mode select is natively labelled; voice testing uses a native button. Microphone consent uses a labelled native dialog with an associated explanation, explicit consent/start and cancellation buttons, and a text-input alternative."
+  ],
+  "notes": [
+    "Final source review on 2026-11-13; no browser or assistive-technology session was executed by this specialist. Existing unrelated forms were not exhaustively re-audited."
+  ]
+}

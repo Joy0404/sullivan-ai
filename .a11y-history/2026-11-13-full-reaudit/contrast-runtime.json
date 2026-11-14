@@ -1,0 +1,251 @@
+{
+  "normal": {
+    "html": {
+      "color": "rgb(23, 44, 72)",
+      "background": "rgb(255, 255, 255)",
+      "border": "rgb(23, 44, 72)",
+      "outline": "rgb(23, 44, 72)",
+      "outlineWidth": "3px",
+      "outlineOffset": "0px",
+      "focusVisible": false,
+      "placeholder": "rgb(23, 44, 72)"
+    },
+    "#text": {
+      "color": "rgb(23, 44, 72)",
+      "background": "rgb(255, 255, 255)",
+      "border": "rgb(111, 135, 163)",
+      "outline": "rgb(23, 44, 72)",
+      "outlineWidth": "3px",
+      "outlineOffset": "0px",
+      "focusVisible": false,
+      "placeholder": "rgb(117, 117, 117)"
+    },
+    "#area": {
+      "color": "rgb(23, 44, 72)",
+      "background": "rgb(255, 255, 255)",
+      "border": "rgb(111, 135, 163)",
+      "outline": "rgb(23, 44, 72)",
+      "outlineWidth": "3px",
+      "outlineOffset": "0px",
+      "focusVisible": false,
+      "placeholder": "rgb(23, 44, 72)"
+    },
+    "#select": {
+      "color": "rgb(23, 44, 72)",
+      "background": "rgb(255, 255, 255)",
+      "border": "rgb(111, 135, 163)",
+      "outline": "rgb(23, 44, 72)",
+      "outlineWidth": "3px",
+      "outlineOffset": "0px",
+      "focusVisible": false,
+      "placeholder": "rgb(23, 44, 72)"
+    },
+    "#primary": {
+      "color": "rgb(255, 255, 255)",
+      "background": "rgb(23, 44, 72)",
+      "border": "rgb(23, 44, 72)",
+      "outline": "rgb(255, 255, 255)",
+      "outlineWidth": "3px",
+      "outlineOffset": "0px",
+      "focusVisible": false,
+      "placeholder": "rgb(255, 255, 255)"
+    },
+    "#secondary": {
+      "color": "rgb(23, 44, 72)",
+      "background": "rgb(255, 255, 255)",
+      "border": "rgb(23, 44, 72)",
+      "outline": "rgb(23, 44, 72)",
+      "outlineWidth": "3px",
+      "outlineOffset": "0px",
+      "focusVisible": false,
+      "placeholder": "rgb(23, 44, 72)"
+    },
+    "#link": {
+      "color": "rgb(22, 75, 139)",
+      "background": "rgba(0, 0, 0, 0)",
+      "border": "rgb(22, 75, 139)",
+      "outline": "rgb(22, 75, 139)",
+      "outlineWidth": "3px",
+      "outlineOffset": "0px",
+      "focusVisible": false,
+      "placeholder": "rgb(22, 75, 139)"
+    },
+    "#notice": {
+      "color": "rgb(23, 44, 72)",
+      "background": "rgb(232, 240, 250)",
+      "border": "rgb(23, 44, 72)",
+      "outline": "rgb(23, 44, 72)",
+      "outlineWidth": "3px",
+      "outlineOffset": "0px",
+      "focusVisible": false,
+      "placeholder": "rgb(23, 44, 72)"
+    },
+    "#error": {
+      "color": "rgb(144, 60, 46)",
+      "background": "rgba(0, 0, 0, 0)",
+      "border": "rgb(144, 60, 46)",
+      "outline": "rgb(144, 60, 46)",
+      "outlineWidth": "3px",
+      "outlineOffset": "0px",
+      "focusVisible": false,
+      "placeholder": "rgb(144, 60, 46)"
+    }
+  },
+  "hover": {
+    "#primary": {
+      "color": "rgb(255, 255, 255)",
+      "background": "rgb(22, 75, 139)",
+      "border": "rgb(22, 75, 139)",
+      "outline": "rgb(255, 255, 255)",
+      "outlineWidth": "3px",
+      "outlineOffset": "0px",
+      "focusVisible": false,
+      "placeholder": "rgb(255, 255, 255)"
+    },
+    "#secondary": {
+      "color": "rgb(23, 44, 72)",
+      "background": "rgb(232, 240, 250)",
+      "border": "rgb(22, 75, 139)",
+      "outline": "rgb(23, 44, 72)",
+      "outlineWidth": "3px",
+      "outlineOffset": "0px",
+      "focusVisible": false,
+      "placeholder": "rgb(23, 44, 72)"
+    }
+  },
+  "focus": {
+    "#text": {
+      "color": "rgb(23, 44, 72)",
+      "background": "rgb(255, 255, 255)",
+      "border": "rgb(111, 135, 163)",
+      "outline": "rgb(140, 71, 0)",
+      "outlineWidth": "4px",
+      "outlineOffset": "3px",
+      "focusVisible": true,
+      "placeholder": "rgb(117, 117, 117)"
+    },
+    "#area": {
+      "color": "rgb(23, 44, 72)",
+      "background": "rgb(255, 255, 255)",
+      "border": "rgb(111, 135, 163)",
+      "outline": "rgb(140, 71, 0)",
+      "outlineWidth": "4px",
+      "outlineOffset": "3px",
+      "focusVisible": true,
+      "placeholder": "rgb(23, 44, 72)"
+    },
+    "#select": {
+      "color": "rgb(23, 44, 72)",
+      "background": "rgb(255, 255, 255)",
+      "border": "rgb(111, 135, 163)",
+      "outline": "rgb(140, 71, 0)",
+      "outlineWidth": "4px",
+      "outlineOffset": "3px",
+      "focusVisible": true,
+      "placeholder": "rgb(23, 44, 72)"
+    },
+    "#primary": {
+      "color": "rgb(255, 255, 255)",
+      "background": "rgb(23, 44, 72)",
+      "border": "rgb(23, 44, 72)",
+      "outline": "rgb(140, 71, 0)",
+      "outlineWidth": "4px",
+      "outlineOffset": "3px",
+      "focusVisible": true,
+      "placeholder": "rgb(255, 255, 255)"
+    },
+    "#secondary": {
+      "color": "rgb(23, 44, 72)",
+      "background": "rgb(255, 255, 255)",
+      "border": "rgb(23, 44, 72)",
+      "outline": "rgb(140, 71, 0)",
+      "outlineWidth": "4px",
+      "outlineOffset": "3px",
+      "focusVisible": true,
+      "placeholder": "rgb(23, 44, 72)"
+    },
+    "#link": {
+      "color": "rgb(22, 75, 139)",
+      "background": "rgba(0, 0, 0, 0)",
+      "border": "rgb(22, 75, 139)",
+      "outline": "rgb(140, 71, 0)",
+      "outlineWidth": "4px",
+      "outlineOffset": "3px",
+      "focusVisible": true,
+      "placeholder": "rgb(22, 75, 139)"
+    },
+    "#summary": {
+      "color": "rgb(23, 44, 72)",
+      "background": "rgba(0, 0, 0, 0)",
+      "border": "rgb(23, 44, 72)",
+      "outline": "rgb(140, 71, 0)",
+      "outlineWidth": "4px",
+      "outlineOffset": "3px",
+      "focusVisible": true,
+      "placeholder": "rgb(23, 44, 72)"
+    }
+  },
+  "forcedColors": {
+    "#text": {
+      "color": "rgb(0, 0, 0)",
+      "background": "rgb(255, 255, 255)",
+      "border": "rgba(5, 0, 73, 0.8)",
+      "outline": "rgba(5, 0, 73, 0.8)",
+      "outlineWidth": "4px",
+      "outlineOffset": "3px",
+      "focusVisible": true,
+      "placeholder": "rgb(96, 0, 0)"
+    },
+    "#primary": {
+      "color": "rgb(0, 0, 0)",
+      "background": "rgb(255, 255, 255)",
+      "border": "rgb(0, 0, 0)",
+      "outline": "rgba(5, 0, 73, 0.8)",
+      "outlineWidth": "4px",
+      "outlineOffset": "3px",
+      "focusVisible": true,
+      "placeholder": "rgb(0, 0, 0)"
+    },
+    "#secondary": {
+      "color": "rgb(0, 0, 0)",
+      "background": "rgb(255, 255, 255)",
+      "border": "rgb(0, 0, 0)",
+      "outline": "rgba(5, 0, 73, 0.8)",
+      "outlineWidth": "4px",
+      "outlineOffset": "3px",
+      "focusVisible": true,
+      "placeholder": "rgb(0, 0, 0)"
+    },
+    "#link": {
+      "color": "rgb(0, 0, 159)",
+      "background": "rgba(255, 255, 255, 0)",
+      "border": "rgb(0, 0, 159)",
+      "outline": "rgba(5, 0, 73, 0.8)",
+      "outlineWidth": "4px",
+      "outlineOffset": "3px",
+      "focusVisible": true,
+      "placeholder": "rgb(0, 0, 159)"
+    },
+    "#summary": {
+      "color": "rgb(0, 0, 159)",
+      "background": "rgba(255, 255, 255, 0)",
+      "border": "rgb(0, 0, 159)",
+      "outline": "rgba(5, 0, 73, 0.8)",
+      "outlineWidth": "4px",
+      "outlineOffset": "3px",
+      "focusVisible": true,
+      "placeholder": "rgb(0, 0, 159)"
+    }
+  },
+  "browser": "156.0.8078.4",
+  "ratios": {
+    "bodyInkOnWhite": 14.091,
+    "primaryText": 14.091,
+    "controlBorder": 3.703,
+    "focusOnWhite": 6.962,
+    "primaryHoverText": 8.702,
+    "secondaryHoverText": 12.263,
+    "errorText": 7.313,
+    "noticeText": 12.263
+  }
+}

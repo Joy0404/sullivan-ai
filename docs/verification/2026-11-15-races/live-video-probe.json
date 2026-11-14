@@ -1,0 +1,21 @@
+{
+  "url": "https://www.youtube.com/watch?v=R0dqsl3Vgns",
+  "scope": "Anonymous public-page player DOM probe only; not full extension/site certification; no stream download, account or paid analyzer",
+  "result": "player-dom-observed",
+  "state": {
+    "positionMs": 0,
+    "durationMs": 1589061,
+    "paused": true,
+    "ended": false,
+    "ad": false,
+    "verified": true
+  },
+  "pause": {
+    "positionMs": 0,
+    "durationMs": 1589061,
+    "paused": true,
+    "ended": false,
+    "ad": false,
+    "verified": true
+  }
+}

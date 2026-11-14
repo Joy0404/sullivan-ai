@@ -1,0 +1,28 @@
+{
+  "skill": "media-accessibility",
+  "scope": [
+    "apps/extensions/student/app.js",
+    "apps/extensions/student/speech.js",
+    "apps/extensions/guardian/app.js",
+    "apps/extensions/guardian/workspace.html",
+    "apps/api/app/guardian_preparation.py",
+    "scripts/build_extensions.py"
+  ],
+  "findings": [],
+  "passed": [
+    "Bounded lecturer-to-AI playback is present with cancellation and media fences; guarded seek callers stop stale continuations.",
+    "Review now uses visual_only_information, renders key-segment descriptions visibly, includes highlighted material and study overview, and supports reading without connected video.",
+    "Guardian preview exposes transcript, safe visual descriptions, concepts, review categories, study material, decision reasons, consented chat and explicit original-file delivery instructions.",
+    "Verified guardian-local preview originals receive generated WebVTT captions; unverified or missing timed captions are explained.",
+    "Concept startup rejects advertisements and unknown duration before computing a bounded content endpoint.",
+    "Invalid concept runs clear their timer, including reader-mode focus changes; stop and stale seek checks fence both playback and AI handoff.",
+    "Narration restores sentence-aware chunking, ranked Korean voice selection and warm/calm/clear profiles from the original source.",
+    "Final re-read confirms original opening/closing prosody adjustments are restored alongside sentence chunking, voice ranking and speech-style profiles.",
+    "Guardian prepared-note export downloads only summary and study-guide text as local Markdown; it does not transfer original video or held visual candidates."
+  ],
+  "notes": [
+    "Final source re-review on 2026-11-13 includes the preview-export addition. No unresolved findings in the reviewed scope. No live media, caption-quality, TTS, browser, assistive-technology or provider tests were executed by this specialist.",
+    "Independent extension origins require explicit manual delivery of the same original video to the student; the preview UI explains this limitation.",
+    "Parent separately reports two-extension regression and 14-screen axe checks passed with zero violations; those checks were not executed by this specialist."
+  ]
+}

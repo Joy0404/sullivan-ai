@@ -1,0 +1,26 @@
+{
+  "skill": "modal-specialist",
+  "scope": [
+    "apps/extensions/student/app.js",
+    "apps/extensions/student/workspace.html",
+    "apps/extensions/student/keyboard.js",
+    "apps/extensions/student/media.js"
+  ],
+  "findings": [],
+  "passed": [
+    "Native labelled dialogs retain visible cancel controls, modal Tab scope and Escape dismissal.",
+    "Dialog returnValue resets on every open; submitted commands await close before executing.",
+    "Local media state snapshots before its await; triple-Space retains sequence-start playback state across the intermediate stop.",
+    "Text-modal cancellation restores focus without triggering native-close focus guidance, and resumes only with unchanged lesson/view/generation/action/fence/focus revision.",
+    "Voice-recognition and microphone failure fallbacks carry the playback snapshot captured before stopping.",
+    "Microphone completion remains fenced against cancellation and context changes; voiceFallback is cleared on permission close and explicit stop.",
+    "Voice-button pointerdown/focusin/Enter completion preserves recognition until startVoice calls recognition.stop(); unrelated interaction and reset still abort recognition."
+  ],
+  "notes": [
+    "Final source re-review after parent notification; earlier snapshot, cancellation and fallback observations were corrected.",
+    "No actual microphone, physical keyboard, screen-reader or browser-timing execution by this specialist; parent runs browser regression separately.",
+    "Only audit JSON artifacts were written.",
+    "Final incremental source review: reset/cancelPending forward the initiating event and only #voice pointerdown/focusin/Enter bypass recognition abort. No new findings.",
+    "Parent reports browser mouse/Enter start-to-completion regression passed with one recognizer start and transcript execution; this specialist did not independently rerun that browser test."
+  ]
+}

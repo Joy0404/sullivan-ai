@@ -1,0 +1,88 @@
+{
+  "result": "passed",
+  "checks": {
+    "RACE01.single_position_write": {
+      "passed": true,
+      "observed": {
+        "writes": 1
+      }
+    },
+    "RACE02.new_position_stays_pending": {
+      "passed": true,
+      "observed": {
+        "saved_ms": 3000,
+        "field": "5",
+        "writes": [
+          {
+            "position_ms": 3000,
+            "note": "",
+            "bookmarks": [],
+            "underlined": []
+          },
+          {
+            "position_ms": 5000,
+            "note": "",
+            "bookmarks": [],
+            "underlined": []
+          }
+        ]
+      }
+    },
+    "RACE03.editor_keeps_new_input": {
+      "passed": true,
+      "observed": {
+        "value": "응답을 기다리며 새로 입력한 제목",
+        "focus": "title"
+      }
+    },
+    "RACE04.withdraw_keeps_other_editor": {
+      "passed": true,
+      "observed": {
+        "value": "다른 강의에서 입력 중",
+        "focus": "title"
+      }
+    },
+    "RACE05.stale_poll_does_not_regress": {
+      "passed": true,
+      "observed": "응답 순서 검사\n\n준비 완료. 완료 확인\n\n일반 · 마지막 상태 확인 1970. 1. 1. 오전 9:00:01\n\n응답 순서 검사 결과 확인·배정"
+    }
+  },
+  "axe": [
+    {
+      "screen": "student-login",
+      "version": "4.14.0",
+      "violations": 0
+    },
+    {
+      "screen": "guardian-login",
+      "version": "4.14.0",
+      "violations": 0
+    },
+    {
+      "screen": "student-material",
+      "version": "4.14.0",
+      "violations": 0
+    },
+    {
+      "screen": "guardian-workspace",
+      "version": "4.14.0",
+      "violations": 0
+    },
+    {
+      "screen": "guardian-phase2",
+      "version": "4.14.0",
+      "violations": 0
+    },
+    {
+      "screen": "guardian-editor-races",
+      "version": "4.14.0",
+      "violations": 0
+    },
+    {
+      "screen": "student-position-races",
+      "version": "4.14.0",
+      "violations": 0
+    }
+  ],
+  "boundary": "Real installed extensions/API/DB/decoded MP4; explicit delayed PUT/withdraw transport; synthetic speech; no actual user DB or paid provider"
+}

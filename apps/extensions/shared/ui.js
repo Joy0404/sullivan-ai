@@ -11,13 +11,14 @@ export function node(tag, text, props = {}) {
 export function status(text, error = false) {
   $(error ? 'error' : 'status').textContent = text;
   $(error ? 'status' : 'error').textContent = '';
+  window.dispatchEvent(new CustomEvent('sullivan-status',{detail:{text,error}}));
 }
 export async function task(control, action) {
   if (control.disabled || control.dataset.busy) return;
   control.dataset.busy = 'true';
   control.setAttribute('aria-disabled', 'true');
   control.setAttribute('aria-busy', 'true');
-  try { await action(); } catch (error) { status(error.message, true); }
+  try { await action(); } catch (error) { if(!error.cancelled){if(!error.reported)status(error.message, true);error.field?.focus();} }
   finally { delete control.dataset.busy; control.removeAttribute('aria-disabled'); control.removeAttribute('aria-busy'); }
 }
 export function button(text, action) {
@@ -33,7 +34,7 @@ export function bindForm(id, action) {
   });
 }
 
-export async function boot(onUser, onExit = () => {}) {
+export async function boot(onUser, onExit = () => {}, {beforeUserFocus=()=>{}}={}) {
   initializeAccounts();
   let interacted = false;
   const interaction = () => { interacted = true; };
@@ -51,6 +52,7 @@ export async function boot(onUser, onExit = () => {}) {
   }
   async function signedIn(user, initial = false) {
     if (user.role !== ROLE) throw new Error('이 프로그램의 계정으로 로그인해 주세요.');
+    beforeUserFocus(user);
     $('auth').hidden = true;
     $('workspace').hidden = false;
     $('logout').hidden = false;
@@ -66,8 +68,8 @@ export async function boot(onUser, onExit = () => {}) {
   bindForm('login-form', async ({username, password}) => {
     const user = await signIn({username, password});
     $('password').value = '';
-    status('로그인했습니다.');
     await signedIn(user);
+    status('로그인했습니다.');
   });
   $('logout').addEventListener('click', () => task($('logout'), async () => {
     await signOut(); signedOut(); status('로그아웃했습니다.');

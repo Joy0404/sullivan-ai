@@ -1,0 +1,21 @@
+{
+  "version": "0.4.4",
+  "counts": {
+    "적용 확인": 61,
+    "부분 적용": 4,
+    "미적용": 0,
+    "의도 변경": 4,
+    "검증 불가": 7,
+    "기존 미지원": 2
+  },
+  "cleanup_allowed": false,
+  "product_files_deleted": [],
+  "reason": "User condition of confirmed full feature preservation is not met: 4 partial, 7 externally unverified.",
+  "tests": {
+    "api_passed": 153,
+    "api_skipped": 4,
+    "followup_passed": 17,
+    "reaudit_passed": 18,
+    "cumulative_restoration": "passed"
+  }
+}

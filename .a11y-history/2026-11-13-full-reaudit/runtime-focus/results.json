@@ -1,0 +1,47 @@
+[
+  {
+    "id": "voice_underline_focus",
+    "before": {
+      "focus": "BUTTON",
+      "value": "",
+      "lesson": "천문학 특강 7강 · 별의 진화"
+    },
+    "after": {
+      "focus": "BODY",
+      "value": "",
+      "lesson": "천문학 특강 7강 · 별의 진화"
+    },
+    "passed": false,
+    "boundary": "Actual 3-second key hold; recognizer transcript is a test double."
+  },
+  {
+    "id": "delayed_lecture_focus",
+    "before": {
+      "focus": "command-input",
+      "value": "입력 중",
+      "lesson": ""
+    },
+    "after": {
+      "focus": "lesson-title",
+      "value": "입력 중",
+      "lesson": "천문학 특강 7강 · 별의 진화"
+    },
+    "passed": false,
+    "boundary": "One real GET response delayed at browser routing boundary."
+  },
+  {
+    "id": "removed_lecture_focus",
+    "before": {
+      "focus": "BUTTON",
+      "value": "입력 중",
+      "lesson": "천문학 특강 7강 · 별의 진화"
+    },
+    "after": {
+      "focus": "BODY",
+      "value": "입력 중",
+      "lesson": "천문학 특강 7강 · 별의 진화"
+    },
+    "passed": false,
+    "boundary": "Simulated empty latest assignment list; refresh activated without changing focused lecture (voice/button-command equivalent)."
+  }
+]

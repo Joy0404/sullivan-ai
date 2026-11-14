@@ -1,0 +1,131 @@
+{
+  "boundary": "Real Chromium installed extensions and API; list GET delivery held explicitly; temporary account DB/profile only.",
+  "cases": [
+    {
+      "name": "guardian_delayed_refresh_button",
+      "before": {
+        "tag": "BUTTON",
+        "id": "",
+        "text": "수정된 지문 강의 배정 수정",
+        "type": "button",
+        "inLectures": true,
+        "inPublish": false,
+        "oldConnected": true
+      },
+      "after": {
+        "tag": "BODY",
+        "id": "",
+        "text": "본문으로 이동\nSullivan AI · 보호자 전용보호자로그아웃\nSullivan AI 보호자\n\n목록을 갱신했습니다.\n보호자 로그인\n이 프로그램은 보호자 계정만 사용합니다. 운영 서버에서는 브라우저 로그인으로 계정을 확인합니다.\n브라우저 로그인에서 내 ",
+        "type": null,
+        "inLectures": false,
+        "inPublish": false,
+        "oldConnected": false
+      },
+      "reproduced": true
+    },
+    {
+      "name": "guardian_delayed_refresh_checkbox",
+      "before": {
+        "tag": "INPUT",
+        "id": "",
+        "text": "",
+        "type": "checkbox",
+        "inLectures": false,
+        "inPublish": true,
+        "oldConnected": true
+      },
+      "after": {
+        "tag": "BODY",
+        "id": "",
+        "text": "본문으로 이동\nSullivan AI · 보호자 전용보호자로그아웃\nSullivan AI 보호자\n\n목록을 갱신했습니다.\n보호자 로그인\n이 프로그램은 보호자 계정만 사용합니다. 운영 서버에서는 브라우저 로그인으로 계정을 확인합니다.\n브라우저 로그인에서 내 ",
+        "type": null,
+        "inLectures": false,
+        "inPublish": false,
+        "oldConnected": false
+      },
+      "reproduced": true
+    },
+    {
+      "name": "guardian_delayed_refresh_removed_item",
+      "before": {
+        "tag": "BUTTON",
+        "id": "",
+        "text": "수정된 지문 강의 배정 수정",
+        "type": "button",
+        "inLectures": true,
+        "inPublish": false,
+        "oldConnected": true
+      },
+      "removed": {
+        "title": "수정된 지문 강의 · 비공개 · 배정 학생 0명",
+        "id": "c5b1e04c4ac64788bb728ae61aaefdd3"
+      },
+      "after": {
+        "tag": "BODY",
+        "id": "",
+        "text": "본문으로 이동\nSullivan AI · 보호자 전용보호자로그아웃\nSullivan AI 보호자\n\n목록을 갱신했습니다.\n보호자 로그인\n이 프로그램은 보호자 계정만 사용합니다. 운영 서버에서는 브라우저 로그인으로 계정을 확인합니다.\n브라우저 로그인에서 내 ",
+        "type": null,
+        "inLectures": false,
+        "inPublish": false,
+        "oldConnected": false
+      },
+      "reproduced": true
+    },
+    {
+      "name": "student_modal_close_after_logout",
+      "before": {
+        "tag": "INPUT",
+        "id": "text-command",
+        "text": "",
+        "type": "text",
+        "inLectures": false,
+        "inPublish": false,
+        "oldConnected": null
+      },
+      "after": {
+        "tag": "BUTTON",
+        "id": "voice-test",
+        "text": "음성 안내 시작·시험",
+        "type": "button",
+        "inLectures": false,
+        "inPublish": false,
+        "oldConnected": null
+      },
+      "events": [
+        {
+          "event": "focus",
+          "id": "voice-test",
+          "tag": "BUTTON"
+        },
+        {
+          "event": "focus",
+          "id": "text-command",
+          "tag": "INPUT"
+        },
+        {
+          "event": "focus",
+          "id": "voice-test",
+          "tag": "BUTTON"
+        },
+        {
+          "event": "focus",
+          "id": "username",
+          "tag": "INPUT"
+        },
+        {
+          "event": "focus",
+          "id": "voice-test",
+          "tag": "BUTTON"
+        },
+        {
+          "event": "close",
+          "active": "voice-test"
+        }
+      ],
+      "reproduced": true
+    }
+  ],
+  "browser": "156.0.8078.4",
+  "guardian_built_app_sha256": "7a7311722466e4c4cbf60f8cc7f0456db0f81dbfcc36d1a5a7cfa5bfa62d5b7a",
+  "student_built_app_sha256": "75a8d8fa66373603f48c8fc4a492877b4fdb02dd77aa99c14193eb8c39477762"
+}

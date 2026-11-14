@@ -1,0 +1,33 @@
+Python syntax: 85 files
+JSON: 2 files
+Web contract: 93 DOM ids
+Safety markers: 9 checks
+Playback and voice: 32 checks
+Legacy removal: 3 checks
+Verification complete
+...
+----------------------------------------------------------------------
+Ran 3 tests in 0.654s
+
+OK
+Space gesture: single/double/triple defer, hold/release, repeat and cancel PASS
+Playback scheduler: 8 checks passed
+Concept tools: 7 checks passed
+Sample catalog: 14 checks passed
+Contextual narration: 89 checks passed
+Passage tools: 10 checks passed
+Lecture library: 8 checks passed
+Voice command router: routing, playback, summary, return and gesture checks passed
+Student speech: cancellation, stale completion, overlapping focus, chunking, reader mode and connection loss PASS
+Student media: pending play hold, stale seek, past-state pause snapshot and changed-view rejection PASS
+Student keyboard: home gesture, native editing, interrupted double-space, modifiers and IME cancellation PASS
+........................................................................ [ 45%]
+..............................................ssss...................... [ 91%]
+.............                                                            [100%]
+=============================== warnings summary ===============================
+../../.venv/lib/python3.12/site-packages/starlette/testclient.py:51
+  /Users/joy/Documents/Codex/Sullivan-AI-Develop-local/.venv/lib/python3.12/site-packages/starlette/testclient.py:51: DeprecationWarning: The anyio.abc.BlockingPortal alias is deprecated, use anyio.from_thread.BlockingPortal instead.
+    _PortalFactoryType = Callable[[], AbstractContextManager[anyio.abc.BlockingPortal]]
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+153 passed, 4 skipped, 1 warning in 6.31s

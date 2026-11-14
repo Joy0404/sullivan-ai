@@ -3,7 +3,7 @@
   "checks": [
     "incomplete configuration refuses startup",
     "configured production process starts",
-    "signup closed without invite",
+    "signup enabled without administrator code",
     "raw password extension login blocked",
     "old version rejected",
     "unregistered origin rejected"

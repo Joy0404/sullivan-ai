@@ -1,0 +1,30 @@
+AX audit account-setup: 11 named focused controls; axe findings 0
+AX audit guardian-dashboard: 23 named focused controls; axe findings 0
+AX audit guardian-settings-unavailable: 23 named focused controls; axe findings 0
+AX audit guardian-settings: 35 named focused controls; axe findings 0
+AX audit guardian-publish: 39 named focused controls; axe findings 0
+AX audit guardian-watch: 39 named focused controls; axe findings 0
+AX audit guardian-passage: 94 named focused controls; axe findings 0
+AX audit guardian-review: 31 named focused controls; axe findings 0
+AX audit guardian-study: 22 named focused controls; axe findings 0
+AX audit guardian-chat: 30 named focused controls; axe findings 0
+AX audit guardian-evidence: 18 named focused controls; axe findings 0
+AX audit guardian-preparation: 11 named focused controls; axe findings 0
+AX audit guardian-analysis-wait: 1 named focused controls; axe findings 0
+AX audit guardian-preparation-error: 11 named focused controls; axe findings 0
+AX audit guardian-management: 28 named focused controls; axe findings 0
+AX audit guardian-lecture-edit: 35 named focused controls; axe findings 0
+AX audit login: 11 named focused controls; axe findings 0
+AX audit login-error: 11 named focused controls; axe findings 0
+AX audit student-onboarding: 12 named focused controls; axe findings 0
+AX audit student-home: 11 named focused controls; axe findings 0
+AX audit student-watch: 16 named focused controls; axe findings 0
+AX audit student-preferences: 22 named focused controls; axe findings 0
+Traceback (most recent call last):
+  File "/Users/joy/Documents/Codex/Sullivan-AI-Develop-local/scripts/verify_roles_browser.py", line 418, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "/Users/joy/Documents/Codex/Sullivan-AI-Develop-local/scripts/verify_roles_browser.py", line 249, in main
+    page.locator('#learner-play').focus();page.keyboard.press('Space');assert page.evaluate('isPlaybackRunning()')
+                                                                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError

@@ -4,14 +4,16 @@
     "playing": false,
     "calls": [
       "cue"
-    ]
+    ],
+    "paused_after_3_seconds": true
   },
   "restored_entry": {
     "playing": false,
     "position_ms": 92000,
     "calls": [
       "cue"
-    ]
+    ],
+    "paused_after_3_seconds": true
   },
   "preference_layouts": [
     {

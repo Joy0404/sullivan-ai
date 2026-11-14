@@ -1,0 +1,9 @@
+{
+  "result": "failed-before-parity-probes",
+  "phase": "post-recovery cumulative student regression attempt",
+  "script": "scripts/verify_student_repair.py:74",
+  "trigger": "Space triple-tap after keyboard traversal",
+  "expected": "#text-dialog visible",
+  "observed": "hidden after 5 seconds; reading-mode select was silent in failure snapshot",
+  "interpretation": "Earlier same-turn regression passed. Treat shortcut stability as unresolved; do not discard this failed attempt."
+}

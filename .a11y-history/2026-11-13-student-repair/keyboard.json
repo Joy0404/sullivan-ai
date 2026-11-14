@@ -1,0 +1,28 @@
+{
+  "skill": "keyboard-navigator",
+  "scope": [
+    "apps/extensions/student/keyboard.js",
+    "apps/extensions/student/app.js",
+    "apps/extensions/student/worker.js",
+    "apps/extensions/student/workspace.html",
+    "apps/extensions/student/video-control.js",
+    "scripts/build_extensions.py"
+  ],
+  "findings": [],
+  "passed": [
+    "Tab and Shift+Tab cycle among visible enabled controls in the extension document, scoped to an open native dialog when present.",
+    "From programmatically focused headings/results, Tab selects the next DOM-adjacent control rather than restarting the page.",
+    "Standalone Shift moves backward; Shift+Tab and modifier chords do not trigger an extra backward step; text entry remains native.",
+    "Space commands default on with keymap migration: single tap toggles playback, double tap stops output, triple tap opens text input, and hold threshold is explicitly 3000 milliseconds.",
+    "Space in text fields, checkboxes, radio controls and native dialogs keeps native behavior; Enter remains the documented button activation key.",
+    "Escape outside a modal releases containment; visible instructions explain Escape and F6, and the panel-mode button re-enables containment.",
+    "Pending gestures reset on pointer interaction, window blur and document hiding.",
+    "Keyboard handlers are installed only in the extension document; injected video-control code contains no host keyboard interception.",
+    "The action handler invokes sidePanel.open during its user activation, then requests panel focus; original connection permissions run from the native button handler."
+  ],
+  "notes": [
+    "Static source re-review only. Actual Chrome native panel targeting, permission UI and physical keyboard behavior require the parent runtime verification.",
+    "Baseline defects corrected during review: disabled-by-default gesture settings, focused-control click on single Space, 600ms hold inheritance, missing containment, heading focus adjacency and conflicting generic keyboard instructions.",
+    "Persisted separately: modal.json."
+  ]
+}

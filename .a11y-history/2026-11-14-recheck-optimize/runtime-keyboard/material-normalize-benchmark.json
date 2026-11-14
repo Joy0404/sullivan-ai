@@ -1,0 +1,23 @@
+{
+  "scope": "Node microbenchmark of renderMaterial repeated passage normalization; excludes DOM work and is not an actual browser latency test",
+  "observations": [
+    {
+      "sentences": 1000,
+      "repeatedMs": 46,
+      "cachedMs": 0.09,
+      "passageCharacters": 12999
+    },
+    {
+      "sentences": 5000,
+      "repeatedMs": 880,
+      "cachedMs": 0.3,
+      "passageCharacters": 64999
+    },
+    {
+      "sentences": 10000,
+      "repeatedMs": 3432,
+      "cachedMs": 0.41,
+      "passageCharacters": 129999
+    }
+  ]
+}

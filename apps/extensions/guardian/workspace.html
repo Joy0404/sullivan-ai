@@ -1,7 +1,18 @@
 <section aria-labelledby="workspace-title">
   <h2 id="workspace-title" tabindex="-1">학생과 강의 준비</h2>
-  <p class="notice">강의를 준비하고 결과를 확인한 뒤 학생에게 배정하세요. 실제 영상 분석은 별도 동의와 서버 연결이 필요합니다. 학생의 영상 수강 기능은 기존 웹에서 계속 이용할 수 있습니다.</p>
+  <p class="notice">강의를 준비하고 결과를 확인한 뒤 학생에게 배정하세요. 실제 영상 분석은 별도 동의와 서버 연결이 필요합니다. 학생은 학생용 확장에서 영상을 수강합니다.</p>
   <button id="refresh" type="button">목록 새로고침</button>
+  <p id="next-step" role="status"></p>
+  <section aria-labelledby="setup-progress-title">
+    <h3 id="setup-progress-title">준비 단계별 현황</h3>
+    <p>학생 연결 → 자료 준비 → 배정 → 학생 설정 순서로 확인하세요. 상태는 현재 계정의 저장된 자료를 기준으로 표시합니다.</p>
+    <ol id="setup-progress">
+      <li><a href="#connections-title">학생 연결</a>: <span id="setup-student"></span></li>
+      <li><a href="#prepare-title">강의 자료 준비</a>: <span id="setup-lecture"></span></li>
+      <li><a id="setup-assignment-link" href="#lectures-title">학생에게 배정</a>: <span id="setup-assignment"></span></li>
+      <li><a href="#management-title">학생별 설정</a>: <span id="setup-settings"></span></li>
+    </ol>
+  </section>
   <section aria-labelledby="connections-title"><h3 id="connections-title" tabindex="-1">학생과 연결</h3>
     <p>학생은 학생용 확장에서 자신의 계정으로 가입합니다. 아래 일회용 코드를 학생에게 전달하면 학생이 보호자 이름과 공유 범위를 확인한 뒤 연결합니다.</p>
     <button id="create-pair-code" type="button">새 일회용 연결 코드 만들기</button>
@@ -10,7 +21,7 @@
     <div id="guardian-unlink-confirm" hidden><p id="guardian-unlink-question"></p><button id="guardian-unlink-yes" type="button" aria-describedby="guardian-unlink-question">학생 연결 해제 실행</button><button id="guardian-unlink-no" type="button" class="secondary">취소</button></div>
   </section>
   <details><summary>학생 계정 만들기</summary>
-    <p>개발 1단계에서는 기존과 같이 보호자가 학생 계정을 만듭니다. 독립 계정 연결 코드는 후속 단계에서 제공합니다.</p>
+    <p>로컬 개발용 빠른 계정 생성입니다. 학생이 직접 가입한 뒤 위의 일회용 코드로 연결할 수도 있습니다.</p>
     <form id="student-form">
       <label>학생 이름<input name="name" required maxlength="80" autocomplete="off"></label>
       <label>학생 로그인 이름<input name="username" required minlength="3" maxlength="60" pattern="[a-zA-Z0-9_.\-]+" aria-describedby="student-username-help" autocomplete="off"></label>
@@ -25,52 +36,72 @@
     <form id="assign-form">
       <label>학생<select id="student-choice" name="student" required></select></label>
       <label>사전 준비된 샘플<select name="sample"><option value="science">과학 샘플</option><option value="history">역사 샘플</option></select></label>
-      <p>새 AI 분석을 실행하지 않습니다. 원본 영상의 재생과 자동 해설은 현재 기존 웹에서 이용하세요.</p>
+      <p>새 AI 분석을 실행하지 않습니다. 샘플 자료를 학생용 확장에서 열어 학습할 수 있습니다.</p>
       <button id="assign-submit" type="submit">선택한 학생에게 배정</button>
     </form>
   </section>
-  <section aria-labelledby="prepare-title"><h3 id="prepare-title">새 강의 준비</h3>
+  <section aria-labelledby="prepare-title"><h3 id="prepare-title" tabindex="-1">새 강의 준비</h3>
+    <button id="prepare-guided" type="button" class="secondary" aria-pressed="false">3단계 준비 안내 사용</button>
+    <p id="prepare-step" role="status"></p>
     <form id="prepare-form" aria-describedby="prepare-help">
-      <p id="prepare-help">필수 표시가 있는 항목을 입력하세요. 자료 방식은 파일 또는 직접 입력 지문 중 하나 이상이 필요합니다. 실제 분석을 선택하지 않은 링크에도 자막·지문·JSON 중 하나가 필요합니다.</p>
+      <p id="prepare-help">필수 표시가 있는 항목을 입력하세요. 자료 방식은 파일 또는 지문이 필요합니다. 영상 링크는 주소만 등록해 재생·명령·기록을 이용할 수 있습니다. 내용 질문과 자동 해설에는 자료 또는 실제 분석 연결이 필요합니다.</p>
       <label>강의 제목 (필수)<input name="title" required maxlength="160"></label>
       <label>과목 (필수)<input name="subject" required maxlength="80" value="일반"></label>
-      <label>준비 방식<select id="prepare-source" name="source"><option value="materials">자막·지문·분석 JSON</option><option value="link">영상 링크와 보조 자료</option><option value="video">원본 파일 실제 분석</option></select></label>
+      <label>강의 출처 이름<input name="source_label" maxlength="120" placeholder="예: 학교 과학 수업"></label>
+      <label>설명 중심<select name="preferred_mode"><option value="auto">자동 판별</option><option value="board">판서</option><option value="passage">지문</option><option value="slides">슬라이드</option></select></label>
+      <label>준비 방식<select id="prepare-source" name="source"><option value="materials">자막·지문·분석 JSON</option><option value="link">영상 링크와 보조 자료</option><option value="local">로컬 파일 재생용 등록 (원본 미전송)</option><option value="video">원본 파일 실제 분석</option></select></label>
       <label class="check"><input name="problem_mode" type="checkbox" checked>문제 보호 모드: 정답에 해당하는 화면 설명 차단</label>
       <div id="material-input">
-        <label>보조 자료 파일<input id="material-files" type="file" multiple accept=".srt,.vtt,.txt,.md,.json" aria-describedby="material-help"></label>
+        <label>보조 자료 파일<input id="material-files" type="file" multiple accept=".srt,.vtt,.txt,.md,.json" aria-describedby="material-help material-validation"></label>
         <p id="material-help">SRT·VTT 자막, TXT·MD 지문, 표준 분석 JSON을 지원합니다. 파일당 30만 자, 전체 100만 자 이하. JSON은 한 개만 선택하세요.</p>
+        <p id="material-validation"></p>
         <label>직접 입력할 지문 (파일 대신 입력 가능)<textarea name="passage" rows="5" maxlength="300000" aria-describedby="prepare-help"></textarea></label>
       </div>
       <div id="link-input" hidden>
         <label>영상 주소 (필수)<input id="prepare-url" name="url" type="url" maxlength="2048" placeholder="https://www.youtube.com/watch?v=..."></label>
         <label class="check"><input name="request_analysis" type="checkbox">이 링크의 실제 영상 분석 요청</label>
-        <p>분석을 요청하지 않으면 함께 넣은 자막·지문·JSON으로 학습자료를 준비합니다. 링크만 등록해서 분석 완료로 표시하지 않습니다.</p>
+        <p>링크만 등록해도 원본 재생·단축키·학습 기록을 이용할 수 있습니다. 함께 넣은 자막·지문·JSON은 실제로 처리합니다. 실제 분석을 선택하지 않으면 영상을 분석했다고 표시하지 않습니다.</p>
       </div>
       <div id="video-input" hidden>
-        <label>분석할 원본 영상 (필수)<input id="prepare-video" type="file" accept=".mp4,.webm,.mov,.m4v" aria-describedby="video-help"></label>
-        <p id="video-help">100MB 이하. 원본은 동의한 실제 분석을 위해 임시 전송한 뒤 삭제합니다. 학생에게 원본 파일을 전달하거나 서버에 보관하는 기능은 아닙니다.</p>
+        <label>원본 영상 파일 (필수)<input id="prepare-video" type="file" accept="video/*,.mp4,.webm,.mov,.m4v,.mkv,.ogv,.avi,.mpeg,.mpg,.ts" aria-describedby="video-help"></label>
+        <p id="video-help">로컬 재생용 등록은 이름·크기만 등록하며 원본을 읽어 전송하지 않습니다. Chrome이 지원하는 코덱을 학생 기기에서 재생합니다. 실제 분석은 기존 공급자 지원 형식·100MB 이하와 별도 동의가 필요하며 임시 전송 후 삭제합니다. 어느 방식도 원본을 학생 기기에 자동 전달하지 않습니다.</p>
       </div>
       <div id="analysis-consents" hidden>
         <label class="check"><input id="prepare-rights" name="rights" type="checkbox">이 영상의 이용·분석 권한이 있습니다. (필수)</label>
         <label class="check"><input id="prepare-consent" name="consent" type="checkbox">선택한 영상 또는 링크를 실제 분석 공급자에게 전송하는 데 동의합니다. (실제 분석 시 필수)</label>
-        <label>실제 분석 이용 코드<input name="access_code" type="password" maxlength="200" autocomplete="off" aria-describedby="code-help"></label>
-        <p id="code-help">서버의 기존 이용 제한을 그대로 적용합니다. 공급자 API 키는 여기에 입력하지 마세요.</p>
       </div>
       <button type="submit">자료 준비 시작</button>
     </form>
+    <p id="prepare-summary" hidden></p>
+    <div id="prepare-navigation" hidden class="actions"><button id="prepare-back" type="button" class="secondary">이전 단계</button><button id="prepare-next" type="button">다음 단계</button></div>
   </section>
   <section aria-labelledby="preparations-title"><h3 id="preparations-title" tabindex="-1">준비 작업과 분석 결과</h3>
     <p>화면을 닫아도 접수된 작업은 서버에서 처리합니다. 서버 재시작으로 중단되면 자료를 다시 선택해 요청해야 합니다.</p>
     <button id="refresh-preparations" type="button">준비 상태 새로고침</button>
+    <p id="preparation-counts"></p>
+    <label>준비 작업 상태<select id="preparation-filter" aria-controls="preparations" aria-describedby="preparation-filter-help"><option value="all">모든 상태</option><option value="active">접수·진행 중</option><option value="completed">준비 완료</option><option value="attention">실패·중단</option></select></label>
+    <label>준비 작업 검색<input id="preparation-search" type="search" maxlength="160" aria-controls="preparations" aria-describedby="preparation-filter-help" placeholder="강의 제목 또는 과목"></label>
+    <p id="preparation-filter-help">상태와 제목·과목으로 준비 결과를 찾습니다. 접수·처리·완료는 서버가 확인한 상태이며 공급자 내부 진행률은 표시하지 않습니다. 실패·중단 작업은 자료와 동의를 다시 선택해 준비하세요.</p>
+    <p id="preparation-results" role="status" aria-atomic="true"></p>
     <p id="job-status" role="status"></p><p id="connection-status" role="status"></p>
     <div id="preparations"></div>
     <section id="prepared-detail" hidden aria-labelledby="prepared-title">
       <h4 id="prepared-title" tabindex="-1">준비된 자료 확인</h4>
       <div id="prepared-preview"></div>
+      <button id="preview-export" type="button" class="secondary">준비된 학습 노트 내보내기</button>
+      <p id="preview-playback" role="status"></p>
+      <label>결과와 대조할 원본 파일<input id="preview-file" type="file" accept="video/*" aria-describedby="preview-file-help"></label>
+      <p id="preview-file-help">파일은 이 화면에서만 재생합니다. 분석 원본이 등록되어 있으면 파일 크기와 SHA-256이 일치하는 파일만 연결합니다. 학생 기기에는 같은 원본을 별도로 전달해야 합니다.</p>
+      <video id="preview-video" hidden controls preload="metadata" aria-label="준비 결과 대조용 원본 영상"></video>
+      <form id="preview-question-form">
+        <label>준비 결과에 질문<input name="message" required maxlength="2000"></label>
+        <label class="check"><input name="analysis_consent" type="checkbox" required>준비된 학습자료를 Gemini 학습 대화에 전송하는 데 동의합니다.</label>
+        <button type="submit">미리보기 질문 실행</button>
+      </form>
+      <div id="preview-answer" role="status"></div>
       <form id="publish-form">
         <fieldset id="publish-students" tabindex="-1"><legend>배정할 학생: 한 명 이상 선택</legend></fieldset>
         <label class="check"><input name="chat_consent" type="checkbox">이 강의의 Gemini 학습 대화 허용</label>
-        <label>학습 대화 이용 코드<input name="access_code" type="password" maxlength="200" autocomplete="off"></label>
         <button type="submit">확인한 자료를 학생에게 배정</button>
       </form>
     </section>
@@ -86,13 +117,15 @@
       </form>
       <p>회수는 현재 배정 전체를 중단합니다. 자료와 학생 개인 기록은 삭제하지 않습니다. 일부 학생만 제외하려면 위 배정 선택을 수정하세요.</p>
       <button id="withdraw" type="button" class="secondary">배정 전체 회수</button>
+      <button id="delete-lecture" type="button" class="secondary">강의 영구 삭제</button>
+      <div id="delete-confirm" hidden><p id="delete-question"></p><button id="delete-yes" type="button" aria-describedby="delete-question">강의 영구 삭제 실행</button><button id="delete-no" type="button" class="secondary">삭제 취소</button></div>
       <div id="withdraw-confirm" hidden>
         <p id="withdraw-question"></p>
         <div class="actions"><button id="withdraw-yes" type="button" aria-describedby="withdraw-question">배정 전체 회수 실행</button><button id="withdraw-no" type="button" class="secondary">취소</button></div>
       </div>
     </section>
   </section>
-  <section aria-labelledby="management-title"><h3 id="management-title">학생 설정과 학습 현황</h3>
+  <section aria-labelledby="management-title"><h3 id="management-title" tabindex="-1">학생 설정과 학습 현황</h3>
     <label>관리할 학생<select id="manage-student"></select></label>
     <button id="load-management" type="button">선택한 학생 현황 열기</button>
     <section id="management-detail" hidden aria-labelledby="management-detail-title">

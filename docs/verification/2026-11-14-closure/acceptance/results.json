@@ -1,0 +1,55 @@
+{
+  "result": "passed",
+  "source_sha256": "4b8d249c76db58c979eff99939cac02d239df4c8628e895ea52995013084e81d",
+  "contract": {
+    "features": 78,
+    "declared_implementation_gaps": 0,
+    "external_pending": [
+      "F24",
+      "F25",
+      "F26",
+      "F33",
+      "F34",
+      "F49",
+      "F61",
+      "F62"
+    ],
+    "release_ready": false
+  },
+  "checks": [
+    {
+      "name": "project",
+      "exit_code": 0
+    },
+    {
+      "name": "dashboard",
+      "exit_code": 0
+    },
+    {
+      "name": "followup",
+      "exit_code": 0
+    },
+    {
+      "name": "restoration",
+      "exit_code": 0
+    },
+    {
+      "name": "reaudit",
+      "exit_code": 0
+    },
+    {
+      "name": "optimization",
+      "exit_code": 0
+    },
+    {
+      "name": "restart",
+      "exit_code": 0
+    },
+    {
+      "name": "production",
+      "exit_code": 0
+    }
+  ],
+  "boundary": "Structural ledger plus local regressions; external acceptance remains pending.",
+  "source_unchanged": true
+}

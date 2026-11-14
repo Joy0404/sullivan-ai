@@ -1,0 +1,20 @@
+{
+  "skill": "forms-specialist",
+  "scope": [
+    "apps/extensions/guardian/app.js",
+    "apps/extensions/guardian/workspace.html",
+    "apps/extensions/shared/ui.js",
+    "apps/api/app/guardian_preparation.py",
+    "apps/api/app/main.py:123"
+  ],
+  "findings": [],
+  "passed": [
+    "R12: preview questions use preparation/request validity guards and replace pending output with an actionable terminal error only for the matching request.",
+    "R13: retry resets form and validation state, restores source selection, moves guided entry to step 0 and refreshes the view before focusing the title.",
+    "R14: material counting uses Unicode code points; aggregate errors associate specific visible text with the invalid materials field and return guided entry to its material step. The authoritative server bound has a targeted sanitized error."
+  ],
+  "notes": [
+    "Final 0.4.3 source re-review on 2026-11-14: no unresolved findings in this specialist’s reviewed R01–R03 and R12–R15 scope.",
+    "No product/test edits or independent runtime, OS screen-reader, audible TTS or live-provider validation were performed during this fixes review. Parent regression/API verification is separate."
+  ]
+}

@@ -36,7 +36,7 @@ def exercise(guardian, student, output):
     expect(guardian.locator('#lectures li')).to_have_count(2)
     student.locator('#refresh').click()
     expect(student.locator('#lectures button')).to_have_count(2)
-    student.get_by_role('button', name='새 지문 강의 열기', exact=True).click()
+    student.locator('#lectures button').filter(has_text='새 지문 강의 열기').click()
     expect(student.locator('#material')).to_contain_text('둘째 문단은 결과')
     # Current record summaries show counts, not the student's private note text.
     guardian.locator('#load-management').focus(); guardian.keyboard.press('Enter')

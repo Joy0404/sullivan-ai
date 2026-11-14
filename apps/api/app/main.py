@@ -18,7 +18,7 @@ from app.core.demo_gate import (
     DemoGateError,
     allowed_sample_video_ids,
     analysis_timeout_seconds,
-    check_access_code,
+    check_analysis_access,
     client_ip,
     limiter,
     server_gemini_key,
@@ -122,6 +122,10 @@ async def safe_errors(request: Request, call_next):
 
 @app.exception_handler(RequestValidationError)
 async def validation_error(request, error):
+    if request.url.path == '/extension/v1/guardian/preparations' and any(
+        item['type'] == 'preparation_text_limit' for item in error.errors()
+    ):
+        return JSONResponse(status_code=422, content={'detail': '입력 정보와 자료 전체는 100만 자 이하여야 합니다. 파일 수나 지문 길이를 줄이거나 여러 강의로 나누어 준비하세요.'})
     return JSONResponse(
         status_code=422, content={"detail": "요청 형식을 확인해 주세요."}
     )
@@ -228,16 +232,21 @@ async def register_video_link(
             return needs_adapter
         if not payload.analysis_consent:
             raise HTTPException(status_code=400, detail=CONSENT_MESSAGE)
-        if youtube_video_id(link.normalized_url) not in allowed_sample_video_ids():
+        extension_request = 'authorization' in request.headers
+        if not extension_request and youtube_video_id(link.normalized_url) not in allowed_sample_video_ids():
             raise HTTPException(status_code=400, detail=SAMPLE_ONLY_MESSAGE)
-        check_access_code(
+        check_analysis_access(request,
             payload.access_code.get_secret_value() if payload.access_code else None
         )
+        analysis_url = link.normalized_url
+        if extension_request:
+            from app.adapters.video_link import normalize_extension_video_link
+            analysis_url = normalize_extension_video_link(payload.url).normalized_url
         await asyncio.to_thread(limiter.consume, client_ip(request))
         try:
             analysis = await asyncio.wait_for(
                 analyze_video_link(
-                    link.normalized_url,
+                    analysis_url,
                     title=session.title,
                     subject=session.subject,
                     problem_mode=session.problem_mode,
@@ -331,7 +340,7 @@ async def analyze_uploaded_video_file(
         raise HTTPException(status_code=503, detail=KEY_MISSING_MESSAGE)
     try:
         ip = client_ip(request)
-        check_access_code(access_code)
+        check_analysis_access(request,access_code)
         await asyncio.to_thread(limiter.ensure_available, ip)
     except DemoGateError as error:
         raise _gate_http_error(error) from error
@@ -533,7 +542,7 @@ async def run_lecture_agent_turn(
         try:
             if not payload.analysis_consent:
                 raise DemoGateError(400, CONSENT_MESSAGE)
-            check_access_code(
+            check_analysis_access(request,
                 payload.access_code.get_secret_value() if payload.access_code else None
             )
             await asyncio.to_thread(limiter.consume, client_ip(request))

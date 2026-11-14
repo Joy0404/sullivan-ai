@@ -1,0 +1,96 @@
+{
+  "browser": "156.0.8078.4",
+  "actual_extensions": 2,
+  "boundaries": {
+    "HTTP": "real temporary server/DB",
+    "worker": "real installed extension",
+    "media": "real decoded generated video",
+    "speech": "recording test double",
+    "OS_screen_reader": "not run"
+  },
+  "source_sha256": {
+    "apps/extensions/student/app.js": "bea741ae64087dbecdd42aaaf5be63b646a047705b7e0408ecc89d7b5a0f1baa",
+    "apps/extensions/student/speech.js": "de5c384d685c5c6f9b46b5036decf86a151b55404331ece9292dd962cc4b4056",
+    "apps/extensions/guardian/app.js": "8a0d8811b1b3b9e5e4a1c6c477631b6cf9af8d5c43d245a42cca3e7702269b87",
+    "apps/extensions/shared/ui.js": "342a62a68b99b2073a49dc77a40d6655dbcc210291765c93a91ac8eee2345049"
+  },
+  "observations": [
+    {
+      "id": "LIVE-APP-VOICE-DIRECT-STATUS-tab-error",
+      "boundary": "Real original video tab closed; actual worker state RPC fails",
+      "before": {
+        "connection": "원본 강의 탭을 연결했습니다. 강의 재생을 눌러 시작하세요.",
+        "error": "",
+        "status": "강의 플레이어에 연결하고 있습니다.",
+        "accessMode": "app",
+        "spoken": [],
+        "events": []
+      },
+      "after": {
+        "connection": "No tab with id: 1160587355",
+        "error": "",
+        "status": "강의 플레이어에 연결하고 있습니다.",
+        "accessMode": "app",
+        "spoken": [],
+        "events": []
+      },
+      "product_invariant_passed": false,
+      "observed": "Connection text changed after real tab closure; compare spoken/event arrays."
+    },
+    {
+      "id": "LIVE-APP-VOICE-DIRECT-STATUS-lease-loss",
+      "boundary": "Another installed extension document obtains an actual worker lease",
+      "claim_response": {
+        "ok": true,
+        "result": {
+          "ok": true
+        }
+      },
+      "before": {
+        "connection": "원본 강의 탭을 연결했습니다. 강의 재생을 눌러 시작하세요.",
+        "error": "",
+        "status": "강의 플레이어에 연결하고 있습니다.",
+        "accessMode": "app",
+        "spoken": [],
+        "events": []
+      },
+      "after": {
+        "connection": "다른 수강 화면에서 재생을 시작했습니다. 이 화면에서 연결하면 다시 사용할 수 있습니다.",
+        "error": "",
+        "status": "강의 플레이어에 연결하고 있습니다.",
+        "accessMode": "app",
+        "spoken": [],
+        "events": []
+      },
+      "original_video_paused": true,
+      "product_invariant_passed": false
+    },
+    {
+      "id": "LIVE-GUARDIAN-PREVIEW-PENDING-ERROR",
+      "http_status": 503,
+      "http_body": {
+        "detail": "서버에 실제 학습 대화 연결이 없습니다. 준비된 자료를 확인해 주세요."
+      },
+      "result_status": "준비 자료의 근거로 답변을 확인하고 있습니다.",
+      "global_error": "서버에 실제 학습 대화 연결이 없습니다. 준비된 자료를 확인해 주세요.",
+      "product_invariant_passed": false
+    },
+    {
+      "id": "LIVE-READER-SETTING-FOCUS-RACE",
+      "server_reader_mode": true,
+      "local_override_removed": true,
+      "after": {
+        "connection": "영상을 아직 연결하지 않았습니다.",
+        "error": "",
+        "status": "",
+        "accessMode": "reader",
+        "spoken": [
+          "내 강의"
+        ],
+        "events": []
+      },
+      "product_invariant_passed": false,
+      "interpretation": "Recorded speechSynthesis calls only; no claim that real audio was heard."
+    }
+  ]
+}

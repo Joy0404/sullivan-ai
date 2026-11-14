@@ -1,0 +1,14 @@
+{
+  "result": "passed",
+  "checks": [
+    "incomplete configuration refuses startup",
+    "configured production process starts",
+    "signup enabled without administrator code",
+    "raw password extension login blocked",
+    "old version rejected",
+    "unregistered origin rejected"
+  ],
+  "limitations": [
+    "Synthetic HTTPS configuration over internal loopback HTTP; public TLS and store IDs not verified"
+  ]
+}

@@ -1,0 +1,25 @@
+{"diagnostic_cards": ["통합과학 · 천문학 — 천문학 특강 7강 · 별의 진화\n\n준비 완료\n\n배정 학생: 학생\n\n관리"], "api_lectures": [{"id": "2d601531e05047b4918a6019017149e4", "title": "기존 대기 샘플", "subject": "일반", "ready": 0, "position": null, "students": ["84588fd21e35496a8e99d2cc34fad71b"], "playback_kind": "none"}, {"id": "d556952547d14c4ab09a53d652aa959a", "title": "천문학 특강 7강 · 별의 진화", "subject": "통합과학 · 천문학", "ready": 1, "position": null, "students": ["84588fd21e35496a8e99d2cc34fad71b"], "playback_kind": "youtube"}]}
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+  File "/Users/joy/Documents/Codex/Sullivan-AI-Develop-local/scripts/verify_login_assignment.py", line 166, in <module>
+  File "/Users/joy/Documents/Codex/Sullivan-AI-Develop-local/scripts/verify_login_assignment.py", line 117, in main
+    guardian.wait_for_function("document.querySelector('#portal-feedback').textContent.includes('준비 완료로 제공했습니다')")
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/joy/Documents/Codex/Sullivan-AI-Develop-local/.venv/lib/python3.12/site-packages/playwright/sync_api/_generated.py", line 12896, in press
+    self._sync(
+  File "/Users/joy/Documents/Codex/Sullivan-AI-Develop-local/.venv/lib/python3.12/site-packages/playwright/_impl/_sync_base.py", line 111, in _sync
+    return task.result()
+           ^^^^^^^^^^^^^
+  File "/Users/joy/Documents/Codex/Sullivan-AI-Develop-local/.venv/lib/python3.12/site-packages/playwright/_impl/_locator.py", line 582, in press
+    return await self._frame.press(self._selector, strict=True, **params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/joy/Documents/Codex/Sullivan-AI-Develop-local/.venv/lib/python3.12/site-packages/playwright/_impl/_frame.py", line 900, in press
+    await self._channel.send("press", self._timeout, locals_to_params(locals()))
+  File "/Users/joy/Documents/Codex/Sullivan-AI-Develop-local/.venv/lib/python3.12/site-packages/playwright/_impl/_connection.py", line 78, in send
+    return await self._connection.wrap_api_call(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/joy/Documents/Codex/Sullivan-AI-Develop-local/.venv/lib/python3.12/site-packages/playwright/_impl/_connection.py", line 636, in wrap_api_call
+    raise rewrite_error(error, f"{parsed_st['apiName']}: {error}") from None
+playwright._impl._errors.TimeoutError: Locator.press: Timeout 2000ms exceeded.
+Call log:
+  - waiting for locator(".guardian-lecture").filter(has_text="기존 대기 샘플").get_by_role("button", name="준비 완료로 제공")

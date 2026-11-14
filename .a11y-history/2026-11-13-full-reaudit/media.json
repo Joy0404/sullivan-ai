@@ -1,0 +1,49 @@
+{
+  "skill": "media-accessibility",
+  "scope": [
+    "apps/extensions/student/app.js",
+    "apps/extensions/student/workspace.html",
+    "apps/extensions/student/media.js",
+    "apps/extensions/student/media-store.js",
+    "apps/extensions/student/video-control.js",
+    "apps/extensions/student/speech.js",
+    "apps/extensions/guardian/app.js",
+    "apps/extensions/guardian/workspace.html",
+    "scripts/build_extensions.py",
+    "apps/api/app/guardian_preparation.py",
+    "apps/web/app.js:946",
+    "apps/web/passage-tools.js",
+    "docs/EXTENSION_FEATURE_AUDIT.md",
+    "docs/EXTENSION_FEATURE_RESTORATION.md"
+  ],
+  "findings": [
+    {
+      "rule": "MEDIA-HIGHLIGHT-SENTENCE-PARITY",
+      "wcag": "n/a",
+      "severity": "moderate",
+      "confidence": "high",
+      "location": "apps/extensions/student/app.js:140",
+      "summary": "Passage rendering drops the original per-sentence controls and explicit highlighted-sentence markers even when highlighted data is present.",
+      "fix": "Render sentences as individually labelled native controls or equivalent navigable items and expose highlighted status in visible text/programmatic names. Preserve paragraph reading and underline controls alongside sentence selection.",
+      "evidence": "A synthetic passage with one highlighted sentence rendered only plain combined text and three paragraph-level buttons, with zero highlight markers. Original web/app.js:946 renders sentence buttons and an explicit “강조” marker.",
+      "component": "Student passage/highlight navigation; F44"
+    }
+  ],
+  "passed": [
+    "Fresh source inspection confirms bounded lecturer-to-AI sequencing with cancellation fences, advertisement/unknown-duration handling, origin tracking and stop controls.",
+    "Review includes summary, key-segment descriptions, visual-only information, highlighted review entries and study-guide material; text remains available without connected video.",
+    "Verified student-local media and guardian preview media generate WebVTT caption tracks from timed transcript segments. Missing identity/timed caption data is disclosed; caption accuracy was not evaluated.",
+    "Guardian preview exposes transcript, safe descriptions, concepts, review categories, study guide, reasons, explicit file-delivery instructions and consented questions.",
+    "Current-screen description still selects a nearest prepared safe gap; the original implemented the same behavior. The extension announces the prepared timestamp rather than claiming fresh-frame analysis.",
+    "Native player controls and separate student playback/stop/volume/mute/caption controls are present; original files are selected locally and student storage is opt-in and account/lecture scoped."
+  ],
+  "notes": [
+    "Fresh 0.4.2 audit on 2026-11-13. The highlighted-passage result was observed in an actual temporary-profile extension DOM probe; no real audio, AT or provider behavior was tested.",
+    "F44 reproduction: supply a snapshot passage with at least one sentence highlighted=true, open it in the student extension, and inspect the passage. Highlight identity and individual sentence controls are absent. Probe evidence is runtime-forms-media/probe-results.json.",
+    "F16 remains a simpler dashboard: lists and next-step text exist, while the original detailed status/dashboard experience remains partial. F23 still reports coarse queued/running/completed/failed/interrupted states without provider internal stages; neither limitation is counted as a new WCAG violation here.",
+    "F34 remains conditional: source-tab control requires a compatible standard HTML video and rejects DRM; actual YouTube/target-site compatibility was not independently tested by this specialist.",
+    "F36 remains explicit manual original-file delivery. Hash/size metadata and prepared materials are shared; automatic transfer between independent extension origins is not implemented.",
+    "F56 source retains dirty-note, error and retry paths, but fresh offline/reconnection fault injection is handled separately by the parent agent and is not claimed as this specialist’s verification.",
+    "The generic harness success list includes historical phase labels; only the explicitly described custom probes and baseline harness assertions were executed here. No inference of full media/learning parity should be made from that list."
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "skill": "modal-specialist",
+  "scope": [
+    "apps/extensions/student/app.js",
+    "apps/extensions/student/media.js",
+    "apps/extensions/student/keyboard.js",
+    "apps/extensions/shared/ui.js"
+  ],
+  "findings": [],
+  "passed": [
+    "R08: each new text-command session resets input value and returnValue.",
+    "Native dialog naming, visible Cancel, modal Tab scope and Escape remain intact.",
+    "Submit awaits close before command execution; Cancel restores focus without duplicate native-close guidance.",
+    "Cancel playback restoration requires unchanged lesson/view/generation/action/fence/focus ownership, and media.play rechecks play revision after its RPC.",
+    "Past-state snapshots may survive an intentional pause but cannot survive a changed media view/generation.",
+    "Microphone fallback context is cleared by permission close and explicit stop; recognition completion through its own button remains distinct from abort."
+  ],
+  "notes": [
+    "Final source review only; no product/test edits or live microphone/screen-reader execution.",
+    "The independent mocked media checks described in keyboard.json verify module cancellation boundaries, not actual Chrome permission UI or audio timing.",
+    "No remaining actionable findings within the requested fix scope at this snapshot."
+  ]
+}

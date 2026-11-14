@@ -1,0 +1,37 @@
+{
+  "skill": "keyboard-navigator",
+  "scope": [
+    "apps/extensions/student/app.js",
+    "apps/extensions/student/workspace.html",
+    "apps/extensions/guardian/app.js",
+    "apps/extensions/guardian/workspace.html",
+    "apps/extensions/student/keyboard.js",
+    "apps/extensions/shared/base.css"
+  ],
+  "findings": [
+    {
+      "rule": "KEYBOARD-FOCUS-REMOVED",
+      "wcag": "2.4.3 A",
+      "severity": "moderate",
+      "confidence": "medium",
+      "location": "apps/extensions/guardian/app.js:96",
+      "summary": "준비 목록 갱신으로 초점을 가진 작업 버튼이 사라지면 복원 대상이 없어 키보드 위치를 잃습니다.",
+      "fix": "갱신 전 작업 ID와 인덱스를 보존하고, 같은 작업 버튼이 없으면 인접한 표시 작업 버튼 또는 preparations-title로 초점을 복원하세요. 검색·상태 필터에 있는 초점은 이동하지 마세요.",
+      "evidence": "replaceChildren 후 data-job가 같은 버튼에만 optional focus()를 호출하며, 일치하는 버튼이 없을 때 대체 초점이 없습니다.",
+      "component": "guardian preparation list"
+    }
+  ],
+  "passed": [
+    "소스 검토: 저장 폼은 기본 submit 버튼이며 처리 중 DOM에서 제거하지 않고 aria-busy 상태를 사용합니다.",
+    "소스 검토: 북마크 삭제는 records-title로 초점을 이동합니다.",
+    "소스 검토: 학생 패널의 의도된 Tab 순환은 Esc 해제와 F6 안내를 제공합니다.",
+    "소스 검토: 텍스트 명령 모달은 native dialog.showModal과 close 초점 복원을 사용합니다.",
+    "소스 검토: 공통 CSS에 focus-visible 표시가 있습니다."
+  ],
+  "notes": [
+    "새 저장 재시도 버튼은 성공 후 숨기기 전에 초점이 그 버튼에 있는 경우 영구적인 저장 버튼으로 옮겨야 합니다.",
+    "새 준비 검색·상태 필터는 DOM 갱신 중 입력 초점을 보존하고, 필터 변경 후 결과 수만 알리도록 검증하세요.",
+    "실제 확장 프로필 런타임 검사를 시도했으나 공통 초기화의 학생 로그인 후 강의 목록 1개 기대가 0개여서 사용자 정의 초점 검사에 도달하지 못했습니다. 결과를 통과로 표시하지 않았습니다.",
+    "VoiceOver/NVDA 및 실제 음성 청취는 수행하지 않았습니다."
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "skill": "aria-specialist",
+  "scope": [
+    "apps/extensions/student/workspace.html",
+    "apps/extensions/guardian/workspace.html",
+    "apps/extensions/shared/ui.js",
+    "apps/extensions/student/app.js",
+    "apps/extensions/student/speech.js",
+    "scripts/build_extensions.py"
+  ],
+  "findings": [],
+  "passed": [
+    "Reviewed changed feedback targets: connection, speech-status, reader-description and preview-answer are persistent existing status regions; terminal text updates use textContent without replacing their live-region elements.",
+    "R12 failure uses the same polite local preview-answer target as loading and success, avoiding an additional duplicate global alert.",
+    "Numeric voice guidance reads safe native input values without replacing native labels, roles or validation; password contents and arbitrary text inputs are excluded.",
+    "The account-mode hook runs before programmatic workspace-title focus, and preserves the existing initial interaction guard instead of adding a delayed focus movement.",
+    "Changed reading-mode and voice-test controls remain native labelled select/button elements; no substitute custom ARIA widget was introduced."
+  ],
+  "notes": [
+    "2026-11-14 final static source re-review of implemented fixes R03, R04, R05, R09, R11 and R12; this supersedes the pre-implementation safeguards in this directory.",
+    "This specialist did not run the installed extension, actual OS speech, VoiceOver or NVDA during this final re-review. Synthetic speech callbacks and browser/media regressions run by the implementing agent are separate evidence and are not proof of audible or assistive-technology output.",
+    "Scope is the requested fix set and narration ordering, not a new full-product conformance certification."
+  ]
+}

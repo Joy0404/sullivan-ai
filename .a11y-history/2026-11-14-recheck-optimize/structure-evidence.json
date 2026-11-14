@@ -1,0 +1,305 @@
+{
+  "student": {
+    "lang": "ko",
+    "title": "Sullivan AI 학생",
+    "main_count": 1,
+    "duplicate_ids": [],
+    "missing_references": [],
+    "headings": [
+      [
+        1,
+        null,
+        "Sullivan AI 학생"
+      ],
+      [
+        2,
+        "access-title",
+        "읽기와 키보드 안내"
+      ],
+      [
+        2,
+        "login-title",
+        "학생 로그인"
+      ],
+      [
+        2,
+        "recovery-title",
+        "복구 코드 보관"
+      ],
+      [
+        2,
+        "account-title",
+        "내 계정과 로그인 기기"
+      ],
+      [
+        2,
+        "workspace-title",
+        "내 강의"
+      ],
+      [
+        3,
+        "pair-preview-title",
+        "연결 승인"
+      ],
+      [
+        3,
+        "onboarding-title",
+        "학생 사용법"
+      ],
+      [
+        3,
+        "command-title",
+        "음성·타자 명령"
+      ],
+      [
+        3,
+        "lesson-title",
+        ""
+      ],
+      [
+        4,
+        "player-title",
+        "강의 조작"
+      ],
+      [
+        4,
+        "paragraph-title",
+        "문단·문장 탐색"
+      ],
+      [
+        4,
+        "search-title",
+        "개념 검색"
+      ],
+      [
+        4,
+        "chat-title",
+        "강의 근거로 질문하기"
+      ],
+      [
+        4,
+        "review-title",
+        "복습과 학습 노트"
+      ],
+      [
+        4,
+        "records-title",
+        "학습 기록"
+      ],
+      [
+        4,
+        null,
+        "설명 판단 근거"
+      ],
+      [
+        3,
+        "text-dialog-title",
+        "타자 명령"
+      ],
+      [
+        3,
+        "voice-permission-title",
+        "음성 명령을 위한 마이크 허용"
+      ]
+    ],
+    "skipped_heading_steps": [],
+    "image_count": 0,
+    "inline_svg_count": 0,
+    "explicit_roles": [
+      [
+        "p",
+        "status",
+        "speech-status"
+      ],
+      [
+        "p",
+        "status",
+        "status"
+      ],
+      [
+        "p",
+        "alert",
+        "error"
+      ],
+      [
+        "p",
+        "status",
+        "voice-status"
+      ],
+      [
+        "p",
+        "status",
+        "connection"
+      ],
+      [
+        "p",
+        "status",
+        "caption-info"
+      ],
+      [
+        "p",
+        "status",
+        "player-status"
+      ],
+      [
+        "p",
+        "status",
+        "reader-description"
+      ],
+      [
+        "p",
+        "status",
+        "answer-status"
+      ],
+      [
+        "div",
+        "region",
+        "chat-log"
+      ],
+      [
+        "p",
+        "status",
+        "save-status"
+      ]
+    ]
+  },
+  "guardian": {
+    "lang": "ko",
+    "title": "Sullivan AI 보호자",
+    "main_count": 1,
+    "duplicate_ids": [],
+    "missing_references": [],
+    "headings": [
+      [
+        1,
+        null,
+        "Sullivan AI 보호자"
+      ],
+      [
+        2,
+        "login-title",
+        "보호자 로그인"
+      ],
+      [
+        2,
+        "recovery-title",
+        "복구 코드 보관"
+      ],
+      [
+        2,
+        "account-title",
+        "내 계정과 로그인 기기"
+      ],
+      [
+        2,
+        "workspace-title",
+        "학생과 강의 준비"
+      ],
+      [
+        3,
+        "connections-title",
+        "학생과 연결"
+      ],
+      [
+        3,
+        "students-title",
+        "연결된 학생"
+      ],
+      [
+        3,
+        "assign-title",
+        "샘플 강의 배정"
+      ],
+      [
+        3,
+        "prepare-title",
+        "새 강의 준비"
+      ],
+      [
+        3,
+        "preparations-title",
+        "준비 작업과 분석 결과"
+      ],
+      [
+        4,
+        "prepared-title",
+        "준비된 자료 확인"
+      ],
+      [
+        3,
+        "lectures-title",
+        "내가 준비한 강의"
+      ],
+      [
+        4,
+        "edit-title",
+        "강의와 배정 수정"
+      ],
+      [
+        3,
+        "management-title",
+        "학생 설정과 학습 현황"
+      ],
+      [
+        4,
+        "management-detail-title",
+        ""
+      ],
+      [
+        5,
+        null,
+        "학습 진행 요약"
+      ],
+      [
+        5,
+        null,
+        "강의 배정 순서"
+      ]
+    ],
+    "skipped_heading_steps": [],
+    "image_count": 0,
+    "inline_svg_count": 0,
+    "explicit_roles": [
+      [
+        "p",
+        "status",
+        "status"
+      ],
+      [
+        "p",
+        "alert",
+        "error"
+      ],
+      [
+        "p",
+        "status",
+        "next-step"
+      ],
+      [
+        "p",
+        "status",
+        "prepare-step"
+      ],
+      [
+        "p",
+        "status",
+        "job-status"
+      ],
+      [
+        "p",
+        "status",
+        "connection-status"
+      ],
+      [
+        "p",
+        "status",
+        "preview-playback"
+      ],
+      [
+        "div",
+        "status",
+        "preview-answer"
+      ]
+    ]
+  }
+}

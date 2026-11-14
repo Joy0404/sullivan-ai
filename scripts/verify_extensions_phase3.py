@@ -18,7 +18,7 @@ SPEECH = '''(() => {
   window.__spoken=[]; window.__holdSpeech=false;
   window.SpeechSynthesisUtterance=class { constructor(text){this.text=text;} };
   Object.defineProperty(window,'speechSynthesis',{configurable:true,value:{
-    speak(u){window.__spoken.push(u); if(!window.__holdSpeech)setTimeout(()=>u.onend?.(),50);}, cancel(){}}});
+    speak(u){window.__spoken.push(u);u.onstart?.(); if(!window.__holdSpeech)setTimeout(()=>u.onend?.(),50);}, cancel(){}}});
 })();'''
 
 
@@ -56,7 +56,6 @@ def exercise(guardian, student, output):
             form.locator('[name=title]').fill('동기화 테스트 강의')
             guardian.locator('#prepare-video').set_input_files(str(fixture))
             guardian.locator('#prepare-rights').check(); guardian.locator('#prepare-consent').check()
-            form.locator('[name=access_code]').fill('fixture-code')
             form.locator('button[type=submit]').click()
             expect(guardian.locator('#status')).to_contain_text('준비를 접수했습니다')
             guardian.locator('#refresh-preparations').click()
@@ -67,12 +66,12 @@ def exercise(guardian, student, output):
             guardian.locator('#publish-form button').click()
             expect(guardian.locator('#status')).to_contain_text('학생에게 배정했습니다')
         student.locator('#refresh').click()
-        student.get_by_role('button', name='동기화 테스트 강의 열기', exact=True).click()
+        student.locator('#lectures button').filter(has_text='동기화 테스트 강의 열기').click()
         expect(student.locator('#lesson')).to_be_visible()
         student.get_by_text('내 기기의 영상 연결·보관', exact=True).click()
         student.locator('#local-file').set_input_files({'name': 'wrong.mp4', 'mimeType': 'video/mp4', 'buffer': b'different original'})
         student.locator('#connect-file').click()
-        expect(student.locator('#error')).to_contain_text('다른 파일')
+        expect(student.locator('#connection')).to_contain_text('다른 파일')
         student.locator('#local-file').set_input_files(str(fixture))
         student.locator('#store-original').check(); student.locator('#video-muted').check()
         sent_media = []
@@ -93,8 +92,9 @@ def exercise(guardian, student, output):
         student.locator('#preferences-form [name=reader_mode]').uncheck()
         student.locator('#preferences-form [name=auto_description]').uncheck()
         student.locator('#space-enabled').check()
-        student.locator('#preferences-form button').click()
+        student.locator('#preferences-form button[type=submit]').click()
         expect(student.locator('#status')).to_have_text('내 학습 설정을 저장했습니다.')
+        if getattr(exercise,'student_check',None):exercise.student_check(guardian,student,output)
         student.locator('#play').click()
         student.evaluate('window.__holdSpeech=true')
         before = student.evaluate('window.__spoken.length')
@@ -106,9 +106,9 @@ def exercise(guardian, student, output):
         expect(student.locator('#read')).not_to_have_attribute('aria-busy', 'true')
         assert student.evaluate("document.querySelector('#local-video').paused")
         student.evaluate('window.__holdSpeech=false')
-        # Missing mic consent: held Space falls back to a real modal and matching keyup recovers.
+        # First voice use requires an accessible consent dialog after exactly 3 seconds.
         student.locator('#type-command').focus(); student.keyboard.down('Space')
-        expect(student.locator('#text-dialog')).to_be_visible()
+        expect(student.locator('#voice-permission-dialog')).to_be_visible(timeout=4000)
         student.keyboard.up('Space'); student.keyboard.press('Escape')
         expect(student.locator('#type-command')).to_be_focused()
         student.locator('#type-command').click()
@@ -116,9 +116,9 @@ def exercise(guardian, student, output):
         student.locator('#dialog-form button[type=submit]').click()
         expect(student.locator('#workspace-title')).to_be_focused()
         summary = student.get_by_text('음성·해설·키보드 설정', exact=True)
-        summary.focus(); student.keyboard.press('Space')
+        summary.focus(); student.keyboard.press('Enter')
         expect(student.locator('#preferences-form')).to_be_hidden()
-        summary.press('Space'); expect(student.locator('#preferences-form')).to_be_visible()
+        summary.press('Enter'); expect(student.locator('#preferences-form')).to_be_visible()
         student.locator('#position').fill('2'); student.locator('#progress-form button').click()
         expect(student.locator('#status')).to_have_text('학습 위치와 메모를 저장했습니다.')
         student.locator('#bookmark').click(); expect(student.locator('#bookmarks li')).to_have_count(1)

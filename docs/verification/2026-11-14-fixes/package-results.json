@@ -1,0 +1,33 @@
+{
+  "result": "passed",
+  "checks": [
+    "both 0.4.3 manifests",
+    "generated build byte-for-byte matches ZIPs",
+    "release SHA256 valid"
+  ],
+  "release_manifest": {
+    "version": "0.4.3",
+    "server": "http://127.0.0.1:8770",
+    "package_mode": "local-development",
+    "published": false,
+    "artifacts": [
+      {
+        "role": "student",
+        "file": "sullivan-student-0.4.3.zip",
+        "sha256": "ece2cc74eee25dac6d2096e98c3574c55310dd144a68de788f6c7d0360766a9e",
+        "bytes": 58465
+      },
+      {
+        "role": "guardian",
+        "file": "sullivan-guardian-0.4.3.zip",
+        "sha256": "7fc89524b273f8379c27b8c51c066dfb98b1fd97939746ddc01e5f203b0dfd78",
+        "bytes": 25294
+      }
+    ],
+    "remaining": [
+      "Register two store item IDs and configure server clients",
+      "Verify actual target sites and assistive technology",
+      "Set public privacy/support URLs and reviewer access before submitting"
+    ]
+  }
+}

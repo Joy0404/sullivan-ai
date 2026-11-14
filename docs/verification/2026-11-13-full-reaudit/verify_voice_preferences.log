@@ -1,0 +1,8 @@
+Traceback (most recent call last):
+  File "/Users/joy/Documents/Codex/Sullivan-AI-Develop-local/scripts/verify_voice_preferences.py", line 69, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "/Users/joy/Documents/Codex/Sullivan-AI-Develop-local/scripts/verify_voice_preferences.py", line 39, in main
+    assert page.evaluate('__spoken.at(-1).includes("꺼져 있습니다")')
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError

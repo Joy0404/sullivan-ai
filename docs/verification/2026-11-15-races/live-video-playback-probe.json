@@ -1,0 +1,95 @@
+{
+  "url": "https://www.youtube.com/watch?v=R0dqsl3Vgns",
+  "scope": "Anonymous public-page player DOM probe only; not full extension/site certification; no stream download, account or paid analyzer",
+  "result": "public-player-playback-observed",
+  "state": {
+    "positionMs": 0,
+    "durationMs": 1589061,
+    "paused": true,
+    "ended": false,
+    "ad": false,
+    "verified": true
+  },
+  "audio": {
+    "positionMs": 0,
+    "durationMs": 1589061,
+    "paused": true,
+    "ended": false,
+    "ad": false,
+    "verified": true
+  },
+  "play": {
+    "positionMs": 2,
+    "durationMs": 1589061,
+    "paused": false,
+    "ended": false,
+    "ad": false,
+    "verified": true
+  },
+  "playback_observations": [
+    {
+      "positionMs": 446,
+      "durationMs": 1589061,
+      "paused": false,
+      "ended": false,
+      "ad": false,
+      "verified": true
+    },
+    {
+      "positionMs": 954,
+      "durationMs": 1589061,
+      "paused": false,
+      "ended": false,
+      "ad": false,
+      "verified": true
+    },
+    {
+      "positionMs": 1458,
+      "durationMs": 1589061,
+      "paused": false,
+      "ended": false,
+      "ad": false,
+      "verified": true
+    },
+    {
+      "positionMs": 1964,
+      "durationMs": 1589061,
+      "paused": false,
+      "ended": false,
+      "ad": false,
+      "verified": true
+    },
+    {
+      "positionMs": 2467,
+      "durationMs": 1589061,
+      "paused": false,
+      "ended": false,
+      "ad": false,
+      "verified": true
+    },
+    {
+      "positionMs": 2971,
+      "durationMs": 1589061,
+      "paused": false,
+      "ended": false,
+      "ad": false,
+      "verified": true
+    }
+  ],
+  "seek": {
+    "positionMs": 10000,
+    "durationMs": 1589061,
+    "paused": false,
+    "ended": false,
+    "ad": false,
+    "verified": true
+  },
+  "pause": {
+    "positionMs": 10000,
+    "durationMs": 1589061,
+    "paused": true,
+    "ended": false,
+    "ad": false,
+    "verified": true
+  }
+}

@@ -1,0 +1,118 @@
+AX audit account-setup: 11 named focused controls; axe findings 0
+AX audit guardian-dashboard: 23 named focused controls; axe findings 0
+AX audit guardian-settings-unavailable: 23 named focused controls; axe findings 0
+AX audit guardian-settings: 35 named focused controls; axe findings 0
+AX audit guardian-publish: 39 named focused controls; axe findings 0
+AX audit guardian-watch: 39 named focused controls; axe findings 0
+AX audit guardian-passage: 94 named focused controls; axe findings 0
+AX audit guardian-review: 31 named focused controls; axe findings 0
+AX audit guardian-study: 22 named focused controls; axe findings 0
+AX audit guardian-chat: 30 named focused controls; axe findings 0
+AX audit guardian-evidence: 18 named focused controls; axe findings 0
+AX audit guardian-preparation: 11 named focused controls; axe findings 0
+AX audit guardian-analysis-wait: 1 named focused controls; axe findings 0
+AX audit guardian-preparation-error: 11 named focused controls; axe findings 0
+AX audit guardian-management: 28 named focused controls; axe findings 0
+AX audit guardian-lecture-edit: 35 named focused controls; axe findings 0
+AX audit login: 11 named focused controls; axe findings 0
+AX audit login-error: 11 named focused controls; axe findings 0
+AX audit student-onboarding: 12 named focused controls; axe findings 0
+AX audit student-home: 11 named focused controls; axe findings 0
+AX audit student-watch: 16 named focused controls; axe findings 0
+AX audit student-preferences: 22 named focused controls; axe findings 0
+AX audit student-records: 20 named focused controls; axe findings 0
+AX audit student-review: 32 named focused controls; axe findings 0
+AX audit student-study: 23 named focused controls; axe findings 0
+AX audit text-command-dialog: 2 named focused controls; axe findings 0
+AX audit student-chat: 19 named focused controls; axe findings 0
+AX audit student-search: 65 named focused controls; axe findings 0
+Exception in callback <function Connection.dispatch.<locals>._done_callback at 0x10dbb4b80>
+handle: <Handle Connection.dispatch.<locals>._done_callback>
+Traceback (most recent call last):
+  File "/Users/joy/Documents/Codex/Sullivan-AI-Develop-local/scripts/verify_roles_browser.py", line 366, in main
+    assert page.locator('[data-underline-paragraph]').first.get_attribute('aria-pressed')=='true'
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "uvloop/cbhandles.pyx", line 66, in uvloop.loop.Handle._run
+  File "/Users/joy/Documents/Codex/Sullivan-AI-Develop-local/.venv/lib/python3.12/site-packages/playwright/_impl/_connection.py", line 547, in _done_callback
+    exc = future.exception()
+          ^^^^^^^^^^^^^^^^^^
+  File "/Users/joy/Documents/Codex/Sullivan-AI-Develop-local/.venv/lib/python3.12/site-packages/playwright/_impl/_page.py", line 312, in _on_route
+    handled = await route_handler.handle(route)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/joy/Documents/Codex/Sullivan-AI-Develop-local/.venv/lib/python3.12/site-packages/playwright/_impl/_helper.py", line 443, in handle
+    return await self._handle_internal(route)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/joy/Documents/Codex/Sullivan-AI-Develop-local/.venv/lib/python3.12/site-packages/playwright/_impl/_helper.py", line 479, in _handle_internal
+    await handler_finished_future
+asyncio.exceptions.CancelledError
+Exception in callback <function wait_for_future.<locals>.resume at 0x10db96520>
+handle: <Handle wait_for_future.<locals>.resume>
+Traceback (most recent call last):
+  File "/Users/joy/Documents/Codex/Sullivan-AI-Develop-local/scripts/verify_roles_browser.py", line 366, in main
+    assert page.locator('[data-underline-paragraph]').first.get_attribute('aria-pressed')=='true'
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "uvloop/cbhandles.pyx", line 66, in uvloop.loop.Handle._run
+  File "/Users/joy/Documents/Codex/Sullivan-AI-Develop-local/.venv/lib/python3.12/site-packages/playwright/_impl/_greenlets.py", line 68, in resume
+    g_self.switch()
+  File "/Users/joy/Documents/Codex/Sullivan-AI-Develop-local/.venv/lib/python3.12/site-packages/playwright/_impl/_helper.py", line 470, in _handler
+    self.handler(route, route.request)  # type: ignore
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/joy/Documents/Codex/Sullivan-AI-Develop-local/.venv/lib/python3.12/site-packages/playwright/_impl/_impl_to_api_mapping.py", line 140, in wrapper_func
+    return handler(
+           ^^^^^^^^
+  File "/Users/joy/Documents/Codex/Sullivan-AI-Develop-local/scripts/verify_roles_browser.py", line 54, in <lambda>
+    page.route('**/*',lambda r:r.continue_() if r.request.url.startswith(base) else r.abort())
+                               ^^^^^^^^^^^^^
+  File "/Users/joy/Documents/Codex/Sullivan-AI-Develop-local/.venv/lib/python3.12/site-packages/playwright/sync_api/_generated.py", line 22486, in continue_
+    self._sync(
+  File "/Users/joy/Documents/Codex/Sullivan-AI-Develop-local/.venv/lib/python3.12/site-packages/playwright/_impl/_sync_base.py", line 111, in _sync
+    return task.result()
+           ^^^^^^^^^^^^^
+  File "/Users/joy/Documents/Codex/Sullivan-AI-Develop-local/.venv/lib/python3.12/site-packages/playwright/_impl/_network.py", line 558, in continue_
+    return await self._handle_route(_inner)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/joy/Documents/Codex/Sullivan-AI-Develop-local/.venv/lib/python3.12/site-packages/playwright/_impl/_network.py", line 504, in _handle_route
+    await callback()
+  File "/Users/joy/Documents/Codex/Sullivan-AI-Develop-local/.venv/lib/python3.12/site-packages/playwright/_impl/_network.py", line 556, in _inner
+    await self._inner_continue(False)
+  File "/Users/joy/Documents/Codex/Sullivan-AI-Develop-local/.venv/lib/python3.12/site-packages/playwright/_impl/_network.py", line 562, in _inner_continue
+    await self._race_with_page_close(
+  File "/Users/joy/Documents/Codex/Sullivan-AI-Develop-local/.venv/lib/python3.12/site-packages/playwright/_impl/_network.py", line 599, in _race_with_page_close
+    await asyncio.wait(
+  File "/Users/joy/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/asyncio/tasks.py", line 464, in wait
+    return await _wait(fs, timeout, return_when, loop)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/joy/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/asyncio/tasks.py", line 550, in _wait
+    await waiter
+asyncio.exceptions.CancelledError
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+  File "/Users/joy/Documents/Codex/Sullivan-AI-Develop-local/scripts/verify_roles_browser.py", line 418, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "/Users/joy/Documents/Codex/Sullivan-AI-Develop-local/scripts/verify_roles_browser.py", line 366, in main
+    assert page.locator('[data-underline-paragraph]').first.get_attribute('aria-pressed')=='true'
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError
+Task exception was never retrieved
+future: <Task finished name='Task-7496' coro=<Channel.send() done, defined at /Users/joy/Documents/Codex/Sullivan-AI-Develop-local/.venv/lib/python3.12/site-packages/playwright/_impl/_connection.py:70> exception=RuntimeError('Route.continue_: unable to perform operation on <WriteUnixTransport closed=True reading=False 0x10cf9fac0>; the handler is closed')>
+Traceback (most recent call last):
+  File "/Users/joy/Documents/Codex/Sullivan-AI-Develop-local/.venv/lib/python3.12/site-packages/playwright/_impl/_connection.py", line 78, in send
+    return await self._connection.wrap_api_call(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/joy/Documents/Codex/Sullivan-AI-Develop-local/.venv/lib/python3.12/site-packages/playwright/_impl/_connection.py", line 636, in wrap_api_call
+    raise rewrite_error(error, f"{parsed_st['apiName']}: {error}") from None
+RuntimeError: Route.continue_: unable to perform operation on <WriteUnixTransport closed=True reading=False 0x10cf9fac0>; the handler is closed
+Future exception was never retrieved
+future: <Future finished exception=TargetClosedError('Target page, context or browser has been closed')>
+playwright._impl._errors.TargetClosedError: Target page, context or browser has been closed

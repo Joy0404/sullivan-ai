@@ -1,0 +1,54 @@
+{
+  "skill": "forms-specialist",
+  "scope": [
+    "apps/extensions/guardian/workspace.html",
+    "apps/extensions/guardian/app.js",
+    "apps/extensions/student/workspace.html",
+    "apps/extensions/student/app.js",
+    "apps/extensions/shared/ui.js",
+    "apps/extensions/shared/accounts.html",
+    "apps/extensions/shared/accounts.js",
+    "apps/extensions/shared/client.js",
+    "scripts/build_extensions.py",
+    "apps/api/app/guardian_preparation.py",
+    "apps/api/app/main.py:123"
+  ],
+  "findings": [
+    {
+      "rule": "FORM-GUIDED-RETRY-STEP",
+      "wcag": "n/a",
+      "severity": "moderate",
+      "confidence": "high",
+      "location": "apps/extensions/guardian/app.js:84",
+      "summary": "Retrying a preparation while guided entry is on step 3 leaves replacement metadata hidden and the final summary stale.",
+      "fix": "Reset guided prepareStep to the first step, refresh the step view and summary, then focus the visible title or first-step legend when loading a failed/interrupted preparation for retry.",
+      "evidence": "Actual extension probe: stage stayed 3/3, replacement titleVisible=false, focus stayed on the retry button, and summary retained the previous title. Handler fills title/source but never resets prepareStep.",
+      "component": "Guardian guided preparation retry"
+    },
+    {
+      "rule": "FORM-AGGREGATE-LIMIT-ERROR",
+      "wcag": "3.3.1 A",
+      "severity": "moderate",
+      "confidence": "high",
+      "location": "apps/extensions/guardian/app.js:185",
+      "summary": "An aggregate material-size validation failure produces only a generic request-format error, without identifying the exceeded limit.",
+      "fix": "Validate the documented total text limit before submitting and identify the affected materials input, or return a specific sanitized aggregate-limit error. Preserve selected files and give an actionable split/reduce instruction.",
+      "evidence": "Four TXT files of 260,001 ASCII characters each pass per-file UI checks but receive HTTP 422. The visible alert is only “요청 형식을 확인해 주세요.”; focus remains on “자료 준비 시작”.",
+      "component": "Guardian materials upload"
+    }
+  ],
+  "passed": [
+    "Freshly inspected native labels, autocomplete and password instructions for both generated login/signup/recovery interfaces, plus guardian assignment/settings and student learning/preferences/record forms.",
+    "Pairing consent references guardian identity and sharing scope; unlink, withdrawal and permanent deletion actions associate visible consequence questions and provide cancellation.",
+    "Source switches disable irrelevant native controls and required states; guided entry groups steps with fieldsets/legends and validates ordinary required fields. The retry exception is reported separately.",
+    "Source label and preferred mode are carried by both JSON and multipart contracts. Preview questions require explicit data-transfer consent.",
+    "Recovery codes are readonly/selectable, downloadable and explicitly clearable; prepared-note export uses a labelled native button and accessible status feedback."
+  ],
+  "notes": [
+    "Fresh 0.4.2 audit on 2026-11-13. Two completed isolated Chromium 156.0.8078.4 actual-extension DOM probe runs used synthetic accounts/data and temporary profiles. No product/test source was edited.",
+    "Reproduce FORM-GUIDED-RETRY-STEP: ensure a failed/interrupted preparation exists; enable 3-step entry; complete metadata and materials to reach step 3; click that job’s 다시 준비 button. The replaced title is hidden in step 1 while the stage and summary remain on step 3. The probe seeded a synthetic failed job in its temporary database.",
+    "Reproduce FORM-AGGREGATE-LIMIT-ERROR: use full entry, fill a title, choose four .txt files containing 260,001 ASCII characters each, then submit. Observe HTTP 422 and the generic alert despite the documented 1,000,000-character total limit.",
+    "Evidence: runtime-forms-media/probe-results.json, runtime-forms-media/guided-retry-result.png, runtime-form-limits/probe-results.json and runtime-form-limits/total-limit-error.png.",
+    "No real assistive-technology, audible TTS, microphone, external video-site or live-provider tests were performed. Axe was not enabled in these specialist probe runs."
+  ]
+}

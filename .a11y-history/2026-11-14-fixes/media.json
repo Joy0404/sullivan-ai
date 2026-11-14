@@ -1,0 +1,23 @@
+{
+  "skill": "media-accessibility",
+  "scope": [
+    "apps/extensions/student/app.js",
+    "apps/extensions/student/media.js",
+    "apps/extensions/student/speech.js",
+    "apps/extensions/student/worker.js",
+    "apps/extensions/guardian/app.js",
+    "apps/extensions/shared/ui.js"
+  ],
+  "findings": [],
+  "passed": [
+    "R01: app connection context is captured before permission awaits and checked before media reset and subsequent mutations; media methods also validate view/generation/fence.",
+    "R02: app seek validates the selected lesson after the media seek response before updating position or saving; local media seek validates its own scope before mutating currentTime.",
+    "R03: play revision and speech cancellation invalidate pending playback; native play completion/rejection rechecks ownership. Expected cancelled operations do not trigger a new connection reset or user error.",
+    "R15: native per-sentence controls expose sentence identity, visible highlighted status, current-sentence cursor and stable focus keys while retaining paragraph reading/underline controls.",
+    "FIX-R15-PARAGRAPH-CURSOR resolved: resolver-selected paragraphs now align sentenceIndex to the selected paragraph’s first sentence and rerender the current-sentence marker before reading; subsequent next/previous commands use that cursor."
+  ],
+  "notes": [
+    "Final 0.4.3 source re-review on 2026-11-14: no unresolved findings in this specialist’s reviewed R01–R03 and R12–R15 scope.",
+    "No product/test edits or independent runtime, OS screen-reader, audible TTS or live-provider validation were performed during this fixes review. Parent regression/API verification is separate."
+  ]
+}

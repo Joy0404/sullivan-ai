@@ -1,0 +1,25 @@
+{
+  "skill": "keyboard-navigator",
+  "scope": [
+    "apps/extensions/student/app.js",
+    "apps/extensions/guardian/app.js",
+    "scripts/verify_extension_races.py",
+    "docs/verification/2026-11-15-races/round1/results.json"
+  ],
+  "findings": [],
+  "passed": [
+    "Student saveProgress no longer follows the seek save with a second save, so later position input remains pending.",
+    "Student seek retains the field value when the position edit revision changes, and save success distinguishes pending newer input.",
+    "Guardian edit-save completion does not remount the edit form, preserving new title, subject, checkbox values and current input focus.",
+    "Guardian withdrawal snapshots its original lecture and student IDs before awaiting the request.",
+    "Guardian withdrawal only remounts an unchanged editor; form input and focus events advance editRevision so newer edits remain intact.",
+    "Guardian latest-request guards prevent an older list/poll response from replacing newer state.",
+    "Preserved round1 results show RACE01–RACE05 passed, including title focus preservation and pending student position input; checked screens have axe violations 0."
+  ],
+  "notes": [
+    "Final review found no remaining keyboard/input preservation defect in the requested paths; no source files edited.",
+    "This review inspected source and the parent-produced round1 result; no independent runtime or VoiceOver/NVDA audio test was performed.",
+    "Checkbox preservation is supported by source inspection; round1 runtime assertions focus on title inputs, not checkbox changes.",
+    "RACE02 observed.writes references the live list and later contains a second explicitly submitted write; copy the list when recording if a point-in-time observation is intended. This is report evidence hygiene, not a product failure."
+  ]
+}

@@ -1,0 +1,8 @@
+{"diagnostic_spoken": ["로그인 이름", "비밀번호", "로그인", "버튼 음성 안내 시험입니다. 탭 키로 이동하면 버튼 이름을 읽습니다.", "자동 정지, 해설. 켜져 있습니다."]}
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+  File "/Users/joy/Documents/Codex/Sullivan-AI-Develop-local/scripts/verify_voice_preferences.py", line 71, in <module>
+  File "/Users/joy/Documents/Codex/Sullivan-AI-Develop-local/scripts/verify_voice_preferences.py", line 43, in main
+    rate=page.locator('#speech-rate').input_value()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError

@@ -7,7 +7,7 @@ GLYPHS={'student':['01110','10001','10000','01110','00001','10001','01110'],
 
 
 def icon(role,size):
-    color=(23,99,88) if role=='student' else (35,56,65)
+    color=(23,44,72) if role=='student' else (22,75,139)
     rows=[]
     for y in range(size):
         row=bytearray([0])

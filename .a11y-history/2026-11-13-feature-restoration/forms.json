@@ -1,0 +1,22 @@
+{
+  "skill": "forms-specialist",
+  "scope": [
+    "apps/extensions/guardian/app.js",
+    "apps/extensions/guardian/workspace.html",
+    "apps/api/app/guardian_preparation.py"
+  ],
+  "findings": [],
+  "passed": [
+    "Source label and explanation focus have native labels, bounded input and explicit selectable modes; both JSON and multipart submissions preserve the values.",
+    "Permanent deletion confirmation names the lecture and affected assignments/records, describes retained preparation/files, associates the question with execution, and provides cancellation/focus return.",
+    "Guided entry uses fieldset/legend grouping, announced stage text and focus on the current legend; invalid native controls receive focus.",
+    "Preview questions require explicit Gemini-data consent; server rejects missing consent.",
+    "Guided material validation now exempts missing files/passage only for an actual checked link-analysis source; stale disabled checkbox state cannot bypass the check.",
+    "Prepared-note export is a descriptively named native type=button control, guarded against missing preparation; completion/error uses the existing accessible status mechanism and the control remains in place."
+  ],
+  "notes": [
+    "Final source re-review on 2026-11-13 includes the preview-export addition. No unresolved findings in the reviewed scope. No live media, caption-quality, TTS, browser, assistive-technology or provider tests were executed by this specialist.",
+    "Independent extension origins require explicit manual delivery of the same original video to the student; the preview UI explains this limitation.",
+    "Parent separately reports two-extension regression and 14-screen axe checks passed with zero violations; those checks were not executed by this specialist."
+  ]
+}

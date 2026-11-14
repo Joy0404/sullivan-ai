@@ -1,0 +1,33 @@
+{
+  "R13": {
+    "result": "passed",
+    "observed": "다시 준비할 작업 · 일반 · 자막·지문·분석 JSON · 자동 판별. 문제 보호 켜짐. 내용을 확인하고 필요한 동의를 선택한 뒤 준비를 시작하세요."
+  },
+  "R14": {
+    "result": "passed",
+    "observed": {
+      "error": "입력 정보와 자료 전체가 100만 자를 넘었습니다. 파일 수나 지문 길이를 줄이거나 여러 강의로 나누어 준비하세요.",
+      "sent": []
+    }
+  },
+  "R15": {
+    "result": "passed",
+    "observed": {
+      "sentence_controls": 4,
+      "current": "true",
+      "paragraph_cursor_synced": true
+    }
+  },
+  "R16": {
+    "result": "passed",
+    "observed": "<button type=\"button\" class=\"secondary sentence\" data-sentence-id=\"p1-s1\" data-material-key=\"sentence:p1-s1\" data-paragraph-id=\"p1\">1문단 1문장. 중요한 강조 문장입니다.<strong class=\"highlight-label\"> 강조</strong></button>"
+  },
+  "R17": {
+    "result": "passed",
+    "observed": "command-input"
+  },
+  "R18": {
+    "result": "passed",
+    "observed": "workspace-title"
+  }
+}

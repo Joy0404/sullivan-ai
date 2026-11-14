@@ -1,0 +1,76 @@
+{
+  "result": "passed",
+  "checks": {
+    "U01.empty_mime_file": {
+      "passed": true,
+      "observed": "분석한 원본과 일치하는 로컬 영상입니다. 자동 해설을 사용할 수 있습니다."
+    },
+    "U02.mismatch_fails_closed": {
+      "passed": true,
+      "observed": "분석한 원본과 다른 파일입니다. 자동 해설을 연결하지 않았습니다."
+    },
+    "U06.decode_failure_cleans_up": {
+      "passed": true,
+      "observed": "Chrome이 이 파일의 영상 형식 또는 코덱을 재생하지 못했습니다. 재생 가능한 MP4(H.264/AAC)·WebM 파일을 선택하세요. 준비된 자료는 계속 이용할 수 있습니다."
+    },
+    "U03.unsaved_voice_preserved": {
+      "passed": true,
+      "observed": "basic"
+    },
+    "U04.generic_same_origin_shadow_frame": {
+      "passed": true,
+      "observed": {
+        "frame_count": 2,
+        "root": "http://127.0.0.1:62807/generic-course#/lesson/7"
+      }
+    },
+    "U05.cross_origin_frame_permission": {
+      "passed": true,
+      "observed": {
+        "frame_count": 2,
+        "lease": {
+          "documentId": "65CB31CD69A5FEB63D2851A8B21515C9",
+          "fence": 2,
+          "frameId": 10,
+          "frameUrl": "http://localhost:62807/shadow-player",
+          "tabId": 2027429757,
+          "url": "http://127.0.0.1:62807/cross-course",
+          "view": "2d3393eb-9ae6-4464-8e34-f13fce03e1c5"
+        }
+      }
+    }
+  },
+  "axe": [
+    {
+      "screen": "student-login",
+      "version": "4.14.0",
+      "violations": 0
+    },
+    {
+      "screen": "guardian-login",
+      "version": "4.14.0",
+      "violations": 0
+    },
+    {
+      "screen": "student-material",
+      "version": "4.14.0",
+      "violations": 0
+    },
+    {
+      "screen": "guardian-workspace",
+      "version": "4.14.0",
+      "violations": 0
+    },
+    {
+      "screen": "guardian-phase2",
+      "version": "4.14.0",
+      "violations": 0
+    },
+    {
+      "screen": "student-universal-playback",
+      "version": "4.14.0",
+      "violations": 0
+    }
+  ],
+  "boundary": "Actual installed extensions/API/DB/decoded media, real iframe/shadow DOM injection with fixture localhost host pregrant. Native permission need/deny/allow completion and speech/analyzer are explicit test fixtures; no paid site scraping."
+}

@@ -1,0 +1,29 @@
+{
+  "skill": "alt-text-headings",
+  "scope": [
+    "apps/extensions/student/app.js",
+    "apps/extensions/student/speech.js",
+    "apps/extensions/student/keyboard.js",
+    "apps/extensions/student/workspace.html",
+    "apps/extensions/guardian/app.js",
+    "apps/extensions/guardian/workspace.html",
+    "apps/extensions/shared/ui.js",
+    "apps/extensions/shared/base.css",
+    "scripts/build_extensions.py"
+  ],
+  "findings": [],
+  "passed": [
+    "Temporary generation of both packages confirmed lang=ko, exactly one title and one main per page.",
+    "The static generated student outline contains 19 heading elements and guardian contains 17, including hidden states; neither has a downward skipped level.",
+    "Both pages have one H1; workspace and account sections use H2, principal tools H3/H4, generated concept/chat sections H5.",
+    "Generated role-specific page titles identify student versus guardian purpose.",
+    "A first-in-document skip link points to focusable #main.",
+    "No inline img/svg/image-input content was found in generated pages; manifest icons use the role-specific extension name rather than unlabeled page graphics.",
+    "Local/preview videos have accessible names, app/native controls, textual materials and conditional prepared-caption tracks."
+  ],
+  "notes": [
+    "Static generated-HTML parser and dynamic-generation source inspection; not a rendered accessibility-tree or media-alternative completeness certification.",
+    "No actual video/audio quality or screen-reader heading traversal was executed.",
+    "Actual lesson-specific full-tab title differentiation remains a usability consideration; generic application titles were not marked as a conformance failure."
+  ]
+}

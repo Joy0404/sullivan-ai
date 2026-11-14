@@ -1,0 +1,69 @@
+{
+  "result": "passed",
+  "state_transitions": [
+    [
+      "완료",
+      "완료",
+      "완료",
+      "기본값"
+    ],
+    [
+      "완료",
+      "완료",
+      "할 차례",
+      "기본값"
+    ],
+    [
+      "완료",
+      "완료",
+      "할 차례",
+      "기본값"
+    ],
+    [
+      "완료",
+      "할 차례",
+      "아직",
+      "기본값"
+    ],
+    [
+      "할 차례",
+      "아직",
+      "아직",
+      "기본값"
+    ],
+    [
+      "완료",
+      "완료",
+      "완료",
+      "완료"
+    ]
+  ],
+  "axe": [
+    {
+      "screen": "student-login",
+      "version": "4.14.0",
+      "violations": 0
+    },
+    {
+      "screen": "guardian-login",
+      "version": "4.14.0",
+      "violations": 0
+    },
+    {
+      "screen": "student-material",
+      "version": "4.14.0",
+      "violations": 0
+    },
+    {
+      "screen": "guardian-workspace",
+      "version": "4.14.0",
+      "violations": 0
+    },
+    {
+      "screen": "guardian-stage-dashboard",
+      "version": "4.14.0",
+      "violations": 0
+    }
+  ],
+  "boundary": "Actual installed extensions; disposable API/DB. Dashboard list transitions use explicit response fixtures; no live screen reader audio."
+}

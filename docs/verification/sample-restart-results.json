@@ -1,0 +1,7 @@
+{
+  "both_samples_without_preview": true,
+  "actual_process_restart": true,
+  "student_session_and_assignments_persist": true,
+  "snapshots_open_after_restart": true,
+  "real_providers": "not called"
+}

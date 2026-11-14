@@ -1,0 +1,28 @@
+{
+  "skill": "live-region-controller",
+  "scope": [
+    "apps/extensions/student/app.js",
+    "apps/extensions/student/speech.js",
+    "apps/extensions/student/workspace.html",
+    "apps/extensions/shared/ui.js",
+    "apps/extensions/student/keyboard.js",
+    "scripts/build_extensions.py"
+  ],
+  "findings": [],
+  "passed": [
+    "App guidance now starts before selecting a lesson and covers named native fields.",
+    "UI announcements use a separate announcer without media claim/state calls.",
+    "Native field values are excluded from control descriptions; passwords are identified without speaking values.",
+    "Shared status updates dispatch a student-only speech event.",
+    "Speech absence and blocked UI guidance provide visible recovery feedback.",
+    "Reader-mode uses native live regions and suppresses UI TTS.",
+    "Voice consent uses a labelled native dialog with typed fallback and named microphone permission control.",
+    "Ordinary and fallback answers skip StudentSpeech in reader mode, leaving answer-status as the single full-answer channel.",
+    "Generated learning tools skip both app TTS and result-region focus in reader mode, avoiding duplicate full-result delivery."
+  ],
+  "notes": [
+    "All reported live-region source findings have been corrected.",
+    "Static source re-review only; actual VoiceOver/NVDA announcement ordering and audible TTS were not executed.",
+    "Browser and native side-panel verification are being performed independently by the parent agent."
+  ]
+}

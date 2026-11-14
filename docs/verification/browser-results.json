@@ -1,7 +1,9 @@
 {
   "checks": [
+    "wizard link plus text survives home/reopen; review and FormData agree; inactive link and consent cleared: PASS",
     "guardian account → linked student → sample preparation → assignment and ready: keyboard PASS",
     "analysis wait: Tab/Shift+Tab contained, Escape cancels waiting, return focus, no stale publish; server boundary simulated: PASS",
+    "late analysis cancellation restores the re-enabled submit focus: PASS",
     "guardian TXT import → actual API passage processing; explicit encrypted browser media save → ready: PASS",
     "guardian design: empty-student settings disabled, disclosure keyboard toggle, settings save, ready/assigned labels, deletion cancel and four-size dashboard/preparation/publish reflow: PASS",
     "named focus speech fallback only when opted in; rapid Tab cancels stale labels; external-reader mode stays silent: PASS (speech API mocked)",

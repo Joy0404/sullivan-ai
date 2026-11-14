@@ -1,0 +1,54 @@
+[
+  {
+    "script": "verify_roles_browser.py",
+    "exit_code": 0,
+    "product_and_test_source_edited": false,
+    "probe_adjustment": [
+      [
+        "page.keyboard.press('Space');assert page.evaluate('isPlaybackRunning()')",
+        "page.keyboard.press('Space');page.wait_for_function('isPlaybackRunning()');assert page.evaluate('isPlaybackRunning()')"
+      ],
+      [
+        "assert page.locator('[data-underline-paragraph]').first.get_attribute('aria-pressed')=='true'",
+        "expect(page.locator('[data-underline-paragraph]').first).to_have_attribute('aria-pressed','true')"
+      ]
+    ],
+    "log": "adjudicated-verify_roles_browser.log"
+  },
+  {
+    "script": "verify_voice_preferences.py",
+    "exit_code": 0,
+    "product_and_test_source_edited": false,
+    "probe_adjustment": [
+      [
+        "page.wait_for_timeout(240)",
+        "page.wait_for_timeout(650)"
+      ]
+    ],
+    "log": "adjudicated-verify_voice_preferences.log"
+  },
+  {
+    "script": "verify_audio_navigation.py",
+    "exit_code": 0,
+    "product_and_test_source_edited": false,
+    "probe_adjustment": [
+      [
+        "page.locator('#guardian-science').press('Enter');page.locator('#guardian-publish').wait_for()",
+        "page.locator('#guardian-science').evaluate('(e)=>{const d=e.closest(\"details\");if(d)d.open=true;}');page.locator('#guardian-science').press('Enter');page.locator('#guardian-publish').wait_for()"
+      ]
+    ],
+    "log": "adjudicated-verify_audio_navigation.log"
+  },
+  {
+    "script": "verify_login_assignment.py",
+    "exit_code": 1,
+    "product_and_test_source_edited": false,
+    "probe_adjustment": [
+      [
+        "    guardian.locator('.brand').press('Enter')\n    draft=guardian.locator('.guardian-lecture').filter(has_text='기존 대기 샘플')",
+        "    guardian.reload();guardian.wait_for_function(\"document.querySelector('#guardian-dashboard').getAttribute('aria-busy')==='false'\")\n    draft=guardian.locator('.guardian-lecture').filter(has_text='기존 대기 샘플')"
+      ]
+    ],
+    "log": "adjudicated-verify_login_assignment.log"
+  }
+]

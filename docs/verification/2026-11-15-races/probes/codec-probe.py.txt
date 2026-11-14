@@ -1,0 +1,30 @@
+import base64,json,subprocess,tempfile
+from pathlib import Path
+from playwright.sync_api import sync_playwright
+from imageio_ffmpeg import get_ffmpeg_exe
+root=Path('/Users/joy/Documents/Codex/Sullivan-AI-Develop-local');results=[]
+module=base64.b64encode((root/'apps/extensions/student/media.js').read_bytes()).decode()
+with tempfile.TemporaryDirectory(prefix='sullivan-codecs-') as directory,sync_playwright() as p:
+    browser=p.chromium.launch(channel='chromium',headless=True)
+    for suffix,mime,vc,ac,fmt in [('webm','video/webm','libvpx-vp9','libopus','webm'),('mov','video/quicktime','libx264','aac','mov'),('m4v','video/x-m4v','libx264','aac','mp4')]:
+        path=Path(directory)/('fixture.'+suffix)
+        record={'format':suffix,'mime':mime,'result':'unverified'}
+        try:
+            subprocess.run([get_ffmpeg_exe(),'-hide_banner','-loglevel','error','-f','lavfi','-i','color=c=black:s=160x90:r=10','-f','lavfi','-i','sine=frequency=440:sample_rate=48000','-t','2','-c:v',vc,'-c:a',ac,'-pix_fmt','yuv420p','-f',fmt,'-y',str(path)],check=True,capture_output=True)
+            page=browser.new_page();page.route('http://localhost/codec-fixture',lambda route:route.fulfill(status=200,content_type='text/html',body='<html lang=ko><title>Codec fixture</title></html>'));page.goto('http://localhost/codec-fixture')
+            value=page.evaluate('''async args=>{globalThis.chrome={runtime:{async sendMessage(){return {ok:true};}}};
+              const{StudentMedia}=await import('data:text/javascript;base64,'+args.module);
+              const video=document.createElement('video');video.muted=true;document.body.append(video);
+              const media=new StudentMedia(video),file=new File([Uint8Array.from(args.bytes)],'fixture.'+args.suffix,{type:args.mime});
+              try{await media.local(file,null);media.ready=true;await media.seek(300);await media.play();
+                await new Promise(resolve=>setTimeout(resolve,350));const state=await media.state();await media.pause();return state;}
+              finally{media.reset();}}''',{'module':module,'bytes':list(path.read_bytes()),'suffix':suffix,'mime':mime})
+            record['state']=value
+            record['result']='passed' if value.get('positionMs',0)>300 and not value.get('paused',True) else 'failed'
+            page.close()
+        except Exception as error:record['reason']=str(error).splitlines()[0][:300]
+        results.append(record)
+    browser.close()
+report={'browser_scope':'Current local Chromium only; actual decoding/playback via StudentMedia, synthetic files, runtime lease boundary stub, no original identity or other OS certification','checks':results}
+(root/'docs/verification/2026-11-15-races/codec-probe.json').write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n')
+print(json.dumps(report,ensure_ascii=False,indent=2))

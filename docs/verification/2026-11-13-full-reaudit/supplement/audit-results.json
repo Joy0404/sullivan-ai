@@ -1,0 +1,11 @@
+{
+  "audit_completed": true,
+  "result": "failed",
+  "observations": 30,
+  "passed": 23,
+  "failed": 7,
+  "inconclusive": 0,
+  "limitations": [
+    "Speech and delayed transport/permissions are explicit test boundaries. Real video and Chrome extension documents used; no actual OS screen reader or live provider."
+  ]
+}

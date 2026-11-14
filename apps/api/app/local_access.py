@@ -298,13 +298,13 @@ class Publish(BaseModel):
 @router.post('/lectures')
 def publish(p:Publish,request:Request):
     u=require(request,'guardian')
-    with db() as c:return publish_prepared(c,u,p)
+    with db() as c:return publish_prepared(c,u,p,extension='authorization' in request.headers)
 
-def publish_prepared(c,u,p):
+def publish_prepared(c,u,p,extension=False):
     from app.main import agent
     from app.models import LectureSnapshot
     from app.adapters.video_link import normalize_video_link
-    if p.chat_consent:
+    if p.chat_consent and not extension:
         from app.core.demo_gate import check_access_code, DemoGateError
         try:check_access_code(p.access_code.get_secret_value() if p.access_code else None)
         except DemoGateError as e:raise HTTPException(e.status_code,e.message) from None
@@ -321,16 +321,24 @@ def publish_prepared(c,u,p):
         from app.guardian_preparation import completed_snapshot
         snap=completed_snapshot(c,u['id'],p.session_id)
         if snap is None:snap=agent.snapshot(p.session_id)
-        if snap.active_mode=='waiting' and not snap.transcript_segments:raise HTTPException(400,'분석 또는 학습자료 준비를 먼저 완료해 주세요.')
+        if snap.active_mode=='waiting' and not snap.transcript_segments and not (extension and p.playback.get('kind') in ('youtube','direct','external','local-reference')):raise HTTPException(400,'분석 또는 학습자료 준비를 먼저 완료해 주세요.')
     # Only server-checked metadata is published; provider keys and access codes are never persisted.
     playback={'kind':'none'}
     kind=p.playback.get('kind')
-    if kind in ('youtube','direct'):
-        link=normalize_video_link(str(p.playback.get('normalized_url','')))
-        if link.playback_kind not in ('youtube','direct'):raise HTTPException(400,'재생 가능한 영상 주소가 필요합니다.')
+    if kind in ('youtube','direct') or (extension and kind=='external'):
+        from app.adapters.video_link import normalize_extension_video_link
+        normalize=normalize_extension_video_link if extension else normalize_video_link
+        link=normalize(str(p.playback.get('normalized_url','')))
+        if link.playback_kind not in ('youtube','direct') and not extension:raise HTTPException(400,'재생 가능한 영상 주소가 필요합니다.')
         playback={'kind':link.playback_kind,'normalized_url':link.normalized_url,'playback_url':link.playback_url}
     elif p.store_local_media:
         playback={'kind':'local','name':str(p.playback.get('name','강의 영상'))[:160]}
+    elif extension and kind=='local-reference':
+        from app.guardian_preparation import LocalPlayback
+        from pydantic import ValidationError
+        try:metadata=LocalPlayback.model_validate({key:p.playback.get(key) for key in ('name','size_bytes')})
+        except ValidationError:raise HTTPException(400,'로컬 파일 이름과 크기를 확인해 주세요.') from None
+        playback={'kind':'local-reference',**metadata.model_dump()}
     from app.core.lecture_agent import redact_sensitive_text
     def redact_tree(value):
         if isinstance(value,str): return redact_sensitive_text(value)
@@ -339,7 +347,7 @@ def publish_prepared(c,u,p):
         return value
     snap=LectureSnapshot.model_validate(redact_tree(snap.model_dump(mode='json')))
     if p.ready and p.store_local_media:raise HTTPException(400,'파일 강의는 브라우저 암호화 저장을 마친 뒤 준비 완료로 제공해 주세요.')
-    if p.ready and snap.active_mode=='waiting' and not snap.transcript_segments:raise HTTPException(400,'학습자료 준비를 먼저 완료해 주세요.')
+    if p.ready and snap.active_mode=='waiting' and not snap.transcript_segments and not (extension and playback.get('kind') in ('youtube','direct','external','local-reference')):raise HTTPException(400,'학습자료 준비를 먼저 완료해 주세요.')
     ident=uuid4().hex
     key=secrets.token_hex(32) if p.store_local_media else None
     c.execute('INSERT INTO lectures VALUES(?,?,?,?,?,?,?,?,?)',(ident,u['id'],p.title,p.subject,snap.model_dump_json(),json.dumps(playback),int(p.ready),key,int(p.chat_consent)))
@@ -488,6 +496,7 @@ async def student_chat(ident:str,request:Request):
     if not server_gemini_key():raise HTTPException(503,'지금은 로컬 보조 모드로 답합니다.')
     payload=AgentTurnInput.model_validate(await request.json())
     snapshot=LectureSnapshot.model_validate(lecture(ident,request)['snapshot'])
+    if not (snapshot.passage or snapshot.transcript_segments or snapshot.safe_description_count):raise HTTPException(400,'내용 질문에는 자막·지문 또는 실제 분석 결과가 필요합니다. 원본 재생·기록은 계속 이용할 수 있습니다.')
     try:
         await asyncio.to_thread(limiter.consume,client_ip(request))
         return await asyncio.wait_for(run_agent_turn(snapshot,message=payload.message,current_time_ms=payload.current_time_ms),timeout=analysis_timeout_seconds())

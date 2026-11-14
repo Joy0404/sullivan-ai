@@ -1,0 +1,52 @@
+/var/folders/q1/89zw4q9s26j_5tf0t1hz_9d40000gn/T/sullivan-extensions-ul3diayh/packages/student
+/var/folders/q1/89zw4q9s26j_5tf0t1hz_9d40000gn/T/sullivan-extensions-ul3diayh/packages/guardian
+P01.reuse_prepared_passage FAIL
+N01.unsaved_position_on_switch FAIL
+/var/folders/q1/89zw4q9s26j_5tf0t1hz_9d40000gn/T/sullivan-extensions-k_npu7fr/packages/student
+/var/folders/q1/89zw4q9s26j_5tf0t1hz_9d40000gn/T/sullivan-extensions-k_npu7fr/packages/guardian
+N02.save_failure_keeps_media FAIL
+N03.save_failure_feedback FAIL
+{
+  "result": "failed",
+  "groups": [
+    "data",
+    "save"
+  ],
+  "checks": {
+    "P01.reuse_prepared_passage": {
+      "passed": false,
+      "observed": {
+        "normalization_calls": 603,
+        "elapsed_ms": 21.700000047683716,
+        "sentence_controls": 600
+      }
+    },
+    "N01.unsaved_position_on_switch": {
+      "passed": false,
+      "observed": {
+        "expected_ms": 77000,
+        "saved_ms": 0
+      }
+    },
+    "N02.save_failure_keeps_media": {
+      "passed": false,
+      "observed": {
+        "connection": "원본 강의 연결이 끊겼습니다. 원본 탭을 다시 열거나 파일을 다시 연결해 주세요.",
+        "video_has_source": false,
+        "save_feedback": ""
+      }
+    },
+    "N03.save_failure_feedback": {
+      "passed": false,
+      "observed": ""
+    }
+  },
+  "measurements": {
+    "long_passage": {
+      "normalization_calls": 603,
+      "elapsed_ms": 21.700000047683716,
+      "sentence_controls": 600
+    }
+  },
+  "boundary": "600-sentence fixture; synthetic speech; real extension/API/DB/video; injected save 503"
+}

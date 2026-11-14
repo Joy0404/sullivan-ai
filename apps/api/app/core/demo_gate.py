@@ -72,6 +72,15 @@ def check_access_code(submitted: str | None) -> None:
         raise DemoGateError(403, CODE_WRONG_MESSAGE)
 
 
+def check_analysis_access(request: Request, submitted: str | None) -> None:
+    # Guardian extension accounts replace the anonymous web demo code gate.
+    if 'authorization' in request.headers:
+        from app.local_access import require
+        require(request,'guardian')
+        return
+    check_access_code(submitted)
+
+
 def client_ip(request: Request) -> str:
     # Render's public edge overwrites CF-Connecting-IP. Do not fall back to
     # caller-supplied X-Real-IP/True-Client-IP/X-Forwarded-For headers.
