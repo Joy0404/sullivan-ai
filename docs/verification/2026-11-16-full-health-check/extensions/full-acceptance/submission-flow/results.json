@@ -1,0 +1,98 @@
+{
+  "result": "passed",
+  "checks": {
+    "SUB01.key_free_assignment_and_sample_label": {
+      "passed": true,
+      "observed": "Guardian keyboard assignment, student opens server-labelled prepared sample"
+    },
+    "SUB02.local_demo_decodes_without_upload": {
+      "passed": true,
+      "observed": {
+        "raw_media_posts": 0
+      }
+    },
+    "SUB03.spoken_content_is_index_only": {
+      "passed": true,
+      "observed": "First scene advances without automatic formula narration"
+    },
+    "SUB04.numeric_difference_is_narrated": {
+      "passed": true,
+      "observed": "Current speech 8 does not conceal confirmed board 7"
+    },
+    "SUB05.partial_hold_in_same_narration": {
+      "passed": true,
+      "observed": "화면에 그래프가 표시되었습니다. 그래프는 시간이 지날수록 값이 증가합니다. ‘세로축의 단위’ 부분은 확실치 않아서 설명을 보류하겠습니다."
+    },
+    "SUB06.full_hold_notice_without_candidate": {
+      "passed": true,
+      "observed": "‘이 장면의 판서’ 부분은 확실치 않아서 설명을 보류하겠습니다."
+    },
+    "SUB07.reader_single_output_no_app_tts": {
+      "passed": true,
+      "observed": "Reader live region receives combined content once; native app utterances 0"
+    },
+    "SUB08.tts_error_keeps_media_and_reading": {
+      "passed": true,
+      "observed": "TTS failure does not misreport lost video or discard readable notice"
+    },
+    "SUB09.source_name_not_status_and_async_focus": {
+      "passed": true,
+      "observed": "Material source may mention Gemini; server label not-run, new search focus retained"
+    }
+  },
+  "axe": [
+    {
+      "screen": "guardian-first-guide",
+      "version": "4.14.0",
+      "violations": 0
+    },
+    {
+      "screen": "student-login",
+      "version": "4.14.0",
+      "violations": 0
+    },
+    {
+      "screen": "guardian-account-choice",
+      "version": "4.14.0",
+      "violations": 0
+    },
+    {
+      "screen": "guardian-signup",
+      "version": "4.14.0",
+      "violations": 0
+    },
+    {
+      "screen": "student-material",
+      "version": "4.14.0",
+      "violations": 0
+    },
+    {
+      "screen": "guardian-workspace",
+      "version": "4.14.0",
+      "violations": 0
+    },
+    {
+      "screen": "student-partial-hold-reader",
+      "version": "4.14.0",
+      "violations": 0
+    },
+    {
+      "screen": "guardian-analysis-status",
+      "version": "4.14.0",
+      "violations": 0
+    }
+  ],
+  "native_tts_probe": {
+    "voices": 180,
+    "starts": 1,
+    "ends": 1,
+    "errors": [],
+    "verification": "native_start_and_end_observed"
+  },
+  "real_gemini_analysis": {
+    "executed": false,
+    "configured_in_process": false,
+    "reason": "Key-free prepared sample verification; no Gemini response is represented as live analysis."
+  },
+  "boundary": "Real installed extension/API/DB/decoded self-authored media. Narration text/reader routing and injected synthesis failure use controlled speech boundaries; native engine probe is separate. Human hearing and real screen-reader output unverified."
+}

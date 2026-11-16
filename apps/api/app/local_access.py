@@ -429,22 +429,11 @@ def lecture(ident:str,request:Request):
         # A student's stronger problem protection can only narrow the prepared result.
         if u['role']=='student' and settings.get('problem_mode',True):
             snapshot['session']['problem_mode']=True
-            for gap in snapshot['visual_gaps']:
-                if gap['kind']=='answer':gap.update(action='HOLD',safe_to_speak=False,public_description='',source_text=None,hold_notices=[])
             if any(g['kind']=='answer' for g in snapshot['visual_gaps']):
                 snapshot['study_guide']={};snapshot['passage']=None;snapshot['review']={};snapshot['concept_index']=[]
-        blocked=[g for g in snapshot['visual_gaps'] if not g['safe_to_speak'] or g['confidence']<.72]
-        forbidden=[str(value) for g in blocked for value in (g.get('public_description'),g.get('source_text')) if value]
-        def contains_blocked(value):return any(text in json.dumps(value,ensure_ascii=False) for text in forbidden)
-        if contains_blocked(snapshot.get('study_guide')):snapshot['study_guide']={}
-        if contains_blocked(snapshot.get('passage')):snapshot['passage']=None
-        for key,items in snapshot.get('review',{}).items():
-            if isinstance(items,list):snapshot['review'][key]=[item for item in items if not contains_blocked(item)]
-        snapshot['concept_index']=[item for item in snapshot.get('concept_index',[]) if not contains_blocked(item)]
-        for gap in snapshot['visual_gaps']:
-            if not gap['safe_to_speak'] or gap['confidence']<.72:gap.update(safe_to_speak=False,public_description='',source_text=None,action='HOLD')
-        snapshot['safe_description_count']=sum(g['safe_to_speak'] and g['action'] in ('INTERRUPT','DESCRIBE_AT_BREAK') for g in snapshot['visual_gaps'])
-        snapshot['held_count']=sum(g['action']=='HOLD' for g in snapshot['visual_gaps'])
+        # The model's shared sanitizer needs original gap text to scrub matching
+        # speech and derived materials. Never erase answer candidates before it
+        # builds the blocked set, and do not duplicate that policy here.
         p=c.execute('SELECT payload FROM progress WHERE lecture=? AND student=?',(ident,u['id'])).fetchone()
         return {'id':r['id'],'title':r['title'],'subject':r['subject'],'snapshot':LectureSnapshot.model_validate(snapshot).model_dump(mode='json'),'playback':json.loads(r['playback']),'media_key':r['media_key'],'progress':json.loads(p[0]) if p else {}}
 
@@ -458,6 +447,7 @@ def edit(ident:str,p:Edit,request:Request):
     u=require(request,'guardian')
     with db() as c:
         own(c,u,ident)
+        if len(set(p.students))!=len(p.students):raise HTTPException(400,'같은 학생을 중복 배정할 수 없습니다.')
         for student in p.students:
             if not c.execute('SELECT 1 FROM users WHERE id=? AND guardian=?',(student,u['id'])).fetchone():raise HTTPException(403,'연결된 학생만 배정할 수 있습니다.')
         c.execute('UPDATE lectures SET title=?,subject=? WHERE id=?',(p.title,p.subject,ident))
@@ -514,7 +504,8 @@ async def student_chat(ident:str,request:Request):
         row=own(c,u,ident)
         if not row['chat_allowed']:raise HTTPException(403,'보호자가 Gemini 학습 대화를 허용하지 않았습니다. 로컬 보조 모드를 사용합니다.')
     if not server_gemini_key():raise HTTPException(503,'지금은 로컬 보조 모드로 답합니다.')
-    payload=AgentTurnInput.model_validate(await request.json())
+    try:payload=AgentTurnInput.model_validate(await request.json())
+    except ValueError:raise HTTPException(422,'질문과 재생 시점을 올바른 형식으로 보내 주세요.') from None
     snapshot=LectureSnapshot.model_validate(lecture(ident,request)['snapshot'])
     if not (snapshot.passage or snapshot.transcript_segments or snapshot.safe_description_count):raise HTTPException(400,'내용 질문에는 자막·지문 또는 실제 분석 결과가 필요합니다. 원본 재생·기록은 계속 이용할 수 있습니다.')
     try:

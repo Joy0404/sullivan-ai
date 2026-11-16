@@ -1,0 +1,42 @@
+{
+  "checks": [
+    {
+      "check": "roles_browser",
+      "exit_code": 0,
+      "elapsed_seconds": 30.26
+    },
+    {
+      "check": "keyboard_navigation",
+      "exit_code": 0,
+      "elapsed_seconds": 21.11
+    },
+    {
+      "check": "student_entry",
+      "exit_code": 0,
+      "elapsed_seconds": 9.08
+    },
+    {
+      "check": "voice_preferences",
+      "exit_code": 0,
+      "elapsed_seconds": 6.13
+    },
+    {
+      "check": "audio_navigation",
+      "exit_code": 0,
+      "elapsed_seconds": 9.28
+    },
+    {
+      "check": "guardian_sessions",
+      "exit_code": 0,
+      "elapsed_seconds": 2.32
+    },
+    {
+      "check": "login_startup",
+      "exit_code": 0,
+      "elapsed_seconds": 3.02
+    }
+  ],
+  "boundary": "Isolated generated accounts/browser fixtures; no user DB or live provider calls.",
+  "result": "passed",
+  "source_sha256": "5bc0fec5ae8eb5c4827157fc40451b280ac3416b8093ff9167189d2bc1135bc5"
+}

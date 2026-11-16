@@ -63,10 +63,13 @@ export function createNotebook({context, position, pause, reportError}) {
     const entry=active,selected=scope,path=endpoint(),data={body:entry.body,started_ms:entry.started_ms,source:entry.source,revision:entry.revision};
     clearTimeout(timer);
     // The durable local draft is written before the network request starts.
-    let localSaved=true;
-    try{await persist(entry,selected);}catch{localSaved=false;state('기기에 초안을 보존하지 못했습니다. 서버 저장을 시도합니다. 화면을 유지하세요.');}
-    if(!valid(ticket))return;
     const work=(async()=>{
+      let localSaved=true;
+      try{await persist(entry,selected);}catch{
+        localSaved=false;
+        if(valid(ticket)&&entry===active)state('기기에 초안을 보존하지 못했습니다. 서버 저장을 시도합니다. 화면을 유지하세요.');
+      }
+      if(!valid(ticket))return;
       try{
         const result=await request(`${path}/notes/${entry.id}`,{method:'PUT',body:data});
         if(!valid(ticket))return;
@@ -74,7 +77,13 @@ export function createNotebook({context, position, pause, reportError}) {
         entry.revision=result.revision;
         entry.dirty=entry.body!==data.body;
         if(entry.dirty)await persist(entry,selected);
-        else{await chrome.storage.local.remove(key(entry,selected));if(!valid(ticket))return;drafts=drafts.filter(draft=>draft!==entry);}
+        else{
+          await chrome.storage.local.remove(key(entry,selected));
+          // Typing can create a newer draft while old saved-draft cleanup is
+          // waiting. Restore it under its original scope even after logout.
+          if(entry.dirty||entry.body!==data.body){entry.dirty=true;await persist(entry,selected);}
+          else if(valid(ticket))drafts=drafts.filter(draft=>draft!==entry);
+        }
         if(!valid(ticket))return;
         if(entry===active){state(entry.dirty?'새로 입력한 내용은 저장 대기 중입니다.':'필기를 저장했습니다.');$('copy-note-draft').hidden=true;}
         if(entry.failed&&$('task-notes').hidden)status('필기 저장 연결이 복구되었습니다.');
@@ -187,10 +196,13 @@ export function createNotebook({context, position, pause, reportError}) {
   on('delete-note',()=>{$('note-delete-confirm').hidden=false;$('cancel-note-delete').focus();});
   on('cancel-note-delete',()=>{$('note-delete-confirm').hidden=true;$('delete-note').focus();});
   on('confirm-note-delete',async()=>{
-    const entry=active,ticket=epoch;clearTimeout(timer);if(saving)await saving;if(!valid(ticket)||entry!==active)return;
+    const entry=active,ticket=epoch,selected=scope;clearTimeout(timer);if(saving)await saving;if(!valid(ticket)||!entry||entry!==active)return;
     if(entry.revision)await request(`${endpoint()}/notes/${entry.id}`,{method:'DELETE',body:{revision:entry.revision}});
     if(!valid(ticket))return;
-    await chrome.storage.local.remove(key(entry));drafts=drafts.filter(d=>d!==entry);rows=rows.filter(row=>row.id!==entry.id);active=null;$('note-editor').hidden=true;updateList();$('notes-list').focus();
+    await chrome.storage.local.remove(key(entry,selected));if(!valid(ticket))return;
+    drafts=drafts.filter(d=>d!==entry);rows=rows.filter(row=>row.id!==entry.id);
+    if(active===entry){active=null;$('note-editor').hidden=true;updateList();$('notes-list').focus();}
+    else updateList();
   });
   on('import-legacy-note',async()=>{
     const ticket=epoch;
@@ -208,7 +220,7 @@ export function createNotebook({context, position, pause, reportError}) {
     state('내 필기 파일을 내보냈습니다. 연결 원문은 현재 권한으로 다시 확인했습니다.');
   });
   return {load,reset,flush,restoreCursor,async startAtSource(id){
-    const startedMs=position(),ticket=epoch,list=await request(`${endpoint()}/note-sources`);if(!valid(ticket))return;
+    const startedMs=position(),ticket=epoch,editor=editorTicket,list=await request(`${endpoint()}/note-sources`);requireCurrent(ticket,editor);
     const source=list.find(s=>s.kind==='sentence'&&s.id===id);if(!source)throw new Error('현재 공개된 문장을 직접 선택한 뒤 필기하세요.');await start(ref(source),'',startedMs);
   }};
 }

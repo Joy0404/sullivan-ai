@@ -1,0 +1,10 @@
+/var/folders/q1/89zw4q9s26j_5tf0t1hz_9d40000gn/T/sullivan-extensions-b5m8b6i7/packages/student
+/var/folders/q1/89zw4q9s26j_5tf0t1hz_9d40000gn/T/sullivan-extensions-b5m8b6i7/packages/guardian
+REMOTE01.one_time_pair_and_device_approval PASS
+REMOTE02.guardian_starts_student_login PASS
+REMOTE03.closed_view_background_opens_student PASS
+REMOTE04.guardian_revoke_ends_remote_session PASS
+REMOTE05.logged_out_student_can_disable PASS
+REMOTE06.last_student_removal_preserves_focus PASS
+REMOTE07.student_selection_discards_stale_status PASS
+REMOTE08.current_status_error_and_recovery PASS

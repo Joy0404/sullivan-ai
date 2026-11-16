@@ -1,0 +1,10 @@
+{
+  "result": "passed",
+  "checks": [
+    "typing during delayed conflict copy preserves latest editor and draft; explicit retry keeps both server notes",
+    "late legacy copy cannot enter another lecture or replace its editor",
+    "late legacy copy cannot enter another account or save its active editor"
+  ],
+  "raw_media_uploaded": false,
+  "boundary": "Account/lecture fences for delayed notebook creation in installed MV3.\n\nDisposable accounts, actual UI/API/DB. Only the media pause acknowledgment is\nheld; no user database, paid provider or real speech service is used."
+}

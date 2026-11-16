@@ -1,0 +1,30 @@
+{
+  "listening_controls": [
+    "본문으로 이동",
+    "logout",
+    "task-home-button",
+    "task-listen-button",
+    "task-notes-button",
+    "task-find-button",
+    "task-settings-button",
+    "stop",
+    "type-command",
+    "voice",
+    "play",
+    "describe",
+    "back",
+    "forward",
+    "short-summary"
+  ],
+  "listen_heading_to_notes_reverse_tabs": [
+    "voice",
+    "type-command",
+    "stop",
+    "task-settings-button",
+    "task-find-button",
+    "task-notes-button"
+  ],
+  "source_id": "p1-s1",
+  "requests_raw_media": 0,
+  "checks": "actual Chromium keyboard; synthetic speech/composition boundary; temporary accounts"
+}

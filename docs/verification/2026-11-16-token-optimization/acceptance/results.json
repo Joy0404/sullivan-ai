@@ -1,0 +1,31 @@
+{
+  "result": "failed",
+  "source_sha256": "9cbea8786fc914f7355bb16d3b4874b4ca71c39ff5c8e608991a164c628e7af0",
+  "contract": {
+    "features": 78,
+    "declared_implementation_gaps": 0,
+    "external_pending": [
+      "F24",
+      "F25",
+      "F26",
+      "F33",
+      "F34",
+      "F49",
+      "F61",
+      "F62"
+    ],
+    "release_ready": false
+  },
+  "checks": [
+    {
+      "name": "project",
+      "exit_code": 0
+    },
+    {
+      "name": "student-notes",
+      "exit_code": 1
+    }
+  ],
+  "boundary": "Structural ledger plus local regressions; external acceptance remains pending.",
+  "source_unchanged": true
+}

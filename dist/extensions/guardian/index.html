@@ -1,0 +1,282 @@
+<!doctype html>
+<html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Sullivan AI 보호자</title><link rel="stylesheet" href="tokens.css"><link rel="stylesheet" href="base.css"><script type="module" src="app.js"></script></head>
+<body><a class="skip" href="#main">본문으로 이동</a>
+<header><p>Sullivan AI · 보호자 전용</p><span id="account-name"></span><button id="guardian-help" type="button" class="secondary" hidden>보호자 설명서</button><button id="logout" type="button" hidden>로그아웃</button></header>
+<main id="main" tabindex="-1"><h1>Sullivan AI 보호자</h1>
+
+<p id="status" role="status"></p><p id="error" role="alert"></p>
+
+<section id="guardian-guide" hidden aria-labelledby="guardian-guide-title">
+  <h2 id="guardian-guide-title" tabindex="-1">보호자 사용 설명서</h2>
+  <p>Sullivan AI에서 학생을 연결하고 강의를 준비하는 방법을 확인하세요. 처음에는 설명서를 확인한 다음 로그인 또는 회원가입을 선택할 수 있습니다. 다음 방문부터는 로그인·회원가입 선택 화면을 먼저 보여 주며, 설명서는 ‘보호자 설명서’에서 필요할 때 다시 볼 수 있습니다.</p>
+  <section aria-labelledby="guardian-guide-accounts">
+    <h3 id="guardian-guide-accounts">1. 보호자 계정과 학생 연결</h3>
+    <p>처음 이용하면 회원가입을 선택해 보호자 계정을 만드세요. 표시되는 복구 코드를 따로 보관한 뒤 로그인합니다. 계정이 있으면 로그인만 선택하세요.</p>
+    <p>로그인 후 ‘새 일회용 연결 코드 만들기’를 누르고 학생에게 코드를 전달하세요. 학생이 학생용 확장에서 처음 한 번 가입·로그인하고 코드를 입력하면, 보호자 이름과 공유 범위를 확인해 연결할 수 있습니다. 연결 코드는 10분 동안 한 번 사용할 수 있습니다.</p>
+    <p>로컬 개발 환경에서는 ‘학생 계정 만들기’로 시험용 계정을 만들 수도 있습니다. 실제 계정과 비밀번호를 다른 사람과 공유하지 마세요.</p>
+  </section>
+  <section aria-labelledby="guardian-guide-prepare">
+    <h3 id="guardian-guide-prepare">2. 강의를 준비하고 결과 확인하기</h3>
+    <ul>
+      <li>빠르게 시작하려면 ‘샘플 강의 배정’에서 학생과 사전 준비된 샘플을 선택하세요. Gemini 키 없이 사용할 수 있으며, 새 영상을 분석한 결과가 아닙니다.</li>
+      <li>‘새 강의 준비’에서는 자막·지문·분석 JSON, 영상 링크, 로컬 파일 재생용 등록, 원본 파일 실제 분석을 선택할 수 있습니다. 자료를 넣고 ‘자료 준비 시작’을 누르세요.</li>
+      <li>재생용 링크·파일 등록이나 자막·지문 추가만 한 경우 ‘영상 분석 미실행’입니다. ‘Gemini 분석 완료’는 서버가 실제 처리를 완료한 경우에만 표시합니다. 분석 중·실패·사전 준비 샘플·기록 확인 불가도 구분합니다.</li>
+      <li>실제 영상 분석에는 공급자 설정, 이용 권한과 임시 전송 동의가 필요합니다. API 키는 보호자 화면에 입력하지 않습니다. 기본 재생용 원본은 브라우저에 둡니다.</li>
+    </ul>
+    <p>준비가 끝나면 ‘결과 확인·배정’에서 내용을 확인하세요. 화면에서 확인한 중요한 정보만 설명하고, 불확실한 숫자·단위·문구는 해당 위치의 보류 안내로 알립니다. 문제 보호 모드에서는 정답에 해당하는 화면 내용을 제공하지 않습니다.</p>
+  </section>
+  <section aria-labelledby="guardian-guide-assign">
+    <h3 id="guardian-guide-assign">3. 학생에게 배정하고 수강 시작하기</h3>
+    <p>준비 결과에서 배정할 학생을 선택하고 ‘확인한 자료를 학생에게 배정’을 누르세요. 미리보기만 열어서는 배정되지 않습니다. 파일 강의는 학생에게 같은 원본 파일도 별도로 전달해야 합니다.</p>
+    <p>학생은 학생용 확장에서 배정된 강의를 열고 원본 탭이나 직접 선택한 영상 파일을 연결한 뒤 재생합니다. 해설은 준비된 자료의 시점에 맞춰 제공하며 현재 화면을 새로 분석하지는 않습니다. Chrome에서 지원하는 형식과 접근 허용 범위 안에서 재생합니다.</p>
+  </section>
+  <section aria-labelledby="guardian-guide-support">
+    <h3 id="guardian-guide-support">4. 학생 로그인과 학습 설정 지원</h3>
+    <p>학생이 처음 한 번 로그인하고 보호자 연결 및 해당 Chrome 기기의 로그인 지원을 승인하면, 보호자는 ‘학생 로그인 지원’에서 학생 이름을 선택하고 ‘선택한 학생 로그인’을 누를 수 있습니다. 요청은 승인된 학생 기기에 전달하며 보호자 화면으로 학생 계정을 열지 않습니다. 학생 Chrome이 켜져 있어야 하며 요청은 5분 뒤 만료됩니다.</p>
+    <p>‘학생 설정과 학습 현황’에서 자동 해설, 문제 보호, 읽기 속도·음량, 외부 스크린리더 사용 등을 설정할 수 있습니다. 외부 스크린리더 모드는 학생 앱 음성의 중복 낭독을 피하도록 읽기 영역으로 안내합니다.</p>
+    <p>학습 현황은 저장된 위치와 기록 수를 보여 줍니다. 실시간 감시나 완료율이 아니며 학생의 개인 메모 본문은 보내지 않습니다. 학생의 학습 선택을 존중하며 필요한 설정만 함께 확인하세요.</p>
+  </section>
+  <section aria-labelledby="guardian-guide-help">
+    <h3 id="guardian-guide-help">5. 다시 보기와 문제 해결</h3>
+    <p>학생에게 강의가 보이지 않으면 학생 연결·배정·공개 상태를 확인하고 학생 확장에서 목록을 새로고침하세요. 원본 파일 연결이 안 되면 같은 파일인지 확인하세요. 준비 작업이 실패하거나 서버 재시작으로 중단되면 결과를 확인하고 자료와 동의를 다시 선택해 요청하세요.</p>
+    <p>Tab과 Shift+Tab으로 항목을 이동하고 Enter 또는 Space로 버튼을 선택합니다. 오류 안내를 확인하고 수정하세요. 이후에도 화면 위 ‘보호자 설명서’를 선택하면 로그인 전후 언제든 이 설명서를 다시 볼 수 있습니다.</p>
+  </section>
+  <p id="guardian-guide-wait" role="status">로그인 상태를 확인하고 있습니다. 설명서를 읽는 동안 잠시 기다려 주세요.</p>
+  <button id="guardian-guide-done" type="button" disabled>설명서를 확인하고 시작하기</button>
+</section>
+
+<div id="guardian-content">
+<section id="auth" hidden aria-labelledby="guardian-start-title">
+  <section id="guardian-start">
+    <h2 id="guardian-start-title" tabindex="-1">보호자 계정으로 시작하기</h2>
+    <p>계정이 있으면 로그인하고, 처음 이용하면 회원가입을 선택하세요. 설명서는 위의 ‘보호자 설명서’에서 언제든 다시 볼 수 있습니다.</p>
+    <p>이 기기에 유효한 로그인이 남아 있으면 ‘로그인’을 선택해 바로 이어서 사용할 수 있습니다.</p>
+    <div class="actions">
+      <button id="guardian-login-choice" type="button">로그인</button>
+      <button id="guardian-signup-choice" type="button" class="secondary">회원가입</button>
+    </div>
+  </section>
+  <section id="guardian-login-view" hidden>
+    <h2 id="login-title" tabindex="-1">보호자 로그인</h2>
+    <p>보호자 계정으로 로그인하세요. 운영 서버에서는 브라우저 로그인을 사용합니다.</p>
+    <label class="check"><input id="remember-login" type="checkbox">브라우저 로그인에서 내 기기 로그인 유지 (선택)</label>
+    <button id="oauth-login" type="button">브라우저에서 보호자 로그인</button>
+    <form id="login-form">
+      <label>로그인 이름<input id="username" name="username" required minlength="3" maxlength="60" autocomplete="username" pattern="[a-zA-Z0-9_.\-]+" aria-describedby="username-help"></label>
+      <p id="username-help">영문·숫자·밑줄·마침표·하이픈, 3자 이상.</p>
+      <label>비밀번호<input id="password" name="password" type="password" required minlength="8" maxlength="128" autocomplete="current-password" aria-describedby="password-help"></label>
+      <p id="password-help">비밀번호는 8~128자입니다.</p>
+      <button type="submit">보호자 로그인</button>
+    </form>
+    <details><summary>복구 코드로 비밀번호 변경</summary>
+      <form id="recover-form">
+        <label>로그인 이름<input name="username" required minlength="3" maxlength="60" autocomplete="username"></label>
+        <label>사용하지 않은 복구 코드<input name="code" required autocomplete="off"></label>
+        <label>새 비밀번호<input name="password" type="password" required minlength="8" maxlength="128" autocomplete="new-password" aria-describedby="recover-help"></label>
+        <p id="recover-help">8~128자. 변경하면 기존 기기의 로그인을 모두 종료합니다.</p>
+        <button type="submit">비밀번호 변경</button>
+      </form>
+    </details>
+    <button id="guardian-login-back" type="button" class="secondary">로그인·회원가입 선택으로 돌아가기</button>
+  </section>
+  <section id="guardian-signup-view" hidden>
+    <h2 id="guardian-signup-title" tabindex="-1">보호자 회원가입</h2>
+    <p>보호자가 사용할 새 계정을 만드세요. 가입 후 복구 코드를 보관하고 로그인하면 학생 연결과 강의 준비를 시작할 수 있습니다.</p>
+    <form id="signup-form">
+      <label>이름<input name="name" required maxlength="80" autocomplete="name"></label>
+      <label>새 로그인 이름<input name="username" required minlength="3" maxlength="60" pattern="[a-zA-Z0-9_.\-]+" autocomplete="username" aria-describedby="signup-name-help"></label>
+      <p id="signup-name-help">영문·숫자·밑줄·마침표·하이픈, 3~60자.</p>
+      <label>새 비밀번호<input name="password" type="password" required minlength="8" maxlength="128" autocomplete="new-password" aria-describedby="signup-pass-help"></label>
+      <p id="signup-pass-help">8~128자. 가입 후 표시되는 복구 코드를 별도로 보관하세요.</p>
+      <button type="submit">보호자 계정 만들기</button>
+    </form>
+    <div><details><summary>로컬 개발 계정 만들기</summary>
+        <form id="register-form">
+          <label>보호자 이름<input name="name" required minlength="1" maxlength="80" autocomplete="name"></label>
+          <label>새 로그인 이름<input name="username" required minlength="3" maxlength="60" pattern="[a-zA-Z0-9_.\-]+" autocomplete="username" aria-describedby="register-username-help"></label>
+          <p id="register-username-help">영문·숫자·밑줄·마침표·하이픈, 3자 이상.</p>
+          <label>새 비밀번호<input name="password" type="password" required minlength="8" maxlength="128" autocomplete="new-password" aria-describedby="register-password-help"></label>
+          <p id="register-password-help">비밀번호는 8~128자로 입력하세요.</p>
+          <button type="submit" class="secondary">보호자 개발 계정 생성</button>
+        </form></details></div>
+    <button id="guardian-signup-back" type="button" class="secondary">로그인·회원가입 선택으로 돌아가기</button>
+  </section>
+</section>
+
+<section id="recovery-output" hidden aria-labelledby="recovery-title">
+  <h2 id="recovery-title" tabindex="-1">복구 코드 보관</h2>
+  <p>코드는 지금만 표시됩니다. 비밀번호를 잊었을 때 한 개씩 사용할 수 있습니다. 보관한 뒤 로그인하세요.</p>
+  <label>발급한 복구 코드<textarea id="recovery-codes" readonly rows="8"></textarea></label>
+  <div class="actions"><button id="download-recovery" type="button">복구 코드 파일로 저장</button><button id="clear-recovery" type="button" class="secondary">코드를 보관했고 화면에서 지우기</button></div>
+</section>
+<section id="account-controls" hidden aria-labelledby="account-title">
+  <h2 id="account-title" tabindex="-1">내 계정과 로그인 기기</h2>
+  <details><summary>복구 코드 새로 발급</summary>
+    <form id="recovery-form"><label>현재 비밀번호<input name="password" type="password" required minlength="8" maxlength="128" autocomplete="current-password" aria-describedby="reauth-help"></label><p id="reauth-help">현재 비밀번호(8~128자)를 확인한 뒤 이전 복구 코드를 폐기하고 새 코드를 만듭니다.</p><button type="submit">복구 코드 새로 만들기</button></form>
+  </details>
+  <details><summary>로그인 기기 관리</summary><button id="devices-refresh" type="button">내 로그인 기기 확인</button><ul id="devices"></ul>
+    <button id="logout-all" type="button">모든 기기 로그아웃</button>
+    <div id="logout-all-confirm" hidden><p id="logout-all-question">이 계정의 모든 웹·확장 로그인을 종료할까요? 학생·보호자의 다른 계정 로그인은 유지됩니다.</p><button id="logout-all-yes" type="button" aria-describedby="logout-all-question">모든 기기 로그아웃 실행</button><button id="logout-all-no" type="button" class="secondary">취소</button></div>
+  </details>
+</section>
+
+<div id="workspace" hidden><section aria-labelledby="workspace-title">
+  <h2 id="workspace-title" tabindex="-1">학생과 강의 준비</h2>
+  <p class="notice">강의를 준비하고 결과를 확인한 뒤 학생에게 배정하세요. 실제 영상 분석은 별도 동의와 서버 연결이 필요합니다. 학생은 학생용 확장에서 영상을 수강합니다.</p>
+  <button id="refresh" type="button">목록 새로고침</button>
+  <p id="next-step" role="status"></p>
+  <section aria-labelledby="setup-progress-title">
+    <h3 id="setup-progress-title">준비 단계별 현황</h3>
+    <p>학생 연결 → 자료 준비 → 배정 → 학생 설정 순서로 확인하세요. 상태는 현재 계정의 저장된 자료를 기준으로 표시합니다.</p>
+    <ol id="setup-progress">
+      <li><a href="#connections-title">학생 연결</a>: <span id="setup-student"></span></li>
+      <li><a href="#prepare-title">강의 자료 준비</a>: <span id="setup-lecture"></span></li>
+      <li><a id="setup-assignment-link" href="#lectures-title">학생에게 배정</a>: <span id="setup-assignment"></span></li>
+      <li><a href="#management-title">학생별 설정</a>: <span id="setup-settings"></span></li>
+    </ol>
+  </section>
+  <section aria-labelledby="connections-title"><h3 id="connections-title" tabindex="-1">학생과 연결</h3>
+    <p>학생은 학생용 확장에서 자신의 계정으로 가입합니다. 아래 일회용 코드를 학생에게 전달하면 학생이 보호자 이름과 공유 범위를 확인한 뒤 연결합니다.</p>
+    <button id="create-pair-code" type="button">새 일회용 연결 코드 만들기</button>
+    <label>학생에게 전달할 연결 코드<input id="pair-code" readonly aria-describedby="pair-code-help"></label><p id="pair-code-help">10분 동안 한 번 사용할 수 있습니다. 새 코드를 만들면 이전 미사용 코드는 만료됩니다. 코드를 선택해 복사할 수 있습니다.</p>
+    <ul id="connection-students"></ul>
+    <div id="guardian-unlink-confirm" hidden><p id="guardian-unlink-question"></p><button id="guardian-unlink-yes" type="button" aria-describedby="guardian-unlink-question">학생 연결 해제 실행</button><button id="guardian-unlink-no" type="button" class="secondary">취소</button></div>
+  </section>
+  <details><summary>학생 계정 만들기</summary>
+    <p>로컬 개발용 빠른 계정 생성입니다. 학생이 직접 가입한 뒤 위의 일회용 코드로 연결할 수도 있습니다.</p>
+    <form id="student-form">
+      <label>학생 이름<input name="name" required maxlength="80" autocomplete="off"></label>
+      <label>학생 로그인 이름<input name="username" required minlength="3" maxlength="60" pattern="[a-zA-Z0-9_.\-]+" aria-describedby="student-username-help" autocomplete="off"></label>
+      <p id="student-username-help">영문·숫자·밑줄·마침표·하이픈, 3자 이상.</p>
+      <label>학생 비밀번호<input name="password" type="password" required minlength="8" maxlength="128" autocomplete="new-password" aria-describedby="student-password-help"></label>
+      <p id="student-password-help">비밀번호는 8~128자로 입력하세요.</p>
+      <button type="submit">학생 계정 생성</button>
+    </form>
+  </details>
+  <section aria-labelledby="students-title"><h3 id="students-title">연결된 학생</h3><ul id="students"></ul></section>
+  <section aria-labelledby="remote-login-title"><h3 id="remote-login-title" tabindex="-1">학생 로그인 지원</h3>
+    <p id="guardian-remote-help">학생이 처음 한 번 가입·로그인하고 연결 코드와 기기 로그인 지원을 승인하면 사용합니다. 아래에서 학생 이름을 선택하고 학생 로그인을 누르세요. 승인한 학생 Chrome 기기에만 전달하며 보호자 화면으로 학생 계정을 열지 않습니다. Chrome이 켜져 있어야 하고 요청은 5분 뒤 만료됩니다.</p>
+    <label>로그인할 학생<select id="remote-student" aria-describedby="guardian-remote-help"></select></label>
+    <div class="actions"><button id="remote-login-start" type="button" aria-describedby="guardian-remote-help">선택한 학생 로그인</button><button id="remote-login-refresh" type="button" class="secondary">학생 로그인 상태 확인</button></div>
+    <p id="guardian-remote-status" role="status" aria-atomic="true"></p>
+    <p>로그인 지원을 해제하면 승인한 기기의 원격 로그인도 종료합니다. 다시 사용하려면 학생이 로그인하고 기기를 승인해야 합니다.</p>
+    <button id="remote-login-stop" type="button" class="secondary">선택한 학생의 로그인 지원 해제</button>
+  </section>
+  <section aria-labelledby="assign-title"><h3 id="assign-title">샘플 강의 배정</h3>
+    <form id="assign-form">
+      <label>학생<select id="student-choice" name="student" required></select></label>
+      <label>사전 준비된 샘플<select name="sample"><option value="science">과학 샘플</option><option value="history">역사 샘플</option><option value="accessibility">판서 차이·부분 보류 시연 샘플</option></select></label>
+      <p>새 AI 분석을 실행하지 않습니다. 샘플 자료를 학생용 확장에서 열어 학습할 수 있습니다.</p>
+      <button id="assign-submit" type="submit">선택한 학생에게 배정</button>
+    </form>
+  </section>
+  <section aria-labelledby="prepare-title"><h3 id="prepare-title" tabindex="-1">새 강의 준비</h3>
+    <button id="prepare-guided" type="button" class="secondary" aria-pressed="false">3단계 준비 안내 사용</button>
+    <p id="prepare-step" role="status"></p>
+    <form id="prepare-form" aria-describedby="prepare-help">
+      <p id="prepare-help">필수 표시가 있는 항목을 입력하세요. 자료 방식은 파일 또는 지문이 필요합니다. 영상 링크는 주소만 등록해 재생·명령·기록을 이용할 수 있습니다. 내용 질문과 자동 해설에는 자료 또는 실제 분석 연결이 필요합니다.</p>
+      <label>강의 제목 (필수)<input name="title" required maxlength="160"></label>
+      <label>과목 (필수)<input name="subject" required maxlength="80" value="일반"></label>
+      <label>강의 출처 이름<input name="source_label" maxlength="120" placeholder="예: 학교 과학 수업"></label>
+      <label>설명 중심<select name="preferred_mode"><option value="auto">자동 판별</option><option value="board">판서</option><option value="passage">지문</option><option value="slides">슬라이드</option></select></label>
+      <label>준비 방식<select id="prepare-source" name="source"><option value="materials">자막·지문·분석 JSON</option><option value="link">영상 링크와 보조 자료</option><option value="local">로컬 파일 재생용 등록 (원본 미전송)</option><option value="video">원본 파일 실제 분석</option></select></label>
+      <label class="check"><input name="problem_mode" type="checkbox" checked>문제 보호 모드: 정답에 해당하는 화면 설명 차단</label>
+      <div id="material-input">
+        <label>보조 자료 파일<input id="material-files" type="file" multiple accept=".srt,.vtt,.txt,.md,.json" aria-describedby="material-help material-validation"></label>
+        <p id="material-help">SRT·VTT 자막, TXT·MD 지문, 표준 분석 JSON을 지원합니다. 파일당 30만 자, 전체 100만 자 이하. JSON은 한 개만 선택하세요.</p>
+        <p id="material-validation"></p>
+        <label>직접 입력할 지문 (파일 대신 입력 가능)<textarea name="passage" rows="5" maxlength="300000" aria-describedby="prepare-help"></textarea></label>
+      </div>
+      <div id="link-input" hidden>
+        <label>영상 주소 (필수)<input id="prepare-url" name="url" type="url" maxlength="2048" placeholder="https://www.youtube.com/watch?v=..."></label>
+        <label class="check"><input name="request_analysis" type="checkbox">이 링크의 실제 영상 분석 요청</label>
+        <p>링크만 등록해도 원본 재생·단축키·학습 기록을 이용할 수 있습니다. 함께 넣은 자막·지문·JSON은 실제로 처리합니다. 실제 분석을 선택하지 않으면 영상을 분석했다고 표시하지 않습니다.</p>
+      </div>
+      <div id="video-input" hidden>
+        <label>원본 영상 파일 (필수)<input id="prepare-video" type="file" accept="video/*,.mp4,.webm,.mov,.m4v,.mkv,.ogv,.avi,.mpeg,.mpg,.ts" aria-describedby="video-help"></label>
+        <p id="video-help">로컬 재생용 등록은 이름·크기만 등록하며 원본을 읽어 전송하지 않습니다. Chrome이 지원하는 코덱을 학생 기기에서 재생합니다. 실제 분석은 기존 공급자 지원 형식·100MB 이하와 별도 동의가 필요하며 임시 전송 후 삭제합니다. 어느 방식도 원본을 학생 기기에 자동 전달하지 않습니다.</p>
+      </div>
+      <div id="analysis-consents" hidden>
+        <label class="check"><input id="prepare-rights" name="rights" type="checkbox">이 영상의 이용·분석 권한이 있습니다. (필수)</label>
+        <label class="check"><input id="prepare-consent" name="consent" type="checkbox">선택한 영상 또는 링크를 실제 분석 공급자에게 전송하는 데 동의합니다. (실제 분석 시 필수)</label>
+      </div>
+      <button type="submit">자료 준비 시작</button>
+    </form>
+    <p id="prepare-summary" hidden></p>
+    <div id="prepare-navigation" hidden class="actions"><button id="prepare-back" type="button" class="secondary">이전 단계</button><button id="prepare-next" type="button">다음 단계</button></div>
+  </section>
+  <section aria-labelledby="preparations-title"><h3 id="preparations-title" tabindex="-1">준비 작업과 분석 결과</h3>
+    <p>화면을 닫아도 접수된 작업은 서버에서 처리합니다. 서버 재시작으로 중단되면 자료를 다시 선택해 요청해야 합니다.</p>
+    <button id="refresh-preparations" type="button">준비 상태 새로고침</button>
+    <p id="preparation-counts"></p>
+    <label>준비 작업 상태<select id="preparation-filter" aria-controls="preparations" aria-describedby="preparation-filter-help"><option value="all">모든 상태</option><option value="active">접수·진행 중</option><option value="completed">준비 완료</option><option value="attention">실패·중단</option></select></label>
+    <label>준비 작업 검색<input id="preparation-search" type="search" maxlength="160" aria-controls="preparations" aria-describedby="preparation-filter-help" placeholder="강의 제목 또는 과목"></label>
+    <p id="preparation-filter-help">상태와 제목·과목으로 준비 결과를 찾습니다. 접수·처리·완료는 서버가 확인한 상태이며 공급자 내부 진행률은 표시하지 않습니다. 실패·중단 작업은 자료와 동의를 다시 선택해 준비하세요.</p>
+    <p id="preparation-results" role="status" aria-atomic="true"></p>
+    <p id="job-status" role="status"></p><p id="connection-status" role="status"></p>
+    <div id="preparations"></div>
+    <section id="prepared-detail" hidden aria-labelledby="prepared-title">
+      <h4 id="prepared-title" tabindex="-1" aria-describedby="prepared-analysis-status">준비된 자료 확인</h4><p id="prepared-analysis-status"></p>
+      <div id="prepared-preview"></div>
+      <button id="preview-export" type="button" class="secondary">준비된 학습 노트 내보내기</button>
+      <p id="preview-playback" role="status"></p>
+      <label>결과와 대조할 원본 파일<input id="preview-file" type="file" accept="video/*" aria-describedby="preview-file-help"></label>
+      <p id="preview-file-help">파일은 이 화면에서만 재생합니다. 분석 원본이 등록되어 있으면 파일 크기와 SHA-256이 일치하는 파일만 연결합니다. 학생 기기에는 같은 원본을 별도로 전달해야 합니다.</p>
+      <video id="preview-video" hidden controls preload="metadata" aria-label="준비 결과 대조용 원본 영상"></video>
+      <form id="preview-question-form">
+        <label>준비 결과에 질문<input name="message" required maxlength="2000"></label>
+        <label class="check"><input name="analysis_consent" type="checkbox" required>준비된 학습자료를 Gemini 학습 대화에 전송하는 데 동의합니다.</label>
+        <button type="submit">미리보기 질문 실행</button>
+      </form>
+      <div id="preview-answer" role="status"></div>
+      <form id="publish-form">
+        <fieldset id="publish-students" tabindex="-1"><legend>배정할 학생: 한 명 이상 선택</legend></fieldset>
+        <label class="check"><input name="chat_consent" type="checkbox">이 강의의 Gemini 학습 대화 허용</label>
+        <button type="submit">확인한 자료를 학생에게 배정</button>
+      </form>
+    </section>
+  </section>
+  <section aria-labelledby="lectures-title"><h3 id="lectures-title" tabindex="-1">내가 준비한 강의</h3><ul id="lectures"></ul>
+    <section id="edit-panel" hidden aria-labelledby="edit-title">
+      <h4 id="edit-title" tabindex="-1">강의와 배정 수정</h4>
+      <form id="edit-form">
+        <label>강의 제목<input name="title" required maxlength="160"></label>
+        <label>과목<input name="subject" required maxlength="80"></label>
+        <fieldset id="edit-students" tabindex="-1"><legend>배정할 학생: 한 명 이상 선택</legend></fieldset>
+        <button type="submit">강의와 배정 저장</button>
+      </form>
+      <p>회수는 현재 배정 전체를 중단합니다. 자료와 학생 개인 기록은 삭제하지 않습니다. 일부 학생만 제외하려면 위 배정 선택을 수정하세요.</p>
+      <button id="withdraw" type="button" class="secondary">배정 전체 회수</button>
+      <button id="delete-lecture" type="button" class="secondary">강의 영구 삭제</button>
+      <div id="delete-confirm" hidden><p id="delete-question"></p><button id="delete-yes" type="button" aria-describedby="delete-question">강의 영구 삭제 실행</button><button id="delete-no" type="button" class="secondary">삭제 취소</button></div>
+      <div id="withdraw-confirm" hidden>
+        <p id="withdraw-question"></p>
+        <div class="actions"><button id="withdraw-yes" type="button" aria-describedby="withdraw-question">배정 전체 회수 실행</button><button id="withdraw-no" type="button" class="secondary">취소</button></div>
+      </div>
+    </section>
+  </section>
+  <section aria-labelledby="management-title"><h3 id="management-title" tabindex="-1">학생 설정과 학습 현황</h3>
+    <label>관리할 학생<select id="manage-student"></select></label>
+    <button id="load-management" type="button">선택한 학생 현황 열기</button>
+    <section id="management-detail" hidden aria-labelledby="management-detail-title">
+      <h4 id="management-detail-title" tabindex="-1"></h4>
+      <form id="settings-form">
+        <label class="check"><input name="auto_description" type="checkbox">자동 해설</label>
+        <label class="check"><input name="problem_mode" type="checkbox">문제 보호 모드</label>
+        <label>기본 읽기 속도<input name="speech_rate" type="number" min="0.75" max="1.25" step="0.05" required></label>
+        <label>기본 음량<input name="speech_volume" type="number" min="0" max="1" step="0.05" required></label>
+        <label class="check"><input name="reader_mode" type="checkbox">외부 스크린리더 모드</label>
+        <label class="check"><input name="focus_voice" type="checkbox">앱 초점 음성 안내</label>
+        <label class="check"><input name="reset_onboarding" type="checkbox">다음 학생 로그인 때 사용 안내 다시 표시</label>
+        <button type="submit">학생 기본 설정 저장</button>
+      </form>
+      <h5>학습 진행 요약</h5><ul id="progress-summary"></ul>
+      <h5>강의 배정 순서</h5><ol id="lecture-order"></ol>
+    </section>
+  </section>
+</section>
+</div>
+</div>
+<details><summary>키보드 사용 안내</summary><p>Tab과 Shift+Tab으로 이동하고 Enter 또는 Space로 버튼을 선택하세요. 오류는 안내 영역에서 확인할 수 있습니다.</p></details>
+</main><footer><p>분리 개발 버전 0.4.9 · 기존 웹도 계속 이용할 수 있습니다.</p></footer></body></html>

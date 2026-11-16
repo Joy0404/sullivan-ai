@@ -1,0 +1,7 @@
+/var/folders/q1/89zw4q9s26j_5tf0t1hz_9d40000gn/T/sullivan-extensions-bsa9e2pt/packages/student
+/var/folders/q1/89zw4q9s26j_5tf0t1hz_9d40000gn/T/sullivan-extensions-bsa9e2pt/packages/guardian
+RACE01.single_position_write PASS
+RACE02.new_position_stays_pending PASS
+RACE03.editor_keeps_new_input PASS
+RACE04.withdraw_keeps_other_editor PASS
+RACE05.stale_poll_does_not_regress PASS

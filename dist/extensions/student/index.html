@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Sullivan AI 학생</title><link rel="stylesheet" href="tokens.css"><link rel="stylesheet" href="base.css"><script type="module" src="app.js"></script></head>
+<body><a class="skip" href="#main">본문으로 이동</a>
+<header><p>Sullivan AI · 학생 전용</p><span id="account-name"></span><button id="logout" type="button" hidden>로그아웃</button></header>
+<main id="main" tabindex="-1"><h1>Sullivan AI 학생</h1>
+<section class="student-access" aria-labelledby="access-title"><h2 id="access-title">읽기와 키보드 안내</h2>
+<label>읽기 방식<select id="access-mode"><option value="app">앱 음성 안내</option><option value="reader">VoiceOver·NVDA 등 외부 스크린리더</option><option value="silent">초점·상태 음성 끄기</option></select></label>
+<div class="actions"><button id="voice-test" type="button">음성 안내 시작·시험</button><button id="panel-keyboard" type="button" class="secondary">패널 키보드 모드 사용 중</button></div>
+<p id="speech-status" role="status" aria-atomic="true">Tab은 다음 항목, Shift 또는 Shift+Tab은 이전 항목입니다. Esc는 패널 키보드 모드 해제, F6는 Chrome 영역 이동입니다.</p>
+<p>강의에서 Space 한 번: 재생·정지 / 두 번: 영상·음성·진행 기능 중지 / 세 번: 텍스트 명령 / 3초 누르기: 음성 명령. 버튼 실행은 Enter를 사용하세요. 입력칸과 체크 상자의 Space는 기본 동작을 유지합니다.</p></section>
+<p id="status" role="status"></p><p id="error" role="alert"></p>
+<section aria-labelledby="remote-access-title"><h2 id="remote-access-title" tabindex="-1">보호자 로그인 지원</h2>
+<p id="remote-login-help">처음 한 번 가입·로그인하고 보호자 연결을 승인하세요. 이 기기에서 로그인 지원도 허용하면, 다음부터 보호자가 학생 이름을 골라 로그인할 수 있습니다. 로그아웃 후에도 허용한 이 Chrome 기기에서 작동합니다. 지원 해제로 언제든 중지할 수 있습니다. Chrome이 꺼져 있거나 기기가 잠자기 상태면 다시 켠 뒤 요청을 확인합니다.</p>
+<p id="remote-device-status" role="status" aria-atomic="true"></p><button id="remote-device-disable" type="button" hidden>이 기기의 보호자 로그인 지원 해제</button></section>
+
+
+<section id="auth" hidden aria-labelledby="login-title"><h2 id="login-title" tabindex="-1">학생 로그인</h2>
+<p>이 프로그램은 학생 계정만 사용합니다. 운영 서버에서는 브라우저 로그인으로 계정을 확인합니다.</p>
+<label class="check"><input id="remember-login" type="checkbox" checked>브라우저 로그인에서 내 기기 로그인 유지 (선택)</label><button id="oauth-login" type="button">브라우저에서 학생 로그인</button>
+<form id="login-form"><label>로그인 이름<input id="username" name="username" required minlength="3" maxlength="60" autocomplete="username" pattern="[a-zA-Z0-9_.\-]+" aria-describedby="username-help"></label>
+<p id="username-help">영문·숫자·밑줄·마침표·하이픈, 3자 이상.</p>
+<label>비밀번호<input id="password" name="password" type="password" required minlength="8" maxlength="128" autocomplete="current-password" aria-describedby="password-help"></label>
+<p id="password-help">비밀번호는 8~128자입니다.</p>
+<button type="submit">학생 로그인</button></form><div></div>
+<details><summary>학생 계정 가입</summary><form id="signup-form">
+<label>이름<input name="name" required maxlength="80" autocomplete="name"></label><label>새 로그인 이름<input name="username" required minlength="3" maxlength="60" pattern="[a-zA-Z0-9_.\-]+" autocomplete="username" aria-describedby="signup-name-help"></label><p id="signup-name-help">영문·숫자·밑줄·마침표·하이픈, 3~60자.</p>
+<label>새 비밀번호<input name="password" type="password" required minlength="8" maxlength="128" autocomplete="new-password" aria-describedby="signup-pass-help"></label><p id="signup-pass-help">8~128자. 가입 후 표시되는 복구 코드를 별도로 보관하세요.</p><button type="submit">학생 계정 만들기</button></form></details>
+<details><summary>복구 코드로 비밀번호 변경</summary><form id="recover-form"><label>로그인 이름<input name="username" required minlength="3" maxlength="60" autocomplete="username"></label><label>사용하지 않은 복구 코드<input name="code" required autocomplete="off"></label><label>새 비밀번호<input name="password" type="password" required minlength="8" maxlength="128" autocomplete="new-password" aria-describedby="recover-help"></label><p id="recover-help">8~128자. 변경하면 기존 기기의 로그인을 모두 종료합니다.</p><button type="submit">비밀번호 변경</button></form></details></section>
+<section id="recovery-output" hidden aria-labelledby="recovery-title">
+  <h2 id="recovery-title" tabindex="-1">복구 코드 보관</h2>
+  <p>코드는 지금만 표시됩니다. 비밀번호를 잊었을 때 한 개씩 사용할 수 있습니다. 보관한 뒤 로그인하세요.</p>
+  <label>발급한 복구 코드<textarea id="recovery-codes" readonly rows="8"></textarea></label>
+  <div class="actions"><button id="download-recovery" type="button">복구 코드 파일로 저장</button><button id="clear-recovery" type="button" class="secondary">코드를 보관했고 화면에서 지우기</button></div>
+</section>
+<section id="account-controls" hidden aria-labelledby="account-title">
+  <h2 id="account-title" tabindex="-1">내 계정과 로그인 기기</h2>
+  <details><summary>복구 코드 새로 발급</summary>
+    <form id="recovery-form"><label>현재 비밀번호<input name="password" type="password" required minlength="8" maxlength="128" autocomplete="current-password" aria-describedby="reauth-help"></label><p id="reauth-help">현재 비밀번호(8~128자)를 확인한 뒤 이전 복구 코드를 폐기하고 새 코드를 만듭니다.</p><button type="submit">복구 코드 새로 만들기</button></form>
+  </details>
+  <details><summary>로그인 기기 관리</summary><button id="devices-refresh" type="button">내 로그인 기기 확인</button><ul id="devices"></ul>
+    <button id="logout-all" type="button">모든 기기 로그아웃</button>
+    <div id="logout-all-confirm" hidden><p id="logout-all-question">이 계정의 모든 웹·확장 로그인을 종료할까요? 학생·보호자의 다른 계정 로그인은 유지됩니다.</p><button id="logout-all-yes" type="button" aria-describedby="logout-all-question">모든 기기 로그아웃 실행</button><button id="logout-all-no" type="button" class="secondary">취소</button></div>
+  </details>
+</section>
+
+<div id="workspace" hidden><section aria-labelledby="workspace-title">
+<h2 id="workspace-title" tabindex="-1">내 강의</h2>
+<nav aria-label="작업 선택"><button id="task-home-button" type="button" data-task="home" aria-current="page">강의 목록</button><button id="task-listen-button" type="button" data-task="listen">강의 듣기</button><button id="task-notes-button" type="button" data-task="notes">필기</button><button id="task-find-button" type="button" data-task="find">내용 찾기</button><button id="task-settings-button" type="button" data-task="settings">설정·관리</button></nav>
+<div class="actions"><button id="stop" type="button">영상·해설 모두 중지</button><button id="type-command" type="button">타자 명령 창 열기</button><button id="voice" type="button">음성 명령 시작</button></div><h3 id="command-title" tabindex="-1">음성·타자 명령</h3><p id="voice-status" role="status" aria-atomic="true"></p>
+<p id="reader-description" role="status" aria-atomic="true"></p>
+<section id="task-home" aria-labelledby="home-title"><h3 id="home-title" tabindex="-1">강의 목록</h3>  <p class="notice">배정된 강의를 고르고 원본 탭이나 직접 선택한 영상을 연결하세요. 해설은 준비된 분석 자료를 재생 시점에 맞춰 읽으며, 현재 화면을 새로 촬영·분석하지 않습니다.</p>
+  <div class="actions"><button id="resume" type="button">최근 강의 이어 듣기</button><button id="refresh" type="button">배정된 강의 새로고침</button><button id="full-view" type="button" class="secondary">전체 수강 화면 열기</button></div>
+  <div class="actions"><button id="show-help" type="button" class="secondary">사용법 다시 보기</button></div>
+  <section id="onboarding-card" hidden aria-labelledby="onboarding-title"><h3 id="onboarding-title" tabindex="-1">학생 사용법</h3><div id="onboarding-copy">
+    <p>Tab은 다음, Shift 또는 Shift+Tab은 이전 항목입니다. Enter로 버튼을 실행합니다. Esc는 패널 키보드 모드를 해제하고 F6로 Chrome 영역을 이동할 수 있습니다.</p>
+    <p>홈과 수강 화면에서 Space 한 번은 영상 재생·정지, 두 번은 영상·음성·진행 기능 중지, 세 번은 텍스트 명령입니다. 3초 누른 채 명령을 말하고 떼면 실행합니다. 처음 한 번 마이크 동의·허용이 필요합니다.</p>
+    <p>강의 목록, 1번 강의 열어줘, 영상 재생, 세 줄 요약, 다음 문단, 원래 듣던 곳으로, 학습 기록, 사용법처럼 말하거나 입력하세요. 입력칸의 Space는 띄어쓰기이며 설명이나 요청 중 두 번 누르면 중지합니다.</p>
+    <p>원본 파일은 학생 기기에 따로 전달받아 선택합니다. 식별이 일치해야 자동 해설을 켭니다. 소리가 없으면 음성 안내 시작·시험을 누르세요. 외부 스크린리더는 읽기 방식에서 선택합니다.</p>
+    <p>강의가 없으면 보호자의 배정과 공개 상태를 확인하고 목록을 새로고침하세요. 저장 실패 시 학습 기록 다시 저장 버튼으로 재시도하세요. 새 필기는 이 기기에 초안을 보존하며 다시 저장할 수 있습니다. 기존 메모·위치·북마크·밑줄도 그대로 보존합니다. API 키·비밀번호·원본을 문의 메시지로 보내지 마세요.</p>
+  </div><button id="onboarding-done" type="button">사용법 확인 완료</button></section>
+  <ul id="lectures"></ul>
+</section>
+<section id="lesson" hidden aria-labelledby="lesson-title"><h3 id="lesson-title" tabindex="-1"></h3><p id="source-label"></p><p id="analysis-status" aria-live="off"></p>
+<section id="task-listen" hidden aria-labelledby="player-title">    <div>
+      <h4 id="player-title" tabindex="-1">강의 조작</h4>
+      <video id="local-video" preload="metadata" hidden tabindex="-1" aria-label="연결한 로컬 강의 영상"></video>
+      <div class="actions"><button id="play" type="button">강의 재생</button><button id="describe" type="button">현재 시점의 준비된 설명</button></div>
+      <div class="actions"><button id="back" type="button">10초 뒤로</button><button id="forward" type="button">10초 앞으로</button><button id="return-origin" type="button" disabled>탐색 전 위치로 돌아가기</button></div>
+      <p id="playback-state" aria-live="off"></p><p id="current-description" class="notice" tabindex="-1"></p>
+      <p id="player-status" role="status"></p>
+    </div>
+<button id="short-summary" type="button">짧은 요약 듣기</button></section>
+<section id="task-find" hidden aria-labelledby="find-title"><h4 id="find-title" tabindex="-1">내용 찾기</h4><section aria-labelledby="selection-title"><h4 id="selection-title">선택한 원문 조작</h4>
+<label>문단 선택<select id="paragraph-selection"></select></label><label>문장 선택<select id="sentence-selection"></select></label><p id="selected-source" aria-live="off"></p>
+<div class="actions"><button id="selected-read" type="button">선택 문장 듣기</button><button id="selected-paragraph-read" type="button">선택 문단 듣기</button><button id="selected-jump" type="button">선택 위치로 강의 이동</button><button id="selected-underline" type="button" aria-pressed="false">선택 문단 밑줄</button><button id="selected-note" type="button">선택 문장에 필기</button></div></section>    <div id="material" tabindex="-1"></div>
+    <section aria-labelledby="paragraph-title"><h4 id="paragraph-title" tabindex="-1">문단·문장 탐색</h4>
+      <form id="paragraph-form"><label>탐색할 문단·문장<input name="query" required maxlength="300" placeholder="2문단, 다음 문장, 전체 흐름, 밑줄 친 문단"></label><button type="submit">지문 탐색·듣기</button></form>
+      <div class="actions"><button id="read" type="button">준비된 자료 듣기</button><button id="read-underlined" type="button">밑줄 친 문단 듣기</button></div>
+    </section>
+    <section aria-labelledby="search-title"><h4 id="search-title" tabindex="-1">개념 검색</h4>
+      <form id="search-form"><label>찾을 개념<input name="query" required maxlength="300"></label><button type="submit">개념 찾기</button></form><div id="search-results"></div>
+    </section>
+    <section aria-labelledby="chat-title"><h4 id="chat-title" tabindex="-1">강의 근거로 질문하기</h4>
+      <p>허용된 강의는 서버의 Gemini 학습 대화에 연결합니다. 연결하지 못하면 준비된 자료로 만드는 제한적 보조 도구임을 구분해 안내합니다.</p>
+      <form id="chat-form"><label>질문<input id="chat-input" name="question" required maxlength="2000"></label><button type="submit">질문하기</button></form>
+      <label class="check"><input id="speak-answer" type="checkbox" checked>답변을 앱 음성으로 듣기</label>
+      <p id="answer-status" role="status" aria-atomic="true"></p><div id="chat-log" role="region" tabindex="-1" aria-label="학습 대화 결과"></div>
+    </section>
+    <section aria-labelledby="review-title"><h4 id="review-title" tabindex="-1">복습 자료</h4><button id="read-review" type="button">복습 전체 듣기</button><div id="review"></div><button id="export-notes" type="button">기존 학습 자료·메모 내보내기</button></section>
+    <details><summary>설명의 근거와 보류 이유</summary><div id="evidence" tabindex="-1"><h4>설명 판단 근거</h4></div></details>
+</section></section>
+<section id="task-notes" hidden aria-labelledby="notes-title">
+<h3 id="notes-title" tabindex="-1">내 필기</h3>
+<p>학생이 직접 작성하는 개인 노트입니다. 자동 교정·요약을 하지 않고 AI 공급자나 보호자에게 본문을 보내지 않습니다. 저장·닫기는 강의를 재생하지 않습니다.</p>
+<div class="actions"><button id="new-note" type="button">현재 시점에 자유 필기 시작</button><button id="new-linked-note" type="button">선택 원문에 필기 시작</button></div>
+<label>연결할 원문 선택 (선택 사항)<select id="note-source-selection"><option value="">원문 없이 필기</option></select></label>
+<p id="note-source-preview" aria-live="off"></p>
+<label>내 필기에서 단어 찾기<input id="notes-query" type="search" maxlength="300"></label>
+<label>필기 목록<select id="notes-list" size="4" aria-describedby="notes-count"></select></label><p id="notes-count" role="status" aria-atomic="true"></p>
+<button id="open-note" type="button">선택 필기 수정</button>
+<p id="note-save-status" role="status" aria-atomic="true"></p>
+<section id="note-editor" hidden aria-labelledby="note-editor-title">
+<h4 id="note-editor-title">학생 작성 영역</h4><p id="note-start" aria-live="off"></p>
+<label>내가 작성한 필기<textarea id="note-body" rows="12" maxlength="30000" aria-describedby="note-save-status note-draft-help"></textarea></label>
+<p id="note-draft-help">자동 저장합니다. 실패한 초안은 이 기기의 내 계정에 보존됩니다. 개인 기기에서 이용하세요. 다른 화면의 변경과 충돌하면 초안을 새 필기로 보존할 수 있습니다.</p>
+<div class="actions"><button id="save-note" type="button">지금 저장·재시도</button><button id="copy-note-draft" type="button" hidden>충돌 초안을 새 필기로 보존</button><button id="show-note-source" type="button">연결 원문 확인</button><button id="delete-note" type="button">이 필기 삭제</button></div>
+<div id="note-delete-confirm" hidden><p>이 필기 항목을 삭제할까요? 연결 원문과 기존 메모는 보존됩니다.</p><button id="confirm-note-delete" type="button">필기 삭제 확인</button><button id="cancel-note-delete" type="button">삭제 취소</button></div>
+</section>
+<label>필기 파일 형식<select id="note-export-format"><option value="md">Markdown</option><option value="txt">텍스트</option></select></label><button id="export-my-notes" type="button">내 필기 내보내기</button>
+<button id="import-legacy-note" type="button">기존 한 칸 메모를 새 필기로 복사</button>
+    <section id="legacy-records" aria-labelledby="records-title"><h4 id="records-title" tabindex="-1">학습 기록</h4>
+      <button id="bookmark" type="button">현재 위치 북마크</button><ul id="bookmarks"></ul>
+      <label>관리할 북마크<select id="bookmark-selection"></select></label>
+      <div class="actions"><button id="bookmark-go" type="button">선택 북마크로 이동</button><button id="bookmark-delete" type="button">선택 북마크 삭제</button></div>
+      <form id="progress-form">        <label>내 메모<textarea id="note" name="note" rows="5" maxlength="6000"></textarea></label><button type="submit">학습 위치와 메모 저장</button>
+      </form><p id="save-status" role="status" aria-atomic="true"></p>
+      <button id="retry-save" type="button" hidden aria-describedby="save-status">학습 기록 다시 저장</button>
+    </section>
+</section>
+<dialog id="note-source-dialog" aria-labelledby="note-source-title"><h3 id="note-source-title" tabindex="-1">연결 원문 (읽기 전용)</h3><p id="note-source-text"></p><p id="note-source-load-status" role="status" aria-atomic="true"></p><button id="close-note-source" type="button">필기 커서로 돌아가기</button></dialog>
+<section id="task-settings" hidden aria-labelledby="settings-title"><h3 id="settings-title" tabindex="-1">설정·관리</h3>
+<div id="account-settings-slot"></div><section aria-labelledby="notebook-library-title"><h4 id="notebook-library-title">보관된 내 필기</h4><p>배정이 끝나도 내 필기 본문은 보존합니다. 연결 원문은 현재 공개 가능 여부를 다시 검사합니다.</p><button id="refresh-notebooks" type="button">내 필기 강의 목록 새로고침</button><label>필기를 확인할 강의<select id="notebook-lecture"></select></label><button id="open-notebook" type="button">선택 강의의 내 필기 열기</button></section>  <details><summary>보호자 연결과 공유 범위</summary>
+    <p>연결하면 보호자가 강의를 배정하고 학습 위치·기록 개수 요약·기본 설정을 확인할 수 있습니다. 메모·질문 원문은 공유하지 않습니다.</p>
+    <form id="pair-preview-form"><label>보호자에게 받은 일회용 코드<input name="code" required minlength="10" maxlength="40" autocomplete="off" aria-describedby="pair-help"></label><p id="pair-help">10분 안에 입력하고, 다음 화면에서 보호자 이름을 직접 확인하세요.</p><button type="submit">연결할 보호자와 공유 범위 확인</button></form>
+    <section id="pair-preview" hidden aria-labelledby="pair-preview-title"><h3 id="pair-preview-title" tabindex="-1">연결 승인</h3><p id="pair-guardian"></p><p id="pair-sharing"></p><form id="pair-confirm-form"><label class="check"><input id="pair-confirm" type="checkbox" required aria-describedby="pair-guardian pair-sharing">이 보호자와 위 범위를 공유하는 데 동의합니다.</label><label class="check"><input id="pair-remote-login" type="checkbox" aria-describedby="remote-login-help">로그아웃 후에도 이 기기에서 보호자가 학생 로그인을 시작하도록 허용합니다. (선택)</label><button type="submit" aria-describedby="pair-guardian pair-sharing">확인한 보호자와 연결</button></form></section>
+    <label class="check"><input id="remote-consent" type="checkbox" aria-describedby="remote-login-help">로그아웃 후에도 이 기기의 보호자 로그인 지원을 허용합니다. (선택)</label><button id="remote-device-enable" type="button" aria-describedby="remote-login-help">연결된 보호자의 이 기기 로그인 지원 허용</button>
+    <button id="refresh-connections" type="button">내 연결 새로고침</button><ul id="my-connections"></ul>
+    <div id="student-unlink-confirm" hidden><p id="student-unlink-question">연결을 해제하면 이 보호자가 배정한 강의 이용이 끝나고 보호자는 이후 내 기록을 조회할 수 없습니다. 내 개인 기록은 삭제하지 않습니다. 연결을 해제할까요?</p><button id="student-unlink-yes" type="button" aria-describedby="student-unlink-question">내 보호자 연결 해제 실행</button><button id="student-unlink-no" type="button" class="secondary">취소</button></div>
+  </details>
+<section aria-labelledby="connection-title"><h4 id="connection-title">강의 영상 연결과 보관</h4><p>파일 강의는 내 기기의 영상 선택, 링크 강의는 원본 열기 또는 현재 탭 연결을 선택하세요. 보호된 스트림을 다운로드하지 않습니다.</p>      <div class="actions"><button id="open-original" type="button">원본 강의 열고 연결</button><button id="connect-active" type="button">현재 강의 탭 연결</button><button id="disconnect" type="button" class="secondary">영상 연결 해제</button></div>
+      <p id="connection" role="status">영상을 아직 연결하지 않았습니다.</p>
+      <p id="player-permission-help"></p>
+      <button id="grant-player" type="button" hidden aria-describedby="player-permission-help">영상 제공 사이트 추가 연결 허용</button>
+      <details><summary>내 기기의 영상 연결·보관</summary>
+        <label>재생할 영상 파일<input id="local-file" type="file" accept="video/*,.mp4,.webm,.mov,.m4v,.mkv,.ogv,.avi,.mpeg,.mpg,.ts" aria-describedby="local-help"></label>
+        <p id="local-help">Chrome이 재생할 수 있는 영상은 파일 종류 정보가 없어도 실제로 열어 확인합니다. 선택한 원본은 서버에 전송하지 않습니다. Chrome 미지원 코덱·손상 파일은 원인과 대체 형식을 안내합니다. 분석 원본 식별과 선택형 암호화 보관은 100MB 이하이며, 원본 식별 정보가 없으면 수동 재생과 준비 자료 읽기를 제공합니다.</p>
+        <label class="check"><input id="store-original" type="checkbox">선택한 원본을 이 브라우저에 암호화 보관 (선택, 100MB 이하)</label>
+        <div class="actions"><button id="connect-file" type="button">선택한 영상 연결</button><button id="load-original" type="button">이 강의의 보관 원본 열기</button><button id="remove-original" type="button" class="secondary">이 강의의 보관 원본 삭제</button></div>
+        <button id="captions" type="button" aria-pressed="true">로컬 영상 자막 표시</button><p id="caption-info" role="status"></p>
+      </details>
+      <label>영상 음량 (0~1)<input id="video-volume" type="number" min="0" max="1" step="0.05" value="0.9"></label>
+      <label class="check"><input id="video-muted" type="checkbox">영상 소리 끄기</label>
+        <label>이어 듣기 위치(초)<input id="position" name="position" form="progress-form" type="number" min="0" max="86400" step="1" required aria-describedby="position-help"></label>
+        <p id="position-help">연결한 영상의 위치를 저장합니다. 숫자를 바꿔 저장하면 연결한 영상도 해당 위치로 이동합니다. 영상이 없으면 위치만 기록합니다.</p>
+<button id="save-position" type="button">입력한 강의 위치 저장·이동</button></section>    <details><summary>음성·해설·키보드 설정</summary>
+      <form id="preferences-form">
+        <label>읽기 속도<input id="speech-rate" name="speech_rate" type="number" min="0.75" max="1.25" step="0.05" required value="0.95"></label>
+        <label>앱 음성 음량 (0~1)<input name="speech_volume" type="number" min="0" max="1" step="0.05" required value="0.9"></label>
+        <label>이 기기의 읽기 음성<select id="speech-voice"><option value="">브라우저 기본 한국어 음성</option></select></label>
+        <p>자동 선택은 Chrome에 설치된 한국어 Natural·Neural·고품질 음성을 우선합니다. 기존 Space 음성 명령은 그대로 사용하며, 외부 스크린리더는 선택해서 사용할 수 있습니다.</p>
+        <label>말투<select id="speech-style"><option value="warm">따뜻한 학습 안내</option><option value="calm">차분한 강의</option><option value="clear">또렷한 복습</option></select></label><button id="preview-voice" type="button">현재 음성·말투 미리 듣기</button>
+        <label>이 기기의 음높이 (0.7~1.3)<input id="speech-pitch" type="number" min="0.7" max="1.3" step="0.1" value="1" required></label>
+        <label class="check"><input name="auto_description" type="checkbox" checked>시점에 맞춘 자동 해설</label>
+        <label class="check"><input name="reader_mode" type="checkbox">외부 스크린리더 사용: 앱 음성 대신 본문 읽기</label>
+        <label class="check"><input name="focus_voice" type="checkbox">초점을 옮기면 버튼 이름을 앱 음성으로 안내</label>
+        <label class="check"><input id="space-enabled" type="checkbox" checked>Space 명령 사용 (1회 재생·정지, 2회 전체 중지, 3회 텍스트, 3초 음성)</label>
+        <button type="submit">내 학습 설정 저장</button>
+      </form>
+      <p>음성 선택·음높이·키보드 설정은 이 기기의 내 계정에 저장합니다. Tab과 Shift+Tab은 패널 안에서 순환하고 Shift만 눌러도 이전 항목으로 이동합니다. Esc로 키보드 모드를 해제할 수 있습니다. 음질은 설치된 브라우저 음성에 따라 다릅니다. 강의 사이트의 Space·방향키는 가로채지 않습니다. Chrome 확장 단축키 설정에서 패널 열기·전체 중지 키를 변경할 수 있습니다.</p>
+    </details>
+<label class="check"><input id="voice-consent" type="checkbox">브라우저 음성 인식을 사용합니다. 브라우저의 음성 서비스에 음성이 전송될 수 있습니다.</label><button id="microphone-permission" type="button">마이크 허용·음성 명령 준비</button></section>
+  <dialog id="text-dialog" aria-labelledby="text-dialog-title" aria-describedby="dialog-help"><h3 id="text-dialog-title">타자 명령</h3><p id="dialog-help">명령을 입력하고 Enter로 실행하세요. Esc는 취소입니다.</p><form id="dialog-form"><label>명령<input id="text-command" name="command" required maxlength="2000" aria-describedby="dialog-help"></label><button type="submit">실행</button><button id="close-dialog" type="button" class="secondary">취소</button></form></dialog>
+  <dialog id="voice-permission-dialog" aria-labelledby="voice-permission-title" aria-describedby="voice-permission-help"><h3 id="voice-permission-title">음성 명령을 위한 마이크 허용</h3><p id="voice-permission-help">음성 명령은 Chrome의 음성 서비스로 음성이 전송될 수 있습니다. 동의하면 마이크 권한을 요청하고 음성 명령을 시작합니다. 타자 명령은 Space 세 번으로 사용할 수 있습니다.</p><button id="allow-voice" type="button">동의하고 마이크 허용·음성 명령 시작</button><button id="cancel-voice-permission" type="button" class="secondary">취소</button></dialog>
+</section>
+</div>
+
+<details><summary>키보드 사용 안내</summary><p>Tab과 Shift+Tab은 패널 안에서 이동합니다. Shift만 누르면 이전 항목, Enter는 버튼 실행입니다. 강의에서 Space 1회는 재생·정지, 2회는 전체 중지, 3회는 텍스트 명령, 3초 누르기는 음성 명령입니다. Esc로 패널 키보드 모드를 해제하고 F6로 Chrome 영역을 이동할 수 있습니다.</p></details>
+</main><footer><p>분리 개발 버전 0.4.9 · 기존 웹도 계속 이용할 수 있습니다.</p></footer></body></html>

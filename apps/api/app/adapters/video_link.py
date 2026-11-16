@@ -11,8 +11,14 @@ from urllib.parse import parse_qs, urlencode, urlparse, urlunparse
 
 import httpx
 
+from app.core.token_optimization import current_route
+from app.core.verification_plan import (plan_verification, blind_verification_prompt, merge_blind_readings,
+                                        material_verification_prompt, has_materials, MATERIAL_KEYS,
+                                        validate_source_speech)
+
 from app.models import AnalysisPackageInput, StudyGuide, VisualComponent, VisualObservation
 from app.core.visual_gap import critical_signatures_differ, critical_signature
+from app.adapters.usage_metrics import Stage, metered_post, new_operation_id
 
 
 class UnsafeVideoLinkError(ValueError):
@@ -240,7 +246,8 @@ def _enforce_model_visual_verification(
         for component in observation.components:
             old = previous_components.get(component.component_id)
             disagreement = draft is not None and (
-                any(critical_signature(component.text)) and (old is None or critical_signatures_differ(old.text, component.text))
+                (any(critical_signature(component.text)) or old is not None and any(critical_signature(old.text)))
+                and (old is None or critical_signatures_differ(old.text, component.text))
                 or component.kind=='highlight' and (old is None or re.sub(r'\s+','',old.text)!=re.sub(r'\s+','',component.text)))
             if component.kind=='highlight' and package.passage_text and re.sub(r'\s+','',component.text) not in re.sub(r'\s+','',package.passage_text):
                 disagreement=True
@@ -358,12 +365,23 @@ async def _interaction_video_call(
     mime_type: str | None,
     prompt: str,
     api_key: str,
+    stage: Stage = "analysis",
+    operation_id: str | None = None,
+    attempt: int = 1,
 ) -> AnalysisPackageInput:
     video_input = {"type": "video", "uri": source_url, "processing": "agentic"}
     if mime_type:
         video_input["mime_type"] = mime_type
-    response = await client.post(
+    return await metered_post(
+        client,
         "https://generativelanguage.googleapis.com/v1beta/interactions",
+        model=model,
+        stage=stage,
+        provider_api="interactions",
+        route=current_route(),
+        operation_id=operation_id,
+        attempt=attempt,
+        parse_response=lambda body: _parse_analysis_json(_extract_interaction_text(body)),
         json={
             "model": model,
             "input": [
@@ -374,8 +392,6 @@ async def _interaction_video_call(
         },
         headers={"x-goog-api-key": api_key, "Content-Type": "application/json"},
     )
-    response.raise_for_status()
-    return _parse_analysis_json(_extract_interaction_text(response.json()))
 
 
 async def _generate_content_video_call(
@@ -386,9 +402,20 @@ async def _generate_content_video_call(
     mime_type: str,
     prompt: str,
     api_key: str,
+    stage: Stage = "analysis",
+    operation_id: str | None = None,
+    attempt: int = 1,
 ) -> AnalysisPackageInput:
-    response = await client.post(
+    return await metered_post(
+        client,
         f"https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent",
+        model=model,
+        stage=stage,
+        provider_api="generate_content",
+        route=current_route(),
+        operation_id=operation_id,
+        attempt=attempt,
+        parse_response=lambda body: _parse_analysis_json(body["candidates"][0]["content"]["parts"][0]["text"]),
         json={
             "contents": [{
                 "parts": [
@@ -400,9 +427,66 @@ async def _generate_content_video_call(
         },
         headers={"x-goog-api-key": api_key, "Content-Type": "application/json"},
     )
-    response.raise_for_status()
-    body = response.json()
-    return _parse_analysis_json(body["candidates"][0]["content"]["parts"][0]["text"])
+
+
+async def _compact_video_verification(client, *, model, source_url, mime_type,
+                                      api_key, draft, plan, operation_id, next_attempt):
+    parts = [
+        {"file_data": {"file_uri": source_url, "mime_type": mime_type},
+         "videoMetadata": {"startOffset": f"{start / 1000:g}s", "endOffset": f"{end / 1000:g}s"}}
+        for start, end in plan.intervals
+    ]
+    parts.append({"text": blind_verification_prompt(draft, plan)})
+
+    def parse(body):
+        text = body["candidates"][0]["content"]["parts"][0]["text"].strip()
+        if text.startswith("```"):
+            text = re.sub(r"^```(?:json)?\s*|\s*```$", "", text)
+        raw = json.loads(text)
+        if not isinstance(raw, dict):
+            raise ValueError("invalid-rereading")
+        # Validate reading schema before marking this provider attempt parsed.
+        # These temporary empty checks do not verify or publish any material.
+        merge_blind_readings(draft, plan, {**raw, "material_status": {key: "confirmed" for key in MATERIAL_KEYS}})
+        speech = validate_source_speech(draft, plan, raw)
+        return {"readings": raw["readings"], "source_speech": speech}
+
+    raw = await metered_post(
+        client, f"https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent",
+        model=model, stage="verification", provider_api="generate_content",
+        route="experimental", operation_id=operation_id, parse_response=parse,
+        attempt=next_attempt(), retry=False,
+        json={"contents": [{"parts": parts}],
+              "generationConfig": {"responseMimeType": "application/json", "temperature": .1}},
+        headers={"x-goog-api-key": api_key, "Content-Type": "application/json"},
+    )
+    checks = {key: "confirmed" for key in MATERIAL_KEYS}
+    if has_materials(draft):
+        # Keep the blind re-read independent of first-pass passages/summaries.
+        # Only this subsequent text-only audit sees those materials. Both
+        # requests and any full-video fallback are included in verification.
+        def parse_checks(body):
+            text = body["candidates"][0]["content"]["parts"][0]["text"].strip()
+            if text.startswith("```"):
+                text = re.sub(r"^```(?:json)?\s*|\s*```$", "", text)
+            value = json.loads(text)
+            if not isinstance(value, dict) or type(value.get("confidence")) not in {int, float} or not .72 <= value["confidence"] <= 1:
+                raise ValueError("uncertain-material-audit")
+            status = value.get("material_status")
+            if not isinstance(status, dict) or any(status.get(key) != "confirmed" for key in MATERIAL_KEYS):
+                raise ValueError("incomplete-material-audit")
+            return status
+
+        checks = await metered_post(
+            client, f"https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent",
+            model=model, stage="verification", provider_api="generate_content", route="experimental",
+            operation_id=operation_id, parse_response=parse_checks,
+            attempt=next_attempt(), retry=False,
+            json={"contents": [{"parts": [{"text": material_verification_prompt(draft, raw)}]}],
+                  "generationConfig": {"responseMimeType": "application/json", "temperature": .1}},
+            headers={"x-goog-api-key": api_key, "Content-Type": "application/json"},
+        )
+    return merge_blind_readings(draft, plan, {**raw, "material_status": checks})
 
 
 async def _analyze_gemini_video_source(
@@ -416,6 +500,13 @@ async def _analyze_gemini_video_source(
 ) -> AnalysisPackageInput:
     model = os.getenv("GEMINI_MODEL", "gemini-2.5-flash").strip()
     prompt = _analysis_prompt(title=title, subject=subject, problem_mode=problem_mode)
+    operation_id = new_operation_id()
+    verification_attempts = 0
+
+    def next_verification_attempt():
+        nonlocal verification_attempts
+        verification_attempts += 1
+        return verification_attempts
     try:
         async with httpx.AsyncClient(timeout=600.0, follow_redirects=False) as client:
             try:
@@ -430,15 +521,35 @@ async def _analyze_gemini_video_source(
                     mime_type=mime_type or "video/mp4",
                     prompt=prompt,
                     api_key=api_key,
+                    stage="analysis",
+                    operation_id=operation_id,
                 )
-                verified = await _generate_content_video_call(
-                    client,
-                    model=model,
-                    source_url=source_url,
-                    mime_type=mime_type or "video/mp4",
-                    prompt=_verification_prompt(draft),
-                    api_key=api_key,
-                )
+                plan = plan_verification(draft, problem_mode=problem_mode) if current_route() == "experimental" else None
+                verified = None
+                if plan is not None and not plan.fallback_reason:
+                    try:
+                        verified = await _compact_video_verification(
+                            client, model=model, source_url=source_url,
+                            mime_type=mime_type or "video/mp4", api_key=api_key,
+                            draft=draft, plan=plan, operation_id=operation_id,
+                            next_attempt=next_verification_attempt,
+                        )
+                    except (httpx.HTTPStatusError, KeyError, IndexError, ValueError):
+                        # Unsupported clip metadata, malformed output, missing
+                        # material coverage: retry the accepted complete critic.
+                        pass
+                if verified is None:
+                    verified = await _generate_content_video_call(
+                        client,
+                        model=model,
+                        source_url=source_url,
+                        mime_type=mime_type or "video/mp4",
+                        prompt=_verification_prompt(draft),
+                        api_key=api_key,
+                        stage="verification",
+                        operation_id=operation_id,
+                        attempt=next_verification_attempt(),
+                    )
             except (httpx.HTTPStatusError, KeyError, IndexError, ValueError, json.JSONDecodeError):
                 # Some preview-capable accounts expose the Interactions route.
                 # Keep it as a fallback; one successful pass is never enough.
@@ -452,6 +563,9 @@ async def _analyze_gemini_video_source(
                     mime_type=mime_type,
                     prompt=prompt,
                     api_key=api_key,
+                    stage="analysis",
+                    operation_id=operation_id,
+                    attempt=2,
                 )
                 verified = await _interaction_video_call(
                     client,
@@ -460,6 +574,9 @@ async def _analyze_gemini_video_source(
                     mime_type=mime_type,
                     prompt=_verification_prompt(draft),
                     api_key=api_key,
+                    stage="verification",
+                    operation_id=operation_id,
+                    attempt=next_verification_attempt(),
                 )
             return _enforce_model_visual_verification(verified, draft)
     except (httpx.HTTPError, KeyError, IndexError, ValueError, json.JSONDecodeError) as error:

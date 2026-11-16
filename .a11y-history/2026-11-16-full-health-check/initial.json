@@ -1,0 +1,95 @@
+{
+  "skill": "developer-hub",
+  "scope": [
+    "apps/api/app/local_access.py",
+    "apps/api/app/student_notes.py",
+    "apps/extensions/student/notes.js",
+    "apps/extensions/student/workspace.html"
+  ],
+  "findings": [
+    {
+      "rule": "PY-PROBLEM-ANSWER-TRANSCRIPT",
+      "wcag": "n/a",
+      "severity": "serious",
+      "location": "apps/api/app/local_access.py:lecture",
+      "summary": "Stronger student problem mode retained answer text in speech.",
+      "fix": "Let canonical snapshot validation collect original blocked text before erasure."
+    },
+    {
+      "rule": "PY-NOTE-LIMIT-RACE",
+      "wcag": "n/a",
+      "severity": "moderate",
+      "location": "apps/api/app/student_notes.py:put_note",
+      "summary": "Concurrent note creation could exceed the 1000-note limit.",
+      "fix": "Recheck capacity inside the serialized write transaction."
+    },
+    {
+      "rule": "PY-NOTE-DELETE-RACE",
+      "wcag": "n/a",
+      "severity": "moderate",
+      "location": "apps/api/app/student_notes.py:delete_note",
+      "summary": "Conditional note deletion could report success without removing a row.",
+      "fix": "Serialize revision validation and verify the deleted row count."
+    },
+    {
+      "rule": "PY-DUPLICATE-ASSIGNMENT",
+      "wcag": "n/a",
+      "severity": "moderate",
+      "location": "apps/api/app/local_access.py:edit",
+      "summary": "Duplicate student assignments raised an unhandled database error.",
+      "fix": "Reject duplicates before changing saved assignments."
+    },
+    {
+      "rule": "PY-CHAT-INPUT-VALIDATION",
+      "wcag": "n/a",
+      "severity": "moderate",
+      "location": "apps/api/app/local_access.py:student_chat",
+      "summary": "Malformed student questions returned an unhandled error.",
+      "fix": "Translate parsing and validation failures into HTTP 422."
+    },
+    {
+      "rule": "LIVE-HIDDEN-READING-OUTPUT",
+      "wcag": "4.1.3 AA",
+      "severity": "serious",
+      "location": "apps/extensions/student/workspace.html",
+      "summary": "Reader-mode results were written into a hidden task.",
+      "fix": "Keep the single reader live region outside task-hidden sections."
+    },
+    {
+      "rule": "NOTE-LATE-DELETE",
+      "wcag": "n/a",
+      "severity": "serious",
+      "location": "apps/extensions/student/notes.js",
+      "summary": "An old deletion completion cleared a newer editor.",
+      "fix": "Preserve a different active editor and recheck scope after storage removal."
+    },
+    {
+      "rule": "NOTE-OVERLAPPING-SAVES",
+      "wcag": "n/a",
+      "severity": "moderate",
+      "location": "apps/extensions/student/notes.js",
+      "summary": "Overlapping local-persistence and network saves used stale revisions.",
+      "fix": "Cover persistence and request completion with the same save promise."
+    },
+    {
+      "rule": "NOTE-STALE-SOURCE",
+      "wcag": "n/a",
+      "severity": "moderate",
+      "location": "apps/extensions/student/notes.js",
+      "summary": "An obsolete source lookup replaced newer student editing.",
+      "fix": "Check editor generation before starting the linked note."
+    },
+    {
+      "rule": "NOTE-STALE-DRAFT-CLEANUP",
+      "wcag": "n/a",
+      "severity": "serious",
+      "location": "apps/extensions/student/notes.js",
+      "summary": "Saved-draft cleanup could remove a newer dirty recovery draft.",
+      "fix": "Restore newer content under the captured original scope after cleanup."
+    }
+  ],
+  "notes": [
+    "Merged Python, keyboard and live-region specialist findings.",
+    "Source review and disposable reproductions; not real screen-reader listening."
+  ]
+}

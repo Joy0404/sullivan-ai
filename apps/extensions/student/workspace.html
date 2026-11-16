@@ -2,6 +2,7 @@
 <h2 id="workspace-title" tabindex="-1">내 강의</h2>
 <nav aria-label="작업 선택"><button id="task-home-button" type="button" data-task="home" aria-current="page">강의 목록</button><button id="task-listen-button" type="button" data-task="listen">강의 듣기</button><button id="task-notes-button" type="button" data-task="notes">필기</button><button id="task-find-button" type="button" data-task="find">내용 찾기</button><button id="task-settings-button" type="button" data-task="settings">설정·관리</button></nav>
 <div class="actions"><button id="stop" type="button">영상·해설 모두 중지</button><button id="type-command" type="button">타자 명령 창 열기</button><button id="voice" type="button">음성 명령 시작</button></div><h3 id="command-title" tabindex="-1">음성·타자 명령</h3><p id="voice-status" role="status" aria-atomic="true"></p>
+<p id="reader-description" role="status" aria-atomic="true"></p>
 <section id="task-home" aria-labelledby="home-title"><h3 id="home-title" tabindex="-1">강의 목록</h3>  <p class="notice">배정된 강의를 고르고 원본 탭이나 직접 선택한 영상을 연결하세요. 해설은 준비된 분석 자료를 재생 시점에 맞춰 읽으며, 현재 화면을 새로 촬영·분석하지 않습니다.</p>
   <div class="actions"><button id="resume" type="button">최근 강의 이어 듣기</button><button id="refresh" type="button">배정된 강의 새로고침</button><button id="full-view" type="button" class="secondary">전체 수강 화면 열기</button></div>
   <div class="actions"><button id="show-help" type="button" class="secondary">사용법 다시 보기</button></div>
@@ -22,7 +23,6 @@
       <div class="actions"><button id="back" type="button">10초 뒤로</button><button id="forward" type="button">10초 앞으로</button><button id="return-origin" type="button" disabled>탐색 전 위치로 돌아가기</button></div>
       <p id="playback-state" aria-live="off"></p><p id="current-description" class="notice" tabindex="-1"></p>
       <p id="player-status" role="status"></p>
-      <p id="reader-description" role="status" aria-atomic="true"></p>
     </div>
 <button id="short-summary" type="button">짧은 요약 듣기</button></section>
 <section id="task-find" hidden aria-labelledby="find-title"><h4 id="find-title" tabindex="-1">내용 찾기</h4><section aria-labelledby="selection-title"><h4 id="selection-title">선택한 원문 조작</h4>

@@ -1,0 +1,14 @@
+{
+  "result": "passed",
+  "server_setting_preserved": true,
+  "files_match_source": {
+    "student/app.js": true,
+    "student/worker.js": true,
+    "student/notes.js": true,
+    "guardian/app.js": true,
+    "guardian/worker.js": true,
+    "guardian/entry.js": true
+  },
+  "student_reader_region_count": 1,
+  "published": false
+}

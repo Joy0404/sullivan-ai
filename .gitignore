@@ -3,7 +3,10 @@
 __pycache__/
 .pytest_cache/
 node_modules/
-dist/
+/dist/*
+!/dist/extensions/
+!/dist/releases/
+!/dist/submission/
 *.db
 *.sqlite
 data/raw_audio/
@@ -15,6 +18,8 @@ data/private/
 !.env.example
 *.sqlite*
 *.zip
+!/dist/releases/*/*.zip
+!/dist/submission/*.zip
 .neon
 .hallmark/
 apps/web/.hallmark/

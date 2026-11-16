@@ -28,7 +28,7 @@ def main():
         raise SystemExit('Full acceptance requires SULLIVAN_AXE_SOURCE pointing to axe.min.js.')
     contract=check(json.loads(CONTRACT.read_text())); before=fingerprint()
     jobs=[('project',['bash','scripts/verify_all.sh']),
-          ('student-notes',[sys.executable,'scripts/verify_student_notes.py']),
+          ('student-notes',[sys.executable,'scripts/verify_student_notes.py','--output',str(output/'student-notes')]),
           ('notebook-races',[sys.executable,'scripts/verify_notebook_races.py','--output',str(output/'notebook-races')]),
           ('dashboard',[sys.executable,'scripts/verify_extension_dashboard.py','--output',str(output/'dashboard')]),
           ('followup',[sys.executable,'scripts/verify_extension_followup.py','--output',str(output/'followup')]),

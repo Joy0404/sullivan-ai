@@ -1,0 +1,94 @@
+{
+  "result": "local-regressions-passed-live-acceptance-pending",
+  "recorded_at": "2026-11-16T10:29:23.030135+00:00",
+  "head": "cf5fabea512ff3f44b73336a1cf3f52ba8439427",
+  "source_sha256": "cf6831128ad5382f3eac43384598b14f52fbfd2aa7efe7a75c2f0e83c9ad90e1",
+  "preexisting_worktree_preserved": true,
+  "checks": [
+    {
+      "command": "python scripts/verify_project.py",
+      "exit_code": 0
+    },
+    {
+      "command": "bash scripts/verify_all.sh",
+      "exit_code": 0,
+      "api_passed": 351,
+      "api_skipped": 4,
+      "packaging_passed": 15
+    },
+    {
+      "command": "cd apps/api && python -m pytest -q",
+      "start_state_passed": 340,
+      "start_state_skipped": 4,
+      "final_executed_by": "verify_all.sh"
+    },
+    {
+      "command": "node --check apps/web/app.js",
+      "exit_code": 0
+    },
+    {
+      "command": "python scripts/verify_student_notes.py --output <resumed>/student-notes",
+      "exit_code": 0
+    },
+    {
+      "command": "python scripts/verify_submission_browser.py --output <resumed>/submission-flow",
+      "exit_code": 0,
+      "checks_passed": 9
+    },
+    {
+      "command": "git diff --check",
+      "exit_code": 0
+    }
+  ],
+  "quality": {
+    "kind": "deterministic-and-mocked-provider-regressions",
+    "cases": [
+      "inequality",
+      "axis-unit",
+      "long-passage-underline",
+      "already-spoken",
+      "blur",
+      "answer",
+      "late-question"
+    ],
+    "protected_content_assertion_failures": 0,
+    "live_model_quality": "pending"
+  },
+  "accessibility": {
+    "axe_version": "4.14.0",
+    "screen_states": 20,
+    "violations": 0,
+    "keyboard_guardian_create_sample_assign": "passed",
+    "reader_live_region_and_no_duplicate_app_tts": "passed",
+    "real_screen_reader_audio": "unverified",
+    "native_tts": "not_verified",
+    "screenshots": {
+      "widths": [
+        1280,
+        390
+      ],
+      "count": 40
+    }
+  },
+  "boundaries": {
+    "raw_media_posts": 0,
+    "student_css_and_functions_diff": false,
+    "reference_images_in_status": false,
+    "raw_video_persisted_by_this_measurement": false,
+    "live_provider_called": false
+  },
+  "measurement": {
+    "kind": "미측정",
+    "default_route": "baseline",
+    "reduction_percent": null,
+    "report": "measurement-status.json",
+    "all_input_output_reasoning_cache_total_counters": "unmeasured-for-both-routes"
+  },
+  "remaining": [
+    "live AB/BA measurements including every retry with identical licensed media/models/questions",
+    "teacher-approved original media quality and time-alignment review",
+    "real screen-reader and native TTS listening",
+    "4 optional dedicated PostgreSQL database regressions"
+  ],
+  "boundary": "Prepared demo, deterministic safety assertions and mocked HTTP requests are not live Gemini analysis or token savings."
+}

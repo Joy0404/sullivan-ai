@@ -1,0 +1,11 @@
+/var/folders/q1/89zw4q9s26j_5tf0t1hz_9d40000gn/T/sullivan-extensions-2sq5je__/packages/student
+/var/folders/q1/89zw4q9s26j_5tf0t1hz_9d40000gn/T/sullivan-extensions-2sq5je__/packages/guardian
+SUB01.key_free_assignment_and_sample_label PASS
+SUB02.local_demo_decodes_without_upload PASS
+SUB03.spoken_content_is_index_only PASS
+SUB04.numeric_difference_is_narrated PASS
+SUB05.partial_hold_in_same_narration PASS
+SUB06.full_hold_notice_without_candidate PASS
+SUB07.reader_single_output_no_app_tts PASS
+SUB08.tts_error_keeps_media_and_reading PASS
+SUB09.source_name_not_status_and_async_focus PASS

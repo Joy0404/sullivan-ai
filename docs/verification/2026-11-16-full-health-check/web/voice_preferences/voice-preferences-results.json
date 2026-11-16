@@ -1,0 +1,13 @@
+{
+  "preference_ui_to_server": true,
+  "persists_on_lecture_switch": true,
+  "persists_on_reload": true,
+  "paused_engine_resumed": true,
+  "explicit_test_button_speaks_in_gesture": true,
+  "checkbox_select_disclosure_changes_spoken": true,
+  "focused_feedback_named_and_spoken_once": true,
+  "browser_error_reported": true,
+  "missing_start_reported": true,
+  "page_errors": [],
+  "real_audio": "not verified; browser speech events mocked"
+}

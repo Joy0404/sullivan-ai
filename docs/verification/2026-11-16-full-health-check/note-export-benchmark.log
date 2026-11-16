@@ -1,0 +1,40 @@
+{
+  "kind": "generated-local-HTTP-benchmark",
+  "baseline_ref": "cf5fabe",
+  "baseline_source_sha256": "c2f1c3ae28cb1c8471a9794eff5eb10879631a73f3504355b935cb86364c7816",
+  "current_source_sha256": "e4d3b0bf3b93b9302502a059430fc517a970a80de2d079b87986f681dfef390f",
+  "notes": 200,
+  "repeats": 3,
+  "measurements": {
+    "before": {
+      "milliseconds": [
+        283.85808295570314,
+        282.8805419849232,
+        317.02600000426173
+      ],
+      "median_ms": 283.85808295570314,
+      "snapshot_reads": [
+        200,
+        200,
+        200
+      ]
+    },
+    "after": {
+      "milliseconds": [
+        4.8791669541969895,
+        4.849708988331258,
+        4.440583987161517
+      ],
+      "median_ms": 4.849708988331258,
+      "snapshot_reads": [
+        1,
+        1,
+        1
+      ]
+    }
+  },
+  "identical_output": true,
+  "provider_calls": 0,
+  "user_database_used": false,
+  "boundary": "Local processing benchmark only; timings vary by machine. No Gemini token or live model quality claim."
+}

@@ -112,7 +112,7 @@ def main(exercise=None, phase='phase2', output=None):
                 raise RuntimeError('Test server failed to start')
             time.sleep(.02)
         output = Path(output) if output else ROOT / 'docs/verification'
-        output.mkdir(exist_ok=True)
+        output.mkdir(parents=True,exist_ok=True)
         packages = build(f'http://127.0.0.1:{port}', temp / 'packages')
         paths = ','.join(str(packages / role) for role in ('student', 'guardian'))
         errors = []
