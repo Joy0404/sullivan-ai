@@ -9,7 +9,16 @@
 
 <section id="guardian-guide" hidden aria-labelledby="guardian-guide-title">
   <h2 id="guardian-guide-title" tabindex="-1">보호자 사용 설명서</h2>
-  <p>Sullivan AI에서 학생을 연결하고 강의를 준비하는 방법을 확인하세요. 처음에는 설명서를 확인한 다음 로그인 또는 회원가입을 선택할 수 있습니다. 다음 방문부터는 로그인·회원가입 선택 화면을 먼저 보여 주며, 설명서는 ‘보호자 설명서’에서 필요할 때 다시 볼 수 있습니다.</p>
+  <p>보호자용은 학생 연결과 강의 준비·배정을 담당합니다. 학생은 학생용 확장에서 자신의 계정으로 수강합니다.</p>
+  <ol>
+    <li>계정이 있으면 로그인하세요. 처음이면 회원가입 후 복구 코드를 따로 보관하세요.</li>
+    <li>로그인 후 일회용 연결 코드를 학생에게 전달하세요. 학생이 학생용 확장에서 보호자와 공유 범위를 확인하고 동의합니다.</li>
+    <li>연결된 학생에게 사전 준비된 샘플을 배정하세요. 샘플은 새 영상 분석 없이 사용할 수 있습니다.</li>
+  </ol>
+  <p>지금은 아래 버튼으로 시작할 수 있습니다. 자세한 설명은 선택해서 펼치거나, 이후 ‘보호자 설명서’에서 다시 볼 수 있습니다.</p>
+  <p id="guardian-guide-wait" role="status">로그인 상태를 확인하고 있습니다. 잠시 기다려 주세요.</p>
+  <button id="guardian-guide-done" type="button" disabled>로그인·회원가입으로 계속</button>
+  <details id="guardian-guide-full"><summary>전체 보호자 사용 설명서 펼치기</summary>
   <section aria-labelledby="guardian-guide-accounts">
     <h3 id="guardian-guide-accounts">1. 보호자 계정과 학생 연결</h3>
     <p>처음 이용하면 회원가입을 선택해 보호자 계정을 만드세요. 표시되는 복구 코드를 따로 보관한 뒤 로그인합니다. 계정이 있으면 로그인만 선택하세요.</p>
@@ -42,8 +51,7 @@
     <p>학생에게 강의가 보이지 않으면 학생 연결·배정·공개 상태를 확인하고 학생 확장에서 목록을 새로고침하세요. 원본 파일 연결이 안 되면 같은 파일인지 확인하세요. 준비 작업이 실패하거나 서버 재시작으로 중단되면 결과를 확인하고 자료와 동의를 다시 선택해 요청하세요.</p>
     <p>Tab과 Shift+Tab으로 항목을 이동하고 Enter 또는 Space로 버튼을 선택합니다. 오류 안내를 확인하고 수정하세요. 이후에도 화면 위 ‘보호자 설명서’를 선택하면 로그인 전후 언제든 이 설명서를 다시 볼 수 있습니다.</p>
   </section>
-  <p id="guardian-guide-wait" role="status">로그인 상태를 확인하고 있습니다. 설명서를 읽는 동안 잠시 기다려 주세요.</p>
-  <button id="guardian-guide-done" type="button" disabled>설명서를 확인하고 시작하기</button>
+  </details>
 </section>
 
 <div id="guardian-content">
@@ -125,16 +133,31 @@
   <h2 id="workspace-title" tabindex="-1">학생과 강의 준비</h2>
   <p class="notice">강의를 준비하고 결과를 확인한 뒤 학생에게 배정하세요. 실제 영상 분석은 별도 동의와 서버 연결이 필요합니다. 학생은 학생용 확장에서 영상을 수강합니다.</p>
   <button id="refresh" type="button">목록 새로고침</button>
-  <p id="next-step" role="status"></p>
+  <p id="next-step" aria-live="off"></p>
   <section aria-labelledby="setup-progress-title">
-    <h3 id="setup-progress-title">준비 단계별 현황</h3>
-    <p>학생 연결 → 자료 준비 → 배정 → 학생 설정 순서로 확인하세요. 상태는 현재 계정의 저장된 자료를 기준으로 표시합니다.</p>
-    <ol id="setup-progress">
-      <li><a href="#connections-title">학생 연결</a>: <span id="setup-student"></span></li>
-      <li><a href="#prepare-title">강의 자료 준비</a>: <span id="setup-lecture"></span></li>
-      <li><a id="setup-assignment-link" href="#lectures-title">학생에게 배정</a>: <span id="setup-assignment"></span></li>
-      <li><a href="#management-title">학생별 설정</a>: <span id="setup-settings"></span></li>
+    <h3 id="setup-progress-title" tabindex="-1">첫 샘플 배정 시작 안내</h3>
+    <p>보호자의 다음 행동과 학생이 자기 프로그램에서 할 일을 순서대로 확인하세요. 안내 버튼은 기존 입력 위치로 이동하며 작성 중인 내용을 지우지 않습니다.</p>
+    <ol>
+      <li><strong>보호자 계정: 로그인 완료.</strong> 가입할 때 받은 복구 코드는 별도로 보관하세요.</li>
+      <li><strong>학생 연결</strong>: <span id="setup-student">목록 확인 전</span>
+        <p>보호자는 코드를 전달하고, 학생은 학생용 확장에서 가입·로그인한 뒤 보호자 이름과 공유 범위를 확인해 동의합니다. 양쪽 확장이 같은 접근 가능한 서비스에 접속해야 합니다. 학생이 동의한 뒤 목록을 새로고침하세요. 코드가 만료되면 새로 만드세요.</p>
+        <button id="setup-connect" type="button" class="secondary">연결 코드 만들기로 이동</button>
+        <button id="setup-refresh" type="button" class="secondary">연결·배정 목록 새로고침</button>
+      </li>
+      <li><strong>사전 준비된 샘플 배정</strong>: <span id="setup-sample">목록 확인 전</span>
+        <p>아래에서 학생과 샘플을 선택하고 ‘선택한 학생에게 배정’을 누르세요. 새 AI 분석이나 공급자 키가 필요하지 않습니다. 안내 버튼만 눌러서는 배정되지 않습니다.</p>
+        <button id="setup-sample-action" type="button" class="secondary">학생·샘플 선택으로 이동</button>
+      </li>
+      <li><strong>학생이 할 일</strong>: 학생용 확장에서 목록을 새로고침하고 배정된 샘플을 여세요. 학생 기기의 열기·재생 성공은 이 안내에서 확인할 수 없습니다. 학생 로그인 지원 승인은 선택 사항입니다.</li>
     </ol>
+    <p id="setup-observed">연결·배정 상태는 서버 목록을 확인한 뒤 표시합니다.</p>
+    <details><summary>직접 준비한 강의와 학생 설정 단계</summary>
+      <ol id="setup-progress">
+        <li><a href="#prepare-title">강의 자료 준비</a>: <span id="setup-lecture"></span></li>
+        <li><a id="setup-assignment-link" href="#lectures-title">학생에게 배정</a>: <span id="setup-assignment"></span></li>
+        <li><a href="#management-title">학생별 설정</a>: <span id="setup-settings"></span></li>
+      </ol>
+    </details>
   </section>
   <section aria-labelledby="connections-title"><h3 id="connections-title" tabindex="-1">학생과 연결</h3>
     <p>학생은 학생용 확장에서 자신의 계정으로 가입합니다. 아래 일회용 코드를 학생에게 전달하면 학생이 보호자 이름과 공유 범위를 확인한 뒤 연결합니다.</p>

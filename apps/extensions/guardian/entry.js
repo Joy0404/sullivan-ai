@@ -28,9 +28,9 @@ export async function initializeGuardianEntry() {
     document.body.classList.toggle('guardian-guide-open', guideOpen);
     for (const [name, id] of Object.entries(panels)) $(id).hidden = view !== name;
     $('auth').setAttribute('aria-labelledby', headings[view]);
-    $('guardian-guide-done').textContent = seen ? '이전 화면으로 돌아가기' : '설명서를 확인하고 시작하기';
+    $('guardian-guide-done').textContent = seen ? '이전 화면으로 돌아가기' : '로그인·회원가입으로 계속';
     $('guardian-guide-done').disabled = !ready;
-    const waitText = ready ? '로그인 상태를 확인했습니다. 설명서를 읽은 뒤 아래 버튼으로 계속하세요.' : '로그인 상태를 확인하고 있습니다. 설명서를 읽는 동안 잠시 기다려 주세요.';
+    const waitText = ready ? '시작할 준비가 됐습니다. 아래 버튼으로 계속하거나 전체 설명서를 펼쳐 확인하세요.' : '로그인 상태를 확인하고 있습니다. 잠시 기다려 주세요.';
     if ($('guardian-guide-wait').textContent !== waitText) $('guardian-guide-wait').textContent = waitText;
   }
   function choose(next, focus = true) {

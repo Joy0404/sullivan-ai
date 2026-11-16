@@ -35,6 +35,8 @@ def main():
           ('races',[sys.executable,'scripts/verify_extension_races.py','--output',str(output/'races')]),
           ('remote-login',[sys.executable,'scripts/verify_remote_login.py','--output',str(output/'remote-login')]),
           ('guardian-entry',[sys.executable,'scripts/verify_guardian_entry.py','--output',str(output/'guardian-entry')]),
+          ('guardian-onboarding',[sys.executable,'scripts/verify_guardian_onboarding.py','--output',str(output/'guardian-onboarding')]),
+          ('student-onboarding',[sys.executable,'scripts/verify_student_onboarding.py','--output',str(output/'student-onboarding')]),
           ('submission-flow',[sys.executable,'scripts/verify_submission_browser.py','--output',str(output/'submission-flow')]),
           ('universal',[sys.executable,'scripts/verify_extension_universal.py','--output',str(output/'universal')]),
           ('restoration',[sys.executable,'scripts/verify_feature_restoration.py']),

@@ -1,0 +1,107 @@
+{
+  "result": "passed",
+  "checks": {
+    "ENTRY01.first_guide_then_choice": {
+      "passed": true,
+      "evidence": "Shared installed bootstrap confirms guide-only view, heading focus, explicit completion then two choices and hidden forms"
+    },
+    "ENTRY02.optional_help_preserves_work": {
+      "passed": true,
+      "evidence": "Authenticated guide hides underlying controls, then returns focus and draft"
+    },
+    "ENTRY03.return_visit_skips_guide": {
+      "passed": true,
+      "evidence": "Persistent profile completion survives reload and logout; neither form appears before selection"
+    },
+    "ENTRY04.form_choice_back_and_login": {
+      "passed": true,
+      "evidence": "Choice/back preserves draft, failed credentials stay in login view, valid login opens workspace"
+    },
+    "ENTRY05.existing_session_preserved": {
+      "passed": true,
+      "evidence": "Returning with a valid session first shows account choices and optional guide; Login explicitly resumes the session"
+    },
+    "ENTRY06.signup_and_recovery_then_login": {
+      "passed": true,
+      "evidence": "Public signup yields 8 recovery codes, routes to login, preserves new username, login succeeds"
+    },
+    "ENTRY09.sequential_keyboard_flow": {
+      "passed": true,
+      "evidence": "Actual Tab/Shift+Tab/Enter/Space navigate choices, optional guide, student creation and prepared sample selection/assignment; no mouse or programmatic focus in the workflow"
+    },
+    "ENTRY07.session_exit_during_guide": {
+      "passed": true,
+      "evidence": "Guide stays readable through actual session exit; close returns to current account choices"
+    },
+    "ENTRY08.storage_failure_is_recoverable": {
+      "passed": true,
+      "evidence": "Injected local preference write failure allows login choices and clearly explains repeat; next successful completion persists"
+    },
+    "ENTRY11.first_guide_precedes_restored_session": {
+      "passed": true,
+      "evidence": "Without a guide completion record, even an authenticated profile must confirm the guide before account choices; Enter completion never auto-opens workspace"
+    },
+    "ENTRY10.new_program_tab_starts_with_choices": {
+      "passed": true,
+      "evidence": "New tab in the same installed profile skips the confirmed guide, shows choices before a restored workspace, and resumes only after keyboard selection"
+    }
+  },
+  "axe": [
+    {
+      "screen": "guardian-first-guide",
+      "version": "4.14.0",
+      "violations": 0
+    },
+    {
+      "screen": "student-login",
+      "version": "4.14.0",
+      "violations": 0
+    },
+    {
+      "screen": "guardian-account-choice",
+      "version": "4.14.0",
+      "violations": 0
+    },
+    {
+      "screen": "guardian-signup",
+      "version": "4.14.0",
+      "violations": 0
+    },
+    {
+      "screen": "student-material",
+      "version": "4.14.0",
+      "violations": 0
+    },
+    {
+      "screen": "guardian-workspace",
+      "version": "4.14.0",
+      "violations": 0
+    },
+    {
+      "screen": "guardian-return-account-choice",
+      "version": "4.14.0",
+      "violations": 0
+    },
+    {
+      "screen": "guardian-selected-login",
+      "version": "4.14.0",
+      "violations": 0
+    },
+    {
+      "screen": "guardian-return-with-session",
+      "version": "4.14.0",
+      "violations": 0
+    },
+    {
+      "screen": "guardian-signup-recovery",
+      "version": "4.14.0",
+      "violations": 0
+    },
+    {
+      "screen": "guardian-keyboard-assignment",
+      "version": "4.14.0",
+      "violations": 0
+    }
+  ],
+  "boundary": "Two real installed extensions, temporary DB/profile and actual account endpoints; local storage failure is explicitly injected. Human screen-reader audio not verified."
+}

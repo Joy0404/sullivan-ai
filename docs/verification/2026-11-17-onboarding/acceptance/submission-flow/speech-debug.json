@@ -1,0 +1,19 @@
+{
+  "spoken": [
+    {
+      "text": "새로운 식이 화면에 추가되었습니다.",
+      "lang": "ko-KR",
+      "rate": 0.9309999999999999,
+      "volume": 0.9,
+      "pitch": 0.99,
+      "onend": null,
+      "onerror": null
+    }
+  ],
+  "mode": "silent",
+  "readerChecked": false,
+  "readerText": "",
+  "speechStatus": "",
+  "error": "",
+  "engine": "speak(u){window.__spoken.push(u);u.onstart?.(); if(!window.__holdSpeech)setTimeout(()=>u.onend?.(),50);}"
+}

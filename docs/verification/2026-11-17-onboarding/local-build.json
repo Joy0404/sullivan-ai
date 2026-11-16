@@ -1,0 +1,12 @@
+{
+  "result": "passed",
+  "server_origin_preserved": "http://127.0.0.1:8770",
+  "source_matches_build": {
+    "guardian/app.js": "97d6da8de415fa25811da52a80d3ca26ffdec6f7ba9b63a9698de95180360148",
+    "student/app.js": "df33cb9f51bd9d42afccec78f0123d879ae888d954661ebdc8e128f41f3fc5d5",
+    "student/interaction-feedback.js": "d02a50a718d7f01c99963c00e6bf31b2f2989e8a9dd13dce10f76bfe48d6d289",
+    "student/practice-progress.js": "e153ed5b7f016b3e4c36869f2fd20c7f460b63e735cfb2228b9ca0a1012f9c2a"
+  },
+  "running_extensions_automatically_reloaded": false,
+  "old_submission_zip_replaced": false
+}

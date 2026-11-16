@@ -28,6 +28,8 @@ if command -v node >/dev/null 2>&1; then
   node scripts/test_student_core.mjs
   node scripts/test_student_notebook.mjs
   node scripts/test_notebook_async.mjs
+  node scripts/test_interaction_feedback.mjs
+  node scripts/test_practice_progress.mjs
   node scripts/test_extension_client.mjs
   node scripts/test_remote_login.mjs
   node scripts/test_accessible_analysis.mjs

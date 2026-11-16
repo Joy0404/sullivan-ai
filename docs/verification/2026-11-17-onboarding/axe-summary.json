@@ -1,0 +1,746 @@
+{
+  "result": "passed",
+  "records": 123,
+  "violations": 0,
+  "scope": "Recorded WCAG A/AA axe 4.14.0 results; repeated screens across separate installed-extension jobs are separate records. Not a human screen-reader evaluation.",
+  "checks": [
+    {
+      "report": "acceptance/followup/results.json",
+      "screen": "guardian-first-guide",
+      "version": "4.14.0",
+      "violations": 0
+    },
+    {
+      "report": "acceptance/followup/results.json",
+      "screen": "student-login",
+      "version": "4.14.0",
+      "violations": 0
+    },
+    {
+      "report": "acceptance/followup/results.json",
+      "screen": "guardian-account-choice",
+      "version": "4.14.0",
+      "violations": 0
+    },
+    {
+      "report": "acceptance/followup/results.json",
+      "screen": "guardian-signup",
+      "version": "4.14.0",
+      "violations": 0
+    },
+    {
+      "report": "acceptance/followup/results.json",
+      "screen": "student-material",
+      "version": "4.14.0",
+      "violations": 0
+    },
+    {
+      "report": "acceptance/followup/results.json",
+      "screen": "guardian-workspace",
+      "version": "4.14.0",
+      "violations": 0
+    },
+    {
+      "report": "acceptance/followup/results.json",
+      "screen": "student-save-recovery",
+      "version": "4.14.0",
+      "violations": 0
+    },
+    {
+      "report": "acceptance/followup/results.json",
+      "screen": "guardian-preparation-dashboard",
+      "version": "4.14.0",
+      "violations": 0
+    },
+    {
+      "report": "acceptance/followup/results.json",
+      "screen": "guardian-keyboard-assignment",
+      "version": "4.14.0",
+      "violations": 0
+    },
+    {
+      "report": "acceptance/student-notes/extension-student-notes-results.json",
+      "screen": "guardian-first-guide",
+      "version": "4.14.0",
+      "violations": 0
+    },
+    {
+      "report": "acceptance/student-notes/extension-student-notes-results.json",
+      "screen": "student-login",
+      "version": "4.14.0",
+      "violations": 0
+    },
+    {
+      "report": "acceptance/student-notes/extension-student-notes-results.json",
+      "screen": "guardian-account-choice",
+      "version": "4.14.0",
+      "violations": 0
+    },
+    {
+      "report": "acceptance/student-notes/extension-student-notes-results.json",
+      "screen": "guardian-signup",
+      "version": "4.14.0",
+      "violations": 0
+    },
+    {
+      "report": "acceptance/student-notes/extension-student-notes-results.json",
+      "screen": "student-material",
+      "version": "4.14.0",
+      "violations": 0
+    },
+    {
+      "report": "acceptance/student-notes/extension-student-notes-results.json",
+      "screen": "guardian-workspace",
+      "version": "4.14.0",
+      "violations": 0
+    },
+    {
+      "report": "acceptance/student-notes/extension-student-notes-results.json",
+      "screen": "notes-listening",
+      "version": "4.14.0",
+      "violations": 0
+    },
+    {
+      "report": "acceptance/student-notes/extension-student-notes-results.json",
+      "screen": "notes-editor",
+      "version": "4.14.0",
+      "violations": 0
+    },
+    {
+      "report": "acceptance/student-notes/extension-student-notes-results.json",
+      "screen": "notes-find",
+      "version": "4.14.0",
+      "violations": 0
+    },
+    {
+      "report": "acceptance/student-notes/extension-student-notes-results.json",
+      "screen": "notes-settings",
+      "version": "4.14.0",
+      "violations": 0
+    },
+    {
+      "report": "acceptance/student-notes/extension-student-notes-results.json",
+      "screen": "notes-final",
+      "version": "4.14.0",
+      "violations": 0
+    },
+    {
+      "report": "acceptance/student-notes/extension-student-notes-results.json",
+      "screen": "notes-archive",
+      "version": "4.14.0",
+      "violations": 0
+    },
+    {
+      "report": "acceptance/universal/results.json",
+      "screen": "guardian-first-guide",
+      "version": "4.14.0",
+      "violations": 0
+    },
+    {
+      "report": "acceptance/universal/results.json",
+      "screen": "student-login",
+      "version": "4.14.0",
+      "violations": 0
+    },
+    {
+      "report": "acceptance/universal/results.json",
+      "screen": "guardian-account-choice",
+      "version": "4.14.0",
+      "violations": 0
+    },
+    {
+      "report": "acceptance/universal/results.json",
+      "screen": "guardian-signup",
+      "version": "4.14.0",
+      "violations": 0
+    },
+    {
+      "report": "acceptance/universal/results.json",
+      "screen": "student-material",
+      "version": "4.14.0",
+      "violations": 0
+    },
+    {
+      "report": "acceptance/universal/results.json",
+      "screen": "guardian-workspace",
+      "version": "4.14.0",
+      "violations": 0
+    },
+    {
+      "report": "acceptance/universal/results.json",
+      "screen": "guardian-phase2",
+      "version": "4.14.0",
+      "violations": 0
+    },
+    {
+      "report": "acceptance/universal/results.json",
+      "screen": "student-universal-playback",
+      "version": "4.14.0",
+      "violations": 0
+    },
+    {
+      "report": "acceptance/student-onboarding/student-onboarding-results.json",
+      "screen": "guardian-first-guide",
+      "version": "4.14.0",
+      "violations": 0
+    },
+    {
+      "report": "acceptance/student-onboarding/student-onboarding-results.json",
+      "screen": "student-login",
+      "version": "4.14.0",
+      "violations": 0
+    },
+    {
+      "report": "acceptance/student-onboarding/student-onboarding-results.json",
+      "screen": "guardian-account-choice",
+      "version": "4.14.0",
+      "violations": 0
+    },
+    {
+      "report": "acceptance/student-onboarding/student-onboarding-results.json",
+      "screen": "guardian-signup",
+      "version": "4.14.0",
+      "violations": 0
+    },
+    {
+      "report": "acceptance/student-onboarding/student-onboarding-results.json",
+      "screen": "student-material",
+      "version": "4.14.0",
+      "violations": 0
+    },
+    {
+      "report": "acceptance/student-onboarding/student-onboarding-results.json",
+      "screen": "guardian-workspace",
+      "version": "4.14.0",
+      "violations": 0
+    },
+    {
+      "report": "acceptance/student-onboarding/student-onboarding-results.json",
+      "screen": "student-practice-complete",
+      "version": "4.14.0",
+      "violations": 0
+    },
+    {
+      "report": "acceptance/student-onboarding/student-onboarding-results.json",
+      "screen": "student-practice-restored",
+      "version": "4.14.0",
+      "violations": 0
+    },
+    {
+      "report": "acceptance/dashboard/results.json",
+      "screen": "guardian-first-guide",
+      "version": "4.14.0",
+      "violations": 0
+    },
+    {
+      "report": "acceptance/dashboard/results.json",
+      "screen": "student-login",
+      "version": "4.14.0",
+      "violations": 0
+    },
+    {
+      "report": "acceptance/dashboard/results.json",
+      "screen": "guardian-account-choice",
+      "version": "4.14.0",
+      "violations": 0
+    },
+    {
+      "report": "acceptance/dashboard/results.json",
+      "screen": "guardian-signup",
+      "version": "4.14.0",
+      "violations": 0
+    },
+    {
+      "report": "acceptance/dashboard/results.json",
+      "screen": "student-material",
+      "version": "4.14.0",
+      "violations": 0
+    },
+    {
+      "report": "acceptance/dashboard/results.json",
+      "screen": "guardian-workspace",
+      "version": "4.14.0",
+      "violations": 0
+    },
+    {
+      "report": "acceptance/dashboard/results.json",
+      "screen": "guardian-stage-dashboard",
+      "version": "4.14.0",
+      "violations": 0
+    },
+    {
+      "report": "acceptance/remote-login/results.json",
+      "screen": "guardian-first-guide",
+      "version": "4.14.0",
+      "violations": 0
+    },
+    {
+      "report": "acceptance/remote-login/results.json",
+      "screen": "student-login",
+      "version": "4.14.0",
+      "violations": 0
+    },
+    {
+      "report": "acceptance/remote-login/results.json",
+      "screen": "guardian-account-choice",
+      "version": "4.14.0",
+      "violations": 0
+    },
+    {
+      "report": "acceptance/remote-login/results.json",
+      "screen": "guardian-signup",
+      "version": "4.14.0",
+      "violations": 0
+    },
+    {
+      "report": "acceptance/remote-login/results.json",
+      "screen": "student-material",
+      "version": "4.14.0",
+      "violations": 0
+    },
+    {
+      "report": "acceptance/remote-login/results.json",
+      "screen": "guardian-workspace",
+      "version": "4.14.0",
+      "violations": 0
+    },
+    {
+      "report": "acceptance/remote-login/results.json",
+      "screen": "student-approved-login-device",
+      "version": "4.14.0",
+      "violations": 0
+    },
+    {
+      "report": "acceptance/remote-login/results.json",
+      "screen": "guardian-student-login",
+      "version": "4.14.0",
+      "violations": 0
+    },
+    {
+      "report": "acceptance/remote-login/results.json",
+      "screen": "student-remote-logged-in",
+      "version": "4.14.0",
+      "violations": 0
+    },
+    {
+      "report": "acceptance/remote-login/results.json",
+      "screen": "student-logged-out-support-disabled",
+      "version": "4.14.0",
+      "violations": 0
+    },
+    {
+      "report": "acceptance/guardian-onboarding/guardian-onboarding-results.json",
+      "screen": "guardian-first-guide",
+      "version": "4.14.0",
+      "violations": 0
+    },
+    {
+      "report": "acceptance/guardian-onboarding/guardian-onboarding-results.json",
+      "screen": "student-login",
+      "version": "4.14.0",
+      "violations": 0
+    },
+    {
+      "report": "acceptance/guardian-onboarding/guardian-onboarding-results.json",
+      "screen": "guardian-account-choice",
+      "version": "4.14.0",
+      "violations": 0
+    },
+    {
+      "report": "acceptance/guardian-onboarding/guardian-onboarding-results.json",
+      "screen": "guardian-signup",
+      "version": "4.14.0",
+      "violations": 0
+    },
+    {
+      "report": "acceptance/guardian-onboarding/guardian-onboarding-results.json",
+      "screen": "student-material",
+      "version": "4.14.0",
+      "violations": 0
+    },
+    {
+      "report": "acceptance/guardian-onboarding/guardian-onboarding-results.json",
+      "screen": "guardian-workspace",
+      "version": "4.14.0",
+      "violations": 0
+    },
+    {
+      "report": "acceptance/guardian-onboarding/guardian-onboarding-results.json",
+      "screen": "guardian-onboarding-connected",
+      "version": "4.14.0",
+      "violations": 0
+    },
+    {
+      "report": "acceptance/guardian-onboarding/guardian-onboarding-results.json",
+      "screen": "guardian-onboarding-awaiting-student",
+      "version": "4.14.0",
+      "violations": 0
+    },
+    {
+      "report": "acceptance/submission-flow/results.json",
+      "screen": "guardian-first-guide",
+      "version": "4.14.0",
+      "violations": 0
+    },
+    {
+      "report": "acceptance/submission-flow/results.json",
+      "screen": "student-login",
+      "version": "4.14.0",
+      "violations": 0
+    },
+    {
+      "report": "acceptance/submission-flow/results.json",
+      "screen": "guardian-account-choice",
+      "version": "4.14.0",
+      "violations": 0
+    },
+    {
+      "report": "acceptance/submission-flow/results.json",
+      "screen": "guardian-signup",
+      "version": "4.14.0",
+      "violations": 0
+    },
+    {
+      "report": "acceptance/submission-flow/results.json",
+      "screen": "student-material",
+      "version": "4.14.0",
+      "violations": 0
+    },
+    {
+      "report": "acceptance/submission-flow/results.json",
+      "screen": "guardian-workspace",
+      "version": "4.14.0",
+      "violations": 0
+    },
+    {
+      "report": "acceptance/submission-flow/results.json",
+      "screen": "student-partial-hold-reader",
+      "version": "4.14.0",
+      "violations": 0
+    },
+    {
+      "report": "acceptance/submission-flow/results.json",
+      "screen": "guardian-analysis-status",
+      "version": "4.14.0",
+      "violations": 0
+    },
+    {
+      "report": "acceptance/guardian-entry/results.json",
+      "screen": "guardian-first-guide",
+      "version": "4.14.0",
+      "violations": 0
+    },
+    {
+      "report": "acceptance/guardian-entry/results.json",
+      "screen": "student-login",
+      "version": "4.14.0",
+      "violations": 0
+    },
+    {
+      "report": "acceptance/guardian-entry/results.json",
+      "screen": "guardian-account-choice",
+      "version": "4.14.0",
+      "violations": 0
+    },
+    {
+      "report": "acceptance/guardian-entry/results.json",
+      "screen": "guardian-signup",
+      "version": "4.14.0",
+      "violations": 0
+    },
+    {
+      "report": "acceptance/guardian-entry/results.json",
+      "screen": "student-material",
+      "version": "4.14.0",
+      "violations": 0
+    },
+    {
+      "report": "acceptance/guardian-entry/results.json",
+      "screen": "guardian-workspace",
+      "version": "4.14.0",
+      "violations": 0
+    },
+    {
+      "report": "acceptance/guardian-entry/results.json",
+      "screen": "guardian-return-account-choice",
+      "version": "4.14.0",
+      "violations": 0
+    },
+    {
+      "report": "acceptance/guardian-entry/results.json",
+      "screen": "guardian-selected-login",
+      "version": "4.14.0",
+      "violations": 0
+    },
+    {
+      "report": "acceptance/guardian-entry/results.json",
+      "screen": "guardian-return-with-session",
+      "version": "4.14.0",
+      "violations": 0
+    },
+    {
+      "report": "acceptance/guardian-entry/results.json",
+      "screen": "guardian-signup-recovery",
+      "version": "4.14.0",
+      "violations": 0
+    },
+    {
+      "report": "acceptance/guardian-entry/results.json",
+      "screen": "guardian-keyboard-assignment",
+      "version": "4.14.0",
+      "violations": 0
+    },
+    {
+      "report": "acceptance/races/results.json",
+      "screen": "guardian-first-guide",
+      "version": "4.14.0",
+      "violations": 0
+    },
+    {
+      "report": "acceptance/races/results.json",
+      "screen": "student-login",
+      "version": "4.14.0",
+      "violations": 0
+    },
+    {
+      "report": "acceptance/races/results.json",
+      "screen": "guardian-account-choice",
+      "version": "4.14.0",
+      "violations": 0
+    },
+    {
+      "report": "acceptance/races/results.json",
+      "screen": "guardian-signup",
+      "version": "4.14.0",
+      "violations": 0
+    },
+    {
+      "report": "acceptance/races/results.json",
+      "screen": "student-material",
+      "version": "4.14.0",
+      "violations": 0
+    },
+    {
+      "report": "acceptance/races/results.json",
+      "screen": "guardian-workspace",
+      "version": "4.14.0",
+      "violations": 0
+    },
+    {
+      "report": "acceptance/races/results.json",
+      "screen": "guardian-phase2",
+      "version": "4.14.0",
+      "violations": 0
+    },
+    {
+      "report": "acceptance/races/results.json",
+      "screen": "guardian-editor-races",
+      "version": "4.14.0",
+      "violations": 0
+    },
+    {
+      "report": "acceptance/races/results.json",
+      "screen": "student-position-races",
+      "version": "4.14.0",
+      "violations": 0
+    },
+    {
+      "report": "acceptance/reaudit/forms/extension-fixed-forms-results.json",
+      "screen": "guardian-first-guide",
+      "version": "4.14.0",
+      "violations": 0
+    },
+    {
+      "report": "acceptance/reaudit/forms/extension-fixed-forms-results.json",
+      "screen": "student-login",
+      "version": "4.14.0",
+      "violations": 0
+    },
+    {
+      "report": "acceptance/reaudit/forms/extension-fixed-forms-results.json",
+      "screen": "guardian-account-choice",
+      "version": "4.14.0",
+      "violations": 0
+    },
+    {
+      "report": "acceptance/reaudit/forms/extension-fixed-forms-results.json",
+      "screen": "guardian-signup",
+      "version": "4.14.0",
+      "violations": 0
+    },
+    {
+      "report": "acceptance/reaudit/forms/extension-fixed-forms-results.json",
+      "screen": "student-material",
+      "version": "4.14.0",
+      "violations": 0
+    },
+    {
+      "report": "acceptance/reaudit/forms/extension-fixed-forms-results.json",
+      "screen": "guardian-workspace",
+      "version": "4.14.0",
+      "violations": 0
+    },
+    {
+      "report": "acceptance/reaudit/forms/extension-fixed-forms-results.json",
+      "screen": "fixed-guardian-errors",
+      "version": "4.14.0",
+      "violations": 0
+    },
+    {
+      "report": "acceptance/reaudit/forms/extension-fixed-forms-results.json",
+      "screen": "fixed-student-focus",
+      "version": "4.14.0",
+      "violations": 0
+    },
+    {
+      "report": "acceptance/reaudit/supplement/extension-fixed-supplement-results.json",
+      "screen": "guardian-first-guide",
+      "version": "4.14.0",
+      "violations": 0
+    },
+    {
+      "report": "acceptance/reaudit/supplement/extension-fixed-supplement-results.json",
+      "screen": "student-login",
+      "version": "4.14.0",
+      "violations": 0
+    },
+    {
+      "report": "acceptance/reaudit/supplement/extension-fixed-supplement-results.json",
+      "screen": "guardian-account-choice",
+      "version": "4.14.0",
+      "violations": 0
+    },
+    {
+      "report": "acceptance/reaudit/supplement/extension-fixed-supplement-results.json",
+      "screen": "guardian-signup",
+      "version": "4.14.0",
+      "violations": 0
+    },
+    {
+      "report": "acceptance/reaudit/supplement/extension-fixed-supplement-results.json",
+      "screen": "student-material",
+      "version": "4.14.0",
+      "violations": 0
+    },
+    {
+      "report": "acceptance/reaudit/supplement/extension-fixed-supplement-results.json",
+      "screen": "guardian-workspace",
+      "version": "4.14.0",
+      "violations": 0
+    },
+    {
+      "report": "acceptance/reaudit/supplement/extension-fixed-supplement-results.json",
+      "screen": "guardian-phase2",
+      "version": "4.14.0",
+      "violations": 0
+    },
+    {
+      "report": "acceptance/reaudit/supplement/extension-fixed-supplement-results.json",
+      "screen": "student-phase3",
+      "version": "4.14.0",
+      "violations": 0
+    },
+    {
+      "report": "acceptance/reaudit/supplement/extension-fixed-supplement-results.json",
+      "screen": "supplement-student-no-video",
+      "version": "4.14.0",
+      "violations": 0
+    },
+    {
+      "report": "legacy-artifacts/extension-feature-restoration-results.json",
+      "screen": "guardian-first-guide",
+      "version": "4.14.0",
+      "violations": 0
+    },
+    {
+      "report": "legacy-artifacts/extension-feature-restoration-results.json",
+      "screen": "student-login",
+      "version": "4.14.0",
+      "violations": 0
+    },
+    {
+      "report": "legacy-artifacts/extension-feature-restoration-results.json",
+      "screen": "guardian-account-choice",
+      "version": "4.14.0",
+      "violations": 0
+    },
+    {
+      "report": "legacy-artifacts/extension-feature-restoration-results.json",
+      "screen": "guardian-signup",
+      "version": "4.14.0",
+      "violations": 0
+    },
+    {
+      "report": "legacy-artifacts/extension-feature-restoration-results.json",
+      "screen": "student-material",
+      "version": "4.14.0",
+      "violations": 0
+    },
+    {
+      "report": "legacy-artifacts/extension-feature-restoration-results.json",
+      "screen": "guardian-workspace",
+      "version": "4.14.0",
+      "violations": 0
+    },
+    {
+      "report": "legacy-artifacts/extension-feature-restoration-results.json",
+      "screen": "guardian-phase2",
+      "version": "4.14.0",
+      "violations": 0
+    },
+    {
+      "report": "legacy-artifacts/extension-feature-restoration-results.json",
+      "screen": "student-keyboard-repair",
+      "version": "4.14.0",
+      "violations": 0
+    },
+    {
+      "report": "legacy-artifacts/extension-feature-restoration-results.json",
+      "screen": "guardian-full-preview",
+      "version": "4.14.0",
+      "violations": 0
+    },
+    {
+      "report": "legacy-artifacts/extension-feature-restoration-results.json",
+      "screen": "student-restored-learning",
+      "version": "4.14.0",
+      "violations": 0
+    },
+    {
+      "report": "legacy-artifacts/extension-feature-restoration-results.json",
+      "screen": "student-phase3",
+      "version": "4.14.0",
+      "violations": 0
+    },
+    {
+      "report": "legacy-artifacts/extension-feature-restoration-results.json",
+      "screen": "hosted-guardian-login",
+      "version": "4.14.0",
+      "violations": 0
+    },
+    {
+      "report": "legacy-artifacts/extension-feature-restoration-results.json",
+      "screen": "student-recovery-codes",
+      "version": "4.14.0",
+      "violations": 0
+    },
+    {
+      "report": "legacy-artifacts/extension-feature-restoration-results.json",
+      "screen": "hosted-student-login",
+      "version": "4.14.0",
+      "violations": 0
+    },
+    {
+      "report": "legacy-artifacts/extension-feature-restoration-results.json",
+      "screen": "student-pair-confirm",
+      "version": "4.14.0",
+      "violations": 0
+    },
+    {
+      "report": "legacy-artifacts/extension-feature-restoration-results.json",
+      "screen": "student-home-help",
+      "version": "4.14.0",
+      "violations": 0
+    }
+  ]
+}

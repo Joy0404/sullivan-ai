@@ -12,12 +12,17 @@ checks = []
 def exercise(guardian, student, output):
     def states(expected):
         for name, value in zip(('student','lecture','assignment','settings'), expected):
+            if name == 'student':
+                value = '서버 목록에서 연결된 계정 1명 확인' if value == '완료' else '연결된 학생 없음 · 학생의 연결 동의 후 목록을 새로고침하세요'
             expect(guardian.locator('#setup-'+name)).to_have_text(value)
         checks.append(expected)
 
     states(['완료','완료','완료','기본값'])
     people = request(guardian, '/local/students')
     lessons = request(guardian, '/local/lectures')
+    guardian.get_by_text('직접 준비한 강의와 학생 설정 단계', exact=True).focus()
+    guardian.keyboard.press('Enter')
+    expect(guardian.locator('#setup-progress')).to_be_visible()
     def lists(students, lectures, jobs):
         guardian.unroute('**/local/students'); guardian.unroute('**/local/lectures')
         guardian.unroute('**/extension/v1/guardian/preparations')

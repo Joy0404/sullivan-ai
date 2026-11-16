@@ -8,7 +8,7 @@ from extension_icons import icon
 
 ROOT = Path(__file__).resolve().parents[1]
 SOURCE = ROOT / 'apps/extensions'
-STUDENT_MODULES = ('media.js', 'speech.js', 'video-control.js', 'media-store.js', 'keyboard.js', 'lesson-data.js', 'notes.js', 'remote-login-worker.js', 'remote-login-ui.js')
+STUDENT_MODULES = ('media.js', 'speech.js', 'video-control.js', 'media-store.js', 'keyboard.js', 'lesson-data.js', 'notes.js', 'remote-login-worker.js', 'remote-login-ui.js', 'interaction-feedback.js', 'practice-progress.js')
 LEARNING_MODULES = ('playback-scheduler.js', 'narration-context.js', 'passage-tools.js',
                     'concept-tools.js', 'voice-command-router.js', 'space-gesture.js')
 VERSION = '0.4.9'
