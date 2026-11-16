@@ -1,0 +1,10 @@
+{
+  "skill": "keyboard-navigator",
+  "scope": [
+    "apps/extensions/student/app.js:154",
+    "apps/extensions/student/notes.js",
+    "scripts/verify_notebook_races.py",
+    "scripts/verify_extension_followup.py"
+  ],
+  "findings": []
+}

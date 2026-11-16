@@ -1,5 +1,7 @@
 import {request, signIn} from './client.js';
 import {$, node, button, bindForm, status, task, boot} from './ui.js';
+import {analysisLabel} from './analysis-status.js';
+import {initializeGuardianEntry} from './entry.js';
 
 let generation = 0;
 let students = [], lectures = [], preparation = null, editing = null, managing = null;
@@ -13,6 +15,9 @@ let preparationGeneration = 0;
 let unlinking = null;
 let previewUrl=null,previewCaptionUrl=null,previewFileGeneration=0,previewQuestion=0;
 let editRevision=0, refreshRevision=0, preparationListRevision=0;
+let remoteRevision=0,remoteState=null,remoteStudent=null;
+let guardianInteraction=0;
+for(const event of ['keydown','pointerdown','input','focusin'])document.addEventListener(event,()=>{guardianInteraction++;},true);
 const api = '/extension/v1/guardian';
 const checked = id => [...$(id).querySelectorAll('input:checked')].map(input => input.value);
 
@@ -69,12 +74,16 @@ async function refresh() {
   if(managing && !students.some(s=>s.id===managing)){managing=null;$('management-detail').hidden=true;$('progress-summary').replaceChildren();$('lecture-order').replaceChildren();}
   $('students').replaceChildren(...students.map(s => node('li', `${s.name} (${s.username})`)));
   if (!students.length) $('students').append(node('li', '아직 연결된 학생이 없습니다. 학생 계정을 먼저 만들어 주세요.'));
-  options('student-choice'); options('manage-student'); choices('publish-students');
+  options('student-choice'); options('manage-student'); options('remote-student'); choices('publish-students');
+  if(!students.length&&['remote-student','remote-login-start','remote-login-refresh','remote-login-stop'].includes(document.activeElement?.id))$('connections-title').focus();
+  $('remote-student').disabled=!students.length;
+  for(const id of ['remote-login-start','remote-login-refresh','remote-login-stop'])$(id).disabled=!students.length;
+  await refreshRemoteLogin();
   $('assign-submit').disabled = !students.length;
   $('load-management').disabled = !students.length;
   $('lectures').replaceChildren(...lectures.map(l => {
     const item = node('li');
-    item.append(node('p', `${l.title} · ${l.ready ? '공개 완료' : '비공개'} · 배정 학생 ${l.students.length}명`),
+    item.append(node('p', `${l.title} · ${l.ready ? '공개 완료' : '비공개'} · 배정 학생 ${l.students.length}명 · ${analysisLabel(l.analysis_status)}`),
       button(`${l.title} 배정 수정`, () => edit(l.id)));
     if (!l.ready && l.students.length) item.append(button(`${l.title} 학생에게 공개`, async () => {
       await request(`/local/lectures/${l.id}/ready`, {method: 'PUT'}); await refresh();
@@ -95,7 +104,7 @@ async function refreshPreparations() {
   if (fingerprint === jobsFingerprint) return;
   jobsFingerprint = fingerprint;
   const changed = jobs.filter(job => jobStates.has(job.id) && jobStates.get(job.id) !== job.state && ['running', 'completed', 'failed', 'interrupted'].includes(job.state));
-  if (changed.length) $('job-status').textContent = changed.map(job => `${job.title}: ${preparationLabels[job.state]}. ${job.message}`).join(' ');
+  if (changed.length) $('job-status').textContent = changed.map(job => `${job.title}: ${preparationLabels[job.state]}. ${analysisLabel(job.analysis_status)}. ${job.message}`).join(' ');
   jobStates = new Map(jobs.map(job => [job.id, job.state]));
   preparations = jobs;
   renderSteps();
@@ -115,6 +124,7 @@ function renderPreparations() {
   $('preparations').replaceChildren(...jobs.map(job => {
     const item = node('article');
     item.append(node('h4', job.title), node('p', `${preparationLabels[job.state] || job.state}. ${job.message}`),
+      node('p', `영상 분석 상태: ${analysisLabel(job.analysis_status)}`),
       node('p', `${job.subject} · 마지막 상태 확인 ${new Date(job.updated * 1000).toLocaleString('ko-KR')}`));
     const action = job.state === 'completed'
       ? button(`${job.title} 결과 확인·배정`, () => openPreparation(job.id))
@@ -141,12 +151,14 @@ $('preparation-search').addEventListener('input', renderPreparations);
 
 async function openPreparation(id) {
   const ticket = generation;
+  const focus=guardianInteraction;
   const selected = ++preparationGeneration;
   preparation = null; $('prepared-detail').hidden = true;
   const job = await request(`${api}/preparations/${id}`);
   if (ticket !== generation || selected !== preparationGeneration) return;
   preparation = job;
   $('prepared-title').textContent = `${job.title} 준비 결과`;
+  $('prepared-analysis-status').textContent=`영상 분석 상태: ${analysisLabel(job.analysis_status)}`;
   const snapshot = job.snapshot;
   resetPreview();
   const box=$('prepared-preview');box.replaceChildren(node('p', snapshot.session.source_label),
@@ -157,6 +169,7 @@ async function openPreparation(id) {
   const stamp=ms=>`${Math.floor(ms/60000)}분 ${Math.floor(ms/1000)%60}초`;
   section('강의 발화·자막',snapshot.transcript_segments.map(s=>`${stamp(s.start_ms)}. ${s.text}`));
   section('검증된 화면 설명',snapshot.visual_gaps.filter(g=>g.safe_to_speak&&g.confidence>=.72&&g.public_description&&!['HOLD','SKIP'].includes(g.action)&&!(snapshot.session.problem_mode&&g.kind==='answer')).map(g=>`${stamp(g.timestamp_ms)}. ${g.public_description}`));
+  section('판독 보류 안내',snapshot.visual_gaps.filter(g=>g.action==='HOLD'&&!(snapshot.session.problem_mode&&g.kind==='answer')).flatMap(g=>(g.hold_notices||[]).map(notice=>`${stamp(g.timestamp_ms)}. ${notice.text}`)));
   section('개념 탐색',snapshot.concept_index.map(c=>`${stamp(c.timestamp_ms)}. ${c.keyword}. 강사 설명: ${c.lecturer_point}. AI 설명: ${c.ai_explanation}. ${c.flow}`));
   for(const [title,key] of [['복습 핵심 구간','key_segments'],['화면에만 있는 정보','visual_only_information'],['강조 문장','highlighted_sentences']]){
     const detail=node('details');detail.append(node('summary',title));
@@ -171,7 +184,8 @@ async function openPreparation(id) {
   choices('publish-students', []);
   $('publish-form').reset();
   $('prepared-detail').hidden = false;
-  $('prepared-title').focus();
+  if(focus===guardianInteraction||document.activeElement===document.body)$('prepared-title').focus();
+  else status(`${job.title} 준비 결과를 열었습니다. ${analysisLabel(job.analysis_status)}.`);
 }
 
 function resetPreview(){previewQuestion++;previewFileGeneration++;$('preview-video').pause();$('preview-video').removeAttribute('src');$('preview-video').querySelectorAll('track').forEach(t=>t.remove());$('preview-video').load();$('preview-video').hidden=true;if(previewUrl)URL.revokeObjectURL(previewUrl);if(previewCaptionUrl)URL.revokeObjectURL(previewCaptionUrl);previewUrl=previewCaptionUrl=null;$('preview-file').value='';$('preview-answer').textContent='';$('preview-question-form').reset();}
@@ -417,6 +431,48 @@ bindForm('assign-form', async ({student, sample}) => {
 });
 $('refresh').addEventListener('click', () => task($('refresh'), async () => { await refresh(); await refreshPreparations(); status('목록을 갱신했습니다.'); }));
 $('refresh-preparations').addEventListener('click', () => task($('refresh-preparations'), async () => { await refreshPreparations(); status('준비 상태를 갱신했습니다.'); }));
+function remoteMessage(data,name){
+  if(!data.enabled)return `${name}: 학생 기기에서 처음 한 번 로그인하고 보호자 로그인 지원을 허용하세요.`;
+  if(['completed','already_signed_in'].includes(data.state)&&data.presence!=='signed_in'&&data.presence!=='other_account')return `${name}: 이전 로그인 요청은 완료됐습니다. ${data.presence==='offline'?'현재 학생 기기의 연결은 확인되지 않습니다. Chrome과 인터넷 연결을 확인하세요.':'필요하면 학생 로그인으로 새 요청을 보낼 수 있습니다.'}`;
+  const messages={pending:'학생 기기의 응답을 기다립니다. Chrome과 인터넷 연결을 확인하세요.',issued:'학생 기기에서 로그인 정보를 받았습니다. 로그인 완료 확인을 기다립니다.',completed:'학생 기기에 로그인을 완료했습니다.',already_signed_in:'학생 기기에 이미 로그인되어 있습니다.',expired:'요청이 만료됐습니다. 학생 Chrome을 켠 뒤 학생 로그인을 다시 누르세요.',cancelled:'로그인 요청이 취소됐습니다.',ready:'승인한 학생 기기에 로그인 요청을 보낼 수 있습니다.'};
+  const blocked=data.presence==='other_account'?' 학생 기기에 다른 계정이 있어 자동으로 바꾸지 않습니다.':'';
+  return `${name}: ${messages[data.state]||'로그인 상태를 확인하세요.'}${blocked}`;
+}
+async function refreshRemoteLogin(){
+  const student=$('remote-student').value,ticket=generation,revision=++remoteRevision;
+  if(!student){remoteState=null;$('guardian-remote-status').textContent='먼저 학생 계정을 연결하세요.';return;}
+  const name=students.find(row=>row.id===student)?.name||'학생';
+  const valid=()=>ticket===generation&&revision===remoteRevision&&student===$('remote-student').value;
+  if(remoteStudent!==student){remoteStudent=student;remoteState=null;$('remote-login-stop').disabled=true;$('guardian-remote-status').textContent=`${name}: 로그인 지원 상태를 확인하고 있습니다.`;}
+  let result;
+  try{result=await request(`${api}/students/${student}/remote-login`);}
+  catch(error){
+    if(valid()&&!error.cancelled){const text=`${name}: ${error.message} 연결 후 학생 로그인 상태 확인을 다시 누르세요.`;if($('guardian-remote-status').textContent!==text)$('guardian-remote-status').textContent=text;}
+    return;
+  }
+  if(!valid())return;
+  remoteState=result;const text=remoteMessage(result,students.find(row=>row.id===student)?.name||'학생');
+  if($('guardian-remote-status').textContent!==text)$('guardian-remote-status').textContent=text;
+  if(!result.enabled&&document.activeElement===$('remote-login-stop'))$('remote-login-start').focus();
+  $('remote-login-stop').disabled=!result.enabled;
+}
+$('remote-student').addEventListener('change',()=>{remoteState=null;refreshRemoteLogin().catch(error=>{if(!error.cancelled)status(error.message,true);});});
+$('remote-login-refresh').addEventListener('click',()=>task($('remote-login-refresh'),refreshRemoteLogin));
+$('remote-login-start').addEventListener('click',()=>task($('remote-login-start'),async()=>{
+  const student=$('remote-student').value,ticket=generation;
+  if(!student)throw new Error('로그인할 학생을 선택하세요.');
+  try{await request(`${api}/students/${student}/remote-login`,{method:'POST'});}
+  catch(error){if(ticket!==generation||student!==$('remote-student').value)error.cancelled=true;throw error;}
+  if(ticket!==generation||student!==$('remote-student').value)return;
+  await refreshRemoteLogin();
+}));
+$('remote-login-stop').addEventListener('click',()=>task($('remote-login-stop'),async()=>{
+  const student=$('remote-student').value,ticket=generation;
+  try{await request(`${api}/students/${student}/remote-login`,{method:'DELETE'});}
+  catch(error){if(ticket!==generation||student!==$('remote-student').value)error.cancelled=true;throw error;}
+  if(ticket!==generation||student!==$('remote-student').value)return;
+  await refreshRemoteLogin();status('선택한 학생 기기의 로그인 지원을 해제했습니다.');
+}));
 $('create-pair-code').addEventListener('click',()=>task($('create-pair-code'),async()=>{
   const result=await request(`${api}/connections/code`,{method:'POST'});$('pair-code').value=result.code;$('pair-code').focus();$('pair-code').select();status('10분 동안 한 번 사용할 연결 코드를 만들었습니다. 학생이 직접 확인하고 연결해야 합니다.');
 }));
@@ -463,19 +519,21 @@ prepareForm.addEventListener('submit',event=>{
   if(prepareStep<2){event.preventDefault();event.stopImmediatePropagation();if(validPrepareStep(prepareStep)){prepareStep++;prepareStepView(true);}return;}
   for(let index=0;index<3;index++)if(!validPrepareStep(index)){event.preventDefault();event.stopImmediatePropagation();return;}
 },true);
+const guardianEntry = await initializeGuardianEntry();
 const showUser = await boot(async () => {
   const capability=await request(`${api}/capabilities`);
   $('student-form').closest('details').hidden=capability.production;
   generation++; await refresh(); await refreshPreparations();
   clearInterval(poll);
-  poll = setInterval(() => { if (!document.hidden) refreshPreparations().catch(error => {
+  poll = setInterval(() => { if (!document.hidden) {if(remoteState&&['pending','issued'].includes(remoteState.state))refreshRemoteLogin().catch(()=>{});refreshPreparations().catch(error => {
     if (pollError !== error.message) { pollError = error.message; $('connection-status').textContent = error.message; }
-  }); }, 5000);
+  });} }, 5000);
 }, () => {
   preparationGeneration++;resetPreview();
   guided=false;prepareStep=0;prepareForm.noValidate=false;prepareStepView();
   generation++;
   managementGeneration++;
+  remoteRevision++;remoteState=null;remoteStudent=null;$('remote-student').replaceChildren();$('guardian-remote-status').textContent='';
   clearInterval(poll); students = []; lectures = []; preparations = []; preparation = null; editing = null; managing = null; jobsFingerprint = '';
   $('preparation-filter').value = 'all'; $('preparation-search').value = '';
   $('preparation-counts').textContent = ''; $('preparation-results').textContent = '';
@@ -485,7 +543,7 @@ const showUser = await boot(async () => {
   for (const id of ['prepared-detail', 'edit-panel', 'management-detail']) $(id).hidden = true;
   for (const id of ['student-form', 'prepare-form', 'publish-form', 'edit-form', 'settings-form']) $(id).reset();
   choices('publish-students', []); choices('edit-students', []); syncSource();
-});
+}, guardianEntry);
 bindForm('register-form', async credentials => {
   await showUser(await signIn(credentials, true));
   $('register-form').reset();

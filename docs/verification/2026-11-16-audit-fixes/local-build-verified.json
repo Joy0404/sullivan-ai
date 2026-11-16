@@ -1,0 +1,22 @@
+{
+  "result": "passed",
+  "role_scripts_matched": [
+    "dist/extensions/student/media-store.js",
+    "dist/extensions/student/remote-login-ui.js",
+    "dist/extensions/student/notes.js",
+    "dist/extensions/student/remote-login-worker.js",
+    "dist/extensions/student/lesson-data.js",
+    "dist/extensions/student/media.js",
+    "dist/extensions/student/video-control.js",
+    "dist/extensions/student/worker.js",
+    "dist/extensions/student/learning-response.js",
+    "dist/extensions/student/speech.js",
+    "dist/extensions/student/keyboard.js",
+    "dist/extensions/student/app.js",
+    "dist/extensions/guardian/worker.js",
+    "dist/extensions/guardian/app.js",
+    "dist/extensions/guardian/entry.js"
+  ],
+  "version": "0.4.9",
+  "requires_user_reload": true
+}

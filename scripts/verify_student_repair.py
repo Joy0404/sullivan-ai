@@ -2,6 +2,7 @@
 
 Speech/provider inputs are explicit test doubles; video playback and Chrome panel are real.
 """
+from verify_extensions_browser import student_control
 import json
 import time
 from playwright.sync_api import expect
@@ -18,7 +19,7 @@ def media_checks(guardian,student,output):
     expect(student.locator('#space-enabled')).to_be_checked()
     assert student.locator('[name=invite],[name=access_code]').count()==0
     assert guardian.locator('[name=invite],[name=access_code]').count()==0
-    student.locator('#bookmark').focus()
+    student_control(student, '#bookmark').focus()
     before=student.locator('#bookmarks li').count()
     taps(student,1)
     student.wait_for_function("() => !document.querySelector('#local-video').paused")
@@ -26,74 +27,77 @@ def media_checks(guardian,student,output):
     taps(student,1);student.wait_for_function("() => document.querySelector('#local-video').paused")
     student.evaluate('window.__holdSpeech=true')
     before_speech=student.evaluate('window.__spoken.length')
-    student.locator('#read').click();expect(student.locator('#current-description')).to_contain_text('문단')
+    student_control(student, '#read').click();expect(student.locator('#current-description')).to_contain_text('문단')
     student.wait_for_function('(n)=>window.__spoken.length>n',arg=before_speech)
     student.evaluate('window.__stale=window.__spoken.at(-1)')
     taps(student,2);expect(student.locator('#status')).to_contain_text('모두 중지')
     student.evaluate('window.__stale.onend?.();window.__holdSpeech=false')
     assert student.evaluate("document.querySelector('#local-video').paused")
-    student.locator('#bookmark').focus();taps(student,3);expect(student.locator('#text-dialog')).to_be_visible()
+    student_control(student, '#bookmark').focus();taps(student,3);expect(student.locator('#text-dialog')).to_be_visible()
     expect(student.locator('#text-command')).to_be_focused()
-    student.locator('#text-command').fill('10초 앞으로')
+    student_control(student, '#text-command').fill('10초 앞으로')
     student.keyboard.press('Enter');expect(student.locator('#text-dialog')).to_be_hidden()
     expect(student.locator('#status')).to_contain_text('위치로 이동')
     # Real 3-second threshold with a synthetic recognizer, not a claimed live microphone test.
-    student.locator('#voice-consent').check()
+    student_control(student, '#voice-consent').check()
     student.evaluate("""() => {window.SpeechRecognition=class {
       start(){window.__voiceStarted=(window.__voiceStarted||0)+1;window.__recognition=this;this.onstart?.();}
       stop(){this.onresult?.({results:[[{transcript:'영상 중지'}]]});this.onend?.();}
       abort(){}
     };}""")
-    student.locator('#bookmark').focus();student.keyboard.down('Space')
+    student_control(student, '#bookmark').focus();student.keyboard.down('Space')
     student.wait_for_timeout(2700)
     assert student.evaluate('window.__voiceStarted||0')==0
     student.wait_for_function('() => window.__voiceStarted===1',timeout=1200)
     student.keyboard.up('Space');expect(student.locator('#status')).to_contain_text('모두 중지')
-    student.locator('#voice-consent').uncheck()
-    student.locator('#bookmark').focus();student.keyboard.down('Space')
+    student_control(student, '#voice-consent').uncheck()
+    student_control(student, '#bookmark').focus();student.keyboard.down('Space')
     expect(student.locator('#voice-permission-dialog')).to_be_visible(timeout=4000);student.keyboard.up('Space')
     student.evaluate("""() => {window.__getMedia=navigator.mediaDevices.getUserMedia;
       navigator.mediaDevices.getUserMedia=()=>new Promise(resolve=>window.__resolveMic=resolve);}""")
-    student.locator('#allow-voice').click();student.keyboard.press('Escape')
+    student_control(student, '#allow-voice').click();student.keyboard.press('Escape')
     student.evaluate("() => window.__resolveMic({getTracks:()=>[{stop(){window.__micStopped=true;}}]})")
     student.wait_for_function('() => window.__micStopped===true')
     assert student.evaluate('window.__voiceStarted')==1
     expect(student.locator('#text-dialog')).to_be_hidden()
+    expect(student.locator('#voice-permission-dialog')).to_be_hidden()
+    expect(student.locator('#bookmark')).to_be_focused()
     student.evaluate('() => {navigator.mediaDevices.getUserMedia=window.__getMedia;}')
-    student.locator('#voice-consent').uncheck()
+    student_control(student, '#voice-consent').uncheck()
     # Scope includes all controls, keeps natural order from a heading and has an explicit exit.
+    student.locator('#task-listen-button').press('Enter')
     student.locator('#lesson-title').focus();student.keyboard.press('Tab')
-    expect(student.get_by_role('link',name='강의 조작',exact=True)).to_be_focused()
-    student.locator('#voice-test').focus();student.keyboard.press('Tab');expect(student.locator('#panel-keyboard')).to_be_focused()
+    expect(student.locator('#play')).to_be_focused()
+    student_control(student, '#voice-test').focus();student.keyboard.press('Tab');expect(student.locator('#panel-keyboard')).to_be_focused()
     student.keyboard.press('Shift');expect(student.locator('#voice-test')).to_be_focused()
     student.keyboard.press('Shift+Tab');expect(student.locator('#access-mode')).to_be_focused()
-    student.locator('#note').fill('입력 중');student.locator('#note').focus()
+    student_control(student, '#note').fill('입력 중');student_control(student, '#note').focus()
     student.keyboard.press('Shift');expect(student.locator('#note')).to_be_focused()
     student.keyboard.press('End');student.keyboard.press('Space');expect(student.locator('#note')).to_have_value('입력 중 ')
     first=student.locator('.skip');last=student.locator('main > details > summary')
     last.focus();student.keyboard.press('Tab');expect(first).to_be_focused()
     first.focus();student.keyboard.press('Shift+Tab');expect(last).to_be_focused()
     taps(student,3);expect(student.locator('#text-dialog')).to_be_visible()
-    student.locator('#close-dialog').focus();student.keyboard.press('Tab');expect(student.locator('#text-command')).to_be_focused()
+    student_control(student, '#close-dialog').focus();student.keyboard.press('Tab');expect(student.locator('#text-command')).to_be_focused()
     student.keyboard.press('Escape');expect(student.locator('#text-dialog')).to_be_hidden()
     student.keyboard.press('Escape');expect(student.locator('#status')).to_contain_text('해제')
-    student.locator('#panel-keyboard').click()
+    student_control(student, '#panel-keyboard').click()
     # App guidance works without touching the selected media and never reads password values.
-    student.locator('#access-mode').select_option('app')
+    student_control(student, '#access-mode').select_option('app')
     student.evaluate('window.__spoken=[]')
-    student.locator('#voice-test').click()
+    student_control(student, '#voice-test').click()
     student.wait_for_function("() => window.__spoken.some(u=>u.text.includes('학생 음성 안내'))")
-    student.locator('#note').focus()
+    student_control(student, '#note').focus()
     student.wait_for_function("() => window.__spoken.some(u=>u.text.includes('내 메모'))")
-    student.locator('#access-mode').select_option('reader')
+    student_control(student, '#access-mode').select_option('reader')
     count=student.evaluate('window.__spoken.length')
-    student.locator('#read').click();expect(student.locator('#reader-description')).not_to_be_empty()
+    student_control(student, '#read').click();expect(student.locator('#reader-description')).not_to_be_empty()
     assert student.evaluate('window.__spoken.length')==count
-    student.locator('#access-mode').select_option('app')
-    student.locator('#voice-consent').uncheck()
+    student_control(student, '#access-mode').select_option('app')
+    student_control(student, '#voice-consent').uncheck()
     check_layout(student,'student-keyboard-repair',output)
     # Preserve the starting media state expected by the cumulative regression.
-    student.locator('#stop').click()
+    student_control(student, '#stop').click()
 
 
 class Target:
@@ -120,7 +124,7 @@ class Target:
         if 'exceptionDetails' in result:raise RuntimeError(result['exceptionDetails'])
         return result['result'].get('value')
     def key(self,key,code=None,modifiers=0):
-        for kind in ('keyDown','keyUp'):self.send('Input.dispatchKeyEvent',{'type':kind,'key':key,'code':code or key,'modifiers':modifiers,'windowsVirtualKeyCode':9 if key=='Tab' else 27 if key=='Escape' else 16})
+        for kind in ('keyDown','keyUp'):self.send('Input.dispatchKeyEvent',{'type':kind,'key':key,'code':code or key,'modifiers':modifiers,'windowsVirtualKeyCode':{'Tab':9,'Escape':27,'Shift':16,'Enter':13}[key],**({'text':'\r','unmodifiedText':'\r'} if key=='Enter' and kind=='keyDown' else {})})
 
 
 def native_panel(student):
@@ -131,7 +135,7 @@ def native_panel(student):
       const win=await chrome.windows.getCurrent();const b=document.createElement('button');b.id='verify-native-panel';b.textContent='검사용 학습 패널 열기';
       b.onclick=()=>chrome.sidePanel.open({windowId:win.id});document.body.append(b);
     }""")
-    student.locator('#verify-native-panel').click()
+    student_control(student, '#verify-native-panel').click()
     deadline=time.monotonic()+10
     while True:
         targets=root.send('Target.getTargets')['targetInfos']
@@ -145,7 +149,9 @@ def native_panel(student):
         if time.monotonic()>deadline:raise RuntimeError('Native panel account restore timed out')
         student.wait_for_timeout(50)
     student.evaluate("() => chrome.runtime.sendMessage({type:'student-focus-panel'}).catch(()=>{})")
-    assert panel.evaluate('document.activeElement.id')=='workspace-title'
+    assert panel.evaluate('document.activeElement.id')=='home-title'
+    panel.evaluate("document.querySelector('#task-settings-button').focus()")
+    panel.key('Enter')
     panel.evaluate("document.querySelector('#voice-test').focus()")
     panel.key('Tab');assert panel.evaluate('document.activeElement.id')=='panel-keyboard'
     panel.key('Tab',modifiers=8);assert panel.evaluate('document.activeElement.id')=='voice-test'
@@ -164,12 +170,12 @@ def exercise(guardian,student,output):
     guardian=phase4(guardian,student,output)
     native_panel(student)
     # Logged-out focus still receives app guidance.
-    student.locator('#logout').click();expect(student.locator('#auth')).to_be_visible()
-    student.evaluate(SPEECH);student.locator('#access-mode').select_option('app')
-    student.locator('#access-mode').focus();student.locator('#username').focus();student.wait_for_function("() => window.__spoken.some(u=>u.text.includes('로그인 이름'))")
-    student.locator('#password').fill('never-read-this-password');student.locator('#password').focus()
+    student_control(student, '#logout').click();expect(student.locator('#auth')).to_be_visible()
+    student.evaluate(SPEECH);student_control(student, '#access-mode').select_option('app')
+    student_control(student, '#access-mode').focus();student_control(student, '#username').focus();student.wait_for_function("() => window.__spoken.some(u=>u.text.includes('로그인 이름'))")
+    student_control(student, '#password').fill('never-read-this-password');student_control(student, '#password').focus()
     assert not student.evaluate("window.__spoken.some(u=>u.text.includes('never-read-this-password'))")
-    student.locator('#username').fill('student');student.locator('#password').fill('extension-pass-123');student.locator('#login-form button').click()
+    student_control(student, '#username').fill('student');student_control(student, '#password').fill('extension-pass-123');student_control(student, '#login-form button').click()
     expect(student.locator('#workspace')).to_be_visible()
     return guardian
 

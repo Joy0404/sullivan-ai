@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "description": "Self-authored deterministic accessibility demonstration; no uploaded user media or paid analysis",
+  "assets": [
+    {
+      "path": "accessibility-demo.json",
+      "provenance": "self-authored",
+      "license": "CC0-1.0 (self-authored mathematical text and graphics; locally synthesized demonstration speech)"
+    },
+    {
+      "path": "accessibility-demo.srt",
+      "provenance": "self-authored",
+      "license": "CC0-1.0 (self-authored mathematical text and graphics; locally synthesized demonstration speech)"
+    },
+    {
+      "path": "accessibility-demo.txt",
+      "provenance": "self-authored",
+      "license": "CC0-1.0 (self-authored mathematical text and graphics; locally synthesized demonstration speech)"
+    },
+    {
+      "path": "accessibility-demo.mp4",
+      "provenance": "generated",
+      "license": "CC0-1.0 (self-authored mathematical text and graphics; locally synthesized demonstration speech)"
+    }
+  ]
+}

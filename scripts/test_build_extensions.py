@@ -20,7 +20,7 @@ class Packages(unittest.TestCase):
             guardian = Path(output) / 'guardian'
             sm = json.loads((student / 'manifest.json').read_text())
             gm = json.loads((guardian / 'manifest.json').read_text())
-            self.assertEqual(sm['permissions'], ['storage', 'identity', 'sidePanel', 'scripting', 'activeTab'])
+            self.assertEqual(sm['permissions'], ['storage', 'identity', 'sidePanel', 'scripting', 'activeTab', 'alarms'])
             self.assertNotIn('<all_urls>', sm['host_permissions'])
             self.assertEqual(sm['optional_host_permissions'], ['https://*/*', 'http://*/*'])
             self.assertEqual(gm['permissions'], ['storage', 'identity'])
@@ -32,7 +32,13 @@ class Packages(unittest.TestCase):
             self.assertNotIn('/local/students', (student / 'app.js').read_text())
             self.assertNotIn('보호자 계정을 만들었습니다', (student / 'ui.js').read_text())
             self.assertNotIn('progress-form', (guardian / 'index.html').read_text())
-            self.assertEqual(len(list(student.iterdir())), 13 + len(STUDENT_MODULES) + len(LEARNING_MODULES))
+            self.assertIn('guardian-guide-title', (guardian/'index.html').read_text())
+            self.assertIn('guardian-login-choice', (guardian/'index.html').read_text())
+            self.assertIn('guardian-signup-choice', (guardian/'index.html').read_text())
+            self.assertTrue((guardian/'entry.js').is_file())
+            self.assertFalse((student/'entry.js').exists())
+            self.assertNotIn('guardian-guide', (student/'index.html').read_text())
+            self.assertEqual(len(list(student.iterdir())), 14 + len(STUDENT_MODULES) + len(LEARNING_MODULES))
             self.assertNotIn('media.js', {path.name for path in guardian.iterdir()})
             if shutil.which('node'):
                 for source in Path(output).rglob('*.js'):

@@ -1,9 +1,12 @@
 import {request} from './client.js';
+import {createNotebook} from './notes.js';
 import {$, node, button, bindForm, status, task, boot} from './ui.js';
 import {StudentMedia} from './media.js';
 import {StudentSpeech, StudentAnnouncer, controlDescription} from './speech.js';
 import {installStudentKeyboard} from './keyboard.js';
-import {createLessonData} from './lesson-data.js';
+import {createLessonData,safeHoldNoticeText} from './lesson-data.js';
+import {analysisLabel} from './analysis-status.js';
+import {initializeRemoteLoginUI,installRemoteEnrollment} from './remote-login-ui.js';
 import {saveOriginal, loadOriginal, removeOriginal} from './media-store.js';
 import './playback-scheduler.js';
 import './narration-context.js';
@@ -14,6 +17,8 @@ import './space-gesture.js';
 import './learning-response.js';
 import './speech-profile.js';
 
+let notebook=null,notebookLecture=null,currentTask='home';
+const taskFocus=new Map();
 let current = null, user = null, lectures = [], generation = 0, actionGeneration = 0, lectureRequest=0;
 let positionMs = 0, previousMs = null, originMs = null, currentParagraph = null, sentenceIndex = 0;
 let announced = new Set(), tickBusy = false, saveChain = Promise.resolve(), saveTimer, autoSaveAt = 0;
@@ -50,7 +55,7 @@ function reportError(error){if(!error.cancelled&&!error.reported)status(error.me
 function connectionNotice(text){$('connection').textContent=text;if(!settings.reader_mode)announcer.say(text);}
 function clearPlayerPermission(){
   pendingPlayerPermission=null;
-  if(document.activeElement===$('grant-player'))(media.ready?$('play'):$('open-original')).focus();
+  if(document.activeElement===$('grant-player'))(currentTask==='listen'&&media.ready?$('play'):$('open-original')).focus();
   $('grant-player').hidden=true;$('player-permission-help').textContent='';
 }
 function playerPermission(error,context){
@@ -66,6 +71,8 @@ const paragraphs = () => lessonData?.paragraphs || [];
 const sentences = () => lessonData?.sentences || [];
 const concepts = () => lessonData?.concepts || [];
 const safeGaps = () => lessonData?.gaps || [];
+const playbackGaps = () => lessonData?.playbackGaps || [];
+const narrationText = gap => gap.notice_only?gap.public_description:SullivanNarration.compose(gap,concepts());
 const hasLearningMaterial = () => Boolean(current&&(paragraphs().length||current.snapshot.transcript_segments.length||safeGaps().length));
 function needLesson() { if (!current) throw new Error('강의를 먼저 선택하세요.'); return current; }
 function stopVoice() {
@@ -83,6 +90,7 @@ export async function stopAll(announce = true) {
   if (announce && stopped===actionGeneration) status('영상과 앱 음성을 모두 중지했습니다.');
 }
 function clear() {
+  notebook?.reset();notebookLecture=null;taskFocus.clear();showTask('home',{focus:false});
   clearPlayerPermission();
   lectureRequest++;
   generation++; actionGeneration++; microphoneGeneration++; focusTicket++; announcer.cancel(); speaker.cancel(); stopVoice(); clearTimeout(saveTimer);
@@ -107,11 +115,14 @@ bindForm('pair-preview-form',async payload=>{
   pairRequest=null;$('pair-preview').hidden=true;
   const result=await request('/extension/v1/student/connections/preview',{method:'POST',body:payload});
   pairRequest=result.request_id;$('pair-guardian').textContent=`연결할 보호자: ${result.guardian_name}`;$('pair-sharing').textContent=result.sharing;
-  $('pair-confirm').checked=false;$('pair-preview').hidden=false;$('pair-preview-title').focus();
+  $('pair-confirm').checked=false;$('pair-remote-login').checked=false;$('pair-preview').hidden=false;
+  $('pair-preview-title').textContent=`${result.guardian_name} 보호자와 연결 승인`;$('pair-preview-title').focus();
+  status(`연결할 보호자: ${result.guardian_name}. 공유 범위: ${result.sharing} 기기 로그인 지원은 로그아웃 후에도 이 기기에서 보호자가 학생 로그인을 시작하도록 별도로 허용하는 선택 항목입니다.`);
 });
 bindForm('pair-confirm-form',async()=>{
   if(!pairRequest)throw new Error('연결할 보호자를 먼저 확인하세요.');
-  await request('/extension/v1/student/connections/confirm',{method:'POST',body:{request_id:pairRequest,confirm:$('pair-confirm').checked}});
+  const result=await request('/extension/v1/student/connections/confirm',{method:'POST',body:{request_id:pairRequest,confirm:$('pair-confirm').checked,remote_login:$('pair-remote-login').checked,client_id:chrome.runtime.id}});
+  if(result.remote_login)await installRemoteEnrollment(result.remote_login);
   pairRequest=null;$('workspace-title').focus();$('pair-preview').hidden=true;await refreshConnections();await refresh();status('확인한 보호자와 연결했습니다. 보호자가 강의를 배정하면 목록에 나타납니다.');
 });
 $('refresh-connections').addEventListener('click',()=>task($('refresh-connections'),async()=>{await refreshConnections();status('내 보호자 연결을 확인했습니다.');}));
@@ -134,7 +145,7 @@ async function refresh() {
   }
   $('lectures').replaceChildren(...list.map(l => {
     const item = node('li'), control = button(`${l.title} 열기`, () => open(l.id));
-    control.dataset.lecture = l.id;control.setAttribute('aria-label',`강의 ${list.indexOf(l)+1}. ${l.title} 열기`); item.append(control); return item;
+    control.dataset.lecture = l.id;control.setAttribute('aria-label',`강의 ${list.indexOf(l)+1}. ${l.title} 열기`); item.append(control,node('p',analysisLabel(l.analysis_status))); return item;
   }));
   if (!list.length) $('lectures').append(node('li', '아직 배정된 강의가 없습니다. 보호자에게 배정을 요청하세요.'));
   if(focused){const controls=[...$('lectures').querySelectorAll('button')];(controls.find(b=>b.dataset.lecture===focused)||controls[Math.min(Math.max(0,focusedIndex),controls.length-1)]||$('workspace-title')).focus();}
@@ -144,7 +155,22 @@ async function open(id) {
   let selectedRequest=++lectureRequest;const interaction=focusTicket;
   if (current && (noteDirty || positionDirty || recordsDirty || saveFailed)){
     const enteredPosition=$('position').value;
-    await save(true);
+    try { await save(true); }
+    catch(error){
+      // A failed switch from the lecture list must expose the unsaved record
+      // and its retry action, which now live in the separate Notes task.
+      if(selectedRequest===lectureRequest&&!error.cancelled){
+        if(interaction===focusTicket){
+          const target=error.field||$('retry-save');
+          const task=target.closest('section[id^=task-]')?.id.slice(5)||'notes';
+          showTask(task,{restore:false});target.focus();
+        }else{
+          const message=error.field?'강의를 바꾸지 못했습니다. 설정·관리에서 이어 듣기 위치를 0~86400초 이내의 정수로 고쳐 주세요.':'강의를 바꾸지 못했습니다. 저장하지 못한 기록은 필기에 남아 있습니다. 필기에서 학습 기록 다시 저장을 누르세요.';
+          error.field=null;error.reported=true;status(message,true);
+        }
+      }
+      throw error;
+    }
     if(selectedRequest===lectureRequest&&(noteDirty||recordsDirty||(positionDirty&&$('position').value!==enteredPosition))){status('새로 입력한 학습 기록이 있습니다. 저장한 뒤 강의를 다시 선택하세요.');return;}
   }
   if(selectedRequest!==lectureRequest)return;
@@ -157,70 +183,71 @@ async function open(id) {
   applySettings(data.settings); fillPreferences();
   positionMs = data.progress.position_ms || 0;
   $('lesson-title').textContent = data.title; $('source-label').textContent = data.snapshot.session.source_label;
-  if(!hasLearningMaterial())$('source-label').textContent+=' · 원본 재생용으로 등록됨: 영상 분석은 실행하지 않았습니다. 재생·명령·기록을 이용할 수 있으며 내용 질문·해설에는 자료 또는 실제 분석 연결이 필요합니다.';
+  $('analysis-status').textContent=`영상 분석 상태: ${analysisLabel(data.snapshot.analysis_status)}`;
+  if(!hasLearningMaterial()&&data.snapshot.analysis_status?.state==='not_run')$('source-label').textContent+=' · 원본 재생용으로 등록됨: 영상 분석은 실행하지 않았습니다. 재생·명령·기록을 이용할 수 있으며 내용 질문·해설에는 자료 또는 실제 분석 연결이 필요합니다.';
   $('position').value = String(Math.round(positionMs / 1000)); $('note').value = data.progress.note || '';
   renderMaterial(); renderRecords(); renderReview();
   $('open-original').disabled = !['youtube','direct','external'].includes(data.playback.kind);
   $('connect-active').disabled = $('open-original').disabled;
-  $('lesson').hidden = false;if(canMoveFocus&&focus===focusTicket)$('lesson-title').focus();
+  $('lesson').hidden = false;showTask('listen',{focus:false});if(canMoveFocus&&focus===focusTicket)$('lesson-title').focus();
+  notebookLecture={id:current.id,title:current.title};await notebook.load();if(ticket!==generation||selectedRequest!==lectureRequest)return;
   await chrome.storage.local.set({[`last:${user.id}`]: id});
-  if(ticket===generation&&selectedRequest===lectureRequest)status(hasLearningMaterial()?'준비된 자료를 열었습니다. 영상은 연결한 뒤 직접 재생하세요.':'원본 재생용 강의를 열었습니다. 영상 분석은 실행하지 않았습니다. 연결 후 재생·명령·기록을 이용하세요.');
+  if(ticket===generation&&selectedRequest===lectureRequest)status(`${analysisLabel(data.snapshot.analysis_status)}. ${hasLearningMaterial()?'준비된 자료를 열었습니다. 영상은 연결한 뒤 직접 재생하세요.':lessonData.notices.length?'확실치 않은 부분의 보류 안내를 준비했습니다. 원본을 연결한 뒤 재생하세요.':'원본 재생용 강의를 열었습니다. 연결 후 재생·명령·기록을 이용하세요.'}`);
 }
 function renderMaterial() {
-  const box = $('material'),active=document.activeElement;
-  const selectedSentence=sentences()[sentenceIndex],underlined=new Set(current.progress.underlined);
-  const focused=box.contains(active)?active.dataset.materialKey:null,focusedParagraph=active?.dataset.paragraphId;
-  box.replaceChildren();
-  const article = (title, texts) => {
-    if (!texts.length) return;
-    const section = node('article'); section.append(node('h4', title), ...texts.map(text => node('p', text))); box.append(section);
-  };
-  article('강의 요약', current.snapshot.review.core_summary || []);
-  for (const p of paragraphs()) {
-    const section = node('article'),heading=node('h4',`${p.paragraph_index}문단 · ${p.flow_role}`,{tabIndex:-1});heading.dataset.paragraphId=p.paragraph_id;section.append(heading);
-    const text=node('p');
-    for(const sentence of p.sentences){
-      const control=button(`${p.paragraph_index}문단 ${sentence.sentence_index}문장. ${sentence.text}`,async()=>{
-        const lesson=needLesson(),ticket=generation;rememberExploration();currentParagraph=p.paragraph_id;
-        sentenceIndex=lessonData.sentenceIndices.get(sentence.sentence_id)??0;
-        if(media.ready&&Number.isFinite(sentence.timestamp_ms)&&!await seek(sentence.timestamp_ms))return;
-        if(current!==lesson||ticket!==generation)return;renderMaterial();await speaker.say(sentence.text);
-      });
-      control.classList.add('secondary','sentence');control.dataset.sentenceId=sentence.sentence_id;control.dataset.materialKey=`sentence:${sentence.sentence_id}`;control.dataset.paragraphId=p.paragraph_id;
-      if(currentParagraph===p.paragraph_id&&selectedSentence?.sentence_id===sentence.sentence_id)control.setAttribute('aria-current','true');
-      if(sentence.highlighted)control.append(node('strong',' 강조',{className:'highlight-label'}));
-      text.append(control);
+  const box=$('material');box.replaceChildren();
+  const article=(title,texts)=>{if(texts.length){const section=node('article');section.append(node('h4',title),...texts.map(text=>node('p',text)));box.append(section);}};
+  article('강의 요약',current.snapshot.review.core_summary||[]);
+  const selected=paragraphs().find(p=>p.paragraph_id===currentParagraph)||paragraphs()[0];
+  currentParagraph=selected?.paragraph_id||null;
+  if(!selected?.sentences.some(sentence=>sentence===sentences()[sentenceIndex]))sentenceIndex=lessonData.sentenceIndices.get(selected?.sentences[0]?.sentence_id)??0;
+  for(const paragraph of paragraphs()){
+    const section=node('article'),text=node('p');
+    section.append(node('h4',`${paragraph.paragraph_index}문단 · ${paragraph.flow_role}`));
+    for(const sentence of paragraph.sentences){
+      const span=node(sentence.highlighted?'strong':'span',sentence.text+' ');span.dataset.sentenceId=sentence.sentence_id;text.append(span);
     }
-    section.append(text);
-    const read=button(`${p.paragraph_index}문단 듣기`,()=>readParagraph(p)),jump=button(`${p.paragraph_index}문단 강의 구간`,()=>seek(p.timestamp_ms));
-    read.dataset.materialKey=`read:${p.paragraph_id}`;jump.dataset.materialKey=`jump:${p.paragraph_id}`;
-    read.dataset.paragraphId=jump.dataset.paragraphId=p.paragraph_id;section.append(read,jump);
-    const marked = underlined.has(p.paragraph_id);
-    const mark = button(`${p.paragraph_index}문단 밑줄 ${marked ? '해제' : '표시'}`, async () => {
-      const selected=current,ticket=generation;
-      const set = new Set(current.progress.underlined);
-      if (!set.has(p.paragraph_id) && set.size >= 100) throw new Error('밑줄은 100개까지 저장할 수 있습니다.');
-      set.has(p.paragraph_id) ? set.delete(p.paragraph_id) : set.add(p.paragraph_id);
-      current.progress.underlined = [...set]; recordsDirty = true; renderMaterial();
-      await save();if(current===selected&&ticket===generation)status(`${p.paragraph_index}문단 밑줄 ${set.has(p.paragraph_id)?'선택됨':'선택 해제됨'}. 저장했습니다.`);
-    });
-    mark.setAttribute('aria-pressed', String(marked));mark.dataset.materialKey=`mark:${p.paragraph_id}`;mark.dataset.paragraphId=p.paragraph_id; mark.dataset.paragraph = p.paragraph_id; section.append(mark); box.append(section);
+    if(current.progress.underlined.includes(paragraph.paragraph_id))text.append(node('strong',' (밑줄 표시됨)'));
+    section.append(text);box.append(section);
   }
-  article('검증된 화면 설명', safeGaps().map(g => `${time(g.timestamp_ms)}. ${g.public_description}`));
-  article('강의 발화', current.snapshot.transcript_segments.map(s => s.text));
-  if (!box.childElementCount) box.append(node('p', '표시할 준비된 자료가 없습니다.'));
-  $('evidence').replaceChildren(node('h4', '설명 판단 근거'), ...current.snapshot.visual_gaps.map(g => node('p', `${time(g.timestamp_ms)}: ${g.action}. ${g.reason}`)));
-  if(focused){const controls=[...box.querySelectorAll('[data-material-key]')];(controls.find(e=>e.dataset.materialKey===focused)||[...box.querySelectorAll('h4[data-paragraph-id]')].find(e=>e.dataset.paragraphId===focusedParagraph)||$('lesson-title')).focus();}
+  article('검증된 화면 설명',safeGaps().map(g=>`${time(g.timestamp_ms)}. ${g.public_description}`));
+  article('판독 보류 안내',lessonData.notices.map(g=>g.public_description));
+  article('강의 발화',current.snapshot.transcript_segments.map(segment=>segment.text));
+  if(!box.childElementCount)box.append(node('p','표시할 준비된 자료가 없습니다.'));
+  $('paragraph-selection').replaceChildren(...paragraphs().map(paragraph=>node('option',`${paragraph.paragraph_index}문단 · ${paragraph.flow_role}`,{value:paragraph.paragraph_id})));
+  if(selected)$('paragraph-selection').value=selected.paragraph_id;
+  $('sentence-selection').replaceChildren(...(selected?.sentences||[]).map(sentence=>node('option',`${sentence.sentence_index}문장 · ${sentence.text}`,{value:sentence.sentence_id})));
+  const sentence=sentences()[sentenceIndex];if(sentence)$('sentence-selection').value=sentence.sentence_id;
+  $('selected-source').textContent=sentence?.text||'선택할 문장이 없습니다. 자유 필기는 원문 없이 시작할 수 있습니다.';
+  $('selected-underline').setAttribute('aria-pressed',String(current.progress.underlined.includes(currentParagraph)));
+  for(const id of ['selected-read','selected-paragraph-read','selected-jump','selected-underline','selected-note'])$(id).disabled=!selected;
+  $('evidence').replaceChildren(node('h4','설명 판단 근거'),...current.snapshot.visual_gaps.map(g=>node('p',`${time(g.timestamp_ms)}: ${g.action}. ${g.reason}`)));
 }
 function renderRecords() {
-  $('bookmarks').replaceChildren(...current.progress.bookmarks.map((entry, index) => {
-    const item = node('li');
-    item.append(button(`${time(entry.timestamp_ms || 0)} ${entry.note || '북마크'}`, () => seek(entry.timestamp_ms || 0)),
-      button(`${index + 1}번 북마크 삭제`, async () => {
-        current.progress.bookmarks.splice(index, 1); recordsDirty = true; renderRecords(); $('records-title').focus(); await save();
-      })); return item;
-  }));
-  if (!current.progress.bookmarks.length) $('bookmarks').append(node('li', '저장한 북마크가 없습니다.'));
+  const value=$('bookmark-selection').value;
+  $('bookmarks').replaceChildren(...current.progress.bookmarks.map(entry=>node('li',`${time(entry.timestamp_ms||0)} ${entry.note||'북마크'}`)));
+  if(!current.progress.bookmarks.length)$('bookmarks').append(node('li','저장한 북마크가 없습니다.'));
+  $('bookmark-selection').replaceChildren(...current.progress.bookmarks.map((entry,index)=>node('option',`${time(entry.timestamp_ms||0)} ${entry.note||'북마크'}`,{value:String(index)})));
+  if([...$('bookmark-selection').options].some(option=>option.value===value))$('bookmark-selection').value=value;
+  $('bookmark-go').disabled=$('bookmark-delete').disabled=!current.progress.bookmarks.length;
+}
+function showTask(name,{focus=true,restore=true}={}) {
+  if(!['home','listen','notes','find','settings'].includes(name))return;
+  if(name==='notes'&&!notebookLecture){status('강의를 열거나 설정·관리의 보관된 내 필기에서 강의를 선택하세요.');name='settings';}
+  if(['listen','find'].includes(name)&&!current){status('강의 목록에서 강의를 먼저 선택하세요.');name='home';}
+  const previous=$('task-'+currentTask);
+  if(previous?.contains(document.activeElement))taskFocus.set(currentTask,document.activeElement);
+  if(currentTask==='notes')notebook?.flush().catch(reportError);
+  currentTask=name;
+  for(const taskName of ['home','listen','notes','find','settings']){
+    $('task-'+taskName).hidden=taskName!==name;
+    $('task-'+taskName+'-button').removeAttribute('aria-current');
+  }
+  $('task-'+name+'-button').setAttribute('aria-current','page');
+  if(!focus)return;
+  const target=restore?taskFocus.get(name):null;
+  if(target?.isConnected&&!target.closest('[hidden]')){target.focus();if(target===$('note-body'))notebook.restoreCursor();}
+  else $({home:'home-title',listen:'player-title',notes:'notes-title',find:'find-title',settings:'settings-title'}[name]).focus();
 }
 function rememberExploration(){
   if(!current||originMs!==null)return;originMs=positionMs;
@@ -252,6 +279,7 @@ async function playConcept(concept){
   },100);
 }
 function showHelp(focus=true){
+  if(focus)showTask('home',{focus:false});
   $('onboarding-card').hidden=false;
   if(!focus)$('voice-status').textContent='처음 사용 안내가 열려 있습니다. 사용법 안내 버튼에서 단축키와 음성 모드를 확인하세요.';
   if(focus)$('onboarding-title').focus();
@@ -267,7 +295,6 @@ function actionLater(){
   $('onboarding-done').addEventListener('click',()=>task($('onboarding-done'),async()=>{const account=user;await request('/local/onboarding',{method:'POST'});if(user!==account)return;user.onboarded=1;const focused=$('onboarding-card').contains(document.activeElement);$('onboarding-card').hidden=true;if(focused)$('workspace-title').focus();status('사용법을 확인했습니다.');}));
   $('preview-voice').addEventListener('click',()=>task($('preview-voice'),async()=>{announcer.cancel(true);device={voice_uri:$('speech-voice').value,speech_pitch:Number($('speech-pitch').value),speech_style:$('speech-style').value};await speaker.say('강의의 흐름을 함께 살펴봅니다. AI는 검증된 화면 정보를 안내합니다.');}));
   $('read-review').addEventListener('click',()=>task($('read-review'),async()=>{needLesson();rememberExploration();await speaker.say($('review').textContent);}));
-  $('read-study').addEventListener('click',()=>task($('read-study'),async()=>{needLesson();rememberExploration();const g=current.snapshot.study_guide;await speaker.say([g.overview,...g.concept_map,...g.glossary.map(x=>`${x.term}. ${x.definition}`),...g.recall_questions].filter(Boolean).join(' '));}));
 }
 function renderReview() {
   const snapshot = current.snapshot, guide = snapshot.study_guide;
@@ -423,8 +450,18 @@ async function tick() {
     }
     if (state.ad || !state.verified || !Number.isFinite(state.durationMs)) { previousMs = null; return; }
     if (settings.auto_description && !state.paused && !speaker.active && !conceptRun) {
-      const gap = SullivanPlayback.selectDueGap({gaps: safeGaps(), announcedIds: announced, previousMs, currentMs: positionMs});
-      if (gap) { announced.add(gap.gap_id); await speaker.say(SullivanNarration.compose(gap, concepts())); }
+      const gap = SullivanPlayback.selectDueGap({gaps: playbackGaps(), announcedIds: announced, previousMs, currentMs: positionMs});
+      if (gap) {
+        announced.add(gap.gap_id);
+        try{await speaker.say(narrationText(gap));}
+        catch(error){
+          if(error.mediaFailure)throw error;
+          if(ticket===generation&&view===media.view&&!error.cancelled){
+            $('speech-status').textContent='';$('error').textContent='';$('status').textContent='';
+            $('reader-description').textContent=`앱 해설 음성을 재생하지 못했습니다. 영상은 정지했습니다. ${narrationText(gap)} 현재 시점의 준비된 설명을 다시 읽거나 외부 스크린리더를 사용하세요.`;
+          }
+        }
+      }
     }
     previousMs = positionMs;
   } catch (error) {
@@ -473,7 +510,7 @@ async function paragraphCommand(query) {
   await speaker.say(result.speech);
 }
 async function search(query) {
-  needLesson(); const matches = SullivanConcepts.search(concepts(), query);
+  needLesson();showTask('find',{focus:false}); const matches = SullivanConcepts.search(concepts(), query);
   rememberExploration();
   $('search-results').replaceChildren(...matches.map(concept => {
     const item = node('article'); item.append(node('h5', concept.keyword), node('p', concept.ai_explanation),
@@ -490,6 +527,7 @@ function showResponse(title, text, label = '') {
 }
 async function ask(message,forceSpeak=false){pendingRequests++;try{return await askImpl(message,forceSpeak);}finally{pendingRequests--;}}
 async function askImpl(message, forceSpeak = false) {
+  if(SullivanLearning.unsupported(message)){status(SullivanLearning.scope);return;}
   if(current&&!hasLearningMaterial()){status('내용 질문에는 자막·지문 또는 실제 분석 결과가 필요합니다. 원본 재생·중지·이동·기록 명령은 사용할 수 있습니다.');return;}
   needLesson(); rememberExploration(); const selected = current, ticket = generation, action = actionGeneration;
   const question=++questionRevision,valid=()=>ticket===generation&&current===selected&&action===actionGeneration&&question===questionRevision;
@@ -519,17 +557,18 @@ async function askImpl(message, forceSpeak = false) {
   if (!settings.reader_mode && (forceSpeak || $('speak-answer').checked)) await speaker.say(result.response_text);
 }
 async function describe() {
-  needLesson(); rememberExploration(); const gap = [...safeGaps()].sort((a,b) => Math.abs(a.timestamp_ms-positionMs)-Math.abs(b.timestamp_ms-positionMs))[0];
+  needLesson(); rememberExploration(); const gap = [...playbackGaps()].sort((a,b) => Math.abs(a.timestamp_ms-positionMs)-Math.abs(b.timestamp_ms-positionMs))[0];
   if (!gap) throw new Error('현재 자료에 검증된 화면 설명이 없습니다.');
-  await speaker.say(`${time(gap.timestamp_ms)}에 준비된 설명입니다. ${SullivanNarration.compose(gap, concepts())}`);
+  await speaker.say(`${time(gap.timestamp_ms)}에 준비된 설명입니다. ${narrationText(gap)}`);
 }
 export async function command(text, forceSpeak = false) {
+  if(SullivanLearning.unsupported(text)){status(SullivanLearning.scope);return;}
   const intent = SullivanVoiceCommands.classify(text);
   if(/사용법|단축키.*알려/.test(text)){showHelp();return;}
   if(/^(?:결과\s*)?[0-9]+(?:번)?(?:\s*선택)?$/.test(text)){const item=SullivanConcepts.search(concepts(),$('search-form').elements.query.value)[Number(text.match(/[0-9]+/)[0])-1];if(item)return playConcept(item);}
   if(/원래.*(?:곳|위치)|듣던.*(?:곳|위치)/.test(text))return returnToOrigin();
   if (intent.type === 'pause') return stopAll();
-  if (intent.type === 'lecture_list' || intent.type === 'home' || intent.type === 'save_home') { if (current) await save(); await stopAll(false); $('workspace-title').focus(); return; }
+  if (intent.type === 'lecture_list' || intent.type === 'home' || intent.type === 'save_home') { if (current) await save(); await stopAll(false);showTask('home',{restore:false});return; }
   if (intent.type === 'open_lecture') {
     const lesson = intent.ordinal ? lectures[intent.ordinal - 1] : lectures.find(l => l.title.includes(intent.title));
     if (!lesson) throw new Error('강의 번호 또는 제목을 확인하세요.'); return open(lesson.id);
@@ -544,21 +583,22 @@ export async function command(text, forceSpeak = false) {
   }
   needLesson();
   if (intent.type === 'play' || intent.type === 'resume_lecture') {
+    showTask('listen',{restore:false});
     return startPlayback(intent.type==='resume_lecture');
   }
   if (intent.type === 'auto_narration') { settings.auto_description = intent.enabled; fillPreferences(); return savePreferences(); }
   if (intent.type === 'describe') return describe();
   if (intent.type === 'summary_audio' || intent.type === 'summary_three') {if(!hasLearningMaterial())throw new Error('요약에는 자막·지문 또는 실제 분석 결과가 필요합니다.');return speaker.say(SullivanLearning.respond(current.snapshot, '3줄 요약', positionMs).text);}
-  if (intent.type === 'paragraph' || /문장|강조|지문.*흐름|전체.*지문/.test(text)) return paragraphCommand(text);
+  if (intent.type === 'paragraph' || /문장|강조|지문.*흐름|전체.*지문/.test(text)){showTask('find',{restore:false,focus:currentTask!=='find'});return paragraphCommand(text);}
   if (intent.type === 'concept' || /찾아|검색/.test(text)) return search(text.replace(/핵심|키워드|개념|찾아\s*줘|검색해\s*줘|검색|해줘/g, '').trim() || '전체');
   if (/10초.*(?:전|뒤로)|뒤로.*10초/.test(text)) return seek(positionMs - 10000);
   if (/10초.*(?:후|앞으로)|앞으로.*10초/.test(text)) return seek(positionMs + 10000);
-  if (/학습 기록|북마크|메모/.test(text)) { $('records-title').focus(); return; }
+  if (/학습 기록|북마크|메모/.test(text)) {showTask('notes',{focus:false});($('legacy-records').hidden?$('notes-title'):$('records-title')).focus();return;}
   if (intent.type === 'panel') {
     const target = {'review-panel': 'review-title', 'study-panel': 'review-title', 'chat-panel': 'chat-title', 'watch-panel': 'player-title', 'passage-panel': 'search-title', 'evidence-panel': 'evidence'}[intent.panelId];
-    if (target) { $(target).closest('details')?.setAttribute('open', ''); $(target).focus(); return; }
+    if (target) {showTask(target==='player-title'?'listen':'find',{focus:false}); $(target).closest('details')?.setAttribute('open', ''); $(target).focus(); return; }
   }
-  await ask(text, forceSpeak);
+  showTask('find',{restore:false});await ask(text, forceSpeak);
 }
 function fillPreferences() {
   for (const key of Object.keys(defaults)) {
@@ -659,6 +699,7 @@ const keyboard=installStudentKeyboard({gesture,enabled:()=>$('space-enabled').ch
 window.addEventListener('blur',()=>{announcer.cancel();if(recognition)stopVoice();});
 for(const event of ['keydown','pointerdown','input'])document.addEventListener(event,()=>{if(!suppressFocus)focusTicket++;},true);
 document.addEventListener('focusin',event=>{
+  if($('task-'+currentTask)?.contains(event.target))taskFocus.set(currentTask,event.target);
   if(suppressFocus||(dialogResume&&!$('text-dialog').open))return;
   focusTicket++;
   if(!event.target.matches?.('button,a[href],summary,input,textarea,select,[tabindex="-1"]'))return;
@@ -693,7 +734,7 @@ $('access-mode').addEventListener('change',async()=>{
 });
 $('panel-keyboard').addEventListener('click',()=>{keyboard.enter();$('workspace').hidden?$('oauth-login').focus():$('workspace-title').focus();});
 chrome.runtime.onMessage.addListener(message => {
-  if(message.type==='student-focus-panel'&&inPanel){window.focus();keyboard.enter();const target=$('workspace').hidden?$('oauth-login'):current?$('lesson-title'):$('workspace-title');target.focus();}
+  if(message.type==='student-focus-panel'&&inPanel){window.focus();keyboard.enter();const target=$('workspace').hidden?$('oauth-login'):$('task-'+currentTask).querySelector('h3,h4')||$('workspace-title');target.focus();}
   if (message.type === 'student-stop') { if (Number.isSafeInteger(message.fence)) media.fence = Math.max(media.fence, message.fence); stopAll().catch(() => {}); }
   if (message.type === 'student-lease-lost' && message.view === media.view)loseConnection('다른 수강 화면에서 재생을 시작했습니다. 이 화면에서 연결하면 다시 사용할 수 있습니다.');
 });
@@ -719,18 +760,19 @@ action('play',()=>startPlayback());
 action('stop', () => stopAll()); action('describe', describe);
 action('back', () => seek(Math.max(0, positionMs - 10000))); action('forward', () => seek(positionMs + 10000));
 action('return-origin',returnToOrigin);
-action('read', () => { needLesson();rememberExploration(); return speaker.say([...(current.snapshot.review.core_summary || []), ...paragraphs().map(SullivanPassages.paragraphSpeech), ...safeGaps().map(g => g.public_description)].join(' ')); });
+action('read', () => { needLesson();rememberExploration(); return speaker.say([...(current.snapshot.review.core_summary || []), ...paragraphs().map(SullivanPassages.paragraphSpeech), ...safeGaps().map(g => g.public_description),...(lessonData.notices||[]).map(g=>g.public_description)].join(' ')); });
 action('read-underlined', () => paragraphCommand('밑줄 친 문단'));
 action('voice', startVoice); action('type-command', openDialog);
-action('run-tool', async () => { needLesson(); if(!hasLearningMaterial()){status('학습 도구에는 자막·지문 또는 실제 분석 결과가 필요합니다.');return;} const result = SullivanLearning.respond(current.snapshot, $('learning-tool').value, positionMs); showResponse(result.title, result.text, '준비된 자료 기반 학습 도구'); if (!settings.reader_mode&&$('speak-answer').checked) await speaker.say(result.text); else { if(!settings.reader_mode)$('chat-log').focus(); status('학습 도구를 만들었습니다. 결과를 읽어 주세요.'); } });
 action('bookmark', async () => { needLesson(); if (current.progress.bookmarks.length >= 100) throw new Error('북마크는 100개까지 저장할 수 있습니다.'); current.progress.bookmarks.push({id: crypto.randomUUID(), timestamp_ms: positionMs, note: `${time(positionMs)} 북마크`}); recordsDirty = true; renderRecords(); await save(); status('현재 위치를 북마크했습니다.'); });
-action('export-notes', () => {
-  needLesson(); const guide = current.snapshot.study_guide;
-  const text = [`# ${current.title}`, '', ...current.snapshot.review.core_summary, '', '## 개념 지도', ...guide.concept_map, '', '## 핵심 용어', ...guide.glossary.map(g => `- ${g.term}: ${g.definition}`), '', '## 확인 질문', ...guide.recall_questions, '', '## 내 메모', $('note').value, '', '## 북마크', ...current.progress.bookmarks.map(b => `- ${time(b.timestamp_ms)} ${b.note || ''}`)].join('\n');
+action('export-notes', async () => {
+  const selected=needLesson(),ticket=generation;
+  const latest=await request(`/extension/v1/student/lectures/${selected.id}`);
+  if(current!==selected||ticket!==generation)return;
+  const guide = latest.snapshot.study_guide;
+  const text = [`# ${latest.title}`, '', ...latest.snapshot.review.core_summary, '', '## 개념 지도', ...guide.concept_map, '', '## 핵심 용어', ...guide.glossary.map(g => `- ${g.term}: ${g.definition}`), '', '## 확인 질문', ...guide.recall_questions, '', '## 내 메모', $('note').value, '', '## 북마크', ...current.progress.bookmarks.map(b => `- ${time(b.timestamp_ms)} ${b.note || ''}`)].join('\n');
   const url = URL.createObjectURL(new Blob([text], {type: 'text/markdown;charset=utf-8'})), link = node('a', '', {href: url, download: 'sullivan-study-notes.md'});
   link.click(); setTimeout(() => URL.revokeObjectURL(url), 1000); status('학습 노트 파일을 내보냈습니다.');
 });
-bindForm('command-form', async ({command: text}) => { await command(text); });
 bindForm('paragraph-form', async ({query}) => paragraphCommand(query));
 bindForm('search-form', async ({query}) => search(query));
 bindForm('chat-form', async ({question}) => ask(question));
@@ -743,7 +785,7 @@ $('text-dialog').addEventListener('close',async()=>{
   const restore=dialogResume;dialogResume=null;
   if(!restore||restore.generation!==generation||restore.lesson!==current?.id||restore.view!==media.view)return;
   announcer.cancel();speaker.cancel();
-  suppressFocus=true;if(dialogFocus?.isConnected&&dialogFocus.getClientRects().length)dialogFocus.focus();else $('command-title').focus();suppressFocus=false;
+  suppressFocus=true;if(dialogFocus?.isConnected&&!dialogFocus.closest('[hidden]')&&dialogFocus.getClientRects().length)dialogFocus.focus();else $('type-command').focus();suppressFocus=false;
   const focus=focusTicket;
   if($('text-dialog').returnValue==='execute'||!restore)return;
   await restore.stopped;const state=await restore.previous;
@@ -781,16 +823,43 @@ window.speechSynthesis?.addEventListener?.('voiceschanged',()=>voices());
 await chrome.storage.local.setAccessLevel({accessLevel: 'TRUSTED_CONTEXTS'});
 applySettings();
 $('voice-consent').addEventListener('change',async()=>{if(!$('voice-consent').checked)stopVoice();if(user){const key=`keys:${user.id}`;const saved=(await chrome.storage.local.get(key))[key]||{};await chrome.storage.local.set({[key]:{...saved,voice_consent:$('voice-consent').checked}});}});
+notebook=createNotebook({context:()=>user&&notebookLecture?{account:user.id,lecture:notebookLecture.id,allowNew:current?.id===notebookLecture.id,title:notebookLecture.title}:null,position:()=>current?.id===notebookLecture?.id?positionMs:0,pause:()=>stopAll(false),reportError});
+async function refreshNotebooks(){
+  const account=user,list=await request('/extension/v1/student/notebooks');if(user!==account)return;
+  const selected=$('notebook-lecture').value;$('notebook-lecture').replaceChildren(...list.map(entry=>node('option',`${entry.title} · ${entry.count}개`,{value:entry.id})));
+  if(list.some(entry=>entry.id===selected))$('notebook-lecture').value=selected;
+  $('open-notebook').disabled=!list.length;
+}
+action('refresh-notebooks',refreshNotebooks);
+action('open-notebook',async()=>{
+  const id=$('notebook-lecture').value;if(!id)throw new Error('보관된 필기가 없습니다. 강의를 열고 필기를 시작하세요.');
+  await notebook.flush();notebook.reset();notebookLecture={id,title:$('notebook-lecture').selectedOptions[0].textContent};taskFocus.delete('notes');showTask('notes',{restore:false});await notebook.load();
+});
+for(const control of document.querySelectorAll('[data-task]'))control.addEventListener('click',()=>showTask(control.dataset.task));
+action('short-summary',()=>command('세 줄 요약'));
+action('save-position',saveProgress);
+$('paragraph-selection').addEventListener('change',()=>{currentParagraph=$('paragraph-selection').value;sentenceIndex=lessonData.sentenceIndices.get(paragraphs().find(p=>p.paragraph_id===currentParagraph)?.sentences[0]?.sentence_id)??0;renderMaterial();});
+$('sentence-selection').addEventListener('change',()=>{sentenceIndex=lessonData.sentenceIndices.get($('sentence-selection').value)??0;renderMaterial();});
+action('selected-read',()=>speaker.say(sentences()[sentenceIndex]?.text||'선택한 문장이 없습니다.'));
+action('selected-paragraph-read',()=>readParagraph(paragraphs().find(p=>p.paragraph_id===currentParagraph)));
+action('selected-jump',()=>{const timestamp=sentences()[sentenceIndex]?.timestamp_ms;if(!Number.isFinite(timestamp))throw new Error('이 문장에 연결된 강의 시점이 없습니다. 원문 텍스트를 확인하세요.');rememberExploration();return seek(timestamp);});
+action('selected-underline',()=>paragraphCommand(`현재 문단 밑줄 ${current.progress.underlined.includes(currentParagraph)?'해제':'표시'}`));
+action('selected-note',async()=>{const id=sentences()[sentenceIndex]?.sentence_id;if(notebookLecture?.id!==current.id){notebook.reset();notebookLecture={id:current.id,title:current.title};await notebook.load();}showTask('notes',{restore:false});await notebook.startAtSource(id);});
+action('bookmark-go',()=>{const entry=current.progress.bookmarks[Number($('bookmark-selection').value)];if(entry)return seek(entry.timestamp_ms||0);});
+action('bookmark-delete',async()=>{current.progress.bookmarks.splice(Number($('bookmark-selection').value),1);recordsDirty=true;renderRecords();await save();status('선택한 북마크를 삭제했습니다.');});
+window.addEventListener('pagehide',()=>notebook.flush().catch(()=>{}));
 await boot(async account => {
-  user = account; applySettings(account.settings); fillPreferences();
+  user = account;for(const element of document.querySelectorAll('.student-access,#account-controls,#remote-access-title')){const section=element.id==='remote-access-title'?element.closest('section'):element;$('account-settings-slot').append(section);for(const heading of section.querySelectorAll('h2')){const replacement=document.createElement('h4');for(const attr of heading.attributes)replacement.setAttribute(attr.name,attr.value);replacement.append(...heading.childNodes);heading.replaceWith(replacement);}}
+  applySettings(account.settings); fillPreferences();
   const local = await chrome.storage.local.get(`keys:${user.id}`);
   device = {voice_uri: local[`keys:${user.id}`]?.voice_uri || '', speech_pitch: local[`keys:${user.id}`]?.speech_pitch || 1,speech_style:local[`keys:${user.id}`]?.speech_style||'warm'};
   voices(true); $('speech-pitch').value = String(device.speech_pitch);$('speech-style').value=device.speech_style;
   $('space-enabled').checked = local[`keys:${user.id}`]?.keymap===2 ? local[`keys:${user.id}`].space!==false : true;
   $('voice-consent').checked=Boolean(local[`keys:${user.id}`]?.voice_consent);
   await refresh();
-  await refreshConnections();
+  await refreshConnections();await refreshNotebooks().catch(reportError);
   if(!account.onboarded)showHelp(false);
   const requested = new URL(location.href).searchParams.get('lecture');
   if (requested && lectures.some(l => l.id === requested)) await open(requested);
-}, () => { clear();$('onboarding-card').hidden=true; user = null; lectures = []; pairRequest=null;$('pair-preview').hidden=true;$('student-unlink-confirm').hidden=true;$('my-connections').replaceChildren();$('pair-preview-form').reset();$('lectures').replaceChildren(); },{beforeUserFocus:account=>{announcer.cancel();speaker.cancel();applySettings(account.settings);}});
+}, () => { for(const selector of ['.student-access','#remote-access-title']){const element=document.querySelector(selector),section=element?.id==='remote-access-title'?element.closest('section'):element;if(section){for(const heading of section.querySelectorAll('h4')){const replacement=document.createElement('h2');for(const attr of heading.attributes)replacement.setAttribute(attr.name,attr.value);replacement.append(...heading.childNodes);heading.replaceWith(replacement);}$('main').insertBefore(section,$('auth'));}}clear();$('onboarding-card').hidden=true; user = null; lectures = [];$('notebook-lecture').replaceChildren(); pairRequest=null;$('pair-remote-login').checked=false;$('remote-consent').checked=false;$('pair-preview').hidden=true;$('student-unlink-confirm').hidden=true;$('my-connections').replaceChildren();$('pair-preview-form').reset();$('lectures').replaceChildren(); },{beforeUserFocus:account=>{announcer.cancel();speaker.cancel();applySettings(account.settings);}});
+initializeRemoteLoginUI();

@@ -2,6 +2,7 @@
 
 Disposable real extensions/API/DB and decoded MP4; controlled save failures.
 """
+from verify_extensions_browser import student_control
 import argparse
 import json
 from pathlib import Path
@@ -29,9 +30,9 @@ def data_checks(guardian, student, output):
     target = request(guardian, '/local/students')[0]['id']
     lecture = request(guardian, f'/extension/v1/guardian/preparations/{job["id"]}/publish',
                       'POST', {'students': [target]})
-    student.locator('#refresh').click()
+    student_control(student, '#refresh').click()
     open_lesson(student, lecture['id'])
-    student.locator('#access-mode').select_option('reader')
+    student_control(student, '#access-mode').select_option('reader')
     student.evaluate('''()=>{window.__passageCalls=0;
       const original=SullivanPassages.paragraphsForSnapshot;
       SullivanPassages.paragraphsForSnapshot=(...args)=>{window.__passageCalls++;return original(...args);};}''')
@@ -42,7 +43,7 @@ def data_checks(guardian, student, output):
     assert measure['sentence_controls'] == 600
     MEASUREMENTS['long_passage'] = measure
     record('P01.reuse_prepared_passage', measure['normalization_calls'] <= 1, measure)
-    student.locator('#position').fill('77')
+    student_control(student, '#position').fill('77')
     open_lesson(student, base['id'])
     progress = request(student, f'/extension/v1/student/lectures/{lecture["id"]}')['progress']
     record('N01.unsaved_position_on_switch', progress['position_ms'] == 77000,
@@ -51,7 +52,7 @@ def data_checks(guardian, student, output):
 
 
 def save_checks(guardian, student, output):
-    student.locator('#access-mode').select_option('silent')
+    student_control(student, '#access-mode').select_option('silent')
     lesson = next(l for l in request(student, '/local/lectures') if l['title'] == '동기화 테스트 강의')
     failures = []
     def fail_save(route):

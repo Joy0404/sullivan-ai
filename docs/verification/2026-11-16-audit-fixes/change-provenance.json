@@ -1,0 +1,37 @@
+{
+  "preexisting_tracked_changes": 38,
+  "last_commit_before_fix": "6208022",
+  "last_commit_date": "2026-11-15",
+  "branch": "main",
+  "changed_since_read_only_audit": [
+    "apps/api/app/local_access.py",
+    "apps/extensions/student/app.js",
+    "apps/extensions/student/notes.js",
+    "scripts/audit_extension_recheck.py",
+    "scripts/verify_audio_navigation.py",
+    "scripts/verify_extension_followup.py",
+    "scripts/verify_extension_optimization.py",
+    "scripts/verify_extension_races.py",
+    "scripts/verify_extension_universal.py",
+    "scripts/verify_extensions.py",
+    "scripts/verify_extensions_browser.py",
+    "scripts/verify_extensions_phase2.py",
+    "scripts/verify_extensions_phase3.py",
+    "scripts/verify_extensions_phase4.py",
+    "scripts/verify_feature_restoration.py",
+    "scripts/verify_reaudit_fixes.py",
+    "scripts/verify_roles_browser.py",
+    "scripts/verify_student_repair.py",
+    "scripts/verify_submission_browser.py",
+    "scripts/verify_voice_preferences.py"
+  ],
+  "additional_test_files": [
+    "apps/api/tests/conftest.py",
+    "apps/api/tests/test_analysis_provenance.py"
+  ],
+  "new_regressions": [
+    "scripts/browser_fixtures.py",
+    "scripts/verify_notebook_races.py"
+  ],
+  "commit_or_push_performed": false
+}

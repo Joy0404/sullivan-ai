@@ -1,4 +1,5 @@
 """Generic page/frame/shadow player and MIME-independent files in installed extensions."""
+from verify_extensions_browser import student_control
 import argparse
 from base64 import b64encode
 import json
@@ -17,29 +18,29 @@ def record(name,passed,observed):
 
 def exercise(guardian,student,output):
     from app import main as api, local_access
-    student.locator('#access-mode').select_option('silent')
+    student_control(student, '#access-mode').select_option('silent')
     lesson=next(row for row in request(student,'/local/lectures') if row['title']=='동기화 테스트 강의')
     binary=bytes(student.evaluate('async()=>Array.from(new Uint8Array(await(await fetch(document.querySelector("#local-video").src)).arrayBuffer()))'))
     # Empty MIME is common with drag/drop or platform file associations.
-    student.locator('#store-original').uncheck()
-    student.locator('#local-file').set_input_files({'name':'lecture.unknown','mimeType':'','buffer':binary})
-    student.locator('#connect-file').click();expect(student.locator('#connection')).to_contain_text('분석한 원본과 일치')
+    student_control(student, '#store-original').uncheck()
+    student_control(student, '#local-file').set_input_files({'name':'lecture.unknown','mimeType':'','buffer':binary})
+    student_control(student, '#connect-file').click();expect(student.locator('#connection')).to_contain_text('분석한 원본과 일치')
     record('U01.empty_mime_file',True,student.locator('#connection').inner_text())
-    student.locator('#local-file').set_input_files({'name':'broken.mkv','mimeType':'video/x-matroska','buffer':b'not a decodable video'})
-    student.locator('#connect-file').click();expect(student.locator('#connection')).to_contain_text('원본과 다른 파일')
+    student_control(student, '#local-file').set_input_files({'name':'broken.mkv','mimeType':'video/x-matroska','buffer':b'not a decodable video'})
+    student_control(student, '#connect-file').click();expect(student.locator('#connection')).to_contain_text('원본과 다른 파일')
     record('U02.mismatch_fails_closed',student.locator('#local-video').evaluate('e=>!e.getAttribute("src")'),student.locator('#connection').inner_text())
     identity=request(student,f'/extension/v1/student/lectures/{lesson["id"]}')['media_identity']
     with local_access.db() as con:con.execute('DELETE FROM lecture_media WHERE lecture=?',(lesson['id'],))
     open_lesson(student,lesson['id'])
-    student.locator('#local-file').set_input_files({'name':'undecodable.video','mimeType':'','buffer':b'not a video'})
-    student.locator('#connect-file').click();expect(student.locator('#connection')).to_contain_text('코덱')
+    student_control(student, '#local-file').set_input_files({'name':'undecodable.video','mimeType':'','buffer':b'not a video'})
+    student_control(student, '#connect-file').click();expect(student.locator('#connection')).to_contain_text('코덱')
     record('U06.decode_failure_cleans_up',student.locator('#local-video').evaluate('e=>!e.getAttribute("src")'),student.locator('#connection').inner_text())
     with local_access.db() as con:con.execute('INSERT INTO lecture_media VALUES(?,?)',(lesson['id'],json.dumps(identity)))
     open_lesson(student,lesson['id'])
     # Voice list changes preserve a user's unsaved explicit choice.
     student.evaluate('''()=>{speechSynthesis.getVoices=()=>[{lang:'ko-KR',name:'Basic',voiceURI:'basic'},
       {lang:'ko-KR',name:'Neural Natural',voiceURI:'natural'}];window.__nativeSynth.dispatchEvent(new Event('voiceschanged'));}''')
-    student.locator('#speech-voice').select_option('basic')
+    student_control(student, '#speech-voice').select_option('basic')
     student.evaluate("window.__nativeSynth.dispatchEvent(new Event('voiceschanged'))")
     record('U03.unsaved_voice_preserved',student.locator('#speech-voice').input_value()=='basic',student.locator('#speech-voice').input_value())
     origin=student.evaluate('async()=>(await import("./config.js")).SERVER')
@@ -53,29 +54,29 @@ def exercise(guardian,student,output):
     try:
         source=origin+'/generic-course#/lesson/7'
         with local_access.db() as con:con.execute('UPDATE lectures SET playback=? WHERE id=?',(json.dumps({'kind':'external','normalized_url':source}),lesson['id']))
-        open_lesson(student,lesson['id']);student.locator('#open-original').click()
+        open_lesson(student,lesson['id']);student_control(student, '#open-original').click()
         expect(student.locator('#connection')).to_contain_text('원본 강의 탭을 연결')
-        expect(student.locator('#play')).to_be_focused()
+        expect(student.locator('#open-original')).to_be_focused()
         native=next(page for page in student.context.pages if page.url==source)
-        student.locator('#play').click()
+        student_control(student, '#play').click()
         native.frames[1].wait_for_function('()=>!document.querySelector("#host").shadowRoot.querySelector("video").paused')
-        student.locator('#stop').click()
+        student_control(student, '#stop').click()
         native.frames[1].wait_for_function('()=>document.querySelector("#host").shadowRoot.querySelector("video").paused')
         record('U04.generic_same_origin_shadow_frame',True,{'frame_count':len(native.frames),'root':native.url})
-        student.locator('#disconnect').click();native.close()
+        student_control(student, '#disconnect').click();native.close()
         student.evaluate('''async()=>{
           const {StudentMedia}=await import('./media.js');window.__originalConnect=StudentMedia.prototype.connect;
           StudentMedia.prototype.connect=async function(...args){await new Promise(resolve=>window.__resumeConnect=resolve);return window.__originalConnect.apply(this,args);};
         }''')
-        student.locator('#open-original').click();expect(student.locator('#connection')).to_contain_text('연결하고 있습니다')
+        student_control(student, '#open-original').click();expect(student.locator('#connection')).to_contain_text('연결하고 있습니다')
         student.locator('#note').evaluate('e=>{const details=e.closest("details");if(details)details.open=true;}')
-        student.locator('#note').fill('연결을 기다리는 동안 쓰는 메모')
+        student_control(student, '#note').fill('연결을 기다리는 동안 쓰는 메모')
         student.evaluate('window.__resumeConnect()')
         expect(student.locator('#connection')).to_contain_text('원본 강의 탭을 연결')
         expect(student.locator('#note')).to_be_focused()
-        record('U09.connection_focus_preserved',True,{'initial_connection':'play focus restored','delayed_connection':'newer note focus preserved'})
+        record('U09.connection_focus_preserved',True,{'initial_connection':'settings connection control retains focus','delayed_connection':'newer note focus preserved'})
         student.evaluate('async()=>{const {StudentMedia}=await import("./media.js");StudentMedia.prototype.connect=window.__originalConnect;}')
-        student.locator('#disconnect').click()
+        student_control(student, '#disconnect').click()
         next(page for page in student.context.pages if page.url==source).close()
         source=origin+'/cross-course'
         with local_access.db() as con:con.execute('UPDATE lectures SET playback=? WHERE id=?',(json.dumps({'kind':'external','normalized_url':source}),lesson['id']))
@@ -93,20 +94,20 @@ def exercise(guardian,student,output):
             return original(options);
           };
         }''',origin.replace('127.0.0.1','localhost'))
-        student.locator('#open-original').click()
+        student_control(student, '#open-original').click()
         expect(student.locator('#grant-player')).to_be_visible()
         expect(student.locator('#player-permission-help')).to_contain_text('localhost')
-        student.bring_to_front();student.locator('#grant-player').focus();student.keyboard.press('Enter')
+        student.bring_to_front();student_control(student, '#grant-player').focus();student.keyboard.press('Enter')
         expect(student.locator('#connection')).to_contain_text('허용하지 않았습니다')
         expect(student.locator('#grant-player')).to_be_visible()
         student.evaluate('window.__grantDecision=true')
-        student.locator('#grant-player').focus();student.keyboard.press('Enter')
+        student_control(student, '#grant-player').focus();student.keyboard.press('Enter')
         expect(student.locator('#connection')).to_contain_text('원본 강의 탭을 연결')
         expect(student.locator('#grant-player')).to_be_hidden()
         native=next(page for page in student.context.pages if page.url==source)
-        student.locator('#play').click()
+        student_control(student, '#play').click()
         native.frames[1].wait_for_function('()=>!document.querySelector("#host").shadowRoot.querySelector("video").paused')
-        student.locator('#stop').click()
+        student_control(student, '#stop').click()
         native.frames[1].wait_for_function('()=>document.querySelector("#host").shadowRoot.querySelector("video").paused')
         record('U05.cross_origin_frame_permission',True,{'frame_count':len(native.frames),'lease':student.evaluate('async()=>(await chrome.storage.session.get("playbackLease")).playbackLease')})
         native.close()
@@ -125,11 +126,11 @@ def exercise(guardian,student,output):
         guardian.locator('#publish-students').get_by_label('학생 하나',exact=True).check()
         expect(guardian.locator('#publish-students input').first).to_be_checked()
         guardian.locator('#publish-form button').click();expect(guardian.locator('#status')).to_contain_text('학생에게 배정했습니다')
-        student.locator('#refresh').click();student.locator('#lectures button').filter(has_text='링크만 등록 검사 열기').click()
+        student_control(student, '#refresh').click();student_control(student, '#lectures button').filter(has_text='링크만 등록 검사 열기').click()
         expect(student.locator('#source-label')).to_contain_text('영상 분석은 실행하지 않았습니다')
         expect(student.locator('#open-original')).to_be_enabled()
         turns=[];student.on('request',lambda req:turns.append(req.url) if req.url.endswith('/agent-turn') else None)
-        student.locator('#chat-input').fill('강의 내용 요약');student.locator('#chat-form button').click()
+        student_control(student, '#chat-input').fill('강의 내용 요약');student_control(student, '#chat-form button').click()
         expect(student.locator('#status')).to_contain_text('내용 질문에는')
         record('U07.link_only_is_playback_not_analysis',not turns,{'agent_turns':len(turns),'source_label':student.locator('#source-label').inner_text()})
         # Local playback registration sends only explicit metadata, never raw
@@ -145,12 +146,12 @@ def exercise(guardian,student,output):
         expect(guardian.locator('#prepared-title')).to_have_text('원본 미전송 파일 검사 준비 결과')
         guardian.locator('#publish-students').get_by_label('학생 하나',exact=True).check()
         guardian.locator('#publish-form button').click();expect(guardian.locator('#status')).to_contain_text('학생에게 배정했습니다')
-        student.locator('#refresh').click();student.locator('#lectures button').filter(has_text='원본 미전송 파일 검사 열기').click()
+        student_control(student, '#refresh').click();student_control(student, '#lectures button').filter(has_text='원본 미전송 파일 검사 열기').click()
         expect(student.locator('#source-label')).to_contain_text('영상 분석은 실행하지 않았습니다')
-        student.locator('#local-file').set_input_files({'name':'lecture.unknown','mimeType':'','buffer':binary})
-        student.locator('#connect-file').click();expect(student.locator('#connection')).to_contain_text('수동 재생')
-        student.locator('#play').click();student.wait_for_function('()=>!document.querySelector("#local-video").paused')
-        student.locator('#stop').click();student.wait_for_function('()=>document.querySelector("#local-video").paused')
+        student_control(student, '#local-file').set_input_files({'name':'lecture.unknown','mimeType':'','buffer':binary})
+        student_control(student, '#connect-file').click();expect(student.locator('#connection')).to_contain_text('수동 재생')
+        student_control(student, '#play').click();student.wait_for_function('()=>!document.querySelector("#local-video").paused')
+        student_control(student, '#stop').click();student.wait_for_function('()=>document.querySelector("#local-video").paused')
         body=registrations[0].post_data_json if len(registrations)==1 else {}
         record('U08.local_metadata_only_playback',body.get('local_file')=={'name':'lecture.unknown','size_bytes':len(binary)} and not body.get('assets') and not body.get('analysis'),
           {'requests':len(registrations),'content_type':registrations[0].headers.get('content-type') if registrations else None,'body':body,'connection':student.locator('#connection').inner_text()})

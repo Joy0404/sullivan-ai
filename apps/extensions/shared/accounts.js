@@ -4,13 +4,16 @@ import {$, node, button, bindForm, task, status} from './ui.js';
 function showCodes(codes) {
   $('recovery-output').hidden = false;
   $('recovery-codes').value = codes.join('\n');
-  $('recovery-title').focus();
-  status('복구 코드를 만들었습니다. 아래에서 파일로 저장하세요. 이전에 발급한 코드는 더 이상 사용할 수 없습니다.');
+  if (window.dispatchEvent(new CustomEvent('sullivan-recovery-ready', {cancelable:true}))) {
+    $('recovery-title').focus();
+    status('복구 코드를 만들었습니다. 아래에서 파일로 저장하세요. 이전에 발급한 코드는 더 이상 사용할 수 없습니다.');
+  }
 }
 export function initializeAccounts() {
   bindForm('signup-form', async credentials => {
     const result = await request(`/extension/v1/${ROLE}/accounts`, {method:'POST', anonymous:true,
       body:{...credentials, role:ROLE}});
+    window.dispatchEvent(new CustomEvent('sullivan-account-created'));
     $('signup-form').reset(); showCodes(result.recovery_codes);
     $('username').value = result.username;
   });
@@ -27,7 +30,11 @@ export function initializeAccounts() {
     const link=node('a','',{href:url,download:`sullivan-${ROLE}-recovery.txt`}); link.click();
     setTimeout(()=>URL.revokeObjectURL(url),1000); status('복구 코드 파일을 내보냈습니다.');
   });
-  $('clear-recovery').addEventListener('click',()=>{ $('recovery-codes').value=''; $('recovery-output').hidden=true; ($('account-controls').hidden?$('login-title'):$('account-title')).focus(); });
+  $('clear-recovery').addEventListener('click',()=>{
+    $('recovery-codes').value=''; $('recovery-output').hidden=true;
+    if(window.dispatchEvent(new CustomEvent('sullivan-recovery-cleared',{cancelable:true})))
+      ($('account-controls').hidden?$('login-title'):$('account-title')).focus();
+  });
   $('devices-refresh').addEventListener('click',()=>task($('devices-refresh'),async()=>{
     const devices=await request(`/extension/v1/${ROLE}/devices`);
     $('devices').replaceChildren(...devices.map(device=>{

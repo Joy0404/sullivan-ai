@@ -37,6 +37,7 @@ a { color: var(--brand); }
 summary { cursor: pointer; min-height: 44px; padding: 8px 0; font-weight: 600; }
 .skip { position: fixed; left: 12px; top: -100px; background: white; color: var(--ink); padding: 10px; z-index: 1; }
 .skip:focus { top: 12px; }
+.guardian-guide-open #logout { display: none; }
 @media (max-width: 440px) { header, main, footer { padding: 16px; } article { padding: 14px; } }
 @media (forced-colors: active) { button { border: 2px solid ButtonText; } }
 

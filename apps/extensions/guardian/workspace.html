@@ -32,10 +32,18 @@
     </form>
   </details>
   <section aria-labelledby="students-title"><h3 id="students-title">연결된 학생</h3><ul id="students"></ul></section>
+  <section aria-labelledby="remote-login-title"><h3 id="remote-login-title" tabindex="-1">학생 로그인 지원</h3>
+    <p id="guardian-remote-help">학생이 처음 한 번 가입·로그인하고 연결 코드와 기기 로그인 지원을 승인하면 사용합니다. 아래에서 학생 이름을 선택하고 학생 로그인을 누르세요. 승인한 학생 Chrome 기기에만 전달하며 보호자 화면으로 학생 계정을 열지 않습니다. Chrome이 켜져 있어야 하고 요청은 5분 뒤 만료됩니다.</p>
+    <label>로그인할 학생<select id="remote-student" aria-describedby="guardian-remote-help"></select></label>
+    <div class="actions"><button id="remote-login-start" type="button" aria-describedby="guardian-remote-help">선택한 학생 로그인</button><button id="remote-login-refresh" type="button" class="secondary">학생 로그인 상태 확인</button></div>
+    <p id="guardian-remote-status" role="status" aria-atomic="true"></p>
+    <p>로그인 지원을 해제하면 승인한 기기의 원격 로그인도 종료합니다. 다시 사용하려면 학생이 로그인하고 기기를 승인해야 합니다.</p>
+    <button id="remote-login-stop" type="button" class="secondary">선택한 학생의 로그인 지원 해제</button>
+  </section>
   <section aria-labelledby="assign-title"><h3 id="assign-title">샘플 강의 배정</h3>
     <form id="assign-form">
       <label>학생<select id="student-choice" name="student" required></select></label>
-      <label>사전 준비된 샘플<select name="sample"><option value="science">과학 샘플</option><option value="history">역사 샘플</option></select></label>
+      <label>사전 준비된 샘플<select name="sample"><option value="science">과학 샘플</option><option value="history">역사 샘플</option><option value="accessibility">판서 차이·부분 보류 시연 샘플</option></select></label>
       <p>새 AI 분석을 실행하지 않습니다. 샘플 자료를 학생용 확장에서 열어 학습할 수 있습니다.</p>
       <button id="assign-submit" type="submit">선택한 학생에게 배정</button>
     </form>
@@ -86,7 +94,7 @@
     <p id="job-status" role="status"></p><p id="connection-status" role="status"></p>
     <div id="preparations"></div>
     <section id="prepared-detail" hidden aria-labelledby="prepared-title">
-      <h4 id="prepared-title" tabindex="-1">준비된 자료 확인</h4>
+      <h4 id="prepared-title" tabindex="-1" aria-describedby="prepared-analysis-status">준비된 자료 확인</h4><p id="prepared-analysis-status"></p>
       <div id="prepared-preview"></div>
       <button id="preview-export" type="button" class="secondary">준비된 학습 노트 내보내기</button>
       <p id="preview-playback" role="status"></p>

@@ -6,6 +6,7 @@ sys.path.insert(0, str(ROOT / 'apps/api'))
 import uvicorn
 from playwright.sync_api import sync_playwright, expect
 from verify_roles_browser import MOCK
+from browser_fixtures import offline_video_fixtures
 
 SPEECH = '''window.__speeches=[];window.__manualSpeech=false;
 speechSynthesis.resume=()=>{};speechSynthesis.cancel=()=>{};
@@ -17,6 +18,7 @@ speechSynthesis.speak=u=>{
 };
 window.__finishSpeech=()=>{const u=window.__activeSpeech;window.__activeSpeech=null;u?.onend?.();};'''
 
+@offline_video_fixtures
 def main():
  with tempfile.TemporaryDirectory(prefix='sullivan-audio-nav-') as tmp:
   os.environ.update(SULLIVAN_ACCOUNTS_DB=str(Path(tmp)/'accounts.sqlite'), SULLIVAN_ROLE_AUTH='1', GEMINI_API_KEY='')
@@ -156,6 +158,9 @@ def main():
     # Guardian media interaction is restored on the same browser after role change.
     api.post(base+'/local/logout',headers=headers);api.post(base+'/local/login',headers=headers,data={'username':'guardian','password':'test-pass-123','role':'guardian'})
     page.reload();page.locator('#guardian-prepare').wait_for();page.wait_for_function('document.querySelector("#guardian-dashboard").getAttribute("aria-busy")==="false"')
+    # Existing assignments leave the optional samples disclosure closed. A
+    # locator.press on its hidden button otherwise sends Enter to prior focus.
+    if not page.locator('#guardian-science').is_visible():page.locator('#guardian-sample-panel summary').press('Enter')
     page.locator('#guardian-science').press('Enter');page.locator('#guardian-publish').wait_for()
     assert not page.locator('.video-stage').evaluate('(e)=>e.inert')
     assert page.locator('#lecture-video').evaluate('(e)=>e.controls')

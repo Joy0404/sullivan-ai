@@ -1,0 +1,19 @@
+{
+  "original_account": "0627dee1372e42b7883446af94995de9",
+  "new_account": "82a23e839ddf4b51a14974eae2b046ff",
+  "original_lecture": "ec591fd3f55c4114b2a0fad02be04b9b",
+  "new_lecture": "30d5b67c8f1d4c5da059c583b05da7fa",
+  "before": [],
+  "after": [
+    {
+      "id": "06f2f0d8-b2e1-44fc-a21b-175e49da6490",
+      "body": "PRIVATE_FIRST_STUDENT_AUDIT_MARKER",
+      "started_ms": 42000,
+      "source": null,
+      "revision": 1,
+      "updated": "2026-11-16T07:37:42.622+00:00"
+    }
+  ],
+  "reproduced": true,
+  "boundary": "Real installed extension, actual API/database. Only media pause acknowledgment was delayed; no user data or paid provider."
+}

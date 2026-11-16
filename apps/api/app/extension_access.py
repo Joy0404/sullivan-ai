@@ -123,6 +123,11 @@ def me(role: Role, request: Request):
 def logout(role: Role, request: Request):
     me(role, request)
     with accounts.db() as con:
+        con.execute('BEGIN IMMEDIATE')
+        from app.remote_login import transaction_user
+        user = transaction_user(con, request, role)
+        if role == 'student':
+            con.execute("UPDATE remote_login_requests SET state='cancelled' WHERE state IN ('pending','issued') AND device IN (SELECT id FROM remote_login_devices WHERE student=?)", (user['id'],))
         row=con.execute('SELECT family FROM extension_sessions WHERE token=?', (digest(request.headers['authorization'][7:]),)).fetchone()
         if row and row['family']:
             from app.extension_accounts import revoke_family

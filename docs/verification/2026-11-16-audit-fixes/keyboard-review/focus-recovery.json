@@ -1,0 +1,15 @@
+{
+  "invalid_position": {
+    "focus": "position",
+    "settings_hidden": false,
+    "notes_hidden": true,
+    "retry_visible": false,
+    "error": "학습 위치는 0~86400초 이내의 정수로 입력하세요."
+  },
+  "delayed_failure": {
+    "focus": "chat-input",
+    "find_hidden": false,
+    "input": "다른 작업에서 작성 중인 질문",
+    "error": "강의를 바꾸지 못했습니다. 저장하지 못한 기록은 필기에 남아 있습니다. 필기에서 학습 기록 다시 저장을 누르세요."
+  }
+}

@@ -6,6 +6,7 @@ sys.path.insert(0,str(ROOT/'apps/api'))
 import uvicorn
 from playwright.sync_api import sync_playwright,expect
 from accessibility_probe import probe,save as save_accessibility
+from browser_fixtures import offline_video_fixtures
 MOCK='''window.YT={PlayerState:{PLAYING:1,ENDED:0},Player:class {
 constructor(id,c){const mount=document.getElementById(id);if(!mount)throw Error('YouTube mount missing');this.frame=document.createElement('iframe');this.frame.id=id;this.frame.className=mount.className;this.frame.src='about:blank';mount.replaceWith(this.frame);this.t=0;this.s=5;this.c=c;window.__player=this;setTimeout(()=>c.events.onReady(),0);}
 cueVideoById({startSeconds=0}){void this.frame.src;this.t=startSeconds;this.s=5;this.c.events.onStateChange({data:5});}
@@ -32,6 +33,7 @@ def guardian_layout(page,stage):
  page.emulate_media(reduced_motion='no-preference',forced_colors='none')
  page.set_viewport_size({'width':1280,'height':900})
 
+@offline_video_fixtures
 def main():
  with tempfile.TemporaryDirectory(prefix='sullivan-role-tests-') as temp:
   os.environ['SULLIVAN_ACCOUNTS_DB']=str(Path(temp)/'accounts.sqlite')
@@ -246,7 +248,7 @@ def main():
     page.locator('#student-preferences summary').press('Enter')
     assert page.request.post(base+'/v1/lectures',headers={'X-Local-Request':'1'},data={'title':'denied'}).status==403
     results.append('student four purposes, ordered accessible lecture names, selection focus and role API denial: PASS')
-    page.locator('#learner-play').focus();page.keyboard.press('Space');assert page.evaluate('isPlaybackRunning()')
+    page.locator('#learner-play').focus();page.keyboard.press('Space');page.wait_for_function('isPlaybackRunning()')
     expect(page.locator('#learner-play')).to_have_accessible_name('강의 일시정지')
     assert page.locator('#learner-play').get_attribute('aria-pressed') is None
     assert '재생 중' in page.locator('#learner-playback-state').inner_text()
@@ -363,11 +365,12 @@ def main():
     results.append('encrypted local WebM decrypts and plays in actual browser; no raw video server persistence: PASS')
     page.locator('[data-learn-panel][data-purpose=paragraph]').focus();page.keyboard.press('Enter')
     page.locator('[data-underline-paragraph]').first.focus();page.keyboard.press('Space')
-    assert page.locator('[data-underline-paragraph]').first.get_attribute('aria-pressed')=='true'
+    expect(page.locator('[data-underline-paragraph]').first).to_have_attribute('aria-pressed','true')
     probe(page,'student-paragraphs')
     assert page.locator(':focus').get_attribute('data-underline-paragraph') is not None
     sentence=page.locator('[data-paragraph-sentence]').first
     sentence_id=sentence.get_attribute('data-sentence-id');sentence.focus();page.keyboard.press('Space')
+    page.wait_for_function('!Portal.gesturePending')
     assert page.locator(':focus').get_attribute('data-sentence-id')==sentence_id
     results.append('sentence selection rerender retains the same sentence focus: PASS')
 

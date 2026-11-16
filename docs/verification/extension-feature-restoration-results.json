@@ -30,7 +30,7 @@
     "late TTS stop cancellation",
     "optional Space and modal fallback",
     "bookmark and underline persistence",
-    "concept search and deterministic learning tools",
+    "concept search and removed-generation rejection",
     "notes export",
     "cross-view delayed answer cancellation",
     "isolated native tab control",
@@ -73,12 +73,22 @@
     "enabled": true,
     "screens": [
       {
+        "screen": "guardian-first-guide",
+        "version": "4.14.0",
+        "violations": 0
+      },
+      {
         "screen": "student-login",
         "version": "4.14.0",
         "violations": 0
       },
       {
-        "screen": "guardian-login",
+        "screen": "guardian-account-choice",
+        "version": "4.14.0",
+        "violations": 0
+      },
+      {
+        "screen": "guardian-signup",
         "version": "4.14.0",
         "violations": 0
       },

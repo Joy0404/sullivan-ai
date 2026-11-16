@@ -26,13 +26,17 @@ if command -v node >/dev/null 2>&1; then
   node scripts/test_lecture_library.js
   node scripts/test_voice_command_router.js
   node scripts/test_student_core.mjs
+  node scripts/test_student_notebook.mjs
   node scripts/test_extension_client.mjs
+  node scripts/test_remote_login.mjs
+  node scripts/test_accessible_analysis.mjs
 else
   echo "WARN: node가 없어 JavaScript 구문 검사를 건너뜁니다."
 fi
 
 if python -c "import pytest" >/dev/null 2>&1; then
   (cd apps/api && PYTHONPATH=. python -m pytest -q)
+  python -m pytest scripts/test_package_submission.py -q
 else
   echo "INFO: pytest가 없어 정적 검증 결과만 사용합니다."
 fi

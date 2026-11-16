@@ -11,7 +11,8 @@ from urllib.parse import parse_qs, urlencode, urlparse, urlunparse
 
 import httpx
 
-from app.models import AnalysisPackageInput
+from app.models import AnalysisPackageInput, StudyGuide, VisualComponent, VisualObservation
+from app.core.visual_gap import critical_signatures_differ, critical_signature
 
 
 class UnsafeVideoLinkError(ValueError):
@@ -181,6 +182,7 @@ def _parse_analysis_json(raw_text: str) -> AnalysisPackageInput:
 
 def _enforce_model_visual_verification(
     package: AnalysisPackageInput,
+    draft: AnalysisPackageInput | None = None,
 ) -> AnalysisPackageInput:
     """Fail closed when the visual critic did not verify a scene.
 
@@ -191,18 +193,85 @@ def _enforce_model_visual_verification(
     """
 
     guarded = package.model_copy(deep=True)
+    proposed = {observation.observation_id: observation for observation in draft.visual_observations} if draft else {}
+
+    def components_for(observation: VisualObservation) -> list[VisualComponent]:
+        if observation.components:
+            return [component.model_copy(deep=True) for component in observation.components]
+        # Older providers did not return components. A single statement can
+        # inherit the scene's explicit confirmation; separate statements need
+        # their own matching evidence instead of borrowing a neighbour's score.
+        parts = [part.strip() for part in re.split(r"(?:\r?\n)+|[;；]|(?<=[.!?。])\s+(?!\d)", observation.text) if part.strip()]
+        evidence = observation.metadata.get("visible_evidence", [])
+        evidence = [value for value in evidence if isinstance(value, str) and value.strip()] if isinstance(evidence, list) else []
+        verification = str(observation.metadata.get("verification", "")).lower()
+        result = []
+        for index, part in enumerate(parts):
+            supporting = evidence if len(parts) == 1 else [value for value in evidence if re.sub(r"\s+", "", part) in re.sub(r"\s+", "", value)]
+            result.append(VisualComponent(
+                component_id=f"component-{index+1}", text=part, kind=observation.kind,
+                confidence=observation.confidence, location=observation.location,
+                verification=verification if verification in {"confirmed", "corrected"} and supporting else "unverified",
+                visible_evidence=supporting,
+            ))
+        return result
+
     for observation in guarded.visual_observations:
         verification = str(observation.metadata.get("verification", "")).lower()
         visible_evidence = observation.metadata.get("visible_evidence")
         evidence_is_present = isinstance(visible_evidence, list) and any(
-            str(item).strip() for item in visible_evidence
-        )
+            isinstance(item, str) and item.strip() for item in visible_evidence)
+        previous = proposed.get(observation.observation_id)
+        previous_components = {component.component_id: component for component in components_for(previous)} if previous else {}
+        observation.components = components_for(observation)
+        retained_ids = {component.component_id for component in observation.components}
+        observation.components.extend(component.model_copy(update={"verification": "uncertain", "confidence": min(component.confidence, .69), "visible_evidence": []})
+                                      for ident, component in previous_components.items() if ident not in retained_ids)
         if verification not in {"confirmed", "corrected"} or not evidence_is_present:
             observation.confidence = min(observation.confidence, 0.69)
             observation.metadata["verification"] = "unverified-hold"
             observation.annotation = (
                 "별도 화면 검증 근거가 부족해 자동 해설과 음성 출력을 보류합니다."
             )
+            for component in observation.components:
+                component.verification = "unverified"
+                component.confidence = min(component.confidence, .69)
+            continue
+        for component in observation.components:
+            old = previous_components.get(component.component_id)
+            disagreement = draft is not None and (
+                any(critical_signature(component.text)) and (old is None or critical_signatures_differ(old.text, component.text))
+                or component.kind=='highlight' and (old is None or re.sub(r'\s+','',old.text)!=re.sub(r'\s+','',component.text)))
+            if component.kind=='highlight' and package.passage_text and re.sub(r'\s+','',component.text) not in re.sub(r'\s+','',package.passage_text):
+                disagreement=True
+            if disagreement:
+                component.verification = "disagreed"
+                # Private comparison data, never part of a public gap. Both
+                # readings must be excluded from derived summaries/passages.
+                observation.metadata.setdefault("withheld_component_texts", []).extend(
+                    [component.text, *([old.text] if old else [])])
+            if (component.verification not in {"confirmed", "corrected"}
+                    or component.confidence < .72 or not any(value.strip() for value in component.visible_evidence)):
+                component.confidence = min(component.confidence, .69)
+    retained_observations = {observation.observation_id for observation in guarded.visual_observations}
+    for ident, observation in proposed.items():
+        if ident not in retained_observations:
+            missing = observation.model_copy(deep=True)
+            missing.confidence = min(missing.confidence, .69)
+            missing.metadata["verification"] = "unverified-hold"
+            missing.components = [component.model_copy(update={"verification": "uncertain", "confidence": min(component.confidence, .69)})
+                                  for component in components_for(missing)]
+            guarded.visual_observations.append(missing)
+    if any(component.verification not in {"confirmed", "corrected"} or component.confidence < .72
+           for observation in guarded.visual_observations for component in observation.components):
+        # These generated aggregates carry no per-sentence provenance. Retain
+        # the confirmed component narration instead of guessing whether an
+        # aggregate paraphrased the held sign, value or unit.
+        guarded.study_guide = StudyGuide()
+        guarded.highlighted_texts = []
+        if any(component.kind in {"passage", "answer"} and (component.confidence < .72 or component.verification not in {"confirmed", "corrected"})
+               for observation in guarded.visual_observations for component in observation.components):
+            guarded.passage_text = None
     return guarded
 
 
@@ -222,7 +291,7 @@ def _analysis_prompt(*, title: str, subject: str, problem_mode: bool) -> str:
 형식:
 {{
   "transcript_segments": [{{"segment_id":"speech-1","start_ms":0,"end_ms":5000,"text":"실제 발화","confidence":0.0}}],
-  "visual_observations": [{{"observation_id":"visual-1","timestamp_ms":0,"screen_type":"board|passage|slide|graph|image","kind":"formula|number|condition|highlight|passage|graph|concept|decoration|answer","text":"그 시점 화면에서 직접 확인한 내용","confidence":0.0,"importance":0.0,"annotation":"시각장애 학생에게 말할 짧은 화면 해설","metadata":{{"scene_start_ms":0,"scene_end_ms":0,"visible_evidence":["화면에서 읽은 글자·도형·배치"],"spoken_context_before":"직전 발화 요지","spoken_context_after":"직후 발화 요지","recommended_action":"INTERRUPT|DESCRIBE_AT_BREAK|INDEX_ONLY|HOLD|SKIP","decision_reason":"왜 이 시점에 이 행동이 필요한지"}}}}],
+  "visual_observations": [{{"observation_id":"visual-1","timestamp_ms":0,"screen_type":"board|passage|slide|graph|image","kind":"formula|number|condition|highlight|passage|graph|concept|decoration|answer","text":"그 시점 화면에서 직접 확인한 내용","confidence":0.0,"importance":0.0,"annotation":"시각장애 학생에게 말할 짧은 화면 해설","location":"whole_board","components":[{{"component_id":"part-1","kind":"formula","text":"독립적으로 판독한 한 식 또는 조건","confidence":0.0,"location":"formula_right_number","verification":"unverified","visible_evidence":["이 부분에서 직접 읽은 화면 근거"]}}],"metadata":{{"scene_start_ms":0,"scene_end_ms":0,"visible_evidence":["화면에서 읽은 글자·도형·배치"],"spoken_context_before":"직전 발화 요지","spoken_context_after":"직후 발화 요지","recommended_action":"INTERRUPT|DESCRIBE_AT_BREAK|INDEX_ONLY|HOLD|SKIP","decision_reason":"왜 이 시점에 이 행동이 필요한지"}}}}],
   "passage_text": null,
   "highlighted_texts": [],
   "study_guide": {{
@@ -247,6 +316,9 @@ def _analysis_prompt(*, title: str, subject: str, problem_mode: bool) -> str:
 10. 개인정보, 광고, 장식 요소는 학습 해설에서 제외한다.
 11. study_guide는 실제 영상의 음성·화면 근거만 사용한다.
 12. JSON 밖의 설명과 마크다운 코드펜스를 절대 출력하지 않는다.
+13. 각 관측을 독립적으로 판독할 수 있는 components로 나누어라. 식, 숫자, 부호, 부등호, 축 단위, 밑줄 문장을 분리하고 각 부분의 confidence와 visible_evidence를 따로 기록하라. 한 부분의 확신을 흐린 옆 부분에 적용하지 말라.
+14. location은 unknown, vertical_axis_unit, horizontal_axis_unit, formula_right_number, formula_number, formula_sign, formula_inequality, underlined_sentence, emphasized_text, unit, whole_board 중 하나만 사용한다. 이 외의 문자열이나 후보 내용은 위치 이름으로 쓰지 말라.
+15. 전체 관측 confidence는 전체 장면을 판독할 근거의 확신이며 0.72 미만이면 부분 해설도 공개하지 않는다. 부분만 흐리면 해당 component만 0.71 이하와 uncertain으로 기록하고 명확한 부분과 구별하라.
 """.strip()
 
 
@@ -256,6 +328,7 @@ def _verification_prompt(draft: AnalysisPackageInput) -> str:
 당신은 Sullivan AI의 독립적인 시각 근거 검증 에이전트다. 같은 영상을 처음부터 다시 살피고,
 아래 1차 분석을 정답으로 가정하지 말고 장면별로 반증하라. 특히 각 visual_observation의
 timestamp 전후 약 5초를 확인해 실제 칠판·슬라이드·그래프와 설명이 일치하는지 판단하라.
+같은 장면의 화면·음성 및 두 번의 모델 판독은 비교 신호이며 서로 독립된 진실 근거가 아니다. 일치했다는 이유만으로 흐린 부분의 확신도를 올리지 말라.
 
 1차 분석 JSON:
 {draft_json}
@@ -265,6 +338,9 @@ timestamp 전후 약 5초를 확인해 실제 칠판·슬라이드·그래프와
 - 시간·종류·내용이 틀렸지만 화면에서 바로잡을 수 있으면 수정하고 "corrected"로 둔다.
 - 화면에서 근거를 찾지 못한 항목은 삭제한다. 예를 들어 실제 칠판에 탄생 흐름만 있는데 H-R도 축을 말하면 삭제한다.
 - 남긴 모든 visual_observation의 metadata.visible_evidence에는 그 장면에서 직접 읽거나 본 글자, 화살표, 축, 도형, 배치를 한 개 이상 넣는다.
+- components의 component_id를 보존하면서 각 부분을 따로 확인한다. 명확한 부분만 confirmed 또는 corrected로 기록하고, 흐림은 uncertain, 판독 불일치는 disagreed로 두며 해당 부분 confidence를 0.71 이하로 둔다. 그 부분의 visible_evidence도 따로 기록한다.
+- 1차와 2차의 숫자·부호·부등호·단위가 다르면 corrected라고 단정해 공개하지 말고 해당 component를 disagreed로 보류한다. 같은 장면의 두 모델 응답과 발화는 비교 신호이며 서로 독립적인 정답 근거가 아니다.
+- 불확실한 부분을 삭제해 숨기지 말고 후보 component로 유지한다. 공개 보류 문구는 서버가 안전한 위치 이름으로 만들므로 annotation이나 위치에 후보 글자·숫자·추측을 넣지 말라.
 - 남긴 관측의 recommended_action과 decision_reason도 영상을 다시 본 결과에 맞게 확인하거나 수정한다.
 - annotation은 직전·직후 강의 맥락을 잇되 2~3문장 이내로 짧게 쓰고, 화면에 없는 내용을 보충 지식처럼 단정하지 않는다.
 - transcript, passage, study_guide도 영상과 모순되는 내용을 고친다.
@@ -385,7 +461,7 @@ async def _analyze_gemini_video_source(
                     prompt=_verification_prompt(draft),
                     api_key=api_key,
                 )
-            return _enforce_model_visual_verification(verified)
+            return _enforce_model_visual_verification(verified, draft)
     except (httpx.HTTPError, KeyError, IndexError, ValueError, json.JSONDecodeError) as error:
         raise LinkAnalyzerError(_gemini_failure_message(error)) from error
 

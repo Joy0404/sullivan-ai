@@ -1,0 +1,30 @@
+{
+  "result": "passed",
+  "acceptance_groups": 15,
+  "source_sha256": "20cd8621d835656ea9e47072fd46ef44be38d7d07ae36bc057b3be59d67afdda",
+  "source_unchanged": true,
+  "api_tests": {
+    "passed": 283,
+    "skipped": 4
+  },
+  "submission_tests_passed": 15,
+  "screenshots_by_width": {
+    "390": 116,
+    "1280": 116
+  },
+  "axe_violations": 0,
+  "external_acceptance_pending": [
+    "F24",
+    "F25",
+    "F26",
+    "F33",
+    "F34",
+    "F49",
+    "F61",
+    "F62"
+  ],
+  "preexisting_tracked_modified_files": 38,
+  "commit_or_push_performed": false,
+  "local_extensions_rebuilt": true,
+  "running_user_services_restarted": false
+}

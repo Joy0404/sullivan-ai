@@ -4,8 +4,9 @@ export class StudentSpeech {
   cancel(preserveResume = false) { this.generation++; this.active = false; this.pending?.(); this.pending = null;this.media.cancelPendingPlay?.(); if (!preserveResume) this.resumeIntent = null; globalThis.speechSynthesis?.cancel(); }
   async say(text, {resume = true, purpose='lesson'} = {}) {
     this.beforeSpeak?.(purpose);
-    this.cancel(true); const ticket = this.generation; this.active = true;
+    this.cancel(true); const ticket = this.generation; this.active = true;this.purpose=purpose;
     const fence = this.media.fence,intendedPlaying=this.media.wantsPlayback;
+    let mediaReady=false;
     try {
     await this.media.claimForSpeech?.();
     if (ticket !== this.generation) return;
@@ -15,6 +16,7 @@ export class StudentSpeech {
     this.resumeIntent = {fence, playing: wasPlaying};
     await this.media.pause(false);
     if (ticket !== this.generation) return;
+    mediaReady=true;
     this.output(text,{purpose});
     const settings = this.settings();
     if (settings.reader_mode) {
@@ -56,10 +58,10 @@ export class StudentSpeech {
           const cancel=()=>{clearTimeout(timer);resolve();};this.pending=cancel;
         });
       }
-      if (ticket === this.generation && this.media.fence === fence && resume && wasPlaying) await this.media.play(fence);
+      if (ticket === this.generation && this.media.fence === fence && resume && wasPlaying)await this.media.play(fence).catch(error=>{error.mediaFailure=true;throw error;});
       if (ticket === this.generation){this.resumeIntent = null;if(!resume)this.media.wantsPlayback=false;}
-    } catch (error) { if (ticket === this.generation) { this.resumeIntent = null; throw error; } }
-    finally { if (ticket === this.generation) this.active = false; }
+    } catch (error) { if (ticket === this.generation) { this.resumeIntent = null;this.media.wantsPlayback=false;if(!mediaReady)error.mediaFailure=true; throw error; } }
+    finally { if (ticket === this.generation){this.active = false;this.purpose=null;} }
   }
 }
 
@@ -71,6 +73,12 @@ export class StudentAnnouncer {
     const settings=this.settings();
     if(settings.reader_mode||(!force&&!settings.focus_voice)||this.busy()||!String(text).trim())return;
     this.cancel(true);const ticket=this.generation;
+    if(this.lessonSpeaker?.active&&this.lessonSpeaker.purpose==='lesson'){
+      // Finish the current lesson/hold notice, then announce the latest focus.
+      // Focus movement must not silently discard the rest of a description.
+      const later=()=>{if(ticket!==this.generation)return;if(this.lessonSpeaker.active)this.timer=setTimeout(later,100);else this.say(text,{force});};
+      this.timer=setTimeout(later,100);return;
+    }
     if(this.lessonReady?.()){
       this.delegated=true;
       this.lessonSpeaker.say(text,{purpose:'guidance'}).catch(error=>{if(ticket===this.generation)this.report(error.message);}).finally(()=>{if(ticket===this.generation)this.delegated=false;});return;

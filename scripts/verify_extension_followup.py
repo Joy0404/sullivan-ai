@@ -2,6 +2,7 @@
 
 Real browser/API/DB; only save failures are injected. No paid analysis or user DB.
 """
+from verify_extensions_browser import student_control, student_role
 import argparse
 import json
 from pathlib import Path
@@ -54,26 +55,26 @@ def capture_viewports(page, selector, name, output):
 
 
 def exercise(guardian, student, output):
-    student.locator('#access-mode').select_option('silent')
+    student_control(student, '#access-mode').select_option('silent')
     base = request(student, '/local/lectures')[0]
     owner = request(guardian, '/local/students')[0]['id']
     job = prepare(guardian, '저장 복구 검사', {'assets': [
         {'name': 'p.txt', 'kind': 'passage', 'content': '첫 문단을 읽습니다.\n\n다음 문단으로 이동합니다.'}]})
     other = request(guardian, f'/extension/v1/guardian/preparations/{job["id"]}/publish',
                     'POST', {'students': [owner]})
-    student.locator('#refresh').click()
+    student_control(student, '#refresh').click()
     expect(student.locator('#lectures button')).to_have_count(2)
-    student.locator('#position').fill('77')
-    student.locator('#note').fill('위치와 함께 자동 저장하는 메모')
+    student_control(student, '#position').fill('77')
+    student_control(student, '#note').fill('위치와 함께 자동 저장하는 메모')
     expect(student.locator('#save-status')).to_contain_text('저장됨')
     saved = request(student, f'/extension/v1/student/lectures/{base["id"]}')['progress']
     record('S01.note_autosave_preserves_entered_position', saved['position_ms'] == 77000, saved['position_ms'])
-    student.locator('#position').fill('83')
+    student_control(student, '#position').fill('83')
     student.evaluate("async()=>await(await import('./app.js')).command('강의 목록')")
     saved = request(student, f'/extension/v1/student/lectures/{base["id"]}')['progress']
     record('S02.home_saves_entered_position', saved['position_ms'] == 83000, saved['position_ms'])
     # Establish a clean baseline before a failed bookmark write.
-    student.locator('#progress-form button').click()
+    student_control(student, '#progress-form button').click()
     expect(student.locator('#status')).to_have_text('학습 위치와 메모를 저장했습니다.')
     failures = []
     pattern = f'**/local/lectures/{base["id"]}/progress'
@@ -83,9 +84,9 @@ def exercise(guardian, student, output):
         route.fulfill(status=503, content_type='application/json', body='{"detail":"시험 저장 실패"}')
 
     student.route(pattern, fail_save)
-    student.locator('#bookmark').click()
+    student_control(student, '#bookmark').click()
     expect(student.locator('#bookmark')).not_to_have_attribute('aria-busy', 'true')
-    student.locator(f'#lectures button[data-lecture="{other["id"]}"]').click()
+    student_control(student, f'#lectures button[data-lecture="{other["id"]}"]').click()
     expect(student.locator(f'#lectures button[data-lecture="{other["id"]}"]')).not_to_have_attribute('aria-busy', 'true')
     retained = student.locator('#lesson-title').inner_text() == base['title']
     record('S03.failed_bookmark_blocks_switch', retained, student.locator('#lesson-title').inner_text())
@@ -105,16 +106,16 @@ def exercise(guardian, student, output):
         record('S05.retry_retains_bookmark_and_focus', False, 'No retry path')
     # The browser must retain invalid and failed manual position edits.
     open_lesson(student, base['id'])
-    student.locator('#position').fill('99')
+    student_control(student, '#position').fill('99')
     student.route(pattern, fail_save)
-    student.locator('#progress-form button').click()
+    student_control(student, '#progress-form button').click()
     expect(student.locator('#progress-form button')).not_to_have_attribute('aria-busy', 'true')
-    student.locator(f'#lectures button[data-lecture="{other["id"]}"]').click()
+    student_control(student, f'#lectures button[data-lecture="{other["id"]}"]').click()
     expect(student.locator(f'#lectures button[data-lecture="{other["id"]}"]')).not_to_have_attribute('aria-busy', 'true')
     record('S06.failed_manual_position_blocks_switch', student.locator('#lesson-title').inner_text() == base['title'], student.locator('#position').input_value())
     student.unroute(pattern)
     if student.locator('#retry-save').is_visible():
-        student.locator('#retry-save').click()
+        student_control(student, '#retry-save').click()
         expect(student.locator('#retry-save')).to_be_hidden()
         saved = request(student, f'/extension/v1/student/lectures/{base["id"]}')['progress']
         record('S07.retry_keeps_entered_position', saved['position_ms'] == 99000, saved['position_ms'])
@@ -124,46 +125,72 @@ def exercise(guardian, student, output):
     # A failed underline has the same recovery guarantee as notes and bookmarks.
     other_pattern = f'**/local/lectures/{other["id"]}/progress'
     student.route(other_pattern, fail_save)
-    student.get_by_role('button', name='1문단 밑줄 표시', exact=True).click()
-    expect(student.get_by_role('button', name='1문단 밑줄 해제', exact=True)).to_be_visible()
-    student.locator(f'#lectures button[data-lecture="{base["id"]}"]').click()
+    student_control(student, '#paragraph-selection').select_option(index=0)
+    student_control(student, '#selected-underline').click()
+    expect(student.locator('#selected-underline')).to_have_attribute('aria-pressed', 'true')
+    student_control(student, f'#lectures button[data-lecture="{base["id"]}"]').click()
     expect(student.locator(f'#lectures button[data-lecture="{base["id"]}"]')).not_to_have_attribute('aria-busy', 'true')
     record('S08.failed_underline_blocks_switch', student.locator('#lesson-title').inner_text() == job['title'], student.locator('#lesson-title').inner_text())
     student.unroute(other_pattern)
-    student.locator('#retry-save').click()
+    student_control(student, '#retry-save').click()
     expect(student.locator('#retry-save')).to_be_hidden()
     saved = request(student, f'/extension/v1/student/lectures/{other["id"]}')['progress']
     record('S09.retry_keeps_underline', len(saved['underlined']) == 1, len(saved['underlined']))
+    # A late failed switch must not steal focus from newer typing in Find.
+    held=[]
+    student.route(other_pattern, lambda route: held.append(route))
+    student_control(student, '#note').fill('저장 대기 뒤 새 입력을 보호합니다')
+    student_control(student, f'#lectures button[data-lecture="{base["id"]}"]').click()
+    student.wait_for_function('document.querySelector("#save-status").textContent.includes("저장 중")')
+    assert held
+    student_control(student, '#chat-input').fill('새 질문을 입력하는 중')
+    for route in held:route.fulfill(status=503,content_type='application/json',body='{"detail":"지연된 저장 실패"}')
+    expect(student.locator(f'#lectures button[data-lecture="{base["id"]}"]')).not_to_have_attribute('aria-busy','true')
+    expect(student.locator('#chat-input')).to_be_focused()
+    expect(student.locator('#error')).to_contain_text('필기에서 학습 기록 다시 저장')
+    record('S14.delayed_failure_keeps_newer_focus', student.locator('#task-find').is_visible(), student.locator('#chat-input').input_value())
+    student.unroute(other_pattern)
+    student_control(student, '#retry-save').click()
+    expect(student.locator('#retry-save')).to_be_hidden()
+    entered=student.locator('#position').input_value()
+    student_control(student, '#position').fill('-1')
+    student_control(student, f'#lectures button[data-lecture="{base["id"]}"]').click()
+    expect(student.locator('#position')).to_be_focused()
+    expect(student.locator('#task-settings')).to_be_visible()
+    expect(student.locator('#error')).to_contain_text('학습 위치')
+    record('S15.invalid_position_exposes_correction', student.locator('#retry-save').is_hidden(), student.locator('#position').input_value())
+    student_control(student, '#position').fill(entered)
+    student_control(student, '#save-position').click()
     # App voice receives one failure notice and one recovery notice. This is a
     # synthetic speech boundary, independent of real OS screen-reader audio.
     student.evaluate(SPEECH)
-    student.locator('#access-mode').select_option('app')
+    student_control(student, '#access-mode').select_option('app')
     student.route(other_pattern, fail_save)
-    student.locator('#note').fill('음성으로 저장 실패 확인')
+    student_control(student, '#note').fill('음성으로 저장 실패 확인')
     student.wait_for_function('()=>window.__spoken.some(u=>u.text.includes("아직 저장하지"))')
     first = student.evaluate('window.__spoken.filter(u=>u.text.includes("아직 저장하지")).length')
-    student.locator('#note').fill('음성으로 저장 실패 다시 확인')
+    student_control(student, '#note').fill('음성으로 저장 실패 다시 확인')
     student.wait_for_timeout(900)  # Observe the documented 700ms autosave debounce.
     repeat = student.evaluate('window.__spoken.filter(u=>u.text.includes("아직 저장하지")).length')
     record('S10.failure_voice_once', first == repeat == 1, {'first': first, 'after_retry': repeat})
-    student.locator('#retry-save').click()
+    student_control(student, '#retry-save').click()
     student.wait_for_function('()=>window.__spoken.filter(u=>u.text.includes("아직 저장하지")).length===2')
     record('S13.explicit_retry_failure_voice', True, 'Explicit retry announces repeated failure')
     student.unroute(other_pattern)
-    student.locator('#note').fill('연결 복구 후 자동 저장')
+    student_control(student, '#note').fill('연결 복구 후 자동 저장')
     expect(student.locator('#retry-save')).to_be_hidden()
     student.wait_for_function('()=>window.__spoken.some(u=>u.text.includes("연결이 복구되어"))')
     record('S11.recovery_voice', True, student.locator('#save-status').inner_text())
-    student.locator('#access-mode').select_option('silent')
+    student_control(student, '#access-mode').select_option('silent')
     # Already queued saves must not obtain another account's fresh token.
     held = []
     student.route(other_pattern, lambda route: held.append(route))
-    student.locator('#note').fill('처음 대기 메모')
+    student_control(student, '#note').fill('처음 대기 메모')
     student.wait_for_timeout(900)
     assert len(held) == 1
-    student.locator('#note').fill('두 번째 대기 메모')
+    student_control(student, '#note').fill('두 번째 대기 메모')
     student.wait_for_timeout(900)
-    student.locator('#logout').click()
+    student_control(student, '#logout').click()
     expect(student.locator('#auth')).to_be_visible()
     held[0].fulfill(status=200, content_type='application/json', body='{}')
     student.wait_for_timeout(300)

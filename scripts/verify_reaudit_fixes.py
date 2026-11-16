@@ -3,6 +3,7 @@
 Video decoding, API, DB and worker are real. Speech/recognition and delayed
 transport/permissions are explicit test boundaries; no paid service or user DB.
 """
+from verify_extensions_browser import student_disclosure, student_control, student_text
 import argparse
 from base64 import b64encode
 import hashlib
@@ -40,7 +41,10 @@ def request(page,path,method='GET',body=None):
 
 
 def open_lesson(page,ident):
-    control=page.locator(f'#lectures button[data-lecture="{ident}"]');title=control.inner_text().removesuffix(' 열기');control.click()
+    control=student_control(page,f'#lectures button[data-lecture="{ident}"]');title=control.inner_text().removesuffix(' 열기');control.click()
+    # Reopening the same lecture can await an earlier progress save. Its old
+    # visible title is not evidence that the requested open has completed.
+    expect(control).not_to_have_attribute('aria-busy','true')
     expect(page.locator('#lesson')).to_be_visible()
     expect(page.locator('#lesson-title')).to_have_text(title)
 
@@ -54,8 +58,6 @@ def supplement(guardian,student,output):
     def prepare_home(g,s,o):
         phase3.student_check=audit.media_probes
         result=phase3(g,s,o)
-        if not s.locator('#refresh-connections').is_visible():s.get_by_text('보호자 연결과 공유 범위',exact=True).click()
-        expect(s.locator('#refresh-connections')).to_be_visible()
         return result
     audit.phase3=prepare_home;audit.OUT=output;audit.OBS.clear()
     try:guardian=audit.exercise(guardian,student,output)
@@ -70,7 +72,7 @@ def supplement(guardian,student,output):
 
 def media_races(guardian,student,output):
     from app import local_access,main as api
-    student.locator('#access-mode').select_option('silent')
+    student_control(student, '#access-mode').select_option('silent')
     lessons=request(student,'/local/lectures');old=next(l for l in lessons if l['title']=='동기화 테스트 강의');new=next(l for l in lessons if l['id']!=old['id'])
     video=bytes(student.evaluate('async()=>Array.from(new Uint8Array(await(await fetch(document.querySelector("#local-video").src)).arrayBuffer()))'))
     origin=student.evaluate('async()=>(await import("./config.js")).SERVER');source=origin+'/fixed-media-race'
@@ -80,15 +82,15 @@ def media_races(guardian,student,output):
     try:
         open_lesson(student,old['id'])
         student.evaluate("""()=>{window.__permissions=chrome.permissions.request;chrome.permissions.request=()=>new Promise(resolve=>window.__allow=resolve);}""")
-        student.locator('#open-original').click();student.wait_for_function('()=>Boolean(window.__allow)')
+        student_control(student, '#open-original').click();student.wait_for_function('()=>Boolean(window.__allow)')
         open_lesson(student,new['id']);expect(student.locator('#lesson-title')).to_have_text(new['title'])
         student.evaluate('window.__allow(true)');expect(student.locator('#open-original')).not_to_have_attribute('aria-busy','true')
         lease=student.evaluate('async()=>(await chrome.storage.session.get("playbackLease")).playbackLease||null')
         checked('R01',lease is None and not any(p.url==source for p in student.context.pages),{'lesson':student.locator('#lesson-title').inner_text(),'lease':lease})
         student.evaluate('()=>{chrome.permissions.request=window.__permissions;}')
         open_lesson(student,old['id'])
-        if not student.locator('#load-original').is_visible():student.get_by_text('내 기기의 영상 연결·보관',exact=True).click()
-        student.locator('#load-original').click();expect(student.locator('#connection')).to_contain_text('분석한 원본과 일치')
+        student_disclosure(student, '내 기기의 영상 연결·보관')
+        student_control(student, '#load-original').click();expect(student.locator('#connection')).to_contain_text('분석한 원본과 일치')
         before=request(student,'/extension/v1/student/lectures/'+new['id'])['progress']
         writes=[]
         student.on('request',lambda r:writes.append(r.post_data_json) if r.method=='PUT' and f'/lectures/{new["id"]}/progress' in r.url else None)
@@ -103,10 +105,10 @@ def media_races(guardian,student,output):
         open_lesson(student,old['id'])
         student.evaluate("""()=>{window.__runtimeSend=chrome.runtime.sendMessage;chrome.runtime.sendMessage=async message=>{
           const result=await window.__runtimeSend(message);if(message.type==='student-media'&&message.action==='claim')return new Promise(resolve=>window.__claimReply=()=>resolve(result));return result;};}""")
-        with student.context.expect_page() as opened:student.locator('#open-original').click()
+        with student.context.expect_page() as opened:student_control(student, '#open-original').click()
         native=opened.value;student.wait_for_function('()=>Boolean(window.__claimReply)')
         native.wait_for_function('()=>Boolean(document.querySelector("video")&&!document.querySelector("video").paused)')
-        student.locator('#stop').click();native.wait_for_function('()=>document.querySelector("video").paused')
+        student_control(student, '#stop').click();native.wait_for_function('()=>document.querySelector("video").paused')
         student.evaluate('window.__claimReply()');expect(student.locator('#open-original')).not_to_have_attribute('aria-busy','true')
         assert native.evaluate('document.querySelector("video").paused')
         EXTRA['stop_during_pending_claim']={'passed':True,'video_paused':True}
@@ -124,11 +126,11 @@ def live_feedback(guardian,student,output):
     api.app.router.routes.insert(0,route)
     with local_access.db() as con:con.execute('UPDATE lectures SET playback=? WHERE id=?',(json.dumps({'kind':'direct','normalized_url':source}),lesson['id']))
     try:
-        open_lesson(student,lesson['id']);student.locator('#access-mode').select_option('app')
+        open_lesson(student,lesson['id']);student_control(student, '#access-mode').select_option('app')
         def connect():
-            student.locator('#open-original').click();expect(student.locator('#connection')).to_contain_text('원본 강의 탭을 연결')
+            student_control(student, '#open-original').click();expect(student.locator('#connection')).to_contain_text('원본 강의 탭을 연결')
             native=next(p for p in student.context.pages if p.url==source)
-            student.locator('#play').click();native.wait_for_function('()=>!document.querySelector("video").paused');student.wait_for_timeout(150)
+            student_control(student, '#play').click();native.wait_for_function('()=>!document.querySelector("video").paused');student.wait_for_timeout(150)
             student.evaluate('window.__spoken=[]');return native
         native=connect();native.close();expect(student.locator('#connection')).to_contain_text('연결이 끊겼습니다')
         student.wait_for_function('()=>window.__spoken.some(u=>u.text.includes("연결이 끊겼습니다"))')
@@ -197,41 +199,52 @@ def forms_focus(guardian,student,output):
     assert job['state']=='completed'
     students=request(guardian,'/local/students');target=next(s for s in students if s['username']=='student')
     published=request(guardian,'/extension/v1/guardian/preparations/'+job['id']+'/publish','POST',{'students':[target['id']]})
-    student.locator('#refresh').click();open_lesson(student,published['id']);student.locator('#access-mode').select_option('reader')
-    controls=student.locator('#material [data-sentence-id]');expect(controls).to_have_count(4);expect(controls.first.locator('.highlight-label')).to_have_text('강조')
-    controls.first.click();expect(student.locator('#reader-description')).to_contain_text('중요한 강조 문장')
-    student.locator('#paragraph-form [name=query]').fill('다음 문장');student.locator('#paragraph-form button').click();expect(student.locator('#reader-description')).to_contain_text('일반 문장')
-    assert controls.nth(1).get_attribute('aria-current')=='true'
-    student.locator('#paragraph-form [name=query]').fill('2문단');student.locator('#paragraph-form button').click();expect(student.locator('#reader-description')).to_contain_text('2문단')
-    student.locator('#paragraph-form [name=query]').fill('다음 문장');student.locator('#paragraph-form button').click();expect(student.locator('#reader-description')).to_contain_text('둘째 문단 다음 문장')
-    checked('R15',controls.nth(3).get_attribute('aria-current')=='true',{'sentence_controls':controls.count(),'current':controls.nth(3).get_attribute('aria-current'),'paragraph_cursor_synced':True})
-    student.locator('#voice-consent').check();student.evaluate('()=>{window.SpeechRecognition=class{start(){window.__started=true;this.onstart?.();}stop(){this.onresult?.({results:[[{transcript:"1문단 밑줄 표시"}]]});this.onend?.();}abort(){}};}')
-    ident=controls.first.get_attribute('data-sentence-id');controls.first.focus();student.keyboard.down('Space');student.wait_for_function('()=>window.__started===true',timeout=4500);student.keyboard.up('Space')
-    expect(student.get_by_role('button',name='1문단 밑줄 해제',exact=True)).to_be_visible()
-    checked('R16',student.evaluate('document.activeElement.dataset.sentenceId')==ident,student.evaluate('document.activeElement.outerHTML'))
+    student_control(student, '#refresh').click();open_lesson(student,published['id']);student_control(student, '#access-mode').select_option('reader')
+    controls=student.locator('#material [data-sentence-id]');expect(controls).to_have_count(4)
+    assert controls.first.evaluate('e=>e.tagName')=='STRONG'
+    student_control(student, '#sentence-selection').select_option(index=0)
+    student_control(student, '#selected-read').click();expect(student.locator('#reader-description')).to_contain_text('중요한 강조 문장')
+    student_control(student, '#paragraph-form [name=query]').fill('다음 문장');student_control(student, '#paragraph-form button').click();expect(student.locator('#reader-description')).to_contain_text('일반 문장')
+    expect(student.locator('#sentence-selection')).to_have_value(controls.nth(1).get_attribute('data-sentence-id'))
+    student_control(student, '#paragraph-form [name=query]').fill('2문단');student_control(student, '#paragraph-form button').click();expect(student.locator('#reader-description')).to_contain_text('2문단')
+    student_control(student, '#paragraph-form [name=query]').fill('다음 문장');student_control(student, '#paragraph-form button').click();expect(student.locator('#reader-description')).to_contain_text('둘째 문단 다음 문장')
+    selected=student.locator('#sentence-selection').input_value()
+    checked('R15',selected==controls.nth(3).get_attribute('data-sentence-id'),{'sentence_texts':controls.count(),'selected_sentence':selected,'paragraph_cursor_synced':True})
+    student_control(student, '#voice-consent').check();student.evaluate('()=>{window.SpeechRecognition=class{start(){window.__started=true;this.onstart?.();}stop(){this.onresult?.({results:[[{transcript:"1문단 밑줄 표시"}]]});this.onend?.();}abort(){}};}')
+    student_control(student, '#paragraph-selection').select_option(index=0)
+    student_control(student, '#selected-read').focus();student.keyboard.down('Space');student.wait_for_function('()=>window.__started===true',timeout=4500);student.keyboard.up('Space')
+    expect(student.locator('#selected-underline')).to_have_attribute('aria-pressed','true')
+    checked('R16',student.evaluate('document.activeElement.id')=='selected-read',student.evaluate('document.activeElement.outerHTML'))
     student.reload();expect(student.locator('#lectures button')).to_have_count(2)
-    held=[];student.route('**/extension/v1/student/lectures/*',lambda route:held.append(route));student.locator('#lectures button').first.click();student.wait_for_timeout(100);assert held
-    student.locator('#command-input').fill('입력 중');held[0].continue_();expect(student.locator('#lesson')).to_be_visible()
-    checked('R17',student.locator('#command-input').evaluate('e=>e===document.activeElement'),student.evaluate('document.activeElement.id'))
+    held=[];student.route('**/extension/v1/student/lectures/*',lambda route:held.append(route));student_control(student, '#lectures button').first.click();student.wait_for_timeout(100);assert held
+    student_control(student, '#type-command').click();student.locator('#text-command').fill('입력 중');held[0].continue_()
+    expect(student.locator('#lectures button').first).not_to_have_attribute('aria-busy','true')
+    # Opening the command dialog explicitly stops/cancels an in-flight open.
+    expect(student.locator('#lesson')).to_be_hidden()
+    checked('R17',student.locator('#text-command').evaluate('e=>e===document.activeElement'),student.evaluate('document.activeElement.id'))
+    student.keyboard.press('Escape')
+    expect(student.locator('#type-command')).to_be_focused()
     student.unroute('**/extension/v1/student/lectures/*')
-    student.locator('#lectures button').first.focus();student.route('**/local/lectures',lambda route:route.fulfill(status=200,content_type='application/json',body='[]'))
+    student_control(student, '#lectures button').first.focus();student.route('**/local/lectures',lambda route:route.fulfill(status=200,content_type='application/json',body='[]'))
     student.evaluate('document.querySelector("#refresh").click()');expect(student.locator('#lectures button')).to_have_count(0)
     checked('R18',student.locator('#workspace-title').evaluate('e=>e===document.activeElement'),student.evaluate('document.activeElement.id||document.activeElement.tagName'))
-    student.unroute('**/local/lectures');student.locator('#refresh').click();expect(student.locator('#lectures button')).to_have_count(2)
+    student.unroute('**/local/lectures');student_control(student, '#refresh').click();expect(student.locator('#lectures button')).to_have_count(2)
     base=next(l for l in request(student,'/local/lectures') if l['id']!=published['id']);saved=request(student,'/extension/v1/student/lectures/'+base['id'])['progress'];open_lesson(student,base['id'])
     saves=[];student.route(f'**/local/lectures/{base["id"]}/progress',lambda route:saves.append(route))
-    student.locator('#note').fill('저장 대기 중인 메모');student.locator(f'#lectures button[data-lecture="{published["id"]}"]').click()
+    student_control(student, '#note').fill('저장 대기 중인 메모');student_control(student, f'#lectures button[data-lecture="{published["id"]}"]').click()
     student.wait_for_timeout(100);assert saves
-    student.locator('#command-input').fill('입력 유지')
+    student_control(student, '#type-command').click();student.locator('#text-command').fill('입력 유지')
     for _ in range(60):
         while saves:saves.pop(0).continue_()
-        if student.locator('#lesson-title').inner_text()=='문장과 강조 검사':break
+        if not student.locator(f'#lectures button[data-lecture="{published["id"]}"]').get_attribute('aria-busy'):break
         student.wait_for_timeout(50)
-    expect(student.locator('#lesson-title')).to_have_text('문장과 강조 검사');expect(student.locator('#command-input')).to_be_focused()
-    EXTRA['focus_during_delayed_save']={'passed':True,'focus':student.evaluate('document.activeElement.id')}
+    expect(student.locator('#lesson-title')).to_have_text(base['title']);expect(student.locator('#text-command')).to_be_focused()
+    EXTRA['focus_during_delayed_save']={'passed':True,'focus':student.evaluate('document.activeElement.id'),'dialog_cancels_pending_open':True}
+    student.keyboard.press('Escape')
+    expect(student.locator('#type-command')).to_be_focused()
     student.unroute(f'**/local/lectures/{base["id"]}/progress');request(student,'/local/lectures/'+base['id']+'/progress','PUT',saved)
     request(guardian,'/local/lectures/'+published['id'],'DELETE')
-    student.locator('#refresh').click();expect(student.locator('#lectures button')).to_have_count(1)
+    student_control(student, '#refresh').click();expect(student.locator('#lectures button')).to_have_count(1)
     browser.check_layout(guardian,'fixed-guardian-errors',output);browser.check_layout(student,'fixed-student-focus',output)
     return guardian
 

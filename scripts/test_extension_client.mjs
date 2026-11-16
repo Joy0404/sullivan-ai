@@ -8,15 +8,15 @@ const code = readFileSync(new URL('../apps/extensions/shared/client.js',import.m
   .replaceAll('export async function','async function').replace('export {ROLE};','');
 const fresh = (id='A') => ({token:`token-${id}`,refresh_token:`refresh-${id}`,expires_at:Date.now()/1000+1000,user:{id,role:'student'}});
 async function harness(fetcher) {
-  let session={...fresh(),expires_at:0},rememberedAuth,notify=true;const listeners=[],locks=new Map();
-  const area=kind=>({async setAccessLevel(){},async get(key){return {[key]:structuredClone(kind==='session'?session:rememberedAuth)};},
-    async set(data){if(kind==='session'){const old=session;session=structuredClone(data.session);if(notify)listeners.forEach(fn=>fn({session:{oldValue:old,newValue:session}},'session'));}else rememberedAuth=data.rememberedAuth;},
+  let session={...fresh(),expires_at:0},rememberedAuth,remoteFence,notify=true;const listeners=[],locks=new Map();
+  const area=kind=>({async setAccessLevel(){},async get(key){return {[key]:structuredClone(kind==='session'?(key==='remoteFence'?remoteFence:session):rememberedAuth)};},
+    async set(data){if(kind==='session'){if('remoteFence' in data)remoteFence=data.remoteFence;if(!('session' in data))return;const old=session;session=structuredClone(data.session);if(notify)listeners.forEach(fn=>fn({session:{oldValue:old,newValue:session}},'session'));}else if('rememberedAuth' in data)rememberedAuth=data.rememberedAuth;},
     async remove(){if(kind==='session'){const old=session;session=undefined;listeners.forEach(fn=>fn({session:{oldValue:old}},'session'));}else rememberedAuth=undefined;}});
   const chrome={runtime:{id:'fixture'},identity:{getRedirectURL(){return 'https://fixture.chromiumapp.org/oauth';}},storage:{session:area('session'),local:area('local'),onChanged:{addListener(fn){listeners.push(fn);}}}};
   const context={chrome,window:new EventTarget(),Event,FormData,AbortSignal,URL,URLSearchParams,Uint8Array,crypto:webcrypto,btoa,fetch:fetcher,
     navigator:{locks:{request(name,fn){const next=(locks.get(name)||Promise.resolve()).catch(()=>{}).then(fn);locks.set(name,next);return next;}}}};
-  const api=await vm.runInNewContext(`(async()=>{${code};return {request,forgetSession,restore};})()`,context);
-  return {api,chrome,get session(){return session;},async switchTo(next,deliver=true){notify=deliver;await chrome.storage.session.set({session:next});notify=true;}};
+  const api=await vm.runInNewContext(`(async()=>{${code};return {request,forgetSession,restore,signOut};})()`,context);
+  return {api,chrome,get session(){return session;},get remoteFence(){return remoteFence;},async switchTo(next,deliver=true){notify=deliver;await chrome.storage.session.set({session:next});notify=true;}};
 }
 const deferred=()=>{let resolve;const promise=new Promise(r=>resolve=r);return {promise,resolve};};
 const response=(data,status=200)=>new Response(JSON.stringify(data),{status,headers:{'Content-Type':'application/json'}});
@@ -65,5 +65,16 @@ await check('new request from stale view cannot borrow a silently changed accoun
   await h.switchTo(fresh('B'),false);
   const result=await h.api.request('/local/lectures/shared/progress',{method:'PUT',body:{note:'Old view A'}}).catch(e=>e);
   assert.equal(calls,0);assert.equal(result.cancelled,true);
+});
+await check('refresh preserves remote device association',async()=>{
+  const h=await harness(async url=>url.endsWith('/token')?response(fresh()):response({ok:true}));
+  await h.switchTo({...fresh(),expires_at:0,remote_device:'approved-device'});
+  await h.api.request('/local/me');assert.equal(h.session.remote_device,'approved-device');
+});
+await check('logout fences remote login before awaiting server response',async()=>{
+  const gate=deferred(),started=deferred();const h=await harness(async()=>{started.resolve();return gate.promise;});
+  await h.switchTo(fresh());const work=h.api.signOut();await started.promise;
+  assert.equal(typeof h.remoteFence,'string');assert.equal(h.session.user.id,'A');
+  gate.resolve(response({ok:true}));await work;assert.equal(h.session,undefined);
 });
 if(failed)process.exitCode=1;

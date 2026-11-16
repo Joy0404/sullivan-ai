@@ -1,7 +1,18 @@
 // Runs only in this extension document; never installs handlers in lecture tabs.
 export function installStudentKeyboard({gesture, enabled, hasLesson, onError, seek, position, releasePanel, onFocus, active=()=>hasLesson(), outputActive=()=>false, emergencyStop=()=>{}, abortGesture=()=>{}}) {
   const selector='button,a[href],input:not([type=hidden]),textarea,select,summary,[tabindex],[contenteditable=true]';
-  const visible=e=>Boolean(e?.getClientRects().length && !e.closest('[hidden],[inert]') && getComputedStyle(e).visibility!=='hidden' && !e.matches(':disabled'));
+  const visible=e=>{
+    if(!e?.getClientRects().length||e.closest('[hidden],[inert]')||getComputedStyle(e).visibility!=='visible'||e.matches(':disabled'))return false;
+    // Chromium may report layout rectangles for descendants of CLOSED details.
+    // Only its first summary (and that summary's children) remains exposed.
+    for(let parent=e.parentElement;parent;parent=parent.parentElement){
+      if(parent.tagName==='DETAILS'&&!parent.open){
+        const summary=[...parent.children].find(child=>child.tagName==='SUMMARY');
+        if(!summary?.contains(e))return false;
+      }
+    }
+    return true;
+  };
   const textEntry=e=>Boolean(e?.closest('textarea,select,[contenteditable=true],input:not([type=checkbox]):not([type=radio]):not([type=button]):not([type=submit])'));
   const nativeSpace=e=>textEntry(e)||Boolean(e?.closest('input[type=checkbox],input[type=radio]'));
   const modal=()=>[...document.querySelectorAll('dialog[open]')].at(-1);
@@ -12,7 +23,14 @@ export function installStudentKeyboard({gesture, enabled, hasLesson, onError, se
     const index=list.indexOf(active);
     const adjacent=backward?list.filter(e=>e.compareDocumentPosition(active)&Node.DOCUMENT_POSITION_FOLLOWING).at(-1):list.find(e=>active.compareDocumentPosition(e)&Node.DOCUMENT_POSITION_FOLLOWING);
     const target=index<0 ? adjacent||(backward?list.at(-1):list[0]) : list[(index+(backward?-1:1)+list.length)%list.length];
-    target.focus();
+    const start=list.indexOf(target),step=backward?-1:1;
+    // A stale/otherwise unfocusable candidate must not trap subsequent Tab presses.
+    // Visit each candidate at most once, checking the result of focus().
+    for(let offset=0;offset<list.length;offset++){
+      const candidate=list[(start+offset*step+list.length)%list.length];
+      candidate.focus();
+      if(document.activeElement===candidate)return;
+    }
   }
   function reset(event){shift=null;spaceDown=false;editingTap=0;abortGesture(event);gesture.cancel();}
   function cancelPending(event){editingTap=0;abortGesture(event);spaceDown=false;gesture.cancel();}

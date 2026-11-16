@@ -1,4 +1,5 @@
 """Adversarial input/response order in real installed extensions and decoded MP4."""
+from verify_extensions_browser import student_control
 import argparse
 import json
 from pathlib import Path
@@ -13,26 +14,26 @@ def record(name,passed,observed):
 
 
 def races(guardian,student,output):
-    student.locator('#access-mode').select_option('silent')
+    student_control(student, '#access-mode').select_option('silent')
     lesson=next(row for row in request(student,'/local/lectures') if row['title']=='동기화 테스트 강의')
     pattern=f'**/local/lectures/{lesson["id"]}/progress'
     writes=[]
     student.on('request',lambda req:writes.append(req.post_data_json) if req.method=='PUT' and req.url.endswith(f'/lectures/{lesson["id"]}/progress') else None)
-    student.locator('#position').fill('2');student.locator('#progress-form button').click()
+    student_control(student, '#position').fill('2');student_control(student, '#progress-form button').click()
     expect(student.locator('#progress-form button')).not_to_have_attribute('aria-busy','true')
     record('RACE01.single_position_write',len(writes)==1,{'writes':len(writes)})
     writes.clear();held=[]
     student.route(pattern,lambda route:route.continue_() if held else held.append(route))
-    student.locator('#position').fill('3');student.locator('#progress-form button').click()
+    student_control(student, '#position').fill('3');student_control(student, '#progress-form button').click()
     student.wait_for_function('()=>document.querySelector("#save-status").textContent.includes("저장 중")')
     student.wait_for_timeout(100);assert held
-    student.locator('#position').fill('5')
+    student_control(student, '#position').fill('5')
     held[0].continue_()
     expect(student.locator('#progress-form button')).not_to_have_attribute('aria-busy','true')
     student.unroute(pattern)
     saved=request(student,f'/extension/v1/student/lectures/{lesson["id"]}')['progress']
     record('RACE02.new_position_stays_pending',saved['position_ms']==3000 and student.locator('#position').input_value()=='5',{'saved_ms':saved['position_ms'],'field':student.locator('#position').input_value(),'writes':writes})
-    student.locator('#progress-form button').click();expect(student.locator('#progress-form button')).not_to_have_attribute('aria-busy','true')
+    student_control(student, '#progress-form button').click();expect(student.locator('#progress-form button')).not_to_have_attribute('aria-busy','true')
     # The edit form must retain new typing while its previous value is being saved.
     rows=request(guardian,'/local/lectures');first,second=rows[:2]
     guardian.get_by_role('button',name=first['title']+' 배정 수정',exact=True).click()

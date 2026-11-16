@@ -70,6 +70,10 @@ class Prepare(BaseModel):
 
 
 def recover(con):
+    from app.analysis_provenance import read_status, record_status
+    for row in con.execute("SELECT session_id FROM preparations WHERE instance<>? AND state IN ('queued','running')", (INSTANCE,)).fetchall():
+        status = read_status(con, row['session_id'])
+        if status.state=='analyzing':record_status(row['session_id'], 'failed', status.provider, con=con)
     con.execute('''UPDATE preparations SET state='interrupted', message=?, updated=?
         WHERE instance<>? AND state IN ('queued','running')''',
         ('서버가 재시작되어 중단됐습니다. 자료를 다시 선택하고 준비를 요청하세요. 자동으로 재분석하지 않습니다.', time.time(), INSTANCE))
@@ -82,9 +86,13 @@ def own(con, guardian, ident):
     return row
 
 
-def public(row, detail=False):
+def public(row, detail=False, con=None):
+    from app.analysis_provenance import read_status
+    if con is None:
+        with accounts.db() as opened:return public(row, detail, opened)
     result = {key: row[key] for key in ('id', 'session_id', 'title', 'subject', 'source_kind', 'state', 'message', 'updated')}
     result['playback'] = json.loads(row['playback'])
+    result['analysis_status'] = read_status(con, row['session_id']).model_dump(mode='json')
     if detail and row['state'] == 'completed':
         result['snapshot'] = json.loads(row['snapshot'])
     return result
@@ -96,7 +104,9 @@ def completed_snapshot(con, guardian, session_id):
         return None
     if row['state'] != 'completed' or not row['snapshot']:
         raise HTTPException(409, '준비 완료된 자료만 배정할 수 있습니다.')
-    return LectureSnapshot.model_validate_json(row['snapshot'])
+    from app.analysis_provenance import read_status
+    snapshot=LectureSnapshot.model_validate_json(row['snapshot'])
+    return snapshot.model_copy(update={'analysis_status':read_status(con,session_id)})
 
 
 def new_job(request, title, subject, problem_mode, source_kind, source_label='', preferred_mode='auto'):
@@ -113,11 +123,13 @@ def new_job(request, title, subject, problem_mode, source_kind, source_label='',
             'link': '보호자가 등록한 링크·자료', 'video': '동의한 파일 실제 분석 · 원본 미보관',
             'local': '로컬 재생용 등록 · 원본 미전송 · 영상 분석 미실행'}[source_kind]))
         ident = uuid4().hex
+        from app.analysis_provenance import record_status
+        record_status(session.session_id, 'not_run', con=con)
         con.execute('INSERT INTO owners VALUES(?,?)', (session.session_id, user['id']))
         con.execute('INSERT INTO preparations VALUES(?,?,?,?,?,?,?,?,?,?,?,?)',
             (ident, user['id'], session.session_id, title, subject, source_kind, 'queued',
              '준비 요청을 접수했습니다.', None, '{}', INSTANCE, time.time()))
-        return public(own(con, user['id'], ident))
+        return public(own(con, user['id'], ident), con=con)
 
 
 def update(ident, state, message, snapshot=None, playback=None):
@@ -162,7 +174,7 @@ async def run(ident, session_id, request, payload=None, video=None, video_fields
         update(ident, 'running', '분석 결과에 문제 보호·신뢰도 기준을 적용하고 학습자료를 구성합니다.')
         snapshot = main.agent.snapshot(session_id)
         playback_only = bool(payload and (payload.local_file or payload.link and not payload.link.request_analysis))
-        if not (snapshot.passage or snapshot.transcript_segments or snapshot.safe_description_count) and not playback_only:
+        if not (snapshot.passage or snapshot.transcript_segments or snapshot.safe_description_count or any(g.hold_notices for g in snapshot.visual_gaps)) and not playback_only:
             raise HTTPException(400, '배정할 수 있는 지문·자막·검증된 설명이 없습니다. 자료 형식과 분석 결과를 확인하세요.')
         message = '자료 준비를 완료했습니다. 확인 후 학생에게 배정하세요.'
         if playback_only and not (snapshot.passage or snapshot.transcript_segments or snapshot.safe_description_count):
@@ -170,12 +182,22 @@ async def run(ident, session_id, request, payload=None, video=None, video_fields
             if payload.local_file:message = '로컬 파일 재생용 등록을 완료했습니다. 원본은 전송하지 않았고 영상 분석은 실행하지 않았습니다. 학생 기기에서 원본을 선택해 재생·명령·기록을 이용하세요.'
         update(ident, 'completed', message, snapshot, playback)
     except asyncio.CancelledError:
+        from app.analysis_provenance import read_status,record_status
+        with accounts.db() as con:
+            status=read_status(con,session_id)
+            if status.state=='analyzing':record_status(session_id,'failed',status.provider,con=con)
         update(ident, 'interrupted', '서버 종료로 중단됐습니다. 자료를 다시 선택해 준비하세요.')
         raise
     except HTTPException as error:
         # Messages from existing gates/cleanup are user-safe; never persist provider responses/codes.
+        if video or payload and payload.link and payload.link.request_analysis:
+            from app.analysis_provenance import record_status
+            record_status(session_id, 'failed', 'gemini' if video or 'youtu' in payload.link.url else 'adapter')
         update(ident, 'failed', str(error.detail)[:1500])
     except Exception:
+        if video or payload and payload.link and payload.link.request_analysis:
+            from app.analysis_provenance import record_status
+            record_status(session_id, 'failed', 'gemini' if video or 'youtu' in payload.link.url else 'adapter')
         update(ident, 'failed', '자료 준비에 실패했습니다. 자료와 서버 연결을 확인하고 다시 준비하세요.')
     finally:
         if video:
@@ -187,7 +209,7 @@ def listing(request: Request):
     user = accounts.require(request, 'guardian')
     with accounts.db() as con:
         recover(con)
-        return [public(row) for row in con.execute('SELECT * FROM preparations WHERE guardian=? ORDER BY updated DESC', (user['id'],))]
+        return [public(row, con=con) for row in con.execute('SELECT * FROM preparations WHERE guardian=? ORDER BY updated DESC', (user['id'],))]
 
 
 @router.get('/preparations/{ident}')
@@ -195,7 +217,7 @@ def detail(ident: str, request: Request):
     user = accounts.require(request, 'guardian')
     with accounts.db() as con:
         recover(con)
-        return public(own(con, user['id'], ident), detail=True)
+        return public(own(con, user['id'], ident), detail=True, con=con)
 
 
 @router.post('/preparations', status_code=202)

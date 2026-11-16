@@ -1,0 +1,67 @@
+[
+  {
+    "name": "student-notes",
+    "exit_code": 0,
+    "seconds": 18.0
+  },
+  {
+    "name": "dashboard",
+    "exit_code": 0,
+    "seconds": 3.9
+  },
+  {
+    "name": "followup",
+    "exit_code": 1,
+    "seconds": 33.2
+  },
+  {
+    "name": "races",
+    "exit_code": 1,
+    "seconds": 33.9
+  },
+  {
+    "name": "remote-login",
+    "exit_code": 0,
+    "seconds": 8.4
+  },
+  {
+    "name": "guardian-entry",
+    "exit_code": 0,
+    "seconds": 4.9
+  },
+  {
+    "name": "submission-flow",
+    "exit_code": 1,
+    "seconds": 33.2
+  },
+  {
+    "name": "universal",
+    "exit_code": 1,
+    "seconds": 33.7
+  },
+  {
+    "name": "restoration",
+    "exit_code": 1,
+    "seconds": 33.6
+  },
+  {
+    "name": "reaudit",
+    "exit_code": 1,
+    "seconds": 133.9
+  },
+  {
+    "name": "optimization",
+    "exit_code": 1,
+    "seconds": 33.4
+  },
+  {
+    "name": "restart",
+    "exit_code": 0,
+    "seconds": 1.3
+  },
+  {
+    "name": "production",
+    "exit_code": 0,
+    "seconds": 0.8
+  }
+]

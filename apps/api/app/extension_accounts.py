@@ -22,7 +22,7 @@ from app.extension_access import digest, current, issue
 router = APIRouter(prefix='/extension/v1')
 auth_router = APIRouter(prefix='/extension/auth')
 Role = Literal['guardian', 'student']
-VERSION = '0.4.7'
+VERSION = '0.4.9'
 
 
 def production():
@@ -93,6 +93,8 @@ def revoke_family(con, family):
 
 
 def revoke_user(con, ident):
+    from app.remote_login import revoke_devices
+    revoke_devices(con, user=ident)
     con.execute('DELETE FROM sessions WHERE user=?', (ident,))
     con.execute('DELETE FROM extension_sessions WHERE user=?', (ident,))
     con.execute('UPDATE auth_families SET revoked=1 WHERE user=?', (ident,))
@@ -200,7 +202,12 @@ def devices(role: Role, request: Request):
 def revoke_device(role: Role, ident: str, request: Request):
     user = require(request, role)
     with accounts.db() as con:
+        con.execute('BEGIN IMMEDIATE')
+        from app.remote_login import transaction_user
+        user = transaction_user(con, request, role)
         if not con.execute('SELECT 1 FROM auth_families WHERE id=? AND user=?', (ident, user['id'])).fetchone(): raise HTTPException(404, '내 로그인 기기를 찾지 못했습니다.')
+        from app.remote_login import revoke_devices
+        revoke_devices(con, family=ident)
         revoke_family(con, ident)
     return {'ok': True}
 
@@ -208,7 +215,11 @@ def revoke_device(role: Role, ident: str, request: Request):
 @router.post('/{role}/logout-all')
 def logout_all(role: Role, request: Request):
     user = require(request, role)
-    with accounts.db() as con: revoke_user(con, user['id'])
+    with accounts.db() as con:
+        con.execute('BEGIN IMMEDIATE')
+        from app.remote_login import transaction_user
+        user = transaction_user(con, request, role)
+        revoke_user(con, user['id'])
     return {'ok': True}
 
 
@@ -248,12 +259,15 @@ def pairing_preview(p: PairCode, request: Request):
 class PairConfirm(BaseModel):
     request_id: str = Field(min_length=32, max_length=32)
     confirm: bool
+    remote_login: bool = False
+    client_id: str = Field(default='', max_length=32)
 
 
 @router.post('/student/connections/confirm')
 def pairing_confirm(p: PairConfirm, request: Request):
     user = require(request, 'student')
     if not p.confirm: raise HTTPException(400, '공유 범위를 확인하고 직접 연결을 승인하세요.')
+    result = {'ok': True}
     with accounts.db() as con:
         con.execute('BEGIN IMMEDIATE')
         row = con.execute('''SELECT r.*,c.expires AS code_expires,c.consumed_by FROM pair_requests r
@@ -264,7 +278,11 @@ def pairing_confirm(p: PairConfirm, request: Request):
         con.execute('UPDATE users SET guardian=? WHERE id=?', (row['guardian'], user['id']))
         con.execute('UPDATE pair_codes SET consumed_by=? WHERE code=?', (user['id'], row['code']))
         con.execute('DELETE FROM pair_requests WHERE code=?', (row['code'],))
-    return {'ok': True}
+        if p.remote_login:
+            from app.remote_login import enroll
+            linked = con.execute('SELECT * FROM users WHERE id=?', (user['id'],)).fetchone()
+            result['remote_login'] = enroll(con, linked, p.client_id, request)
+    return result
 
 
 @router.get('/{role}/connections')
@@ -290,6 +308,8 @@ def unlink(role: Role, p: Unlink, request: Request):
         row = con.execute("SELECT * FROM users WHERE id=? AND role='student'", (p.student,)).fetchone()
         if not row or (role == 'student' and row['id'] != user['id']) or (role == 'guardian' and row['guardian'] != user['id']): raise HTTPException(403, '본인의 연결만 해제할 수 있습니다.')
         guardian = row['guardian']
+        from app.remote_login import revoke_devices
+        revoke_devices(con, user=row['id'])
         con.execute('UPDATE users SET guardian=NULL WHERE id=?', (row['id'],))
         con.execute('DELETE FROM assignments WHERE student=? AND lecture IN (SELECT id FROM lectures WHERE guardian=?)', (row['id'], guardian))
         con.execute('DELETE FROM pair_requests WHERE student=?', (row['id'],))

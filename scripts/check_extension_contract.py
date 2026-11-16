@@ -23,7 +23,7 @@ def check(data, root=ROOT):
     # Pending real-service checks cannot disappear through a status/count edit.
     pending = {row['id'] for row in rows if row['verification'] == 'external_pending'}
     assert pending == set(data['external_acceptance']) == EXTERNAL_ACCEPTANCE, 'External evidence checklist mismatch'
-    assert {r['id'] for r in rows if r['implementation']=='design_change'} == {'F01','F03','F07','F36','F76'}, 'Design changes require explicit scope review'
+    assert {r['id'] for r in rows if r['implementation']=='design_change'} == {'F01','F03','F07','F36','F51','F76'}, 'Design changes require explicit scope review'
     assert {r['id'] for r in rows if r['implementation']=='unsupported'} == {'F77','F78'}, 'Unsupported scope changed'
     assert data['release_ready'] is False, 'Release requires a separately reviewed live acceptance record'
     return {'features':len(rows),'declared_implementation_gaps':0,'external_pending':sorted(pending),'release_ready':False}

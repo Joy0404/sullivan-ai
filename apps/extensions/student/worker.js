@@ -1,4 +1,6 @@
 import {controlVideo} from './video-control.js';
+import {initializeRemoteLoginWorker} from './remote-login-worker.js';
+initializeRemoteLoginWorker();
 chrome.sidePanel.setPanelBehavior({openPanelOnActionClick: false}).catch(console.error);
 chrome.action.onClicked.addListener(tab=>{
   // Open during the actual action gesture, then focus the student document.

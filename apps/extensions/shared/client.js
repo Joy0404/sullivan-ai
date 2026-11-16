@@ -11,6 +11,7 @@ chrome.storage.onChanged.addListener((changes,area)=>{
     if(!next || old && (old.user?.id!==next.user?.id || (old.auth_epoch||null)!==(next.auth_epoch||null))){
       generation++;window.dispatchEvent(new Event('sullivan-signed-out'));
     }
+    if(next?.remote_device && next.auth_epoch!==old?.auth_epoch)window.dispatchEvent(new Event('sullivan-remote-signed-in'));
   }
 });
 const cancelledAuth=()=>Object.assign(new Error('로그인 상태가 변경되어 이전 요청을 취소했습니다.'),{cancelled:true});
@@ -31,6 +32,7 @@ export async function forgetSession(expectedCredential=null){
       }
     }
     generation++;
+    await storage.set({remoteFence:crypto.randomUUID()});
     await chrome.storage.local.remove('rememberedAuth');
     await storage.remove('session');observedSession=undefined;return true;
   });
@@ -50,10 +52,11 @@ async function adopt(data,remember=false,rotating=false,expected=null){
   const session=data.access_token?{...data,token:data.access_token}:data;
   if(session.user?.role!==ROLE || typeof session.token!=='string')throw new Error('로그인 정보를 확인하지 못했습니다.');
   session.auth_epoch=rotating?(previous?.auth_epoch||null):crypto.randomUUID();
+  if(rotating&&previous?.remote_device)session.remote_device=previous.remote_device;
   if(!rotating)generation++;
   await storage.set({session});
   observedSession=session;
-  if(remember && session.refresh_token)await chrome.storage.local.set({rememberedAuth:{refresh_token:session.refresh_token,family_id:session.family_id}});
+  if(remember && session.refresh_token)await chrome.storage.local.set({rememberedAuth:{refresh_token:session.refresh_token,family_id:session.family_id,user_id:session.user.id}});
   else await chrome.storage.local.remove('rememberedAuth');
   return session;
   });
@@ -146,6 +149,8 @@ export async function browserSignIn(remember=false){
 }
 export async function signOut(){
   const ticket=generation,{session}=await storage.get('session');assertAuth(ticket);
+  // Fence pending device login immediately, before a slow logout/refresh call.
+  await navigator.locks.request('sullivan-auth-state',async()=>{assertAuth(ticket);await storage.set({remoteFence:crypto.randomUUID()});});
   await request(`/extension/v1/${ROLE}/session`,{method:'DELETE'});
   await forgetSession({ticket,auth_epoch:session?.auth_epoch||null});
 }

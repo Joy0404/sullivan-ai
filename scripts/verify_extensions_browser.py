@@ -13,7 +13,51 @@ sys.path.insert(0, str(ROOT / 'apps/api'))
 from build_extensions import build
 import uvicorn
 from playwright.sync_api import sync_playwright, expect
+from browser_fixtures import offline_video_fixtures
 AXE_RESULTS = []
+
+
+def student_control(page, selector):
+    """Open the owning task through its visible button before acting.
+
+    Assertions keep using ordinary locators, so this cannot make a hidden-state
+    assertion pass or bypass a disabled control or modal. Ancestor disclosures
+    are opened through their native summary, never by changing hidden/open.
+    """
+    control = page.locator(selector) if isinstance(selector, str) else selector
+    if control.count():
+        tasks = control.evaluate_all("elements=>[...new Set(elements.map(e=>{const task=e.closest('section[id^=task-]');return task?.hidden?task.id.slice(5):null;}))]")
+        if len(tasks) == 1 and (hidden_task := tasks[0]):
+            page.locator(f'#task-{hidden_task}-button').click()
+            expect(page.locator(f'#task-{hidden_task}')).to_be_visible()
+    if control.count() == 1:
+        while True:
+            handle = control.evaluate_handle("e=>{let p=e.parentElement,closed=null;while(p){if(p.tagName==='DETAILS'&&!p.open&&!p.querySelector(':scope > summary')?.contains(e))closed=p;p=p.parentElement;}return closed;}")
+            disclosure = handle.as_element()
+            if not disclosure:
+                handle.dispose()
+                break
+            disclosure.query_selector(':scope > summary').click()
+            handle.dispose()
+    return control
+
+
+def student_text(page, text, **options):
+    return student_control(page, page.get_by_text(text, **options))
+
+
+def student_role(page, role, **options):
+    # Discover the target's owning task before exposing it. Normal assertions
+    # deliberately keep get_by_role's default visible-only behavior.
+    options.setdefault('include_hidden', True)
+    return student_control(page, page.get_by_role(role, **options))
+
+
+def student_disclosure(page, text):
+    summary = student_text(page, text, exact=True)
+    if not summary.evaluate('e=>e.closest("details").open'):
+        summary.press('Enter')
+    return summary
 
 
 def check_layout(page, name, output, skip=True):
@@ -42,6 +86,7 @@ def check_layout(page, name, output, skip=True):
         assert page.evaluate("document.activeElement.tagName !== 'BODY'")
 
 
+@offline_video_fixtures
 def main(exercise=None, phase='phase2', output=None):
     with tempfile.TemporaryDirectory(prefix='sullivan-extensions-') as temporary:
         temp = Path(temporary)
@@ -92,10 +137,22 @@ def main(exercise=None, phase='phase2', output=None):
                         page.on('pageerror', lambda error: errors.append(str(error)))
                     guardian.goto(f'chrome-extension://{ids["guardian"]}/index.html')
                     student.goto(f'chrome-extension://{ids["student"]}/index.html')
-                    expect(guardian.locator('#auth')).to_be_visible()
+                    expect(guardian.locator('#guardian-guide')).to_be_visible()
+                    expect(guardian.locator('#guardian-guide-title')).to_be_focused()
+                    expect(guardian.locator('#guardian-content')).to_be_hidden()
+                    check_layout(guardian, 'guardian-first-guide', output)
+                    expect(guardian.locator('#guardian-guide-done')).to_be_enabled()
+                    guardian.locator('#guardian-guide-done').focus();guardian.keyboard.press('Enter')
+                    expect(guardian.locator('#guardian-start')).to_be_visible()
+                    expect(guardian.locator('#guardian-login-choice')).to_be_focused()
+                    expect(guardian.locator('#login-form')).to_be_hidden()
+                    expect(guardian.locator('#signup-form')).to_be_hidden()
                     expect(student.locator('#auth')).to_be_visible()
                     check_layout(student, 'student-login', output)
-                    check_layout(guardian, 'guardian-login', output)
+                    check_layout(guardian, 'guardian-account-choice', output)
+                    guardian.locator('#guardian-signup-choice').focus();guardian.keyboard.press('Enter')
+                    expect(guardian.locator('#guardian-signup-title')).to_be_focused()
+                    check_layout(guardian, 'guardian-signup', output)
                     guardian.get_by_text('로컬 개발 계정 만들기', exact=True).click()
                     registration = guardian.locator('#register-form')
                     registration.locator('[name=name]').fill('보호자')
@@ -128,8 +185,12 @@ def main(exercise=None, phase='phase2', output=None):
                     expect(student.locator('#lesson')).to_be_visible()
                     expect(student.locator('#lesson-title')).to_be_focused()
                     expect(student.locator('#material')).not_to_be_empty()
-                    student.locator('#note').fill('확장 분리 검증 메모')
+                    # 2026-11-16: position is managed in Settings; the preserved
+                    # legacy memo is in Notes, outside the listening Tab cycle.
+                    student.locator('#task-settings-button').focus();student.keyboard.press('Enter')
                     student.locator('#position').fill('42')
+                    student.locator('#task-notes-button').focus();student.keyboard.press('Enter')
+                    student.locator('#note').fill('확장 분리 검증 메모')
                     student.locator('#progress-form button').focus()
                     student.keyboard.press('Enter')
                     expect(student.locator('#status')).to_have_text('학습 위치와 메모를 저장했습니다.')
@@ -144,6 +205,7 @@ def main(exercise=None, phase='phase2', output=None):
                     student.reload()
                     expect(student.locator('#lectures button')).to_have_count(1)
                     student.locator('#lectures button').click()
+                    student.locator('#task-notes-button').focus();student.keyboard.press('Enter')
                     expect(student.locator('#note')).to_have_value('확장 분리 검증 메모')
                     expect(student.locator('#position')).to_have_value('42')
                     # Wrong-role account must remain at the student login screen.

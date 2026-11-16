@@ -37,6 +37,7 @@ from app.adapters.gemini_agent import (
     run_agent_turn,
 )
 from app.core.lecture_agent import LectureAgent, LectureNotFoundError
+from app.analysis_provenance import record_status, material_status
 from app.models import (
     AnalysisPackageInput,
     AgentTurnInput,
@@ -102,9 +103,13 @@ from app import guardian_preparation
 app.include_router(guardian_preparation.router)
 from app import student_learning
 app.include_router(student_learning.router)
+from app import student_notes
+app.include_router(student_notes.router)
 from app import extension_accounts
 app.include_router(extension_accounts.router)
 app.include_router(extension_accounts.auth_router)
+from app import remote_login
+app.include_router(remote_login.router)
 
 app.add_middleware(UploadBodyLimit)
 
@@ -176,7 +181,9 @@ def create_lecture(payload: LectureCreate, request: Request) -> LectureSession:
 )
 def register_asset(session_id: str, payload: AssetInput) -> AssetRecord:
     try:
-        return agent.register_asset(session_id, payload)
+        result = agent.register_asset(session_id, payload)
+        if payload.kind in ('subtitle','passage','slides','analysis'): material_status(session_id)
+        return result
     except LectureNotFoundError as error:
         raise HTTPException(
             status_code=404, detail="강의 세션을 찾을 수 없습니다."
@@ -209,6 +216,7 @@ async def register_video_link(
             ),
         )
         if not payload.request_analysis:
+            record_status(session_id, 'not_run')
             return VideoLinkResult(
                 asset=asset,
                 normalized_url=link.normalized_url,
@@ -229,6 +237,7 @@ async def register_video_link(
             message=f"링크 재생은 준비되었습니다. {KEY_MISSING_MESSAGE}",
         )
         if not api_key:
+            record_status(session_id, 'failed', 'gemini' if youtube_video_id(link.normalized_url) else 'adapter')
             return needs_adapter
         if not payload.analysis_consent:
             raise HTTPException(status_code=400, detail=CONSENT_MESSAGE)
@@ -243,6 +252,8 @@ async def register_video_link(
             from app.adapters.video_link import normalize_extension_video_link
             analysis_url = normalize_extension_video_link(payload.url).normalized_url
         await asyncio.to_thread(limiter.consume, client_ip(request))
+        provider = 'gemini' if youtube_video_id(link.normalized_url) else 'adapter'
+        record_status(session_id, 'analyzing', provider)
         try:
             analysis = await asyncio.wait_for(
                 analyze_video_link(
@@ -255,10 +266,17 @@ async def register_video_link(
                 timeout=analysis_timeout_seconds(),
             )
         except asyncio.TimeoutError as error:
+            record_status(session_id, 'failed', provider)
             raise HTTPException(status_code=504, detail=TIMEOUT_MESSAGE) from error
+        except asyncio.CancelledError:
+            record_status(session_id, 'failed', provider)
+            raise
         if analysis is None:
+            record_status(session_id, 'failed', provider)
+            if provider=='adapter':needs_adapter.message='이 링크의 영상 분석 어댑터가 설정되지 않아 실제 분석을 실행하지 않았습니다.'
             return needs_adapter
         snapshot = agent.analyze(session_id, analysis)
+        record_status(session_id, 'completed', provider)
         indexed_asset = agent.mark_asset_indexed(session_id, asset_id)
         snapshot = agent.snapshot(session_id)
         return VideoLinkResult(
@@ -267,7 +285,7 @@ async def register_video_link(
             playback_kind=link.playback_kind,
             playback_url=link.playback_url,
             analysis_status="completed",
-            message="Gemini의 장면 분석과 독립 시각 근거 재검증을 완료했습니다.",
+            message="Gemini의 장면 분석과 시각 근거 재검증을 완료했습니다." if provider=='gemini' else "설정된 영상 분석 어댑터의 처리 결과를 검증했습니다.",
             snapshot=snapshot,
         )
     except LectureNotFoundError as error:
@@ -277,9 +295,17 @@ async def register_video_link(
     except UnsafeVideoLinkError as error:
         raise HTTPException(status_code=400, detail=str(error)) from error
     except DemoGateError as error:
+        record_status(session_id, 'failed', 'gemini' if youtube_video_id(payload.url) else 'adapter')
         raise _gate_http_error(error) from error
     except LinkAnalyzerError as error:
+        record_status(session_id, 'failed', 'gemini' if youtube_video_id(payload.url) else 'adapter')
         raise HTTPException(status_code=502, detail=str(error)) from error
+    except HTTPException:
+        if payload.request_analysis:record_status(session_id, 'failed', 'gemini' if youtube_video_id(payload.url) else 'adapter')
+        raise
+    except ValueError as error:
+        record_status(session_id, 'failed', 'gemini' if youtube_video_id(payload.url) else 'adapter')
+        raise HTTPException(502, '영상 분석 결과를 안전한 형식으로 확인하지 못했습니다.') from error
 
 
 @app.post(
@@ -337,6 +363,7 @@ async def analyze_uploaded_video_file(
 
     api_key = server_gemini_key()
     if not api_key:
+        record_status(session_id, 'failed', 'gemini')
         raise HTTPException(status_code=503, detail=KEY_MISSING_MESSAGE)
     try:
         ip = client_ip(request)
@@ -388,6 +415,7 @@ async def analyze_uploaded_video_file(
     analysis: AnalysisPackageInput | None = None
     remaining_trials: int | None = None
     failure: HTTPException | None = None
+    record_status(session_id, 'analyzing', 'gemini')
     try:
         with tempfile.NamedTemporaryFile(
             prefix="sullivan-video-",
@@ -435,6 +463,9 @@ async def analyze_uploaded_video_file(
         failure = HTTPException(status_code=502, detail=str(error))
     except HTTPException as error:
         failure = error
+    except asyncio.CancelledError:
+        record_status(session_id, 'failed', 'gemini')
+        raise
     finally:
         await video.close()
         # os.unlink(temporary_path) runs here on every path, timeouts included.
@@ -444,6 +475,7 @@ async def analyze_uploaded_video_file(
         not local_deleted or cleanup_report.get("provider") == "delete-failed"
     )
     if failure is not None or analysis is None:
+        record_status(session_id, 'failed', 'gemini')
         failure = failure or HTTPException(
             status_code=502, detail="Gemini 영상 분석 결과를 받지 못했습니다."
         )
@@ -452,8 +484,10 @@ async def analyze_uploaded_video_file(
         raise failure
 
     if cleanup_failed:
+        record_status(session_id, 'failed', 'gemini')
         raise HTTPException(status_code=502, detail=CLEANUP_FAILED_NOTE)
     agent.analyze(session_id, analysis)
+    record_status(session_id, 'completed', 'gemini')
     agent.mark_asset_indexed(
         session_id,
         asset_id,
@@ -478,6 +512,7 @@ async def analyze_uploaded_video_file(
 )
 def analyze_lecture(session_id: str, payload: AnalysisPackageInput) -> LectureSnapshot:
     try:
+        record_status(session_id, 'not_run')
         return agent.analyze(session_id, payload)
     except LectureNotFoundError as error:
         raise HTTPException(
@@ -492,6 +527,7 @@ def analyze_lecture(session_id: str, payload: AnalysisPackageInput) -> LectureSn
 def run_demo_analysis(session_id: str) -> LectureSnapshot:
     """Load the deterministic stellar-evolution sample; never claim live analysis."""
     try:
+        record_status(session_id, 'sample')
         snapshot = agent.analyze(session_id, build_demo_package())
         for asset in snapshot.assets:
             if asset.kind == "video_link":

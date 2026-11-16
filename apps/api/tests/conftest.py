@@ -1,4 +1,22 @@
 import pytest
+import socket
+
+
+@pytest.fixture(autouse=True)
+def fixture_host_resolution(monkeypatch):
+    """Fixture URLs are metadata; unit tests must not wait for public DNS.
+
+    Host-validation tests may still override the resolver explicitly, and all
+    literal/private/unlisted addresses retain the ordinary validation path.
+    """
+    resolve = socket.getaddrinfo
+
+    def fixture(host, *args, **kwargs):
+        if host in {'www.youtube.com', 'youtube.com', 'youtu.be', 'example.com'}:
+            return [(socket.AF_INET, socket.SOCK_STREAM, socket.IPPROTO_TCP, '', ('93.184.216.34', 0))]
+        return resolve(host, *args, **kwargs)
+
+    monkeypatch.setattr(socket, 'getaddrinfo', fixture)
 
 
 @pytest.fixture(autouse=True)

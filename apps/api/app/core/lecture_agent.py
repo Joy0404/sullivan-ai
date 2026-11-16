@@ -5,9 +5,12 @@ from datetime import datetime, timezone
 from uuid import uuid4
 
 from app.core.passage import navigate_passage, structure_passage
-from app.core.visual_gap import analyze_visual_observation
+from app.core.visual_gap import analyze_visual_observation, component_is_confirmed
 from app.models import (
     AnalysisPackageInput,
+    AnalysisProvider,
+    AnalysisState,
+    AnalysisStatus,
     AssetInput,
     AssetRecord,
     GapAction,
@@ -23,6 +26,7 @@ from app.models import (
     TranscriptSegment,
     VisualGap,
     VisualObservation,
+    sanitize_snapshot_content,
 )
 
 
@@ -121,6 +125,7 @@ class LectureAgent:
         self._passages: dict[str, PassageDocument | None] = {}
         self._reviews: dict[str, LessonReview] = {}
         self._study_guides: dict[str, StudyGuide] = {}
+        self._analysis_statuses: dict[str, AnalysisStatus] = {}
 
     def create_session(self, payload: LectureCreate) -> LectureSession:
         session = LectureSession(
@@ -136,7 +141,25 @@ class LectureAgent:
         self._passages[session.session_id] = None
         self._reviews[session.session_id] = LessonReview()
         self._study_guides[session.session_id] = StudyGuide()
+        self._analysis_statuses[session.session_id] = AnalysisStatus()
         return session
+
+    def set_analysis_status(self, session_id: str, state: AnalysisState,
+                            provider: AnalysisProvider | None = None) -> AnalysisStatus:
+        self._get_session(session_id)
+        previous = self._analysis_statuses[session_id]
+        if previous.state==state and previous.provider==provider and previous.run_id and state!='analyzing':return previous
+        same_run = previous.state == "analyzing" and state in {"completed", "failed"} and previous.provider == provider
+        status = AnalysisStatus(state=state, provider=provider,
+                                run_id=previous.run_id if same_run else uuid4().hex,
+                                recorded_at=_now())
+        self._analysis_statuses[session_id] = status
+        return status
+
+    def analyze_demo(self, session_id: str) -> LectureSnapshot:
+        from app.core.demo import build_demo_package
+        self.set_analysis_status(session_id, "sample")
+        return self.analyze(session_id, build_demo_package())
 
     def register_asset(self, session_id: str, payload: AssetInput) -> AssetRecord:
         self._get_session(session_id)
@@ -180,6 +203,7 @@ class LectureAgent:
 
         self._set_status(session_id, LectureStatus.ACTIVE)
         self._reviews[session_id] = self._build_review(session_id)
+        self.snapshot(session_id)  # Enforce existing visual holds on new text assets too.
         return record
 
     def mark_asset_indexed(
@@ -215,6 +239,11 @@ class LectureAgent:
                 update={
                     "text": redact_sensitive_text(item.text) or "",
                     "annotation": redact_sensitive_text(item.annotation),
+                    "components": [component.model_copy(update={
+                        "text": redact_sensitive_text(component.text) or "",
+                        "visible_evidence": [redact_sensitive_text(value) or "" for value in component.visible_evidence],
+                    }) for component in item.components],
+                    "metadata": {**item.metadata, "decision_reason": redact_sensitive_text(str(item.metadata.get("decision_reason", ""))) or ""},
                 }
             )
             for item in payload.visual_observations
@@ -248,33 +277,47 @@ class LectureAgent:
             self._visuals[session_id] = self._merge_by_id(
                 self._visuals[session_id], safe_visuals, "observation_id"
             )
+        previous_by_screen: dict[str, str] = {}
+        gaps: list[VisualGap] = []
+        for observation in sorted(self._visuals[session_id], key=lambda item: item.timestamp_ms):
+            gap = analyze_visual_observation(observation, self._transcripts[session_id],
+                                             previous_by_screen.get(observation.screen_type),
+                                             problem_mode=session.problem_mode)
+            gaps.append(gap)
+            if gap.source_text and gap.safe_to_speak:
+                previous_by_screen[observation.screen_type] = gap.source_text
+        self._gaps[session_id] = gaps
         if safe_guide.model_dump(exclude_defaults=True):
             self._study_guides[session_id] = safe_guide
 
-        blocked = [item for item in self._visuals[session_id]
-                   if item.confidence < 0.72 or (session.problem_mode and item.kind == "answer")]
-        blocked_text = [value for item in blocked for value in (item.text, item.annotation) if value]
+        by_id = {gap.observation_id: gap for gap in gaps}
+        blocked = [item for item in self._visuals[session_id] if not by_id[item.observation_id].safe_to_speak]
+        blocked_text = self._blocked_visual_text(session_id)
         def derived_is_blocked(value):
             return any(text in (value or "") for text in blocked_text)
         # Model summaries have no per-sentence provenance: with a protected answer,
         # fail closed instead of carrying the same answer through a different output.
-        if any(item.kind == "answer" for item in blocked) or derived_is_blocked(safe_guide.model_dump_json()):
+        protected_answer = session.problem_mode and any(item.kind == "answer" or any(component.kind == "answer" for component in item.components)
+                                                       for item in self._visuals[session_id])
+        partial_uncertainty = any(item.components and any(not component_is_confirmed(component, problem_mode=session.problem_mode)
+                                                         for component in item.components) for item in self._visuals[session_id])
+        if protected_answer or partial_uncertainty or derived_is_blocked(safe_guide.model_dump_json()):
             self._study_guides[session_id] = StudyGuide()
         visual_hints = [
-            (item.text, item.timestamp_ms)
+            (by_id[item.observation_id].source_text, item.timestamp_ms)
             for item in self._visuals[session_id]
-            if item.text and item not in blocked
+            if by_id[item.observation_id].source_text and item not in blocked
         ]
         highlighted = [
             *[redact_sensitive_text(item) or "" for item in payload.highlighted_texts if not derived_is_blocked(item)],
             *[
-                item.text
+                by_id[item.observation_id].source_text
                 for item in self._visuals[session_id]
-                if item.kind == "highlight" and item.text and item not in blocked
+                if item.kind == "highlight" and by_id[item.observation_id].source_text and item not in blocked
             ],
         ]
         safe_passage_text = redact_sensitive_text(payload.passage_text)
-        if any(item.kind == "answer" for item in blocked) or derived_is_blocked(safe_passage_text):
+        if protected_answer or derived_is_blocked(safe_passage_text):
             safe_passage_text = None
             self._passages[session_id] = None
         if safe_passage_text:
@@ -296,23 +339,6 @@ class LectureAgent:
                 title=self._passages[session_id].title,
             )
 
-        previous_by_screen: dict[str, str] = {}
-        gaps: list[VisualGap] = []
-        for observation in sorted(
-            self._visuals[session_id], key=lambda item: item.timestamp_ms
-        ):
-            previous = previous_by_screen.get(observation.screen_type)
-            gap = analyze_visual_observation(
-                observation,
-                self._transcripts[session_id],
-                previous,
-                problem_mode=session.problem_mode,
-            )
-            gaps.append(gap)
-            if observation.text and gap.safe_to_speak:
-                previous_by_screen[observation.screen_type] = observation.text
-
-        self._gaps[session_id] = gaps
         self._reviews[session_id] = self._build_review(session_id)
         self._set_status(session_id, LectureStatus.ACTIVE)
         return self.snapshot(session_id)
@@ -320,7 +346,8 @@ class LectureAgent:
     def snapshot(self, session_id: str) -> LectureSnapshot:
         session = self._get_session(session_id)
         gaps = self._gaps[session_id]
-        return LectureSnapshot(
+        snapshot = LectureSnapshot(
+            analysis_status=self._analysis_statuses[session_id],
             session=session,
             assets=list(self._assets[session_id]),
             transcript_segments=list(self._transcripts[session_id]),
@@ -335,6 +362,49 @@ class LectureAgent:
             ),
             held_count=sum(gap.action == GapAction.HOLD for gap in gaps),
         )
+        # Only direct descriptions assembled from confirmed visual components
+        # have per-part provenance. A held numeral in another component must
+        # not suppress an independently confirmed use of that same numeral.
+        by_observation = {item.observation_id: item for item in self._visuals[session_id]}
+        confirmed_ids = set()
+        for gap in gaps:
+            observation = by_observation.get(gap.observation_id)
+            if gap.safe_to_speak and observation and observation.components and observation.confidence >= .72:
+                source = ' '.join(part.text for part in observation.components
+                                  if component_is_confirmed(part, problem_mode=session.problem_mode))
+                if source and source == gap.source_text:
+                    confirmed_ids.add(gap.gap_id)
+        snapshot = sanitize_snapshot_content(snapshot, self._blocked_visual_text(session_id), confirmed_ids)
+        # Navigation and later reviews must use the sanitized material too,
+        # rather than keeping a second internal route to withheld text.
+        self._transcripts[session_id] = snapshot.transcript_segments
+        self._passages[session_id] = snapshot.passage
+        self._reviews[session_id] = snapshot.review
+        self._study_guides[session_id] = snapshot.study_guide
+        self._gaps[session_id] = snapshot.visual_gaps
+        return snapshot
+
+    def _blocked_visual_text(self, session_id: str) -> list[str]:
+        session = self._get_session(session_id)
+        by_id = {gap.observation_id: gap for gap in self._gaps[session_id]}
+        blocked: list[str] = []
+        for observation in self._visuals[session_id]:
+            gap = by_id.get(observation.observation_id)
+            parent_held = not gap or not gap.safe_to_speak or observation.confidence < .72
+            if parent_held:
+                blocked.extend(value for value in (observation.text, observation.annotation) if value)
+            for component in observation.components:
+                if parent_held or not component_is_confirmed(component, problem_mode=session.problem_mode):
+                    if component.text:
+                        blocked.append(component.text)
+                        blocked.extend(re.findall(r"\d+(?:\.\d+)?", component.text))
+            alternatives = observation.metadata.get("withheld_component_texts", [])
+            if isinstance(alternatives, list):
+                for text in alternatives:
+                    if isinstance(text, str) and text:
+                        blocked.append(text)
+                        blocked.extend(re.findall(r"\d+(?:\.\d+)?", text))
+        return list(dict.fromkeys(blocked))
 
     def navigate(
         self, session_id: str, command: str, current_sentence_id: str | None

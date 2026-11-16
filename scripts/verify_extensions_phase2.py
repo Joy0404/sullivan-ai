@@ -1,4 +1,5 @@
 """Actual extension preparation/management flow; no paid model calls."""
+from verify_extensions_browser import student_control
 from playwright.sync_api import expect
 from verify_extensions_browser import main, check_layout
 
@@ -24,6 +25,9 @@ def exercise(guardian, student, output):
     guardian.close()
     guardian = context.new_page()
     guardian.goto(url)
+    expect(guardian.locator('#guardian-start')).to_be_visible()
+    expect(guardian.locator('#workspace')).to_be_hidden()
+    guardian.locator('#guardian-login-choice').press('Enter')
     expect(guardian.locator('#workspace')).to_be_visible()
     guardian.locator('#refresh-preparations').click()
     ready = guardian.get_by_role('button', name='새 지문 강의 결과 확인·배정', exact=True)
@@ -34,9 +38,9 @@ def exercise(guardian, student, output):
     guardian.locator('#publish-form button').focus(); guardian.keyboard.press('Enter')
     expect(guardian.locator('#status')).to_have_text('확인한 자료를 학생에게 배정했습니다.')
     expect(guardian.locator('#lectures li')).to_have_count(2)
-    student.locator('#refresh').click()
+    student_control(student, '#refresh').click()
     expect(student.locator('#lectures button')).to_have_count(2)
-    student.locator('#lectures button').filter(has_text='새 지문 강의 열기').click()
+    student_control(student, '#lectures button').filter(has_text='새 지문 강의 열기').click()
     expect(student.locator('#material')).to_contain_text('둘째 문단은 결과')
     # Current record summaries show counts, not the student's private note text.
     guardian.locator('#load-management').focus(); guardian.keyboard.press('Enter')
@@ -49,7 +53,7 @@ def exercise(guardian, student, output):
     assert rate == 1.1
     guardian.get_by_role('button', name='새 지문 강의 위로', exact=True).click()
     expect(guardian.locator('#lecture-order li').first).to_contain_text('새 지문 강의')
-    student.locator('#refresh').click()
+    student_control(student, '#refresh').click()
     expect(student.locator('#lectures button').first).to_have_text('새 지문 강의 열기')
     guardian.get_by_role('button', name='새 지문 강의 배정 수정', exact=True).click()
     guardian.locator('#edit-form [name=title]').fill('수정된 지문 강의')
@@ -64,7 +68,7 @@ def exercise(guardian, student, output):
     guardian.locator('#withdraw').press('Enter')
     guardian.locator('#withdraw-yes').press('Enter')
     expect(guardian.locator('#status')).to_contain_text('배정을 회수했습니다.')
-    student.locator('#refresh').click()
+    student_control(student, '#refresh').click()
     expect(student.locator('#lectures button')).to_have_count(1)
     expect(student.locator('#lesson')).to_be_hidden()
     return guardian

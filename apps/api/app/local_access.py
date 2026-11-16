@@ -50,12 +50,15 @@ def db():
     CREATE TABLE IF NOT EXISTS recovery_codes(code TEXT PRIMARY KEY, user TEXT NOT NULL REFERENCES users(id), used INTEGER NOT NULL DEFAULT 0);
     CREATE TABLE IF NOT EXISTS pair_codes(code TEXT PRIMARY KEY, guardian TEXT NOT NULL REFERENCES users(id), expires REAL NOT NULL, consumed_by TEXT);
     CREATE TABLE IF NOT EXISTS pair_requests(id TEXT PRIMARY KEY, code TEXT NOT NULL REFERENCES pair_codes(code), student TEXT NOT NULL REFERENCES users(id), guardian TEXT NOT NULL REFERENCES users(id), expires REAL NOT NULL);
+    CREATE TABLE IF NOT EXISTS remote_login_devices(id TEXT PRIMARY KEY, secret TEXT NOT NULL, student TEXT NOT NULL REFERENCES users(id), guardian TEXT NOT NULL REFERENCES users(id), client TEXT NOT NULL, created REAL NOT NULL, revoked INTEGER NOT NULL DEFAULT 0, seen REAL NOT NULL DEFAULT 0, presence TEXT NOT NULL DEFAULT 'offline', family TEXT REFERENCES auth_families(id));
+    CREATE TABLE IF NOT EXISTS remote_login_requests(id TEXT PRIMARY KEY, device TEXT NOT NULL REFERENCES remote_login_devices(id), guardian TEXT NOT NULL REFERENCES users(id), created REAL NOT NULL, expires REAL NOT NULL, state TEXT NOT NULL DEFAULT 'pending');
     CREATE TABLE IF NOT EXISTS schema_info(version INTEGER PRIMARY KEY, applied REAL NOT NULL);
+    CREATE TABLE IF NOT EXISTS analysis_records(session TEXT PRIMARY KEY, payload TEXT NOT NULL);
     ''')
     con.execute('BEGIN IMMEDIATE')
     if 'family' not in {row[1] for row in con.execute('PRAGMA table_info(extension_sessions)')}:
         con.execute('ALTER TABLE extension_sessions ADD COLUMN family TEXT')
-    con.execute('INSERT OR IGNORE INTO schema_info VALUES(4,?)', (time.time(),))
+    con.execute('INSERT OR IGNORE INTO schema_info VALUES(6,?)', (time.time(),))
     con.commit()
     os.chmod(path, 0o600)
     try:
@@ -311,10 +314,12 @@ def publish_prepared(c,u,p,extension=False):
     if len(set(p.students))!=len(p.students):raise HTTPException(400,'같은 학생을 여러 번 배정할 수 없습니다.')
     for student in p.students:
         if not c.execute('SELECT 1 FROM users WHERE id=? AND guardian=?',(student,u['id'])).fetchone():raise HTTPException(403,'연결된 학생만 배정할 수 있습니다.')
-    if p.sample_id not in (None,'science','history'):raise HTTPException(400,'샘플을 확인해 주세요.')
+    if p.sample_id not in (None,'science','history','accessibility'):raise HTTPException(400,'샘플을 확인해 주세요.')
     if p.sample_id:
         from app.sample_catalog import prepared_sample
         _,snap=prepared_sample(p.sample_id)
+        from app.analysis_provenance import persist_status
+        persist_status(c, snap.session.session_id, snap.analysis_status)
     else:
         owner=c.execute('SELECT guardian FROM owners WHERE session=?',(p.session_id,)).fetchone()
         if not owner or owner[0]!=u['id']:raise HTTPException(403,'본인의 분석 세션만 사용할 수 있습니다.')
@@ -340,10 +345,14 @@ def publish_prepared(c,u,p,extension=False):
         except ValidationError:raise HTTPException(400,'로컬 파일 이름과 크기를 확인해 주세요.') from None
         playback={'kind':'local-reference',**metadata.model_dump()}
     from app.core.lecture_agent import redact_sensitive_text
+    # References are opaque keys, not display text. Redacting digit runs in a
+    # generated UUID breaks provenance lookup and passage/concept references.
+    reference_fields={'session_id','run_id','asset_id','segment_id','observation_id',
+                      'gap_id','item_id','concept_id','paragraph_id','sentence_id','component_id'}
     def redact_tree(value):
         if isinstance(value,str): return redact_sensitive_text(value)
         if isinstance(value,list): return [redact_tree(v) for v in value]
-        if isinstance(value,dict): return {k:redact_tree(v) for k,v in value.items()}
+        if isinstance(value,dict): return {k:v if k in reference_fields else redact_tree(v) for k,v in value.items()}
         return value
     snap=LectureSnapshot.model_validate(redact_tree(snap.model_dump(mode='json')))
     if p.ready and p.store_local_media:raise HTTPException(400,'파일 강의는 브라우저 암호화 저장을 마친 뒤 준비 완료로 제공해 주세요.')
@@ -361,10 +370,17 @@ class SampleAssignment(BaseModel):
 
 @router.post('/samples/{sample_id}/assign')
 def assign_sample(sample_id:str,p:SampleAssignment,request:Request):
-    require(request,'guardian')
+    user=require(request,'guardian')
     from app.sample_catalog import catalog
     spec=catalog().get(sample_id)
     if spec is None:raise HTTPException(404,'지원하는 샘플을 선택해 주세요.')
+    if sample_id=='accessibility':
+        path=Path(__file__).resolve().parents[3]/'samples/accessibility-demo.mp4'
+        identity={'kind':'local-reference','name':path.name,'size_bytes':path.stat().st_size,'sha256':hashlib.sha256(path.read_bytes()).hexdigest()}
+        with db() as con:
+            result=publish_prepared(con,user,Publish(title=spec['title'],subject=spec['subject'],students=p.students,sample_id=sample_id,ready=True,playback=identity),extension=True)
+            con.execute('INSERT INTO lecture_media VALUES(?,?)',(result['id'],json.dumps(identity)))
+        return {**result,'title':spec['title'],'students':p.students,'build':BUILD}
     result=publish(Publish(title=spec['title'],subject=spec['subject'],students=p.students,sample_id=sample_id,ready=True,playback={'kind':'youtube','normalized_url':spec['videoUrl']}),request)
     return {**result,'title':spec['title'],'students':p.students,'build':BUILD}
 
@@ -382,8 +398,8 @@ def ready(ident:str,request:Request):
 def lectures(request:Request):
     u=require(request)
     with db() as c:
-        if u['role']=='guardian':rows=c.execute('SELECT l.id,l.title,l.subject,l.ready,l.playback,NULL AS position FROM lectures l WHERE guardian=? ORDER BY rowid DESC',(u['id'],)).fetchall()
-        else:rows=c.execute('SELECT l.id,l.title,l.subject,l.ready,a.position FROM lectures l JOIN assignments a ON l.id=a.lecture WHERE a.student=? AND l.ready=1 ORDER BY a.position,l.rowid',(u['id'],)).fetchall()
+        if u['role']=='guardian':rows=c.execute('SELECT l.id,l.title,l.subject,l.ready,l.playback,l.snapshot,NULL AS position FROM lectures l WHERE guardian=? ORDER BY rowid DESC',(u['id'],)).fetchall()
+        else:rows=c.execute('SELECT l.id,l.title,l.subject,l.ready,l.snapshot,a.position FROM lectures l JOIN assignments a ON l.id=a.lecture WHERE a.student=? AND l.ready=1 ORDER BY a.position,l.rowid',(u['id'],)).fetchall()
         assignments={}
         if u['role']=='guardian':
             for a in c.execute('SELECT a.lecture,a.student FROM assignments a JOIN lectures l ON l.id=a.lecture WHERE l.guardian=? ORDER BY a.rowid',(u['id'],)):
@@ -391,6 +407,8 @@ def lectures(request:Request):
         result=[]
         for r in rows:
             row={k:r[k] for k in ('id','title','subject','ready','position')}
+            from app.analysis_provenance import read_status
+            row['analysis_status']=read_status(c,json.loads(r['snapshot'])['session']['session_id']).model_dump(mode='json')
             if u['role']=='guardian':
                 row['students']=assignments.get(r['id'],[])
                 row['playback_kind']=json.loads(r['playback']).get('kind','none')
@@ -404,13 +422,15 @@ def lecture(ident:str,request:Request):
     with db() as c:
         r=own(c,u,ident)
         snapshot=json.loads(r['snapshot'])
+        from app.analysis_provenance import read_status
+        snapshot['analysis_status']=read_status(c,snapshot['session']['session_id']).model_dump(mode='json')
         snapshot['session']['title']=r['title'];snapshot['session']['subject']=r['subject']
         settings=json.loads(u['settings'])
         # A student's stronger problem protection can only narrow the prepared result.
         if u['role']=='student' and settings.get('problem_mode',True):
             snapshot['session']['problem_mode']=True
             for gap in snapshot['visual_gaps']:
-                if gap['kind']=='answer':gap.update(action='HOLD',safe_to_speak=False,public_description='',source_text=None)
+                if gap['kind']=='answer':gap.update(action='HOLD',safe_to_speak=False,public_description='',source_text=None,hold_notices=[])
             if any(g['kind']=='answer' for g in snapshot['visual_gaps']):
                 snapshot['study_guide']={};snapshot['passage']=None;snapshot['review']={};snapshot['concept_index']=[]
         blocked=[g for g in snapshot['visual_gaps'] if not g['safe_to_speak'] or g['confidence']<.72]

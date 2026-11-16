@@ -1,0 +1,59 @@
+{
+  "result": "issues_found",
+  "source_modified_by_audit": false,
+  "base_verification": "passed",
+  "api": {
+    "passed": 281,
+    "skipped": 4,
+    "skipped_reason": "dedicated local Postgres test database not configured"
+  },
+  "submission_package_tests": {
+    "passed": 15
+  },
+  "extension_groups": {
+    "passed": 6,
+    "failed": 7
+  },
+  "web_groups": {
+    "passed": 4,
+    "failed": 3
+  },
+  "confirmed_product_defects": [
+    {
+      "id": "AUDIT-01",
+      "priority": "P1",
+      "title": "Delayed legacy-note copy saves a prior student body under the newly signed-in account",
+      "source": "apps/extensions/student/notes.js:101",
+      "evidence": [
+        "note-race/result.json",
+        "note-race-confirm/result.json"
+      ],
+      "reproductions": 2
+    }
+  ],
+  "verification_defects": [
+    {
+      "id": "AUDIT-02",
+      "priority": "P2",
+      "title": "Cumulative extension tests do not navigate the new task boundaries and time out on hidden controls"
+    },
+    {
+      "id": "AUDIT-03",
+      "priority": "P2",
+      "title": "Web Space tests still assume immediate activation despite the 420 ms gesture window"
+    }
+  ],
+  "unresolved_web_failure": "Audio-navigation suite reaches guardian role transition, but sample preview fails to open; isolated diagnostic recorded no page error. Cause not established.",
+  "external_acceptance_pending": [
+    "F24",
+    "F25",
+    "F26",
+    "F33",
+    "F34",
+    "F49",
+    "F61",
+    "F62"
+  ],
+  "screenshots": "390 px and 1280 px in browser group subdirectories",
+  "boundary": "Temporary accounts/databases/browser profiles; no paid provider calls, no real screen-reader or human hearing evaluation. Test-induced media delay for the confirmed race."
+}
