@@ -1,0 +1,46 @@
+{
+  "date_kst": "2026-11-17",
+  "base_final_commit": "12bb8c3188033a94118026d865a326f62e66af70",
+  "source_sha256": "bc5fbe396417085df69b60135754450388d46ecb1e877001b9c3923fcd67d2ca",
+  "source_matches_isolated_copy": true,
+  "result": "passed",
+  "issues_fixed": [
+    "playing-practice-start",
+    "stale-submission-archive"
+  ],
+  "api": {
+    "passed": 360,
+    "skipped": 4
+  },
+  "packaging_tests_passed": 19,
+  "extension_acceptance_groups": 17,
+  "student_onboarding_checks": 12,
+  "axe": {
+    "records": 123,
+    "violations": 0
+  },
+  "submission": {
+    "path": "dist/submission/sullivan-submission-0.4.9.zip",
+    "sha256": "d89a25ed9182e1573bce2167c0f7e568c5373f4380869120c159a433e459dbe8",
+    "bytes": 1825590,
+    "files": 297,
+    "source_and_generated_extensions_match": true,
+    "old_zip_sha256": "ec3b39e74ccd49acd7e50de37809a56a35adb804c4c7137ece11d8bfa99aa17b",
+    "old_zip_backed_up_outside_repository": true
+  },
+  "raw_student_media_uploads_observed": 0,
+  "protected_web_files_changed": false,
+  "model_route": "baseline",
+  "live_model_measurement": "미측정",
+  "release_ready": false,
+  "external_acceptance_pending": [
+    "F24",
+    "F25",
+    "F26",
+    "F33",
+    "F34",
+    "F49",
+    "F61",
+    "F62"
+  ]
+}

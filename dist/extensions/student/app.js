@@ -33,7 +33,7 @@ let playbackStatus = '';
 let pendingPlayerPermission=null;
 let refreshRevision = 0;
 let pairRequest = null;
-let feedbackTicket=null,practiceTicket=null,practiceLoadRevision=0,inflightQuestion=null,statusRequestRevision=0;
+let feedbackTicket=null,practiceTicket=null,practiceLoadRevision=0,practiceStartRevision=0,inflightQuestion=null,statusRequestRevision=0;
 const feedback=createInteractionFeedback({onChange:state=>{$('interaction-result').textContent=state.summary;}});
 const practice=createPracticeProgress();
 let practiceWriteChain=Promise.resolve();
@@ -138,6 +138,7 @@ export async function stopAll(announce = true) {
   return paused&&stopped===actionGeneration;
 }
 function clear() {
+  practiceStartRevision++;
   feedback.reset();feedbackTicket=null;practice.suspend();practiceTicket=null;renderPractice();
   $('practice-card').hidden=true;
   notebook?.reset();notebookLecture=null;taskFocus.clear();showTask('home',{focus:false});
@@ -339,21 +340,37 @@ function voiceReadyCue(){
   try{const context=new (window.AudioContext||window.webkitAudioContext)();context.resume();const tone=context.createOscillator(),gain=context.createGain();tone.frequency.value=740;gain.gain.value=.08;
     tone.connect(gain).connect(context.destination);tone.start();tone.stop(context.currentTime+.12);tone.onended=()=>context.close();}catch{}
 }
+async function startPractice(){
+  const revision=++practiceStartRevision;
+  if(!$('space-enabled').checked){status('설정·관리에서 Space 명령 사용을 켠 뒤 연습하세요. 타자 명령 버튼은 계속 사용할 수 있습니다.');return;}
+  practice.suspend();practiceTicket=null;renderPractice();
+  if(current?.snapshot.analysis_status?.state!=='sample'||!media.kind||!media.ready){
+    status(current?.snapshot.analysis_status?.state==='sample'?'먼저 영상 연결 방법을 확인하고 샘플 영상을 연결하세요. 연습을 완료한 것으로 기록하지 않았습니다.':'보호자가 배정한 사전 준비 샘플을 먼저 여세요. 일반 설명은 사용법에서 확인할 수 있습니다.');return;
+  }
+  const account=user,lesson=current,epoch=generation,view=media.view,mediaEpoch=media.generation;
+  const stopping=stopAll(false),action=actionGeneration,fence=media.fence,focus=focusTicket;
+  const valid=()=>revision===practiceStartRevision&&account===user&&lesson===current&&epoch===generation&&action===actionGeneration&&view===media.view&&mediaEpoch===media.generation&&fence===media.fence&&media.ready;
+  const failed=()=>new Error('영상이 멈춘 것을 확인하지 못했습니다. 원본에서 일시정지한 뒤 다시 연습을 시작하세요.');
+  try{
+    const stopped=await stopping;if(!valid())return;
+    if(!stopped)throw failed();
+    const state=await media.state();if(!valid())return;
+    if(state.paused!==true||state.ad)throw failed();
+    practiceTicket=practice.start({lessonId:lesson.id,sample:true,connected:true});
+    renderPractice();persistPractice();$('practice-card').hidden=false;
+    if(focus===focusTicket){showTask('listen',{focus:false});$('practice-title').focus();}
+    status('연습을 시작합니다. Space 한 번으로 재생한 뒤, 다시 한 번 눌러 일시정지하세요.');
+  }catch(error){if(valid())throw error;}
+}
 actionLater();
 function actionLater(){
   $('show-help').addEventListener('click',()=>showHelp());
   $('context-help').addEventListener('click',()=>showHelp());
   $('current-status').addEventListener('click',()=>task($('current-status'),showCurrentStatus));
   $('show-practice').addEventListener('click',showPractice);
-  $('practice-start').addEventListener('click',()=>{
-    if(!$('space-enabled').checked){status('설정·관리에서 Space 명령 사용을 켠 뒤 연습하세요. 타자 명령 버튼은 계속 사용할 수 있습니다.');return;}
-    practiceTicket=practice.start({lessonId:current?.id,sample:current?.snapshot.analysis_status?.state==='sample',connected:Boolean(media.kind&&media.ready)});
-    renderPractice();$('practice-card').hidden=false;
-    if(!practiceTicket){status(current?.snapshot.analysis_status?.state==='sample'?'먼저 영상 연결 방법을 확인하고 샘플 영상을 연결하세요. 연습을 완료한 것으로 기록하지 않았습니다.':'보호자가 배정한 사전 준비 샘플을 먼저 여세요. 일반 설명은 사용법에서 확인할 수 있습니다.');return;}
-    persistPractice();showTask('listen',{focus:false});$('practice-title').focus();status('연습을 시작합니다. Space 한 번으로 재생한 뒤, 다시 한 번 눌러 일시정지하세요.');
-  });
+  $('practice-start').addEventListener('click',()=>task($('practice-start'),startPractice));
   $('practice-connect').addEventListener('click',()=>{showTask('settings',{focus:false});$('connection-title').setAttribute('tabindex','-1');$('connection-title').focus();});
-  $('practice-skip').addEventListener('click',()=>{practice.skip();practiceTicket=null;persistPractice();$('practice-card').hidden=true;$('context-help').focus();});
+  $('practice-skip').addEventListener('click',()=>{practiceStartRevision++;practice.skip();practiceTicket=null;persistPractice();$('practice-card').hidden=true;$('context-help').focus();});
   $('onboarding-done').addEventListener('click',()=>task($('onboarding-done'),async()=>{const account=user;await request('/local/onboarding',{method:'POST'});if(user!==account)return;user.onboarded=1;const focused=$('onboarding-card').contains(document.activeElement);$('onboarding-card').hidden=true;if(focused)$('workspace-title').focus();status('사용법을 확인했습니다.');}));
   $('preview-voice').addEventListener('click',()=>task($('preview-voice'),async()=>{announcer.cancel(true);device={voice_uri:$('speech-voice').value,speech_pitch:Number($('speech-pitch').value),speech_style:$('speech-style').value};await speaker.say('강의의 흐름을 함께 살펴봅니다. AI는 검증된 화면 정보를 안내합니다.');}));
   $('read-review').addEventListener('click',()=>task($('read-review'),async()=>{needLesson();rememberExploration();await speaker.say($('review').textContent);}));

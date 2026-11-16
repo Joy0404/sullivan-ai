@@ -13,7 +13,7 @@ import zipfile
 import pytest
 
 from package_submission import (MANIFEST, PREFIX, PUBLIC_SAMPLES, ROOT,
-                                inspect_archive, package_submission)
+                                inspect_archive, inspect_current_archive, package_submission)
 
 
 def write(root: Path, name: str, content: str | bytes = 'fixture') -> Path:
@@ -48,6 +48,28 @@ def submission(tmp_path: Path) -> tuple[Path, Path]:
         write(extensions, role + '/index.html', '<html lang="ko"><title>demo</title></html>')
         write(extensions, role + '/analysis-status.js', 'export const fixture=true;')
     return root, extensions
+
+
+@pytest.mark.parametrize('change', ['source_bytes', 'new_source', 'extension_bytes', 'new_extension'])
+def test_current_source_check_rejects_stale_but_valid_archive(submission, tmp_path, change):
+    root, extensions = submission
+    output = tmp_path / 'submission.zip'
+    package_submission(root, output, extensions)
+    assert inspect_current_archive(output, root, extensions)['version']
+    original_hash = hashlib.sha256(output.read_bytes()).hexdigest()
+    if change == 'source_bytes':
+        write(root, 'apps/api/app/main.py', '# changed runtime\n')
+    elif change == 'new_source':
+        write(root, 'apps/extensions/student/practice-progress.js', 'export const current=true;')
+    elif change == 'extension_bytes':
+        write(extensions, 'student/analysis-status.js', 'export const updated=true;')
+    else:
+        write(extensions, 'student/practice-progress.js', 'export const current=true;')
+    # Integrity alone still passes, but it must no longer be delivered as current.
+    assert inspect_archive(output)['version']
+    with pytest.raises(ValueError, match='current source'):
+        inspect_current_archive(output, root, extensions)
+    assert hashlib.sha256(output.read_bytes()).hexdigest() == original_hash
 
 
 def test_allowlist_excludes_private_environment_db_backups_caches_and_raw_media(

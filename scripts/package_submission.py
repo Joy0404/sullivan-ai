@@ -310,14 +310,32 @@ def package_submission(root: Path = ROOT, output: Path | None = None,
             'bytes': output.stat().st_size, 'sha256': hashlib.sha256(output.read_bytes()).hexdigest(), 'published': False}
 
 
+def inspect_current_archive(path: Path, root: Path = ROOT,
+                            extensions: Path | None = None) -> dict[str, Any]:
+    """Reject an internally valid archive whose sources or generated UI are stale."""
+    actual = inspect_archive(path)
+    with tempfile.TemporaryDirectory(prefix='sullivan-current-submission-') as temporary:
+        current = Path(temporary) / 'current.zip'
+        package_submission(root, current, extensions, server=actual['server'])
+        expected = inspect_archive(current)
+    fingerprints = lambda manifest: {row['path']: (row['bytes'], row['sha256']) for row in manifest['files']}
+    if actual['version'] != expected['version'] or fingerprints(actual) != fingerprints(expected):
+        raise ValueError('Submission archive does not match current source and generated extensions. Rebuild it before delivery.')
+    return actual
+
+
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--output', type=Path)
     parser.add_argument('--server', default='http://127.0.0.1:8770')
     parser.add_argument('--inspect', type=Path, help='Validate an existing archive without extracting it.')
+    parser.add_argument('--check-current', action='store_true', help='With --inspect, also compare against current source and freshly built extensions.')
     args = parser.parse_args()
+    if args.check_current and not args.inspect:
+        parser.error('--check-current requires --inspect')
     if args.inspect:
-        checked = inspect_archive(args.inspect)
-        print(json.dumps({'result': 'passed', 'version': checked['version'], 'files': len(checked['files']) + 1}))
+        checked = inspect_current_archive(args.inspect) if args.check_current else inspect_archive(args.inspect)
+        print(json.dumps({'result': 'passed', 'version': checked['version'], 'files': len(checked['files']) + 1,
+                          **({'current_source_match': True} if args.check_current else {})}))
     else:
         print(json.dumps(package_submission(output=args.output, server=args.server), ensure_ascii=False, indent=2))

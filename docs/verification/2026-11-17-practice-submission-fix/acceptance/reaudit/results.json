@@ -1,0 +1,276 @@
+{
+  "version": "0.4.9",
+  "result": "passed",
+  "groups": [
+    {
+      "group": "supplement",
+      "result": "passed"
+    },
+    {
+      "group": "media",
+      "result": "passed"
+    },
+    {
+      "group": "live",
+      "result": "passed"
+    },
+    {
+      "group": "forms",
+      "result": "passed"
+    }
+  ],
+  "issues": {
+    "R03": {
+      "result": "passed",
+      "observed": {
+        "id": "pending_play_then_focus",
+        "features": [
+          "F35",
+          "F41"
+        ],
+        "expected": "새 초점 안내가 끝날 때까지 영상 정지",
+        "observed": {
+          "before_release_paused": true,
+          "after_release_paused": true,
+          "guidance_held": true
+        },
+        "result": "passed",
+        "detail": "지연된 worker play 응답만 제어. 영상은 실제 MP4, 음성은 종료를 보류한 시험 장치."
+      }
+    },
+    "R05": {
+      "result": "passed",
+      "observed": {
+        "id": "voice_test_resume",
+        "features": [
+          "F41",
+          "F57"
+        ],
+        "expected": "재생 중 시작한 음성 시험이 끝나면 기존 재생 복원",
+        "observed": {
+          "paused_after_test": false,
+          "texts": [
+            "내 학습 설정 저장",
+            "음성 안내 시작, 시험",
+            "Sullivan 학생 음성 안내입니다.",
+            "Tab은 다음 항목, Shift는 이전 항목입니다.",
+            "스페이스 한 번은 영상 재생과 정지, 두 번은 전체 중지, 세 번은 텍스트 명령, 3초 누르기는 음성 명령입니다."
+          ]
+        },
+        "result": "passed",
+        "detail": ""
+      }
+    },
+    "R06": {
+      "result": "passed",
+      "observed": {
+        "id": "shift_arrow",
+        "features": [
+          "F35",
+          "F68"
+        ],
+        "expected": "수정키 조합은 강의 10초 이동을 실행하지 않음",
+        "observed": {
+          "before": 2,
+          "after": 2
+        },
+        "result": "passed",
+        "detail": ""
+      }
+    },
+    "R07": {
+      "result": "passed",
+      "observed": {
+        "id": "disabled_space_editor",
+        "features": [
+          "F65",
+          "F69"
+        ],
+        "expected": "Space 명령 사용을 끄면 편집 중 제스처도 실행하지 않음",
+        "observed": {
+          "space_enabled": false,
+          "status": ""
+        },
+        "result": "passed",
+        "detail": ""
+      }
+    },
+    "R08": {
+      "result": "passed",
+      "observed": {
+        "id": "stale_command",
+        "features": [
+          "F67"
+        ],
+        "expected": "새 명령창은 이전 실행 명령을 지운 빈 입력으로 시작",
+        "observed": "",
+        "result": "passed",
+        "detail": ""
+      }
+    },
+    "R09": {
+      "result": "passed",
+      "observed": {
+        "id": "numeric_value_guidance",
+        "features": [
+          "F57",
+          "F58"
+        ],
+        "expected": "앱 안내에 현재 변경한 영상 음량 0.4 포함",
+        "observed": [
+          "앱 음성 안내를 켰습니다.",
+          "영상 음량 (0~1).",
+          "영상 음량 (0~1).",
+          "현재 0점4."
+        ],
+        "result": "passed",
+        "detail": ""
+      }
+    },
+    "R10": {
+      "result": "passed",
+      "observed": {
+        "id": "home_button_command",
+        "features": [
+          "F66"
+        ],
+        "expected": "강의 선택 전 표시된 홈 버튼 명령 실행",
+        "observed": {
+          "ok": true
+        },
+        "result": "passed",
+        "detail": ""
+      }
+    },
+    "R01": {
+      "result": "passed",
+      "observed": {
+        "lesson": "천문학 특강 7강 · 별의 진화",
+        "lease": null
+      }
+    },
+    "R02": {
+      "result": "passed",
+      "observed": {
+        "before": {
+          "position_ms": 42000,
+          "bookmarks": [],
+          "underlined": [],
+          "note": "확장 분리 검증 메모",
+          "updated_at": "2026-11-16T22:42:26+00:00"
+        },
+        "after": {
+          "position_ms": 42000,
+          "bookmarks": [],
+          "underlined": [],
+          "note": "확장 분리 검증 메모",
+          "updated_at": "2026-11-16T22:42:26+00:00"
+        },
+        "writes": []
+      }
+    },
+    "R04": {
+      "result": "passed",
+      "observed": {
+        "tab_failure_words": [
+          "원본 강의 연결이 끊겼습니다. 원본 탭을 다시 열거나 파일을 다시 연결해 주세요."
+        ],
+        "lease_words": [
+          "다른 수강 화면에서 재생을 시작했습니다. 이 화면에서 연결하면 다시 사용할 수 있습니다."
+        ],
+        "lease_owner": "regression-new-view"
+      }
+    },
+    "R12": {
+      "result": "passed",
+      "observed": {
+        "terminal_error": "답변을 만들지 못했습니다. 서버에 실제 학습 대화 연결이 없습니다. 준비된 자료를 확인해 주세요. 연결과 동의를 확인한 뒤 다시 질문하세요.",
+        "newer_result": ""
+      }
+    },
+    "R11": {
+      "result": "passed",
+      "observed": {
+        "initial_words": [],
+        "login_words": []
+      }
+    },
+    "R13": {
+      "result": "passed",
+      "observed": "다시 준비할 작업 · 일반 · 자막·지문·분석 JSON · 자동 판별. 문제 보호 켜짐. 내용을 확인하고 필요한 동의를 선택한 뒤 준비를 시작하세요."
+    },
+    "R14": {
+      "result": "passed",
+      "observed": {
+        "error": "입력 정보와 자료 전체가 100만 자를 넘었습니다. 파일 수나 지문 길이를 줄이거나 여러 강의로 나누어 준비하세요.",
+        "sent": []
+      }
+    },
+    "R15": {
+      "result": "passed",
+      "observed": {
+        "sentence_texts": 4,
+        "selected_sentence": "p2-s2",
+        "paragraph_cursor_synced": true
+      }
+    },
+    "R16": {
+      "result": "passed",
+      "observed": "<button id=\"selected-read\" type=\"button\">선택 문장 듣기</button>"
+    },
+    "R17": {
+      "result": "passed",
+      "observed": "text-command"
+    },
+    "R18": {
+      "result": "passed",
+      "observed": "workspace-title"
+    }
+  },
+  "missing": [],
+  "additional_boundaries": {
+    "stop_during_pending_claim": {
+      "passed": true,
+      "video_paused": true
+    },
+    "focus_during_delayed_save": {
+      "passed": true,
+      "focus": "text-command",
+      "dialog_cancels_pending_open": true
+    }
+  },
+  "source_sha256": {
+    "apps/extensions/student/media-store.js": "add62e4f94e079b9c77d256b8041c4ab6d9a60a0ad9248cc4a765c88e4c85656",
+    "apps/extensions/student/remote-login-ui.js": "6bf5574dacdfb5cb1d2fc0d823970bcf2a11445deb032f82b084eb28e2fbd191",
+    "apps/extensions/student/notes.js": "32543e6edc0e9d1db2a2413483f652702288cb3c746aeffd75fc51faeff9392b",
+    "apps/extensions/student/remote-login-worker.js": "1836af25975ed3e18a95bb23dc1c14feef8a50afa800bf6de86d51f9212957c2",
+    "apps/extensions/student/lesson-data.js": "b5912d8252999f5599e6c6d9b2f5719a79c902ebc5720f05a41658c5e8379c17",
+    "apps/extensions/student/media.js": "99437dbbb275c245f5cc0d4bde990b3f814acc5e680e1ed89554cd4fd2db903c",
+    "apps/extensions/student/video-control.js": "ed5328abc7264950b8b1d23265905f783452d447b3674f44af178cb5f6d1b822",
+    "apps/extensions/student/worker.js": "9b0eaff08cf49ffdf79ca17719773b419868db9f9683db08585c97caaad7cbf5",
+    "apps/extensions/student/interaction-feedback.js": "d02a50a718d7f01c99963c00e6bf31b2f2989e8a9dd13dce10f76bfe48d6d289",
+    "apps/extensions/student/learning-response.js": "029d387ed8e5f5ce26b4fba6a203f4159c44bc4964056119389a6a43846d82aa",
+    "apps/extensions/student/speech.js": "57fd8db6fb62d51c1e78b9be2eaf44284d8a5b78c747c1146662c099ccfbcdb8",
+    "apps/extensions/student/keyboard.js": "070c247d38d604d62c184cc2a44a49f2744f3b80e61267cfc9970adfcd61aac9",
+    "apps/extensions/student/practice-progress.js": "e153ed5b7f016b3e4c36869f2fd20c7f460b63e735cfb2228b9ca0a1012f9c2a",
+    "apps/extensions/student/workspace.html": "4d726dc6fe6c26eed0a75c40ffe4234bf7dc605f94665fda7855d75db3019ce1",
+    "apps/extensions/student/app.js": "07d737b934b36095cf96b3376ffb1c2c8e5234f913d2b64dd087a12eb06511da",
+    "apps/extensions/shared/client.js": "dd0a23f356e3a510e31f13b20d923ea2bc10e28b398304ccbd2ce979d9dd9f85",
+    "apps/extensions/shared/ui.js": "4c547f6e1748fb185280c16f09a861b075479bc29004b9ec24cde09ef17782e0",
+    "apps/extensions/shared/accounts.html": "38b43597af1494dd2e73096d1415a194879996fa4d0a43ff48f65fbd84fd59d5",
+    "apps/extensions/shared/analysis-status.js": "26ebfd52910ce4d0cadaacb98985058e8c141da68139f2a0147a8d65ae960c89",
+    "apps/extensions/shared/accounts.js": "52ee579b07ff06ded002c2857df3c497438353d1d35f5e8bf3172e010104cf7a",
+    "apps/extensions/shared/base.css": "a72b7bd182d6cb5d7319f254de9a6aac58a60af53b7fc9eef04af25e95d385be",
+    "apps/extensions/guardian/auth.html": "683e2e4c5fd129fb628400136fd12b1331c575b13daf8034ccfc904457becb1a",
+    "apps/extensions/guardian/worker.js": "b57ddb435675e7b3a67cdafdffca4019c500afb9750a5d93c37864f8ba289275",
+    "apps/extensions/guardian/workspace.html": "594eb7bd653dc14285b04cdc1570ce3acf788d94336bf6cbf5707386ebdc9232",
+    "apps/extensions/guardian/app.js": "97d6da8de415fa25811da52a80d3ca26ffdec6f7ba9b63a9698de95180360148",
+    "apps/extensions/guardian/entry.js": "25251fe0230b3275ca678774c343cb50943181e1fa36beef13950fb56f8598ce",
+    "apps/extensions/guardian/entry.html": "9fac1b5b494f09678b4bb468b15d81bca7823dca63228f45fc2614b7270e90d3"
+  },
+  "boundaries": [
+    "Temporary DB/profile and real decoded video/API/worker",
+    "Speech/recognition and delayed replies are explicit test doubles",
+    "Actual VoiceOver/NVDA, microphone and live provider quality not verified"
+  ]
+}

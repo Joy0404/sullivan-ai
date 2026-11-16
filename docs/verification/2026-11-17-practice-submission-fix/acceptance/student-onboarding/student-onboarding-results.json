@@ -1,0 +1,60 @@
+{
+  "result": "passed",
+  "checks": {
+    "no_simulated_completion_without_media": true,
+    "pause_failure_does_not_start_practice": true,
+    "pending_start_skip_cannot_reopen_or_steal_focus": true,
+    "playing_practice_start_pauses_before_first_space": true,
+    "pending_start_preserves_new_keyboard_focus": true,
+    "actual_space_play_pause_stop_and_typed_status": true,
+    "controls_help_status_practice_zero_model_requests_and_uploads": true,
+    "duplicate_final_recognition_runs_once": true,
+    "asr_failure_keeps_typed_fallback_and_real_failure": true,
+    "pending_question_dedup_and_held_response_privacy": true,
+    "repeated_status_reader_mode_without_app_speech": true,
+    "account_scoped_practice_restored_recent_command_session_only": true
+  },
+  "axe": [
+    {
+      "screen": "guardian-first-guide",
+      "version": "4.14.0",
+      "violations": 0
+    },
+    {
+      "screen": "student-login",
+      "version": "4.14.0",
+      "violations": 0
+    },
+    {
+      "screen": "guardian-account-choice",
+      "version": "4.14.0",
+      "violations": 0
+    },
+    {
+      "screen": "guardian-signup",
+      "version": "4.14.0",
+      "violations": 0
+    },
+    {
+      "screen": "student-material",
+      "version": "4.14.0",
+      "violations": 0
+    },
+    {
+      "screen": "guardian-workspace",
+      "version": "4.14.0",
+      "violations": 0
+    },
+    {
+      "screen": "student-practice-complete",
+      "version": "4.14.0",
+      "violations": 0
+    },
+    {
+      "screen": "student-practice-restored",
+      "version": "4.14.0",
+      "violations": 0
+    }
+  ],
+  "boundary": "Real installed extensions, keyboard, generated media and temporary API/DB. ASR and unsafe question response explicitly mocked. No paid model call or actual screen-reader audio evaluation."
+}

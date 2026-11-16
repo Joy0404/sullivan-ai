@@ -45,8 +45,52 @@ def exercise(guardian, student, output):
         expect(student.locator('#connection')).to_contain_text('로컬 영상')
         # The sample's saved position may exceed this generated eight-second fixture.
         student.evaluate("document.querySelector('#local-video').currentTime=0")
+
+        # Failed stopping must preserve progress and allow a real retry.
+        student.evaluate("""async()=>{
+          const{StudentMedia}=await import('./media.js');window.__practicePause=StudentMedia.prototype.pause;
+          StudentMedia.prototype.pause=async function(...args){await window.__practicePause.apply(this,args);throw new Error('injected pause failure');};
+        }""")
         enter('#practice-start')
+        expect(student.locator('#error')).to_contain_text('영상이 멈춘 것을 확인하지 못했습니다')
+        expect(student.locator('#practice-start')).not_to_have_attribute('aria-busy', 'true')
+        expect(student.locator('#practice-steps')).not_to_contain_text('실습 완료')
+        student.evaluate("async()=>{const{StudentMedia}=await import('./media.js');StudentMedia.prototype.pause=window.__practicePause;}")
+        CHECKS['pause_failure_does_not_start_practice'] = True
+
+        def delay_pause():
+            student.evaluate("""async()=>{
+              const{StudentMedia}=await import('./media.js');window.__releasePractice=null;
+              StudentMedia.prototype.pause=async function(...args){await window.__practicePause.apply(this,args);await new Promise(resolve=>window.__releasePractice=resolve);};
+            }""")
+        def finish_pause():
+            student.evaluate("async()=>{const{StudentMedia}=await import('./media.js');StudentMedia.prototype.pause=window.__practicePause;window.__releasePractice();}")
+            expect(student.locator('#practice-start')).not_to_have_attribute('aria-busy', 'true')
+
+        delay_pause();enter('#practice-start')
+        student.wait_for_function('()=>Boolean(window.__releasePractice)')
+        enter('#practice-skip');finish_pause()
+        expect(student.locator('#practice-card')).to_be_hidden()
+        expect(student.locator('#context-help')).to_be_focused()
+        CHECKS['pending_start_skip_cannot_reopen_or_steal_focus'] = True
+        enter('#show-practice')
+
+        assert command('영상 재생') is True
+        student.wait_for_function("()=>!document.querySelector('#local-video').paused")
+        enter('#practice-start')
+        expect(student.locator('#practice-start')).not_to_have_attribute('aria-busy', 'true')
+        student.wait_for_function("()=>document.querySelector('#local-video').paused")
+        expect(student.locator('#practice-steps li').nth(0)).to_contain_text('미시도')
         expect(student.locator('#practice-title')).to_be_focused()
+        CHECKS['playing_practice_start_pauses_before_first_space'] = True
+
+        delay_pause();enter('#practice-start')
+        student.wait_for_function('()=>Boolean(window.__releasePractice)')
+        enter('#task-notes-button');student.locator('#new-note').focus();finish_pause()
+        expect(student.locator('#task-notes')).to_be_visible()
+        expect(student.locator('#new-note')).to_be_focused()
+        CHECKS['pending_start_preserves_new_keyboard_focus'] = True
+        student.locator('#practice-title').focus()
         student.keyboard.press('Space')
         student.wait_for_function("()=>!document.querySelector('#local-video').paused")
         student.wait_for_timeout(100)
@@ -149,7 +193,7 @@ if __name__ == '__main__':
         browser.main(exercise, phase='student-onboarding', output=args.output)
     except Complete:
         pass
-    report = {'result': 'passed' if len(CHECKS) == 8 else 'failed', 'checks': CHECKS,
+    report = {'result': 'passed' if len(CHECKS) == 12 else 'failed', 'checks': CHECKS,
               'axe': browser.AXE_RESULTS,
               'boundary': 'Real installed extensions, keyboard, generated media and temporary API/DB. ASR and unsafe question response explicitly mocked. No paid model call or actual screen-reader audio evaluation.'}
     (args.output / 'student-onboarding-results.json').write_text(json.dumps(report, ensure_ascii=False, indent=2) + '\n')

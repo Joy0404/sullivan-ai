@@ -1,0 +1,22 @@
+{
+  "skill": "keyboard-navigator",
+  "scope": [
+    "apps/extensions/student/app.js",
+    "scripts/verify_student_onboarding.py"
+  ],
+  "findings": [],
+  "passed": [
+    "startPractice awaits stopAll and requires a subsequent paused, non-advertisement media state before starting practice.",
+    "The practice-start control uses the shared task busy guard, preventing duplicate pending activations without removing keyboard focus.",
+    "Skipping increments practiceStartRevision before hiding the card and returning focus to context-help; a pending start cannot reopen it.",
+    "Pending starts validate account identity, lesson identity, application generation, action generation, media view, media generation, media fence and readiness after asynchronous operations.",
+    "The captured focus ticket prevents completion from changing tasks or moving focus after intervening keyboard input or focus movement.",
+    "Pause failures leave practice inactive and surface an error through the shared task handler.",
+    "Disabled Space commands produce actionable guidance instead of starting inaccessible shortcut practice.",
+    "Regression source includes actual video playback before start, injected pause failure, delayed-start skip, moved-focus preservation, and subsequent real Space gestures."
+  ],
+  "notes": [
+    "Source review only: the installed-browser regression suite was inspected but not independently executed in this specialist review.",
+    "No live model or user database calls were made; only this findings file was written."
+  ]
+}
