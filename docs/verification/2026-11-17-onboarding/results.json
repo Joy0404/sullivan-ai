@@ -1,0 +1,53 @@
+{
+  "date_kst": "2026-11-17",
+  "base_final_commit": "6b01f75d91e54fe9d95ab7de88aa938588fc3b05",
+  "source_sha256": "dccc0e09a297bcf30aa3f3253be59a7d00a0c0a568408b0cf33201c2bfea98d4",
+  "source_matches_isolated_copy": true,
+  "result": "local-regressions-passed",
+  "api": {
+    "passed": 360,
+    "skipped": 4,
+    "skip_reason": "Optional PostgreSQL test database not configured"
+  },
+  "submission_packaging_tests_passed": 15,
+  "extension_acceptance_groups": 17,
+  "legacy_web_groups": 7,
+  "guardian_onboarding_checks": 5,
+  "student_onboarding_checks": 8,
+  "axe": {
+    "records": 123,
+    "violations": 0,
+    "engine": "4.14.0"
+  },
+  "raw_student_video_uploads_observed": 0,
+  "held_answer_leaks_observed_in_regressions": 0,
+  "provider_configured": false,
+  "live_model_pairs": 0,
+  "release_route": "baseline",
+  "token_reduction_percent": null,
+  "default_route_promotion": false,
+  "external_acceptance_pending": [
+    "F24",
+    "F25",
+    "F26",
+    "F33",
+    "F34",
+    "F49",
+    "F61",
+    "F62"
+  ],
+  "release_ready": false,
+  "protected_web_files_unchanged": [
+    "apps/web/student-design.css",
+    "apps/web/app.js",
+    "apps/web/role-portal.js"
+  ],
+  "main_head_preserved": "cf5fabea512ff3f44b73336a1cf3f52ba8439427",
+  "private_user_output_in_commit": false,
+  "limitations": [
+    "Real Gemini quality and total token reduction including retries unmeasured",
+    "Actual VoiceOver/NVDA audio and real-user task evaluation unperformed",
+    "Actual ASR and native Korean TTS audio unverified; ASR/provider boundary mocked",
+    "Real licensed lecture sites/permissions/codec matrix and external analyzer cleanup require external validation"
+  ]
+}

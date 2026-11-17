@@ -107,6 +107,34 @@ def exercise(guardian, student, output):
     expect(student.locator('#workspace')).to_be_visible()
     open_lesson(assigned)
     preserve_new_editor(assigned, '새 학생이 직접 작성한 필기', 'late legacy copy cannot enter another account or save its active editor')
+
+    # The server may already delete the old note while its response is delayed.
+    # A later editor must remain usable when that response reaches this view.
+    student.locator('#new-note').click()
+    student.locator('#note-body').fill('삭제할 이전 필기')
+    student.locator('#save-note').click()
+    expect(student.locator('#note-save-status')).to_have_text('필기를 저장했습니다.')
+    old=next(row for row in request(student, f'/extension/v1/student/lectures/{assigned}/notes') if row['body']=='삭제할 이전 필기')
+    pending=[]
+    pattern=f'**/notes/{old["id"]}'
+    def delay_delete(route):
+        if route.request.method=='DELETE':pending.append((route,route.fetch()))
+        else:route.continue_()
+    student.route(pattern,delay_delete)
+    student.locator('#delete-note').click();student.locator('#confirm-note-delete').click()
+    student.wait_for_timeout(100)
+    assert pending,'Delete response did not reach controlled boundary'
+    student.locator('#new-note').click()
+    student.locator('#note-body').fill('삭제 응답을 기다리는 동안 작성한 새 필기')
+    route,response=pending[0];route.fulfill(response=response)
+    expect(student.locator('#confirm-note-delete')).not_to_have_attribute('aria-busy','true')
+    expect(student.locator('#note-editor')).to_be_visible()
+    expect(student.locator('#note-body')).to_have_value('삭제 응답을 기다리는 동안 작성한 새 필기')
+    student.locator('#save-note').click()
+    expect(student.locator('#note-save-status')).to_have_text('필기를 저장했습니다.')
+    assert any(row['body']=='삭제 응답을 기다리는 동안 작성한 새 필기' for row in request(student, f'/extension/v1/student/lectures/{assigned}/notes'))
+    student.unroute(pattern,delay_delete)
+    checks.append('delayed successful deletion preserves and saves a newer editor')
     browser.check_layout(student, 'notebook-race-safe-editor', output, skip=False)
     (output/'results.json').write_text(json.dumps({
         'result': 'passed', 'checks': checks, 'raw_media_uploaded': False,

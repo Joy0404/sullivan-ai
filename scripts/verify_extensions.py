@@ -28,13 +28,16 @@ def main():
         raise SystemExit('Full acceptance requires SULLIVAN_AXE_SOURCE pointing to axe.min.js.')
     contract=check(json.loads(CONTRACT.read_text())); before=fingerprint()
     jobs=[('project',['bash','scripts/verify_all.sh']),
-          ('student-notes',[sys.executable,'scripts/verify_student_notes.py']),
+          ('student-notes',[sys.executable,'scripts/verify_student_notes.py','--output',str(output/'student-notes')]),
           ('notebook-races',[sys.executable,'scripts/verify_notebook_races.py','--output',str(output/'notebook-races')]),
           ('dashboard',[sys.executable,'scripts/verify_extension_dashboard.py','--output',str(output/'dashboard')]),
           ('followup',[sys.executable,'scripts/verify_extension_followup.py','--output',str(output/'followup')]),
           ('races',[sys.executable,'scripts/verify_extension_races.py','--output',str(output/'races')]),
           ('remote-login',[sys.executable,'scripts/verify_remote_login.py','--output',str(output/'remote-login')]),
           ('guardian-entry',[sys.executable,'scripts/verify_guardian_entry.py','--output',str(output/'guardian-entry')]),
+          ('guardian-onboarding',[sys.executable,'scripts/verify_guardian_onboarding.py','--output',str(output/'guardian-onboarding')]),
+          ('student-onboarding',[sys.executable,'scripts/verify_student_onboarding.py','--output',str(output/'student-onboarding')]),
+          ('student-command-routing',[sys.executable,'scripts/verify_student_command_routing.py','--output',str(output/'student-command-routing')]),
           ('submission-flow',[sys.executable,'scripts/verify_submission_browser.py','--output',str(output/'submission-flow')]),
           ('universal',[sys.executable,'scripts/verify_extension_universal.py','--output',str(output/'universal')]),
           ('restoration',[sys.executable,'scripts/verify_feature_restoration.py']),

@@ -1,0 +1,81 @@
+{
+  "result": "local-checks-passed-external-validation-pending",
+  "recorded_at": "2026-11-16T10:49:53.025558+00:00",
+  "head": "cf5fabea512ff3f44b73336a1cf3f52ba8439427",
+  "source_sha256": "5bc0fec5ae8eb5c4827157fc40451b280ac3416b8093ff9167189d2bc1135bc5",
+  "isolated_sources_match_original": true,
+  "api_test_sources_match": true,
+  "preexisting_worktree_changes_preserved": true,
+  "user_database_used": false,
+  "live_provider_calls": 0,
+  "validation": {
+    "verify_all_exit_code": 0,
+    "api_passed": 360,
+    "api_skipped": 4,
+    "api_before": 351,
+    "api_tests_removed": 0,
+    "package_tests_passed": 15,
+    "extension_groups_passed": 15,
+    "extension_source_unchanged": true,
+    "legacy_web_groups_passed": 7,
+    "axe_records": 107,
+    "axe_violations": 0,
+    "new_notebook_async_scenarios": 7,
+    "raw_student_media_posts": 0,
+    "legacy_student_css_and_functions_changed": false,
+    "reference_images_added": false,
+    "local_build_matches_source": true
+  },
+  "fixed_defects": [
+    "problem-answer text surviving in student transcripts/model context",
+    "reader output hidden outside Listen task",
+    "late deletion completion replacing a newer editor",
+    "overlapping note saves using stale revision",
+    "stale source lookup replacing newer input",
+    "saved-draft cleanup dropping newer recovery state",
+    "concurrent note creation exceeding limit",
+    "false successful note deletion",
+    "duplicate assignment edit returning 500",
+    "invalid student question returning 500"
+  ],
+  "optimization": {
+    "benchmark": "note-export-benchmark.json",
+    "notes": 200,
+    "before_median_ms": 283.85808295570314,
+    "after_median_ms": 4.849708988331258,
+    "snapshot_reads_before": [
+      200,
+      200,
+      200
+    ],
+    "snapshot_reads_after": [
+      1,
+      1,
+      1
+    ],
+    "identical_output": true,
+    "scope": "Generated local HTTP benchmark, same current authorization/sanitization; no token savings claim."
+  },
+  "default_model_route": "baseline",
+  "published": false,
+  "user_server_or_browser_restarted": false,
+  "external_pending": [
+    "F24",
+    "F25",
+    "F26",
+    "F33",
+    "F34",
+    "F49",
+    "F61",
+    "F62"
+  ],
+  "remaining": [
+    "real Gemini analysis/question quality and token measurements",
+    "external analyzer and abnormal-exit remote media cleanup",
+    "real sites/YouTube/permission windows and OS codec combinations",
+    "actual VoiceOver/NVDA listening and native Korean TTS quality",
+    "real microphone/browser speech recognition",
+    "4 dedicated PostgreSQL database tests"
+  ],
+  "boundary": "Automated API/JS, installed Chromium extensions, controlled provider/media fixtures and local performance tests do not prove every production/external feature works."
+}

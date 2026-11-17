@@ -1,0 +1,7 @@
+{
+  "voices": 180,
+  "starts": 1,
+  "ends": 1,
+  "errors": [],
+  "verification": "native_start_and_end_observed"
+}

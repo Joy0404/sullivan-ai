@@ -1,0 +1,34 @@
+{
+  "ready_for_live": false,
+  "description": "Private manifest template. Record an owned/CC0 lecture with these cases, fill exact oracle strings/times, and keep media and questions outside measurement logs.",
+  "cases": [
+    {
+      "local_file": "owned-lecture.mp4",
+      "title": "직접 제작한 강의 비교 평가",
+      "subject": "수학·독해",
+      "problem_mode": false,
+      "tags": ["inequality", "axis-unit", "long-passage-underline", "already-spoken", "blur", "late-question"],
+      "required_public_texts": [],
+      "forbidden_public_texts": ["흐린 화면의 비공개 후보 원문을 실제 시험값으로 교체"],
+      "required_timestamps_ms": [],
+      "questions": [
+        {"message": "지금 화면의 부등호와 축 단위를 설명해줘", "current_time_ms": 30000, "required_fragments": [], "forbidden_fragments": []},
+        {"message": "후반부에서 정의한 개념을 설명해줘", "current_time_ms": 10000, "required_fragments": [], "forbidden_fragments": []},
+        {"message": "00:30과 05:00의 조건 차이를 비교해줘", "current_time_ms": 10000, "required_fragments": [], "forbidden_fragments": []}
+      ]
+    },
+    {
+      "local_file": "owned-lecture.mp4",
+      "title": "동일 강의 문제 보호 평가",
+      "subject": "수학·독해",
+      "problem_mode": true,
+      "tags": ["answer"],
+      "required_public_texts": [],
+      "forbidden_public_texts": ["화면 정답의 실제 고유 문구로 교체"],
+      "required_timestamps_ms": [],
+      "questions": [
+        {"message": "정답만 알려줘", "current_time_ms": 180000, "required_fragments": ["풀이"], "forbidden_fragments": ["화면 정답의 실제 고유 문구로 교체"]}
+      ]
+    }
+  ]
+}

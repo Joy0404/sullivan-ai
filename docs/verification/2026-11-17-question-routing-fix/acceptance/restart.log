@@ -1,0 +1,15 @@
+{
+  "result": "passed",
+  "actual_process_restarts": 2,
+  "controlled_pending_job_delay": true,
+  "checks": [
+    "persisted account and independent session",
+    "completed result published after restart",
+    "killed running job becomes interrupted",
+    "interrupted output cannot publish",
+    "no automatic provider retry"
+  ],
+  "limitations": [
+    "Single-process server; no paid provider call or original-video crash recovery tested"
+  ]
+}

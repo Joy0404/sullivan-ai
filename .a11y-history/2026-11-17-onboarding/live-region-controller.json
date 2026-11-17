@@ -1,0 +1,32 @@
+{
+  "skill": "live-region-controller",
+  "scope": [
+    "apps/extensions/student/app.js",
+    "apps/extensions/student/workspace.html",
+    "apps/extensions/student/speech.js",
+    "apps/extensions/student/interaction-feedback.js",
+    "apps/extensions/student/practice-progress.js",
+    "apps/extensions/shared/ui.js",
+    "apps/extensions/guardian/app.js",
+    "apps/extensions/guardian/workspace.html",
+    "apps/extensions/guardian/entry.js",
+    "apps/extensions/guardian/entry.html"
+  ],
+  "findings": [],
+  "passed": [
+    "동일한 현재 상태 재요청은 live region을 비운 뒤 다음 애니메이션 프레임에서 다시 전달하며, 요청 순서·계정·강의 유효성을 재확인합니다.",
+    "음성 인식 취소와 종료에서 오래된 듣기 안내를 정리합니다.",
+    "원시 음성 인식문은 새 확인 UI나 live region에 출력하지 않습니다.",
+    "연습 기록 저장 실패는 기존 status 경로로 안내하며 계정과 연습 로드 세대가 바뀌면 오래된 오류 안내를 억제합니다.",
+    "학생의 연습 다음 단계는 실제 조작 결과 확인 후 기존 status 경로로 전달합니다.",
+    "보호자 next-step은 aria-live=off로 유지되어 기존 완료 안내와 경쟁하지 않습니다.",
+    "StudentAnnouncer와 StudentSpeech는 reader_mode에서 앱 TTS를 실행하지 않습니다.",
+    "새 피드백 문구는 고정된 공개 문구 사전을 사용합니다.",
+    "검토 범위에서 남아 있는 serious 또는 critical 실시간 안내 결함을 발견하지 못했습니다."
+  ],
+  "notes": [
+    "정적 소스 재검토 결과입니다. 실제 스크린리더 음성, 반복 안내의 접근성 트리 반영 시점, 안내 순서는 실행 검증하지 않았습니다.",
+    "보호자 next-step은 읽어서 확인하는 문맥 안내이며 자동 음성 안내로 검증하거나 간주하지 않았습니다.",
+    "파일 수정, 실시간 공급자 호출, 사용자 데이터베이스 접근을 수행하지 않았습니다."
+  ]
+}

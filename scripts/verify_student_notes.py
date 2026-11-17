@@ -197,7 +197,7 @@ def exercise(guardian, student, output):
     # Read the active assigned lecture id from the student's own visible list.
     ident=student.locator('#lectures button').first.get_attribute('data-lecture')
     student.locator('#notes-query').fill('첫 번째');enter(student,'#open-note')
-    with local_access.db() as con:con.execute('UPDATE lectures SET ready=0 WHERE id=?',(ident,))
+    with local_access.db() as con:assert con.execute('UPDATE lectures SET ready=0 WHERE id=?',(ident,)).rowcount==1
     try:
         enter(student,'#show-note-source');expect(student.locator('#note-source-load-status')).to_contain_text('현재')
         assert student.locator('#note-source-text').inner_text()==''
@@ -226,9 +226,22 @@ def exercise(guardian, student, output):
     task(student,'find');student.locator('#chat-input').fill('암기표 만들어줘');enter(student,'#chat-form button')
     expect(student.locator('#status')).to_contain_text('제공하지 않습니다')
     assert len([r for r in requests if '/agent-turn' in r['url']])==before
-    for ident in ('learning-tool','run-tool','read-study','command-input'):assert student.locator('#'+ident).count()==0
-    # Screen-reader mode keeps app output silent (speech synthesis stub boundary).
-    student.evaluate('window.__spoken=[]');enter(student,'#read');assert student.evaluate('window.__spoken.length')==0
+    for control_id in ('learning-tool','run-tool','read-study','command-input'):assert student.locator('#'+control_id).count()==0
+    # A silent app is only correct if the reader result remains exposed while
+    # Find is active; its live output must not live inside hidden Listen.
+    student.evaluate('window.__spoken=[]');enter(student,'#read')
+    expect(student.locator('#reader-description')).to_be_visible()
+    selected=student.locator('#selected-source').inner_text()
+    enter(student,'#selected-read')
+    expect(student.locator('#reader-description')).to_contain_text(selected)
+    assert selected in student.locator('#reader-description').aria_snapshot()
+    expect(student.locator('#selected-read')).to_be_focused()
+    enter(student,'#selected-paragraph-read')
+    expect(student.locator('#reader-description')).to_contain_text(selected)
+    expect(student.locator('#reader-description')).to_have_count(1)
+    task(student,'notes');expect(student.locator('#reader-description')).to_be_visible()
+    assert student.evaluate('window.__spoken.length')==0
+    task(student,'find')
     # Public self-authored video: browser file stays local; Space contract is intact.
     task(student,'settings');summary.focus();student.keyboard.press('Enter')
     student.locator('#local-file').set_input_files(str(Path(__file__).resolve().parents[1]/'samples/accessibility-demo.mp4'))
@@ -262,9 +275,10 @@ def exercise(guardian, student, output):
     native_panel_keys(student)
     # A withdrawn lecture's personal notebook remains reachable after reload,
     # without re-exposing its source or another lecture's legacy records.
-    with local_access.db() as con:con.execute('UPDATE lectures SET ready=0 WHERE id=?',(ident,))
+    with local_access.db() as con:assert con.execute('UPDATE lectures SET ready=0 WHERE id=?',(ident,)).rowcount==1
     try:
         student.reload();expect(student.locator('#workspace')).to_be_visible();expect(student.locator('#lectures button')).to_have_count(0)
+        expect(student.locator('#reader-description')).to_be_empty()
         task(student,'settings');enter(student,'#refresh-notebooks');expect(student.locator('#notebook-lecture option')).to_have_count(1)
         enter(student,'#open-notebook');expect(student.locator('#notes-title')).to_be_visible()
         student.locator('#notes-query').fill('충돌해도');expect(student.locator('#notes-list option')).to_have_count(1);enter(student,'#open-note')
@@ -285,4 +299,8 @@ def exercise(guardian, student, output):
 exercise.checks=['closed/nested details real Tab/Shift+Tab, failed focus fallback','task isolation and cursor return','multiple private notes, explicit safe source','auto-save and offline draft reload/retry','search/edit/legacy memo copy/export','removed command rejection before provider','reader mode suppresses app TTS','local public video no upload, Space/Shift gestures','actual native Chrome side-panel closed-details keys','guardian create/sample/assign with Tab/type-ahead/Enter only','hidden-task save failure and conflict-copy recovery','withdrawn notebook reopen/edit/export after reload','saved-note/source close/save never resumes decoded video']
 
 if __name__=='__main__':
-    main(exercise,'student-notes',Path(__file__).resolve().parents[1]/'docs/verification/2026-11-16-student-notes')
+    import argparse
+    parser=argparse.ArgumentParser()
+    parser.add_argument('--output',type=Path,default=Path(__file__).resolve().parents[1]/'docs/verification/2026-11-16-student-notes')
+    args=parser.parse_args()
+    main(exercise,'student-notes',args.output)

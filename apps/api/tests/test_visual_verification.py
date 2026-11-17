@@ -17,6 +17,7 @@ def package(value,*,kind='number',location='formula_right_number',verification='
 
 @pytest.mark.parametrize('first,second,kind,location',[
     ('x=7','x=8','formula','formula_right_number'),('x+7','x-7','formula','formula_sign'),
+    ('x<7','x','condition','formula_inequality'),
     ('x<7','x<=7','condition','formula_inequality'),('7 m','7 cm','number','vertical_axis_unit'),
     ('이 문장은 원인입니다.','이 문장은 결과입니다.','highlight','underlined_sentence')])
 def test_two_readings_disagree_only_disputed_part_is_withheld(first,second,kind,location):

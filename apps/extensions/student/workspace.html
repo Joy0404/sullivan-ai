@@ -2,9 +2,19 @@
 <h2 id="workspace-title" tabindex="-1">내 강의</h2>
 <nav aria-label="작업 선택"><button id="task-home-button" type="button" data-task="home" aria-current="page">강의 목록</button><button id="task-listen-button" type="button" data-task="listen">강의 듣기</button><button id="task-notes-button" type="button" data-task="notes">필기</button><button id="task-find-button" type="button" data-task="find">내용 찾기</button><button id="task-settings-button" type="button" data-task="settings">설정·관리</button></nav>
 <div class="actions"><button id="stop" type="button">영상·해설 모두 중지</button><button id="type-command" type="button">타자 명령 창 열기</button><button id="voice" type="button">음성 명령 시작</button></div><h3 id="command-title" tabindex="-1">음성·타자 명령</h3><p id="voice-status" role="status" aria-atomic="true"></p>
+<p id="reader-description" role="status" aria-atomic="true"></p>
+<div class="actions"><button id="current-status" type="button">현재 상태</button><button id="context-help" type="button">도움말</button></div>
+<p id="interaction-result" aria-live="off">최근 명령이 없습니다.</p>
+<section id="practice-card" hidden aria-labelledby="practice-title">
+  <h3 id="practice-title" tabindex="-1">짧은 조작 연습</h3>
+  <p>사전 준비 샘플에서 직접 연습합니다. 영상을 새로 분석하지 않습니다. 안내·상태·연습에는 생성형 모델을 호출하지 않습니다.</p>
+  <p id="practice-instruction"></p><ol id="practice-steps"></ol>
+  <div class="actions"><button id="practice-start" type="button">샘플에서 연습 시작·다시 하기</button><button id="practice-connect" type="button">영상 연결 방법 확인</button><button id="practice-skip" type="button">나중에 하기·닫기</button></div>
+  <p>음성은 선택 사항입니다. 마이크 동의 후 “현재 상태”라고 말해 볼 수 있습니다. 타자 명령으로도 같은 기능을 사용할 수 있습니다.</p>
+</section>
 <section id="task-home" aria-labelledby="home-title"><h3 id="home-title" tabindex="-1">강의 목록</h3>  <p class="notice">배정된 강의를 고르고 원본 탭이나 직접 선택한 영상을 연결하세요. 해설은 준비된 분석 자료를 재생 시점에 맞춰 읽으며, 현재 화면을 새로 촬영·분석하지 않습니다.</p>
   <div class="actions"><button id="resume" type="button">최근 강의 이어 듣기</button><button id="refresh" type="button">배정된 강의 새로고침</button><button id="full-view" type="button" class="secondary">전체 수강 화면 열기</button></div>
-  <div class="actions"><button id="show-help" type="button" class="secondary">사용법 다시 보기</button></div>
+  <div class="actions"><button id="show-help" type="button" class="secondary">사용법 다시 보기</button><button id="show-practice" type="button">짧은 조작 연습 열기</button></div>
   <section id="onboarding-card" hidden aria-labelledby="onboarding-title"><h3 id="onboarding-title" tabindex="-1">학생 사용법</h3><div id="onboarding-copy">
     <p>Tab은 다음, Shift 또는 Shift+Tab은 이전 항목입니다. Enter로 버튼을 실행합니다. Esc는 패널 키보드 모드를 해제하고 F6로 Chrome 영역을 이동할 수 있습니다.</p>
     <p>홈과 수강 화면에서 Space 한 번은 영상 재생·정지, 두 번은 영상·음성·진행 기능 중지, 세 번은 텍스트 명령입니다. 3초 누른 채 명령을 말하고 떼면 실행합니다. 처음 한 번 마이크 동의·허용이 필요합니다.</p>
@@ -22,7 +32,6 @@
       <div class="actions"><button id="back" type="button">10초 뒤로</button><button id="forward" type="button">10초 앞으로</button><button id="return-origin" type="button" disabled>탐색 전 위치로 돌아가기</button></div>
       <p id="playback-state" aria-live="off"></p><p id="current-description" class="notice" tabindex="-1"></p>
       <p id="player-status" role="status"></p>
-      <p id="reader-description" role="status" aria-atomic="true"></p>
     </div>
 <button id="short-summary" type="button">짧은 요약 듣기</button></section>
 <section id="task-find" hidden aria-labelledby="find-title"><h4 id="find-title" tabindex="-1">내용 찾기</h4><section aria-labelledby="selection-title"><h4 id="selection-title">선택한 원문 조작</h4>

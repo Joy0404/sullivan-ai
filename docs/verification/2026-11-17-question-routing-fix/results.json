@@ -1,0 +1,47 @@
+{
+  "date_kst": "2026-11-17",
+  "base_final_commit": "69b013e1a57c77e7402578e47f887bdd476b49d1",
+  "source_sha256": "a0339fcf3dbcd1ef9565c5af0264fe67951bba44c408ab88dc874596b793daf4",
+  "actual_submission_zip_extracted_and_tested": true,
+  "result": "passed",
+  "api": {
+    "passed": 360,
+    "skipped": 4
+  },
+  "packaging_tests_passed": 19,
+  "extension_acceptance_groups": 18,
+  "question_routing_checks": 9,
+  "student_onboarding_checks": 12,
+  "axe": {
+    "records": 130,
+    "violations": 0
+  },
+  "submission": {
+    "path": "dist/submission/sullivan-submission-0.4.9.zip",
+    "files": 298,
+    "bytes": 1833612,
+    "sha256": "6cfc4be777998080ead7a8d237ce61c686aeb4149feb1755b368d8b4de1bb195",
+    "matches_final_source_and_generated_extensions": true
+  },
+  "shared_web_code_changed": false,
+  "api_model_settings_changed": false,
+  "local_control_classifier_model_calls": 0,
+  "question_text_preserved_in_mock_http_assertions": true,
+  "held_and_stale_response_leaks_observed": 0,
+  "raw_student_media_uploads_observed": 0,
+  "model_route": "baseline",
+  "real_model_tokens": "미측정",
+  "real_asr_screen_reader_audio_verified": false,
+  "release_ready": false,
+  "external_pending": [
+    "F24",
+    "F25",
+    "F26",
+    "F33",
+    "F34",
+    "F49",
+    "F61",
+    "F62"
+  ],
+  "scope": "Student extension command entry; explicit controls local, real lecture questions use existing guarded API. No full natural-language recognition claim."
+}

@@ -1,0 +1,120 @@
+{
+  "result": "passed",
+  "checks": {
+    "U01.empty_mime_file": {
+      "passed": true,
+      "observed": "분석한 원본과 일치하는 로컬 영상입니다. 자동 해설을 사용할 수 있습니다."
+    },
+    "U02.mismatch_fails_closed": {
+      "passed": true,
+      "observed": "분석한 원본과 다른 파일입니다. 자동 해설을 연결하지 않았습니다."
+    },
+    "U06.decode_failure_cleans_up": {
+      "passed": true,
+      "observed": "Chrome이 이 파일의 영상 형식 또는 코덱을 재생하지 못했습니다. 재생 가능한 MP4(H.264/AAC)·WebM 파일을 선택하세요. 준비된 자료는 계속 이용할 수 있습니다."
+    },
+    "U03.unsaved_voice_preserved": {
+      "passed": true,
+      "observed": "basic"
+    },
+    "U04.generic_same_origin_shadow_frame": {
+      "passed": true,
+      "observed": {
+        "frame_count": 2,
+        "root": "http://127.0.0.1:62678/generic-course#/lesson/7"
+      }
+    },
+    "U09.connection_focus_preserved": {
+      "passed": true,
+      "observed": {
+        "initial_connection": "settings connection control retains focus",
+        "delayed_connection": "newer note focus preserved"
+      }
+    },
+    "U05.cross_origin_frame_permission": {
+      "passed": true,
+      "observed": {
+        "frame_count": 2,
+        "lease": {
+          "documentId": "C8912A52EC2FEF2433A244CD69E9E168",
+          "fence": 2,
+          "frameId": 12,
+          "frameUrl": "http://localhost:62678/shadow-player",
+          "tabId": 1862965540,
+          "url": "http://127.0.0.1:62678/cross-course",
+          "view": "b6c9e5f2-04ca-4dc9-8c0e-682f62cf6eec"
+        }
+      }
+    },
+    "U07.link_only_is_playback_not_analysis": {
+      "passed": true,
+      "observed": {
+        "agent_turns": 0,
+        "source_label": "보호자가 등록한 링크·자료 · 원본 재생용으로 등록됨: 영상 분석은 실행하지 않았습니다. 재생·명령·기록을 이용할 수 있으며 내용 질문·해설에는 자료 또는 실제 분석 연결이 필요합니다."
+      }
+    },
+    "U08.local_metadata_only_playback": {
+      "passed": true,
+      "observed": {
+        "requests": 1,
+        "content_type": "application/json",
+        "body": {
+          "title": "원본 미전송 파일 검사",
+          "subject": "일반",
+          "source_label": "",
+          "preferred_mode": "auto",
+          "problem_mode": true,
+          "assets": [],
+          "local_file": {
+            "name": "lecture.unknown",
+            "size_bytes": 30760
+          }
+        },
+        "connection": "로컬 영상 수동 재생입니다. 원본 식별 정보가 없어 자동 해설은 꺼집니다."
+      }
+    }
+  },
+  "axe": [
+    {
+      "screen": "guardian-first-guide",
+      "version": "4.14.0",
+      "violations": 0
+    },
+    {
+      "screen": "student-login",
+      "version": "4.14.0",
+      "violations": 0
+    },
+    {
+      "screen": "guardian-account-choice",
+      "version": "4.14.0",
+      "violations": 0
+    },
+    {
+      "screen": "guardian-signup",
+      "version": "4.14.0",
+      "violations": 0
+    },
+    {
+      "screen": "student-material",
+      "version": "4.14.0",
+      "violations": 0
+    },
+    {
+      "screen": "guardian-workspace",
+      "version": "4.14.0",
+      "violations": 0
+    },
+    {
+      "screen": "guardian-phase2",
+      "version": "4.14.0",
+      "violations": 0
+    },
+    {
+      "screen": "student-universal-playback",
+      "version": "4.14.0",
+      "violations": 0
+    }
+  ],
+  "boundary": "Actual installed extensions/API/DB/decoded media, real iframe/shadow DOM injection with fixture localhost host pregrant. Panel-context detection, native permission need/deny/allow completion and speech/analyzer are explicit test fixtures; no paid site scraping."
+}

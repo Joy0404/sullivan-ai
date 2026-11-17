@@ -1,0 +1,44 @@
+{
+  "result": "passed",
+  "groups": [
+    "data",
+    "save"
+  ],
+  "checks": {
+    "P01.reuse_prepared_passage": {
+      "passed": true,
+      "observed": {
+        "normalization_calls": 0,
+        "elapsed_ms": 24.5,
+        "sentence_controls": 600
+      }
+    },
+    "N01.unsaved_position_on_switch": {
+      "passed": true,
+      "observed": {
+        "expected_ms": 77000,
+        "saved_ms": 77000
+      }
+    },
+    "N02.save_failure_keeps_media": {
+      "passed": true,
+      "observed": {
+        "connection": "분석한 원본과 일치하는 로컬 영상입니다. 자동 해설을 사용할 수 있습니다.",
+        "video_has_source": true,
+        "save_feedback": "아직 저장하지 못했습니다. 시험 저장 실패 연결을 확인한 뒤 학습 기록 다시 저장을 누르세요. 이 화면을 닫으면 미저장 기록을 잃을 수 있습니다."
+      }
+    },
+    "N03.save_failure_feedback": {
+      "passed": true,
+      "observed": "아직 저장하지 못했습니다. 시험 저장 실패 연결을 확인한 뒤 학습 기록 다시 저장을 누르세요. 이 화면을 닫으면 미저장 기록을 잃을 수 있습니다."
+    }
+  },
+  "measurements": {
+    "long_passage": {
+      "normalization_calls": 0,
+      "elapsed_ms": 24.5,
+      "sentence_controls": 600
+    }
+  },
+  "boundary": "600-sentence fixture; synthetic speech; real extension/API/DB/video; injected save 503"
+}

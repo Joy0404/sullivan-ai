@@ -1,0 +1,21 @@
+{
+  "skill": "accessibility-lead",
+  "scope": [
+    "apps/api/app/local_access.py",
+    "apps/api/app/student_notes.py",
+    "apps/extensions/student/notes.js",
+    "apps/extensions/student/workspace.html"
+  ],
+  "findings": [],
+  "passed": [
+    "All recorded findings repaired with deterministic regression coverage.",
+    "API 360 passed, 4 optional database tests skipped.",
+    "Reader output visibility, accessibility-tree text, keyboard and focus tested in installed Chromium extensions.",
+    "Seven isolated legacy web browser suites passed."
+  ],
+  "notes": [
+    "Full extension acceptance is reported separately.",
+    "Actual VoiceOver/NVDA, native speech quality, live Gemini and external lecture sites remain unverified.",
+    "A score in this generated scoped report is not a claim of whole-product accessibility conformance."
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "skill": "python-specialist",
+  "scope": [
+    "apps/api/app/adapters/video_link.py",
+    "apps/api/app/adapters/gemini_agent.py",
+    "apps/api/app/core/verification_plan.py",
+    "apps/api/app/core/question_evidence.py",
+    "apps/api/app/core/token_comparison.py",
+    "scripts/measure_gemini_tokens.py"
+  ],
+  "findings": [],
+  "passed": [
+    "All four specialist findings repaired and covered by regression tests.",
+    "67 targeted provider-boundary and comparison tests passed.",
+    "351 API tests passed; 4 optional external-database tests skipped."
+  ],
+  "notes": [
+    "Scoped Python safety review; not a WCAG conformance or real model quality claim.",
+    "Real provider measurements, screen-reader audio and hearing remain unverified."
+  ]
+}

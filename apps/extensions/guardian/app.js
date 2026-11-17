@@ -17,6 +17,7 @@ let previewUrl=null,previewCaptionUrl=null,previewFileGeneration=0,previewQuesti
 let editRevision=0, refreshRevision=0, preparationListRevision=0;
 let remoteRevision=0,remoteState=null,remoteStudent=null;
 let guardianInteraction=0;
+let setupObservedAt = '';
 for(const event of ['keydown','pointerdown','input','focusin'])document.addEventListener(event,()=>{guardianInteraction++;},true);
 const api = '/extension/v1/guardian';
 const checked = id => [...$(id).querySelectorAll('input:checked')].map(input => input.value);
@@ -41,30 +42,54 @@ function selection(id) {
 }
 
 function renderSteps() {
+  if (!setupObservedAt) {
+    for (const id of ['student', 'sample', 'lecture', 'assignment', 'settings']) $('setup-'+id).textContent = '목록 확인 전';
+    $('setup-observed').textContent = '연결·배정 상태는 서버 목록을 확인한 뒤 표시합니다.';
+    $('next-step').textContent = '다음 단계: 연결·배정 목록을 확인하세요. 통신 오류가 있으면 목록 새로고침으로 다시 시도하세요.';
+    return;
+  }
   const hasStudents = students.length > 0;
   const prepared = preparations.some(job => job.state === 'completed');
   const hasLectures = lectures.length > 0 || prepared;
   const studentIds = new Set(students.map(student => student.id));
   const assigned = lectures.some(lecture => lecture.ready && lecture.students.some(id => studentIds.has(id)));
+  const sampleAssignments = lectures.filter(lecture => lecture.ready && lecture.analysis_status?.state === 'sample' && lecture.students.some(id => studentIds.has(id)));
   const customized = students.some(student => Object.entries(settingDefaults).some(([key,value]) => (student.settings?.[key] ?? value) !== value));
-  for (const [id, state] of [['student',hasStudents?'완료':'할 차례'],
+  for (const [id, state] of [['student',hasStudents?`서버 목록에서 연결된 계정 ${students.length}명 확인`:'연결된 학생 없음 · 학생의 연결 동의 후 목록을 새로고침하세요'],
     ['lecture',hasLectures?'완료':hasStudents?'할 차례':'아직'],
     ['assignment',assigned?'완료':hasStudents&&hasLectures?'할 차례':'아직'],
     ['settings',customized?'완료':'기본값']]) $('setup-'+id).textContent = state;
+  $('setup-sample').textContent = sampleAssignments.length
+    ? `서버 목록에서 공개·배정된 샘플 ${sampleAssignments.length}개 확인`
+    : hasStudents ? '아직 공개·배정된 샘플이 없습니다. 학생과 샘플을 선택하세요.' : '학생 연결 후 선택할 수 있습니다.';
+  $('setup-observed').textContent = setupObservedAt
+    ? `서버 연결·배정 목록 확인: ${setupObservedAt}. 로컬 시험 계정이 포함될 수 있으며, 학생의 코드 동의 여부나 현재 열기·재생 상태를 이 목록만으로 구분하지 않습니다.`
+    : '연결·배정 상태는 서버 목록을 확인한 뒤 표시합니다.';
   $('setup-assignment-link').href = prepared && !lectures.length ? '#preparations-title' : '#lectures-title';
   const next = !hasStudents ? '학생용 확장에 가입한 학생과 일회용 코드로 연결하세요.'
-    : !hasLectures ? '강의를 준비하고 결과를 확인하세요.'
+    : !hasLectures ? '샘플 강의 배정에서 연결된 학생과 사전 준비 샘플을 선택해 배정하세요. 새 영상 분석은 실행하지 않습니다.'
     : !assigned ? '준비 결과나 강의 목록에서 학생을 선택해 배정하고 공개하세요.'
     : '학생별 기본 설정을 확인하세요. 학생은 학생용 확장에서 배정된 강의를 엽니다. 파일 강의는 같은 원본도 별도로 전달하세요.';
   const message = `다음 단계: ${next}`;
   if ($('next-step').textContent !== message) $('next-step').textContent = message;
 }
 
+$('setup-connect').addEventListener('click', () => $('create-pair-code').focus());
+$('setup-sample-action').addEventListener('click', () => {
+  if (students.length) $('student-choice').focus();
+  else {
+    $('connections-title').focus();
+    status('먼저 학생과 연결하세요. 학생이 학생용 확장에서 연결에 동의한 뒤 목록을 새로고침하세요.');
+  }
+});
+
 async function refresh() {
   const ticket = generation, revision = ++refreshRevision;
   const results = await Promise.all([request('/local/students'), request('/local/lectures')]);
   if (ticket !== generation || revision !== refreshRevision) return;
   [students, lectures] = results;
+  setupObservedAt = new Date().toLocaleString('ko-KR');
+  renderSteps();
   $('connection-students').replaceChildren(...students.map(student=>{
     const item=node('li');item.append(node('p',student.name),button(`${student.name} 연결 해제`,()=>{
       unlinking=student.id;$('guardian-unlink-question').textContent=`${student.name} 학생과 연결을 해제할까요? 이 보호자의 강의 배정과 이후 기록 조회를 중단하고 학생 개인 기록은 보존합니다.`;
@@ -73,7 +98,7 @@ async function refresh() {
   }));
   if(managing && !students.some(s=>s.id===managing)){managing=null;$('management-detail').hidden=true;$('progress-summary').replaceChildren();$('lecture-order').replaceChildren();}
   $('students').replaceChildren(...students.map(s => node('li', `${s.name} (${s.username})`)));
-  if (!students.length) $('students').append(node('li', '아직 연결된 학생이 없습니다. 학생 계정을 먼저 만들어 주세요.'));
+  if (!students.length) $('students').append(node('li', '아직 연결된 학생이 없습니다. 일회용 코드를 전달하고 학생용 확장에서 연결에 동의한 뒤 목록을 새로고침하세요.'));
   options('student-choice'); options('manage-student'); options('remote-student'); choices('publish-students');
   if(!students.length&&['remote-student','remote-login-start','remote-login-refresh','remote-login-stop'].includes(document.activeElement?.id))$('connections-title').focus();
   $('remote-student').disabled=!students.length;
@@ -92,7 +117,6 @@ async function refresh() {
     return item;
   }));
   if (!lectures.length) $('lectures').append(node('li', '아직 준비한 강의가 없습니다.'));
-  renderSteps();
 }
 
 async function refreshPreparations() {
@@ -422,14 +446,14 @@ bindForm('student-form', async credentials => {
   $('student-form').reset();
   await refresh();
   $('student-choice').focus();
-  status('학생 계정을 만들었습니다. 학생용 확장에서 로그인할 수 있습니다.');
+  status('로컬 시험용 학생 계정을 만들었습니다. 학생용 확장에서 로그인할 수 있습니다. 운영 연결은 학생이 일회용 코드를 확인하고 동의하는 절차를 사용하세요.');
 });
 bindForm('assign-form', async ({student, sample}) => {
   await request(`/local/samples/${sample}/assign`, {method: 'POST', body: {students: [student]}});
   await refresh();
   status('샘플 강의를 배정했습니다. 학생용 확장에서 목록을 새로고침하세요.');
 });
-$('refresh').addEventListener('click', () => task($('refresh'), async () => { await refresh(); await refreshPreparations(); status('목록을 갱신했습니다.'); }));
+for (const id of ['refresh', 'setup-refresh']) $(id).addEventListener('click', () => task($(id), async () => { await refresh(); await refreshPreparations(); status('목록을 갱신했습니다.'); }));
 $('refresh-preparations').addEventListener('click', () => task($('refresh-preparations'), async () => { await refreshPreparations(); status('준비 상태를 갱신했습니다.'); }));
 function remoteMessage(data,name){
   if(!data.enabled)return `${name}: 학생 기기에서 처음 한 번 로그인하고 보호자 로그인 지원을 허용하세요.`;
@@ -535,6 +559,8 @@ const showUser = await boot(async () => {
   managementGeneration++;
   remoteRevision++;remoteState=null;remoteStudent=null;$('remote-student').replaceChildren();$('guardian-remote-status').textContent='';
   clearInterval(poll); students = []; lectures = []; preparations = []; preparation = null; editing = null; managing = null; jobsFingerprint = '';
+  setupObservedAt = '';
+  renderSteps();
   $('preparation-filter').value = 'all'; $('preparation-search').value = '';
   $('preparation-counts').textContent = ''; $('preparation-results').textContent = '';
   jobStates.clear(); pollError = ''; $('job-status').textContent = ''; $('connection-status').textContent = '';

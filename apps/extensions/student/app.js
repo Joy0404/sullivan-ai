@@ -1,5 +1,7 @@
 import {request} from './client.js';
 import {createNotebook} from './notes.js';
+import {classifyLocalCommand,resolveStudentIntent,createInteractionFeedback} from './interaction-feedback.js';
+import {createPracticeProgress} from './practice-progress.js';
 import {$, node, button, bindForm, status, task, boot} from './ui.js';
 import {StudentMedia} from './media.js';
 import {StudentSpeech, StudentAnnouncer, controlDescription} from './speech.js';
@@ -31,6 +33,40 @@ let playbackStatus = '';
 let pendingPlayerPermission=null;
 let refreshRevision = 0;
 let pairRequest = null;
+let feedbackTicket=null,practiceTicket=null,practiceLoadRevision=0,practiceStartRevision=0,inflightQuestion=null,statusRequestRevision=0;
+const feedback=createInteractionFeedback({onChange:state=>{$('interaction-result').textContent=state.summary;}});
+const practice=createPracticeProgress();
+let practiceWriteChain=Promise.resolve();
+function renderPractice(){
+  const state=practice.current();
+  $('practice-steps').replaceChildren(...state.steps.map(step=>node('li',`${step.label}: ${{untried:'미시도',done:'실습 완료',skipped:'나중에 하기'}[step.status]}`)));
+  $('practice-instruction').textContent=state.instruction;
+}
+function persistPractice(){
+  const account=user?.id;if(!account)return;
+  const value=practice.serializable();
+  const epoch=practiceLoadRevision;
+  practiceWriteChain=practiceWriteChain.catch(()=>{}).then(()=>chrome.storage.local.set({[`practice:v1:${account}`]:value})).catch(()=>{
+    if(user?.id===account&&epoch===practiceLoadRevision){const message='연습 기록을 이 기기에 저장하지 못했습니다. 이번 화면에서는 계속 연습할 수 있습니다.';$('practice-instruction').textContent=message;status(message,true);}
+  });
+}
+function observePractice(event,ticket=practiceTicket,extra={}){
+  if(practice.observe(event,{lessonId:current?.id,ticket,...extra})){renderPractice();persistPractice();status(practice.current().instruction);}
+}
+function showPractice(){renderPractice();$('practice-card').hidden=false;$('practice-title').focus();}
+async function showCurrentStatus(){
+  const account=user,lesson=current,epoch=generation,recent=feedback.current().summary,revision=++statusRequestRevision;
+  let playback='영상 연결 전';
+  if(media.kind&&media.ready){try{const state=await media.state({allowPause:true});playback=state.paused?'강의 일시정지':'강의 재생 중';}catch{playback='영상 상태 확인 필요';}}
+  if(account!==user||lesson!==current||epoch!==generation||revision!==statusRequestRevision)return false;
+  const taskName={home:'강의 목록',listen:'강의 듣기',notes:'필기',find:'내용 찾기',settings:'설정·관리'}[currentTask];
+  const work=recognition?'음성 명령 듣는 중':pendingRequests?'강의 질문 응답 대기 중':'새 명령 대기';
+  const message=`${taskName}. ${playback}. ${work}. ${recent}${saveFailed?' 학습 기록 저장 재시도가 필요합니다.':''} ${current?'준비된 설명은 강의 듣기에서, 문단과 요약은 내용 찾기에서 확인하세요.':'배정된 강의를 먼저 선택하세요.'}`;
+  if($('status').textContent===message){$('status').textContent='';await new Promise(resolve=>requestAnimationFrame(resolve));}
+  if(account!==user||lesson!==current||epoch!==generation||revision!==statusRequestRevision)return false;
+  status(message);
+  return true;
+}
 const inPanel=!chrome.extension.getViews({type:'tab'}).includes(window);
 const defaults = {speech_rate: .95, speech_volume: .9, auto_description: true, reader_mode: false, focus_voice: true};
 const accessSaved=(await chrome.storage.local.get('student-accessibility'))['student-accessibility']||{};
@@ -52,6 +88,14 @@ const announcer=new StudentAnnouncer(()=>({...settings,...device}),text=>{$('spe
 announcer.lessonSpeaker=speaker;announcer.lessonReady=()=>Boolean(current&&media.kind&&media.ready);
 speaker.beforeSpeak=purpose=>{if(purpose!=='guidance')announcer.cancel(true);};
 function reportError(error){if(!error.cancelled&&!error.reported)status(error.message,true);}
+async function trackControl(label,handler){
+  const account=user,epoch=generation,ticket=feedback.begin(label);feedbackTicket=ticket;
+  try{
+    const result=await handler();
+    if(account===user&&epoch===generation)feedback.update(ticket,result===true?'success':'cancel',result===true?'':'cancelled');
+    return result;
+  }catch(error){feedback.update(ticket,error.cancelled?'cancel':'fail',error.cancelled?'cancelled':!current?'no_lecture':!media.ready?'player_unavailable':'failed');throw error;}
+}
 function connectionNotice(text){$('connection').textContent=text;if(!settings.reader_mode)announcer.say(text);}
 function clearPlayerPermission(){
   pendingPlayerPermission=null;
@@ -76,20 +120,27 @@ const narrationText = gap => gap.notice_only?gap.public_description:SullivanNarr
 const hasLearningMaterial = () => Boolean(current&&(paragraphs().length||current.snapshot.transcript_segments.length||safeGaps().length));
 function needLesson() { if (!current) throw new Error('강의를 먼저 선택하세요.'); return current; }
 function stopVoice() {
+  if(recognition&&feedback.current().actionId==='listen')feedback.update(feedbackTicket,'cancel','cancelled');
+  if(recognition)$('voice-status').textContent='';
   voiceGeneration++;
   if (recognition) { recognition.onresult = recognition.onend = recognition.onerror = null; try { recognition.abort(); } catch {} }
   recognition = null; $('voice').textContent = '음성 명령 시작';
 }
 export async function stopAll(announce = true) {
+  if(announce&&!['stop','pause'].includes(feedback.current().actionId))feedback.update(feedbackTicket,'cancel','cancelled');
   clearPlayerPermission();
   lectureRequest++;
   cancelConcept();dialogResume=null;voiceFallback=null;
   actionGeneration++; microphoneGeneration++; focusTicket++; announcer.cancel(); speaker.cancel(); stopVoice();
   const stopped=actionGeneration;
-  await media.pause().catch(() => {});
-  if (announce && stopped===actionGeneration) status('영상과 앱 음성을 모두 중지했습니다.');
+  let paused=true;await media.pause().catch(() => {paused=false;});
+  if (announce && stopped===actionGeneration) status(paused?'영상과 앱 음성을 모두 중지했습니다.':'앱 음성은 중지했습니다. 영상 연결 상태를 확인하고 원본의 중지 여부를 확인하세요.',!paused);
+  return paused&&stopped===actionGeneration;
 }
 function clear() {
+  practiceStartRevision++;
+  feedback.reset();feedbackTicket=null;practice.suspend();practiceTicket=null;renderPractice();
+  $('practice-card').hidden=true;
   notebook?.reset();notebookLecture=null;taskFocus.clear();showTask('home',{focus:false});
   clearPlayerPermission();
   lectureRequest++;
@@ -283,15 +334,43 @@ function showHelp(focus=true){
   $('onboarding-card').hidden=false;
   if(!focus)$('voice-status').textContent='처음 사용 안내가 열려 있습니다. 사용법 안내 버튼에서 단축키와 음성 모드를 확인하세요.';
   if(focus)$('onboarding-title').focus();
-  if(settings.focus_voice&&!settings.reader_mode)announcer.say($('onboarding-copy').textContent);
+  if(settings.focus_voice&&!settings.reader_mode)announcer.say('Tab으로 이동하고 Enter로 선택하세요. Space 한 번은 재생·정지, 두 번은 전체 중지, 세 번은 타자 명령입니다. 현재 상태와 도움말은 항상 위쪽에 있습니다. 자세한 설명과 짧은 조작 연습은 강의 목록에서 열 수 있습니다.');
 }
 function voiceReadyCue(){
   try{const context=new (window.AudioContext||window.webkitAudioContext)();context.resume();const tone=context.createOscillator(),gain=context.createGain();tone.frequency.value=740;gain.gain.value=.08;
     tone.connect(gain).connect(context.destination);tone.start();tone.stop(context.currentTime+.12);tone.onended=()=>context.close();}catch{}
 }
+async function startPractice(){
+  const revision=++practiceStartRevision;
+  if(!$('space-enabled').checked){status('설정·관리에서 Space 명령 사용을 켠 뒤 연습하세요. 타자 명령 버튼은 계속 사용할 수 있습니다.');return;}
+  practice.suspend();practiceTicket=null;renderPractice();
+  if(current?.snapshot.analysis_status?.state!=='sample'||!media.kind||!media.ready){
+    status(current?.snapshot.analysis_status?.state==='sample'?'먼저 영상 연결 방법을 확인하고 샘플 영상을 연결하세요. 연습을 완료한 것으로 기록하지 않았습니다.':'보호자가 배정한 사전 준비 샘플을 먼저 여세요. 일반 설명은 사용법에서 확인할 수 있습니다.');return;
+  }
+  const account=user,lesson=current,epoch=generation,view=media.view,mediaEpoch=media.generation;
+  const stopping=stopAll(false),action=actionGeneration,fence=media.fence,focus=focusTicket;
+  const valid=()=>revision===practiceStartRevision&&account===user&&lesson===current&&epoch===generation&&action===actionGeneration&&view===media.view&&mediaEpoch===media.generation&&fence===media.fence&&media.ready;
+  const failed=()=>new Error('영상이 멈춘 것을 확인하지 못했습니다. 원본에서 일시정지한 뒤 다시 연습을 시작하세요.');
+  try{
+    const stopped=await stopping;if(!valid())return;
+    if(!stopped)throw failed();
+    const state=await media.state();if(!valid())return;
+    if(state.paused!==true||state.ad)throw failed();
+    practiceTicket=practice.start({lessonId:lesson.id,sample:true,connected:true});
+    renderPractice();persistPractice();$('practice-card').hidden=false;
+    if(focus===focusTicket){showTask('listen',{focus:false});$('practice-title').focus();}
+    status('연습을 시작합니다. Space 한 번으로 재생한 뒤, 다시 한 번 눌러 일시정지하세요.');
+  }catch(error){if(valid())throw error;}
+}
 actionLater();
 function actionLater(){
   $('show-help').addEventListener('click',()=>showHelp());
+  $('context-help').addEventListener('click',()=>showHelp());
+  $('current-status').addEventListener('click',()=>task($('current-status'),showCurrentStatus));
+  $('show-practice').addEventListener('click',showPractice);
+  $('practice-start').addEventListener('click',()=>task($('practice-start'),startPractice));
+  $('practice-connect').addEventListener('click',()=>{showTask('settings',{focus:false});$('connection-title').setAttribute('tabindex','-1');$('connection-title').focus();});
+  $('practice-skip').addEventListener('click',()=>{practiceStartRevision++;practice.skip();practiceTicket=null;persistPractice();$('practice-card').hidden=true;$('context-help').focus();});
   $('onboarding-done').addEventListener('click',()=>task($('onboarding-done'),async()=>{const account=user;await request('/local/onboarding',{method:'POST'});if(user!==account)return;user.onboarded=1;const focused=$('onboarding-card').contains(document.activeElement);$('onboarding-card').hidden=true;if(focused)$('workspace-title').focus();status('사용법을 확인했습니다.');}));
   $('preview-voice').addEventListener('click',()=>task($('preview-voice'),async()=>{announcer.cancel(true);device={voice_uri:$('speech-voice').value,speech_pitch:Number($('speech-pitch').value),speech_style:$('speech-style').value};await speaker.say('강의의 흐름을 함께 살펴봅니다. AI는 검증된 화면 정보를 안내합니다.');}));
   $('read-review').addEventListener('click',()=>task($('read-review'),async()=>{needLesson();rememberExploration();await speaker.say($('review').textContent);}));
@@ -525,10 +604,16 @@ function showResponse(title, text, label = '') {
   const item = node('article'); item.append(node('h5', title), node('p', label), node('p', text)); $('chat-log').append(item);
   if(settings.reader_mode)$('answer-status').textContent=`${title}. ${label}. ${text}`;
 }
-async function ask(message,forceSpeak=false){pendingRequests++;try{return await askImpl(message,forceSpeak);}finally{pendingRequests--;}}
+async function ask(message,forceSpeak=false){
+  if(inflightQuestion?.message===message&&inflightQuestion.lesson===current&&inflightQuestion.generation===generation&&inflightQuestion.action===actionGeneration)return inflightQuestion.promise;
+  const run={message,lesson:current,generation,action:actionGeneration};
+  pendingRequests++;inflightQuestion=run;
+  try{return await(run.promise=askImpl(message,forceSpeak));}
+  finally{pendingRequests--;if(inflightQuestion===run)inflightQuestion=null;}
+}
 async function askImpl(message, forceSpeak = false) {
-  if(SullivanLearning.unsupported(message)){status(SullivanLearning.scope);return;}
-  if(current&&!hasLearningMaterial()){status('내용 질문에는 자막·지문 또는 실제 분석 결과가 필요합니다. 원본 재생·중지·이동·기록 명령은 사용할 수 있습니다.');return;}
+  if(SullivanLearning.unsupported(message)){status(SullivanLearning.scope);return false;}
+  if(current&&!hasLearningMaterial()){status('내용 질문에는 자막·지문 또는 실제 분석 결과가 필요합니다. 원본 재생·중지·이동·기록 명령은 사용할 수 있습니다.');return false;}
   needLesson(); rememberExploration(); const selected = current, ticket = generation, action = actionGeneration;
   const question=++questionRevision,valid=()=>ticket===generation&&current===selected&&action===actionGeneration&&question===questionRevision;
   announcer.cancel();speaker.cancel();
@@ -537,34 +622,64 @@ async function askImpl(message, forceSpeak = false) {
   try {
     result = await request(`/local/lectures/${current.id}/agent-turn`, {method: 'POST', timeout: 190000, body: {message, current_time_ms: positionMs}});
   } catch (error) {
-    if (!valid()) return;
+    if (!valid()) return false;
     const fallback = SullivanLearning.respond(selected.snapshot, message, positionMs);
     showResponse(fallback.title, fallback.text, `준비된 자료 기반의 제한적 보조 도구입니다. ${error.message}`);
     status('실제 학습 대화에 연결하지 못해 준비된 자료 기반으로 안내했습니다.');
     if (!settings.reader_mode && (forceSpeak || $('speak-answer').checked)) await speaker.say(fallback.text);
-    return;
+    return false;
   }
-  if (!valid()) return;
-  if (!result.safe_to_speak || result.confidence < .72) { status('근거가 충분하지 않아 답변을 보류했습니다.'); return; }
+  if (!valid()) return false;
+  if (!result.safe_to_speak || result.confidence < .72) { status('근거가 충분하지 않아 답변을 보류했습니다.'); return false; }
   showResponse(result.title, result.response_text, 'Gemini 학습 대화'); status('학습 대화 답변을 준비했습니다.');
   if (result.action === 'pause') return stopAll();
   if (result.action === 'seek' && Number.isFinite(result.target_timestamp_ms)&&!await seek(result.target_timestamp_ms))return;
   if (result.action === 'describe_current') return describe();
   if (result.action === 'replay_paragraph') {
     const text = paragraphs().filter(p => result.paragraph_indices.includes(p.paragraph_index)).map(SullivanPassages.paragraphSpeech).join(' ');
-    if (text) return speaker.say(text);
+    if (text){await speaker.say(text);return valid();}
   }
   if (!settings.reader_mode && (forceSpeak || $('speak-answer').checked)) await speaker.say(result.response_text);
+  return valid();
 }
 async function describe() {
   needLesson(); rememberExploration(); const gap = [...playbackGaps()].sort((a,b) => Math.abs(a.timestamp_ms-positionMs)-Math.abs(b.timestamp_ms-positionMs))[0];
   if (!gap) throw new Error('현재 자료에 검증된 화면 설명이 없습니다.');
   await speaker.say(`${time(gap.timestamp_ms)}에 준비된 설명입니다. ${narrationText(gap)}`);
+  return true;
 }
 export async function command(text, forceSpeak = false) {
+  const intent=resolveStudentIntent(text,SullivanVoiceCommands.classify);
+  if(intent.type==='status')return showCurrentStatus();
+  if(intent.type==='help'){showHelp();return true;}
+  if(intent.type==='clarify'){
+    feedbackTicket=feedback.begin('command');feedback.update(feedbackTicket,'fail','unrecognized');
+    status('조작 명령이 분명하지 않습니다. 영상 재생 또는 전체 중지처럼 짧게 입력하거나 도움말을 확인하세요.');return false;
+  }
+  const monitored=['play','pause','stop','seek','resume_lecture','describe','summary_audio','summary_three','chat','question'].includes(intent.type);
+  if(!monitored)return commandImpl(text,forceSpeak,intent);
+  const label={resume_lecture:'play',summary_audio:'summary',summary_three:'summary',chat:'question'}[intent.type]||intent.type;
+  const account=user,lesson=current,epoch=generation,ticket=feedback.begin(label);feedbackTicket=ticket;
+  feedback.update(ticket,'recognized');feedback.update(ticket,'running');
+  if(forceSpeak)$('voice-status').textContent=feedback.current().summary;
+  try{
+    let result;
+    if(intent.type==='play')result=await startPlayback();
+    else if(intent.type==='pause'||intent.type==='stop')result=await stopAll();
+    else if(intent.type==='seek')result=await seek(positionMs+intent.deltaMs);
+    else result=await commandImpl(text,forceSpeak,intent);
+    if(account!==user||lesson!==current||epoch!==generation)return false;
+    const success=result===true;
+    const changed=feedback.update(ticket,success?'success':'fail',success?'':'failed');
+    if(forceSpeak)$('voice-status').textContent='';
+    if(changed&&forceSpeak&&['play'].includes(label))status(feedback.current().summary);
+    return success;
+  }catch(error){feedback.update(ticket,error.cancelled?'cancel':'fail',!current?'no_lecture':!media.ready&&['play','seek'].includes(label)?'player_unavailable':error.cancelled?'cancelled':'failed');throw error;}
+}
+async function commandImpl(text, forceSpeak, intent) {
   if(SullivanLearning.unsupported(text)){status(SullivanLearning.scope);return;}
-  const intent = SullivanVoiceCommands.classify(text);
-  if(/사용법|단축키.*알려/.test(text)){showHelp();return;}
+  if(intent.type==='question'){showTask('find',{restore:false});return ask(text,forceSpeak);}
+  if(/사용법|단축키.*알려/.test(text)){showHelp();return true;}
   if(/^(?:결과\s*)?[0-9]+(?:번)?(?:\s*선택)?$/.test(text)){const item=SullivanConcepts.search(concepts(),$('search-form').elements.query.value)[Number(text.match(/[0-9]+/)[0])-1];if(item)return playConcept(item);}
   if(/원래.*(?:곳|위치)|듣던.*(?:곳|위치)/.test(text))return returnToOrigin();
   if (intent.type === 'pause') return stopAll();
@@ -588,17 +703,15 @@ export async function command(text, forceSpeak = false) {
   }
   if (intent.type === 'auto_narration') { settings.auto_description = intent.enabled; fillPreferences(); return savePreferences(); }
   if (intent.type === 'describe') return describe();
-  if (intent.type === 'summary_audio' || intent.type === 'summary_three') {if(!hasLearningMaterial())throw new Error('요약에는 자막·지문 또는 실제 분석 결과가 필요합니다.');return speaker.say(SullivanLearning.respond(current.snapshot, '3줄 요약', positionMs).text);}
+  if (intent.type === 'summary_audio' || intent.type === 'summary_three') {if(!hasLearningMaterial())throw new Error('요약에는 자막·지문 또는 실제 분석 결과가 필요합니다.');await speaker.say(SullivanLearning.respond(current.snapshot, '3줄 요약', positionMs).text);return true;}
   if (intent.type === 'paragraph' || /문장|강조|지문.*흐름|전체.*지문/.test(text)){showTask('find',{restore:false,focus:currentTask!=='find'});return paragraphCommand(text);}
   if (intent.type === 'concept' || /찾아|검색/.test(text)) return search(text.replace(/핵심|키워드|개념|찾아\s*줘|검색해\s*줘|검색|해줘/g, '').trim() || '전체');
-  if (/10초.*(?:전|뒤로)|뒤로.*10초/.test(text)) return seek(positionMs - 10000);
-  if (/10초.*(?:후|앞으로)|앞으로.*10초/.test(text)) return seek(positionMs + 10000);
   if (/학습 기록|북마크|메모/.test(text)) {showTask('notes',{focus:false});($('legacy-records').hidden?$('notes-title'):$('records-title')).focus();return;}
   if (intent.type === 'panel') {
     const target = {'review-panel': 'review-title', 'study-panel': 'review-title', 'chat-panel': 'chat-title', 'watch-panel': 'player-title', 'passage-panel': 'search-title', 'evidence-panel': 'evidence'}[intent.panelId];
     if (target) {showTask(target==='player-title'?'listen':'find',{focus:false}); $(target).closest('details')?.setAttribute('open', ''); $(target).focus(); return; }
   }
-  showTask('find',{restore:false});await ask(text, forceSpeak);
+  showTask('find',{restore:false});return ask(text, forceSpeak);
 }
 function fillPreferences() {
   for (const key of Object.keys(defaults)) {
@@ -634,19 +747,25 @@ function startVoice(previous=capturePlayback()) {
   const Recognizer = window.SpeechRecognition || window.webkitSpeechRecognition;
   if (!Recognizer) { openDialog('음성 인식을 지원하지 않아 타자 명령을 열었습니다. 명령을 입력하고 Enter로 실행하세요.',previous); return; }
   stopAll(false); const ticket = ++voiceGeneration; let transcript = '';
+  const voicePractice=practiceTicket,voiceLesson=current,voiceAccount=user;
+  const listening=feedback.begin('listen');feedbackTicket=listening;feedback.update(listening,'listening');
   recognition = new Recognizer(); recognition.lang = 'ko-KR'; recognition.interimResults = true;
   recognition.continuous=false;
   recognition.onstart=()=>{voiceReadyCue();$('voice-status').textContent='명령을 말해 주세요. 말한 뒤 Space를 떼면 실행합니다.';};
   recognition.onresult = event => { transcript = [...event.results].map(result => result[0].transcript).join(' '); };
-  recognition.onerror = () => { if (ticket === voiceGeneration) { stopVoice(); openDialog('마이크를 사용할 수 없어 타자 명령을 열었습니다. 명령을 입력하고 Enter로 실행하세요.',previous); } };
+  recognition.onerror = () => { if (ticket === voiceGeneration) { feedback.update(listening,'fail','microphone_unavailable');stopVoice(); openDialog('마이크를 사용할 수 없어 타자 명령을 열었습니다. 명령을 입력하고 Enter로 실행하세요.',previous); } };
+  let submitted=false;
   recognition.onend = () => {
-    if (ticket !== voiceGeneration) return;
+    if (ticket !== voiceGeneration||submitted) return;submitted=true;
     recognition = null; $('voice').textContent = '음성 명령 시작';
-    if (transcript.trim()) command(transcript, true).catch(reportError);
-    else $('voice-status').textContent = '인식된 명령이 없습니다. 다시 말하거나 타자로 입력하세요.';
+    $('voice-status').textContent='';
+    if (transcript.trim()) {
+      feedback.update(listening,'success');
+      command(transcript, true).then(ok=>{if(ok&&voiceAccount===user&&voiceLesson===current&&classifyLocalCommand(transcript)?.type==='status')observePractice('voice_status',voicePractice);}).catch(reportError);
+    }else{feedback.update(listening,'fail','unrecognized');$('voice-status').textContent = '인식된 명령이 없습니다. 다시 말하거나 타자로 입력하세요.';}
   };
   try { recognition.start(); $('voice').textContent = '음성 명령 마치기'; $('voice-status').textContent = '명령을 말한 뒤 버튼을 다시 누르거나 길게 누른 Space를 떼세요.'; }
-  catch { stopVoice(); openDialog('음성 인식을 시작하지 못해 타자 명령을 열었습니다. 명령을 입력하고 Enter로 실행하세요.',previous); }
+  catch { feedback.update(listening,'fail','microphone_unavailable');stopVoice(); openDialog('음성 인식을 시작하지 못해 타자 명령을 열었습니다. 명령을 입력하고 Enter로 실행하세요.',previous); }
 }
 async function prepareMicrophone(){
   if(!navigator.mediaDevices?.getUserMedia)throw new Error('이 화면에서 마이크 권한을 요청할 수 없습니다. 전체 수강 화면에서 마이크를 허용하세요.');
@@ -670,20 +789,23 @@ $('voice-permission-dialog').addEventListener('close',()=>{voiceFallback=null;mi
 async function startPlayback(returnToSaved=false){
   const selected=needLesson(),ticket=generation,stopped=stopAll(false),action=actionGeneration,fence=media.fence;
   const valid=()=>selected===current&&ticket===generation&&action===actionGeneration&&fence===media.fence;
-  await stopped;if(!valid())return;
-  if(returnToSaved&&originMs!==null){await media.seek(originMs);if(!valid())return;originMs=null;$('return-origin').disabled=true;}
+  await stopped;if(!valid())return false;
+  if(returnToSaved&&originMs!==null){await media.seek(originMs);if(!valid())return false;originMs=null;$('return-origin').disabled=true;}
   await media.play(fence);
+  return valid();
 }
 async function togglePlayback(){
   needLesson();const action=actionGeneration,ticket=generation;const state=await media.state();
   if(action!==actionGeneration||ticket!==generation)return;
-  if(!state.paused)return stopAll();
-  await startPlayback();
+  if(!state.paused)return trackControl('pause',()=>stopAll());
+  return trackControl('play',()=>startPlayback());
 }
 let sequencePrevious=null;
 const sequence=SullivanSpaceGesture.create({holdMs:3000,hold:startVoice,release:()=>recognition?.stop(),
-  doubleTap:()=>stopAll().catch(reportError),taps:count=>{
-    if(count>=3)openDialog(undefined,sequencePrevious);else if(count===1)togglePlayback().catch(reportError);sequencePrevious=null;
+  doubleTap:()=>{const ticket=practiceTicket,lesson=current;trackControl('stop',()=>stopAll()).then(async ok=>{if(ok&&current===lesson){const state=await media.state();observePractice('stop',ticket,{paused:state.paused});}}).catch(reportError);},taps:count=>{
+    const ticket=practiceTicket,lesson=current;
+    if(count>=3){openDialog(undefined,sequencePrevious);observePractice('dialog',ticket,{tripleSpace:true});}
+    else if(count===1)togglePlayback().then(async()=>{if(current===lesson){const state=await media.state();observePractice('toggle',ticket,{playing:!state.paused});}}).catch(reportError);sequencePrevious=null;
   }});
 const gesture={down(){sequencePrevious??=capturePlayback();sequence.down();},up(){sequence.up();},cancel(){sequence.cancel();sequencePrevious=null;}};
 const keyboard=installStudentKeyboard({gesture,enabled:()=>$('space-enabled').checked,hasLesson:()=>Boolean(current),active:()=>Boolean(user),outputActive:()=>speaker.active||Boolean(recognition)||pendingRequests>0,
@@ -756,9 +878,9 @@ action('load-original', async () => {
   await connectFile(file);
 });
 action('remove-original', async () => { needLesson(); await removeOriginal(user.id, current.id); status('이 브라우저의 보관 사본을 삭제했습니다. 선택한 원본 파일은 삭제하지 않았습니다.'); });
-action('play',()=>startPlayback());
-action('stop', () => stopAll()); action('describe', describe);
-action('back', () => seek(Math.max(0, positionMs - 10000))); action('forward', () => seek(positionMs + 10000));
+action('play',()=>trackControl('play',()=>startPlayback()));
+action('stop', () => trackControl('stop',()=>stopAll())); action('describe', describe);
+action('back', () => trackControl('seek',()=>seek(Math.max(0, positionMs - 10000)))); action('forward', () => trackControl('seek',()=>seek(positionMs + 10000)));
 action('return-origin',returnToOrigin);
 action('read', () => { needLesson();rememberExploration(); return speaker.say([...(current.snapshot.review.core_summary || []), ...paragraphs().map(SullivanPassages.paragraphSpeech), ...safeGaps().map(g => g.public_description),...(lessonData.notices||[]).map(g=>g.public_description)].join(' ')); });
 action('read-underlined', () => paragraphCommand('밑줄 친 문단'));
@@ -777,8 +899,10 @@ bindForm('paragraph-form', async ({query}) => paragraphCommand(query));
 bindForm('search-form', async ({query}) => search(query));
 bindForm('chat-form', async ({question}) => ask(question));
 bindForm('dialog-form', async ({command: text}) => {
+  const ticket=practiceTicket,lesson=current;
   const closed = new Promise(resolve => $('text-dialog').addEventListener('close', resolve, {once: true}));
-  $('text-dialog').close('execute'); await closed; await command(text);
+  $('text-dialog').close('execute'); await closed;const ok=await command(text);
+  if(ok&&current===lesson&&classifyLocalCommand(text)?.type==='status')observePractice('typed_status',ticket);
 });
 $('close-dialog').addEventListener('click', () => $('text-dialog').close());
 $('text-dialog').addEventListener('close',async()=>{
@@ -850,6 +974,10 @@ action('bookmark-delete',async()=>{current.progress.bookmarks.splice(Number($('b
 window.addEventListener('pagehide',()=>notebook.flush().catch(()=>{}));
 await boot(async account => {
   user = account;for(const element of document.querySelectorAll('.student-access,#account-controls,#remote-access-title')){const section=element.id==='remote-access-title'?element.closest('section'):element;$('account-settings-slot').append(section);for(const heading of section.querySelectorAll('h2')){const replacement=document.createElement('h4');for(const attr of heading.attributes)replacement.setAttribute(attr.name,attr.value);replacement.append(...heading.childNodes);heading.replaceWith(replacement);}}
+  const practiceLoad=++practiceLoadRevision;practice.configure(account.id);renderPractice();
+  const practiceSaved=await chrome.storage.local.get(`practice:v1:${account.id}`).catch(()=>({}));
+  if(user!==account||practiceLoad!==practiceLoadRevision)return;
+  practice.configure(account.id,practiceSaved[`practice:v1:${account.id}`]);renderPractice();
   applySettings(account.settings); fillPreferences();
   const local = await chrome.storage.local.get(`keys:${user.id}`);
   device = {voice_uri: local[`keys:${user.id}`]?.voice_uri || '', speech_pitch: local[`keys:${user.id}`]?.speech_pitch || 1,speech_style:local[`keys:${user.id}`]?.speech_style||'warm'};

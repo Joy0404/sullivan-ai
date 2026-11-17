@@ -1,0 +1,13 @@
+/var/folders/q1/89zw4q9s26j_5tf0t1hz_9d40000gn/T/sullivan-extensions-ifekr1nx/packages/student
+/var/folders/q1/89zw4q9s26j_5tf0t1hz_9d40000gn/T/sullivan-extensions-ifekr1nx/packages/guardian
+ENTRY01.first_guide_then_choice PASS
+ENTRY02.optional_help_preserves_work PASS
+ENTRY03.return_visit_skips_guide PASS
+ENTRY04.form_choice_back_and_login PASS
+ENTRY05.existing_session_preserved PASS
+ENTRY06.signup_and_recovery_then_login PASS
+ENTRY09.sequential_keyboard_flow PASS
+ENTRY07.session_exit_during_guide PASS
+ENTRY08.storage_failure_is_recoverable PASS
+ENTRY11.first_guide_precedes_restored_session PASS
+ENTRY10.new_program_tab_starts_with_choices PASS

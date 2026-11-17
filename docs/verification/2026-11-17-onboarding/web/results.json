@@ -1,0 +1,41 @@
+{
+  "result": "passed",
+  "checks": [
+    {
+      "check": "roles_browser",
+      "exit_code": 0,
+      "elapsed_seconds": 24.83
+    },
+    {
+      "check": "keyboard_navigation",
+      "exit_code": 0,
+      "elapsed_seconds": 21.36
+    },
+    {
+      "check": "student_entry",
+      "exit_code": 0,
+      "elapsed_seconds": 9.01
+    },
+    {
+      "check": "voice_preferences",
+      "exit_code": 0,
+      "elapsed_seconds": 5.78
+    },
+    {
+      "check": "audio_navigation",
+      "exit_code": 0,
+      "elapsed_seconds": 9.04
+    },
+    {
+      "check": "guardian_sessions",
+      "exit_code": 0,
+      "elapsed_seconds": 2.38
+    },
+    {
+      "check": "login_startup",
+      "exit_code": 0,
+      "elapsed_seconds": 2.97
+    }
+  ],
+  "boundary": "Temporary local DB/accounts and browser fixtures; no paid provider or actual screen-reader speech."
+}

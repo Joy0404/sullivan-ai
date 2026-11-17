@@ -1,0 +1,19 @@
+{
+  "kind": "미측정",
+  "provider_configured": false,
+  "default_route": "baseline",
+  "manifest_sha256": "dc726d0e8793fc4fb5379e15069f2b689efa67e3d36fe4de39acff935fd74ba7",
+  "pairs": [],
+  "boundary": "Fixture regressions and live model usage are separate. No automatic promotion.",
+  "gate": {
+    "eligible_for_submission": false,
+    "default_route": "baseline",
+    "reasons": [
+      "balanced-AB-BA-runs-required",
+      "complete-usage-including-retries-required",
+      "live-provider-measurement-pending"
+    ],
+    "paired_total_tokens": null,
+    "reduction_percent": null
+  }
+}

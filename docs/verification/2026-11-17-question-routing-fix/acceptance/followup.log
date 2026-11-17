@@ -1,0 +1,21 @@
+/var/folders/q1/89zw4q9s26j_5tf0t1hz_9d40000gn/T/sullivan-extensions-hcpi6t2u/packages/student
+/var/folders/q1/89zw4q9s26j_5tf0t1hz_9d40000gn/T/sullivan-extensions-hcpi6t2u/packages/guardian
+S01.note_autosave_preserves_entered_position PASS
+S02.home_saves_entered_position PASS
+S03.failed_bookmark_blocks_switch PASS
+S04.actionable_save_failure PASS
+S05.retry_retains_bookmark_and_focus PASS
+S06.failed_manual_position_blocks_switch PASS
+S07.retry_keeps_entered_position PASS
+S08.failed_underline_blocks_switch PASS
+S09.retry_keeps_underline PASS
+S14.delayed_failure_keeps_newer_focus PASS
+S15.invalid_position_exposes_correction PASS
+S10.failure_voice_once PASS
+S13.explicit_retry_failure_voice PASS
+S11.recovery_voice PASS
+S12.logout_cancels_queued_save PASS
+G01.preparation_dashboard PASS
+G02.filter_search_and_counts PASS
+G03.removed_job_focus_and_running_notice PASS
+G04.keyboard_only_guardian_flow PASS

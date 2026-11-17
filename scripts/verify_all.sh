@@ -27,12 +27,28 @@ if command -v node >/dev/null 2>&1; then
   node scripts/test_voice_command_router.js
   node scripts/test_student_core.mjs
   node scripts/test_student_notebook.mjs
+  node scripts/test_notebook_async.mjs
+  node scripts/test_interaction_feedback.mjs
+  node scripts/test_practice_progress.mjs
   node scripts/test_extension_client.mjs
   node scripts/test_remote_login.mjs
   node scripts/test_accessible_analysis.mjs
 else
   echo "WARN: node가 없어 JavaScript 구문 검사를 건너뜁니다."
 fi
+
+python - <<'PY'
+import sys
+sys.path.insert(0, 'scripts')
+from build_extensions import VERSION
+from package_submission import ROOT, inspect_current_archive
+archive = ROOT / 'dist/submission' / f'sullivan-submission-{VERSION}.zip'
+if archive.is_file():
+    inspect_current_archive(archive)
+    print('Submission archive matches current source and generated extensions.')
+else:
+    print('Submission archive not generated; source checks remain applicable.')
+PY
 
 if python -c "import pytest" >/dev/null 2>&1; then
   (cd apps/api && PYTHONPATH=. python -m pytest -q)

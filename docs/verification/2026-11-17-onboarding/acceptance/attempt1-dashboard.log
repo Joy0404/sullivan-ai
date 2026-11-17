@@ -1,0 +1,37 @@
+/var/folders/q1/89zw4q9s26j_5tf0t1hz_9d40000gn/T/sullivan-extensions-vqrsil87/packages/student
+/var/folders/q1/89zw4q9s26j_5tf0t1hz_9d40000gn/T/sullivan-extensions-vqrsil87/packages/guardian
+Traceback (most recent call last):
+  File "/private/var/folders/q1/89zw4q9s26j_5tf0t1hz_9d40000gn/T/sullivan-onboarding-acceptance-m_fxxg3o/scripts/verify_extension_dashboard.py", line 59, in <module>
+    try:browser.main(exercise,phase='stage-dashboard',output=args.output)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/private/var/folders/q1/89zw4q9s26j_5tf0t1hz_9d40000gn/T/sullivan-onboarding-acceptance-m_fxxg3o/scripts/browser_fixtures.py", line 29, in run
+    return function(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/private/var/folders/q1/89zw4q9s26j_5tf0t1hz_9d40000gn/T/sullivan-onboarding-acceptance-m_fxxg3o/scripts/verify_extensions_browser.py", line 201, in main
+    guardian = exercise(guardian, student, output)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/private/var/folders/q1/89zw4q9s26j_5tf0t1hz_9d40000gn/T/sullivan-onboarding-acceptance-m_fxxg3o/scripts/verify_extension_dashboard.py", line 18, in exercise
+    states(['완료','완료','완료','기본값'])
+  File "/private/var/folders/q1/89zw4q9s26j_5tf0t1hz_9d40000gn/T/sullivan-onboarding-acceptance-m_fxxg3o/scripts/verify_extension_dashboard.py", line 15, in states
+    expect(guardian.locator('#setup-'+name)).to_have_text(value)
+  File "/Users/joy/Documents/Codex/Sullivan-AI-Develop-local/.venv/lib/python3.12/site-packages/playwright/sync_api/_generated.py", line 15528, in to_have_text
+    self._sync(
+  File "/Users/joy/Documents/Codex/Sullivan-AI-Develop-local/.venv/lib/python3.12/site-packages/playwright/_impl/_sync_base.py", line 111, in _sync
+    return task.result()
+           ^^^^^^^^^^^^^
+  File "/Users/joy/Documents/Codex/Sullivan-AI-Develop-local/.venv/lib/python3.12/site-packages/playwright/_impl/_assertions.py", line 648, in to_have_text
+    await self._expect_impl(
+  File "/Users/joy/Documents/Codex/Sullivan-AI-Develop-local/.venv/lib/python3.12/site-packages/playwright/_impl/_assertions.py", line 128, in _expect_impl
+    _record_soft_or_raise(
+  File "/Users/joy/Documents/Codex/Sullivan-AI-Develop-local/.venv/lib/python3.12/site-packages/playwright/_impl/_assertions.py", line 60, in _record_soft_or_raise
+    raise error
+AssertionError: Locator expected to have text '완료'
+Actual value: 서버 목록에서 연결된 계정 1명 확인
+Call log:
+  - Expect "to_have_text" locator("#setup-student") with timeout 5000ms
+  - waiting for locator("#setup-student")
+    14 × locator resolved to <span id="setup-student">서버 목록에서 연결된 계정 1명 확인</span>
+       - unexpected value "서버 목록에서 연결된 계정 1명 확인"
+
+Aria snapshot:
+- text: 서버 목록에서 연결된 계정 1명 확인

@@ -1,0 +1,53 @@
+{
+  "result": "passed",
+  "checks": {
+    "server_evidence_only": true,
+    "jumps_preserve_drafts_without_requests": true,
+    "full_manual_optional_reopenable": true,
+    "code_does_not_complete_connection_or_assignment": true,
+    "first_guide_gate_preserved": true
+  },
+  "axe": [
+    {
+      "screen": "guardian-first-guide",
+      "version": "4.14.0",
+      "violations": 0
+    },
+    {
+      "screen": "student-login",
+      "version": "4.14.0",
+      "violations": 0
+    },
+    {
+      "screen": "guardian-account-choice",
+      "version": "4.14.0",
+      "violations": 0
+    },
+    {
+      "screen": "guardian-signup",
+      "version": "4.14.0",
+      "violations": 0
+    },
+    {
+      "screen": "student-material",
+      "version": "4.14.0",
+      "violations": 0
+    },
+    {
+      "screen": "guardian-workspace",
+      "version": "4.14.0",
+      "violations": 0
+    },
+    {
+      "screen": "guardian-onboarding-connected",
+      "version": "4.14.0",
+      "violations": 0
+    },
+    {
+      "screen": "guardian-onboarding-awaiting-student",
+      "version": "4.14.0",
+      "violations": 0
+    }
+  ],
+  "boundary": "Installed extensions and existing local endpoints with a temporary DB/profile; no provider credentials. Real screen-reader audio and separate-device student playback are not verified."
+}

@@ -1,0 +1,48 @@
+{
+  "skill": "python-specialist",
+  "scope": [
+    "apps/api/app/adapters/video_link.py",
+    "apps/api/app/adapters/gemini_agent.py",
+    "apps/api/app/core/verification_plan.py",
+    "apps/api/app/core/question_evidence.py",
+    "apps/api/app/core/token_comparison.py",
+    "scripts/measure_gemini_tokens.py"
+  ],
+  "findings": [
+    {
+      "rule": "PY-MODEL-EQUIVALENCE",
+      "wcag": "n/a",
+      "severity": "serious",
+      "location": "apps/api/app/core/token_comparison.py",
+      "summary": "The original comparison checked configured rather than actual provider models.",
+      "fix": "Compare usage-record models by stage and reject unknown models."
+    },
+    {
+      "rule": "PY-DEPENDENT-MATERIAL-HOLD",
+      "wcag": "n/a",
+      "severity": "serious",
+      "location": "apps/api/app/core/verification_plan.py",
+      "summary": "Missing component evidence could retain dependent passage material.",
+      "fix": "Mark missing evidence as changed and hold dependent materials."
+    },
+    {
+      "rule": "PY-BLOCKED-REASON",
+      "wcag": "n/a",
+      "severity": "moderate",
+      "location": "apps/api/app/core/question_evidence.py",
+      "summary": "Unsafe legacy gap reasons were omitted from output blocking.",
+      "fix": "Include unsafe reasons in the question boundary blocked texts."
+    },
+    {
+      "rule": "PY-SOURCE-SPEECH-COVERAGE",
+      "wcag": "n/a",
+      "severity": "serious",
+      "location": "apps/api/app/core/verification_plan.py",
+      "summary": "Text audit lacked mandatory independently reread source speech.",
+      "fix": "Require fresh speech for every original source range or use full verification."
+    }
+  ],
+  "notes": [
+    "Read-only specialist source review. No live provider calls."
+  ]
+}

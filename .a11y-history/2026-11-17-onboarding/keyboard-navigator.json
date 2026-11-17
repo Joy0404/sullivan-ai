@@ -1,0 +1,28 @@
+{
+  "skill": "keyboard-navigator",
+  "scope": [
+    "apps/extensions/student/app.js",
+    "apps/extensions/student/workspace.html",
+    "apps/extensions/student/keyboard.js",
+    "apps/extensions/student/practice-progress.js",
+    "apps/extensions/guardian/app.js",
+    "apps/extensions/guardian/workspace.html",
+    "apps/extensions/guardian/entry.js",
+    "apps/extensions/guardian/entry.html"
+  ],
+  "findings": [],
+  "passed": [
+    "New onboarding, practice, status and help actions use native keyboard-operable buttons.",
+    "Guardian setup shortcuts focus visible connection-code and student-selection controls without submitting forms.",
+    "Guardian guide hides underlying content and restores focus to its invoking help button.",
+    "Student practice opening and closing explicitly move focus to visible elements.",
+    "Student keyboard traversal excludes hidden, inert, disabled and collapsed-details descendants.",
+    "Native command dialogs provide modal containment; closing restores a visible invoking control or fallback.",
+    "Lesson changes suspend practice tickets, and account changes configure separate practice state."
+  ],
+  "notes": [
+    "Source review only; runtime keyboard navigation, focus visibility and browser-specific focus behavior were not independently exercised.",
+    "No files were edited and no provider or user database calls were made.",
+    "Optional usability improvement: when Space commands are disabled, practice-start could explain how to enable them before instructing the student to use Space."
+  ]
+}

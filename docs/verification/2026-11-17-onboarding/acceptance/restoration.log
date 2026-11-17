@@ -1,0 +1,163 @@
+/var/folders/q1/89zw4q9s26j_5tf0t1hz_9d40000gn/T/sullivan-extensions-nf707lvy/packages/student
+/var/folders/q1/89zw4q9s26j_5tf0t1hz_9d40000gn/T/sullivan-extensions-nf707lvy/packages/guardian
+Checking cancel resume: button
+Checking cancel resume: triple
+{
+  "browser": "156.0.8078.4",
+  "result": "passed",
+  "actual_extensions": 2,
+  "same_profile": true,
+  "checks": [
+    "independent registration/login",
+    "student creation",
+    "sample assignment",
+    "safe material reading",
+    "progress persistence",
+    "independent logout",
+    "wrong-role rejection",
+    "focus after save/error",
+    "390/1280 layout",
+    "skip link",
+    "material preparation",
+    "job state recovery after tab close",
+    "source switch validation",
+    "student settings",
+    "assignment editing",
+    "lecture order",
+    "confirmed withdrawal",
+    "student refresh after withdrawal",
+    "native local video pause/play/seek",
+    "fingerprint-verified file, no student upload",
+    "encrypted original reload",
+    "caption track and toggle",
+    "automatic prepared narration in reader mode",
+    "late TTS stop cancellation",
+    "optional Space and modal fallback",
+    "bookmark and underline persistence",
+    "concept search and removed-generation rejection",
+    "notes export",
+    "cross-view delayed answer cancellation",
+    "isolated native tab control",
+    "closed-view playback watchdog",
+    "independent student signup",
+    "one-time recovery code export",
+    "actual S256 PKCE browser login for both roles",
+    "remembered refresh after session storage reset",
+    "pair preview and explicit consent",
+    "paired assignment and progress",
+    "unlink removes assignment and guardian lookup",
+    "account recovery",
+    "single Space toggles video without clicking focused control",
+    "double Space cancels stale speech",
+    "triple Space opens typed command and executes seek",
+    "voice starts after 3000ms and executes transcript on release (recognizer stub)",
+    "Tab/Shift+Tab/standalone Shift scope and explicit Escape exit",
+    "actual Chrome side-panel target keyboard containment",
+    "app speech before login and on named fields, no password speech",
+    "external-reader output without app TTS",
+    "no administrator/invite/analysis code fields",
+    "focus TTS pauses real video then resumes; reader focus pauses without resume",
+    "answer mute independent of focus voice; pending Space cancelled by Tab",
+    "button/triple-Space text cancel resume; execute-then-cancel reset",
+    "bounded concept playback then AI explanation; original-place command",
+    "native input emergency double stop and interrupted sequence",
+    "guardian full preview and SHA-verified local captions",
+    "home typed help and onboarding completion/reset",
+    "confirmed guardian deletion; three-step form validation",
+    "explicit Stop wins against delayed Play acknowledgement",
+    "guardian preview question consent and rendered provider result (provider stub)",
+    "recognizer readiness schedules WebAudio cue; disclosure/pressed guidance",
+    "natural voice/style preview resumes previously playing lecture",
+    "voice command button finishes transcript by mouse or Enter without restarting recognition"
+  ],
+  "limitations": [
+    "Native decoded video fixture; actual YouTube compatibility, real speech recognition, speech quality and VoiceOver/NVDA audio not verified"
+  ],
+  "axe": {
+    "enabled": true,
+    "screens": [
+      {
+        "screen": "guardian-first-guide",
+        "version": "4.14.0",
+        "violations": 0
+      },
+      {
+        "screen": "student-login",
+        "version": "4.14.0",
+        "violations": 0
+      },
+      {
+        "screen": "guardian-account-choice",
+        "version": "4.14.0",
+        "violations": 0
+      },
+      {
+        "screen": "guardian-signup",
+        "version": "4.14.0",
+        "violations": 0
+      },
+      {
+        "screen": "student-material",
+        "version": "4.14.0",
+        "violations": 0
+      },
+      {
+        "screen": "guardian-workspace",
+        "version": "4.14.0",
+        "violations": 0
+      },
+      {
+        "screen": "guardian-phase2",
+        "version": "4.14.0",
+        "violations": 0
+      },
+      {
+        "screen": "student-keyboard-repair",
+        "version": "4.14.0",
+        "violations": 0
+      },
+      {
+        "screen": "guardian-full-preview",
+        "version": "4.14.0",
+        "violations": 0
+      },
+      {
+        "screen": "student-restored-learning",
+        "version": "4.14.0",
+        "violations": 0
+      },
+      {
+        "screen": "student-phase3",
+        "version": "4.14.0",
+        "violations": 0
+      },
+      {
+        "screen": "hosted-guardian-login",
+        "version": "4.14.0",
+        "violations": 0
+      },
+      {
+        "screen": "student-recovery-codes",
+        "version": "4.14.0",
+        "violations": 0
+      },
+      {
+        "screen": "hosted-student-login",
+        "version": "4.14.0",
+        "violations": 0
+      },
+      {
+        "screen": "student-pair-confirm",
+        "version": "4.14.0",
+        "violations": 0
+      },
+      {
+        "screen": "student-home-help",
+        "version": "4.14.0",
+        "violations": 0
+      }
+    ],
+    "scope": "check_layout screens, WCAG A/AA tags",
+    "violations": 0
+  }
+}

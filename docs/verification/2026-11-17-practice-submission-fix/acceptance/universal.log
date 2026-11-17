@@ -1,0 +1,11 @@
+/var/folders/q1/89zw4q9s26j_5tf0t1hz_9d40000gn/T/sullivan-extensions-44dghq6j/packages/student
+/var/folders/q1/89zw4q9s26j_5tf0t1hz_9d40000gn/T/sullivan-extensions-44dghq6j/packages/guardian
+U01.empty_mime_file PASS
+U02.mismatch_fails_closed PASS
+U06.decode_failure_cleans_up PASS
+U03.unsaved_voice_preserved PASS
+U04.generic_same_origin_shadow_frame PASS
+U09.connection_focus_preserved PASS
+U05.cross_origin_frame_permission PASS
+U07.link_only_is_playback_not_analysis PASS
+U08.local_metadata_only_playback PASS

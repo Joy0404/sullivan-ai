@@ -1,0 +1,52 @@
+{
+  "result": "passed",
+  "checks": {
+    "question_without_connected_video_uses_question_endpoint": true,
+    "play_word_in_question_does_not_start_video": true,
+    "stop_word_in_question_does_not_stop_video": true,
+    "clear_stop_and_ambiguous_control_help_stay_local": true,
+    "typed_dialog_preserves_question_text_and_paused_state": true,
+    "asr_final_question_once_without_reader_mode_app_tts": true,
+    "question_routing_preserves_hold_and_feedback_privacy": true,
+    "explicit_stop_fences_pending_learning_question": true,
+    "no_raw_media_uploads": true
+  },
+  "axe": [
+    {
+      "screen": "guardian-first-guide",
+      "version": "4.14.0",
+      "violations": 0
+    },
+    {
+      "screen": "student-login",
+      "version": "4.14.0",
+      "violations": 0
+    },
+    {
+      "screen": "guardian-account-choice",
+      "version": "4.14.0",
+      "violations": 0
+    },
+    {
+      "screen": "guardian-signup",
+      "version": "4.14.0",
+      "violations": 0
+    },
+    {
+      "screen": "student-material",
+      "version": "4.14.0",
+      "violations": 0
+    },
+    {
+      "screen": "guardian-workspace",
+      "version": "4.14.0",
+      "violations": 0
+    },
+    {
+      "screen": "student-question-routing",
+      "version": "4.14.0",
+      "violations": 0
+    }
+  ],
+  "boundary": "Actual installed extensions, keyboard/text dialog, generated video and temporary API/DB. ASR and model response explicitly mocked; no paid model or actual screen-reader audio verification."
+}

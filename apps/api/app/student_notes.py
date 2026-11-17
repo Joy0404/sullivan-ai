@@ -63,16 +63,22 @@ def sources(ident, request):
     return result
 
 
-def resolved(ident, source, request):
-    if not source:
-        return None
+def available_sources(ident, request):
+    """Index freshly authorized sources for one request; never cache across requests."""
     try:
-        return next((entry for entry in sources(ident, request)
-                     if all(entry[key] == source[key] for key in ('kind', 'id', 'fingerprint'))), None)
+        return {source_key(entry): entry for entry in sources(ident, request)}
     except HTTPException as error:
         if error.status_code not in (403, 404):
             raise
-        return None
+        return {}
+
+
+def source_key(source):
+    return tuple(source[key] for key in ('kind', 'id', 'fingerprint'))
+
+
+def resolved(ident, source, request):
+    return available_sources(ident, request).get(source_key(source)) if source else None
 
 
 def public(row):
@@ -145,6 +151,12 @@ def put_note(ident: str, note_id: str, payload: Note, request: Request):
             return public(latest)  # Retry after an ambiguous network completion.
         if (latest and latest['revision'] != payload.revision) or (not latest and payload.revision != 0):
             raise HTTPException(409, '다른 화면에서 필기가 바뀌었습니다. 초안을 새 필기로 보존하세요.')
+        if not latest:
+            # The preflight count can change while source authorization runs.
+            # Serialize the final capacity check with insertion across tabs.
+            count = con.execute('SELECT count(*) FROM student_notes WHERE lecture=? AND student=?', (ident, user['id'])).fetchone()[0]
+            if count >= 1000:
+                raise HTTPException(413, '강의당 필기는 1000개까지 저장할 수 있습니다.')
         revision = (latest['revision'] if latest else 0) + 1
         updated = datetime.now(timezone.utc).isoformat(timespec='milliseconds')
         con.execute('INSERT OR REPLACE INTO student_notes VALUES(?,?,?,?,?,?,?,?)',
@@ -162,12 +174,15 @@ def delete_note(ident: str, note_id: str, payload: NoteVersion, request: Request
     user = accounts.require(request, 'student')
     with accounts.db() as con:
         table(con)
+        con.execute('BEGIN IMMEDIATE')
         row = con.execute('SELECT * FROM student_notes WHERE lecture=? AND student=? AND id=?', (ident, user['id'], note_id)).fetchone()
         if row is None:
             raise HTTPException(404, '내 필기 항목을 찾을 수 없습니다.')
         if payload.revision != row['revision']:
             raise HTTPException(409, '필기가 바뀌었습니다. 목록을 다시 확인하세요.')
-        con.execute('DELETE FROM student_notes WHERE lecture=? AND student=? AND id=? AND revision=?', (ident, user['id'], note_id, payload.revision))
+        deleted = con.execute('DELETE FROM student_notes WHERE lecture=? AND student=? AND id=? AND revision=?', (ident, user['id'], note_id, payload.revision))
+        if deleted.rowcount != 1:
+            raise HTTPException(409, '필기가 바뀌었습니다. 목록을 다시 확인하세요.')
     return {'ok': True}
 
 
@@ -187,9 +202,10 @@ def note_source(ident: str, note_id: str, request: Request):
 @router.get('/lectures/{ident}/notes-export')
 def export_notes(ident: str, request: Request):
     entries = list_notes(ident, request)
+    current_sources = available_sources(ident, request) if any(entry['source'] for entry in entries) else {}
     lines = ['# 내 필기', '', '학생 작성 내용입니다. 연결 원문은 별도 표시합니다.', '']
     for entry in entries:
         lines += [f"## {entry['started_ms'] // 1000}초에 시작한 필기", '', entry['body'], '']
-        source = resolved(ident, entry['source'], request)
+        source = current_sources.get(source_key(entry['source'])) if entry['source'] else None
         lines += ['연결 원문 (읽기 전용):', source['text'] if source else '현재 연결 원문 없음 또는 공개 불가', '']
     return {'text': '\n'.join(lines)}

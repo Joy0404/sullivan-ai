@@ -70,4 +70,11 @@ PATH="$PWD/.venv/bin:$PATH" bash scripts/verify_all.sh
 .venv/bin/python scripts/package_submission.py --inspect /path/to/sullivan-submission-version.zip
 ```
 
+현재 작업 소스와 배포 확장까지 같은지 확인할 때는 `--check-current`를 추가한다. ZIP 내부 체크섬이 정상이더라도 예전 코드이거나 새 모듈이 빠졌으면 실패한다. 소스를 수정한 뒤 제출 ZIP을 다시 만들고 이 검사를 통과한 파일을 사용한다. 기본 `verify_all.sh`도 현재 버전의 ZIP이 있으면 같은 검사를 실행한다.
+
+```bash
+.venv/bin/python scripts/package_submission.py \
+  --inspect dist/submission/sullivan-submission-0.4.9.zip --check-current
+```
+
 알려진 키·토큰·개인 키 패턴 검사는 임의 문장의 모든 개인정보를 식별하는 보장이 아니다. 새로운 자료를 추가해 다시 제출할 때는 직접 작성한 공개 샘플만 `samples/public-manifest.json`에 등록하고 실제 키·원본·사용자 DB·메모·로그를 넣지 않는다. 현재 실제 사용자·유료 공급자·실제 스크린리더 음성으로 검증한 범위는 별도 보고와 구분한다.

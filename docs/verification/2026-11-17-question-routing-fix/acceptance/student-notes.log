@@ -1,0 +1,111 @@
+/var/folders/q1/89zw4q9s26j_5tf0t1hz_9d40000gn/T/sullivan-extensions-wa5tvh_3/packages/student
+/var/folders/q1/89zw4q9s26j_5tf0t1hz_9d40000gn/T/sullivan-extensions-wa5tvh_3/packages/guardian
+{
+  "browser": "156.0.8078.4",
+  "result": "passed",
+  "actual_extensions": 2,
+  "same_profile": true,
+  "checks": [
+    "independent registration/login",
+    "student creation",
+    "sample assignment",
+    "safe material reading",
+    "progress persistence",
+    "independent logout",
+    "wrong-role rejection",
+    "focus after save/error",
+    "390/1280 layout",
+    "skip link",
+    "material preparation",
+    "job state recovery after tab close",
+    "source switch validation",
+    "student settings",
+    "assignment editing",
+    "lecture order",
+    "confirmed withdrawal",
+    "student refresh after withdrawal",
+    "closed/nested details real Tab/Shift+Tab, failed focus fallback",
+    "task isolation and cursor return",
+    "multiple private notes, explicit safe source",
+    "auto-save and offline draft reload/retry",
+    "search/edit/legacy memo copy/export",
+    "removed command rejection before provider",
+    "reader mode suppresses app TTS",
+    "local public video no upload, Space/Shift gestures",
+    "actual native Chrome side-panel closed-details keys",
+    "guardian create/sample/assign with Tab/type-ahead/Enter only",
+    "hidden-task save failure and conflict-copy recovery",
+    "withdrawn notebook reopen/edit/export after reload",
+    "saved-note/source close/save never resumes decoded video"
+  ],
+  "limitations": [
+    "No real screen-reader audio, TTS quality or external player verification"
+  ],
+  "axe": {
+    "enabled": true,
+    "screens": [
+      {
+        "screen": "guardian-first-guide",
+        "version": "4.14.0",
+        "violations": 0
+      },
+      {
+        "screen": "student-login",
+        "version": "4.14.0",
+        "violations": 0
+      },
+      {
+        "screen": "guardian-account-choice",
+        "version": "4.14.0",
+        "violations": 0
+      },
+      {
+        "screen": "guardian-signup",
+        "version": "4.14.0",
+        "violations": 0
+      },
+      {
+        "screen": "student-material",
+        "version": "4.14.0",
+        "violations": 0
+      },
+      {
+        "screen": "guardian-workspace",
+        "version": "4.14.0",
+        "violations": 0
+      },
+      {
+        "screen": "notes-listening",
+        "version": "4.14.0",
+        "violations": 0
+      },
+      {
+        "screen": "notes-editor",
+        "version": "4.14.0",
+        "violations": 0
+      },
+      {
+        "screen": "notes-find",
+        "version": "4.14.0",
+        "violations": 0
+      },
+      {
+        "screen": "notes-settings",
+        "version": "4.14.0",
+        "violations": 0
+      },
+      {
+        "screen": "notes-final",
+        "version": "4.14.0",
+        "violations": 0
+      },
+      {
+        "screen": "notes-archive",
+        "version": "4.14.0",
+        "violations": 0
+      }
+    ],
+    "scope": "check_layout screens, WCAG A/AA tags",
+    "violations": 0
+  }
+}
