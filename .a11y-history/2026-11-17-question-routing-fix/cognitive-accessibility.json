@@ -1,0 +1,32 @@
+{
+  "skill": "cognitive-accessibility",
+  "scope": [
+    "apps/extensions/student/interaction-feedback.js",
+    "apps/extensions/student/app.js",
+    "scripts/test_interaction_feedback.mjs",
+    "scripts/verify_student_command_routing.py"
+  ],
+  "findings": [],
+  "passed": [
+    "COGA-QUESTION-HELP-001 fixed: SUPPORT_REQUEST is anchored to the complete utterance, preserving the contextual inertia question while retaining local operational help.",
+    "COGA-QUESTION-CLARIFY-002 fixed: EXPLANATION_REQUEST preserves the nuclear-fusion process explanation request without a topic noun allowlist.",
+    "COGA-LOCAL-CLARIFY-003 fixed: AMBIGUOUS_REQUEST sends 재생 좀 to local clarification before legacy chat can reach ask().",
+    "Whole-command play, stop and seek matching still precedes question detection, including reviewed polite and urgent controls.",
+    "Leading control plus explanation requests clarify locally; the existing explicit return-to-lecture command remains available.",
+    "command() passes the resolved intent to commandImpl() without a second legacy classification, and question handling preserves the original text before substring branches.",
+    "Monitored command completion still requires result === true, with held and stale question responses returning false.",
+    "Unit and installed-extension regression sources now cover all three original examples, explicit controls, local clarification, preserved questions, held output and stale response cancellation.",
+    "git diff --name-only -- apps/web was empty at final review time.",
+    "Final narrow review: normalization removes only trailing punctuation, preserving internal decimal punctuation for conservative relative-seek rejection.",
+    "Final narrow review: exact supported ten-second seeks resolve locally; signed, decimal and unsupported relative seeks clarify locally rather than falling through to media movement.",
+    "Final narrow review: canonical whole return-to-lecture commands precede question logic, while contextual return-process explanation remains a question.",
+    "Final narrow review: explicit lecture and button invocations retain their legacy intent when their titles or labels contain interrogative or explanation words.",
+    "Final narrow review: commandImpl no longer contains the loose relative-seek substring branches; the resolved intent remains the media-operation authority.",
+    "Final narrow review: the reviewed unit-regression source includes decimal and signed seeks, return-process questions, canonical return controls and lecture/button labels containing question words."
+  ],
+  "notes": [
+    "Source-only re-review; no source edits, live providers, user database access or runtime regression execution were performed by this specialist.",
+    "All three initial cognitive-accessibility findings are resolved in the reviewed source; the initial findings are preserved in cognitive-accessibility-initial.json.",
+    "Final source signoff covers the reviewed changes and concrete regressions only; it does not claim complete natural-language recognition."
+  ]
+}

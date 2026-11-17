@@ -1,6 +1,6 @@
 import {request} from './client.js';
 import {createNotebook} from './notes.js';
-import {classifyLocalCommand,createInteractionFeedback} from './interaction-feedback.js';
+import {classifyLocalCommand,resolveStudentIntent,createInteractionFeedback} from './interaction-feedback.js';
 import {createPracticeProgress} from './practice-progress.js';
 import {$, node, button, bindForm, status, task, boot} from './ui.js';
 import {StudentMedia} from './media.js';
@@ -649,22 +649,25 @@ async function describe() {
   return true;
 }
 export async function command(text, forceSpeak = false) {
-  const local=classifyLocalCommand(text);
-  if(local?.type==='status')return showCurrentStatus();
-  if(local?.type==='help'){showHelp();return true;}
-  const intent=local||SullivanVoiceCommands.classify(text);
-  const monitored=['play','pause','stop','seek','resume_lecture','describe','summary_audio','summary_three','chat'].includes(intent.type);
-  if(!monitored)return commandImpl(text,forceSpeak);
+  const intent=resolveStudentIntent(text,SullivanVoiceCommands.classify);
+  if(intent.type==='status')return showCurrentStatus();
+  if(intent.type==='help'){showHelp();return true;}
+  if(intent.type==='clarify'){
+    feedbackTicket=feedback.begin('command');feedback.update(feedbackTicket,'fail','unrecognized');
+    status('조작 명령이 분명하지 않습니다. 영상 재생 또는 전체 중지처럼 짧게 입력하거나 도움말을 확인하세요.');return false;
+  }
+  const monitored=['play','pause','stop','seek','resume_lecture','describe','summary_audio','summary_three','chat','question'].includes(intent.type);
+  if(!monitored)return commandImpl(text,forceSpeak,intent);
   const label={resume_lecture:'play',summary_audio:'summary',summary_three:'summary',chat:'question'}[intent.type]||intent.type;
   const account=user,lesson=current,epoch=generation,ticket=feedback.begin(label);feedbackTicket=ticket;
   feedback.update(ticket,'recognized');feedback.update(ticket,'running');
   if(forceSpeak)$('voice-status').textContent=feedback.current().summary;
   try{
     let result;
-    if(local?.type==='play')result=await startPlayback();
-    else if(local?.type==='pause'||local?.type==='stop')result=await stopAll();
-    else if(local?.type==='seek')result=await seek(positionMs+local.deltaMs);
-    else result=await commandImpl(text,forceSpeak);
+    if(intent.type==='play')result=await startPlayback();
+    else if(intent.type==='pause'||intent.type==='stop')result=await stopAll();
+    else if(intent.type==='seek')result=await seek(positionMs+intent.deltaMs);
+    else result=await commandImpl(text,forceSpeak,intent);
     if(account!==user||lesson!==current||epoch!==generation)return false;
     const success=result===true;
     const changed=feedback.update(ticket,success?'success':'fail',success?'':'failed');
@@ -673,9 +676,9 @@ export async function command(text, forceSpeak = false) {
     return success;
   }catch(error){feedback.update(ticket,error.cancelled?'cancel':'fail',!current?'no_lecture':!media.ready&&['play','seek'].includes(label)?'player_unavailable':error.cancelled?'cancelled':'failed');throw error;}
 }
-async function commandImpl(text, forceSpeak = false) {
+async function commandImpl(text, forceSpeak, intent) {
   if(SullivanLearning.unsupported(text)){status(SullivanLearning.scope);return;}
-  const intent = SullivanVoiceCommands.classify(text);
+  if(intent.type==='question'){showTask('find',{restore:false});return ask(text,forceSpeak);}
   if(/사용법|단축키.*알려/.test(text)){showHelp();return true;}
   if(/^(?:결과\s*)?[0-9]+(?:번)?(?:\s*선택)?$/.test(text)){const item=SullivanConcepts.search(concepts(),$('search-form').elements.query.value)[Number(text.match(/[0-9]+/)[0])-1];if(item)return playConcept(item);}
   if(/원래.*(?:곳|위치)|듣던.*(?:곳|위치)/.test(text))return returnToOrigin();
@@ -703,8 +706,6 @@ async function commandImpl(text, forceSpeak = false) {
   if (intent.type === 'summary_audio' || intent.type === 'summary_three') {if(!hasLearningMaterial())throw new Error('요약에는 자막·지문 또는 실제 분석 결과가 필요합니다.');await speaker.say(SullivanLearning.respond(current.snapshot, '3줄 요약', positionMs).text);return true;}
   if (intent.type === 'paragraph' || /문장|강조|지문.*흐름|전체.*지문/.test(text)){showTask('find',{restore:false,focus:currentTask!=='find'});return paragraphCommand(text);}
   if (intent.type === 'concept' || /찾아|검색/.test(text)) return search(text.replace(/핵심|키워드|개념|찾아\s*줘|검색해\s*줘|검색|해줘/g, '').trim() || '전체');
-  if (/10초.*(?:전|뒤로)|뒤로.*10초/.test(text)) return seek(positionMs - 10000);
-  if (/10초.*(?:후|앞으로)|앞으로.*10초/.test(text)) return seek(positionMs + 10000);
   if (/학습 기록|북마크|메모/.test(text)) {showTask('notes',{focus:false});($('legacy-records').hidden?$('notes-title'):$('records-title')).focus();return;}
   if (intent.type === 'panel') {
     const target = {'review-panel': 'review-title', 'study-panel': 'review-title', 'chat-panel': 'chat-title', 'watch-panel': 'player-title', 'passage-panel': 'search-title', 'evidence-panel': 'evidence'}[intent.panelId];

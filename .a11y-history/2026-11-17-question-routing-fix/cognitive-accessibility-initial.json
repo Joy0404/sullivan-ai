@@ -1,0 +1,49 @@
+{
+  "skill": "cognitive-accessibility",
+  "scope": [
+    "apps/extensions/student/interaction-feedback.js",
+    "apps/extensions/student/app.js",
+    "scripts/test_interaction_feedback.mjs",
+    "scripts/verify_student_command_routing.py"
+  ],
+  "findings": [
+    {
+      "rule": "COGA-QUESTION-HELP-001",
+      "wcag": "n/a",
+      "severity": "minor",
+      "location": "apps/extensions/student/interaction-feedback.js:66",
+      "summary": "The unanchored operational-help match diverts complete lecture questions to help, making the intended learning task harder to understand and complete.",
+      "fix": "Restrict operational-help detection to complete operational utterances, preserving contextual lesson questions such as ‘영상이 멈췄을 때 관성은 어떻게 작용해?’ as question; retain local help for ‘영상이 멈췄어’ and ‘왜 재생이 안돼?’. Add both sides as routing regressions.",
+      "evidence": "The help regex matches ‘영상이멈췄’ anywhere before interrogative detection; ‘영상이 멈췄을 때 관성은 어떻게 작용해?’ therefore returns help and app.js opens showHelp()."
+    },
+    {
+      "rule": "COGA-QUESTION-CLARIFY-002",
+      "wcag": "n/a",
+      "severity": "minor",
+      "location": "apps/extensions/student/interaction-feedback.js:71",
+      "summary": "An ordinary explanation request containing ‘멈추’ is rejected as an unclear control when its subject lacks a word from the topic allowlist.",
+      "fix": "Preserve clear explanation requests outside the whole-command control grammar without requiring the current topic noun allowlist; add ‘핵융합이 멈추는 과정을 설명해줘’ as a question regression while keeping genuinely ambiguous control fragments local.",
+      "evidence": "‘핵융합이 멈추는 과정을 설명해줘’ matches no interrogative, explanation noun or topic allowlist; legacy returns pause because of ‘멈추’, then line 74 returns clarify. app.js tells the student to enter a shorter playback command."
+    },
+    {
+      "rule": "COGA-LOCAL-CLARIFY-003",
+      "wcag": "n/a",
+      "severity": "minor",
+      "location": "apps/extensions/student/interaction-feedback.js:76",
+      "summary": "The ambiguous playback fragment ‘재생 좀’ is treated as a lecture question instead of receiving local clarification, giving the student an unrelated response path.",
+      "fix": "Recognize ambiguous utterances consisting of an operational target and request filler before returning legacy chat; route ‘재생 좀’ to clarify locally and add a regression asserting that no agent-turn request occurs.",
+      "evidence": "‘재생 좀’ misses local, whole-command, help and question rules; the shared router returns chat. app.js labels it 강의 질문 and commandImpl falls through to ask(text), which posts the fragment to agent-turn."
+    }
+  ],
+  "passed": [
+    "Whole-utterance controls take priority over question detection, including the reviewed polite and urgent stop/play forms.",
+    "command() resolves intent once and passes it to commandImpl(); question intent returns ask(text, forceSpeak) before legacy substring branches and preserves original text.",
+    "Monitored command completion requires result === true; held and stale question responses return false, avoiding success feedback on those paths.",
+    "The installed-extension regression source covers preserved question text, playback effects, typed and ASR entry, local ambiguity/help, held output, stale response cancellation and raw-media upload absence.",
+    "git diff --name-only -- apps/web was empty at review time."
+  ],
+  "notes": [
+    "Source-only review; no source edits, live providers, user database access or runtime regression execution were performed by this specialist.",
+    "Findings concern COGA predictability and preserving student intent; they are not asserted WCAG conformance failures."
+  ]
+}

@@ -1,0 +1,71 @@
+Python syntax: 114 files
+JSON: 2 files
+Web contract: 93 DOM ids
+Safety markers: 9 checks
+Playback and voice: 32 checks
+Legacy removal: 3 checks
+Verification complete
+...
+----------------------------------------------------------------------
+Ran 3 tests in 0.734s
+
+OK
+Extension contract: {"features": 78, "declared_implementation_gaps": 0, "external_pending": ["F24", "F25", "F26", "F33", "F34", "F49", "F61", "F62"], "release_ready": false} (negative guards passed)
+Space gesture: single/double/triple defer, hold/release, repeat and cancel PASS
+Playback scheduler: 8 checks passed
+Concept tools: 7 checks passed
+Sample catalog: 14 checks passed
+Contextual narration: 89 checks passed
+Passage tools: 10 checks passed
+Lecture library: 8 checks passed
+Voice command router: routing, playback, summary, return and gesture checks passed
+Generic player: shadow/main selection, pinned target, SPA identity, protected media and origin-only discovery PASS
+Student speech: cancellation, stale completion, overlapping focus, chunking, reader mode and connection loss PASS
+Student media: pending play hold, stale seek, past-state pause snapshot and changed-view rejection PASS
+Student keyboard: home gesture, native editing, interrupted double-space, modifiers and IME cancellation PASS
+Student notebook scope: 12 removed requests rejected, short summary and grounded fallback retained; no personal notes/provider access PASS
+Notebook async: late deletion, serialized saves, source fences and newer draft cleanup PASS
+Interaction feedback: local controls, private-text isolation, immutable state, stale/reset fences, single completion and zero network PASS
+Practice progress: actual ordered sample actions, account/version isolation, stale tickets, safe persistence, skip/repeat and zero network PASS
+refresh cannot revive logged-out session PASS
+failed old refresh cannot clear another account PASS
+old 401 cannot replay write with new account token PASS
+concurrent expiry rotates only once PASS
+delayed storage event cannot replay an old write PASS
+delayed storage event cannot return another account response PASS
+new request from stale view cannot borrow a silently changed account PASS
+refresh preserves remote device association PASS
+logout fences remote login before awaiting server response PASS
+remote login adopts matching student and acknowledges after storage PASS
+late remote grant cannot replace a newly signed-in account PASS
+disabling device fences an in-flight grant PASS
+logout fence prevents late remote sign-in resurrection PASS
+another active or remembered account blocks remote login PASS
+revoked device clears its session but preserves another account PASS
+wrong-account issued token fails closed PASS
+paused or absent enrollment makes no request PASS
+account switch during acknowledgment cannot open student view PASS
+concurrent UI and alarm polls share one pending request PASS
+successful reconnect clears obsolete transport error PASS
+saved-login restoration completes before remote session decision PASS
+Safe HOLD notices, partial single delivery, problem answers and provenance labels PASS
+Complete lesson before focus guidance, explicit stop, reader-only delivery and TTS/media errors PASS
+Queued focus guidance cannot resume video after a narration failure PASS
+/var/folders/q1/89zw4q9s26j_5tf0t1hz_9d40000gn/T/sullivan-submission-mmwdyeb0/extensions/student
+/var/folders/q1/89zw4q9s26j_5tf0t1hz_9d40000gn/T/sullivan-submission-mmwdyeb0/extensions/guardian
+Submission archive matches current source and generated extensions.
+........................................................................ [ 19%]
+........................................................................ [ 39%]
+.........ssss........................................................... [ 59%]
+........................................................................ [ 79%]
+........................................................................ [ 98%]
+....                                                                     [100%]
+=============================== warnings summary ===============================
+../../../../../../../../../../Users/joy/Documents/Codex/Sullivan-AI-Develop-local/.venv/lib/python3.12/site-packages/starlette/testclient.py:51
+  /Users/joy/Documents/Codex/Sullivan-AI-Develop-local/.venv/lib/python3.12/site-packages/starlette/testclient.py:51: DeprecationWarning: The anyio.abc.BlockingPortal alias is deprecated, use anyio.from_thread.BlockingPortal instead.
+    _PortalFactoryType = Callable[[], AbstractContextManager[anyio.abc.BlockingPortal]]
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+360 passed, 4 skipped, 1 warning in 13.76s
+...................                                                      [100%]
+19 passed in 0.67s

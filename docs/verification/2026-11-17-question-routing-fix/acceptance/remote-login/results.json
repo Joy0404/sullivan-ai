@@ -1,0 +1,93 @@
+{
+  "result": "passed",
+  "checks": {
+    "REMOTE01.one_time_pair_and_device_approval": {
+      "passed": true,
+      "observed": "Native pair form, separate unchecked device consent, guardian dropdown"
+    },
+    "REMOTE02.guardian_starts_student_login": {
+      "passed": true,
+      "observed": "Student logged out, then actual worker/server login without password; guardian remains guardian"
+    },
+    "REMOTE03.closed_view_background_opens_student": {
+      "passed": true,
+      "observed": {
+        "real_alarm_event": true,
+        "alarm_period_minutes": 1
+      }
+    },
+    "REMOTE04.guardian_revoke_ends_remote_session": {
+      "passed": true,
+      "observed": "Device proof removed and remote session invalidated; focus restored"
+    },
+    "REMOTE05.logged_out_student_can_disable": {
+      "passed": true,
+      "observed": "Existing account opt-in, enable focus preserved, logout clears transient consent, disable without signing in"
+    },
+    "REMOTE06.last_student_removal_preserves_focus": {
+      "passed": true,
+      "observed": "Async list refresh moves focus before disabling empty student controls"
+    },
+    "REMOTE07.student_selection_discards_stale_status": {
+      "passed": true,
+      "observed": "New student checking state immediately replaces prior student; late previous error suppressed"
+    },
+    "REMOTE08.current_status_error_and_recovery": {
+      "passed": true,
+      "observed": "Current-student error is announced locally; successful retry restores current status"
+    }
+  },
+  "axe": [
+    {
+      "screen": "guardian-first-guide",
+      "version": "4.14.0",
+      "violations": 0
+    },
+    {
+      "screen": "student-login",
+      "version": "4.14.0",
+      "violations": 0
+    },
+    {
+      "screen": "guardian-account-choice",
+      "version": "4.14.0",
+      "violations": 0
+    },
+    {
+      "screen": "guardian-signup",
+      "version": "4.14.0",
+      "violations": 0
+    },
+    {
+      "screen": "student-material",
+      "version": "4.14.0",
+      "violations": 0
+    },
+    {
+      "screen": "guardian-workspace",
+      "version": "4.14.0",
+      "violations": 0
+    },
+    {
+      "screen": "student-approved-login-device",
+      "version": "4.14.0",
+      "violations": 0
+    },
+    {
+      "screen": "guardian-student-login",
+      "version": "4.14.0",
+      "violations": 0
+    },
+    {
+      "screen": "student-remote-logged-in",
+      "version": "4.14.0",
+      "violations": 0
+    },
+    {
+      "screen": "student-logged-out-support-disabled",
+      "version": "4.14.0",
+      "violations": 0
+    }
+  ],
+  "boundary": "Installed extensions, real worker/API/SQLite, native pairing forms and password-free guardian request. Closed-view real alarm scheduled early in unpacked fixture; normal cadence/sleep timing and assistive-technology audio not certified."
+}
